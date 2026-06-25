@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="app-version" content="1.1.0">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
   <style>
     :root {
@@ -1071,6 +1072,184 @@
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
+    }
+
+    .level-select {
+      width: min(1100px, 100%);
+      display: grid;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .level-count-2 {
+      width: min(760px, 100%);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .level-count-3 {
+      width: min(920px, 100%);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .level-count-5 {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .level-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 196px;
+      display: grid;
+      grid-template-rows: auto auto auto 1fr auto;
+      gap: 8px;
+      padding: 14px 12px 13px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78)),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.2) 0 10px, rgba(0,0,0,0.03) 10px 20px),
+        var(--level-soft);
+      box-shadow:
+        0 8px 0 rgba(205, 189, 145, 0.55),
+        inset 0 0 0 3px rgba(255,255,255,0.48);
+      color: var(--card-ink);
+      text-align: center;
+      text-shadow: none;
+      transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .level-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 12px;
+      background: var(--level-accent);
+      z-index: -1;
+    }
+
+    .level-card::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      bottom: -28px;
+      width: 88px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--level-accent) 20%, transparent);
+      z-index: -1;
+    }
+
+    .level-card.selected {
+      border-color: var(--level-accent);
+      transform: translateY(-7px);
+      box-shadow:
+        0 12px 0 color-mix(in srgb, var(--level-accent) 26%, transparent),
+        0 0 0 4px rgba(255,255,255,0.82),
+        inset 0 0 0 3px rgba(255,255,255,0.5);
+    }
+
+    .level-card.done {
+      border-color: var(--green);
+    }
+
+    .level-card.done .level-badge {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .level-card.tone-0 { --level-accent: var(--blue); --level-soft: #eaf4ff; }
+    .level-card.tone-1 { --level-accent: var(--green); --level-soft: #eaf9ee; }
+    .level-card.tone-2 { --level-accent: var(--orange); --level-soft: #fff2dc; }
+    .level-card.tone-3 { --level-accent: var(--purple); --level-soft: #f2ebff; }
+    .level-card.tone-4 { --level-accent: var(--red); --level-soft: #ffecec; }
+
+    .level-badge {
+      justify-self: center;
+      min-width: 76px;
+      padding: 5px 10px;
+      border: 3px solid var(--line);
+      border-radius: 999px;
+      background: #fff8dc;
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .level-icon {
+      justify-self: center;
+      display: grid;
+      place-items: center;
+      width: 62px;
+      aspect-ratio: 1;
+      border: 4px solid color-mix(in srgb, var(--level-accent) 36%, var(--line));
+      border-radius: 18px;
+      background: var(--level-accent);
+      color: var(--white);
+      box-shadow: 0 5px 0 rgba(28, 38, 58, 0.22);
+      font-size: 34px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .level-title {
+      font-family: var(--read-font);
+      font-size: 22px;
+      font-weight: 950;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .level-kicker {
+      color: var(--card-muted);
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.12;
+    }
+
+    .level-preview {
+      align-self: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+    }
+
+    .level-token {
+      display: grid;
+      place-items: center;
+      min-width: 32px;
+      min-height: 32px;
+      padding: 3px 7px;
+      border: 3px solid color-mix(in srgb, var(--level-accent) 34%, var(--line));
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: var(--read-font);
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow: 0 3px 0 rgba(28, 38, 58, 0.16);
+    }
+
+    .level-progress {
+      align-self: end;
+      display: grid;
+      grid-template-columns: repeat(var(--level-total), minmax(0, 1fr));
+      gap: 5px;
+    }
+
+    .level-step {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(36, 50, 74, 0.14);
+    }
+
+    .level-step.on {
+      background: var(--level-accent);
     }
 
     .math-levels {
@@ -2665,6 +2844,7 @@
     .cycle-item,
     .cup-country,
     .cup-reminder,
+    .level-card,
     .legacy-card,
     .shape-card,
     .option-card,
@@ -2677,6 +2857,7 @@
     }
 
     .menu-title,
+    .level-title,
     .legacy-title,
     .math-level-title {
       font-family: var(--read-font);
@@ -2698,6 +2879,16 @@
 
       .legacy-menu,
       .answer-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .level-select {
+        width: min(720px, 100%);
+      }
+
+      .level-count-2,
+      .level-count-3,
+      .level-count-5 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -2853,6 +3044,47 @@
 
       .traffic-board {
         gap: 6px;
+      }
+
+      .level-select {
+        gap: 9px;
+      }
+
+      .level-card {
+        min-height: 154px;
+        gap: 5px;
+        padding: 10px 8px;
+        border-width: 3px;
+      }
+
+      .level-badge {
+        min-width: 64px;
+        padding: 4px 8px;
+        border-width: 2px;
+        font-size: 11px;
+      }
+
+      .level-icon {
+        width: 48px;
+        border-width: 3px;
+        border-radius: 14px;
+        font-size: 27px;
+      }
+
+      .level-title {
+        font-size: 18px;
+      }
+
+      .level-kicker {
+        font-size: 12px;
+      }
+
+      .level-token {
+        min-width: 26px;
+        min-height: 26px;
+        padding: 2px 5px;
+        border-width: 2px;
+        font-size: 13px;
       }
 
       .traffic-scene {
@@ -3562,17 +3794,17 @@
       const MATH_CUP_CONFIG = {
         width: 10,
         height: 7,
-        matchSeconds: 360,
+        matchSeconds: 180,
         challengeSeconds: 20,
         passDecisionSeconds: 10,
         learningMatches: 2,
         learningTimes: {
-          matchSeconds: 480,
+          matchSeconds: 180,
           challengeSeconds: 30,
           passDecisionSeconds: 16,
         },
         opponentGoalLine: 5,
-        opponentRestartLine: 2,
+        opponentAttackerRestartLine: 4,
         lines: [
           { id: "keeper", label: "Goleiro" },
           { id: "defense", label: "Defesa" },
@@ -3581,6 +3813,14 @@
           { id: "striker", label: "Ataque" },
         ],
       };
+
+      const mathCupLevelPlans = [
+        { title: "Nível 1", icon: "⚽", grade: "1ª série", theme: "Juntar e tirar", meta: "até 10", preview: ["2+3", "7-2", "🥅"] },
+        { title: "Nível 2", icon: "🧤", grade: "2ª série", theme: "Contas do dia", meta: "até 20", preview: ["12-5", "dobro", "⚽"] },
+        { title: "Nível 3", icon: "🎯", grade: "3ª série", theme: "Sequências e tabuada", meta: "até 50", preview: ["3x4", "+2", "🏃"] },
+        { title: "Nível 4", icon: "🏟️", grade: "4ª série", theme: "Tabuada e divisão", meta: "até 100", preview: ["36÷4", "7x8", "🥅"] },
+        { title: "Nível 5", icon: "🏆", grade: "5ª série", theme: "Desafios mistos", meta: "até 100", preview: ["84÷7", "metade", "🏆"] },
+      ];
 
       const mathCupFormation = [
         { id: "gk", line: 0, number: "1", icon: "🧤", x: 0, y: 3 },
@@ -3670,48 +3910,51 @@
         return mathChoices(answer, seed, difficulty + 1);
       }
 
-      function createMathCupProblem(levelIndex, challengeType, seed, lineIndex = 0) {
-        const teamDifficulty = Math.min(3, Math.floor(levelIndex / 12));
-        const lineBoost = Math.min(2, Math.floor(lineIndex / 2));
-        const shotBoost = challengeType === "shot" ? 1 : 0;
-        const longPassBoost = challengeType === "longPass" ? 1 : 0;
-        const defenseBoost = challengeType === "defense" ? 1 : 0;
-        const difficulty = Math.min(4, teamDifficulty + lineBoost + shotBoost + longPassBoost + defenseBoost);
+      function createMathCupProblem(schoolLevelIndex, matchIndex, challengeType, seed, lineIndex = 0) {
+        const difficulty = Math.max(0, Math.min(mathCupLevelPlans.length - 1, schoolLevelIndex ?? 0));
+        const actionBoost = { pass: 0, longPass: 1, dribble: 1, defense: 1, shot: 2 }[challengeType] || 0;
+        const phase = Math.min(4, Math.floor(matchIndex / 10) + Math.floor(lineIndex / 2) + actionBoost);
         const kindOffset = { pass: 1, longPass: 3, dribble: 5, defense: 6, shot: 8 }[challengeType] || 0;
-        const kind = (seed + kindOffset + difficulty + lineIndex) % 6;
+        const kind = (seed + kindOffset + phase + lineIndex) % 6;
         let question;
         let answer;
 
         if (difficulty === 0) {
-          const a = 2 + ((seed * 3) % 8);
-          const b = 1 + ((seed + kindOffset) % 7);
+          const total = 4 + ((seed + phase) % 7);
+          const part = 1 + ((seed * 3 + kindOffset) % (total - 1));
           if (kind % 3 === 0) {
-            question = `${a + b} - ${b} = ?`;
-            answer = a;
+            question = `${total} - ${part} = ?`;
+            answer = total - part;
           } else {
-            question = `${a} + ${b} = ?`;
-            answer = a + b;
+            question = `${part} + ${total - part} = ?`;
+            answer = total;
           }
         } else if (difficulty === 1) {
-          const a = 7 + ((seed * 5) % 13);
-          const b = 2 + ((seed * 2 + kindOffset) % 9);
+          const total = 9 + ((seed + phase * 2) % 12);
+          const part = 2 + ((seed * 2 + kindOffset) % Math.max(2, total - 2));
           if (kind % 4 === 0) {
-            question = `Dobro de ${b} = ?`;
-            answer = b * 2;
+            const value = 2 + ((seed + kindOffset) % 9);
+            question = `Dobro de ${value} = ?`;
+            answer = value * 2;
           } else if (kind % 2 === 0) {
-            question = `${a + b} - ${b} = ?`;
-            answer = a;
+            question = `${total} - ${part} = ?`;
+            answer = total - part;
           } else {
-            question = `${a} + ${b} = ?`;
-            answer = a + b;
+            question = `${part} + ${total - part} = ?`;
+            answer = total;
           }
         } else if (difficulty === 2) {
-          const a = 12 + ((seed * 7) % 24);
-          const b = 4 + ((seed * 3 + kindOffset) % 12);
+          const a = 12 + ((seed * 7 + phase) % 24);
+          const b = 4 + ((seed * 3 + kindOffset + phase) % 12);
           if (kind === 0) {
             const start = 2 + (seed % 8);
             question = `${start}, ${start + 2}, ${start + 4}, ?`;
             answer = start + 6;
+          } else if (kind === 2) {
+            const factor = 2 + ((seed + phase) % 4);
+            const groups = 2 + ((seed + kindOffset) % 4);
+            question = `${groups} grupos de ${factor} = ?`;
+            answer = groups * factor;
           } else if (kind === 3) {
             question = `${a + b} - ${b} = ?`;
             answer = a;
@@ -3720,16 +3963,22 @@
             answer = a + b;
           }
         } else if (difficulty === 3) {
-          const a = 18 + ((seed * 7) % 36);
-          const b = 5 + ((seed * 5 + kindOffset) % 16);
+          const a = 18 + ((seed * 7 + phase) % 36);
+          const b = 5 + ((seed * 5 + kindOffset + phase) % 16);
           if (kind === 0) {
-            const base = 3 + (seed % 7);
-            question = `3 grupos de ${base} = ?`;
-            answer = base * 3;
+            const base = 3 + ((seed + phase) % 7);
+            const groups = 3 + ((seed + kindOffset) % 5);
+            question = `${groups} grupos de ${base} = ?`;
+            answer = base * groups;
           } else if (kind === 2) {
             const half = 6 + (seed % 12);
             question = `Metade de ${half * 2} = ?`;
             answer = half;
+          } else if (kind === 3) {
+            const divisor = 2 + ((seed + phase) % 6);
+            const quotient = 3 + ((seed + kindOffset) % 9);
+            question = `${divisor * quotient} ÷ ${divisor} = ?`;
+            answer = quotient;
           } else if (kind === 4) {
             question = `${a + b} - ${b} = ?`;
             answer = a;
@@ -3738,12 +3987,13 @@
             answer = a + b;
           }
         } else {
-          const a = 24 + ((seed * 7) % 48);
-          const b = 8 + ((seed * 5 + kindOffset) % 22);
+          const a = 24 + ((seed * 7 + phase) % 48);
+          const b = 8 + ((seed * 5 + kindOffset + phase) % 22);
           if (kind === 0) {
-            const base = 4 + (seed % 8);
-            question = `4 grupos de ${base} = ?`;
-            answer = base * 4;
+            const base = 4 + ((seed + phase) % 8);
+            const groups = 4 + ((seed + kindOffset) % 8);
+            question = `${groups} grupos de ${base} = ?`;
+            answer = base * groups;
           } else if (kind === 1) {
             const start = 5 + (seed % 10);
             question = `${start}, ${start + 5}, ${start + 10}, ?`;
@@ -3752,6 +4002,11 @@
             const half = 10 + (seed % 18);
             question = `Metade de ${half * 2} = ?`;
             answer = half;
+          } else if (kind === 3) {
+            const divisor = 2 + ((seed + phase) % 8);
+            const quotient = 4 + ((seed + kindOffset) % 12);
+            question = `${divisor * quotient} ÷ ${divisor} = ?`;
+            answer = quotient;
           } else if (kind === 4) {
             question = `${a + b} - ${b} = ?`;
             answer = a;
@@ -3838,17 +4093,17 @@
           icon: "🔷",
           title: "Padrões e regras",
           levels: [
-            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Nível 1", description: "Complete o padrão." },
-            { id: "patterns-2", activity: "intruder", icon: "🔎", title: "Nível 2", description: "Ache o intruso." },
-            { id: "patterns-3", activity: "rule", icon: "🧩", title: "Nível 3", description: "Descubra a regra." },
+            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Nível 1", badge: "Trilha", description: "Complete o padrão.", preview: ["🔴", "🔵", "?"] },
+            { id: "patterns-2", activity: "intruder", icon: "🔎", title: "Nível 2", badge: "Detetive", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
+            { id: "patterns-3", activity: "rule", icon: "🧩", title: "Nível 3", badge: "Regra", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
           ],
         },
         data: {
           icon: "📊",
           title: "Dados e gráficos",
           levels: [
-            { id: "data-1", activity: "detective", icon: "📊", title: "Nível 1", description: "Investigue gráficos." },
-            { id: "data-2", activity: "organize", icon: "🗂️", title: "Nível 2", description: "Organize dados." },
+            { id: "data-1", activity: "detective", icon: "📊", title: "Nível 1", badge: "Investigação", description: "Investigue gráficos.", preview: ["📊", "🔎", "✓"] },
+            { id: "data-2", activity: "organize", icon: "🗂️", title: "Nível 2", badge: "Organização", description: "Organize dados.", preview: ["🍎", "📚", "🏷️"] },
           ],
         },
       };
@@ -4221,6 +4476,7 @@
         cupWrong: null,
         cupStudyTimer: null,
         mathCupStage: 0,
+        mathCupLevel: null,
         mathCupPossession: "home",
         mathCupHolderId: "gk",
         mathCupOpponentHolderId: null,
@@ -4259,7 +4515,7 @@
         legacyCompleted: {},
       };
 
-      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "cup", "mathCup"]);
+      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "cup"]);
 
       function initialSelectionForMode(mode) {
         return START_UNSELECTED_MODES.has(mode) ? -1 : 0;
@@ -4744,6 +5000,35 @@
         return `<span class="data-icon">${icon}</span>`;
       }
 
+      function levelPreviewHtml(items = []) {
+        return `<div class="level-preview">
+          ${items.map((item) => `<span class="level-token">${item}</span>`).join("")}
+        </div>`;
+      }
+
+      function levelProgressHtml(value, total) {
+        return `<div class="level-progress" style="--level-total:${total}">
+          ${Array.from({ length: total }, (_, index) => `<span class="level-step ${index < value ? "on" : ""}"></span>`).join("")}
+        </div>`;
+      }
+
+      function levelCardHtml({ index, total, selected, done = false, icon, title, badge, kicker, meta, preview = [] }) {
+        const classes = [
+          "level-card",
+          `tone-${index % 5}`,
+          selected ? "selected" : "",
+          done ? "done" : "",
+        ].filter(Boolean).join(" ");
+        return `<div class="${classes}">
+          <div class="level-badge">${done ? "Feito" : badge}</div>
+          <div class="level-icon">${done ? "✓" : icon}</div>
+          <div class="level-title">${title}</div>
+          <div class="level-kicker">${kicker}${meta ? `<br>${meta}` : ""}</div>
+          ${levelPreviewHtml(preview)}
+          ${levelProgressHtml(done ? total : index + 1, total)}
+        </div>`;
+      }
+
       function colorLabelHtml(text) {
         const colorNames = colorNamesInText(text);
         const swatches = colorNames.map(colorSwatchHtml).join("");
@@ -4901,15 +5186,21 @@
         const levels = currentLegacyLevels();
         setHeader(levelMission.title, "Escolha um nível.");
         setCounters("Nível", `${state.legacyGradeIndex + 1} / ${levels.length}`, "Feitos", `${legacyCompletedCount()} / ${legacyActivityTotal()}`);
-        status.textContent = "Níveis em sequência.";
-        content.innerHTML = `<div class="legacy-menu">
+        status.textContent = `${levelMission.title}: trilhas de desafios.`;
+        content.innerHTML = `<div class="level-select level-count-${levels.length}">
           ${levels.map((level, index) => {
             const done = state.legacyCompleted[legacyKey(level.id, level.activity)];
-            return `<div class="legacy-card ${index === state.legacyGradeIndex ? "selected" : ""} ${done ? "done" : ""}">
-            <div class="legacy-icon">${done ? "✓" : level.icon}</div>
-            <div class="legacy-title">${level.title}</div>
-            <div class="legacy-description">${level.description}</div>
-          </div>`;
+            return levelCardHtml({
+              index,
+              total: levels.length,
+              selected: index === state.legacyGradeIndex,
+              done,
+              icon: level.icon,
+              title: level.title,
+              badge: level.badge,
+              kicker: level.description,
+              preview: level.preview,
+            });
           }).join("")}
         </div>`;
       }
@@ -5327,13 +5618,19 @@
         if (state.mathLevel === null) {
           setHeader("Matemática colorida", "Escolha um nível.");
           setCounters("Nível", `${state.selected + 1} / ${mathLevels.length}`, "Fases", "50");
-          status.textContent = "Cada nível tem 50 desafios.";
-          content.innerHTML = `<div class="math-levels">
-            ${mathLevels.map((level, index) => `<div class="math-level-card ${index === state.selected ? "selected" : ""}">
-              <div class="math-level-icon">${level.icon}</div>
-              <div class="math-level-title">${level.title}</div>
-              <div class="math-level-meta">${level.theme}<br>${level.meta}</div>
-            </div>`).join("")}
+          status.textContent = "Trilhas coloridas de cálculo.";
+          content.innerHTML = `<div class="level-select level-count-${mathLevels.length}">
+            ${mathLevels.map((level, index) => levelCardHtml({
+              index,
+              total: mathLevels.length,
+              selected: index === state.selected,
+              icon: level.icon,
+              title: level.title,
+              badge: `Trilha ${index + 1}`,
+              kicker: level.theme,
+              meta: level.meta,
+              preview: level.icons,
+            })).join("")}
           </div>`;
           return;
         }
@@ -6162,14 +6459,35 @@
       }
 
       function renderMathCup() {
+        if (state.mathCupLevel === null) {
+          setHeader("Copa da Matemática", "Escolha um nível.");
+          setCounters("Nível", `${state.selected + 1} / ${mathCupLevelPlans.length}`, "Jogos", "50");
+          status.textContent = "A série escolhida vale para a copa inteira.";
+          content.innerHTML = `<div class="level-select level-count-${mathCupLevelPlans.length}">
+            ${mathCupLevelPlans.map((level, index) => levelCardHtml({
+              index,
+              total: mathCupLevelPlans.length,
+              selected: index === state.selected,
+              icon: level.icon,
+              title: level.title,
+              badge: level.grade,
+              kicker: level.theme,
+              meta: level.meta,
+              preview: level.preview,
+            })).join("")}
+          </div>`;
+          return;
+        }
+
         if (state.mathCupBreak?.kind === "final") {
           renderMathCupBreak();
           return;
         }
         const level = currentMathCupLevel();
         const breakDetails = state.mathCupBreak;
+        const schoolLevel = mathCupLevelPlans[state.mathCupLevel];
         const choosingPass = isMathCupChoosingPass();
-        setHeader("Copa da Matemática", breakDetails || state.mathCupGoalPause ? "Aperte Enter." : state.mathCupChallenge ? mathCupChallengeTitle() : "Faça o gol no adversário!");
+        setHeader("Copa da Matemática", breakDetails || state.mathCupGoalPause ? "Aperte Enter." : state.mathCupChallenge ? mathCupChallengeTitle() : `${schoolLevel.title}: ${schoolLevel.grade}`);
         setCounters("Jogo", `${state.round + 1} / ${mathCupLevels.length}`, "Vitórias x Derrotas", mathCupRecordLabel());
         status.textContent = mathCupStatusText();
         const boardClasses = [
@@ -6232,6 +6550,7 @@
         state.cupPhase = "study";
         state.cupAttempt = 0;
         state.cupWrong = null;
+        state.mathCupLevel = null;
         state.mathCupAttempt = 0;
         state.mathCupWrong = null;
         state.mathCupChallenge = null;
@@ -6253,7 +6572,6 @@
           state.legacyGradeIndex = 0;
         }
         if (mode === "robot") resetRobot();
-        if (mode === "mathCup") startMathCupMatch();
         render();
         if (mode === "cup") scheduleCupChoices();
       }
@@ -6269,6 +6587,41 @@
         resetRoundState(0);
         state.mathAttempt = 0;
         state.mathWrong = null;
+        render();
+      }
+
+      function startMathCupLevel() {
+        state.mathCupLevel = Math.max(0, state.selected);
+        mathCupLevels = createMathCupSchedule();
+        resetRoundState(-1);
+        state.mathCupAttempt = 0;
+        state.mathCupWrong = null;
+        state.mathCupOpponentScore = 0;
+        state.mathCupWins = 0;
+        state.mathCupLosses = 0;
+        state.mathCupRecoveryPlayerId = null;
+        state.mathCupEnigmaSerial = 0;
+        state.mathCupBreak = null;
+        state.mathCupGoalPause = null;
+        startMathCupMatch();
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToMathCupLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.mathCupLevel = null;
+        state.mathCupChallenge = null;
+        state.mathCupBreak = null;
+        state.mathCupGoalPause = null;
+        clearMathCupPassTargets();
+        resetRoundState(0);
+        state.mathCupAttempt = 0;
+        state.mathCupWrong = null;
+        state.mathCupOpponentScore = 0;
+        state.mathCupWins = 0;
+        state.mathCupLosses = 0;
         render();
       }
 
@@ -6625,7 +6978,7 @@
         const lineIndex = context.lineIndex ?? state.mathCupStage;
         state.mathCupChallenge = {
           type,
-          ...createMathCupProblem(state.round, type, seed, lineIndex),
+          ...createMathCupProblem(state.mathCupLevel, state.round, type, seed, lineIndex),
           lineIndex,
           holderId: context.holderId ?? state.mathCupHolderId,
           targetId: context.targetId ?? null,
@@ -6676,6 +7029,10 @@
           lineIndex: target.line,
           seedOffset: Number(target.number) * seedMultiplier,
         });
+      }
+
+      function startMathCupShot() {
+        startMathCupChallenge("shot", { seedOffset: 29, lineIndex: state.mathCupStage + 2 });
       }
 
       function mathCupOpponentLineForHomeLine(lineIndex) {
@@ -6754,10 +7111,12 @@
         state.mathCupPlayer = [target.x, target.y];
         clearMathCupPassTargets();
         state.mathCupTrail.push(mathCupPositionId(target));
-        if (!isMathCupFinalStage()) {
-          setMathCupPassTargets();
-        }
         showMessage(mathCupChallengeInfo[challenge.type].success, 650);
+        if (isMathCupFinalStage()) {
+          startMathCupShot();
+          return;
+        }
+        setMathCupPassTargets();
         render();
       }
 
@@ -6773,19 +7132,21 @@
         state.mathCupStage = player.line;
         state.mathCupPlayer = [player.x, player.y];
         clearMathCupPassTargets();
-        if (!isMathCupFinalStage()) {
-          setMathCupPassTargets();
-        }
         if (!state.mathCupTrail.includes(mathCupPositionId(player))) {
           state.mathCupTrail.push(mathCupPositionId(player));
         }
         showMessage(mathCupChallengeInfo.defense.success, 650);
+        if (isMathCupFinalStage()) {
+          startMathCupShot();
+          return;
+        }
+        setMathCupPassTargets();
         render();
       }
 
-      function restartWithOpponentMidfieldPossession(recoveryPlayerId) {
+      function restartWithOpponentAttackerPossession(recoveryPlayerId) {
         startMathCupDefenseChallenge(
-          MATH_CUP_CONFIG.opponentRestartLine,
+          MATH_CUP_CONFIG.opponentAttackerRestartLine,
           recoveryPlayerId || state.mathCupHolderId || "gk"
         );
       }
@@ -6908,7 +7269,7 @@
         }
 
         if (pause.type === "home") {
-          restartWithOpponentMidfieldPossession(pause.recoveryPlayerId);
+          restartWithOpponentAttackerPossession(pause.recoveryPlayerId);
         } else {
           resetMathCupAttack();
           render();
@@ -6919,6 +7280,11 @@
       }
 
       function handleMathCupEnter() {
+        if (state.mathCupLevel === null) {
+          startMathCupLevel();
+          return;
+        }
+
         if (continueMathCupAfterBreak()) return;
         if (continueMathCupAfterGoalPause()) return;
 
@@ -6939,7 +7305,7 @@
         }
 
         if (isMathCupFinalStage()) {
-          startMathCupChallenge("shot", { seedOffset: 29, lineIndex: state.mathCupStage + 2 });
+          startMathCupShot();
           return;
         }
 
@@ -7002,10 +7368,16 @@
             ? (delta > 0 ? 0 : count - 1)
             : (state.selected + delta + count) % count;
           state.cupWrong = null;
-        } else if (state.mode === "mathCup" && state.mathCupChallenge) {
-          const count = mathCupOptions().length;
-          state.selected = chooseFromKeyboard(state.selected, delta, count);
-          state.mathCupWrong = null;
+        } else if (state.mode === "mathCup") {
+          if (state.mathCupLevel === null) {
+            const count = mathCupLevelPlans.length;
+            const step = vertical ? delta * 3 : delta;
+            state.selected = (state.selected + step + count) % count;
+          } else if (state.mathCupChallenge) {
+            const count = mathCupOptions().length;
+            state.selected = chooseFromKeyboard(state.selected, delta, count);
+            state.mathCupWrong = null;
+          }
         }
         render();
       }
@@ -7033,10 +7405,47 @@
         }, 2600);
       }
 
-      async function toggleFullscreen() {
+      let restoreFullscreenAfterEscape = false;
+
+      function canExitFullscreenWithEscape() {
+        return state.mode === "menu" && currentMenuPage() === 0;
+      }
+
+      async function lockFullscreenEscape() {
+        if (!document.fullscreenElement || !navigator.keyboard?.lock) return;
+        try {
+          await navigator.keyboard.lock(["Escape"]);
+        } catch {
+          // Some browsers keep Escape reserved for fullscreen.
+        }
+      }
+
+      function unlockFullscreenEscape() {
+        try {
+          navigator.keyboard?.unlock?.();
+        } catch {
+          // Ignore unsupported keyboard lock APIs.
+        }
+      }
+
+      async function enterFullscreen({ quiet = false } = {}) {
         try {
           if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
-          else await document.exitFullscreen();
+          await lockFullscreenEscape();
+        } catch {
+          if (!quiet) status.textContent = "Use F11 para tela cheia.";
+        }
+      }
+
+      async function toggleFullscreen() {
+        try {
+          if (!document.fullscreenElement) {
+            await enterFullscreen();
+          } else {
+            restoreFullscreenAfterEscape = false;
+            unlockFullscreenEscape();
+            await document.exitFullscreen();
+          }
         } catch {
           status.textContent = "Use F11 para tela cheia.";
         }
@@ -7044,11 +7453,26 @@
 
       function exitFullscreenIfActive() {
         if (!document.fullscreenElement) return false;
+        restoreFullscreenAfterEscape = false;
+        unlockFullscreenEscape();
         document.exitFullscreen().catch(() => {
           status.textContent = "Use F11 para tela cheia.";
         });
         return true;
       }
+
+      document.addEventListener("fullscreenchange", () => {
+        if (document.fullscreenElement) {
+          restoreFullscreenAfterEscape = false;
+          lockFullscreenEscape();
+          return;
+        }
+        unlockFullscreenEscape();
+        if (restoreFullscreenAfterEscape) {
+          restoreFullscreenAfterEscape = false;
+          enterFullscreen({ quiet: true });
+        }
+      });
 
       document.addEventListener("keydown", (event) => {
         event.preventDefault();
@@ -7057,6 +7481,13 @@
         if (event.key.toLowerCase() === "f") {
           toggleFullscreen();
         } else if (event.key === "Escape") {
+          const keepFullscreen = document.fullscreenElement && !canExitFullscreenWithEscape();
+          if (keepFullscreen) {
+            restoreFullscreenAfterEscape = true;
+            window.setTimeout(() => {
+              if (document.fullscreenElement) restoreFullscreenAfterEscape = false;
+            }, 500);
+          }
           if (state.mode === "menu") {
             if (!goToPreviousMenuPage()) exitFullscreenIfActive();
             return;
@@ -7067,6 +7498,10 @@
           }
           if (state.mode === "math" && state.mathLevel !== null) {
             backToMathLevels();
+            return;
+          }
+          if (state.mode === "mathCup" && state.mathCupLevel !== null) {
+            backToMathCupLevels();
             return;
           }
           stopTimer();
@@ -7086,7 +7521,7 @@
           return;
         } else if (state.mode === "robot" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           moveRobot(event.key);
-        } else if (state.mode === "mathCup" && !state.mathCupChallenge && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        } else if (state.mode === "mathCup" && state.mathCupLevel !== null && !state.mathCupChallenge && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           handleMathCupFieldKey(event.key);
         } else if (event.key === "ArrowLeft") {
           moveSelection(-1);

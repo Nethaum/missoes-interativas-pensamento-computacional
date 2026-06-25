@@ -2,9 +2,11 @@
 
 Aplicativo HTML com missoes interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
+Versao atual: 1.1.0
+
 ## Como usar
 
-Abra o arquivo `index.html` no navegador.
+Abra o arquivo `missoes_interativas_pensamento_computacional.html` no navegador.
 
 Controles principais:
 
