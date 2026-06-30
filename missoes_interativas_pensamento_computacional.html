@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="app-version" content="1.1.0">
+  <meta name="app-version" content="2.0.0">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
   <style>
     :root {
@@ -129,6 +129,7 @@
     }
 
     .panel {
+      position: relative;
       width: 100%;
       height: 100%;
       display: grid;
@@ -203,7 +204,7 @@
 
     .footer {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(190px, 0.7fr);
+      grid-template-columns: minmax(0, 1fr) minmax(190px, 0.7fr);
       align-items: center;
       gap: 12px;
       padding: 7px 22px 10px;
@@ -239,6 +240,9 @@
     }
 
     .credit {
+      display: grid;
+      justify-items: end;
+      gap: 3px;
       color: rgba(255, 247, 214, 0.78);
       font-family: var(--read-font);
       font-size: 11px;
@@ -248,33 +252,333 @@
       text-transform: none;
     }
 
-    .app-version {
-      display: inline-block;
-      margin-top: 2px;
-      color: rgba(255, 247, 214, 0.52);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .keys {
+    .credit-line {
       display: flex;
-      gap: 7px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 5px;
     }
 
-    .key {
+    .about-button {
+      justify-self: end;
+      margin: 0 0 4px auto;
+      padding: 4px 8px;
+      border: 2px solid rgba(255, 247, 214, 0.58);
+      border-radius: 9px;
+      background: rgba(255, 247, 214, 0.08);
+      color: rgba(255, 247, 214, 0.92);
+      font-family: var(--read-font);
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .about-button:disabled {
+      opacity: 0.42;
+      cursor: default;
+    }
+
+    .about-modal[hidden] {
+      display: none;
+    }
+
+    .about-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
       display: grid;
       place-items: center;
-      min-width: 52px;
+      padding: 22px;
+      background: rgba(10, 32, 25, 0.72);
+    }
+
+    .about-dialog {
+      position: relative;
+      width: min(560px, 100%);
+      max-height: min(88vh, 760px);
+      overflow: auto;
+      display: grid;
+      gap: 13px;
+      padding: 22px;
+      border: 5px solid #d6caa4;
+      border-radius: 18px;
+      background: #fffdf3;
+      box-shadow: 0 16px 46px rgba(9, 26, 21, 0.42);
+      color: var(--card-ink);
+      font-family: var(--read-font);
+      text-align: left;
+      text-shadow: none;
+    }
+
+    .about-close {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      aspect-ratio: 1;
+      border: 3px solid var(--line);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-size: 22px;
+      font-weight: 950;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .about-title {
+      margin: 0;
+      padding-right: 42px;
+      color: #184832;
+      font-size: clamp(24px, 3.4vw, 36px);
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .about-text,
+    .support-text {
+      margin: 0;
+      color: #445064;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .audience-gate[hidden],
+    .support-box[hidden] {
+      display: none;
+    }
+
+    .audience-gate,
+    .support-box {
+      display: grid;
+      gap: 10px;
+      padding: 15px;
+      border: 4px solid #e4d7a6;
+      border-radius: 14px;
+      background: #fff7d5;
+    }
+
+    .audience-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .audience-button,
+    .adult-hold-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      min-height: 58px;
+      padding: 10px 12px;
+      overflow: hidden;
+      border: 4px solid #184832;
+      border-radius: 14px;
+      background: #e7f5ec;
+      color: #184832;
+      font-family: var(--read-font);
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      white-space: normal;
+      cursor: pointer;
+    }
+
+    .audience-button.child {
+      border-color: #205ed1;
+      background: #e6f1ff;
+      color: #205ed1;
+    }
+
+    .adult-hold-progress {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--adult-hold-progress, 0%);
+      background: linear-gradient(90deg, #ffe27a, #68d987);
+      transition: width 0.05s linear;
+    }
+
+    .adult-hold-text {
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: 100%;
+    }
+
+    .support-title {
+      color: #184832;
+      font-size: 20px;
+      font-weight: 950;
+      line-height: 1.1;
+    }
+
+    .support-notice {
+      min-height: 18px;
+      color: #6b4c0c;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .support-unlocked[hidden] {
+      display: none;
+    }
+
+    .support-unlocked {
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 3px solid #cdbd91;
+      border-radius: 14px;
+      background: var(--white);
+    }
+
+    .feedback-box {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 3px solid #cdbd91;
+      border-radius: 14px;
+      background: #f4fbff;
+    }
+
+    .support-qr-label {
+      color: #184832;
+      font-size: 16px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .support-qr {
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border: 3px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.42);
+    }
+
+    .support-qr svg {
+      display: block;
+      width: min(190px, 46vw);
+      height: auto;
+    }
+
+    .support-url {
+      color: #24324a;
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+
+    .support-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+      gap: 8px;
+      width: 100%;
+    }
+
+    .support-open-link,
+    .support-copy-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      min-height: 46px;
+      padding: 8px 10px;
+      border: 3px solid #184832;
+      border-radius: 12px;
+      background: #e7f5ec;
+      color: #184832;
+      font-family: var(--read-font);
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.08;
+      text-align: center;
+      text-decoration: none;
+      white-space: normal;
+      cursor: pointer;
+    }
+
+    .support-copy-button {
+      background: #fff7d5;
+    }
+
+    .app-version {
+      display: inline-block;
+      margin-top: 3px;
+      padding: 1px 5px;
+      border: 1px solid rgba(255, 247, 214, 0.26);
+      border-radius: 999px;
+      background: rgba(255, 247, 214, 0.05);
+      color: rgba(255, 247, 214, 0.58);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .panel-back-button {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      z-index: 25;
+      display: grid;
+      place-items: center;
+      width: 52px;
       height: 43px;
-      padding: 0 10px;
+      overflow: hidden;
       border: 3px solid rgba(255, 247, 214, 0.72);
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--blue);
-      font-size: 21px;
+      background: rgba(15, 65, 47, 0.86);
+      color: var(--chalk);
+      font-size: 25px;
       font-weight: 950;
       font-family: var(--chalk-font);
       box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+    }
+
+    .panel-back-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .panel-back-button::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      bottom: 4px;
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffcf42, #68d987);
+      transform: scaleX(var(--back-hold-progress, 0));
+      transform-origin: left center;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    .panel-back-button.back-hold {
+      border-color: #ffcf42;
+      background: rgba(65, 78, 28, 0.92);
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2), 0 0 18px rgba(255, 207, 66, 0.35);
+    }
+
+    .panel-back-button.back-hold::after {
+      opacity: 1;
     }
 
     .message {
@@ -351,16 +655,16 @@
       width: min(980px, 100%);
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      gap: 12px;
     }
 
     .menu-card {
-      min-height: 176px;
+      min-height: 148px;
       display: grid;
       grid-template-rows: auto auto 1fr;
-      gap: 8px;
+      gap: 6px;
       place-items: center;
-      padding: 16px;
+      padding: 12px 14px;
       border: 4px solid var(--line);
       border-radius: 14px;
       background: var(--white);
@@ -379,13 +683,67 @@
       border-color: var(--green);
     }
 
+    .menu-card.featured {
+      grid-column: 1 / -1;
+      min-height: 166px;
+      position: relative;
+      overflow: hidden;
+      border-color: #ffcf42;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(255, 244, 189, 0.72), transparent 28%),
+        linear-gradient(135deg, #fffdf0, #e9f7ef 58%, #fff3bd);
+      box-shadow:
+        0 9px 0 rgba(142, 93, 10, 0.32),
+        inset 0 0 0 3px rgba(255,255,255,0.48);
+    }
+
+    .menu-card.featured::before {
+      content: "Projeto destaque";
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      padding: 5px 9px;
+      border: 2px solid #ad7c12;
+      border-radius: 999px;
+      background: #ffef9b;
+      color: #5b3506;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .menu-card.featured.selected {
+      border-color: #ffcf42;
+      box-shadow:
+        0 12px 0 rgba(255, 207, 66, 0.24),
+        0 0 0 4px rgba(255,255,255,0.82),
+        inset 0 0 0 3px rgba(255,255,255,0.5);
+    }
+
     .menu-icon {
-      font-size: 49px;
+      font-size: 43px;
       line-height: 1;
     }
 
+    .menu-card.featured .menu-icon {
+      font-size: 54px;
+      filter: drop-shadow(0 4px 0 rgba(120, 78, 9, 0.22));
+    }
+
+    .menu-card.featured .menu-title {
+      font-size: clamp(27px, 3.5vw, 41px);
+    }
+
+    .menu-card.featured .menu-meta {
+      max-width: 640px;
+      color: #184832;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
     .menu-title {
-      font-size: 23px;
+      font-size: 22px;
       font-weight: 950;
       line-height: 1.04;
     }
@@ -406,6 +764,40 @@
       font-size: 18px;
       font-weight: 950;
       text-shadow: var(--chalk-shadow);
+    }
+
+    .menu-page-controls {
+      grid-column: 1 / -1;
+      justify-self: center;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-page-controls .menu-page {
+      grid-column: auto;
+    }
+
+    .menu-page-button {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      aspect-ratio: 1;
+      border: 3px solid rgba(255, 248, 220, 0.78);
+      border-radius: 12px;
+      background: rgba(255, 248, 220, 0.1);
+      color: var(--chalk);
+      font-family: var(--read-font);
+      font-size: 28px;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow: 0 4px 0 rgba(18, 66, 43, 0.35);
+    }
+
+    .menu-page-button:disabled {
+      opacity: 0.35;
+      transform: none;
+      cursor: default;
     }
 
     .robot-layout {
@@ -690,9 +1082,16 @@
     .math-cup-board {
       position: relative;
       height: 100%;
-      grid-template-columns: minmax(0, 1fr) minmax(190px, 245px);
+      width: min(1240px, 100%);
+      grid-template-columns: minmax(170px, 220px) minmax(520px, 1fr) minmax(170px, 220px);
+      grid-template-rows: minmax(230px, auto) minmax(104px, auto);
+      grid-template-areas:
+        "left field right"
+        "left challenge right";
       align-items: center;
-      justify-items: stretch;
+      justify-items: center;
+      align-content: center;
+      gap: 9px 12px;
     }
 
     .habitat-board,
@@ -1172,6 +1571,288 @@
     .level-card.tone-3 { --level-accent: var(--purple); --level-soft: #f2ebff; }
     .level-card.tone-4 { --level-accent: var(--red); --level-soft: #ffecec; }
 
+    .math-cup-team-select {
+      width: min(1180px, 100%);
+      max-height: min(560px, 68vh);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      gap: 10px;
+      overflow: auto;
+      padding: 4px 6px 12px;
+    }
+
+    .math-cup-showcase {
+      width: min(1080px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .math-cup-hero-panel,
+    .math-cup-teacher-panel,
+    .math-cup-info-panel {
+      display: grid;
+      gap: 12px;
+      padding: 20px;
+      border: 5px solid #d6caa4;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,253,240,0.96), rgba(255,247,213,0.94));
+      box-shadow: 0 9px 0 rgba(0, 0, 0, 0.18);
+      color: var(--card-ink);
+      text-shadow: none;
+    }
+
+    .math-cup-hero-panel {
+      position: relative;
+      overflow: hidden;
+      border-color: #ffcf42;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(255, 207, 66, 0.45), transparent 31%),
+        linear-gradient(135deg, #fffdf0, #e6f7ee 64%, #fff0ad);
+    }
+
+    .math-cup-showcase-kicker {
+      justify-self: start;
+      padding: 5px 10px;
+      border: 2px solid #ad7c12;
+      border-radius: 999px;
+      background: #ffef9b;
+      color: #5b3506;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .math-cup-showcase-title {
+      color: #184832;
+      font-family: var(--chalk-font);
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 950;
+      line-height: 0.96;
+      text-shadow: 0 2px 0 rgba(255, 207, 66, 0.45);
+      text-transform: uppercase;
+    }
+
+    .math-cup-showcase-text,
+    .math-cup-info-text {
+      color: #33425c;
+      font-size: clamp(15px, 1.6vw, 18px);
+      font-weight: 850;
+      line-height: 1.28;
+    }
+
+    .math-cup-showcase-points,
+    .math-cup-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .math-cup-showcase-point,
+    .math-cup-info-item {
+      min-height: 62px;
+      display: grid;
+      align-content: center;
+      gap: 3px;
+      padding: 10px;
+      border: 3px solid #d6caa4;
+      border-radius: 13px;
+      background: #fffdf0;
+      color: #184832;
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .math-cup-info-item span {
+      color: #445064;
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .math-cup-showcase-actions,
+    .math-cup-info-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .math-cup-intro-action,
+    .math-cup-info-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      min-height: 58px;
+      padding: 10px;
+      border: 4px solid #184832;
+      border-radius: 14px;
+      background: #e7f5ec;
+      color: #184832;
+      font-family: var(--read-font);
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1.05;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 6px 0 rgba(20, 72, 50, 0.18);
+      cursor: pointer;
+    }
+
+    .math-cup-intro-action.secondary,
+    .math-cup-info-action.secondary {
+      background: #fff7d5;
+      border-color: #ad7c12;
+      color: #5b3506;
+    }
+
+    .math-cup-intro-action.selected,
+    .math-cup-info-action.selected {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+      border-color: var(--blue);
+    }
+
+    .math-cup-mini-field {
+      min-height: 230px;
+      position: relative;
+      overflow: hidden;
+      border: 5px solid rgba(224, 255, 235, 0.82);
+      border-radius: 18px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.24) 49%, rgba(255,255,255,0.9) 49% 51%, rgba(255,255,255,0.24) 51%),
+        repeating-linear-gradient(90deg, #2ea062 0 56px, #278c55 56px 112px);
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,0.24);
+    }
+
+    .math-cup-mini-field::before {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      width: 112px;
+      aspect-ratio: 1;
+      border: 5px solid rgba(255,255,255,0.74);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .math-cup-mini-player {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      aspect-ratio: 1;
+      border: 4px solid #fffdf0;
+      border-radius: 50%;
+      background: #2f6dd6;
+      box-shadow: 0 5px 0 rgba(0,0,0,0.22);
+      font-size: 24px;
+    }
+
+    .math-cup-mini-player.away {
+      background: #d63d3d;
+    }
+
+    .math-cup-mini-player.ball {
+      background: #ffcf42;
+    }
+
+    .math-cup-info-view {
+      width: min(1040px, 100%);
+      display: grid;
+      gap: 14px;
+    }
+
+    .math-cup-info-panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .math-cup-info-title {
+      color: #184832;
+      font-family: var(--chalk-font);
+      font-size: clamp(28px, 4vw, 45px);
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .math-cup-team-group-title {
+      grid-column: 1 / -1;
+      margin: 8px 0 0;
+      color: #fff7cc;
+      font-size: clamp(18px, 2vw, 27px);
+      font-weight: 950;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.22), 0 0 6px rgba(255, 231, 142, 0.5);
+    }
+
+    .math-cup-team-card {
+      min-height: 104px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 8px;
+      padding: 10px 8px;
+      border: 4px solid var(--line);
+      border-radius: 12px;
+      background: #fffdf2;
+      color: #07162f;
+      font-family: Arial, sans-serif;
+      font-weight: 950;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: none;
+      box-shadow: 0 5px 0 rgba(21, 31, 48, 0.2);
+      cursor: pointer;
+    }
+
+    .math-cup-team-card.selected {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 5px rgba(255, 223, 99, 0.34), 0 5px 0 rgba(21, 31, 48, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .math-cup-team-card .flag-art {
+      width: 74px;
+      height: 48px;
+    }
+
+    .math-cup-team-name {
+      width: 100%;
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 6px;
+      border: 2px solid #c5d3f2;
+      border-radius: 8px;
+      background: #eef4ff;
+      color: #07162f;
+      font-size: clamp(12px, 1vw, 15px);
+      font-weight: 950;
+      line-height: 1.05;
+      overflow: hidden;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+      text-wrap: balance;
+      text-shadow: none;
+    }
+
+    .math-cup-team-card.selected .math-cup-team-name {
+      border-color: #d7a72f;
+      background: #fff1a8;
+      color: #06142b;
+    }
+
     .level-badge {
       justify-self: center;
       min-width: 76px;
@@ -1527,6 +2208,9 @@
       line-height: 1;
       text-align: center;
       text-transform: uppercase;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
       text-shadow: none;
     }
 
@@ -1691,6 +2375,9 @@
 
     .math-cup-field {
       position: relative;
+      grid-area: field;
+      justify-self: center;
+      align-self: end;
       min-width: 0;
       display: grid;
       grid-template-columns: repeat(10, minmax(30px, 1fr));
@@ -1698,7 +2385,7 @@
       gap: 3px;
       width: auto;
       max-width: 100%;
-      height: min(430px, calc(100vh - 330px));
+      height: clamp(246px, calc(100vh - 450px), 410px);
       aspect-ratio: 10 / 7;
       padding: 10px;
       overflow: hidden;
@@ -1819,6 +2506,21 @@
       background: rgba(255, 227, 106, 0.42);
     }
 
+    .math-cup-cell.pass-target-cell {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .math-cup-cell.pass-target-cell::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 2px dashed rgba(255, 238, 128, 0.7);
+      border-radius: 10px;
+      background: rgba(255, 248, 191, 0.08);
+      pointer-events: none;
+    }
+
     .math-cup-player {
       position: relative;
       z-index: 5;
@@ -1828,9 +2530,9 @@
       aspect-ratio: 1;
       border: 3px solid #fffdf0;
       border-radius: 50%;
-      background: #2767d8;
-      color: var(--white);
-      box-shadow: 0 5px 0 rgba(17, 45, 103, 0.48);
+      background: var(--math-cup-home-color, #2767d8);
+      color: var(--math-cup-home-ink, var(--white));
+      box-shadow: 0 5px 0 var(--math-cup-home-shadow, rgba(17, 45, 103, 0.48));
       font-size: clamp(13px, 1.9vw, 20px);
       font-weight: 950;
       text-shadow: none;
@@ -1842,27 +2544,9 @@
       filter: drop-shadow(0 1px 0 rgba(0,0,0,0.28));
     }
 
-    .math-cup-player-number {
-      position: absolute;
-      right: -5px;
-      bottom: -5px;
-      display: grid;
-      place-items: center;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      border: 2px solid #fffdf0;
-      border-radius: 999px;
-      background: #172033;
-      color: var(--white);
-      font-size: 10px;
-      font-weight: 950;
-      line-height: 1;
-    }
-
     .math-cup-player.keeper {
-      background: #f2a51f;
-      color: #172033;
+      background: var(--math-cup-home-secondary, #f2a51f);
+      color: var(--math-cup-home-secondary-ink, #172033);
     }
 
     .math-cup-player.target {
@@ -1873,12 +2557,51 @@
       box-shadow:
         0 5px 0 rgba(17, 45, 103, 0.48),
         0 0 0 5px rgba(255, 247, 190, 0.5);
+      touch-action: manipulation;
+    }
+
+    .math-cup-player-badge {
+      position: absolute;
+      left: 50%;
+      top: -20px;
+      z-index: 10;
+      max-width: 76px;
+      padding: 2px 6px;
+      transform: translateX(-50%);
+      overflow: hidden;
+      border: 2px solid #24324a;
+      border-radius: 999px;
+      background: #fffdf0;
+      color: #172033;
+      font-size: 9px;
+      font-weight: 950;
+      line-height: 1;
+      text-overflow: ellipsis;
+      text-shadow: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .math-cup-player.active .math-cup-player-badge {
+      border-color: #4ed17a;
+      background: #def7e7;
+    }
+
+    .math-cup-player.pass-target .math-cup-player-badge {
+      border-color: #ffcf42;
+      background: #fff3af;
     }
 
     .math-cup-player.long-pass-target {
       box-shadow:
         0 5px 0 rgba(17, 45, 103, 0.48),
         0 0 0 5px rgba(113, 220, 255, 0.45);
+    }
+
+    .math-cup-player.long-pass-target .math-cup-player-badge {
+      border-color: #5bc4f1;
+      background: #dff6ff;
     }
 
     .math-cup-player.pass-selected {
@@ -1896,20 +2619,28 @@
     }
 
     .math-cup-player.active {
-      background: #155ac8;
+      background: var(--math-cup-home-active, #155ac8);
+      color: var(--math-cup-home-active-ink, var(--white));
       transform: scale(1.12);
-      box-shadow: 0 7px 0 rgba(17, 45, 103, 0.52), 0 0 0 5px rgba(255, 227, 106, 0.35);
+      box-shadow: 0 7px 0 var(--math-cup-home-shadow, rgba(17, 45, 103, 0.52)), 0 0 0 5px rgba(255, 227, 106, 0.35);
     }
 
     .math-cup-player.opponent {
-      background: #d63d3d;
-      box-shadow: 0 5px 0 rgba(116, 28, 35, 0.58);
+      background: var(--math-cup-away-color, #d63d3d);
+      color: var(--math-cup-away-ink, var(--white));
+      box-shadow: 0 5px 0 var(--math-cup-away-shadow, rgba(116, 28, 35, 0.58));
+    }
+
+    .math-cup-player.opponent.keeper {
+      background: var(--math-cup-away-secondary, #8f1e29);
+      color: var(--math-cup-away-secondary-ink, var(--white));
     }
 
     .math-cup-player.opponent.active {
-      background: #c92f36;
+      background: var(--math-cup-away-active, #c92f36);
+      color: var(--math-cup-away-active-ink, var(--white));
       transform: scale(1.12);
-      box-shadow: 0 7px 0 rgba(116, 28, 35, 0.48), 0 0 0 5px rgba(255, 227, 106, 0.35);
+      box-shadow: 0 7px 0 var(--math-cup-away-shadow, rgba(116, 28, 35, 0.48)), 0 0 0 5px rgba(255, 227, 106, 0.35);
     }
 
     .math-cup-player.opponent .math-cup-avatar {
@@ -1937,10 +2668,21 @@
     }
 
     .math-cup-panel {
+      width: 100%;
       display: grid;
       gap: 10px;
-      align-content: center;
+      align-content: start;
       min-width: 0;
+    }
+
+    .math-cup-left-panel {
+      grid-area: left;
+      align-self: center;
+    }
+
+    .math-cup-right-panel {
+      grid-area: right;
+      align-self: center;
     }
 
     .math-cup-team,
@@ -1980,11 +2722,21 @@
 
     .math-cup-score-name {
       width: 100%;
-      overflow-wrap: anywhere;
+      overflow: hidden;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
       color: var(--card-muted);
       font-size: 11px;
       font-weight: 950;
       line-height: 1.05;
+    }
+
+    [data-fit-text] {
+      max-width: 100%;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
     }
 
     .math-cup-score-value {
@@ -2022,6 +2774,86 @@
       font-size: clamp(20px, 2.3vw, 28px);
       font-weight: 950;
       line-height: 1;
+    }
+
+    .math-cup-spotlight-stat {
+      overflow: hidden;
+      border-color: var(--math-cup-home-color, #2f6dd6);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.42), transparent 34%),
+        linear-gradient(135deg, var(--math-cup-home-color, #2f6dd6), var(--math-cup-home-secondary, #17417c));
+      box-shadow: 0 7px 0 var(--math-cup-home-shadow, rgba(17, 45, 103, 0.52));
+    }
+
+    .math-cup-spotlight-stat.away {
+      border-color: var(--math-cup-away-color, #d63d3d);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.42), transparent 34%),
+        linear-gradient(135deg, var(--math-cup-away-color, #d63d3d), var(--math-cup-away-secondary, #8f1e29));
+      box-shadow: 0 7px 0 var(--math-cup-away-shadow, rgba(116, 28, 35, 0.58));
+    }
+
+    .math-cup-spotlight-stat.pause {
+      border-color: #d6caa4;
+      background: linear-gradient(135deg, #fff7c8, #fffdf0);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.5);
+    }
+
+    .math-cup-spotlight-stat .math-cup-stat-label,
+    .math-cup-spotlight-stat .math-cup-stat-value {
+      color: var(--math-cup-home-ink, var(--white));
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    .math-cup-spotlight-stat.away .math-cup-stat-label,
+    .math-cup-spotlight-stat.away .math-cup-stat-value {
+      color: var(--math-cup-away-ink, var(--white));
+    }
+
+    .math-cup-spotlight-stat.pause .math-cup-stat-label,
+    .math-cup-spotlight-stat.pause .math-cup-stat-value {
+      color: #205ed1;
+      text-shadow: none;
+    }
+
+    .math-cup-spotlight-stat .flag-art {
+      width: 48px;
+      aspect-ratio: 3 / 2;
+      border-width: 3px;
+      border-radius: 7px;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .math-cup-stat-label.with-flag {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .math-cup-moment-stat {
+      border-color: #6db7ff;
+      background: #e8f4ff;
+    }
+
+    .math-cup-moment-stat.defense {
+      border-color: #f06b6b;
+      background: #fff0f0;
+    }
+
+    .math-cup-moment-stat.pause {
+      border-color: #d6caa4;
+      background: #fff7d5;
+    }
+
+    .math-cup-main-action {
+      grid-area: challenge;
+      align-self: start;
+      justify-self: center;
+      width: min(720px, 100%);
+      min-height: 106px;
+      position: relative;
     }
 
     .math-cup-break {
@@ -2116,14 +2948,12 @@
     }
 
     .math-cup-stop-overlay {
-      position: absolute;
+      grid-area: field;
+      align-self: center;
+      justify-self: center;
+      position: relative;
       z-index: 16;
-      top: 50%;
-      left: 0;
-      right: 260px;
-      transform: translateY(-50%);
-      margin: 0 auto;
-      width: min(650px, calc(100% - 270px));
+      width: min(600px, 92%);
       display: grid;
       justify-items: center;
       gap: 12px;
@@ -2148,17 +2978,14 @@
     }
 
     .math-cup-challenge {
-      position: absolute;
-      z-index: 14;
-      top: 0;
-      left: 0;
-      right: 260px;
-      margin: 0 auto;
-      width: min(780px, calc(100% - 270px));
+      position: relative;
+      z-index: 4;
+      width: 100%;
+      min-height: 106px;
       display: grid;
       grid-template-columns: minmax(180px, 0.9fr) minmax(240px, 1.1fr);
       gap: 8px 12px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 5px solid var(--yellow);
       border-radius: 16px;
       background: var(--white);
@@ -2166,6 +2993,16 @@
       color: var(--card-ink);
       text-align: center;
       text-shadow: none;
+    }
+
+    .math-cup-challenge.idle {
+      border-color: #d6caa4;
+      background: #fffdf0;
+    }
+
+    .math-cup-challenge.idle .math-cup-question {
+      color: #205ed1;
+      font-size: clamp(24px, 3vw, 36px);
     }
 
     .math-cup-challenge-title {
@@ -2205,74 +3042,121 @@
       font-weight: 950;
     }
 
-    .math-cup-decision {
-      position: absolute;
-      z-index: 13;
-      top: 0;
-      left: 0;
-      right: 260px;
-      margin: 0 auto;
-      width: min(620px, calc(100% - 270px));
-      display: grid;
-      grid-template-columns: minmax(170px, 1fr) minmax(210px, 1.2fr);
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border: 5px solid var(--yellow);
-      border-radius: 16px;
-      background: var(--white);
-      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.5);
-      color: var(--card-ink);
-      text-align: center;
-      text-shadow: none;
-    }
-
-    .math-cup-decision-title {
-      font-size: clamp(20px, 2.5vw, 31px);
+    .math-cup-risk-note {
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #fff0bf;
+      color: #8a4d00;
+      font-size: clamp(10px, 1vw, 13px);
       font-weight: 950;
       line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .math-cup-goal-pause {
-      position: absolute;
+      grid-area: field;
+      align-self: center;
+      justify-self: center;
+      position: relative;
       z-index: 15;
-      top: 50%;
-      left: 0;
-      right: 260px;
-      transform: translateY(-50%);
-      margin: 0 auto;
-      width: min(560px, calc(100% - 270px));
+      width: min(610px, 92%);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       gap: 12px;
-      padding: 10px 12px;
-      border: 5px solid #ffe176;
-      border-radius: 16px;
-      background: var(--white);
-      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.5);
-      color: var(--card-ink);
+      padding: 12px 14px;
+      overflow: hidden;
+      border: 5px solid rgba(255, 253, 240, 0.96);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 14% 20%, rgba(255, 255, 255, 0.28), transparent 26%),
+        linear-gradient(135deg, var(--goal-color), var(--goal-secondary));
+      box-shadow:
+        0 9px 0 var(--goal-shadow),
+        0 0 0 5px rgba(255, 227, 106, 0.32);
+      color: var(--goal-ink);
       text-align: center;
       text-shadow: none;
+      touch-action: manipulation;
+    }
+
+    .math-cup-goal-pause.home {
+      --goal-color: var(--math-cup-home-color, #2767d8);
+      --goal-secondary: var(--math-cup-home-secondary, #f2a51f);
+      --goal-ink: var(--math-cup-home-ink, var(--white));
+      --goal-shadow: var(--math-cup-home-shadow, rgba(17, 45, 103, 0.45));
+    }
+
+    .math-cup-goal-pause.away {
+      --goal-color: var(--math-cup-away-color, #d63d3d);
+      --goal-secondary: var(--math-cup-away-secondary, #8f1e29);
+      --goal-ink: var(--math-cup-away-ink, var(--white));
+      --goal-shadow: var(--math-cup-away-shadow, rgba(116, 28, 35, 0.52));
+    }
+
+    .math-cup-goal-pause::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 2px dashed rgba(255, 253, 240, 0.42);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .math-cup-goal-flag {
+      position: relative;
+      z-index: 1;
+      width: clamp(64px, 8vw, 96px);
+      aspect-ratio: 3 / 2;
+      border: 4px solid rgba(255, 253, 240, 0.94);
+      border-radius: 10px;
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .math-cup-goal-text {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      display: grid;
+      gap: 3px;
     }
 
     .math-cup-goal-title {
-      color: #205ed1;
+      color: var(--goal-ink);
       font-size: clamp(22px, 3vw, 36px);
       font-weight: 950;
+      line-height: 1;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .math-cup-goal-team {
+      color: var(--goal-ink);
+      font-size: clamp(14px, 1.8vw, 22px);
+      font-weight: 950;
+      line-height: 1.05;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    .math-cup-goal-next {
+      color: rgba(255, 253, 240, 0.92);
+      font-size: clamp(10px, 1.1vw, 13px);
+      font-weight: 900;
       line-height: 1;
     }
 
     .math-cup-goal-action {
+      position: relative;
+      z-index: 1;
       min-width: 118px;
       padding: 10px 16px;
-      border: 4px solid #205ed1;
+      border: 4px solid rgba(255, 253, 240, 0.86);
       border-radius: 14px;
-      background: #e6f1ff;
-      color: #205ed1;
+      background: rgba(255, 253, 240, 0.94);
+      color: var(--card-ink);
       font-size: clamp(18px, 2.4vw, 28px);
       font-weight: 950;
-      box-shadow: 0 5px 0 rgba(32, 94, 209, 0.22);
+      box-shadow: 0 5px 0 rgba(0, 0, 0, 0.22);
     }
 
     .math-cup-timer-track {
@@ -2297,6 +3181,10 @@
       gap: 8px;
     }
 
+    .math-cup-answers.summary {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .math-cup-answer {
       display: grid;
       place-items: center;
@@ -2307,7 +3195,18 @@
       box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
       font-size: clamp(23px, 3vw, 34px);
       font-weight: 950;
+      touch-action: manipulation;
       transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .math-cup-answer.note {
+      min-height: 46px;
+      border-color: #d6caa4;
+      background: #f7f2dd;
+      color: #445064;
+      font-size: clamp(15px, 1.7vw, 21px);
+      line-height: 1.05;
+      text-transform: uppercase;
     }
 
     .math-cup-answer.selected {
@@ -2837,6 +3736,7 @@
     }
 
     .menu-card,
+    .menu-page-button,
     .counter,
     .message,
     .energy-meter,
@@ -2857,11 +3757,52 @@
     .shape-card,
     .option-card,
     .answer-card,
+    .cup-goal,
+    .math-cup-answer,
+    .math-cup-break-card,
+    .math-cup-break-action,
+    .math-cup-stop-overlay,
+    .math-cup-goal-pause,
+    .math-cup-player.pass-target,
+    .math-cup-player-badge,
     .quiz-question,
     .data-chip,
     .analysis {
       color: var(--card-ink);
       text-shadow: none;
+    }
+
+    .menu-card,
+    .menu-page-button,
+    .level-card,
+    .math-level-card,
+    .traffic-action,
+    .option,
+    .habitat,
+    .cycle-item,
+    .cup-goal,
+    .intruder-row .shape-card,
+    .option-card,
+    .answer-card,
+    .math-cup-answer,
+    .math-cup-break-card,
+    .math-cup-break-action,
+    .math-cup-stop-overlay,
+    .math-cup-goal-pause,
+    .math-cup-player.pass-target {
+      cursor: pointer;
+    }
+
+    .traffic-actions.locked .traffic-action,
+    .answer-options.locked .option,
+    .habitats.locked .habitat,
+    .cycle-items.locked .cycle-item,
+    .cup-question.locked .cup-goal,
+    .legacy-locked .shape-card,
+    .legacy-locked .option-card,
+    .legacy-locked .answer-card,
+    .math-cup-challenge.locked .math-cup-answer {
+      cursor: default;
     }
 
     .menu-title,
@@ -2912,6 +3853,12 @@
 
       .math-cup-board {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+          "field"
+          "challenge"
+          "left"
+          "right";
         align-content: center;
         gap: 9px;
       }
@@ -2920,6 +3867,22 @@
         width: min(720px, 100%);
         height: auto;
         justify-self: center;
+      }
+
+      .math-cup-showcase {
+        width: min(760px, 100%);
+        grid-template-columns: 1fr;
+      }
+
+      .math-cup-showcase-points,
+      .math-cup-info-grid,
+      .math-cup-showcase-actions,
+      .math-cup-info-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .math-cup-mini-field {
+        min-height: 180px;
       }
 
       .math-cup-player {
@@ -2932,20 +3895,24 @@
         font-size: clamp(13px, 3.2vw, 18px);
       }
 
-      .math-cup-player-number {
-        right: -4px;
-        bottom: -4px;
-        min-width: 15px;
-        height: 15px;
-        padding: 0 3px;
-        border-width: 1px;
-        font-size: 8px;
-      }
-
       .math-cup-player-flag {
         right: -9px;
         top: -8px;
         width: 21px;
+      }
+
+      .math-cup-goal-pause {
+        width: min(560px, 94%);
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .math-cup-goal-action {
+        grid-column: 1 / -1;
+        justify-self: center;
+        min-width: 96px;
+        padding: 6px 12px;
       }
 
       .math-cup-ball {
@@ -2955,7 +3922,8 @@
       }
 
       .math-cup-panel {
-        grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr));
+        width: min(720px, 100%);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
       }
 
@@ -2968,6 +3936,10 @@
 
       .math-cup-scoreboard {
         grid-column: 1 / -1;
+      }
+
+      .math-cup-main-action {
+        width: min(720px, 100%);
       }
 
       .math-cup-team {
@@ -2984,30 +3956,28 @@
       }
 
       .math-cup-challenge {
-        left: 8px;
-        right: 8px;
-        width: calc(100% - 16px);
-        grid-template-columns: 1fr;
-      }
-
-      .math-cup-decision {
-        left: 8px;
-        right: 8px;
-        width: calc(100% - 16px);
+        left: auto;
+        right: auto;
+        width: 100%;
         grid-template-columns: 1fr;
       }
 
       .math-cup-goal-pause {
-        left: 8px;
-        right: 8px;
-        width: calc(100% - 16px);
+        width: min(540px, 92%);
         grid-template-columns: 1fr;
       }
 
+      .math-cup-goal-flag {
+        justify-self: center;
+        width: min(82px, 42vw);
+      }
+
+      .math-cup-goal-action {
+        justify-self: center;
+      }
+
       .math-cup-stop-overlay {
-        left: 8px;
-        right: 8px;
-        width: calc(100% - 16px);
+        width: min(600px, 92%);
       }
 
       .math-cup-challenge-title,
@@ -3147,7 +4117,7 @@
         padding: 5px 18px 9px;
       }
 
-      .key {
+      .panel-back-button {
         height: 36px;
       }
     }
@@ -3181,24 +4151,77 @@
         </div>
       </div>
       <div id="content" class="content"></div>
+      <button id="backButton" class="panel-back-button" type="button" title="Voltar" aria-label="Voltar">←</button>
     </section>
     <div id="message" class="message">Muito bem!</div>
   </main>
 
   <footer class="footer">
     <div class="footer-info">
-      <div id="hint" class="hint">Teclado: setas • Enter • Esc • R • F</div>
       <div id="status" class="status">Prontos para começar!</div>
     </div>
-    <div class="keys" aria-hidden="true">
-      <div class="key">←</div>
-      <div class="key">↑</div>
-      <div class="key">↓</div>
-      <div class="key">→</div>
-      <div class="key">Enter</div>
+    <div class="credit">
+      <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.0.0</span></div>
     </div>
-    <div class="credit">Criado por Prof. Amilcar Notari Neto<br>amilcar.notari@gmail.com<br><span class="app-version">v1.1.0</span></div>
   </footer>
+
+  <div id="aboutModal" class="about-modal" hidden>
+    <div class="about-dialog" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+      <button id="aboutCloseButton" class="about-close" type="button" aria-label="Fechar">×</button>
+      <h2 id="aboutTitle" class="about-title">Sobre este material</h2>
+      <p class="about-text">
+        Missões interativas criadas para aulas de Pensamento Computacional, com uso educacional gratuito.
+      </p>
+      <p class="about-text">
+        Criado por Prof. Amilcar Notari Neto
+      </p>
+      <div id="audienceGate" class="audience-gate">
+        <div class="support-title">Área para adultos</div>
+        <p class="support-text">
+          Se você é aluno, feche esta área. O apoio é voluntário e o material continua gratuito.
+        </p>
+        <div class="audience-actions">
+          <button id="childAudienceButton" class="audience-button child" type="button">🧒 Sou criança</button>
+          <button id="adultHoldButton" class="adult-hold-button" type="button">
+            <span id="adultHoldProgress" class="adult-hold-progress"></span>
+            <span id="adultHoldText" class="adult-hold-text">🧑 Sou adulto</span>
+          </button>
+        </div>
+        <div id="audienceNotice" class="support-notice">Adultos devem segurar o botão por 3 segundos.</div>
+      </div>
+      <div id="supportBox" class="support-box" hidden>
+        <div class="support-title">☕ Apoie este projeto</div>
+        <p class="support-text">
+          Área para adultos. O apoio é voluntário e o material continua gratuito para os alunos.
+        </p>
+        <div id="supportNotice" class="support-notice">QR Code liberado para adultos.</div>
+        <div id="supportUnlockedPanel" class="support-unlocked" hidden>
+          <div class="support-qr-label">Escaneie com o celular</div>
+          <div class="support-qr" aria-label="QR Code do Paga um Café">
+            <svg xmlns="http://www.w3.org/2000/svg" width="220" height="220" viewBox="0 0 37 37" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#000000" d="M4 4.5h7m2 0h2m4 0h6m1 0h7M4 5.5h1m5 0h1m2 0h1m1 0h2m5 0h1m1 0h1m1 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m1 0h4m2 0h1m1 0h1m3 0h1m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h1m7 0h2m1 0h1m2 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h8m1 0h4m1 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m1 0h2m3 0h4m3 0h1m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h4m1 0h1m1 0h1m2 0h1M4 12.5h1m1 0h5m2 0h1m4 0h2m1 0h1m4 0h5M4 13.5h3m1 0h1m2 0h3m5 0h2m1 0h3m1 0h3m3 0h1M4 14.5h7m1 0h1m2 0h2m4 0h2m1 0h1m2 0h2M4 15.5h1m1 0h4m3 0h1m2 0h1m1 0h1m1 0h1m2 0h2m3 0h2m1 0h1M5 16.5h2m1 0h6m2 0h1m4 0h1m1 0h1m5 0h2M4 17.5h4m1 0h1m2 0h3m1 0h4m2 0h2m1 0h4m3 0h1M8 18.5h1m1 0h1m1 0h4m1 0h4m1 0h1m1 0h1m1 0h2m1 0h2M6 19.5h1m4 0h1m2 0h1m2 0h1m1 0h1m4 0h1m2 0h2m2 0h1M5 20.5h2m1 0h4m1 0h3m2 0h1m2 0h1m3 0h1m3 0h2M4 21.5h2m5 0h2m3 0h1m3 0h1m2 0h6m1 0h1m1 0h1M4 22.5h1m3 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h2m3 0h3m1 0h1M4 23.5h1m1 0h1m4 0h4m3 0h1m3 0h5m1 0h1m2 0h1M4 24.5h1m1 0h7m2 0h2m2 0h3m2 0h5m1 0h3M12 25.5h7m1 0h3m1 0h1m3 0h5M4 26.5h7m2 0h1m1 0h7m1 0h2m1 0h1m1 0h3M4 27.5h1m5 0h1m1 0h3m2 0h1m1 0h1m2 0h3m3 0h1M4 28.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m2 0h5m1 0h2M4 29.5h1m1 0h3m1 0h1m1 0h3m1 0h1m3 0h4m5 0h4M4 30.5h1m1 0h3m1 0h1m1 0h1m1 0h2m2 0h2m1 0h1m3 0h7M4 31.5h1m5 0h1m2 0h1m3 0h4m3 0h2m2 0h2m1 0h1M4 32.5h7m1 0h4m1 0h5m1 0h1m2 0h1m1 0h3"/></svg>
+          </div>
+          <div class="support-url">https://pagaum.cafe/amilcarnotari</div>
+          <div class="support-actions">
+            <a id="supportOpenLink" class="support-open-link" href="https://pagaum.cafe/amilcarnotari" target="_blank" rel="noopener">Abrir página</a>
+            <button id="supportCopyButton" class="support-copy-button" type="button">Copiar link</button>
+          </div>
+        </div>
+        <div class="feedback-box">
+          <div class="support-title">💬 Comentários</div>
+          <p class="support-text">
+            Elogios, avaliações, ideias e bugs ajudam este material a ficar melhor.
+          </p>
+          <div id="feedbackNotice" class="support-notice">Contato liberado para adultos.</div>
+          <div class="support-actions">
+            <a id="feedbackEmailLink" class="support-open-link" href="#">Enviar e-mail</a>
+            <a id="feedbackBugLink" class="support-copy-button" href="https://github.com/Nethaum/missoes-interativas-pensamento-computacional/issues/new" target="_blank" rel="noopener">Reportar bug</a>
+            <button id="feedbackCopyEmailButton" class="support-copy-button" type="button">Copiar contato</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     (() => {
@@ -3211,26 +4234,74 @@
       const rightValue = document.getElementById("rightValue");
       const leftCounter = leftLabel.parentElement;
       const rightCounter = rightLabel.parentElement;
-      const hint = document.getElementById("hint");
       const status = document.getElementById("status");
       const message = document.getElementById("message");
+      const backButton = document.getElementById("backButton");
       const resetButton = document.getElementById("resetButton");
       const fullscreenButton = document.getElementById("fullscreenButton");
-      const KEYBOARD_HELP = "Teclado: setas • Enter • Esc • R • F";
-      const MISSIONS_PER_PAGE = 4;
+      const aboutButton = document.getElementById("aboutButton");
+      const aboutModal = document.getElementById("aboutModal");
+      const aboutCloseButton = document.getElementById("aboutCloseButton");
+      const audienceGate = document.getElementById("audienceGate");
+      const childAudienceButton = document.getElementById("childAudienceButton");
+      const adultHoldButton = document.getElementById("adultHoldButton");
+      const adultHoldText = document.getElementById("adultHoldText");
+      const audienceNotice = document.getElementById("audienceNotice");
+      const supportBox = document.getElementById("supportBox");
+      const supportNotice = document.getElementById("supportNotice");
+      const supportUnlockedPanel = document.getElementById("supportUnlockedPanel");
+      const supportOpenLink = document.getElementById("supportOpenLink");
+      const supportCopyButton = document.getElementById("supportCopyButton");
+      const feedbackEmailLink = document.getElementById("feedbackEmailLink");
+      const feedbackCopyEmailButton = document.getElementById("feedbackCopyEmailButton");
+      const feedbackNotice = document.getElementById("feedbackNotice");
+      const appVersion = document.getElementById("appVersion");
+      const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
+      const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.0.0";
+      const ADULT_HOLD_MS = 3000;
+      const CHILD_ABOUT_LOCK_MS = 60000;
+      const BACK_HOLD_MS = 1200;
+      let adultHoldFrame = null;
+      let adultHoldStartedAt = 0;
+      let childAboutLockInterval = null;
+      let backHoldFrame = null;
+      let backHoldStartedAt = 0;
+      let backHoldSource = null;
+      let suppressNextContentClick = false;
 
       const missions = [
-        { id: "arrows", icon: "🧭", title: "Setas e comandos", subject: "Direção e sequência" },
+        { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo" },
+        { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
+        { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países" },
+        { id: "arrows", icon: "🧭", title: "Setas e comandos", subject: "Direção e sequência" },
         { id: "patterns", icon: "🔷", title: "Padrões e regras", subject: "Padrões" },
         { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito" },
         { id: "habitat", icon: "🐾", title: "Casa dos animais", subject: "Biologia" },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza" },
-        { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
-        { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países" },
-        { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol e cálculos" },
       ];
+
+      const missionCategories = [
+        {
+          title: "Destaques",
+          description: "Jogos mais completos para começar a aula com energia.",
+          missionIds: ["mathCup", "robot", "math", "cup"],
+        },
+        {
+          title: "Lógica e programação",
+          description: "Sequências, padrões e decisões para treinar pensamento computacional.",
+          missionIds: ["arrows", "patterns", "logic"],
+        },
+        {
+          title: "Natureza e dados",
+          description: "Missões interdisciplinares para observar, contar e comparar.",
+          missionIds: ["habitat", "cycle", "data"],
+        },
+      ];
+
+      const missionIndexById = new Map(missions.map((item, index) => [item.id, index]));
 
       const robotLevelSpecs = [
         [9, 7, 101, 0, 0], [9, 7, 202, 0, 1], [9, 7, 303, 1, 1], [9, 7, 404, 1, 2],
@@ -3784,6 +4855,227 @@
               }
       ];
 
+      const fifaCodeByFlag = {
+        ca: "CAN",
+        us: "USA",
+        mx: "MEX",
+        za: "RSA",
+        de: "GER",
+        sa: "KSA",
+        dz: "ALG",
+        ar: "ARG",
+        au: "AUS",
+        at: "AUT",
+        be: "BEL",
+        ba: "BIH",
+        br: "BRA",
+        cv: "CPV",
+        qa: "QAT",
+        co: "COL",
+        ci: "CIV",
+        hr: "CRO",
+        cw: "CUW",
+        eg: "EGY",
+        ec: "ECU",
+        "gb-sct": "SCO",
+        es: "ESP",
+        fr: "FRA",
+        gh: "GHA",
+        ht: "HAI",
+        nl: "NED",
+        "gb-eng": "ENG",
+        iq: "IRQ",
+        jp: "JPN",
+        jo: "JOR",
+        ma: "MAR",
+        no: "NOR",
+        nz: "NZL",
+        pa: "PAN",
+        py: "PAR",
+        pt: "POR",
+        cd: "COD",
+        kr: "KOR",
+        ir: "IRN",
+        sn: "SEN",
+        se: "SWE",
+        ch: "SUI",
+        cz: "CZE",
+        tn: "TUN",
+        tr: "TUR",
+        uy: "URU",
+        uz: "UZB",
+      };
+
+      const fifaRankByCode = {
+        CAN: 30,
+        USA: 17,
+        MEX: 14,
+        RSA: 60,
+        GER: 10,
+        KSA: 61,
+        ALG: 28,
+        ARG: 1,
+        AUS: 27,
+        AUT: 24,
+        BEL: 9,
+        BIH: 64,
+        BRA: 6,
+        CPV: 67,
+        QAT: 56,
+        COL: 13,
+        CIV: 33,
+        CRO: 11,
+        CUW: 82,
+        EGY: 29,
+        ECU: 23,
+        SCO: 42,
+        ESP: 2,
+        FRA: 3,
+        GHA: 73,
+        HAI: 83,
+        NED: 8,
+        ENG: 4,
+        IRQ: 57,
+        JPN: 18,
+        JOR: 63,
+        MAR: 7,
+        NOR: 31,
+        NZL: 85,
+        PAN: 34,
+        PAR: 41,
+        POR: 5,
+        COD: 46,
+        KOR: 25,
+        IRN: 20,
+        SEN: 15,
+        SWE: 38,
+        SUI: 19,
+        CZE: 40,
+        TUN: 45,
+        TUR: 22,
+        URU: 16,
+        UZB: 50,
+      };
+
+      const mathCupOfficialGroupFixtures = [
+        { match: 1, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "MEX", away: "RSA" },
+        { match: 2, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "KOR", away: "CZE" },
+        { match: 3, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "CAN", away: "BIH" },
+        { match: 4, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "USA", away: "PAR" },
+        { match: 5, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "HAI", away: "SCO" },
+        { match: 6, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "AUS", away: "TUR" },
+        { match: 7, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "BRA", away: "MAR" },
+        { match: 8, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "QAT", away: "SUI" },
+        { match: 9, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "CIV", away: "ECU" },
+        { match: 10, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "GER", away: "CUW" },
+        { match: 11, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "NED", away: "JPN" },
+        { match: 12, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "SWE", away: "TUN" },
+        { match: 13, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "KSA", away: "URU" },
+        { match: 14, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "ESP", away: "CPV" },
+        { match: 15, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "IRN", away: "NZL" },
+        { match: 16, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "BEL", away: "EGY" },
+        { match: 17, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "FRA", away: "SEN" },
+        { match: 18, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "IRQ", away: "NOR" },
+        { match: 19, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "ARG", away: "ALG" },
+        { match: 20, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "AUT", away: "JOR" },
+        { match: 21, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "GHA", away: "PAN" },
+        { match: 22, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "ENG", away: "CRO" },
+        { match: 23, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "POR", away: "COD" },
+        { match: 24, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "UZB", away: "COL" },
+        { match: 25, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "CZE", away: "RSA" },
+        { match: 26, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "SUI", away: "BIH" },
+        { match: 27, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "CAN", away: "QAT" },
+        { match: 28, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "MEX", away: "KOR" },
+        { match: 29, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "BRA", away: "HAI" },
+        { match: 30, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "SCO", away: "MAR" },
+        { match: 31, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "TUR", away: "PAR" },
+        { match: 32, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "USA", away: "AUS" },
+        { match: 33, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "GER", away: "CIV" },
+        { match: 34, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "ECU", away: "CUW" },
+        { match: 35, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "NED", away: "SWE" },
+        { match: 36, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "TUN", away: "JPN" },
+        { match: 37, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "URU", away: "CPV" },
+        { match: 38, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "ESP", away: "KSA" },
+        { match: 39, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "BEL", away: "IRN" },
+        { match: 40, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "NZL", away: "EGY" },
+        { match: 41, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "NOR", away: "SEN" },
+        { match: 42, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "FRA", away: "IRQ" },
+        { match: 43, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "ARG", away: "AUT" },
+        { match: 44, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "JOR", away: "ALG" },
+        { match: 45, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "ENG", away: "GHA" },
+        { match: 46, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "PAN", away: "CRO" },
+        { match: 47, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "POR", away: "UZB" },
+        { match: 48, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "COL", away: "COD" },
+        { match: 49, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "SCO", away: "BRA" },
+        { match: 50, stageKey: "groups", stage: "Fase de grupos", group: "C", home: "MAR", away: "HAI" },
+        { match: 51, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "SUI", away: "CAN" },
+        { match: 52, stageKey: "groups", stage: "Fase de grupos", group: "B", home: "BIH", away: "QAT" },
+        { match: 53, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "CZE", away: "MEX" },
+        { match: 54, stageKey: "groups", stage: "Fase de grupos", group: "A", home: "RSA", away: "KOR" },
+        { match: 55, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "CUW", away: "CIV" },
+        { match: 56, stageKey: "groups", stage: "Fase de grupos", group: "E", home: "ECU", away: "GER" },
+        { match: 57, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "JPN", away: "SWE" },
+        { match: 58, stageKey: "groups", stage: "Fase de grupos", group: "F", home: "TUN", away: "NED" },
+        { match: 59, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "TUR", away: "USA" },
+        { match: 60, stageKey: "groups", stage: "Fase de grupos", group: "D", home: "PAR", away: "AUS" },
+        { match: 61, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "NOR", away: "FRA" },
+        { match: 62, stageKey: "groups", stage: "Fase de grupos", group: "I", home: "SEN", away: "IRQ" },
+        { match: 63, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "EGY", away: "IRN" },
+        { match: 64, stageKey: "groups", stage: "Fase de grupos", group: "G", home: "NZL", away: "BEL" },
+        { match: 65, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "CPV", away: "KSA" },
+        { match: 66, stageKey: "groups", stage: "Fase de grupos", group: "H", home: "URU", away: "ESP" },
+        { match: 67, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "PAN", away: "ENG" },
+        { match: 68, stageKey: "groups", stage: "Fase de grupos", group: "L", home: "CRO", away: "GHA" },
+        { match: 69, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "ALG", away: "AUT" },
+        { match: 70, stageKey: "groups", stage: "Fase de grupos", group: "J", home: "JOR", away: "ARG" },
+        { match: 71, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "COL", away: "POR" },
+        { match: 72, stageKey: "groups", stage: "Fase de grupos", group: "K", home: "COD", away: "UZB" },
+      ];
+
+      const mathCupKnockoutTemplates = [
+        { match: 73, stageKey: "round32", stage: "16 avos", a: "2A", b: "2B" },
+        { match: 74, stageKey: "round32", stage: "16 avos", a: "1E", b: "3ABCDF" },
+        { match: 75, stageKey: "round32", stage: "16 avos", a: "1F", b: "2C" },
+        { match: 76, stageKey: "round32", stage: "16 avos", a: "1C", b: "2F" },
+        { match: 77, stageKey: "round32", stage: "16 avos", a: "1I", b: "3CDFGH" },
+        { match: 78, stageKey: "round32", stage: "16 avos", a: "2E", b: "2I" },
+        { match: 79, stageKey: "round32", stage: "16 avos", a: "1A", b: "3CEFHI" },
+        { match: 80, stageKey: "round32", stage: "16 avos", a: "1L", b: "3EHIJK" },
+        { match: 81, stageKey: "round32", stage: "16 avos", a: "1D", b: "3BEFIJ" },
+        { match: 82, stageKey: "round32", stage: "16 avos", a: "1G", b: "3AEHIJ" },
+        { match: 83, stageKey: "round32", stage: "16 avos", a: "2K", b: "2L" },
+        { match: 84, stageKey: "round32", stage: "16 avos", a: "1H", b: "2J" },
+        { match: 85, stageKey: "round32", stage: "16 avos", a: "1B", b: "3EFGIJ" },
+        { match: 86, stageKey: "round32", stage: "16 avos", a: "1J", b: "2H" },
+        { match: 87, stageKey: "round32", stage: "16 avos", a: "1K", b: "3DEIJL" },
+        { match: 88, stageKey: "round32", stage: "16 avos", a: "2D", b: "2G" },
+        { match: 89, stageKey: "round16", stage: "Oitavas", a: "W74", b: "W77" },
+        { match: 90, stageKey: "round16", stage: "Oitavas", a: "W73", b: "W75" },
+        { match: 91, stageKey: "round16", stage: "Oitavas", a: "W76", b: "W78" },
+        { match: 92, stageKey: "round16", stage: "Oitavas", a: "W79", b: "W80" },
+        { match: 93, stageKey: "round16", stage: "Oitavas", a: "W83", b: "W84" },
+        { match: 94, stageKey: "round16", stage: "Oitavas", a: "W81", b: "W82" },
+        { match: 95, stageKey: "round16", stage: "Oitavas", a: "W86", b: "W88" },
+        { match: 96, stageKey: "round16", stage: "Oitavas", a: "W85", b: "W87" },
+        { match: 97, stageKey: "quarter", stage: "Quartas", a: "W89", b: "W90" },
+        { match: 98, stageKey: "quarter", stage: "Quartas", a: "W93", b: "W94" },
+        { match: 99, stageKey: "quarter", stage: "Quartas", a: "W91", b: "W92" },
+        { match: 100, stageKey: "quarter", stage: "Quartas", a: "W95", b: "W96" },
+        { match: 101, stageKey: "semi", stage: "Semifinal", a: "W97", b: "W98" },
+        { match: 102, stageKey: "semi", stage: "Semifinal", a: "W99", b: "W100" },
+        { match: 103, stageKey: "third", stage: "3º lugar", a: "RU101", b: "RU102" },
+        { match: 104, stageKey: "final", stage: "Final", a: "W101", b: "W102" },
+      ];
+
+      const mathCupKnockoutStageKeys = [
+        "round32",
+        "round16",
+        "quarter",
+        "semi",
+        "third",
+        "final",
+      ];
+
       const cupRounds = Array.from({ length: 50 }, (_, index) => {
         const team = cupTeams[index % cupTeams.length];
         const choices = [
@@ -3802,16 +5094,27 @@
       const MATH_CUP_CONFIG = {
         width: 10,
         height: 7,
-        matchSeconds: 180,
+        matchSeconds: 90,
         challengeSeconds: 20,
-        passDecisionSeconds: 10,
-        learningMatches: 2,
-        learningTimes: {
-          matchSeconds: 180,
-          challengeSeconds: 30,
-          passDecisionSeconds: 16,
+        passDecisionSeconds: 8,
+        passMissChance: 0.06,
+        longPassMissChance: 0.18,
+        keeperLongPassMissBonus: 0.08,
+        dribbleMissChance: 0.14,
+        shotSaveChance: 0.18,
+        shotSaveRestartLine: 1,
+        maxRiskBoost: 0.28,
+        stageRiskBoost: {
+          groups: 0,
+          round32: 0.03,
+          round16: 0.05,
+          quarter: 0.07,
+          semi: 0.09,
+          third: 0.07,
+          final: 0.11,
         },
         opponentGoalLine: 5,
+        opponentDefenderRestartLine: 1,
         opponentAttackerRestartLine: 4,
         lines: [
           { id: "keeper", label: "Goleiro" },
@@ -3823,39 +5126,39 @@
       };
 
       const mathCupLevelPlans = [
-        { title: "Nível 1", icon: "⚽", grade: "1ª série", theme: "Juntar e tirar", meta: "até 10", preview: ["2+3", "7-2", "🥅"] },
-        { title: "Nível 2", icon: "🧤", grade: "2ª série", theme: "Contas do dia", meta: "até 20", preview: ["12-5", "dobro", "⚽"] },
-        { title: "Nível 3", icon: "🎯", grade: "3ª série", theme: "Sequências e tabuada", meta: "até 50", preview: ["3x4", "+2", "🏃"] },
-        { title: "Nível 4", icon: "🏟️", grade: "4ª série", theme: "Tabuada e divisão", meta: "até 100", preview: ["36÷4", "7x8", "🥅"] },
-        { title: "Nível 5", icon: "🏆", grade: "5ª série", theme: "Desafios mistos", meta: "até 100", preview: ["84÷7", "metade", "🏆"] },
+        { title: "Aquecimento", icon: "⚽", age: "6-7 anos", theme: "Juntar e tirar", meta: "contas curtinhas", preview: ["2+3", "7-2", "🥅"] },
+        { title: "Passe certo", icon: "🧤", age: "7-8 anos", theme: "Contas do dia", meta: "dobro e até 20", preview: ["12-5", "dobro", "⚽"] },
+        { title: "Jogo esperto", icon: "🎯", age: "8-9 anos", theme: "Sequências e grupos", meta: "pensar o padrão", preview: ["3x4", "+2", "🏃"] },
+        { title: "Craque do cálculo", icon: "🏟️", age: "9-10 anos", theme: "Tabuada e divisão", meta: "lances rápidos", preview: ["36÷4", "7x8", "🥅"] },
+        { title: "Final de campeonato", icon: "🏆", age: "10+ anos", theme: "Desafios mistos", meta: "para ir além", preview: ["84÷7", "metade", "🏆"] },
       ];
 
       const mathCupFormation = [
-        { id: "gk", line: 0, number: "1", icon: "🧤", x: 0, y: 3 },
-        { id: "p2", line: 1, number: "2", icon: "🛡️", x: 1, y: 1 },
-        { id: "p3", line: 1, number: "3", icon: "🛡️", x: 1, y: 3 },
-        { id: "p4", line: 1, number: "4", icon: "🛡️", x: 1, y: 5 },
-        { id: "p5", line: 2, number: "5", icon: "🏃", x: 4, y: 0 },
-        { id: "p6", line: 2, number: "6", icon: "🏃", x: 3, y: 2 },
-        { id: "p8", line: 2, number: "8", icon: "🏃", x: 3, y: 4 },
-        { id: "p10", line: 2, number: "10", icon: "🏃", x: 4, y: 6 },
-        { id: "p7", line: 3, number: "7", icon: "🎯", x: 5, y: 2 },
-        { id: "p11", line: 3, number: "11", icon: "🎯", x: 5, y: 4 },
-        { id: "p9", line: 4, number: "9", icon: "⭐", x: 7, y: 3 },
+        { id: "gk", line: 0, role: "Goleiro", icon: "🧤", x: 0, y: 3 },
+        { id: "p2", line: 1, role: "Lateral", icon: "🛡️", x: 1, y: 1 },
+        { id: "p3", line: 1, role: "Zagueiro", icon: "🛡️", x: 1, y: 3 },
+        { id: "p4", line: 1, role: "Lateral", icon: "🛡️", x: 1, y: 5 },
+        { id: "p5", line: 2, role: "Ala", icon: "🏃", x: 4, y: 0 },
+        { id: "p6", line: 2, role: "Volante", icon: "🏃", x: 3, y: 2 },
+        { id: "p8", line: 2, role: "Volante", icon: "🏃", x: 3, y: 4 },
+        { id: "p10", line: 2, role: "Ala", icon: "🏃", x: 4, y: 6 },
+        { id: "p7", line: 3, role: "Meia", icon: "🎯", x: 5, y: 2 },
+        { id: "p11", line: 3, role: "Meia", icon: "🎯", x: 5, y: 4 },
+        { id: "p9", line: 4, role: "Atacante", icon: "⭐", x: 7, y: 3 },
       ];
 
       const mathCupOpponentFormation = [
-        { id: "ogk", line: 0, number: "1", icon: "🧤", x: 9, y: 3 },
-        { id: "o2", line: 1, number: "2", icon: "🛡️", x: 8, y: 1 },
-        { id: "o3", line: 1, number: "3", icon: "🛡️", x: 8, y: 3 },
-        { id: "o4", line: 1, number: "4", icon: "🛡️", x: 8, y: 5 },
-        { id: "o5", line: 2, number: "5", icon: "🏃", x: 5, y: 0 },
-        { id: "o6", line: 2, number: "6", icon: "🏃", x: 6, y: 2 },
-        { id: "o8", line: 2, number: "8", icon: "🏃", x: 6, y: 4 },
-        { id: "o10", line: 2, number: "10", icon: "🏃", x: 5, y: 6 },
-        { id: "o7", line: 3, number: "7", icon: "🎯", x: 4, y: 2 },
-        { id: "o11", line: 3, number: "11", icon: "🎯", x: 4, y: 4 },
-        { id: "o9", line: 4, number: "9", icon: "⭐", x: 2, y: 3 },
+        { id: "ogk", line: 0, role: "Goleiro", icon: "🧤", x: 9, y: 3 },
+        { id: "o2", line: 1, role: "Lateral", icon: "🛡️", x: 8, y: 1 },
+        { id: "o3", line: 1, role: "Zagueiro", icon: "🛡️", x: 8, y: 3 },
+        { id: "o4", line: 1, role: "Lateral", icon: "🛡️", x: 8, y: 5 },
+        { id: "o5", line: 2, role: "Ala", icon: "🏃", x: 5, y: 0 },
+        { id: "o6", line: 2, role: "Volante", icon: "🏃", x: 6, y: 2 },
+        { id: "o8", line: 2, role: "Volante", icon: "🏃", x: 6, y: 4 },
+        { id: "o10", line: 2, role: "Ala", icon: "🏃", x: 5, y: 6 },
+        { id: "o7", line: 3, role: "Meia", icon: "🎯", x: 4, y: 2 },
+        { id: "o11", line: 3, role: "Meia", icon: "🎯", x: 4, y: 4 },
+        { id: "o9", line: 4, role: "Atacante", icon: "⭐", x: 2, y: 3 },
       ];
 
       const mathCupChallengeInfo = {
@@ -3866,45 +5169,408 @@
         shot: { icon: "🥅", label: "Chute final", success: "🏆 Golaço!" },
       };
 
-      function createMathCupLevel(team, index, opponentTeam = cupTeams[(index + 17) % cupTeams.length]) {
+      const mathCupTeamsByCode = cupTeams.reduce((teams, team) => {
+        const code = fifaCodeByFlag[team.flag];
+        teams[code] = {
+          ...team,
+          code,
+          rank: fifaRankByCode[code] || 999,
+        };
+        return teams;
+      }, {});
+
+      const mathCupFirstSeededTeamCode = "BRA";
+      const mathCupSeededTeamCodes = [
+        "MEX",
+        "CAN",
+        "BRA",
+        "USA",
+        "GER",
+        "NED",
+        "BEL",
+        "ESP",
+        "FRA",
+        "ARG",
+        "POR",
+        "ENG",
+      ];
+
+      function mathCupTeamByCode(code) {
+        if (!code) return null;
+        return mathCupTeamsByCode[code] || {
+          country: code,
+          flag: code.toLowerCase(),
+          code,
+          rank: fifaRankByCode[code] || 999,
+        };
+      }
+
+      function sortMathCupTeamsByRank(teamA, teamB) {
+        return teamA.rank - teamB.rank || teamA.country.localeCompare(teamB.country, "pt-BR");
+      }
+
+      function mathCupTeamsFromCodes(codes) {
+        return codes.map(mathCupTeamByCode).filter(Boolean);
+      }
+
+      function mathCupSeededTeamChoices() {
+        const firstTeam = mathCupTeamByCode(mathCupFirstSeededTeamCode);
+        const otherSeededTeams = mathCupTeamsFromCodes(mathCupSeededTeamCodes)
+          .filter((team) => team.code !== mathCupFirstSeededTeamCode)
+          .sort(sortMathCupTeamsByRank);
+        return firstTeam ? [firstTeam, ...otherSeededTeams] : otherSeededTeams;
+      }
+
+      function mathCupTeamChoiceGroups() {
+        const seededTeams = mathCupSeededTeamChoices();
+        const reservedCodes = new Set(seededTeams.map((team) => team.code));
+        const rankedTeams = Object.values(mathCupTeamsByCode)
+          .filter((team) => !reservedCodes.has(team.code))
+          .sort(sortMathCupTeamsByRank);
+
+        return [
+          { title: "Cabeças de chave", teams: seededTeams },
+          { title: "Demais seleções por ranking", teams: rankedTeams },
+        ].filter((group) => group.teams.length > 0);
+      }
+
+      function mathCupTeamChoices() {
+        return mathCupTeamChoiceGroups().flatMap((group) => group.teams);
+      }
+
+      function createMathCupLevel(team, index, opponentTeam, fixture = {}) {
         const formation = mathCupFormation.map((player) => ({ ...player }));
 
         return {
           ...team,
+          match: fixture.match ?? index + 1,
+          stageKey: fixture.stageKey || "groups",
+          stage: fixture.stage || "Fase de grupos",
+          group: fixture.group || "",
+          fixtureHomeCode: fixture.home || team.code,
+          fixtureAwayCode: fixture.away || opponentTeam.code,
           formation,
           opponent: { ...opponentTeam },
-          difficulty: Math.min(3, Math.floor(index / 12)),
           opponents: createMathCupOpponents(index),
         };
       }
 
-      function shuffledMathCupTeams() {
-        const teams = cupTeams.map((team) => ({ ...team }));
-        for (let index = teams.length - 1; index > 0; index -= 1) {
-          const swapIndex = Math.floor(Math.random() * (index + 1));
-          [teams[index], teams[swapIndex]] = [teams[swapIndex], teams[index]];
-        }
-        return teams;
+      function createMathCupLevelFromFixture(fixture, index = mathCupLevels.length, teamCode = fixture.home) {
+        const playerCode = fixture.home === teamCode || fixture.away === teamCode ? teamCode : fixture.home;
+        const opponentCode = fixture.home === playerCode ? fixture.away : fixture.home;
+        return createMathCupLevel(
+          mathCupTeamByCode(playerCode),
+          index,
+          mathCupTeamByCode(opponentCode),
+          fixture
+        );
       }
 
-      function avoidSameMathCupMatch(homeTeam, awayTeams, index) {
-        if (awayTeams[index].flag !== homeTeam.flag) return awayTeams[index];
-
-        const swapIndex = awayTeams.findIndex((team, candidateIndex) =>
-          candidateIndex !== index && team.flag !== homeTeam.flag
-        );
-        if (swapIndex >= 0) {
-          [awayTeams[index], awayTeams[swapIndex]] = [awayTeams[swapIndex], awayTeams[index]];
-        }
-        return awayTeams[index];
+      function createMathCupSchedule(teamCode = null) {
+        if (!teamCode) return [];
+        return mathCupOfficialGroupFixtures
+          .filter((fixture) => fixture.home === teamCode || fixture.away === teamCode)
+          .map((fixture, index) => createMathCupLevelFromFixture(fixture, index, teamCode));
       }
 
-      function createMathCupSchedule() {
-        const homeTeams = shuffledMathCupTeams();
-        const awayTeams = shuffledMathCupTeams();
-        return homeTeams.map((homeTeam, index) =>
-          createMathCupLevel(homeTeam, index, avoidSameMathCupMatch(homeTeam, awayTeams, index))
+      function clampNumber(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function mathCupTeamStrength(team) {
+        const rank = Math.min(team?.rank || 999, 120);
+        return Math.max(8, 112 - rank);
+      }
+
+      function createMathCupStandings() {
+        return mathCupOfficialGroupFixtures.reduce((standings, fixture) => {
+          standings[fixture.group] ||= {};
+          [fixture.home, fixture.away].forEach((code) => {
+            standings[fixture.group][code] ||= {
+              code,
+              group: fixture.group,
+              played: 0,
+              wins: 0,
+              draws: 0,
+              losses: 0,
+              points: 0,
+              goalsFor: 0,
+              goalsAgainst: 0,
+            };
+          });
+          return standings;
+        }, {});
+      }
+
+      function mathCupGoalDifference(row) {
+        return row.goalsFor - row.goalsAgainst;
+      }
+
+      function compareMathCupStandingRows(a, b) {
+        return b.points - a.points
+          || mathCupGoalDifference(b) - mathCupGoalDifference(a)
+          || b.goalsFor - a.goalsFor
+          || mathCupTeamByCode(a.code).rank - mathCupTeamByCode(b.code).rank;
+      }
+
+      function mathCupGroupRows(group) {
+        return Object.values(state.mathCupStandings?.[group] || {})
+          .sort(compareMathCupStandingRows);
+      }
+
+      function updateMathCupStandingRow(row, goalsFor, goalsAgainst) {
+        row.played += 1;
+        row.goalsFor += goalsFor;
+        row.goalsAgainst += goalsAgainst;
+        if (goalsFor > goalsAgainst) {
+          row.wins += 1;
+          row.points += 3;
+        } else if (goalsFor < goalsAgainst) {
+          row.losses += 1;
+        } else {
+          row.draws += 1;
+          row.points += 1;
+        }
+      }
+
+      function recordMathCupGroupResult(level, homeScore, awayScore) {
+        const group = state.mathCupStandings[level.group];
+        if (!group) return;
+        updateMathCupStandingRow(group[level.code], homeScore, awayScore);
+        updateMathCupStandingRow(group[level.opponent.code], awayScore, homeScore);
+      }
+
+      function mathCupWinProbability(homeTeam, awayTeam) {
+        const homeStrength = mathCupTeamStrength(homeTeam);
+        const awayStrength = mathCupTeamStrength(awayTeam);
+        return clampNumber(0.5 + ((homeStrength - awayStrength) / 220), 0.18, 0.82);
+      }
+
+      function resolveMathCupWinner(level, homeScore, awayScore) {
+        if (homeScore > awayScore) return level.code;
+        if (awayScore > homeScore) return level.opponent.code;
+
+        const random = seededRandom(seedFromParts("math-cup-tie", state.missionSeed, level.match));
+        return random() < mathCupWinProbability(level, level.opponent)
+          ? level.code
+          : level.opponent.code;
+      }
+
+      function recordMathCupFixtureResult(level, homeScore, awayScore) {
+        if (state.mathCupCompletedMatches[level.match]) return;
+        if (level.stageKey === "groups") {
+          recordMathCupGroupResult(level, homeScore, awayScore);
+        }
+
+        const winner = resolveMathCupWinner(level, homeScore, awayScore);
+        const runnerUp = winner === level.code ? level.opponent.code : level.code;
+        state.mathCupCompletedMatches[level.match] = {
+          match: level.match,
+          stageKey: level.stageKey,
+          home: level.code,
+          away: level.opponent.code,
+          homeScore,
+          awayScore,
+          winner,
+          runnerUp,
+        };
+      }
+
+      function simulatedMathCupScore(homeTeam, awayTeam, match, allowDraw = true) {
+        const random = seededRandom(seedFromParts("math-cup-sim", state.missionSeed, match, homeTeam.code, awayTeam.code));
+        const winChance = mathCupWinProbability(homeTeam, awayTeam);
+        const drawBand = allowDraw ? 0.2 : 0;
+        const roll = random();
+        const homeGoals = 1 + Math.floor(random() * 3);
+        const awayGoals = 1 + Math.floor(random() * 3);
+
+        if (allowDraw && Math.abs(roll - winChance) <= drawBand / 2) {
+          const goals = Math.floor(random() * 3);
+          return { homeScore: goals, awayScore: goals };
+        }
+
+        if (roll < winChance) {
+          return { homeScore: Math.max(homeGoals, awayGoals + 1), awayScore: Math.min(awayGoals, homeGoals - 1) };
+        }
+
+        return { homeScore: Math.min(homeGoals, awayGoals - 1), awayScore: Math.max(awayGoals, homeGoals + 1) };
+      }
+
+      function simulateMathCupFixture(fixture, allowDraw = true) {
+        if (state.mathCupCompletedMatches[fixture.match]) return;
+        const homeTeam = mathCupTeamByCode(fixture.home);
+        const awayTeam = mathCupTeamByCode(fixture.away);
+        if (!homeTeam || !awayTeam) return;
+
+        const score = simulatedMathCupScore(homeTeam, awayTeam, fixture.match, allowDraw);
+        const level = createMathCupLevel(homeTeam, fixture.match, awayTeam, fixture);
+        recordMathCupFixtureResult(level, score.homeScore, score.awayScore);
+      }
+
+      function simulateUnplayedMathCupGroupFixtures() {
+        mathCupOfficialGroupFixtures.forEach((fixture) => simulateMathCupFixture(fixture, true));
+      }
+
+      function mathCupThirdPlaceRows() {
+        return Object.keys(state.mathCupStandings || {})
+          .map((group) => mathCupGroupRows(group)[2])
+          .filter(Boolean)
+          .sort(compareMathCupStandingRows)
+          .slice(0, 8);
+      }
+
+      function assignMathCupThirdPlaceSlots(thirdSlots, thirdRows) {
+        const assignments = {};
+        const orderedSlots = [...thirdSlots].sort((a, b) =>
+          eligibleMathCupThirdRows(a, thirdRows).length - eligibleMathCupThirdRows(b, thirdRows).length
         );
+        const usedGroups = new Set();
+
+        function backtrack(index) {
+          if (index >= orderedSlots.length) return true;
+          const slot = orderedSlots[index];
+          const candidates = eligibleMathCupThirdRows(slot, thirdRows)
+            .filter((row) => !usedGroups.has(row.group));
+          for (const row of candidates) {
+            assignments[slot] = row;
+            usedGroups.add(row.group);
+            if (backtrack(index + 1)) return true;
+            usedGroups.delete(row.group);
+            delete assignments[slot];
+          }
+          return false;
+        }
+
+        backtrack(0);
+        return assignments;
+      }
+
+      function eligibleMathCupThirdRows(slot, thirdRows) {
+        const groups = slot.replace("3", "");
+        return thirdRows.filter((row) => groups.includes(row.group));
+      }
+
+      function mathCupQualificationContext() {
+        const groupPositions = {};
+        Object.keys(state.mathCupStandings || {}).forEach((group) => {
+          mathCupGroupRows(group).forEach((row, index) => {
+            groupPositions[`${index + 1}${group}`] = row;
+          });
+        });
+
+        const thirdSlots = mathCupKnockoutTemplates
+          .filter((template) => template.stageKey === "round32")
+          .flatMap((template) => [template.a, template.b])
+          .filter((slot) => /^3[A-L]+$/.test(slot));
+
+        return {
+          groupPositions,
+          thirdAssignments: assignMathCupThirdPlaceSlots(thirdSlots, mathCupThirdPlaceRows()),
+        };
+      }
+
+      function resolveMathCupSlot(slot, context) {
+        if (/^[12][A-L]$/.test(slot)) {
+          return mathCupTeamByCode(context.groupPositions[slot]?.code);
+        }
+        if (/^3[A-L]+$/.test(slot)) {
+          return mathCupTeamByCode(context.thirdAssignments[slot]?.code);
+        }
+
+        const winner = slot.match(/^W(\d+)$/);
+        if (winner) {
+          return mathCupTeamByCode(state.mathCupCompletedMatches[winner[1]]?.winner);
+        }
+
+        const runnerUp = slot.match(/^RU(\d+)$/);
+        if (runnerUp) {
+          return mathCupTeamByCode(state.mathCupCompletedMatches[runnerUp[1]]?.runnerUp);
+        }
+
+        return null;
+      }
+
+      function resolveMathCupKnockoutTemplate(template) {
+        const context = mathCupQualificationContext();
+        const home = resolveMathCupSlot(template.a, context);
+        const away = resolveMathCupSlot(template.b, context);
+        if (!home?.code || !away?.code || home.code === away.code) return null;
+        return { home, away };
+      }
+
+      function createMathCupCampaignKnockoutLevel(stageKey) {
+        const template = mathCupKnockoutTemplates.find((candidate) => {
+          if (candidate.stageKey !== stageKey) return false;
+          const teams = resolveMathCupKnockoutTemplate(candidate);
+          return teams && [teams.home.code, teams.away.code].includes(state.mathCupTeamCode);
+        });
+        if (!template) return null;
+
+        const teams = resolveMathCupKnockoutTemplate(template);
+        if (!teams) return null;
+        const playerTeam = teams.home.code === state.mathCupTeamCode ? teams.home : teams.away;
+        const opponentTeam = teams.home.code === state.mathCupTeamCode ? teams.away : teams.home;
+        return createMathCupLevel(playerTeam, mathCupLevels.length, opponentTeam, {
+          match: template.match,
+          stageKey: template.stageKey,
+          stage: template.stage,
+          group: "",
+          home: teams.home.code,
+          away: teams.away.code,
+        });
+      }
+
+      function simulateMathCupKnockoutStage(stageKey) {
+        mathCupKnockoutTemplates
+          .filter((template) => template.stageKey === stageKey)
+          .forEach((template) => {
+            if (state.mathCupCompletedMatches[template.match]) return;
+            const teams = resolveMathCupKnockoutTemplate(template);
+            if (!teams) return;
+
+            const score = simulatedMathCupScore(teams.home, teams.away, template.match, false);
+            const level = createMathCupLevel(teams.home, template.match, teams.away, {
+              match: template.match,
+              stageKey: template.stageKey,
+              stage: template.stage,
+              group: "",
+              home: teams.home.code,
+              away: teams.away.code,
+            });
+            recordMathCupFixtureResult(level, score.homeScore, score.awayScore);
+          });
+      }
+
+      function nextMathCupStageKey(stageKey, result) {
+        if (stageKey === "groups") return "round32";
+        if (stageKey === "round32" && result.type === "win") return "round16";
+        if (stageKey === "round16" && result.type === "win") return "quarter";
+        if (stageKey === "quarter" && result.type === "win") return "semi";
+        if (stageKey === "semi") return result.type === "win" ? "final" : "third";
+        return null;
+      }
+
+      function extendMathCupCampaignIfNeeded(finishedLevel, result) {
+        if (finishedLevel.stageKey === "groups") {
+          const nextRound = state.round + 1;
+          if (nextRound < mathCupLevels.length) return true;
+          simulateUnplayedMathCupGroupFixtures();
+        } else {
+          if (finishedLevel.stageKey !== "semi" && result.type !== "win") return false;
+          simulateMathCupKnockoutStage(finishedLevel.stageKey);
+        }
+
+        const nextStageKey = nextMathCupStageKey(finishedLevel.stageKey, result);
+        if (!nextStageKey) {
+          state.mathCupCampaignWon = finishedLevel.stageKey === "final" && result.type === "win";
+          return false;
+        }
+
+        const nextLevel = createMathCupCampaignKnockoutLevel(nextStageKey);
+        if (!nextLevel) return false;
+        mathCupLevels.push(nextLevel);
+        state.mathCupGeneratedStages.add(nextStageKey);
+        return true;
       }
 
       function createMathCupOpponents(index) {
@@ -3921,7 +5587,7 @@
       function createMathCupProblem(schoolLevelIndex, matchIndex, challengeType, seed, lineIndex = 0) {
         const difficulty = Math.max(0, Math.min(mathCupLevelPlans.length - 1, schoolLevelIndex ?? 0));
         const actionBoost = { pass: 0, longPass: 1, dribble: 1, defense: 1, shot: 2 }[challengeType] || 0;
-        const phase = Math.min(4, Math.floor(matchIndex / 10) + Math.floor(lineIndex / 2) + actionBoost);
+        const phase = Math.min(4, Math.floor(lineIndex / 2) + actionBoost);
         const kindOffset = { pass: 1, longPass: 3, dribble: 5, defense: 6, shot: 8 }[challengeType] || 0;
         const kind = (seed + kindOffset + phase + lineIndex) % 6;
         let question;
@@ -4484,7 +6150,9 @@
         cupWrong: null,
         cupStudyTimer: null,
         mathCupStage: 0,
+        mathCupScreen: "intro",
         mathCupLevel: null,
+        mathCupTeamCode: null,
         mathCupPossession: "home",
         mathCupHolderId: "gk",
         mathCupOpponentHolderId: null,
@@ -4492,27 +6160,31 @@
         mathCupOpponentScore: 0,
         mathCupWins: 0,
         mathCupLosses: 0,
+        mathCupCampaignWon: false,
         mathCupRecoveryPlayerId: null,
-        mathCupMatchTimeLeft: MATH_CUP_CONFIG.learningTimes.matchSeconds,
+        mathCupMatchTimeLeft: MATH_CUP_CONFIG.matchSeconds,
         mathCupMatchStartedAt: 0,
         mathCupTimerId: null,
         mathCupOvertime: false,
         mathCupPlayer: [1, 3],
         mathCupChallenge: null,
-        mathCupChallengeTimeLeft: MATH_CUP_CONFIG.learningTimes.challengeSeconds,
+        mathCupChallengeTimeLeft: MATH_CUP_CONFIG.challengeSeconds,
         mathCupChallengeStartedAt: 0,
         mathCupChallengeTimerId: null,
-        mathCupDecisionTimeLeft: MATH_CUP_CONFIG.learningTimes.passDecisionSeconds,
+        mathCupDecisionTimeLeft: MATH_CUP_CONFIG.passDecisionSeconds,
         mathCupDecisionStartedAt: 0,
         mathCupDecisionTimerId: null,
         mathCupAttempt: 0,
         mathCupWrong: null,
         mathCupTrail: [],
         mathCupPassTargets: [],
-        mathCupPassSelected: 0,
+        mathCupPassSelected: -1,
         mathCupEnigmaSerial: 0,
         mathCupBreak: null,
         mathCupGoalPause: null,
+        mathCupStandings: createMathCupStandings(),
+        mathCupCompletedMatches: {},
+        mathCupGeneratedStages: new Set(),
         legacyGrade: null,
         legacyActivity: null,
         legacyGradeIndex: 0,
@@ -5262,6 +6934,9 @@
               ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress ? "done" : ""} ${index === state.legacyEchoProgress ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
             </div>
             <div class="analysis">Siga uma seta de cada vez.</div>
+            <div class="arrow-options">
+              ${["↑", "↓", "←", "→"].map((option) => `<div class="arrow-card">${option}</div>`).join("")}
+            </div>
             ${state.answerLocked ? pauseOverlay() : ""}
           </div>`;
           return;
@@ -5422,43 +7097,79 @@
         }, 1300);
       }
 
+      function menuItemById(id) {
+        const globalIndex = missionIndexById.get(id);
+        if (globalIndex === undefined) return null;
+        return {
+          ...missions[globalIndex],
+          globalIndex,
+        };
+      }
+
       function menuPageCount() {
-        return Math.ceil(missions.length / MISSIONS_PER_PAGE);
+        return missionCategories.length;
       }
 
       function currentMenuPage() {
-        return Math.floor(state.menu / MISSIONS_PER_PAGE);
+        const currentMissionId = missions[state.menu]?.id;
+        const categoryIndex = missionCategories.findIndex((category) =>
+          category.missionIds.includes(currentMissionId)
+        );
+        return Math.max(0, categoryIndex);
+      }
+
+      function menuItemsForPage(page) {
+        return (missionCategories[page]?.missionIds || [])
+          .map(menuItemById)
+          .filter(Boolean);
+      }
+
+      function selectMenuPage(page, localIndex = 0) {
+        const pageItems = menuItemsForPage(page);
+        if (!pageItems.length) return false;
+        const boundedIndex = Math.max(0, Math.min(localIndex, pageItems.length - 1));
+        state.menu = pageItems[boundedIndex].globalIndex;
+        return true;
       }
 
       function goToPreviousMenuPage() {
         const page = currentMenuPage();
         if (page === 0) return false;
-        state.menu = (page - 1) * MISSIONS_PER_PAGE;
+        selectMenuPage(page - 1);
+        render();
+        return true;
+      }
+
+      function goToNextMenuPage() {
+        const page = currentMenuPage();
+        if (page >= menuPageCount() - 1) return false;
+        selectMenuPage(page + 1);
         render();
         return true;
       }
 
       function currentMenuItems() {
-        const start = currentMenuPage() * MISSIONS_PER_PAGE;
-        return missions.slice(start, start + MISSIONS_PER_PAGE).map((item, index) => ({
-          ...item,
-          globalIndex: start + index,
-        }));
+        return menuItemsForPage(currentMenuPage());
       }
 
       function renderMenu() {
-        setHeader("Missões interdisciplinares", "Escolha uma missão.");
         const page = currentMenuPage();
+        const category = missionCategories[page];
         const pageItems = currentMenuItems();
-        setCounters("Página", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
-        status.textContent = "Missões em sequência.";
+        setHeader("Missões interdisciplinares", category.title);
+        setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
+        status.textContent = category.description;
         content.innerHTML = `<div class="menu">
-          ${pageItems.map((item) => `<div class="menu-card ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
+          ${pageItems.map((item) => `<div class="menu-card ${item.featured ? "featured" : ""} ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
             <div class="menu-icon">${state.completed[item.id] ? "✅" : item.icon}</div>
             <div class="menu-title">${item.title}</div>
             <div class="menu-meta">${item.subject}</div>
           </div>`).join("")}
-          <div class="menu-page">Página ${page + 1} de ${menuPageCount()}</div>
+          <div class="menu-page-controls">
+            <button class="menu-page-button" type="button" data-menu-page="prev" ${page === 0 ? "disabled" : ""}>‹</button>
+            <div class="menu-page">Categoria ${page + 1} de ${menuPageCount()}</div>
+            <button class="menu-page-button" type="button" data-menu-page="next" ${page >= menuPageCount() - 1 ? "disabled" : ""}>›</button>
+          </div>
         </div>`;
       }
 
@@ -5813,6 +7524,193 @@
         return '<div class="flag-art ' + className + '">' + flag + '</div>';
       }
 
+      const mathCupKitOptions = {
+        ar: [["#75AADB", "#FFFFFF", "#111827"], ["#1E2C65", "#75AADB", "#F4C542"], ["#111827", "#75AADB", "#FFFFFF"]],
+        at: [["#D21F2B", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#151515", "#D21F2B"]],
+        au: [["#F6C945", "#154C2E", "#111827"], ["#123C7C", "#F6C945"], ["#154C2E", "#F6C945"]],
+        ba: [["#1D5FD2", "#F6C945", "#FFFFFF"], ["#FFFFFF", "#1D5FD2"], ["#F6C945", "#1D5FD2"]],
+        be: [["#8A1024", "#F6C945", "#151515"], ["#9DD3F5", "#8A1024"], ["#151515", "#F6C945"]],
+        br: [["#F6C945", "#178B49", "#1D5FD2"], ["#1D5FD2", "#F6C945"], ["#151515", "#F6C945"]],
+        ca: [["#D21F2B", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#151515", "#D21F2B"]],
+        cd: [["#2F8CFF", "#F6C945", "#D21F2B"], ["#FFFFFF", "#2F8CFF"], ["#D21F2B", "#F6C945"]],
+        ch: [["#D21F2B", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#151515", "#D21F2B"]],
+        ci: [["#F28B22", "#178B49", "#FFFFFF"], ["#FFFFFF", "#F28B22"], ["#178B49", "#F28B22"]],
+        co: [["#F6C945", "#1D5FD2", "#D21F2B"], ["#172C63", "#F6C945"], ["#D21F2B", "#1D5FD2"]],
+        cv: [["#1D5FD2", "#FFFFFF", "#D21F2B"], ["#FFFFFF", "#1D5FD2"], ["#D21F2B", "#1D5FD2"]],
+        cw: [["#1D5FD2", "#F6C945", "#FFFFFF"], ["#F6C945", "#1D5FD2"], ["#FFFFFF", "#1D5FD2"]],
+        cz: [["#D21F2B", "#1D5FD2", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#1D5FD2", "#D21F2B"]],
+        de: [["#F7F7F0", "#151515", "#D21F2B"], ["#178B49", "#FFFFFF"], ["#151515", "#F6C945"]],
+        dz: [["#F7F7F0", "#178B49", "#D21F2B"], ["#178B49", "#FFFFFF"], ["#D21F2B", "#178B49"]],
+        ec: [["#F6C945", "#1D5FD2", "#D21F2B"], ["#172C63", "#F6C945"], ["#D21F2B", "#F6C945"]],
+        eg: [["#D21F2B", "#151515", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#151515", "#D21F2B"]],
+        es: [["#D21F2B", "#F6C945"], ["#9DD3F5", "#D21F2B"], ["#F6C945", "#D21F2B"]],
+        fr: [["#172C63", "#D21F2B", "#FFFFFF"], ["#FFFFFF", "#1D5FD2"], ["#9DD3F5", "#172C63"]],
+        "gb-eng": [["#F7F7F0", "#172C63", "#D21F2B"], ["#172C63", "#D21F2B"], ["#D21F2B", "#172C63"]],
+        "gb-sct": [["#173D7A", "#FFFFFF"], ["#FFFFFF", "#173D7A"], ["#5B2A86", "#FFFFFF"]],
+        gh: [["#F7F7F0", "#D21F2B", "#178B49"], ["#D21F2B", "#F6C945"], ["#178B49", "#F6C945"]],
+        hr: [["#D21F2B", "#FFFFFF", "#1D5FD2"], ["#172C63", "#D21F2B"], ["#151515", "#D21F2B"]],
+        ht: [["#1D5FD2", "#D21F2B"], ["#D21F2B", "#1D5FD2"], ["#FFFFFF", "#1D5FD2"]],
+        iq: [["#178B49", "#D21F2B", "#151515"], ["#FFFFFF", "#178B49"], ["#151515", "#D21F2B"]],
+        ir: [["#F7F7F0", "#178B49", "#D21F2B"], ["#D21F2B", "#FFFFFF"], ["#178B49", "#FFFFFF"]],
+        jo: [["#D21F2B", "#151515", "#178B49"], ["#FFFFFF", "#D21F2B"], ["#151515", "#178B49"]],
+        jp: [["#1D5FD2", "#D21F2B", "#FFFFFF"], ["#FFFFFF", "#1D5FD2"], ["#D94866", "#1D5FD2"]],
+        kr: [["#D94866", "#1D5FD2", "#151515"], ["#151515", "#D94866"], ["#FFFFFF", "#D94866"]],
+        ma: [["#D21F2B", "#178B49"], ["#FFFFFF", "#D21F2B"], ["#178B49", "#D21F2B"]],
+        mx: [["#178B49", "#D21F2B", "#FFFFFF"], ["#FFFFFF", "#178B49"], ["#151515", "#D21F2B"]],
+        nl: [["#F28B22", "#1D5FD2", "#FFFFFF"], ["#1D5FD2", "#F28B22"], ["#FFFFFF", "#F28B22"]],
+        no: [["#D21F2B", "#172C63", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#172C63", "#D21F2B"]],
+        nz: [["#F7F7F0", "#151515", "#123C7C"], ["#151515", "#FFFFFF"], ["#123C7C", "#FFFFFF"]],
+        pa: [["#D21F2B", "#1D5FD2", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#1D5FD2", "#D21F2B"]],
+        pt: [["#D21F2B", "#178B49", "#F6C945"], ["#FFFFFF", "#D21F2B"], ["#9DD3F5", "#D21F2B"]],
+        py: [["#D21F2B", "#1D5FD2", "#FFFFFF"], ["#172C63", "#D21F2B"], ["#FFFFFF", "#D21F2B"]],
+        qa: [["#7A1430", "#FFFFFF"], ["#FFFFFF", "#7A1430"], ["#151515", "#7A1430"]],
+        sa: [["#178B49", "#FFFFFF"], ["#FFFFFF", "#178B49"], ["#151515", "#178B49"]],
+        se: [["#F6C945", "#1D5FD2"], ["#1D5FD2", "#F6C945"], ["#172C63", "#F6C945"]],
+        sn: [["#F7F7F0", "#178B49", "#F6C945"], ["#178B49", "#F6C945"], ["#D21F2B", "#178B49"]],
+        tn: [["#F7F7F0", "#D21F2B"], ["#D21F2B", "#FFFFFF"], ["#151515", "#D21F2B"]],
+        tr: [["#D21F2B", "#FFFFFF"], ["#FFFFFF", "#D21F2B"], ["#151515", "#D21F2B"]],
+        us: [["#F7F7F0", "#123C7C", "#D21F2B"], ["#123C7C", "#D21F2B"], ["#D21F2B", "#123C7C"]],
+        uy: [["#75AADB", "#151515", "#FFFFFF"], ["#FFFFFF", "#75AADB"], ["#172C63", "#75AADB"]],
+        uz: [["#2F8CFF", "#178B49", "#FFFFFF"], ["#FFFFFF", "#2F8CFF"], ["#178B49", "#2F8CFF"]],
+        za: [["#F6C945", "#178B49", "#151515"], ["#178B49", "#F6C945"], ["#FFFFFF", "#178B49"]],
+      };
+
+      function normalizeHexColor(color) {
+        return String(color || "").trim().toUpperCase();
+      }
+
+      function hexToRgb(color) {
+        const normalized = normalizeHexColor(color).replace("#", "");
+        if (!/^[0-9A-F]{6}$/.test(normalized)) return { r: 39, g: 103, b: 216 };
+        return {
+          r: Number.parseInt(normalized.slice(0, 2), 16),
+          g: Number.parseInt(normalized.slice(2, 4), 16),
+          b: Number.parseInt(normalized.slice(4, 6), 16),
+        };
+      }
+
+      function rgbToHex({ r, g, b }) {
+        return `#${[r, g, b].map((value) =>
+          Math.round(Math.max(0, Math.min(255, value))).toString(16).padStart(2, "0")
+        ).join("")}`;
+      }
+
+      function mixHexColor(color, mixColor, amount) {
+        const base = hexToRgb(color);
+        const mix = hexToRgb(mixColor);
+        return rgbToHex({
+          r: base.r * (1 - amount) + mix.r * amount,
+          g: base.g * (1 - amount) + mix.g * amount,
+          b: base.b * (1 - amount) + mix.b * amount,
+        });
+      }
+
+      function colorLuminance(color) {
+        const { r, g, b } = hexToRgb(color);
+        const values = [r, g, b].map((value) => {
+          const channel = value / 255;
+          return channel <= 0.03928
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4;
+        });
+        return values[0] * 0.2126 + values[1] * 0.7152 + values[2] * 0.0722;
+      }
+
+      function readableInkForColor(color) {
+        return colorLuminance(color) > 0.55 ? "#07162F" : "#FFFDF2";
+      }
+
+      function colorShadow(color, alpha = 0.5) {
+        const dark = hexToRgb(mixHexColor(color, "#000000", 0.48));
+        return `rgba(${dark.r}, ${dark.g}, ${dark.b}, ${alpha})`;
+      }
+
+      function colorDistance(firstColor, secondColor) {
+        const first = hexToRgb(firstColor);
+        const second = hexToRgb(secondColor);
+        return Math.hypot(first.r - second.r, first.g - second.g, first.b - second.b);
+      }
+
+      function colorsTooClose(firstColor, secondColor) {
+        const bothLight = colorLuminance(firstColor) > 0.72 && colorLuminance(secondColor) > 0.72;
+        return bothLight || colorDistance(firstColor, secondColor) < 86;
+      }
+
+      function mathCupKitOptionsForFlag(flag) {
+        return mathCupKitOptions[flag] || [["#2767D8", "#F2A51F", "#FFFFFF"], ["#F7F7F0", "#2767D8"]];
+      }
+
+      function chooseMathCupAwayKit(homeKit, awayKits) {
+        return awayKits.find((kit) => !colorsTooClose(homeKit[0], kit[0])) || awayKits[0];
+      }
+
+      function chooseDifferentTeamColor(referenceColor, palette) {
+        const reference = normalizeHexColor(referenceColor);
+        return palette.find((color) => normalizeHexColor(color) !== reference) || mixHexColor(referenceColor, "#FFFFFF", 0.35);
+      }
+
+      function mathCupTeamColorSet(primaryColor, secondaryColor) {
+        const activeColor = mixHexColor(primaryColor, "#000000", colorLuminance(primaryColor) > 0.42 ? 0.2 : 0.08);
+        return {
+          primary: primaryColor,
+          primaryInk: readableInkForColor(primaryColor),
+          active: activeColor,
+          activeInk: readableInkForColor(activeColor),
+          secondary: secondaryColor,
+          secondaryInk: readableInkForColor(secondaryColor),
+          shadow: colorShadow(primaryColor),
+        };
+      }
+
+      function mathCupTeamColors(level) {
+        const homeKit = mathCupKitOptionsForFlag(level.flag)[0];
+        const awayKit = chooseMathCupAwayKit(homeKit, mathCupKitOptionsForFlag(level.opponent.flag));
+        const homePrimary = homeKit[0];
+        const homeSecondary = chooseDifferentTeamColor(homePrimary, homeKit.slice(1));
+        const awayPrimary = awayKit[0];
+        const awaySecondary = chooseDifferentTeamColor(awayPrimary, awayKit.slice(1));
+
+        return {
+          home: mathCupTeamColorSet(homePrimary, homeSecondary),
+          away: mathCupTeamColorSet(awayPrimary, awaySecondary),
+        };
+      }
+
+      function mathCupColorVariables(level) {
+        const colors = mathCupTeamColors(level);
+        return [
+          ["--math-cup-home-color", colors.home.primary],
+          ["--math-cup-home-ink", colors.home.primaryInk],
+          ["--math-cup-home-active", colors.home.active],
+          ["--math-cup-home-active-ink", colors.home.activeInk],
+          ["--math-cup-home-secondary", colors.home.secondary],
+          ["--math-cup-home-secondary-ink", colors.home.secondaryInk],
+          ["--math-cup-home-shadow", colors.home.shadow],
+          ["--math-cup-away-color", colors.away.primary],
+          ["--math-cup-away-ink", colors.away.primaryInk],
+          ["--math-cup-away-active", colors.away.active],
+          ["--math-cup-away-active-ink", colors.away.activeInk],
+          ["--math-cup-away-secondary", colors.away.secondary],
+          ["--math-cup-away-secondary-ink", colors.away.secondaryInk],
+          ["--math-cup-away-shadow", colors.away.shadow],
+        ].map(([name, value]) => `${name}:${value}`).join(";");
+      }
+
+      function mathCupPlayerRole(player) {
+        if (!player) return "Bola";
+        return player.role || "Jogador";
+      }
+
+      function mathCupPlayerSeed(player) {
+        if (!player) return 0;
+        const seedText = [player.id, player.role, player.line, player.x, player.y].join("|");
+        return Array.from(seedText).reduce((total, char) => total + char.charCodeAt(0), 0);
+      }
+
+      function mathCupPlayerDisplayLabel(player) {
+        return mathCupPlayerRole(player);
+      }
+
       function cupOptions() {
         const round = cupRounds[state.round];
         return orderAnswerOptions(round.choices, {
@@ -5831,7 +7729,7 @@
         if (state.cupPhase === "study") {
           content.innerHTML = `<div class="cup-board">
             <div class="cup-study">
-              <div class="cup-country">${round.country}</div>
+              <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
               ${flagArt(round.flag, "cup-study-flag")}
               <div class="cup-study-ball">⚽</div>
               <div class="study-track"><div class="study-fill"></div></div>
@@ -5843,14 +7741,14 @@
         const options = cupOptions();
         content.innerHTML = `<div class="cup-board">
           <div class="cup-question ${state.answerLocked ? "locked" : ""}">
-            <div class="cup-country">${round.country}</div>
+            <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
             <div class="cup-goals">
               ${options.map((flag, index) => `<div class="cup-goal ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""}">
                 ${flagArt(flag, "cup-flag")}
                 <div class="cup-ball">⚽</div>
               </div>`).join("")}
             </div>
-            ${state.answerLocked ? `<div class="cup-reminder">${flagArt(round.flag, "cup-reminder-flag")}<div>${round.country}</div></div>` : ""}
+            ${state.answerLocked ? `<div class="cup-reminder">${flagArt(round.flag, "cup-reminder-flag")}<div data-fit-text data-fit-min="10">${round.country}</div></div>` : ""}
           </div>
         </div>`;
       }
@@ -5881,6 +7779,10 @@
 
       function mathCupPlayersOnLine(line, level = currentMathCupLevel()) {
         return level.formation.filter((player) => player.line === line);
+      }
+
+      function mathCupPlayerByRole(role, level = currentMathCupLevel()) {
+        return level.formation.find((player) => player.role === role) || null;
       }
 
       function mathCupOpponentsOnLine(line, level = currentMathCupLevel()) {
@@ -5926,52 +7828,73 @@
       function clearMathCupPassTargets() {
         stopMathCupDecisionClock();
         state.mathCupPassTargets = [];
-        state.mathCupPassSelected = 0;
+        state.mathCupPassSelected = -1;
+      }
+
+      function applyMathCupPassTargets(targets) {
+        state.mathCupPassTargets = targets.map((target) => target.id);
+        state.mathCupPassSelected = -1;
+        startMathCupDecisionClock();
       }
 
       function setMathCupPassTargets() {
         const targets = mathCupPassOptions();
-        state.mathCupPassTargets = targets.map((target) => target.id);
-        state.mathCupPassSelected = 0;
-        if (targets.length > 0) {
-          startMathCupDecisionClock();
-        }
+        if (!targets.length) return false;
+        applyMathCupPassTargets(targets);
         return targets.length > 0;
       }
 
-      function resetMathCupAttack() {
-        const keeper = mathCupPlayerById("gk");
-        state.mathCupPossession = "home";
-        state.mathCupHolderId = keeper.id;
-        state.mathCupOpponentHolderId = null;
-        state.mathCupOpponentLine = null;
-        state.mathCupRecoveryPlayerId = null;
-        state.mathCupStage = keeper.line;
-        state.mathCupPlayer = [keeper.x, keeper.y];
+      function resetMathCupChallengeState({ resetSelection = true } = {}) {
         state.mathCupChallenge = null;
         state.mathCupAttempt = 0;
         state.mathCupWrong = null;
+        if (resetSelection) state.selected = -1;
+      }
+
+      function markMathCupTrail(player, { reset = false } = {}) {
+        const positionId = mathCupPositionId(player);
+        if (reset) {
+          state.mathCupTrail = [positionId];
+          return;
+        }
+        if (!state.mathCupTrail.includes(positionId)) {
+          state.mathCupTrail.push(positionId);
+        }
+      }
+
+      function setMathCupHomePossession(player, options = {}) {
+        state.mathCupPossession = "home";
+        state.mathCupHolderId = player.id;
+        state.mathCupOpponentHolderId = null;
+        state.mathCupOpponentLine = null;
+        state.mathCupRecoveryPlayerId = null;
+        state.mathCupStage = player.line;
+        state.mathCupPlayer = [player.x, player.y];
+        markMathCupTrail(player, options);
+      }
+
+      function setMathCupAwayPossession(opponent, opponentLine, recoveryPlayerId) {
+        state.mathCupPossession = "away";
+        state.mathCupOpponentLine = opponentLine;
+        state.mathCupOpponentHolderId = opponent.id;
+        state.mathCupRecoveryPlayerId = recoveryPlayerId;
+        state.mathCupStage = Math.min(finalMathCupStage(), opponentLine);
+        state.mathCupPlayer = [opponent.x, opponent.y];
+      }
+
+      function resetMathCupAttack(starterId = "gk") {
+        const starter = mathCupPlayerById(starterId);
+        setMathCupHomePossession(starter, { reset: true });
+        resetMathCupChallengeState();
         clearMathCupPassTargets();
         setMathCupPassTargets();
-        state.mathCupTrail = [mathCupPositionId(keeper)];
-        state.selected = -1;
       }
 
       function prepareMathCupPausedKickoff() {
         const keeper = mathCupPlayerById("gk");
-        state.mathCupPossession = "home";
-        state.mathCupHolderId = keeper.id;
-        state.mathCupOpponentHolderId = null;
-        state.mathCupOpponentLine = null;
-        state.mathCupRecoveryPlayerId = null;
-        state.mathCupStage = keeper.line;
-        state.mathCupPlayer = [keeper.x, keeper.y];
-        state.mathCupChallenge = null;
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
+        setMathCupHomePossession(keeper, { reset: true });
+        resetMathCupChallengeState();
         clearMathCupPassTargets();
-        state.mathCupTrail = [mathCupPositionId(keeper)];
-        state.selected = -1;
       }
 
       function stopMathCupClock() {
@@ -5997,9 +7920,7 @@
       }
 
       function mathCupTimeSettings(roundIndex = state.round) {
-        return roundIndex < MATH_CUP_CONFIG.learningMatches
-          ? MATH_CUP_CONFIG.learningTimes
-          : MATH_CUP_CONFIG;
+        return MATH_CUP_CONFIG;
       }
 
       function mathCupMatchSeconds() {
@@ -6016,6 +7937,23 @@
 
       function mathCupTimeLabel() {
         return state.mathCupOvertime ? "Prorrogação" : formatMathCupTime(state.mathCupMatchTimeLeft);
+      }
+
+      function isMathCupScoreSettled() {
+        return state.score !== state.mathCupOpponentScore;
+      }
+
+      function startMathCupOvertime(messageText = "⏱️ Último lance!") {
+        state.mathCupOvertime = true;
+        stopMathCupClock();
+        showMessage(messageText, 900, "info");
+        render();
+      }
+
+      function finishMathCupOvertimeIfSettled(messageText = "⏱️ Fim da partida!") {
+        if (!state.mathCupOvertime || !isMathCupScoreSettled()) return false;
+        finishMathCupMatch(messageText, state.score > state.mathCupOpponentScore ? "info" : "warn");
+        return true;
       }
 
       function tickMathCupClock() {
@@ -6035,16 +7973,32 @@
 
         state.mathCupMatchTimeLeft = remainingSeconds;
         if (remainingSeconds === 0) {
-          state.mathCupOvertime = true;
-          stopMathCupClock();
-          showMessage("⏱️ Prorrogação!", 900, "info");
+          startMathCupOvertime(isMathCupScoreSettled() ? "⏱️ Último lance!" : "⏱️ Prorrogação!");
+          return;
         }
         render();
+      }
+
+      function syncMathCupClock() {
+        if (!state.mathCupTimerId || state.mathCupOvertime) return;
+        const elapsedSeconds = Math.floor((Date.now() - state.mathCupMatchStartedAt) / 1000);
+        state.mathCupMatchTimeLeft = Math.max(0, mathCupMatchSeconds() - elapsedSeconds);
+      }
+
+      function pauseMathCupClock() {
+        syncMathCupClock();
+        stopMathCupClock();
+      }
+
+      function pauseMathCupClockForDecision() {
+        pauseMathCupClock();
       }
 
       function startMathCupClock() {
         stopMathCupClock();
         if (state.mathCupOvertime) return;
+        if (state.mathCupBreak || state.mathCupGoalPause) return;
+        if (isMathCupChoosingPass()) return;
         const elapsedSeconds = mathCupMatchSeconds() - state.mathCupMatchTimeLeft;
         state.mathCupMatchStartedAt = Date.now() - (elapsedSeconds * 1000);
         state.mathCupTimerId = window.setInterval(tickMathCupClock, 1000);
@@ -6070,6 +8024,7 @@
 
       function startMathCupDecisionClock() {
         stopMathCupDecisionClock();
+        pauseMathCupClockForDecision();
         state.mathCupDecisionTimeLeft = mathCupPassDecisionSeconds();
         state.mathCupDecisionStartedAt = Date.now();
         if (state.mode === "mathCup") {
@@ -6098,6 +8053,7 @@
 
       function startMathCupChallengeClock() {
         stopMathCupChallengeClock();
+        startMathCupClock();
         state.mathCupChallengeTimeLeft = mathCupChallengeSeconds();
         state.mathCupChallengeStartedAt = Date.now();
         state.mathCupChallengeTimerId = window.setInterval(tickMathCupChallengeClock, 250);
@@ -6121,9 +8077,15 @@
         resetMathCupClock();
       }
 
-      function mathCupMatchResult(homeScore = state.score, awayScore = state.mathCupOpponentScore) {
+      function mathCupMatchResult(homeScore = state.score, awayScore = state.mathCupOpponentScore, level = currentMathCupLevel()) {
         if (homeScore > awayScore) return { type: "win", label: "Vitória", icon: "🏆" };
         if (homeScore < awayScore) return { type: "loss", label: "Derrota", icon: "🥅" };
+        if (level?.stageKey && level.stageKey !== "groups") {
+          const winner = resolveMathCupWinner(level, homeScore, awayScore);
+          return winner === level.code
+            ? { type: "win", label: "Classificou", icon: "🏆" }
+            : { type: "loss", label: "Eliminado", icon: "🥅" };
+        }
         return { type: "draw", label: "Empate", icon: "⚽" };
       }
 
@@ -6142,7 +8104,7 @@
       }
 
       function mathCupHasWinningCampaign() {
-        return state.mathCupWins > state.mathCupLosses;
+        return state.mathCupCampaignWon;
       }
 
       function finishMathCupMatch(messageText, messageType = "info") {
@@ -6155,12 +8117,13 @@
         stopMathCupClock();
         stopMathCupChallengeClock();
         stopMathCupDecisionClock();
+        recordMathCupFixtureResult(finishedLevel, state.score, state.mathCupOpponentScore);
         breakData.result = recordMathCupResult();
+        extendMathCupCampaignIfNeeded(finishedLevel, breakData.result);
         state.round += 1;
         clearMathCupPassTargets();
-        state.mathCupChallenge = null;
+        resetMathCupChallengeState();
         state.mathCupGoalPause = null;
-        state.selected = -1;
         if (state.round >= mathCupLevels.length) {
           if (mathCupHasWinningCampaign()) {
             state.mathCupBreak = { kind: "final", ...breakData };
@@ -6182,14 +8145,14 @@
       }
 
       function pauseMathCupAfterGoal(type, recoveryPlayerId = null) {
-        stopMathCupClock();
+        pauseMathCupClock();
         stopMathCupChallengeClock();
         stopMathCupDecisionClock();
         clearMathCupPassTargets();
-        state.mathCupChallenge = null;
+        resetMathCupChallengeState();
         state.mathCupGoalPause = { type, recoveryPlayerId };
-        state.selected = -1;
-        showMessage(type === "home" ? "⚽ Gol!" : "🥅 Gol!", 700, type === "home" ? "good" : "bad");
+        const details = mathCupGoalPauseDetails();
+        showMessage(`⚽ ${details.title}!`, 700, type === "home" ? "good" : "bad");
         render();
       }
 
@@ -6207,7 +8170,7 @@
         const info = mathCupChallengeInfo[challenge.type];
         if ((challenge.type === "pass" || challenge.type === "longPass" || challenge.type === "dribble") && challenge.targetId) {
           const target = mathCupPlayerById(challenge.targetId);
-          return `${info.icon} ${info.label} ${target.number}`;
+          return `${info.icon} ${info.label}: ${mathCupPlayerRole(target)}`;
         }
         if (challenge.type === "defense" && challenge.opponentLine >= MATH_CUP_CONFIG.opponentGoalLine) {
           return `${info.icon} Defesa do goleiro`;
@@ -6217,7 +8180,6 @@
 
       function mathCupPassType(target) {
         const active = currentMathCupPlayer();
-        if (target.line >= finalMathCupStage()) return "dribble";
         return active.id === "gk" && target.line > active.line + 1 ? "longPass" : "pass";
       }
 
@@ -6225,17 +8187,133 @@
         return mathCupChallengeInfo[mathCupPassType(target)].label;
       }
 
+      function mathCupStageRiskBoost(level = currentMathCupLevel()) {
+        return MATH_CUP_CONFIG.stageRiskBoost[level?.stageKey] || 0;
+      }
+
+      function mathCupOpponentPressure(challenge = state.mathCupChallenge) {
+        const level = currentMathCupLevel();
+        if (!level) return 0;
+        const strengthGap = mathCupTeamStrength(level.opponent) - mathCupTeamStrength(level);
+        const actionBoost = {
+          pass: 0,
+          longPass: 0.05,
+          dribble: 0.03,
+          shot: 0.05,
+        }[challenge?.type] || 0;
+
+        return clampNumber(
+          (strengthGap / 260) + mathCupStageRiskBoost(level) + actionBoost,
+          -0.1,
+          MATH_CUP_CONFIG.maxRiskBoost
+        );
+      }
+
+      function mathCupRiskChance(baseChance, challenge) {
+        return clampNumber(baseChance + mathCupOpponentPressure(challenge), 0.03, 0.62);
+      }
+
+      function mathCupRiskRoll(label, chance, challenge) {
+        const random = seededRandom(seedFromParts(
+          label,
+          state.missionSeed,
+          state.round,
+          state.mathCupEnigmaSerial,
+          challenge?.holderId,
+          challenge?.targetId,
+          challenge?.type
+        ));
+        return random() < chance;
+      }
+
+      function mathCupChallengeRiskNote(challenge) {
+        if (!challenge) return "";
+        const notes = {
+          pass: "marcação",
+          longPass: "risco de corte",
+          dribble: "não vacile",
+          shot: "goleiro ligado",
+        };
+        return notes[challenge.type]
+          ? `<span class="math-cup-risk-note">${notes[challenge.type]}</span>`
+          : "";
+      }
+
+      function mathCupPassMissChance(challenge) {
+        const holder = mathCupPlayerById(challenge.holderId || state.mathCupHolderId);
+        const baseChance = challenge.type === "longPass"
+          ? MATH_CUP_CONFIG.longPassMissChance
+          : MATH_CUP_CONFIG.passMissChance;
+        const keeperBonus = holder?.line === 0 ? MATH_CUP_CONFIG.keeperLongPassMissBonus : 0;
+        return mathCupRiskChance(baseChance + keeperBonus, challenge);
+      }
+
+      function shouldMissMathCupPass(challenge) {
+        if (challenge.type !== "pass" && challenge.type !== "longPass") return false;
+        return mathCupRiskRoll("math-cup-pass-risk", mathCupPassMissChance(challenge), challenge);
+      }
+
+      function interceptedMathCupOpponentLine(challenge) {
+        const target = challenge.targetId ? mathCupPlayerById(challenge.targetId) : null;
+        const targetLine = target?.line ?? challenge.lineIndex ?? state.mathCupStage;
+        return mathCupOpponentLineForHomeLine(targetLine);
+      }
+
+      function interceptMathCupPass(challenge) {
+        showMessage("⚽ Interceptou!", 750, "warn");
+        startMathCupDefenseChallenge(
+          interceptedMathCupOpponentLine(challenge),
+          challenge.holderId || state.mathCupHolderId || "gk"
+        );
+      }
+
+      function shouldMissMathCupDribble(challenge) {
+        const chance = mathCupRiskChance(MATH_CUP_CONFIG.dribbleMissChance, challenge);
+        return mathCupRiskRoll("math-cup-dribble-risk", chance, challenge);
+      }
+
+      function loseMathCupDribble(challenge) {
+        showMessage("🛡️ Defesa!", 750, "warn");
+        startMathCupDefenseChallenge(
+          MATH_CUP_CONFIG.opponentDefenderRestartLine,
+          challenge.holderId || state.mathCupHolderId || "p9",
+          { preferredRole: "Zagueiro" }
+        );
+      }
+
+      function shouldSaveMathCupShot(challenge) {
+        const chance = mathCupRiskChance(MATH_CUP_CONFIG.shotSaveChance, challenge);
+        return mathCupRiskRoll("math-cup-shot-save-risk", chance, challenge);
+      }
+
+      function saveMathCupShot(challenge) {
+        showMessage("🧤 Defendeu!", 800, "warn");
+        startMathCupDefenseChallenge(
+          MATH_CUP_CONFIG.shotSaveRestartLine,
+          challenge.holderId || state.mathCupHolderId || "p9",
+          { preferredRole: "Zagueiro" }
+        );
+      }
+
       function mathCupStatusText() {
         const challenge = state.mathCupChallenge;
-        const prefix = state.mathCupOvertime ? "Prorrogação. " : "";
-        if (state.mathCupBreak) return "Aperte Enter para a próxima partida.";
-        if (state.mathCupGoalPause) return "Aperte Enter para continuar.";
+        const prefix = state.mathCupOvertime ? "⏱️ Prorrogação: " : "";
+        if (state.mathCupBreak) return "⏸️ Descanso: aperte Enter.";
+        if (state.mathCupGoalPause) {
+          const details = mathCupGoalPauseDetails();
+          return `${details.title}. ${details.nextPossessionLabel}: aperte Enter.`;
+        }
         if (challenge) return `${prefix}${mathCupChallengeTitle(challenge)}: escolha a resposta.`;
-        if (state.mathCupPossession === "away") return `${prefix}Defenda!`;
-        if (state.mathCupPassTargets.length) return "Escolha o companheiro.";
-        if (state.mathCupStage === 0) return `${prefix}Goleiro: escolha o passe.`;
-        if (isMathCupFinalStage()) return `${prefix}CHUTE!`;
-        return "Escolha o companheiro.";
+        if (state.mathCupPossession === "away") return `${prefix}🛡️ Defenda o gol.`;
+        if (state.mathCupPassTargets.length) {
+          const target = mathCupSelectedPassTarget();
+          return target
+            ? `${prefix}🎯 Passe para o jogador destacado.`
+            : `${prefix}🎯 Escolha o passe.`;
+        }
+        if (state.mathCupStage === 0) return `${prefix}🧤 Goleiro com a bola.`;
+        if (isMathCupFinalStage()) return `${prefix}⚡ Drible e chute!`;
+        return `${prefix}⚽ Seu time ataca.`;
       }
 
       function mathCupOpponentAt(position, level = currentMathCupLevel()) {
@@ -6250,15 +8328,15 @@
         const options = mathCupOptions();
         const timerPercent = Math.max(0, Math.min(100, Math.round((state.mathCupChallengeTimeLeft / mathCupChallengeSeconds()) * 100)));
         return `<div class="math-cup-challenge ${challenge.type} ${state.answerLocked ? "locked" : ""}">
-          <div class="math-cup-challenge-title">${mathCupChallengeTitle(challenge)}</div>
-          <div class="math-cup-question">${challenge.question}</div>
+          <div class="math-cup-challenge-title" data-fit-text data-fit-min="14">${mathCupChallengeTitle(challenge)} ${mathCupChallengeRiskNote(challenge)}</div>
+          <div class="math-cup-question" data-fit-text data-fit-min="18">${challenge.question}</div>
           <div class="math-cup-challenge-timer">
             <span>⏳</span>
             <div class="math-cup-timer-track"><div class="math-cup-timer-fill" style="width:${timerPercent}%"></div></div>
             <span>${state.mathCupChallengeTimeLeft}s</span>
           </div>
           <div class="math-cup-answers">
-            ${options.map((option, index) => `<div class="math-cup-answer ${index === state.selected ? "selected" : ""} ${state.mathCupWrong === index ? "wrong" : ""}">${option}</div>`).join("")}
+            ${options.map((option, index) => `<div class="math-cup-answer ${index === state.selected ? "selected" : ""} ${state.mathCupWrong === index ? "wrong" : ""}" data-fit-text data-fit-min="14">${option}</div>`).join("")}
           </div>
           ${state.answerLocked ? pauseOverlay(challenge.type === "defense" ? "⚽" : "🛡️") : ""}
         </div>`;
@@ -6266,30 +8344,91 @@
 
       function mathCupDecisionHtml() {
         const target = mathCupSelectedPassTarget();
-        const action = target ? mathCupChallengeInfo[mathCupPassType(target)] : mathCupChallengeInfo.pass;
+        const passType = target ? mathCupPassType(target) : "pass";
+        const action = mathCupChallengeInfo[passType];
         const timerPercent = Math.max(0, Math.min(100, Math.round((state.mathCupDecisionTimeLeft / mathCupPassDecisionSeconds()) * 100)));
-        return `<div class="math-cup-decision">
-          <div class="math-cup-decision-title">${action.icon} ${action.label}${target ? ` ${target.number}` : ""}</div>
+        return `<div class="math-cup-challenge idle">
+          <div class="math-cup-challenge-title" data-fit-text data-fit-min="14">🎯 Para quem vai?</div>
+          <div class="math-cup-question" data-fit-text data-fit-min="18">${target ? `${action.icon} ${action.label}: ${mathCupPlayerRole(target)}` : "🎯 Escolha quem recebe"}</div>
           <div class="math-cup-challenge-timer">
             <span>⏳</span>
             <div class="math-cup-timer-track"><div class="math-cup-timer-fill" style="width:${timerPercent}%"></div></div>
             <span>${state.mathCupDecisionTimeLeft}s</span>
           </div>
+          <div class="math-cup-answers">
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Olhe" : "Clique"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Pense" : "ou"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? mathCupPlayerRole(target) : "Setas"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? (passType === "longPass" ? "Arriscado" : "Seguro") : "Enter"}</div>
+          </div>
         </div>`;
       }
 
+      function mathCupIdleActionHtml(pauseDetails = null) {
+        const flow = mathCupFlowState(pauseDetails);
+        const timeLabel = pauseDetails || state.mathCupGoalPause ? "Parado" : mathCupTimeLabel();
+        return `<div class="math-cup-challenge idle">
+          <div class="math-cup-challenge-title" data-fit-text data-fit-min="14">${flow.title}</div>
+          <div class="math-cup-question" data-fit-text data-fit-min="16">${flow.detail}</div>
+          <div class="math-cup-challenge-timer">
+            <span>⏱️</span>
+            <div class="math-cup-timer-track"><div class="math-cup-timer-fill" style="width:${state.mathCupOvertime ? 100 : Math.round((state.mathCupMatchTimeLeft / mathCupMatchSeconds()) * 100)}%"></div></div>
+            <span>${timeLabel}</span>
+          </div>
+          <div class="math-cup-answers summary">
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${mathCupPlayerLabel()}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${mathCupActionLabel()}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${state.mathCupOvertime ? "Prorrogação" : "Jogo"}</div>
+          </div>
+        </div>`;
+      }
+
+      function mathCupActionAreaHtml(pauseDetails = null) {
+        const contentHtml = state.mathCupChallenge
+          ? mathCupChallengeHtml()
+          : isMathCupChoosingPass()
+            ? mathCupDecisionHtml()
+            : mathCupIdleActionHtml(pauseDetails);
+        return `<div class="math-cup-main-action">${contentHtml}</div>`;
+      }
+
+      function mathCupTeamForSide(side, level = currentMathCupLevel()) {
+        return side === "home" ? level : level.opponent;
+      }
+
+      function mathCupGoalPauseDetails(pause = state.mathCupGoalPause, level = currentMathCupLevel()) {
+        if (!pause) return null;
+        const isHomeGoal = pause.type === "home";
+        const scorer = mathCupTeamForSide(pause.type, level);
+        return {
+          side: pause.type,
+          scorer,
+          title: `Gol: ${scorer.country}`,
+          nextPossessionLabel: isHomeGoal ? "Adversário no meio" : "Zagueiro",
+          nextActionLabel: isHomeGoal ? "Defender" : "Saída",
+          nextDetail: isHomeGoal ? "Adversário sai jogando." : "Zagueiro sai jogando.",
+          nextFlag: isHomeGoal ? level.opponent.flag : level.flag,
+        };
+      }
+
       function mathCupGoalPauseHtml() {
-        const isHomeGoal = state.mathCupGoalPause?.type === "home";
-        return `<div class="math-cup-goal-pause ${isHomeGoal ? "home" : "away"}">
-          <div class="math-cup-goal-title">${isHomeGoal ? "⚽ Gol!" : "🥅 Gol do adversário!"}</div>
+        const details = mathCupGoalPauseDetails();
+        if (!details) return "";
+        return `<div class="math-cup-goal-pause ${details.side}">
+          ${flagArt(details.scorer.flag, "math-cup-goal-flag")}
+          <div class="math-cup-goal-text">
+            <div class="math-cup-goal-title">⚽ Gol!</div>
+            <div class="math-cup-goal-team" data-fit-text data-fit-min="12">${details.scorer.country}</div>
+            <div class="math-cup-goal-next" data-fit-text data-fit-min="9">${details.nextDetail}</div>
+          </div>
           <div class="math-cup-goal-action">Enter</div>
         </div>`;
       }
 
-      function mathCupPlayerHtml(player, classNames, includeBall = false, level = currentMathCupLevel(), ballFlag = level.flag) {
-        return `<div class="math-cup-player ${classNames}">
+      function mathCupPlayerHtml(player, classNames, includeBall = false, level = currentMathCupLevel(), ballFlag = level.flag, badge = "") {
+        return `<div class="math-cup-player ${classNames}" data-player-id="${player.id}">
+          ${badge ? `<span class="math-cup-player-badge">${badge}</span>` : ""}
           <span class="math-cup-avatar">${player.icon}</span>
-          <span class="math-cup-player-number">${player.number}</span>
           ${includeBall ? `${flagArt(ballFlag, "math-cup-player-flag")}<span class="math-cup-ball">⚽</span>` : ""}
         </div>`;
       }
@@ -6314,16 +8453,24 @@
           && activeOpponent.y === y;
         const classes = ["math-cup-cell"];
         const targetIndex = teammate ? state.mathCupPassTargets.indexOf(teammate.id) : -1;
+        const targetType = targetIndex >= 0 ? mathCupPassType(teammate) : null;
+        const targetBadge = {
+          pass: "PASSE",
+          longPass: "LONGO",
+          dribble: "DRIBLE",
+        }[targetType] || "";
         const targetClasses = targetIndex >= 0
-          ? `target pass-target ${mathCupPassType(teammate) === "longPass" ? "long-pass-target" : ""} ${targetIndex === state.mathCupPassSelected ? "pass-selected" : ""}`
+          ? `target pass-target ${targetType === "longPass" ? "long-pass-target" : ""} ${targetIndex === state.mathCupPassSelected ? "pass-selected" : ""}`
           : "";
         if (state.mathCupTrail.includes(id)) classes.push("trail");
+        if (targetIndex >= 0) classes.push("pass-target-cell");
+        const targetData = targetIndex >= 0 ? ` data-player-id="${teammate.id}"` : "";
 
-        return `<div class="${classes.join(" ")}">
-          ${teammate ? mathCupPlayerHtml(teammate, `${teammate.line === 0 ? "keeper" : ""} ${targetClasses}`) : ""}
-          ${opponent && !isAwayActive ? mathCupPlayerHtml(opponent, "opponent") : ""}
-          ${isAwayActive ? mathCupPlayerHtml(activeOpponent, "opponent active", true, level, level.opponent.flag) : ""}
-          ${isHomeActive ? mathCupPlayerHtml(activeHome, `active ${activeHome.line === 0 ? "keeper" : ""}`, true, level) : ""}
+        return `<div class="${classes.join(" ")}"${targetData}>
+          ${teammate ? mathCupPlayerHtml(teammate, `${teammate.line === 0 ? "keeper" : ""} ${targetClasses}`, false, level, level.flag, targetBadge) : ""}
+          ${opponent && !isAwayActive ? mathCupPlayerHtml(opponent, `opponent ${opponent.line === 0 ? "keeper" : ""}`) : ""}
+          ${isAwayActive ? mathCupPlayerHtml(activeOpponent, `opponent active ${activeOpponent.line === 0 ? "keeper" : ""}`, true, level, level.opponent.flag, "BOLA") : ""}
+          ${isHomeActive ? mathCupPlayerHtml(activeHome, `active ${activeHome.line === 0 ? "keeper" : ""}`, true, level, level.flag, "BOLA") : ""}
         </div>`;
       }
 
@@ -6334,7 +8481,7 @@
             cells.push(renderMathCupCell(level, x, y));
           }
         }
-        return `<div class="math-cup-field">
+        return `<div class="math-cup-field" style="${mathCupColorVariables(level)}">
           ${flagArt(level.flag, "math-cup-corner-flag home")}
           ${flagArt(level.opponent.flag, "math-cup-corner-flag away")}
           <div class="math-cup-penalty-box home"></div>
@@ -6347,51 +8494,187 @@
 
       function mathCupPlayerLabel() {
         if (state.mathCupPossession === "away") {
-          const opponent = currentMathCupOpponentPlayer();
-          return opponent?.line === 0
-            ? "Goleiro 1"
-            : `Adversário ${opponent?.number || ""}`.trim();
+          return mathCupPlayerDisplayLabel(currentMathCupOpponentPlayer());
         }
-        const player = currentMathCupPlayer();
-        return player.line === 0 ? "Goleiro 1" : `Jogador ${player.number}`;
+        return mathCupPlayerDisplayLabel(currentMathCupPlayer());
+      }
+
+      function mathCupGoalPauseMomentLabel() {
+        const details = mathCupGoalPauseDetails();
+        return details ? `⚽ ${details.title}` : null;
+      }
+
+      function mathCupBreakMomentLabel(pauseDetails = state.mathCupBreak) {
+        if (!pauseDetails) return null;
+        if (pauseDetails.kind === "final") return "🏆 Final";
+        if (pauseDetails.result) return `${pauseDetails.result.icon} ${pauseDetails.result.label}`;
+        return "⏸️ Descanso";
+      }
+
+      function mathCupPausedMomentLabel(pauseDetails = null) {
+        return mathCupBreakMomentLabel(pauseDetails || state.mathCupBreak)
+          || mathCupGoalPauseMomentLabel()
+          || "⏸️ Pausa";
+      }
+
+      function mathCupPossessionPanelTitle(pauseDetails = null) {
+        if (state.mathCupGoalPause) return "Próximo lance";
+        if (pauseDetails?.kind === "final" || state.mathCupBreak?.kind === "final") return "Copa";
+        if (pauseDetails?.kind === "match" || state.mathCupBreak?.kind === "match") return "Depois";
+        if (pauseDetails || state.mathCupBreak) return "Pausa";
+        return "Quem joga";
+      }
+
+      function mathCupPausedPossessionLabel(pauseDetails = null) {
+        const breakDetails = pauseDetails || state.mathCupBreak;
+        const goalDetails = mathCupGoalPauseDetails();
+        if (goalDetails) return goalDetails.nextPossessionLabel;
+        if (breakDetails?.kind === "final") return "Fim da copa";
+        if (breakDetails?.kind === "match") return "Próximo jogo";
+        if (breakDetails) return "Descanso";
+        return null;
+      }
+
+      function mathCupPossessionPanelLabel(pauseDetails = null) {
+        return mathCupPausedPossessionLabel(pauseDetails) || mathCupPlayerLabel();
       }
 
       function mathCupActionLabel() {
-        if (state.mathCupGoalPause) return "Pausa";
+        const goalDetails = mathCupGoalPauseDetails();
+        if (goalDetails) return goalDetails.nextActionLabel;
+        if (state.mathCupBreak) return state.mathCupBreak.result?.label || "Descanso";
         if (state.mathCupChallenge) return mathCupChallengeInfo[state.mathCupChallenge.type]?.label || "Jogo";
         if (state.mathCupPossession === "away") return "Defender";
-        if (isMathCupFinalStage()) return "Chute";
+        if (isMathCupFinalStage()) return "Drible";
         const target = mathCupSelectedPassTarget();
+        if (state.mathCupPassTargets.length && !target) return "Escolha";
         return target ? mathCupPassLabel(target) : "Passe";
+      }
+
+      function mathCupMomentLabel(pauseDetails = null) {
+        if (pauseDetails || state.mathCupBreak || state.mathCupGoalPause) return mathCupPausedMomentLabel(pauseDetails);
+        if (state.mathCupChallenge?.type === "shot") return "🥅 Chute";
+        if (state.mathCupChallenge?.type === "dribble") return "⚡ Drible";
+        if (state.mathCupChallenge?.type === "defense" || state.mathCupPossession === "away") return "🛡️ Defesa";
+        if (state.mathCupPassTargets.length) return "🎯 Passe";
+        if (isMathCupFinalStage()) return "⚡ Ataque";
+        return "⚽ Ataque";
+      }
+
+      function mathCupPossessionSideClass(pauseDetails = null) {
+        if (state.mathCupGoalPause) return state.mathCupGoalPause.type === "home" ? "away" : "home";
+        if (pauseDetails || state.mathCupBreak) return "pause";
+        return state.mathCupPossession === "away" ? "away" : "home";
+      }
+
+      function mathCupMomentClass(pauseDetails = null) {
+        if (pauseDetails || state.mathCupBreak || state.mathCupGoalPause) return "pause";
+        return state.mathCupPossession === "away" || state.mathCupChallenge?.type === "defense"
+          ? "defense"
+          : "attack";
+      }
+
+      function mathCupPossessionFlag(level, pauseDetails = null) {
+        const goalDetails = mathCupGoalPauseDetails(state.mathCupGoalPause, level);
+        if (goalDetails) return goalDetails.nextFlag;
+        if (pauseDetails?.next?.flag) return pauseDetails.next.flag;
+        if (pauseDetails || state.mathCupBreak) return level.flag;
+        return state.mathCupPossession === "away" ? level.opponent.flag : level.flag;
       }
 
       function mathCupScoreboardHtml(level) {
         return `<div class="math-cup-scoreboard">
           <div class="math-cup-score-team">
             ${flagArt(level.flag, "math-cup-score-flag")}
-            <div class="math-cup-score-name">${level.country}</div>
+            <div class="math-cup-score-name" data-fit-text data-fit-min="8">${level.country}</div>
             <div class="math-cup-score-value">${state.score}</div>
           </div>
           <div class="math-cup-score-separator">×</div>
           <div class="math-cup-score-team">
             ${flagArt(level.opponent.flag, "math-cup-score-flag")}
-            <div class="math-cup-score-name">${level.opponent.country}</div>
+            <div class="math-cup-score-name" data-fit-text data-fit-min="8">${level.opponent.country}</div>
             <div class="math-cup-score-value">${state.mathCupOpponentScore}</div>
           </div>
         </div>`;
+      }
+
+      function mathCupFlowState(pauseDetails = null) {
+        if (pauseDetails || state.mathCupBreak || state.mathCupGoalPause) {
+          const title = mathCupPausedMomentLabel(pauseDetails);
+          const goalDetails = mathCupGoalPauseDetails();
+          const detail = goalDetails
+            ? goalDetails.nextDetail
+            : pauseDetails?.kind === "match"
+              ? "Próxima partida."
+              : "Aperte Enter.";
+          return {
+            kind: "pause",
+            title,
+            detail,
+          };
+        }
+
+        const challenge = state.mathCupChallenge;
+        if (state.mathCupPossession === "away" || challenge?.type === "defense") {
+          const opponent = currentMathCupOpponentPlayer();
+          return {
+            kind: "danger",
+            title: "🛡️ Atenção!",
+            detail: opponent?.line > 0 ? `Marque o ${mathCupPlayerRole(opponent)}!` : "Recupere a bola!",
+          };
+        }
+
+        if (challenge?.type === "shot") {
+          return {
+            kind: "attack",
+            title: "🥅 É para o gol!",
+            detail: "Vale gol!",
+          };
+        }
+
+        if (challenge?.type === "dribble" || isMathCupFinalStage()) {
+          return {
+            kind: "attack",
+            title: "⚡ Drible agora!",
+            detail: "Depois é chute!",
+          };
+        }
+
+        if (challenge) {
+          return {
+            kind: "attack",
+            title: "⚽ Bola rolando",
+            detail: `${mathCupChallengeInfo[challenge.type]?.label || "Lance"} valendo!`,
+          };
+        }
+
+        if (state.mathCupPassTargets.length) {
+          const target = mathCupSelectedPassTarget();
+          return {
+            kind: "attack",
+            title: "🎯 Passe!",
+            detail: target ? "Mire no destaque." : "Escolha quem recebe.",
+          };
+        }
+
+        return {
+          kind: "attack",
+          title: "⚽ Vamos jogar",
+          detail: `${mathCupPlayerLabel()} no lance.`,
+        };
       }
 
       function mathCupBreakScoreboardHtml(details) {
         return `<div class="math-cup-scoreboard">
           <div class="math-cup-score-team">
             ${flagArt(details.home.flag, "math-cup-score-flag")}
-            <div class="math-cup-score-name">${details.home.country}</div>
+            <div class="math-cup-score-name" data-fit-text data-fit-min="8">${details.home.country}</div>
             <div class="math-cup-score-value">${details.home.score}</div>
           </div>
           <div class="math-cup-score-separator">×</div>
           <div class="math-cup-score-team">
             ${flagArt(details.away.flag, "math-cup-score-flag")}
-            <div class="math-cup-score-name">${details.away.country}</div>
+            <div class="math-cup-score-name" data-fit-text data-fit-min="8">${details.away.country}</div>
             <div class="math-cup-score-value">${details.away.score}</div>
           </div>
         </div>`;
@@ -6401,27 +8684,34 @@
         return `<div class="math-cup-next-match">
           <span>Próximo</span>
           ${flagArt(next.flag, "math-cup-score-flag")}
-          <span>${next.country}</span>
+          <span data-fit-text data-fit-min="10">${next.country}</span>
           <span>×</span>
           ${flagArt(next.opponent.flag, "math-cup-score-flag")}
-          <span>${next.opponent.country}</span>
+          <span data-fit-text data-fit-min="10">${next.opponent.country}</span>
         </div>`;
       }
 
-      function mathCupPanelHtml(level, pauseDetails = null) {
-        return `<div class="math-cup-panel">
+      function mathCupLeftPanelHtml(level, pauseDetails = null) {
+        return `<div class="math-cup-panel math-cup-left-panel">
           ${pauseDetails ? mathCupBreakScoreboardHtml(pauseDetails) : mathCupScoreboardHtml(level)}
           <div class="math-cup-stat">
             <div class="math-cup-stat-label">⏱️ Tempo</div>
-            <div class="math-cup-stat-value">${pauseDetails ? "Parado" : mathCupTimeLabel()}</div>
+            <div class="math-cup-stat-value" data-fit-text data-fit-min="12">${pauseDetails ? "Parado" : mathCupTimeLabel()}</div>
           </div>
-          <div class="math-cup-stat">
-            <div class="math-cup-stat-label">👤 Jogador</div>
-            <div class="math-cup-stat-value">${pauseDetails ? "Descanso" : mathCupPlayerLabel()}</div>
+        </div>`;
+      }
+
+      function mathCupRightPanelHtml(level, pauseDetails = null) {
+        const possessionClass = mathCupPossessionSideClass(pauseDetails);
+        const momentClass = mathCupMomentClass(pauseDetails);
+        return `<div class="math-cup-panel math-cup-right-panel">
+          <div class="math-cup-stat math-cup-spotlight-stat ${possessionClass}">
+            <div class="math-cup-stat-label with-flag">${flagArt(mathCupPossessionFlag(level, pauseDetails), "math-cup-score-flag")}<span>${mathCupPossessionPanelTitle(pauseDetails)}</span></div>
+            <div class="math-cup-stat-value" data-fit-text data-fit-min="12">${mathCupPossessionPanelLabel(pauseDetails)}</div>
           </div>
-          <div class="math-cup-stat">
-            <div class="math-cup-stat-label">⚽ Ação</div>
-            <div class="math-cup-stat-value">${pauseDetails ? "Enter" : mathCupActionLabel()}</div>
+          <div class="math-cup-stat math-cup-moment-stat ${momentClass}">
+            <div class="math-cup-stat-label">🎬 Momento</div>
+            <div class="math-cup-stat-value" data-fit-text data-fit-min="12">${mathCupMomentLabel(pauseDetails)}</div>
           </div>
         </div>`;
       }
@@ -6463,26 +8753,134 @@
             ${mathCupNextMatchHtml(details.next)}
             <div class="math-cup-break-action">Enter</div>
           </div>
+          </div>`;
+      }
+
+      function mathCupTeamChoiceCardHtml(team, index) {
+        return `<div class="math-cup-team-card ${index === state.selected ? "selected" : ""}">
+          ${flagArt(team.flag, "math-cup-team-flag")}
+          <div class="math-cup-team-name" data-fit-text data-fit-min="9">${team.country}</div>
+        </div>`;
+      }
+
+      function mathCupTeamChoiceGroupsHtml() {
+        let index = 0;
+        return mathCupTeamChoiceGroups().map((group) => {
+          const cards = group.teams.map((team) => {
+            const card = mathCupTeamChoiceCardHtml(team, index);
+            index += 1;
+            return card;
+          }).join("");
+          return `<div class="math-cup-team-group-title">${group.title}</div>${cards}`;
+        }).join("");
+      }
+
+      function mathCupMiniFieldHtml() {
+        return `<div class="math-cup-mini-field" aria-hidden="true">
+          <div class="math-cup-mini-player ball" style="left:12%; top:44%">⚽</div>
+          <div class="math-cup-mini-player" style="left:24%; top:24%">🛡️</div>
+          <div class="math-cup-mini-player" style="left:42%; top:48%">🎯</div>
+          <div class="math-cup-mini-player" style="left:63%; top:29%">⭐</div>
+          <div class="math-cup-mini-player away" style="left:76%; top:45%">🧤</div>
+        </div>`;
+      }
+
+      function renderMathCupIntro() {
+        setHeader("Copa da Matemática", "Projeto destaque");
+        setCounters("Projeto", "Destaque", "Modo", "Feira");
+        status.textContent = "Futebol, estratégia e cálculo mental.";
+        content.innerHTML = `<div class="math-cup-showcase">
+          <section class="math-cup-hero-panel">
+            <div class="math-cup-showcase-kicker">Experiência principal</div>
+            <div class="math-cup-showcase-title" data-fit-text data-fit-min="28">Copa da Matemática</div>
+            <div class="math-cup-showcase-text">
+              Escolha uma seleção, pense nos passes, resolva enigmas e faça o gol no adversário usando matemática.
+            </div>
+            <div class="math-cup-showcase-points">
+              <div class="math-cup-showcase-point">🧠 Cálculo mental</div>
+              <div class="math-cup-showcase-point">🎯 Decisão rápida</div>
+              <div class="math-cup-showcase-point">⚽ Estratégia</div>
+              <div class="math-cup-showcase-point">📊 Probabilidade</div>
+            </div>
+            <div class="math-cup-showcase-actions">
+              <button class="math-cup-intro-action ${state.selected === 0 ? "selected" : ""}" type="button">▶️ Jogar</button>
+              <button class="math-cup-intro-action secondary ${state.selected === 1 ? "selected" : ""}" type="button">💡 Como funciona</button>
+            </div>
+          </section>
+          <aside class="math-cup-teacher-panel">
+            ${mathCupMiniFieldHtml()}
+            <div class="math-cup-showcase-text">
+              Uma atividade de feira com cara de jogo: a criança calcula, escolhe e acompanha as consequências de cada lance.
+            </div>
+          </aside>
+        </div>`;
+      }
+
+      function renderMathCupInfo() {
+        setHeader("Copa da Matemática", "Como funciona");
+        setCounters("Ideia", "Jogo", "Aprende", "Pensando");
+        status.textContent = "Explicação da missão para alunos, professores e visitantes.";
+        content.innerHTML = `<div class="math-cup-info-view">
+          <section class="math-cup-info-panel">
+            <div class="math-cup-info-title">Matemática em campo</div>
+            <div class="math-cup-info-text">
+              A cada passe, drible, defesa ou chute, a criança resolve um enigma matemático. O jogo mistura cálculo mental, leitura da situação e tomada de decisão.
+            </div>
+            <div class="math-cup-info-grid">
+              <div class="math-cup-info-item">➕ Operações<br><span>somar, tirar, multiplicar e dividir</span></div>
+              <div class="math-cup-info-item">🧩 Lógica<br><span>sequências, padrões e escolhas</span></div>
+              <div class="math-cup-info-item">🎲 Probabilidade<br><span>passes, dribles e defesas têm risco</span></div>
+              <div class="math-cup-info-item">🧭 Estratégia<br><span>decidir o melhor caminho até o gol</span></div>
+            </div>
+            <div class="math-cup-info-text">
+              A dificuldade cresce de forma progressiva e pode ser escolhida por faixa etária sugerida, sem prender a atividade a uma turma específica.
+            </div>
+            <div class="math-cup-info-actions">
+              <button class="math-cup-info-action ${state.selected === 0 ? "selected" : ""}" type="button">▶️ Jogar agora</button>
+              <button class="math-cup-info-action secondary ${state.selected === 1 ? "selected" : ""}" type="button">↩️ Voltar</button>
+            </div>
+          </section>
+        </div>`;
+      }
+
+      function renderMathCupLevels() {
+        setHeader("Copa da Matemática", "Escolha seu ritmo.");
+        setCounters("Faixa", `${state.selected + 1} / ${mathCupLevelPlans.length}`, "Copa", "Campanha");
+        status.textContent = "Escolha uma faixa sugerida para a campanha.";
+        content.innerHTML = `<div class="level-select level-count-${mathCupLevelPlans.length}">
+          ${mathCupLevelPlans.map((level, index) => levelCardHtml({
+            index,
+            total: mathCupLevelPlans.length,
+            selected: index === state.selected,
+            icon: level.icon,
+            title: level.title,
+            badge: level.age,
+            kicker: level.theme,
+            meta: level.meta,
+            preview: level.preview,
+          })).join("")}
         </div>`;
       }
 
       function renderMathCup() {
         if (state.mathCupLevel === null) {
-          setHeader("Copa da Matemática", "Escolha um nível.");
-          setCounters("Nível", `${state.selected + 1} / ${mathCupLevelPlans.length}`, "Jogos", "50");
-          status.textContent = "A série escolhida vale para a copa inteira.";
-          content.innerHTML = `<div class="level-select level-count-${mathCupLevelPlans.length}">
-            ${mathCupLevelPlans.map((level, index) => levelCardHtml({
-              index,
-              total: mathCupLevelPlans.length,
-              selected: index === state.selected,
-              icon: level.icon,
-              title: level.title,
-              badge: level.grade,
-              kicker: level.theme,
-              meta: level.meta,
-              preview: level.preview,
-            })).join("")}
+          if (state.mathCupScreen === "info") {
+            renderMathCupInfo();
+          } else if (state.mathCupScreen === "levels") {
+            renderMathCupLevels();
+          } else {
+            renderMathCupIntro();
+          }
+          return;
+        }
+
+        if (state.mathCupTeamCode === null) {
+          const teams = mathCupTeamChoices();
+          setHeader("Copa da Matemática", "Escolha sua seleção.");
+          setCounters("Seleção", `${state.selected + 1} / ${teams.length}`, "Campanha", "3+");
+          status.textContent = "Escolha a seleção da sua campanha.";
+          content.innerHTML = `<div class="math-cup-team-select">
+            ${mathCupTeamChoiceGroupsHtml()}
           </div>`;
           return;
         }
@@ -6493,25 +8891,21 @@
         }
         const level = currentMathCupLevel();
         const breakDetails = state.mathCupBreak;
-        const schoolLevel = mathCupLevelPlans[state.mathCupLevel];
-        const choosingPass = isMathCupChoosingPass();
-        setHeader("Copa da Matemática", breakDetails || state.mathCupGoalPause ? "Aperte Enter." : state.mathCupChallenge ? mathCupChallengeTitle() : `${schoolLevel.title}: ${schoolLevel.grade}`);
+        const matchStageLabel = level.group ? `${level.stage} ${level.group}` : level.stage;
+        setHeader("Copa da Matemática", breakDetails || state.mathCupGoalPause ? "Aperte Enter." : state.mathCupChallenge ? mathCupChallengeTitle() : matchStageLabel);
         setCounters("Jogo", `${state.round + 1} / ${mathCupLevels.length}`, "Vitórias x Derrotas", mathCupRecordLabel());
         status.textContent = mathCupStatusText();
         const boardClasses = [
           "math-cup-board",
-          state.mathCupChallenge ? "has-challenge" : "",
-          choosingPass ? "has-decision" : "",
-          breakDetails ? "is-paused" : "",
           state.mathCupPossession === "home" && isMathCupFinalStage() && !state.mathCupChallenge ? "final-play" : "",
         ].filter(Boolean).join(" ");
-        content.innerHTML = `<div class="${boardClasses}">
+        content.innerHTML = `<div class="${boardClasses}" style="${mathCupColorVariables(level)}">
+          ${mathCupLeftPanelHtml(level, breakDetails)}
           ${renderMathCupField(level)}
-          ${state.mathCupChallenge ? mathCupChallengeHtml() : ""}
-          ${choosingPass ? mathCupDecisionHtml() : ""}
+          ${mathCupRightPanelHtml(level, breakDetails)}
+          ${mathCupActionAreaHtml(breakDetails)}
           ${breakDetails ? mathCupBreakOverlayHtml(breakDetails) : ""}
           ${state.mathCupGoalPause ? mathCupGoalPauseHtml() : ""}
-          ${mathCupPanelHtml(level, breakDetails)}
         </div>`;
       }
 
@@ -6526,12 +8920,80 @@
         mathCup: renderMathCup,
       };
 
+      function textFitsBox(element) {
+        return element.scrollWidth <= element.clientWidth + 1
+          && element.scrollHeight <= element.clientHeight + 1;
+      }
+
+      function fitTextElement(element) {
+        if (!window.getComputedStyle || !element.clientWidth || !element.clientHeight) return;
+        element.style.fontSize = "";
+        const computedSize = Number.parseFloat(window.getComputedStyle(element).fontSize);
+        if (!Number.isFinite(computedSize)) return;
+
+        const minSize = Number.parseFloat(element.dataset.fitMin || "10");
+        const maxSize = Number.parseFloat(element.dataset.fitMax || String(computedSize));
+        let size = Math.min(computedSize, maxSize);
+        element.style.fontSize = `${size}px`;
+
+        while (size > minSize && !textFitsBox(element)) {
+          size -= 0.5;
+          element.style.fontSize = `${Math.max(size, minSize)}px`;
+        }
+      }
+
+      function fitTextElements(root = content) {
+        const elements = [
+          ...(root.matches?.("[data-fit-text]") ? [root] : []),
+          ...root.querySelectorAll("[data-fit-text]"),
+        ];
+        elements.forEach(fitTextElement);
+      }
+
+      function scheduleTextFit() {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(() => fitTextElements());
+          return;
+        }
+        fitTextElements();
+      }
+
       function render() {
         const renderer = isLevelMission(state.mode)
           ? renderLevels
           : missionRenderers[state.mode] || renderMenu;
         renderer();
-        hint.textContent = KEYBOARD_HELP;
+        scheduleTextFit();
+      }
+
+      function resetMathCupCampaignState({
+        resetLevel = false,
+        resetTeam = false,
+        resetSchedule = false,
+      } = {}) {
+        if (resetSchedule) mathCupLevels = createMathCupSchedule();
+        if (resetLevel) {
+          state.mathCupLevel = null;
+          state.mathCupScreen = "intro";
+        }
+        if (resetTeam) state.mathCupTeamCode = null;
+        resetMathCupChallengeState({ resetSelection: false });
+        state.mathCupChallengeTimeLeft = mathCupChallengeSeconds();
+        state.mathCupChallengeStartedAt = 0;
+        state.mathCupDecisionTimeLeft = mathCupPassDecisionSeconds();
+        state.mathCupDecisionStartedAt = 0;
+        state.mathCupOpponentScore = 0;
+        state.mathCupWins = 0;
+        state.mathCupLosses = 0;
+        state.mathCupCampaignWon = false;
+        state.mathCupRecoveryPlayerId = null;
+        state.mathCupEnigmaSerial = 0;
+        state.mathCupBreak = null;
+        state.mathCupGoalPause = null;
+        state.mathCupStandings = createMathCupStandings();
+        state.mathCupCompletedMatches = {};
+        state.mathCupGeneratedStages = new Set();
+        clearMathCupPassTargets();
       }
 
       function reset(mode = state.mode) {
@@ -6539,9 +9001,6 @@
         state.mode = mode;
         state.missionSeed = createRunSeed(mode);
         resetMissionRoundPools(mode, state.missionSeed);
-        if (mode === "mathCup") {
-          mathCupLevels = createMathCupSchedule();
-        }
         resetRoundState(initialSelectionForMode(mode));
         state.logicHint = false;
         state.logicWrong = null;
@@ -6558,22 +9017,11 @@
         state.cupPhase = "study";
         state.cupAttempt = 0;
         state.cupWrong = null;
-        state.mathCupLevel = null;
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.mathCupChallenge = null;
-        state.mathCupChallengeTimeLeft = mathCupChallengeSeconds();
-        state.mathCupChallengeStartedAt = 0;
-        state.mathCupDecisionTimeLeft = mathCupPassDecisionSeconds();
-        state.mathCupDecisionStartedAt = 0;
-        state.mathCupOpponentScore = 0;
-        state.mathCupWins = 0;
-        state.mathCupLosses = 0;
-        state.mathCupRecoveryPlayerId = null;
-        state.mathCupEnigmaSerial = 0;
-        state.mathCupBreak = null;
-        state.mathCupGoalPause = null;
-        clearMathCupPassTargets();
+        resetMathCupCampaignState({
+          resetLevel: true,
+          resetTeam: true,
+          resetSchedule: mode === "mathCup",
+        });
         resetLegacyRuntimeState();
         if (isLevelMission(mode)) {
           setLegacyActivity(null, null);
@@ -6598,19 +9046,53 @@
         render();
       }
 
+      function openMathCupLevelSelect() {
+        state.mathCupScreen = "levels";
+        state.selected = 0;
+        render();
+      }
+
+      function openMathCupInfo() {
+        state.mathCupScreen = "info";
+        state.selected = 0;
+        render();
+      }
+
+      function openMathCupIntro() {
+        state.mathCupScreen = "intro";
+        state.selected = 0;
+        render();
+      }
+
+      function handleMathCupOpeningSelection() {
+        if (state.mathCupScreen === "info") {
+          if (state.selected === 0) openMathCupLevelSelect();
+          else openMathCupIntro();
+          return;
+        }
+        if (state.mathCupScreen === "levels") {
+          startMathCupLevel();
+          return;
+        }
+        if (state.selected === 0) openMathCupLevelSelect();
+        else openMathCupInfo();
+      }
+
       function startMathCupLevel() {
         state.mathCupLevel = Math.max(0, state.selected);
-        mathCupLevels = createMathCupSchedule();
+        state.mathCupTeamCode = null;
+        mathCupLevels = [];
+        resetRoundState(0);
+        resetMathCupCampaignState();
+        render();
+      }
+
+      function startMathCupCampaign() {
+        const team = mathCupTeamChoices()[state.selected];
+        if (!team) return;
+        state.mathCupTeamCode = team.code;
+        mathCupLevels = createMathCupSchedule(team.code);
         resetRoundState(-1);
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.mathCupOpponentScore = 0;
-        state.mathCupWins = 0;
-        state.mathCupLosses = 0;
-        state.mathCupRecoveryPlayerId = null;
-        state.mathCupEnigmaSerial = 0;
-        state.mathCupBreak = null;
-        state.mathCupGoalPause = null;
         startMathCupMatch();
         showMessage("▶️ Vai!", 650, "info");
         render();
@@ -6619,17 +9101,28 @@
       function backToMathCupLevels() {
         stopTimer();
         state.answerLocked = false;
+        if (state.mathCupTeamCode !== null) {
+          state.mathCupTeamCode = null;
+          mathCupLevels = [];
+          resetRoundState(0);
+          state.mathCupScreen = "levels";
+          resetMathCupCampaignState();
+          render();
+          return;
+        }
+        if (state.mathCupLevel === null && state.mathCupScreen === "info") {
+          openMathCupIntro();
+          return;
+        }
+        if (state.mathCupLevel === null && state.mathCupScreen === "levels") {
+          openMathCupIntro();
+          return;
+        }
         state.mathCupLevel = null;
-        state.mathCupChallenge = null;
-        state.mathCupBreak = null;
-        state.mathCupGoalPause = null;
-        clearMathCupPassTargets();
+        state.mathCupTeamCode = null;
+        state.mathCupScreen = "intro";
         resetRoundState(0);
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.mathCupOpponentScore = 0;
-        state.mathCupWins = 0;
-        state.mathCupLosses = 0;
+        resetMathCupCampaignState();
         render();
       }
 
@@ -7015,7 +9508,10 @@
           ArrowRight: 1,
         };
         const count = state.mathCupPassTargets.length;
-        state.mathCupPassSelected = (state.mathCupPassSelected + moves[key] + count) % count;
+        const direction = moves[key] || 1;
+        state.mathCupPassSelected = state.mathCupPassSelected < 0
+          ? (direction > 0 ? 0 : count - 1)
+          : (state.mathCupPassSelected + direction + count) % count;
         render();
       }
 
@@ -7035,7 +9531,7 @@
         startMathCupChallenge(passType, {
           targetId: target.id,
           lineIndex: target.line,
-          seedOffset: Number(target.number) * seedMultiplier,
+          seedOffset: mathCupPlayerSeed(target) * seedMultiplier,
         });
       }
 
@@ -7043,9 +9539,42 @@
         startMathCupChallenge("shot", { seedOffset: 29, lineIndex: state.mathCupStage + 2 });
       }
 
+      function startMathCupFinalDribble() {
+        const player = currentMathCupPlayer();
+        startMathCupChallenge("dribble", {
+          lineIndex: state.mathCupStage + 1,
+          seedOffset: 31 + mathCupPlayerSeed(player) * 7,
+        });
+      }
+
       function mathCupOpponentLineForHomeLine(lineIndex) {
         const homeLine = Math.max(1, Math.min(finalMathCupStage(), lineIndex));
         return Math.max(1, finalMathCupStage() + 1 - homeLine);
+      }
+
+      function mathCupHomeLineForOpponentLine(opponentLine) {
+        if (opponentLine >= MATH_CUP_CONFIG.opponentGoalLine) return 0;
+        const safeOpponentLine = Math.max(1, Math.min(finalMathCupStage(), opponentLine));
+        return Math.max(1, finalMathCupStage() + 1 - safeOpponentLine);
+      }
+
+      function closestMathCupPlayerOnLine(line, referenceY) {
+        const candidates = mathCupPlayersOnLine(line);
+        if (!candidates.length) return null;
+        return [...candidates].sort((playerA, playerB) =>
+          Math.abs(playerA.y - referenceY) - Math.abs(playerB.y - referenceY)
+          || playerA.x - playerB.x
+          || playerA.id.localeCompare(playerB.id)
+        )[0];
+      }
+
+      function mathCupRecoveringPlayer(challenge) {
+        const opponentLine = challenge.opponentLine ?? state.mathCupOpponentLine ?? 1;
+        const opponent = currentMathCupOpponentPlayer();
+        const homeLine = mathCupHomeLineForOpponentLine(opponentLine);
+        const linePlayer = closestMathCupPlayerOnLine(homeLine, opponent?.y ?? 3);
+        if (linePlayer) return linePlayer;
+        return mathCupPlayerById(challenge.recoveryPlayerId || state.mathCupRecoveryPlayerId || "gk");
       }
 
       function mathCupOpponentLineFromChallenge(challenge) {
@@ -7061,67 +9590,53 @@
         const targetLine = target?.line ?? Math.min(finalMathCupStage(), state.mathCupStage + 1);
         clearMathCupPassTargets();
 
-        if (state.mathCupOvertime) {
-          finishMathCupMatch("⏱️ Fim da partida!", "warn");
-          return;
-        }
-
         showMessage("⏳ Tempo!", 700, "warn");
         startMathCupDefenseChallenge(mathCupOpponentLineForHomeLine(targetLine), recoveryPlayerId);
       }
 
-      function selectMathCupOpponentForLine(line) {
+      function selectMathCupOpponentForLine(line, options = {}) {
         const candidates = mathCupOpponentsOnLine(line);
         const fallback = currentMathCupLevel().opponents[0];
         if (!candidates.length) return fallback;
+        if (options.preferredRole) {
+          const preferred = candidates.find((opponent) => opponent.role === options.preferredRole);
+          if (preferred) return preferred;
+        }
         const index = (state.round + state.mathCupEnigmaSerial + line) % candidates.length;
         return candidates[index];
       }
 
-      function startMathCupDefenseChallenge(opponentLine, recoveryPlayerId) {
-        const opponent = selectMathCupOpponentForLine(opponentLine);
-        state.mathCupPossession = "away";
-        state.mathCupOpponentLine = opponentLine;
-        state.mathCupOpponentHolderId = opponent.id;
-        state.mathCupRecoveryPlayerId = recoveryPlayerId;
-        state.mathCupStage = Math.min(finalMathCupStage(), opponentLine);
-        state.mathCupPlayer = [opponent.x, opponent.y];
+      function startMathCupDefenseChallenge(opponentLine, recoveryPlayerId, options = {}) {
+        const opponent = selectMathCupOpponentForLine(opponentLine, options);
+        setMathCupAwayPossession(opponent, opponentLine, recoveryPlayerId);
         clearMathCupPassTargets();
         startMathCupChallenge("defense", {
           opponentLine,
           recoveryPlayerId,
           lineIndex: opponentLine + 1,
-          seedOffset: opponentLine * 23 + Number(opponent.number) * 5,
+          seedOffset: opponentLine * 23 + mathCupPlayerSeed(opponent) * 5,
         });
       }
 
       function startMathCupDefense(challenge) {
         const opponentLine = mathCupOpponentLineFromChallenge(challenge);
         const recoveryPlayerId = challenge.holderId || state.mathCupHolderId;
-        state.mathCupChallenge = null;
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.selected = -1;
+        resetMathCupChallengeState();
         showMessage("🛡️ Defenda!", 650, "warn");
         startMathCupDefenseChallenge(opponentLine, recoveryPlayerId);
       }
 
-      function finishMathCupIfOvertime(messageText, messageType = "info") {
-        if (!state.mathCupOvertime) return false;
-        finishMathCupMatch(messageText, messageType);
-        return true;
-      }
-
       function completeMathCupPass(challenge) {
         const target = mathCupPlayerById(challenge.targetId);
-        state.mathCupHolderId = target.id;
-        state.mathCupStage = target.line;
-        state.mathCupPlayer = [target.x, target.y];
+        if (shouldMissMathCupPass(challenge)) {
+          interceptMathCupPass(challenge);
+          return;
+        }
+        setMathCupHomePossession(target);
         clearMathCupPassTargets();
-        state.mathCupTrail.push(mathCupPositionId(target));
         showMessage(mathCupChallengeInfo[challenge.type].success, 650);
         if (isMathCupFinalStage()) {
-          startMathCupShot();
+          startMathCupFinalDribble();
           return;
         }
         setMathCupPassTargets();
@@ -7129,27 +9644,27 @@
       }
 
       function completeMathCupDefense(challenge) {
-        const player = mathCupPlayerById(challenge.recoveryPlayerId || state.mathCupRecoveryPlayerId || "gk");
-        if (finishMathCupIfOvertime("⏱️ Fim da partida!", "info")) return;
+        const player = mathCupRecoveringPlayer(challenge);
 
-        state.mathCupPossession = "home";
-        state.mathCupHolderId = player.id;
-        state.mathCupOpponentHolderId = null;
-        state.mathCupOpponentLine = null;
-        state.mathCupRecoveryPlayerId = null;
-        state.mathCupStage = player.line;
-        state.mathCupPlayer = [player.x, player.y];
+        setMathCupHomePossession(player);
         clearMathCupPassTargets();
-        if (!state.mathCupTrail.includes(mathCupPositionId(player))) {
-          state.mathCupTrail.push(mathCupPositionId(player));
-        }
         showMessage(mathCupChallengeInfo.defense.success, 650);
+        if (finishMathCupOvertimeIfSettled()) return;
         if (isMathCupFinalStage()) {
-          startMathCupShot();
+          startMathCupFinalDribble();
           return;
         }
         setMathCupPassTargets();
         render();
+      }
+
+      function completeMathCupDribble(challenge) {
+        if (shouldMissMathCupDribble(challenge)) {
+          loseMathCupDribble(challenge);
+          return;
+        }
+        showMessage(mathCupChallengeInfo.dribble.success, 650);
+        startMathCupShot();
       }
 
       function restartWithOpponentAttackerPossession(recoveryPlayerId) {
@@ -7159,7 +9674,11 @@
         );
       }
 
-      function completeMathCupShot() {
+      function completeMathCupShot(challenge) {
+        if (shouldSaveMathCupShot(challenge)) {
+          saveMathCupShot(challenge);
+          return;
+        }
         state.score += 1;
         const scorerId = state.mathCupHolderId;
         pauseMathCupAfterGoal("home", scorerId);
@@ -7172,10 +9691,7 @@
 
       function advanceMathCupOpponent(challenge) {
         const nextLine = (challenge.opponentLine ?? state.mathCupOpponentLine ?? 1) + 1;
-        state.mathCupChallenge = null;
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.selected = -1;
+        resetMathCupChallengeState();
 
         if (nextLine > MATH_CUP_CONFIG.opponentGoalLine) {
           completeMathCupOpponentGoal();
@@ -7206,10 +9722,6 @@
               advanceMathCupOpponent(challenge);
               return;
             }
-            if (state.mathCupOvertime) {
-              finishMathCupMatch("⏱️ Fim da partida!", "warn");
-              return;
-            }
             startMathCupDefense(challenge);
           },
         });
@@ -7225,17 +9737,16 @@
         }
 
         stopMathCupChallengeClock();
-        state.mathCupChallenge = null;
-        state.mathCupAttempt = 0;
-        state.mathCupWrong = null;
-        state.selected = -1;
+        resetMathCupChallengeState();
 
-        if (challenge.type === "pass" || challenge.type === "longPass" || challenge.type === "dribble") {
+        if (challenge.type === "pass" || challenge.type === "longPass") {
           completeMathCupPass(challenge);
+        } else if (challenge.type === "dribble") {
+          completeMathCupDribble(challenge);
         } else if (challenge.type === "defense") {
           completeMathCupDefense(challenge);
         } else {
-          completeMathCupShot();
+          completeMathCupShot(challenge);
         }
       }
 
@@ -7271,15 +9782,15 @@
         if (!pause) return false;
 
         state.mathCupGoalPause = null;
-        if (state.mathCupOvertime) {
-          finishMathCupMatch("⏱️ Fim da partida!", pause.type === "home" ? "info" : "warn");
+        if (finishMathCupOvertimeIfSettled()) {
           return true;
         }
 
         if (pause.type === "home") {
           restartWithOpponentAttackerPossession(pause.recoveryPlayerId);
         } else {
-          resetMathCupAttack();
+          const defender = mathCupPlayerByRole("Zagueiro") || mathCupPlayerById("gk");
+          resetMathCupAttack(defender.id);
           render();
         }
         startMathCupClock();
@@ -7287,14 +9798,22 @@
         return true;
       }
 
+      function continueMathCupPause() {
+        return continueMathCupAfterBreak() || continueMathCupAfterGoalPause();
+      }
+
       function handleMathCupEnter() {
         if (state.mathCupLevel === null) {
-          startMathCupLevel();
+          handleMathCupOpeningSelection();
           return;
         }
 
-        if (continueMathCupAfterBreak()) return;
-        if (continueMathCupAfterGoalPause()) return;
+        if (state.mathCupTeamCode === null) {
+          startMathCupCampaign();
+          return;
+        }
+
+        if (continueMathCupPause()) return;
 
         if (state.mathCupChallenge) {
           handleMathCupAnswer();
@@ -7308,12 +9827,17 @@
 
         if (state.mathCupPassTargets.length) {
           const target = mathCupSelectedPassTarget();
-          if (target) startMathCupPassTo(target);
+          if (target) {
+            startMathCupPassTo(target);
+          } else {
+            showMessage("🎯 Escolha!", 650, "info");
+            render();
+          }
           return;
         }
 
         if (isMathCupFinalStage()) {
-          startMathCupShot();
+          startMathCupFinalDribble();
           return;
         }
 
@@ -7339,10 +9863,31 @@
         modeEnterHandlers[state.mode]?.();
       }
 
+      function moveMenuSelection(delta, vertical = false) {
+        const page = currentMenuPage();
+        const pageItems = currentMenuItems();
+        const localIndex = Math.max(0, pageItems.findIndex((item) => item.globalIndex === state.menu));
+        const step = vertical ? delta * 2 : delta;
+        const nextLocalIndex = localIndex + step;
+
+        if (nextLocalIndex < 0) {
+          const previousPage = page > 0 ? page - 1 : menuPageCount() - 1;
+          selectMenuPage(previousPage, menuItemsForPage(previousPage).length - 1);
+          return;
+        }
+
+        if (nextLocalIndex >= pageItems.length) {
+          const nextPage = page < menuPageCount() - 1 ? page + 1 : 0;
+          selectMenuPage(nextPage);
+          return;
+        }
+
+        state.menu = pageItems[nextLocalIndex].globalIndex;
+      }
+
       function moveSelection(delta, vertical = false) {
         if (state.mode === "menu") {
-          if (vertical) state.menu = (state.menu + delta * 2 + missions.length) % missions.length;
-          else state.menu = (state.menu + delta + missions.length) % missions.length;
+          moveMenuSelection(delta, vertical);
         } else if (isLevelMission(state.mode)) {
           moveLegacySelection(delta, vertical);
           return;
@@ -7378,8 +9923,13 @@
           state.cupWrong = null;
         } else if (state.mode === "mathCup") {
           if (state.mathCupLevel === null) {
-            const count = mathCupLevelPlans.length;
-            const step = vertical ? delta * 3 : delta;
+            const isLevelScreen = state.mathCupScreen === "levels";
+            const count = isLevelScreen ? mathCupLevelPlans.length : 2;
+            const step = isLevelScreen && vertical ? delta * 3 : delta;
+            state.selected = (state.selected + step + count) % count;
+          } else if (state.mathCupTeamCode === null) {
+            const count = mathCupTeamChoices().length;
+            const step = vertical ? delta * 6 : delta;
             state.selected = (state.selected + step + count) % count;
           } else if (state.mathCupChallenge) {
             const count = mathCupOptions().length;
@@ -7388,6 +9938,381 @@
           }
         }
         render();
+      }
+
+      function clickedElement(event, selector) {
+        if (!(event.target instanceof Element)) return null;
+        const target = event.target.closest(selector);
+        return target && content.contains(target) ? target : null;
+      }
+
+      function clickedIndex(event, selector) {
+        const target = clickedElement(event, selector);
+        if (!target) return -1;
+        return Array.from(content.querySelectorAll(selector)).indexOf(target);
+      }
+
+      function activateIndexedClick(event, selector, onActivate) {
+        const index = clickedIndex(event, selector);
+        if (index < 0) return false;
+        onActivate(index);
+        return true;
+      }
+
+      function handleMenuClick(event) {
+        const pageButton = clickedElement(event, ".menu-page-button");
+        if (pageButton) {
+          if (pageButton.dataset.menuPage === "prev") return goToPreviousMenuPage();
+          return goToNextMenuPage();
+        }
+
+        return activateIndexedClick(event, ".menu-card", (index) => {
+          const item = currentMenuItems()[index];
+          if (!item) return;
+          state.menu = item.globalIndex;
+          chooseMenu();
+        });
+      }
+
+      function handleLegacyClick(event) {
+        if (!state.legacyActivity) {
+          return activateIndexedClick(event, ".level-card", (index) => {
+            state.legacyGradeIndex = index;
+            handleLegacyEnter();
+          });
+        }
+
+        const selectors = {
+          complete: ".options-row .option-card",
+          intruder: ".intruder-row .shape-card",
+          rule: ".answer-row .answer-card",
+          detective: ".answer-row .answer-card",
+          organize: ".answer-row .answer-card",
+        };
+        const selector = selectors[state.legacyActivity];
+        if (!selector) return false;
+
+        return activateIndexedClick(event, selector, (index) => {
+          state.selected = index;
+          state.legacyWrong = null;
+          handleLegacyEnter();
+        });
+      }
+
+      function handleMathClick(event) {
+        if (state.mathLevel === null) {
+          return activateIndexedClick(event, ".level-card, .math-level-card", (index) => {
+            state.selected = index;
+            handleMathEnter();
+          });
+        }
+
+        return activateIndexedClick(event, ".answer-options .option", (index) => {
+          state.selected = index;
+          state.mathWrong = null;
+          handleMathEnter();
+        });
+      }
+
+      function handleCupClick(event) {
+        if (state.cupPhase !== "choose") return false;
+        return activateIndexedClick(event, ".cup-goal", (index) => {
+          state.selected = index;
+          state.cupWrong = null;
+          handleCupEnter();
+        });
+      }
+
+      function handleMathCupLevelClick(event) {
+        if (state.mathCupLevel !== null) return false;
+        return activateIndexedClick(event, ".level-card, .math-level-card", (index) => {
+          state.selected = index;
+          handleMathCupEnter();
+        });
+      }
+
+      function handleMathCupTeamClick(event) {
+        if (state.mathCupLevel === null || state.mathCupTeamCode !== null) return false;
+        return activateIndexedClick(event, ".math-cup-team-card", (index) => {
+          state.selected = index;
+          handleMathCupEnter();
+        });
+      }
+
+      function handleMathCupOpeningClick(event) {
+        if (state.mathCupLevel !== null || state.mathCupScreen === "levels") return false;
+        return activateIndexedClick(event, ".math-cup-intro-action, .math-cup-info-action", (index) => {
+          state.selected = index;
+          handleMathCupOpeningSelection();
+        });
+      }
+
+      function clickedMathCupPauseControl(event) {
+        return clickedElement(event, ".math-cup-break-card, .math-cup-break-action, .math-cup-stop-overlay, .math-cup-goal-pause, .math-cup-goal-action");
+      }
+
+      function handleMathCupPauseClick(event) {
+        return clickedMathCupPauseControl(event) ? continueMathCupPause() : false;
+      }
+
+      function handleMathCupAnswerClick(event) {
+        if (!state.mathCupChallenge) return false;
+        return activateIndexedClick(event, ".math-cup-answer", (index) => {
+          state.selected = index;
+          state.mathCupWrong = null;
+          handleMathCupAnswer();
+        });
+      }
+
+      function activateMathCupPassTarget(playerId) {
+        const targetIndex = state.mathCupPassTargets.indexOf(playerId);
+        if (targetIndex < 0) return false;
+        state.mathCupPassSelected = targetIndex;
+        startMathCupPassTo(mathCupPlayerById(playerId));
+        return true;
+      }
+
+      function clickedMathCupPassTarget(event) {
+        if (!state.mathCupPassTargets.length) return null;
+        return clickedElement(event, ".math-cup-player.pass-target, .math-cup-cell.pass-target-cell");
+      }
+
+      function handleMathCupPassClick(event) {
+        const target = clickedMathCupPassTarget(event);
+        return target ? activateMathCupPassTarget(target.dataset.playerId) : false;
+      }
+
+      function handleMathCupClick(event) {
+        return handleMathCupOpeningClick(event)
+          || handleMathCupLevelClick(event)
+          || handleMathCupTeamClick(event)
+          || handleMathCupPauseClick(event)
+          || handleMathCupAnswerClick(event)
+          || handleMathCupPassClick(event);
+      }
+
+      const missionClickHandlers = {
+        logic: (event) => activateIndexedClick(event, ".traffic-action", (index) => {
+          state.selected = index;
+          state.logicWrong = null;
+          handleLogicEnter();
+        }),
+        math: handleMathClick,
+        habitat: (event) => activateIndexedClick(event, ".habitat", (index) => {
+          state.selected = index;
+          state.habitatWrong = null;
+          handleHabitatEnter();
+        }),
+        cycle: (event) => activateIndexedClick(event, ".cycle-item", (index) => {
+          state.selected = index;
+          handleCycleEnter();
+        }),
+        cup: handleCupClick,
+        mathCup: handleMathCupClick,
+      };
+
+      function handleContentClick(event) {
+        if (suppressNextContentClick) {
+          suppressNextContentClick = false;
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        const handler = state.mode === "menu"
+          ? handleMenuClick
+          : isLevelMission(state.mode)
+            ? handleLegacyClick
+            : missionClickHandlers[state.mode];
+        if (!handler) return;
+
+        if (state.answerLocked) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .option-card, .answer-card, .shape-card")) {
+            showMessage("⏳ Espere!", 450, "info");
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          return;
+        }
+
+        const handled = handler(event);
+        if (!handled) return;
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      function handleContentPointerDown(event) {
+        if (state.mode !== "mathCup") return;
+
+        if (clickedMathCupPauseControl(event)) {
+          const handled = continueMathCupPause();
+          if (!handled) return;
+          suppressNextContentClick = true;
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        if (state.answerLocked) return;
+
+        if (!state.mathCupChallenge) {
+          const passTarget = clickedMathCupPassTarget(event);
+          if (!passTarget || !activateMathCupPassTarget(passTarget.dataset.playerId)) return;
+          suppressNextContentClick = true;
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
+        if (!clickedElement(event, ".math-cup-answer")) return;
+        suppressNextContentClick = true;
+        handleMathCupAnswerClick(event);
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      function isAboutModalOpen() {
+        return !aboutModal.hidden;
+      }
+
+      function setAdultHoldProgress(progress) {
+        adultHoldButton.style.setProperty("--adult-hold-progress", `${Math.round(progress * 100)}%`);
+      }
+
+      function resetAdultHold() {
+        window.cancelAnimationFrame(adultHoldFrame);
+        adultHoldFrame = null;
+        adultHoldStartedAt = 0;
+        setAdultHoldProgress(0);
+        adultHoldText.textContent = "🧑 Sou adulto";
+      }
+
+      function openAboutModal() {
+        aboutModal.hidden = false;
+        audienceGate.hidden = false;
+        supportBox.hidden = true;
+        supportUnlockedPanel.hidden = true;
+        audienceNotice.textContent = "Adultos devem segurar o botão por 3 segundos.";
+        feedbackNotice.textContent = "Contato liberado para adultos.";
+        resetAdultHold();
+      }
+
+      function closeAboutModal() {
+        aboutModal.hidden = true;
+        resetAdultHold();
+        supportUnlockedPanel.hidden = true;
+      }
+
+      function showSupportQr() {
+        if (!SUPPORT_PAGE_URL) {
+          supportNotice.textContent = "Link de apoio ainda não configurado.";
+          adultHoldText.textContent = "Link pendente";
+          return;
+        }
+        audienceGate.hidden = true;
+        supportBox.hidden = false;
+        supportOpenLink.href = SUPPORT_PAGE_URL;
+        feedbackEmailLink.href = feedbackMailUrl();
+        supportUnlockedPanel.hidden = false;
+        supportNotice.textContent = "QR Code liberado para adultos.";
+        feedbackNotice.textContent = "Contato liberado para adultos.";
+      }
+
+      function finishAdultHold() {
+        window.cancelAnimationFrame(adultHoldFrame);
+        adultHoldFrame = null;
+        adultHoldStartedAt = 0;
+        setAdultHoldProgress(1);
+        adultHoldText.textContent = "Liberado";
+        showSupportQr();
+      }
+
+      function tickAdultHold() {
+        if (!adultHoldStartedAt) return;
+        const elapsed = Date.now() - adultHoldStartedAt;
+        const progress = Math.min(1, elapsed / ADULT_HOLD_MS);
+        setAdultHoldProgress(progress);
+        adultHoldText.textContent = `Continue ${Math.max(1, Math.ceil((ADULT_HOLD_MS - elapsed) / 1000))}s`;
+        if (progress >= 1) {
+          finishAdultHold();
+          return;
+        }
+        adultHoldFrame = window.requestAnimationFrame(tickAdultHold);
+      }
+
+      function startAdultHold(event) {
+        event.preventDefault();
+        resetAdultHold();
+        adultHoldStartedAt = Date.now();
+        audienceNotice.textContent = "Continue segurando...";
+        tickAdultHold();
+      }
+
+      function cancelAdultHold() {
+        if (!adultHoldStartedAt) return;
+        resetAdultHold();
+        audienceNotice.textContent = "Soltou antes do tempo. Segure até o final.";
+      }
+
+      function updateAboutLock(unlockAt) {
+        const secondsLeft = Math.max(0, Math.ceil((unlockAt - Date.now()) / 1000));
+        if (secondsLeft <= 0) {
+          window.clearInterval(childAboutLockInterval);
+          childAboutLockInterval = null;
+          aboutButton.disabled = false;
+          aboutButton.textContent = "Sobre ☕";
+          return;
+        }
+        aboutButton.textContent = `Sobre ☕ ${secondsLeft}s`;
+      }
+
+      function lockAboutForChild() {
+        closeAboutModal();
+        const unlockAt = Date.now() + CHILD_ABOUT_LOCK_MS;
+        aboutButton.disabled = true;
+        updateAboutLock(unlockAt);
+        window.clearInterval(childAboutLockInterval);
+        childAboutLockInterval = window.setInterval(() => updateAboutLock(unlockAt), 1000);
+      }
+
+      async function copySupportLink() {
+        if (!SUPPORT_PAGE_URL) return;
+        try {
+          await navigator.clipboard.writeText(SUPPORT_PAGE_URL);
+          supportNotice.textContent = "Link copiado.";
+        } catch {
+          supportNotice.textContent = SUPPORT_PAGE_URL;
+        }
+      }
+
+      function contactEmail() {
+        return CONTACT_EMAIL_PARTS.join("@");
+      }
+
+      function feedbackMailUrl() {
+        const subject = "Comentário sobre Missões Interativas";
+        const body = [
+          "Olá, Prof. Amilcar!",
+          "",
+          "Quero comentar sobre o material Missões Interativas.",
+          "",
+          "Tipo: elogio / avaliação / bug / sugestão",
+          "Missão:",
+          "O que aconteceu:",
+          "",
+          `Versão: ${APP_VERSION}`,
+        ].join("\n");
+        return `mailto:${contactEmail()}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
+
+      async function copyFeedbackEmail() {
+        const email = contactEmail();
+        try {
+          await navigator.clipboard.writeText(email);
+          feedbackNotice.textContent = "Contato copiado.";
+        } catch {
+          feedbackNotice.textContent = `Contato: ${email}`;
+        }
       }
 
       function stopTimer() {
@@ -7482,40 +10407,116 @@
         }
       });
 
+      function isBackActionProtected() {
+        return state.mode !== "menu";
+      }
+
+      function setBackHoldProgress(progress) {
+        backButton.style.setProperty("--back-hold-progress", String(Math.max(0, Math.min(1, progress))));
+      }
+
+      function resetBackHold() {
+        window.cancelAnimationFrame(backHoldFrame);
+        backHoldFrame = null;
+        backHoldStartedAt = 0;
+        backHoldSource = null;
+        backButton.classList.remove("back-hold");
+        setBackHoldProgress(0);
+      }
+
+      function prepareFullscreenEscapeHold() {
+        if (!document.fullscreenElement || canExitFullscreenWithEscape()) return;
+        restoreFullscreenAfterEscape = true;
+        window.setTimeout(() => {
+          if (document.fullscreenElement) restoreFullscreenAfterEscape = false;
+        }, 500);
+      }
+
+      function completeBackHold() {
+        const fromKeyboardEscape = backHoldSource === "keyboard";
+        resetBackHold();
+        handleBackAction({ fromKeyboardEscape });
+      }
+
+      function tickBackHold() {
+        if (!backHoldStartedAt) return;
+        const progress = (Date.now() - backHoldStartedAt) / BACK_HOLD_MS;
+        setBackHoldProgress(progress);
+        if (progress >= 1) {
+          completeBackHold();
+          return;
+        }
+        backHoldFrame = window.requestAnimationFrame(tickBackHold);
+      }
+
+      function requestBackAction({ fromKeyboardEscape = false } = {}) {
+        if (!isBackActionProtected()) {
+          handleBackAction({ fromKeyboardEscape });
+          return;
+        }
+        if (backHoldStartedAt) return;
+        if (fromKeyboardEscape) prepareFullscreenEscapeHold();
+        backHoldSource = fromKeyboardEscape ? "keyboard" : "pointer";
+        backHoldStartedAt = Date.now();
+        backButton.classList.add("back-hold");
+        showMessage(fromKeyboardEscape ? "Segure Esc" : "Segure voltar", 900, "info");
+        tickBackHold();
+      }
+
+      function handleBackAction({ fromKeyboardEscape = false } = {}) {
+        resetBackHold();
+        const keepFullscreen = fromKeyboardEscape
+          && document.fullscreenElement
+          && !canExitFullscreenWithEscape();
+        if (keepFullscreen) {
+          restoreFullscreenAfterEscape = true;
+          window.setTimeout(() => {
+            if (document.fullscreenElement) restoreFullscreenAfterEscape = false;
+          }, 500);
+        }
+
+        if (state.mode === "menu") {
+          if (!goToPreviousMenuPage()) exitFullscreenIfActive();
+          return;
+        }
+        if (isLevelMission(state.mode)) {
+          backLegacy();
+          return;
+        }
+        if (state.mode === "math" && state.mathLevel !== null) {
+          backToMathLevels();
+          return;
+        }
+        if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
+          backToMathCupLevels();
+          return;
+        }
+        stopTimer();
+        state.answerLocked = false;
+        state.mode = "menu";
+        render();
+      }
+
       document.addEventListener("keydown", (event) => {
+        if (isAboutModalOpen()) {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            event.stopPropagation();
+            closeAboutModal();
+            return;
+          }
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+
         event.preventDefault();
         event.stopPropagation();
         if (event.altKey || event.ctrlKey || event.metaKey) return;
         if (event.key.toLowerCase() === "f") {
           toggleFullscreen();
         } else if (event.key === "Escape") {
-          const keepFullscreen = document.fullscreenElement && !canExitFullscreenWithEscape();
-          if (keepFullscreen) {
-            restoreFullscreenAfterEscape = true;
-            window.setTimeout(() => {
-              if (document.fullscreenElement) restoreFullscreenAfterEscape = false;
-            }, 500);
-          }
-          if (state.mode === "menu") {
-            if (!goToPreviousMenuPage()) exitFullscreenIfActive();
-            return;
-          }
-          if (isLevelMission(state.mode)) {
-            backLegacy();
-            return;
-          }
-          if (state.mode === "math" && state.mathLevel !== null) {
-            backToMathLevels();
-            return;
-          }
-          if (state.mode === "mathCup" && state.mathCupLevel !== null) {
-            backToMathCupLevels();
-            return;
-          }
-          stopTimer();
-          state.answerLocked = false;
-          state.mode = "menu";
-          render();
+          requestBackAction({ fromKeyboardEscape: true });
         } else if (event.key.toLowerCase() === "r") {
           if (isLevelMission(state.mode)) {
             resetLegacyView();
@@ -7529,7 +10530,7 @@
           return;
         } else if (state.mode === "robot" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           moveRobot(event.key);
-        } else if (state.mode === "mathCup" && state.mathCupLevel !== null && !state.mathCupChallenge && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        } else if (state.mode === "mathCup" && state.mathCupLevel !== null && state.mathCupTeamCode !== null && !state.mathCupChallenge && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           handleMathCupFieldKey(event.key);
         } else if (event.key === "ArrowLeft") {
           moveSelection(-1);
@@ -7545,16 +10546,45 @@
       }, { capture: true });
 
       document.addEventListener("keyup", (event) => {
+        if (event.key === "Escape") resetBackHold();
         event.preventDefault();
         event.stopPropagation();
       }, { capture: true });
 
       document.addEventListener("contextmenu", (event) => event.preventDefault());
+      window.addEventListener("resize", scheduleTextFit);
+      content.addEventListener("pointerdown", handleContentPointerDown);
+      content.addEventListener("click", handleContentClick);
+      aboutButton.addEventListener("click", openAboutModal);
+      aboutCloseButton.addEventListener("click", closeAboutModal);
+      aboutModal.addEventListener("click", (event) => {
+        if (event.target === aboutModal) closeAboutModal();
+      });
+      childAudienceButton.addEventListener("click", lockAboutForChild);
+      adultHoldButton.addEventListener("pointerdown", startAdultHold);
+      adultHoldButton.addEventListener("pointerup", cancelAdultHold);
+      adultHoldButton.addEventListener("pointerleave", cancelAdultHold);
+      adultHoldButton.addEventListener("pointercancel", cancelAdultHold);
+      supportCopyButton.addEventListener("click", copySupportLink);
+      feedbackCopyEmailButton.addEventListener("click", copyFeedbackEmail);
+      backButton.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        requestBackAction();
+      });
+      backButton.addEventListener("pointerup", resetBackHold);
+      backButton.addEventListener("pointerleave", resetBackHold);
+      backButton.addEventListener("pointercancel", resetBackHold);
+      backButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      });
       resetButton.addEventListener("click", () => {
         if (isLevelMission(state.mode)) resetLegacyView();
         else reset(state.mode);
       });
       fullscreenButton.addEventListener("click", toggleFullscreen);
+      appVersion.textContent = `v${APP_VERSION}`;
       render();
     })();
   </script>
