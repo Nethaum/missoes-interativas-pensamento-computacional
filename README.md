@@ -1,14 +1,14 @@
-# Missoes Interativas - Pensamento Computacional
+# Missões Interativas - Pensamento Computacional
 
-Aplicativo HTML com missoes interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
+Aplicativo HTML com missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versao atual: 2.0.0
+Versão atual: 2.0.0
 
 ## Destaque
 
-A **Copa da Matematica** e a experiencia principal do projeto. Ela combina futebol, estrategia, calculo mental, tomada de decisao e probabilidade em uma campanha com selecoes da Copa do Mundo.
+A **Copa da Matemática** é a experiência principal do projeto. Ela combina futebol, estratégia, cálculo mental, tomada de decisão e probabilidade em uma campanha com seleções da Copa do Mundo.
 
-A missao tem modo de apresentacao proprio, explicacao pedagogica dentro da atividade e faixas de desafio por idade sugerida, sem prender a experiencia a uma serie escolar especifica.
+A missão tem modo de apresentação próprio, explicação pedagógica dentro da atividade e faixas de desafio por idade sugerida, sem prender a experiência a uma série escolar específica.
 
 ## Como usar
 
@@ -18,17 +18,17 @@ Controles principais:
 
 - Setas: navegar e escolher.
 - Enter: confirmar.
-- Mouse/toque: selecionar quando a missao permitir.
-- Voltar: segure o botao de voltar ou segure Esc para evitar saidas acidentais.
+- Mouse/toque: selecionar quando a missão permitir.
+- Voltar: segure o botão de voltar ou segure Esc para evitar saídas acidentais.
 - R: reiniciar.
 - F: tela cheia.
 
-## Conteudo
+## Conteúdo
 
-O material inclui missoes de algoritmos, sequencias, padroes, dados, graficos, matematica, bandeiras, natureza, seguranca no transito e a Copa da Matematica.
+O material inclui missões de algoritmos, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza, segurança no trânsito e a Copa da Matemática.
 
-## Observacoes
+## Observações
 
-O material e gratuito para uso educacional. A area "Sobre" contem informacoes para adultos, apoio voluntario e canais para comentarios, sugestoes e bugs.
+O material é gratuito para uso educacional. A área "Sobre" contém informações para adultos, apoio voluntário e canais para comentários, sugestões e bugs.
 
 Criado por Prof. Amilcar Notari Neto.
