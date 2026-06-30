@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="app-version" content="2.0.0">
+  <meta name="app-version" content="2.0.1">
+  <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
+  <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
   <style>
     :root {
@@ -4162,7 +4164,7 @@
     </div>
     <div class="credit">
       <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
-      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.0.0</span></div>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.0.1</span></div>
     </div>
   </footer>
 
@@ -4258,7 +4260,7 @@
       const appVersion = document.getElementById("appVersion");
       const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
       const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.0.0";
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.0.1";
       const ADULT_HOLD_MS = 3000;
       const CHILD_ABOUT_LOCK_MS = 60000;
       const BACK_HOLD_MS = 1200;
@@ -5569,7 +5571,6 @@
         const nextLevel = createMathCupCampaignKnockoutLevel(nextStageKey);
         if (!nextLevel) return false;
         mathCupLevels.push(nextLevel);
-        state.mathCupGeneratedStages.add(nextStageKey);
         return true;
       }
 
@@ -6184,7 +6185,6 @@
         mathCupGoalPause: null,
         mathCupStandings: createMathCupStandings(),
         mathCupCompletedMatches: {},
-        mathCupGeneratedStages: new Set(),
         legacyGrade: null,
         legacyActivity: null,
         legacyGradeIndex: 0,
@@ -8992,7 +8992,6 @@
         state.mathCupGoalPause = null;
         state.mathCupStandings = createMathCupStandings();
         state.mathCupCompletedMatches = {};
-        state.mathCupGeneratedStages = new Set();
         clearMathCupPassTargets();
       }
 
