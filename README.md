@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.1.5
+Versão atual: 2.1.6
 
 ## Objetivo
 

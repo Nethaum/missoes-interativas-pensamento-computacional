@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.1.5">
+  <meta name="app-version" content="2.1.6">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
@@ -5132,7 +5132,7 @@
     </div>
     <div class="credit">
       <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
-      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.5</span></div>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.6</span></div>
     </div>
   </footer>
 
@@ -5229,7 +5229,7 @@
       const mobileNotice = document.getElementById("mobileNotice");
       const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
       const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.5";
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.6";
       const ADULT_HOLD_MS = 3000;
       const CHILD_ABOUT_LOCK_MS = 60000;
       const BACK_HOLD_MS = 1200;
@@ -9973,12 +9973,39 @@
         fitTextElements();
       }
 
+      function keepMathCupTeamSelectionVisible() {
+        if (state.mode !== "mathCup" || state.mathCupLevel === null || state.mathCupTeamCode !== null) return;
+        const scroller = content.querySelector(".math-cup-team-select");
+        const selectedCard = scroller?.querySelector(".math-cup-team-card.selected");
+        if (!scroller || !selectedCard) return;
+
+        const scrollerBox = scroller.getBoundingClientRect();
+        const cardBox = selectedCard.getBoundingClientRect();
+        const isOutsideView = cardBox.top < scrollerBox.top
+          || cardBox.bottom > scrollerBox.bottom
+          || cardBox.left < scrollerBox.left
+          || cardBox.right > scrollerBox.right;
+
+        if (isOutsideView) {
+          selectedCard.scrollIntoView({ block: "nearest", inline: "nearest" });
+        }
+      }
+
+      function schedulePostRenderAdjustments() {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(keepMathCupTeamSelectionVisible);
+          return;
+        }
+        keepMathCupTeamSelectionVisible();
+      }
+
       function render() {
         const renderer = isLevelMission(state.mode)
           ? renderLevels
           : missionRenderers[state.mode] || renderMenu;
         renderer();
         scheduleTextFit();
+        schedulePostRenderAdjustments();
       }
 
       function resetMathCupCampaignState({
