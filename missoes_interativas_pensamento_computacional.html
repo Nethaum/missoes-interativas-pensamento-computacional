@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="app-version" content="2.0.1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="app-version" content="2.1.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
@@ -29,6 +29,12 @@
       --chalk-shadow: 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 5px rgba(255, 255, 255, 0.22);
       --chalk-font: "Segoe Print", "Comic Sans MS", "Bradley Hand ITC", "Segoe UI", Arial, sans-serif;
       --read-font: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --grid-cell-fluid: 4.5vw;
+      --legacy-cell-fluid: 7vw;
     }
 
     * {
@@ -58,12 +64,19 @@
       grid-template-rows: 62px minmax(0, 1fr) 88px;
     }
 
+    @supports (height: 100dvh) {
+      html,
+      body {
+        height: 100dvh;
+      }
+    }
+
     .topbar {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       gap: 18px;
-      padding: 8px 22px;
+      padding: calc(8px + var(--safe-top)) calc(22px + var(--safe-right)) 8px calc(22px + var(--safe-left));
       background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 30%, rgba(255, 255, 255, 0.04)),
         var(--board-dark);
@@ -123,7 +136,7 @@
 
     .stage {
       min-height: 0;
-      padding: 16px 22px 8px;
+      padding: 16px calc(22px + var(--safe-right)) 8px calc(22px + var(--safe-left));
       background:
         radial-gradient(circle at 19px 16px, rgba(255, 255, 255, 0.08) 1px, transparent 3px) 0 0 / 58px 54px,
         linear-gradient(110deg, rgba(255, 255, 255, 0.08), transparent 24%, rgba(0, 0, 0, 0.07) 68%, transparent),
@@ -209,7 +222,7 @@
       grid-template-columns: minmax(0, 1fr) minmax(190px, 0.7fr);
       align-items: center;
       gap: 12px;
-      padding: 7px 22px 10px;
+      padding: 7px calc(22px + var(--safe-right)) calc(10px + var(--safe-bottom)) calc(22px + var(--safe-left));
       background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 36%, rgba(255, 255, 255, 0.04)),
         var(--board-dark);
@@ -653,6 +666,28 @@
       transform: translate(-50%, -50%) scale(1);
     }
 
+    .mobile-notice {
+      position: fixed;
+      left: 50%;
+      bottom: calc(78px + var(--safe-bottom));
+      z-index: 24;
+      transform: translateX(-50%);
+      max-width: min(460px, calc(100vw - 28px));
+      padding: 10px 14px;
+      border: 3px solid rgba(255, 247, 214, 0.86);
+      border-radius: 16px;
+      background: rgba(23, 63, 50, 0.96);
+      color: var(--ink);
+      font-family: var(--read-font);
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.1;
+      text-align: center;
+      text-shadow: var(--chalk-shadow);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+      pointer-events: none;
+    }
+
     .menu {
       width: min(980px, 100%);
       display: grid;
@@ -876,7 +911,7 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: min(var(--cell-size, 50px), 4.5vw);
+      width: min(var(--cell-size, 50px), var(--grid-cell-fluid));
       aspect-ratio: 1;
       border: 2px solid transparent;
       border-radius: 7px;
@@ -3585,7 +3620,7 @@
       position: relative;
       display: grid;
       place-items: center;
-      width: min(68px, 7vw);
+      width: min(68px, var(--legacy-cell-fluid));
       aspect-ratio: 1;
       border: 4px solid var(--line);
       border-radius: 16px;
@@ -4000,6 +4035,668 @@
       }
     }
 
+    @media (hover: none) and (pointer: coarse) {
+      button,
+      .menu-card,
+      .menu-page-button,
+      .level-card,
+      .math-level-card,
+      .traffic-action,
+      .option,
+      .habitat,
+      .cycle-item,
+      .cup-goal,
+      .shape-card,
+      .option-card,
+      .answer-card,
+      .math-cup-answer,
+      .math-cup-break-action,
+      .math-cup-goal-pause,
+      .math-cup-player.pass-target,
+      .math-cup-cell.pass-target-cell {
+        touch-action: manipulation;
+      }
+
+      .menu-card,
+      .level-card,
+      .math-level-card,
+      .traffic-action,
+      .option,
+      .habitat,
+      .cycle-item,
+      .cup-goal,
+      .answer-card,
+      .math-cup-answer {
+        min-height: 56px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --grid-cell-fluid: 7.8vw;
+        --legacy-cell-fluid: 13vw;
+      }
+
+      body {
+        grid-template-rows: 52px minmax(0, 1fr) 62px;
+      }
+
+      .topbar {
+        gap: 8px;
+        padding: calc(6px + var(--safe-top)) calc(10px + var(--safe-right)) 6px calc(10px + var(--safe-left));
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .subject {
+        font-size: 11px;
+        white-space: normal;
+        line-height: 1.05;
+      }
+
+      .actions {
+        gap: 6px;
+      }
+
+      button {
+        width: 40px;
+        height: 40px;
+        border-width: 2px;
+        border-radius: 9px;
+        font-size: 22px;
+      }
+
+      .stage {
+        padding: 7px calc(8px + var(--safe-right)) 5px calc(8px + var(--safe-left));
+      }
+
+      .panel {
+        gap: 7px;
+        padding: 8px;
+        border-width: 5px;
+        border-radius: 8px;
+      }
+
+      .mission-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .mission {
+        font-size: clamp(19px, 6.5vw, 25px);
+        text-align: center;
+      }
+
+      .counters {
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .counter {
+        min-width: 0;
+        flex: 1;
+        max-width: 140px;
+        padding: 4px 6px;
+        border-width: 2px;
+        border-radius: 10px;
+      }
+
+      .counter-label {
+        font-size: 9px;
+      }
+
+      .counter-value {
+        font-size: 20px;
+      }
+
+      .content {
+        place-items: start center;
+        overflow: auto;
+        padding-bottom: 42px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .footer {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        padding: 5px calc(8px + var(--safe-right)) calc(7px + var(--safe-bottom)) calc(8px + var(--safe-left));
+      }
+
+      .status {
+        font-size: 12px;
+        line-height: 1.1;
+      }
+
+      .credit-line {
+        display: none;
+      }
+
+      .about-button {
+        min-width: 62px;
+        height: 38px;
+        padding: 5px 7px;
+        font-size: 11px;
+      }
+
+      .panel-back-button {
+        right: 10px;
+        bottom: 10px;
+        min-width: 50px;
+        height: 42px;
+      }
+
+      .message {
+        min-width: min(300px, calc(100% - 30px));
+        max-width: calc(100% - 30px);
+        padding: 18px 22px;
+        border-width: 5px;
+        border-radius: 17px;
+        font-size: clamp(28px, 10vw, 43px);
+      }
+
+      .menu {
+        width: min(430px, 100%);
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .menu-card {
+        min-height: 96px;
+        gap: 4px;
+        padding: 9px 10px;
+        border-width: 3px;
+        border-radius: 12px;
+      }
+
+      .menu-card.featured {
+        min-height: 118px;
+      }
+
+      .menu-card.featured::before {
+        left: 8px;
+        top: 8px;
+        padding: 4px 7px;
+        font-size: 9px;
+      }
+
+      .menu-icon {
+        font-size: 31px;
+      }
+
+      .menu-card.featured .menu-icon {
+        font-size: 39px;
+      }
+
+      .menu-title,
+      .menu-card.featured .menu-title {
+        font-size: 18px;
+      }
+
+      .menu-meta,
+      .menu-card.featured .menu-meta {
+        font-size: 12px;
+      }
+
+      .menu-page-controls {
+        gap: 8px;
+      }
+
+      .menu-page {
+        font-size: 12px;
+      }
+
+      .menu-page-button {
+        width: 42px;
+        font-size: 25px;
+      }
+
+      .level-select,
+      .level-count-2,
+      .level-count-3,
+      .level-count-5,
+      .math-levels,
+      .legacy-menu {
+        width: min(430px, 100%);
+        grid-template-columns: 1fr;
+      }
+
+      .level-card,
+      .math-level-card,
+      .legacy-card {
+        min-height: 112px;
+        gap: 5px;
+        padding: 9px;
+        border-width: 3px;
+      }
+
+      .level-icon,
+      .legacy-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+        font-size: 25px;
+      }
+
+      .level-title,
+      .legacy-title,
+      .math-level-title {
+        font-size: 17px;
+      }
+
+      .level-kicker,
+      .legacy-description,
+      .math-level-meta {
+        font-size: 11px;
+      }
+
+      .robot-layout,
+      .traffic-board,
+      .math-board,
+      .habitat-board,
+      .cycle-board,
+      .cup-board,
+      .direction-board,
+      .echo-board,
+      .pattern-board,
+      .intruder-board,
+      .data-quiz-board {
+        width: 100%;
+      }
+
+      .grid {
+        max-width: 100%;
+        gap: 2px;
+        padding: 6px;
+        border-width: 3px;
+        overflow: auto;
+      }
+
+      .energy-meter {
+        padding: 6px 8px;
+      }
+
+      .answer-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .answer-card,
+      .option {
+        min-height: 64px;
+        padding: 8px;
+        font-size: clamp(16px, 5.3vw, 22px);
+      }
+
+      .quiz-question {
+        padding: 10px;
+        font-size: clamp(17px, 5.2vw, 22px);
+      }
+
+      .math-cup-team-select {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        max-height: none;
+        padding: 3px 4px 48px;
+      }
+
+      .math-cup-team-card {
+        min-height: 92px;
+        padding: 8px 6px;
+        border-width: 3px;
+      }
+
+      .math-cup-team-card .flag-art {
+        width: 62px;
+        height: 40px;
+      }
+
+      .math-cup-team-name {
+        min-height: 30px;
+        padding: 3px 5px;
+        font-size: 11px;
+      }
+
+      .math-cup-board {
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        gap: 8px;
+        padding-bottom: 42px;
+      }
+
+      .math-cup-field {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        min-height: 0;
+        padding: 7px;
+        border-width: 4px;
+        border-radius: 14px;
+      }
+
+      .math-cup-corner-flag {
+        width: clamp(28px, 11vw, 42px);
+      }
+
+      .math-cup-player {
+        width: clamp(24px, 8vw, 34px);
+        border-width: 2px;
+      }
+
+      .math-cup-player-badge {
+        top: -17px;
+        max-width: 58px;
+        padding: 2px 4px;
+        font-size: 7px;
+      }
+
+      .math-cup-player-flag {
+        right: -8px;
+        top: -8px;
+        width: 20px;
+      }
+
+      .math-cup-ball {
+        right: -7px;
+        bottom: -5px;
+        font-size: 18px;
+      }
+
+      .math-cup-panel {
+        grid-template-columns: 1fr;
+        width: min(430px, 100%);
+      }
+
+      .math-cup-team,
+      .math-cup-stat,
+      .math-cup-scoreboard {
+        min-height: 0;
+        padding: 7px;
+        border-width: 3px;
+        border-radius: 12px;
+      }
+
+      .math-cup-challenge {
+        min-height: 0;
+        gap: 7px;
+        padding: 9px;
+        border-width: 4px;
+        grid-template-columns: 1fr;
+      }
+
+      .math-cup-challenge-title,
+      .math-cup-question,
+      .math-cup-challenge-timer,
+      .math-cup-answers {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .math-cup-question {
+        font-size: clamp(25px, 9vw, 36px);
+      }
+
+      .math-cup-answers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .math-cup-answer {
+        min-height: 48px;
+        border-width: 3px;
+        border-radius: 12px;
+        font-size: clamp(20px, 7vw, 29px);
+      }
+
+      .math-cup-goal-pause,
+      .math-cup-stop-overlay {
+        width: min(360px, 92%);
+        padding: 10px;
+        border-width: 4px;
+      }
+
+      .about-dialog {
+        width: min(560px, calc(100vw - 16px));
+        max-height: calc(100dvh - 18px);
+        padding: 18px;
+      }
+    }
+
+    @media (max-width: 720px) and (orientation: portrait) {
+      .mobile-notice {
+        bottom: calc(70px + var(--safe-bottom));
+      }
+    }
+
+    @media (max-height: 540px) and (orientation: landscape) {
+      :root {
+        --grid-cell-fluid: 4.9vw;
+        --legacy-cell-fluid: 7.4vw;
+      }
+
+      body {
+        grid-template-rows: 44px minmax(0, 1fr) 45px;
+      }
+
+      .topbar {
+        padding: calc(4px + var(--safe-top)) calc(10px + var(--safe-right)) 4px calc(10px + var(--safe-left));
+      }
+
+      .subject {
+        font-size: 11px;
+      }
+
+      button {
+        width: 36px;
+        height: 36px;
+        border-width: 2px;
+        border-radius: 8px;
+        font-size: 20px;
+      }
+
+      .stage {
+        padding: 5px calc(8px + var(--safe-right)) 4px calc(8px + var(--safe-left));
+      }
+
+      .panel {
+        gap: 5px;
+        padding: 7px;
+        border-width: 4px;
+      }
+
+      .mission-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+      }
+
+      .mission {
+        font-size: clamp(18px, 3.4vw, 25px);
+        text-align: left;
+      }
+
+      .counter {
+        min-width: 78px;
+        padding: 3px 6px;
+        border-width: 2px;
+        border-radius: 10px;
+      }
+
+      .counter-label {
+        font-size: 8px;
+      }
+
+      .counter-value {
+        font-size: 19px;
+      }
+
+      .content {
+        overflow: auto;
+        padding-bottom: 32px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .footer {
+        padding: 3px calc(8px + var(--safe-right)) calc(5px + var(--safe-bottom)) calc(8px + var(--safe-left));
+      }
+
+      .status {
+        font-size: 11px;
+      }
+
+      .credit-line {
+        display: none;
+      }
+
+      .about-button {
+        min-width: 58px;
+        height: 34px;
+        padding: 4px 6px;
+        font-size: 10px;
+      }
+
+      .menu {
+        width: min(760px, 100%);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .menu-card {
+        min-height: 82px;
+        gap: 3px;
+        padding: 7px;
+        border-width: 3px;
+      }
+
+      .menu-card.featured {
+        min-height: 96px;
+      }
+
+      .menu-icon {
+        font-size: 28px;
+      }
+
+      .menu-card.featured .menu-icon {
+        font-size: 34px;
+      }
+
+      .menu-title,
+      .menu-card.featured .menu-title {
+        font-size: 17px;
+      }
+
+      .menu-meta,
+      .menu-card.featured .menu-meta {
+        font-size: 11px;
+      }
+
+      .math-cup-board {
+        grid-template-columns: minmax(96px, 0.28fr) minmax(300px, 1fr) minmax(96px, 0.28fr);
+        grid-template-rows: minmax(150px, auto) minmax(72px, auto);
+        grid-template-areas:
+          "left field right"
+          "left challenge right";
+        align-content: center;
+        gap: 6px;
+        padding-bottom: 30px;
+      }
+
+      .math-cup-field {
+        width: auto;
+        height: min(45vh, 210px);
+        max-width: 100%;
+        padding: 6px;
+        border-width: 4px;
+        border-radius: 14px;
+      }
+
+      .math-cup-panel {
+        gap: 5px;
+      }
+
+      .math-cup-scoreboard,
+      .math-cup-stat {
+        gap: 3px;
+        padding: 5px;
+        border-width: 3px;
+        border-radius: 10px;
+      }
+
+      .math-cup-score-team .flag-art {
+        width: 42px;
+      }
+
+      .math-cup-score-name,
+      .math-cup-stat-label {
+        font-size: 8px;
+      }
+
+      .math-cup-score-value,
+      .math-cup-stat-value {
+        font-size: 19px;
+      }
+
+      .math-cup-main-action {
+        min-height: 76px;
+      }
+
+      .math-cup-challenge {
+        min-height: 76px;
+        gap: 5px 7px;
+        padding: 6px 8px;
+        border-width: 4px;
+      }
+
+      .math-cup-challenge-title {
+        font-size: clamp(15px, 2.3vw, 20px);
+      }
+
+      .math-cup-question {
+        font-size: clamp(22px, 4.2vw, 31px);
+      }
+
+      .math-cup-challenge-timer {
+        gap: 6px;
+        padding: 4px 7px;
+        font-size: 12px;
+      }
+
+      .math-cup-answers {
+        gap: 5px;
+      }
+
+      .math-cup-answer {
+        min-height: 42px;
+        border-width: 3px;
+        border-radius: 10px;
+        font-size: clamp(18px, 3.4vw, 26px);
+      }
+
+      .math-cup-player {
+        width: clamp(21px, 3.8vw, 31px);
+        border-width: 2px;
+      }
+
+      .math-cup-player-badge {
+        top: -15px;
+        max-width: 52px;
+        font-size: 7px;
+      }
+
+      .math-cup-player-flag {
+        right: -7px;
+        top: -7px;
+        width: 18px;
+      }
+
+      .math-cup-ball {
+        right: -6px;
+        bottom: -5px;
+        font-size: 17px;
+      }
+    }
+
     @media (max-height: 650px) {
       body {
         grid-template-rows: 60px minmax(0, 1fr) 72px;
@@ -4123,6 +4820,163 @@
         height: 36px;
       }
     }
+
+    @media (max-height: 540px) and (orientation: landscape) {
+      body {
+        grid-template-rows: 44px minmax(0, 1fr) 45px;
+      }
+
+      .topbar {
+        padding: calc(4px + var(--safe-top)) calc(10px + var(--safe-right)) 4px calc(10px + var(--safe-left));
+      }
+
+      .stage {
+        padding: 5px calc(8px + var(--safe-right)) 4px calc(8px + var(--safe-left));
+      }
+
+      .panel {
+        gap: 5px;
+        padding: 7px;
+        border-width: 4px;
+      }
+
+      .mission-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+      }
+
+      .mission {
+        font-size: clamp(18px, 2.8vw, 22px);
+        text-align: left;
+      }
+
+      .counter {
+        min-width: 78px;
+        padding: 3px 6px;
+        border-width: 2px;
+        border-radius: 10px;
+      }
+
+      .counter-label {
+        font-size: 8px;
+      }
+
+      .counter-value {
+        font-size: 19px;
+      }
+
+      .content {
+        place-items: center;
+        overflow: hidden;
+        padding-bottom: 32px;
+      }
+
+      .footer {
+        padding: 3px calc(8px + var(--safe-right)) calc(5px + var(--safe-bottom)) calc(8px + var(--safe-left));
+      }
+
+      .math-cup-board {
+        width: min(700px, calc(100% - 84px));
+        height: 100%;
+        grid-template-columns: minmax(250px, 0.95fr) minmax(235px, 0.82fr);
+        grid-template-rows: minmax(0, 1fr);
+        grid-template-areas:
+          "field challenge";
+        align-content: center;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 0;
+      }
+
+      .math-cup-left-panel,
+      .math-cup-right-panel {
+        display: none;
+      }
+
+      .math-cup-field {
+        height: min(49vh, 192px);
+        width: auto;
+        max-width: 100%;
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+        grid-template-rows: repeat(7, minmax(0, 1fr));
+      }
+
+      .math-cup-main-action {
+        align-self: center;
+        width: 100%;
+        min-height: 0;
+      }
+
+      .math-cup-challenge {
+        min-height: 0;
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 7px;
+        border-width: 4px;
+      }
+
+      .math-cup-challenge-title,
+      .math-cup-question,
+      .math-cup-challenge-timer,
+      .math-cup-answers {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .math-cup-challenge-title {
+        justify-content: center;
+        font-size: clamp(14px, 2.2vw, 18px);
+      }
+
+      .math-cup-question {
+        font-size: clamp(21px, 4vw, 29px);
+      }
+
+      .math-cup-challenge-timer {
+        grid-template-columns: auto minmax(60px, 1fr) auto;
+        gap: 5px;
+        padding: 4px 6px;
+        font-size: 11px;
+      }
+
+      .math-cup-answers {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .math-cup-answer {
+        min-height: 38px;
+        border-width: 3px;
+        border-radius: 10px;
+        font-size: clamp(17px, 3vw, 24px);
+      }
+
+      .math-cup-answer.note {
+        min-height: 34px;
+        font-size: 11px;
+      }
+
+      .math-cup-goal-pause,
+      .math-cup-stop-overlay {
+        width: min(410px, 92%);
+      }
+
+      .message {
+        min-width: min(300px, calc(100% - 34px));
+        padding: 14px 22px;
+        border-width: 5px;
+        border-radius: 18px;
+        font-size: clamp(28px, 5.2vw, 44px);
+      }
+
+      .panel-back-button {
+        right: 8px;
+        bottom: 8px;
+        min-width: 44px;
+        height: 34px;
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -4158,13 +5012,15 @@
     <div id="message" class="message">Muito bem!</div>
   </main>
 
+  <div id="mobileNotice" class="mobile-notice" hidden>📱 Vire o celular para jogar melhor.</div>
+
   <footer class="footer">
     <div class="footer-info">
       <div id="status" class="status">Prontos para começar!</div>
     </div>
     <div class="credit">
       <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
-      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.0.1</span></div>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.0</span></div>
     </div>
   </footer>
 
@@ -4258,9 +5114,10 @@
       const feedbackCopyEmailButton = document.getElementById("feedbackCopyEmailButton");
       const feedbackNotice = document.getElementById("feedbackNotice");
       const appVersion = document.getElementById("appVersion");
+      const mobileNotice = document.getElementById("mobileNotice");
       const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
       const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.0.1";
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.0";
       const ADULT_HOLD_MS = 3000;
       const CHILD_ABOUT_LOCK_MS = 60000;
       const BACK_HOLD_MS = 1200;
@@ -7213,7 +8070,7 @@
         }
         content.innerHTML = `<div class="robot-layout">
           <div class="robot-playfield">
-            <div class="grid" style="--cell-size:${level.size[1] >= 9 ? 42 : 50}px; grid-template-columns: repeat(${level.size[0]}, minmax(24px, min(var(--cell-size), 4.5vw)));">${cells.join("")}</div>
+            <div class="grid" style="--cell-size:${level.size[1] >= 9 ? 42 : 50}px; grid-template-columns: repeat(${level.size[0]}, minmax(24px, min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
             <div class="energy-meter">
               <div class="energy-icon">⚡</div>
               <div class="energy-track"><div class="energy-fill" style="width:${energyPercent}%"></div></div>
@@ -10174,6 +11031,33 @@
         return !aboutModal.hidden;
       }
 
+      function viewportSize() {
+        const visualViewport = window.visualViewport;
+        return {
+          width: Math.round(visualViewport?.width || window.innerWidth || document.documentElement.clientWidth || 0),
+          height: Math.round(visualViewport?.height || window.innerHeight || document.documentElement.clientHeight || 0),
+        };
+      }
+
+      function updateViewportMode() {
+        const { width, height } = viewportSize();
+        const isTouch = Boolean(window.matchMedia?.("(hover: none) and (pointer: coarse)").matches);
+        const shortSide = Math.min(width, height);
+        const longSide = Math.max(width, height);
+        const isPhone = isTouch && shortSide <= 720 && longSide <= 1100;
+        const isPortrait = height >= width;
+        document.body.classList.toggle("is-touch", isTouch);
+        document.body.classList.toggle("is-phone", isPhone);
+        document.body.classList.toggle("is-portrait", isPortrait);
+        document.body.classList.toggle("is-landscape", !isPortrait);
+        mobileNotice.hidden = !(isPhone && isPortrait && !isAboutModalOpen());
+      }
+
+      function handleViewportChange() {
+        updateViewportMode();
+        scheduleTextFit();
+      }
+
       function setAdultHoldProgress(progress) {
         adultHoldButton.style.setProperty("--adult-hold-progress", `${Math.round(progress * 100)}%`);
       }
@@ -10194,12 +11078,14 @@
         audienceNotice.textContent = "Adultos devem segurar o botão por 3 segundos.";
         feedbackNotice.textContent = "Contato liberado para adultos.";
         resetAdultHold();
+        updateViewportMode();
       }
 
       function closeAboutModal() {
         aboutModal.hidden = true;
         resetAdultHold();
         supportUnlockedPanel.hidden = true;
+        updateViewportMode();
       }
 
       function showSupportQr() {
@@ -10551,7 +11437,9 @@
       }, { capture: true });
 
       document.addEventListener("contextmenu", (event) => event.preventDefault());
-      window.addEventListener("resize", scheduleTextFit);
+      window.addEventListener("resize", handleViewportChange);
+      window.addEventListener("orientationchange", handleViewportChange);
+      window.visualViewport?.addEventListener("resize", handleViewportChange);
       content.addEventListener("pointerdown", handleContentPointerDown);
       content.addEventListener("click", handleContentClick);
       aboutButton.addEventListener("click", openAboutModal);
@@ -10584,6 +11472,7 @@
       });
       fullscreenButton.addEventListener("click", toggleFullscreen);
       appVersion.textContent = `v${APP_VERSION}`;
+      updateViewportMode();
       render();
     })();
   </script>

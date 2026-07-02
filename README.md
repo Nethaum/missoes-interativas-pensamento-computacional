@@ -2,13 +2,13 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.0.1
+Versão atual: 2.1.0
 
 ## Objetivo
 
 Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza e segurança no trânsito.
 
-As atividades foram pensadas para uso direto em sala, com navegação por teclado e apoio a mouse ou toque quando a missão permitir.
+As atividades foram pensadas para uso direto em sala, com navegação por teclado e apoio a mouse ou toque quando a missão permitir. O material também se adapta a telas menores no navegador, com melhor experiência em celulares na horizontal.
 
 ## Missão em destaque
 
