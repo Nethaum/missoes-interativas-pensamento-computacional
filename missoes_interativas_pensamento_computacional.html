@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.1.6">
+  <meta name="app-version" content="2.1.8">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
@@ -1616,12 +1616,28 @@
 
     .math-cup-team-select {
       width: min(1180px, 100%);
-      max-height: min(560px, 68vh);
       display: grid;
-      gap: 18px;
-      overflow: auto;
-      padding: 0 8px 18px;
-      align-content: start;
+      gap: 12px;
+      overflow: visible;
+      padding: 0 8px 8px;
+      align-content: center;
+    }
+
+    .math-cup-team-page-title {
+      justify-self: center;
+      min-width: 270px;
+      padding: 8px 18px;
+      border: 3px solid #d7a72f;
+      border-radius: 14px;
+      background: #fff1a8;
+      color: #07162f;
+      font-family: Arial, sans-serif;
+      font-size: clamp(14px, 1.5vw, 22px);
+      font-weight: 950;
+      line-height: 1.05;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: none;
     }
 
     .math-cup-showcase {
@@ -1839,12 +1855,12 @@
 
     .math-cup-team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
     }
 
     .math-cup-team-card {
-      min-height: 104px;
+      min-height: 98px;
       display: grid;
       align-content: center;
       justify-items: center;
@@ -1859,14 +1875,14 @@
       text-align: center;
       text-transform: uppercase;
       text-shadow: none;
-      box-shadow: 0 5px 0 rgba(21, 31, 48, 0.2);
+      box-shadow: 0 4px 0 rgba(21, 31, 48, 0.18);
       cursor: pointer;
     }
 
     .math-cup-team-card.selected {
       border-color: var(--yellow);
-      box-shadow: 0 0 0 5px rgba(255, 223, 99, 0.34), 0 5px 0 rgba(21, 31, 48, 0.2);
-      transform: translateY(-2px);
+      background: #fff8d8;
+      box-shadow: 0 0 0 4px rgba(255, 223, 99, 0.38), 0 4px 0 rgba(21, 31, 48, 0.18);
     }
 
     .math-cup-team-card .flag-art {
@@ -1900,6 +1916,35 @@
       border-color: #d7a72f;
       background: #fff1a8;
       color: #06142b;
+    }
+
+    .math-cup-team-pager {
+      justify-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #fff8d8;
+      font-family: Arial, sans-serif;
+      font-size: clamp(13px, 1.3vw, 18px);
+      font-weight: 950;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+    }
+
+    .math-cup-team-pager-button {
+      min-width: 56px;
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      border: 3px solid rgba(255, 248, 216, 0.78);
+      border-radius: 10px;
+      background: rgba(255, 253, 242, 0.08);
+      color: #fff8d8;
+      font-size: 22px;
+      font-weight: 950;
+      cursor: pointer;
     }
 
     .level-badge {
@@ -5132,7 +5177,7 @@
     </div>
     <div class="credit">
       <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
-      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.6</span></div>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.8</span></div>
     </div>
   </footer>
 
@@ -5229,7 +5274,7 @@
       const mobileNotice = document.getElementById("mobileNotice");
       const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
       const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.6";
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.8";
       const ADULT_HOLD_MS = 3000;
       const CHILD_ABOUT_LOCK_MS = 60000;
       const BACK_HOLD_MS = 1200;
@@ -6095,6 +6140,9 @@
           { id: "striker", label: "Ataque" },
         ],
       };
+      const MATH_CUP_TEAM_GRID_COLUMNS = 4;
+      const MATH_CUP_TEAM_GRID_ROWS = 3;
+      const MATH_CUP_TEAM_PAGE_SIZE = MATH_CUP_TEAM_GRID_COLUMNS * MATH_CUP_TEAM_GRID_ROWS;
 
       const mathCupLevelPlans = [
         { title: "Aquecimento", icon: "⚽", age: "6-7 anos", theme: "Juntar e tirar", meta: "contas curtinhas", preview: ["2+3", "7-2", "🥅"] },
@@ -8685,6 +8733,10 @@
         return mathCupPlayerRole(player);
       }
 
+      function mathCupPlayerRoleText(player) {
+        return mathCupPlayerRole(player).toLocaleLowerCase("pt-BR");
+      }
+
       function mathCupPlayerSide(classNames) {
         return classNames.split(/\s+/).includes("opponent") ? "away" : "home";
       }
@@ -9183,8 +9235,8 @@
           const target = mathCupPlayerById(challenge.targetId);
           return `${info.icon} ${info.label}: ${mathCupPlayerRole(target)}`;
         }
-        if (challenge.type === "defense" && challenge.opponentLine >= MATH_CUP_CONFIG.opponentGoalLine) {
-          return `${info.icon} Defesa do goleiro`;
+        if (challenge.type === "defense") {
+          return `${info.icon} ${mathCupDefenseLabel(challenge)}`;
         }
         return `${info.icon} ${info.label}`;
       }
@@ -9556,6 +9608,7 @@
         const goalDetails = mathCupGoalPauseDetails();
         if (goalDetails) return goalDetails.nextActionLabel;
         if (state.mathCupBreak) return state.mathCupBreak.result?.label || "Descanso";
+        if (state.mathCupChallenge?.type === "defense") return mathCupDefenseLabel(state.mathCupChallenge);
         if (state.mathCupChallenge) return mathCupChallengeInfo[state.mathCupChallenge.type]?.label || "Jogo";
         if (state.mathCupPossession === "away") return "Defender";
         if (isMathCupFinalStage()) return "Drible";
@@ -9568,7 +9621,8 @@
         if (pauseDetails || state.mathCupBreak || state.mathCupGoalPause) return mathCupPausedMomentLabel(pauseDetails);
         if (state.mathCupChallenge?.type === "shot") return "🥅 Chute";
         if (state.mathCupChallenge?.type === "dribble") return "⚡ Drible";
-        if (state.mathCupChallenge?.type === "defense" || state.mathCupPossession === "away") return "🛡️ Defesa";
+        if (state.mathCupChallenge?.type === "defense") return `🛡️ ${mathCupDefenseLabel(state.mathCupChallenge)}`;
+        if (state.mathCupPossession === "away") return "🛡️ Defender";
         if (state.mathCupPassTargets.length) return "🎯 Passe";
         if (isMathCupFinalStage()) return "⚡ Ataque";
         return "⚽ Ataque";
@@ -9770,25 +9824,56 @@
       }
 
       function mathCupTeamChoiceCardHtml(team, index) {
-        return `<div class="math-cup-team-card ${index === state.selected ? "selected" : ""}">
+        return `<div class="math-cup-team-card ${index === state.selected ? "selected" : ""}" data-team-index="${index}">
           ${flagArt(team.flag, "math-cup-team-flag")}
           <div class="math-cup-team-name" data-fit-text data-fit-min="9">${team.country}</div>
         </div>`;
       }
 
-      function mathCupTeamChoiceGroupsHtml() {
-        let index = 0;
-        return mathCupTeamChoiceGroups().map((group) => {
-          const cards = group.teams.map((team) => {
-            const card = mathCupTeamChoiceCardHtml(team, index);
-            index += 1;
-            return card;
-          }).join("");
-          return `<section class="math-cup-team-group">
-            <div class="math-cup-team-group-title">${group.title}</div>
-            <div class="math-cup-team-grid">${cards}</div>
-          </section>`;
-        }).join("");
+      function mathCupTeamPageCount(teams = mathCupTeamChoices()) {
+        return Math.max(1, Math.ceil(teams.length / MATH_CUP_TEAM_PAGE_SIZE));
+      }
+
+      function currentMathCupTeamPage(teams = mathCupTeamChoices()) {
+        const safeSelection = Math.max(0, Math.min(state.selected, teams.length - 1));
+        return Math.floor(safeSelection / MATH_CUP_TEAM_PAGE_SIZE);
+      }
+
+      function mathCupTeamPageRange(teams = mathCupTeamChoices()) {
+        const page = currentMathCupTeamPage(teams);
+        const start = page * MATH_CUP_TEAM_PAGE_SIZE;
+        const end = Math.min(start + MATH_CUP_TEAM_PAGE_SIZE, teams.length);
+        return { page, start, end };
+      }
+
+      function setMathCupTeamPage(page) {
+        const teams = mathCupTeamChoices();
+        const pageCount = mathCupTeamPageCount(teams);
+        const targetPage = (page + pageCount) % pageCount;
+        state.selected = Math.min(targetPage * MATH_CUP_TEAM_PAGE_SIZE, teams.length - 1);
+      }
+
+      function mathCupTeamPagerHtml(page, pageCount) {
+        return `<div class="math-cup-team-pager">
+          <button class="math-cup-team-pager-button" type="button" data-team-page="prev" aria-label="Página anterior">←</button>
+          <span>Página ${page + 1} de ${pageCount}</span>
+          <button class="math-cup-team-pager-button" type="button" data-team-page="next" aria-label="Próxima página">→</button>
+        </div>`;
+      }
+
+      function mathCupTeamChoicePageHtml(teams = mathCupTeamChoices()) {
+        const { page, start, end } = mathCupTeamPageRange(teams);
+        const pageCount = mathCupTeamPageCount(teams);
+        const visibleTeams = teams.slice(start, end);
+        const cards = visibleTeams
+          .map((team, offset) => mathCupTeamChoiceCardHtml(team, start + offset))
+          .join("");
+
+        return `<div class="math-cup-team-select">
+          <div class="math-cup-team-page-title">Seleções ${start + 1}-${end} de ${teams.length}</div>
+          <div class="math-cup-team-grid">${cards}</div>
+          ${mathCupTeamPagerHtml(page, pageCount)}
+        </div>`;
       }
 
       function mathCupMiniFieldHtml() {
@@ -9895,9 +9980,7 @@
           setHeader("Copa da Matemática", "Escolha sua seleção.");
           setCounters("Seleção", `${state.selected + 1} / ${teams.length}`, "Campanha", "3+");
           status.textContent = "Escolha a seleção da sua campanha.";
-          content.innerHTML = `<div class="math-cup-team-select">
-            ${mathCupTeamChoiceGroupsHtml()}
-          </div>`;
+          content.innerHTML = mathCupTeamChoicePageHtml(teams);
           return;
         }
 
@@ -9973,39 +10056,12 @@
         fitTextElements();
       }
 
-      function keepMathCupTeamSelectionVisible() {
-        if (state.mode !== "mathCup" || state.mathCupLevel === null || state.mathCupTeamCode !== null) return;
-        const scroller = content.querySelector(".math-cup-team-select");
-        const selectedCard = scroller?.querySelector(".math-cup-team-card.selected");
-        if (!scroller || !selectedCard) return;
-
-        const scrollerBox = scroller.getBoundingClientRect();
-        const cardBox = selectedCard.getBoundingClientRect();
-        const isOutsideView = cardBox.top < scrollerBox.top
-          || cardBox.bottom > scrollerBox.bottom
-          || cardBox.left < scrollerBox.left
-          || cardBox.right > scrollerBox.right;
-
-        if (isOutsideView) {
-          selectedCard.scrollIntoView({ block: "nearest", inline: "nearest" });
-        }
-      }
-
-      function schedulePostRenderAdjustments() {
-        if (window.requestAnimationFrame) {
-          window.requestAnimationFrame(keepMathCupTeamSelectionVisible);
-          return;
-        }
-        keepMathCupTeamSelectionVisible();
-      }
-
       function render() {
         const renderer = isLevelMission(state.mode)
           ? renderLevels
           : missionRenderers[state.mode] || renderMenu;
         renderer();
         scheduleTextFit();
-        schedulePostRenderAdjustments();
       }
 
       function resetMathCupCampaignState({
@@ -10618,6 +10674,15 @@
         return mathCupPlayerById(challenge.recoveryPlayerId || state.mathCupRecoveryPlayerId || "gk");
       }
 
+      function mathCupDefensePlayer(challenge = state.mathCupChallenge) {
+        if (!challenge) return mathCupPlayerById("gk");
+        return mathCupRecoveringPlayer(challenge);
+      }
+
+      function mathCupDefenseLabel(challenge = state.mathCupChallenge) {
+        return `Defesa do ${mathCupPlayerRoleText(mathCupDefensePlayer(challenge))}`;
+      }
+
       function mathCupOpponentLineFromChallenge(challenge) {
         if (challenge.type === "shot") return 1;
         return mathCupOpponentLineForHomeLine(challenge.lineIndex ?? state.mathCupStage);
@@ -10970,7 +11035,7 @@
             state.selected = (state.selected + step + count) % count;
           } else if (state.mathCupTeamCode === null) {
             const count = mathCupTeamChoices().length;
-            const step = vertical ? delta * 6 : delta;
+            const step = vertical ? delta * MATH_CUP_TEAM_GRID_COLUMNS : delta;
             state.selected = (state.selected + step + count) % count;
           } else if (state.mathCupChallenge) {
             const count = mathCupOptions().length;
@@ -11074,10 +11139,29 @@
 
       function handleMathCupTeamClick(event) {
         if (state.mathCupLevel === null || state.mathCupTeamCode !== null) return false;
-        return activateIndexedClick(event, ".math-cup-team-card", (index) => {
-          state.selected = index;
-          handleMathCupEnter();
-        });
+        return handleMathCupTeamPagerClick(event) || handleMathCupTeamCardClick(event);
+      }
+
+      function handleMathCupTeamPagerClick(event) {
+        const pageButton = clickedElement(event, ".math-cup-team-pager-button");
+        if (!pageButton) return false;
+
+        const page = currentMathCupTeamPage();
+        setMathCupTeamPage(pageButton.dataset.teamPage === "prev" ? page - 1 : page + 1);
+        render();
+        return true;
+      }
+
+      function handleMathCupTeamCardClick(event) {
+        const card = clickedElement(event, ".math-cup-team-card");
+        if (!card) return false;
+
+        const index = Number(card.dataset.teamIndex);
+        if (!Number.isInteger(index)) return false;
+
+        state.selected = index;
+        handleMathCupEnter();
+        return true;
       }
 
       function handleMathCupOpeningClick(event) {
