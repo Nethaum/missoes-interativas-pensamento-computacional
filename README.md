@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.1.9
+Versão atual: 2.3.0
 
 ## Acesse
 
@@ -14,19 +14,54 @@ O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem 
 
 ## Objetivo
 
-Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza, biologia e segurança no trânsito.
+Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
 
 As atividades foram pensadas para uso direto em sala, com linguagem simples, pouco texto e interação por teclado, mouse ou toque conforme a missão.
 
-## Destaque
+## Alinhamento pedagógico
 
-A **Copa da Matemática** é a experiência principal do projeto. Ela combina futebol, estratégia, cálculo mental, tomada de decisão e probabilidade em uma campanha com seleções da Copa do Mundo.
+O material foi organizado para apoiar aulas de Pensamento Computacional nos anos iniciais, em diálogo com a BNCC, com as normas de Computação na Educação Básica e com temas contemporâneos transversais como saúde, meio ambiente, cidadania e segurança.
 
-A missão conta com apresentação própria, explicação pedagógica dentro da atividade e faixas de desafio por idade sugerida, sem prender a experiência a uma série escolar específica.
+As missões interdisciplinares usam referências oficiais como eixo de conteúdo:
+
+- Educação e computação: BNCC e normas nacionais de Computação na Educação Básica.
+- Saúde e ambiente: orientações do Ministério da Saúde sobre prevenção da dengue e eliminação de criadouros do Aedes aegypti.
+- Trânsito e mobilidade: orientações nacionais de trânsito para condutas seguras de pedestres e ciclistas.
+
+O conteúdo evita coleta de dados dos alunos, cadastro, login, câmera, microfone e geolocalização. A página funciona como um arquivo HTML estático e não envia dados automaticamente.
+
+Referências oficiais:
+
+- BNCC: https://www.gov.br/mec/pt-br/cne/base-nacional-comum-curricular-bncc
+- Computação na Educação Básica: https://www.gov.br/mec/pt-br/cne/resolucoes/esolucoes-ceb-2022
+- Temas Contemporâneos Transversais: https://www.gov.br/mec/pt-br/assuntos/eb/guia_pratico_temas_contemporaneos.pdf
+- Dengue e Aedes aegypti: https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dengue
+- Programa Saúde na Escola: https://www.gov.br/mec/pt-br/programa-saude-na-escola/tematicas
+- Segurança de ciclistas: https://www.gov.br/transportes/pt-br/assuntos/transito/arquivos-senatran/docs/CartilhaCiclistaatualizada.pdf
+
+## Dispositivos
+
+O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência.
+
+## Projetos destaque
+
+A **Copa da Matemática** combina futebol, estratégia, cálculo mental, tomada de decisão e probabilidade em uma campanha com seleções da Copa do Mundo.
+
+A **Corrida contra o Aedes** trabalha saúde, ambiente e prevenção em formato de percurso interativo, com foco em reconhecer e eliminar pontos de água parada.
+
+Essas missões contam com visual mais elaborado e foram pensadas também para apresentações, feiras e aulas especiais.
+
+## Destaques da versão 2.3.0
+
+- Corrida contra o Aedes com mapa de percurso, dicas contextualizadas e tela final própria.
+- Organização interna mais modular para facilitar novas missões e ajustes futuros.
+- Navegação e seleção de respostas mais padronizadas entre teclado, mouse, toque e painel interativo.
+- Validação leve do catálogo de missões para evitar duplicidades e categorias incompletas.
 
 ## Missões
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
+- Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
 - Robô Coletor: sequência de comandos e planejamento de caminho.
 - Matemática Colorida: cálculo mental com dificuldade progressiva.
 - Copa das Bandeiras: reconhecimento de países e bandeiras.
@@ -46,9 +81,9 @@ A missão conta com apresentação própria, explicação pedagógica dentro da 
 
 ## Controles
 
-- Setas: navegar e escolher.
-- Enter: confirmar.
-- Mouse ou toque: selecionar quando a missão permitir.
+- Toque, mouse ou painel interativo: selecionar cartões, respostas e botões na tela.
+- Setas na tela ou no teclado: mover, navegar e escolher.
+- Enter ou botão de continuar: confirmar quando a missão estiver aguardando.
 - Voltar: segure o botão de voltar ou segure Esc para evitar saídas acidentais.
 - R: reiniciar a missão atual.
 - F: alternar tela cheia.

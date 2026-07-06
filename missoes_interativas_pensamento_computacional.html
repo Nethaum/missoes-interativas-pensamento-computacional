@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.1.9">
+  <meta name="app-version" content="2.3.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
@@ -1102,6 +1102,71 @@
       font-weight: 950;
     }
 
+    .direction-pad {
+      display: grid;
+      grid-template-areas:
+        ". up ."
+        "left center right"
+        ". down .";
+      grid-template-columns: repeat(3, 68px);
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .direction-button,
+    .direction-pad-center {
+      display: grid;
+      place-items: center;
+      width: 68px;
+      height: 52px;
+      border-radius: 14px;
+      font-family: var(--read-font);
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .direction-button {
+      border: 4px solid rgba(255, 247, 214, 0.9);
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.15), transparent 34%),
+        #254238;
+      color: #ffe15d;
+      box-shadow: 0 6px 0 rgba(17, 29, 24, 0.72);
+      font-size: 34px;
+      text-shadow:
+        0 2px 0 #6d4307,
+        0 0 10px rgba(255, 225, 93, 0.45);
+      touch-action: manipulation;
+    }
+
+    .direction-button.up {
+      grid-area: up;
+    }
+
+    .direction-button.left {
+      grid-area: left;
+    }
+
+    .direction-button.right {
+      grid-area: right;
+    }
+
+    .direction-button.down {
+      grid-area: down;
+    }
+
+    .direction-pad-center {
+      grid-area: center;
+      border: 3px dashed rgba(255, 247, 214, 0.42);
+      color: rgba(255, 247, 214, 0.72);
+      font-size: 18px;
+    }
+
+    .robot-inline-controls {
+      display: none;
+    }
+
     .traffic-board,
     .math-board,
     .habitat-board,
@@ -1463,6 +1528,463 @@
       font-weight: 950;
       line-height: 1;
       text-transform: uppercase;
+    }
+
+    .dengue-board {
+      position: relative;
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: minmax(420px, 1.12fr) minmax(360px, 0.88fr);
+      gap: 16px;
+      align-items: center;
+    }
+
+    .dengue-scene {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border: 5px solid #ffcf42;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.48), transparent 25%),
+        linear-gradient(135deg, #e8f5dc, #fff3bd);
+      box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28);
+    }
+
+    .dengue-scene-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .dengue-patrol {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 11px;
+      border: 2px solid #2f6dd6;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #12356e;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .dengue-map {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: minmax(58px, 1fr);
+      gap: 8px;
+      padding: 8px;
+      border: 4px solid rgba(24, 72, 50, 0.18);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(44, 151, 86, 0.18), rgba(255, 255, 255, 0.2)),
+        #fff8dc;
+      pointer-events: none;
+    }
+
+    .dengue-map-cell {
+      position: relative;
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      border: 3px dashed rgba(24, 72, 50, 0.28);
+      border-radius: 14px;
+      background: rgba(255, 253, 240, 0.58);
+      color: #163f2d;
+      font-size: 24px;
+      filter: saturate(0.74);
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.34);
+    }
+
+    .dengue-map-cell.route {
+      border-style: solid;
+      border-color: rgba(95, 132, 88, 0.48);
+      background: #fffdf0;
+      opacity: 1;
+    }
+
+    .dengue-map-cell.room {
+      opacity: 0.38;
+      filter: grayscale(0.25);
+    }
+
+    .dengue-map-cell.route::before {
+      content: attr(data-step);
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      display: grid;
+      place-items: center;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 3px;
+      border-radius: 999px;
+      background: rgba(24, 72, 50, 0.84);
+      color: #fffbea;
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .dengue-map-cell.checked {
+      border-style: solid;
+      border-color: rgba(49, 150, 88, 0.58);
+      background: #e6f7df;
+      color: #1c6d3b;
+      font-size: 22px;
+    }
+
+    .dengue-map-cell.upcoming {
+      opacity: 0.72;
+    }
+
+    .dengue-map-cell.active {
+      border-style: solid;
+      border-color: #ff9f43;
+      background: #fffdf0;
+      filter: none;
+      transform: scale(1.08);
+      box-shadow: 0 8px 0 rgba(255, 159, 67, 0.25), 0 0 0 5px rgba(255, 207, 66, 0.35);
+    }
+
+    .dengue-map-cell.finish {
+      border-style: solid;
+      border-color: #2f6dd6;
+      background: #eaf2ff;
+      color: #12356e;
+      opacity: 1;
+    }
+
+    .dengue-map-cell.active::after {
+      content: "FOCO";
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      padding: 2px 6px;
+      border: 2px solid #b23030;
+      border-radius: 999px;
+      background: #fff0f0;
+      color: #8a1f1f;
+      font-family: Arial, sans-serif;
+      font-size: 8px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .dengue-runner {
+      position: absolute;
+      left: -8px;
+      top: -8px;
+      display: grid;
+      place-items: center;
+      width: 26px;
+      aspect-ratio: 1;
+      border: 2px solid #fffdf0;
+      border-radius: 50%;
+      background: #2f6dd6;
+      font-size: 15px;
+      box-shadow: 0 3px 0 rgba(21, 31, 48, 0.22);
+    }
+
+    .dengue-inspection {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 4px solid #d6caa4;
+      border-radius: 14px;
+      background: #fffdf0;
+      color: var(--card-ink);
+      text-shadow: none;
+    }
+
+    .dengue-icon {
+      display: grid;
+      place-items: center;
+      width: 84px;
+      aspect-ratio: 1;
+      border: 4px solid #ff9f43;
+      border-radius: 18px;
+      background: #fff0cf;
+      font-size: 50px;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .visual-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.13em;
+      line-height: 1;
+      isolation: isolate;
+    }
+
+    .visual-icon svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .visual-icon text {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      paint-order: stroke;
+      stroke: rgba(255, 255, 255, 0.82);
+      stroke-width: 3px;
+      stroke-linejoin: round;
+      fill: #152238;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    .selected,
+    .chosen {
+      outline: 3px solid rgba(21, 94, 171, 0.52);
+      outline-offset: 2px;
+    }
+
+    .wrong {
+      background-image:
+        repeating-linear-gradient(135deg, rgba(190, 43, 43, 0.15) 0 8px, transparent 8px 16px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    .dengue-place {
+      color: #184832;
+      font-size: clamp(20px, 2.2vw, 31px);
+      font-weight: 950;
+      line-height: 1.02;
+    }
+
+    .dengue-clue {
+      margin-top: 5px;
+      color: #445064;
+      font-size: clamp(13px, 1.4vw, 17px);
+      font-weight: 850;
+      line-height: 1.12;
+    }
+
+    .dengue-danger {
+      justify-self: start;
+      padding: 6px 11px;
+      border: 2px solid #ad7c12;
+      border-radius: 999px;
+      background: #fff3c4;
+      color: #6f4508;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .dengue-play {
+      display: grid;
+      gap: 12px;
+    }
+
+    .dengue-question {
+      justify-self: center;
+      width: min(520px, 100%);
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      border: 4px solid var(--orange);
+      border-radius: 14px;
+      background: #fff3ca;
+      color: var(--card-ink);
+      font-size: clamp(20px, 2.4vw, 30px);
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      text-shadow: none;
+    }
+
+    .dengue-play-hint {
+      color: #fff7cc;
+      font-family: var(--chalk-font);
+      font-size: clamp(20px, 2.3vw, 31px);
+      font-weight: 950;
+      line-height: 1;
+      text-align: center;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2), 0 0 6px rgba(255, 231, 142, 0.44);
+      text-transform: uppercase;
+    }
+
+    .dengue-health-tip {
+      padding: 9px 12px;
+      border: 3px solid #9fc6e9;
+      border-radius: 13px;
+      background: #eef8ff;
+      color: #184832;
+      font-size: clamp(13px, 1.25vw, 16px);
+      font-weight: 900;
+      line-height: 1.16;
+      text-align: center;
+      text-shadow: none;
+      text-transform: uppercase;
+    }
+
+    .dengue-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .dengue-final {
+      width: min(920px, 100%);
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+      padding: clamp(18px, 3vw, 30px);
+      border: 5px solid #ffcf42;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.62), transparent 26%),
+        linear-gradient(135deg, #e8f5dc, #fff3bd);
+      box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28);
+      color: #173f2d;
+      text-shadow: none;
+      text-align: center;
+    }
+
+    .dengue-final-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .dengue-final-subtitle {
+      max-width: 680px;
+      color: #3e5267;
+      font-size: clamp(15px, 1.6vw, 20px);
+      font-weight: 850;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .dengue-final-cards {
+      width: min(760px, 100%);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .dengue-final-card {
+      display: grid;
+      gap: 6px;
+      place-items: center;
+      min-height: 104px;
+      padding: 10px;
+      border: 3px solid rgba(214, 169, 67, 0.55);
+      border-radius: 14px;
+      background: #fffdf2;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.5);
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .dengue-final-card-icon {
+      display: grid;
+      place-items: center;
+      height: 42px;
+      font-size: 34px;
+    }
+
+    .dengue-finish-button {
+      min-width: 220px;
+      min-height: 58px;
+      display: grid;
+      place-items: center;
+      padding: 10px 18px;
+      border: 4px solid #2f6dd6;
+      border-radius: 15px;
+      background: #eef4ff;
+      color: #12356e;
+      box-shadow: 0 6px 0 rgba(47, 109, 214, 0.24);
+      font-size: clamp(17px, 1.8vw, 22px);
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .dengue-action {
+      min-height: 70px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 3px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.55);
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .dengue-action.selected,
+    .dengue-action.chosen {
+      border-color: var(--blue);
+      transform: translateY(-6px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .dengue-action.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+    }
+
+    .dengue-actions.locked .dengue-action:not(.wrong) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
+    .dengue-action-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      aspect-ratio: 1;
+      border-radius: 13px;
+      background: #e7f5ec;
+      font-size: 25px;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .dengue-action-icon.custom {
+      background: transparent;
+      border: 0;
+      font-size: 30px;
+    }
+
+    .dengue-action-label {
+      color: var(--card-ink);
+      font-size: clamp(13px, 1.35vw, 18px);
+      font-weight: 950;
+      line-height: 1.05;
+      text-shadow: none;
     }
 
     .answer-pause {
@@ -2158,7 +2680,8 @@
       overflow-wrap: anywhere;
     }
 
-    .habitat.selected {
+    .habitat.selected,
+    .habitat.chosen {
       border-color: var(--blue);
       transform: translateY(-6px);
     }
@@ -3890,6 +4413,8 @@
     .robot-stat,
     .chips,
     .traffic-action,
+    .dengue-action,
+    .dengue-scene,
     .option,
     .habitat,
     .animal-card,
@@ -3920,7 +4445,10 @@
     .menu-card,
     .menu-page-button,
     .level-card,
+    .arrow-card,
+    .direction-button,
     .traffic-action,
+    .dengue-action,
     .option,
     .habitat,
     .cycle-item,
@@ -3938,6 +4466,8 @@
     }
 
     .traffic-actions.locked .traffic-action,
+    .dengue-actions.locked .dengue-action,
+    .legacy-locked .arrow-card,
     .answer-options.locked .option,
     .habitats.locked .habitat,
     .cycle-items.locked .cycle-item,
@@ -3990,12 +4520,25 @@
         grid-template-columns: 1fr;
       }
 
+      .robot-inline-controls {
+        display: grid;
+      }
+
       .habitats {
         grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
       }
 
       .traffic-focus {
         grid-template-columns: 1fr;
+      }
+
+      .dengue-board {
+        width: min(760px, 100%);
+        grid-template-columns: 1fr;
+      }
+
+      .dengue-final-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .math-cup-board {
@@ -4152,7 +4695,10 @@
       .menu-card,
       .menu-page-button,
       .level-card,
+      .arrow-card,
+      .direction-button,
       .traffic-action,
+      .dengue-action,
       .option,
       .habitat,
       .cycle-item,
@@ -4171,6 +4717,7 @@
       .menu-card,
       .level-card,
       .traffic-action,
+      .dengue-action,
       .option,
       .habitat,
       .cycle-item,
@@ -4400,6 +4947,7 @@
 
       .robot-layout,
       .traffic-board,
+      .dengue-board,
       .math-board,
       .habitat-board,
       .cycle-board,
@@ -4420,6 +4968,23 @@
         overflow: auto;
       }
 
+      .direction-pad {
+        grid-template-columns: repeat(3, 58px);
+        gap: 6px;
+      }
+
+      .direction-button,
+      .direction-pad-center {
+        width: 58px;
+        height: 46px;
+        border-radius: 12px;
+      }
+
+      .direction-button {
+        border-width: 3px;
+        font-size: 29px;
+      }
+
       .energy-meter {
         padding: 6px 8px;
       }
@@ -4430,10 +4995,117 @@
       }
 
       .answer-card,
-      .option {
+      .option,
+      .dengue-action {
         min-height: 64px;
         padding: 8px;
         font-size: clamp(16px, 5.3vw, 22px);
+      }
+
+      .dengue-board {
+        gap: 8px;
+      }
+
+      .dengue-scene,
+      .dengue-play {
+        gap: 8px;
+      }
+
+      .dengue-scene {
+        padding: 8px;
+        border-width: 4px;
+        border-radius: 14px;
+      }
+
+      .dengue-map {
+        grid-auto-rows: minmax(34px, 1fr);
+        gap: 4px;
+        padding: 5px;
+        border-width: 3px;
+      }
+
+      .dengue-map-cell.route::before {
+        min-width: 14px;
+        height: 14px;
+        font-size: 7px;
+      }
+
+      .dengue-map-cell {
+        min-height: 34px;
+        border-width: 2px;
+        border-radius: 10px;
+        font-size: 19px;
+      }
+
+      .dengue-inspection {
+        gap: 8px;
+        padding: 7px;
+        border-width: 3px;
+      }
+
+      .dengue-icon {
+        width: 54px;
+        border-width: 3px;
+        border-radius: 14px;
+        font-size: 32px;
+      }
+
+      .dengue-place {
+        font-size: clamp(18px, 5vw, 24px);
+      }
+
+      .dengue-clue {
+        font-size: 12px;
+      }
+
+      .dengue-play-hint {
+        font-size: clamp(18px, 5.6vw, 24px);
+      }
+
+      .dengue-question {
+        min-height: 48px;
+        padding: 9px;
+        font-size: clamp(18px, 5.4vw, 24px);
+      }
+
+      .dengue-health-tip {
+        padding: 7px 9px;
+        font-size: 11px;
+      }
+
+      .dengue-actions {
+        gap: 8px;
+      }
+
+      .dengue-action {
+        min-height: 58px;
+        gap: 6px;
+        padding: 6px;
+      }
+
+      .dengue-action-icon {
+        width: 34px;
+        border-radius: 10px;
+        font-size: 21px;
+      }
+
+      .dengue-action-label {
+        font-size: 12px;
+      }
+
+      .dengue-final {
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .dengue-final-cards {
+        gap: 7px;
+      }
+
+      .dengue-final-card {
+        min-height: 82px;
+        padding: 8px;
+        font-size: 11px;
       }
 
       .quiz-question {
@@ -4586,6 +5258,82 @@
       }
     }
 
+    @media (max-height: 820px) and (min-width: 721px) {
+      .dengue-board {
+        width: min(1050px, 100%);
+      }
+
+      .dengue-scene {
+        gap: 9px;
+        padding: 12px;
+      }
+
+      .dengue-map {
+        grid-auto-rows: minmax(48px, 1fr);
+        gap: 6px;
+        padding: 6px;
+      }
+
+      .dengue-map-cell {
+        min-height: 48px;
+        font-size: 22px;
+      }
+
+      .dengue-inspection {
+        padding: 9px;
+      }
+
+      .dengue-icon {
+        width: 70px;
+        font-size: 42px;
+      }
+
+      .dengue-question {
+        min-height: 52px;
+      }
+
+      .dengue-health-tip {
+        padding: 7px 10px;
+      }
+
+      .dengue-action {
+        min-height: 58px;
+        padding: 7px;
+      }
+
+      .math-cup-team-select {
+        gap: 8px;
+        padding-bottom: 4px;
+        align-content: center;
+      }
+
+      .math-cup-team-page-title {
+        padding: 6px 16px;
+        font-size: clamp(14px, 1.25vw, 19px);
+      }
+
+      .math-cup-team-card {
+        min-height: 88px;
+        gap: 6px;
+        padding: 7px 8px;
+      }
+
+      .math-cup-team-card .flag-art {
+        width: 66px;
+        height: 42px;
+      }
+
+      .math-cup-team-name {
+        min-height: 29px;
+        padding: 3px 6px;
+      }
+
+      .math-cup-team-pager-button {
+        min-width: 50px;
+        min-height: 38px;
+      }
+    }
+
     @media (max-height: 540px) and (orientation: landscape) {
       :root {
         --grid-cell-fluid: 4.9vw;
@@ -4648,6 +5396,7 @@
       }
 
       .content {
+        place-items: start center;
         overflow: auto;
         padding-bottom: 32px;
         -webkit-overflow-scrolling: touch;
@@ -4707,11 +5456,175 @@
         font-size: 11px;
       }
 
+      .dengue-board {
+        grid-template-columns: minmax(220px, 0.9fr) minmax(300px, 1.1fr);
+        gap: 8px;
+      }
+
+      .direction-pad {
+        grid-template-columns: repeat(3, 46px);
+        gap: 4px;
+      }
+
+      .direction-button,
+      .direction-pad-center {
+        width: 46px;
+        height: 34px;
+        border-radius: 9px;
+      }
+
+      .direction-button {
+        border-width: 2px;
+        font-size: 22px;
+      }
+
+      .robot-playfield {
+        grid-template-columns: auto auto;
+        grid-template-areas: "grid controls";
+        gap: 7px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .robot-playfield .grid {
+        grid-area: grid;
+        --grid-cell-min: 10px;
+        --grid-cell-fluid: min(1.55vw, 13px);
+        gap: 1px;
+        padding: 4px;
+        border-width: 3px;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .robot-playfield .energy-meter {
+        display: none;
+      }
+
+      .robot-playfield .direction-pad {
+        grid-area: controls;
+      }
+
+      .robot,
+      .goal {
+        font-size: 12px;
+      }
+
+      .energy {
+        width: 6px;
+        height: 6px;
+        border-width: 1px;
+      }
+
+      .hole {
+        border-width: 2px;
+      }
+
+      .dengue-scene-title {
+        display: none;
+      }
+
+      .dengue-scene {
+        gap: 6px;
+        padding: 8px;
+        border-width: 4px;
+      }
+
+      .dengue-map {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        grid-auto-rows: minmax(25px, 1fr);
+        gap: 3px;
+        padding: 4px;
+      }
+
+      .dengue-map-cell {
+        min-height: 25px;
+        border-width: 2px;
+        border-radius: 7px;
+        font-size: 16px;
+      }
+
+      .dengue-map-cell.active::after {
+        bottom: -7px;
+        font-size: 7px;
+      }
+
+      .dengue-runner {
+        left: -6px;
+        top: -6px;
+        width: 20px;
+        font-size: 12px;
+      }
+
+      .dengue-inspection {
+        display: none;
+      }
+
+      .dengue-icon {
+        width: 42px;
+        font-size: 27px;
+      }
+
+      .dengue-place {
+        font-size: clamp(15px, 2.4vw, 20px);
+      }
+
+      .dengue-clue {
+        font-size: 11px;
+      }
+
+      .dengue-danger {
+        padding: 4px 7px;
+        font-size: 9px;
+      }
+
+      .dengue-play {
+        gap: 7px;
+      }
+
+      .dengue-play-hint {
+        font-size: clamp(16px, 2.8vw, 22px);
+      }
+
+      .dengue-question {
+        display: none;
+      }
+
+      .dengue-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .dengue-action {
+        min-height: 45px;
+        grid-template-columns: auto 1fr;
+        gap: 4px;
+        padding: 4px;
+        border-width: 2px;
+        border-radius: 10px;
+      }
+
+      .dengue-action-icon {
+        width: 28px;
+        border-radius: 8px;
+        font-size: 18px;
+      }
+
+      .dengue-action-label {
+        font-size: 9px;
+        line-height: 1;
+      }
+
+      .dengue-health-tip {
+        display: none;
+      }
+
       .math-cup-team-select {
         width: 100%;
         max-height: 100%;
-        gap: 8px;
-        padding: 0 4px 38px;
+        gap: 6px;
+        padding: 0 4px 6px;
+        align-content: start;
       }
 
       .math-cup-team-group-title {
@@ -4720,31 +5633,31 @@
       }
 
       .math-cup-team-grid {
-        grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 6px;
       }
 
       .math-cup-team-card {
-        min-height: 70px;
+        min-height: 62px;
         gap: 3px;
-        padding: 5px;
+        padding: 4px;
         border-width: 3px;
         border-radius: 10px;
       }
 
       .math-cup-team-card .flag-art {
-        width: 48px;
-        height: 31px;
+        width: 42px;
+        height: 27px;
         border-width: 3px;
         border-radius: 6px;
       }
 
       .math-cup-team-name {
-        min-height: 22px;
+        min-height: 20px;
         padding: 2px 4px;
         border-width: 2px;
         border-radius: 7px;
-        font-size: 10px;
+        font-size: 9px;
         line-height: 1;
       }
 
@@ -4991,6 +5904,52 @@
         padding-bottom: 32px;
       }
 
+      .content:has(.dengue-board) {
+        place-items: start center;
+        overflow: auto;
+      }
+
+      .content:has(.habitat-board) {
+        place-items: center;
+        overflow: hidden;
+        padding-bottom: 22px;
+      }
+
+      .habitat-board {
+        width: min(760px, 100%);
+        gap: 6px;
+      }
+
+      .habitat-main {
+        grid-template-columns: minmax(120px, 0.34fr) minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .animal-card {
+        min-height: 128px;
+        border-width: 4px;
+        border-radius: 14px;
+        font-size: 76px;
+      }
+
+      .habitats {
+        grid-template-columns: repeat(5, minmax(66px, 1fr));
+        gap: 5px;
+      }
+
+      .habitat {
+        min-height: 58px;
+        gap: 2px;
+        padding: 5px 4px;
+        border-width: 2px;
+        border-radius: 10px;
+        font-size: 10px;
+      }
+
+      .habitat-icon {
+        font-size: 22px;
+      }
+
       .math-cup-showcase {
         width: min(760px, 100%);
         grid-template-columns: 1fr;
@@ -5198,6 +6157,9 @@
         Missões interativas criadas para aulas de Pensamento Computacional, com uso educacional gratuito.
       </p>
       <p class="about-text">
+        Sem cadastro, login ou coleta de dados dos alunos.
+      </p>
+      <p class="about-text">
         Criado por Prof. Amilcar Notari Neto
       </p>
       <div id="audienceGate" class="audience-gate">
@@ -5281,12 +6243,23 @@
       const feedbackNotice = document.getElementById("feedbackNotice");
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
-      const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
-      const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.9";
-      const ADULT_HOLD_MS = 3000;
-      const CHILD_ABOUT_LOCK_MS = 60000;
-      const BACK_HOLD_MS = 1200;
+      const APP_CONFIG = Object.freeze({
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.0",
+        supportPageUrl: "https://pagaum.cafe/amilcarnotari",
+        contactEmailParts: ["amilcar.notari", "gmail.com"],
+        timings: {
+          adultHoldMs: 3000,
+          childAboutLockMs: 60000,
+          backHoldMs: 1200,
+        },
+      });
+
+      const SUPPORT_PAGE_URL = APP_CONFIG.supportPageUrl;
+      const CONTACT_EMAIL_PARTS = APP_CONFIG.contactEmailParts;
+      const APP_VERSION = APP_CONFIG.version;
+      const ADULT_HOLD_MS = APP_CONFIG.timings.adultHoldMs;
+      const CHILD_ABOUT_LOCK_MS = APP_CONFIG.timings.childAboutLockMs;
+      const BACK_HOLD_MS = APP_CONFIG.timings.backHoldMs;
       let adultHoldFrame = null;
       let adultHoldStartedAt = 0;
       let childAboutLockInterval = null;
@@ -5297,6 +6270,7 @@
 
       const missions = [
         { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
+        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo" },
         { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países" },
@@ -5310,9 +6284,14 @@
 
       const missionCategories = [
         {
-          title: "Destaques",
-          description: "Jogos mais completos para começar a aula com energia.",
-          missionIds: ["mathCup", "robot", "math", "cup"],
+          title: "Projetos destaque",
+          description: "Missões especiais para feira, apresentação e aulas de impacto.",
+          missionIds: ["mathCup", "dengue"],
+        },
+        {
+          title: "Jogos rápidos",
+          description: "Jogos completos para começar a aula com energia.",
+          missionIds: ["robot", "math", "cup"],
         },
         {
           title: "Lógica e programação",
@@ -5327,6 +6306,30 @@
       ];
 
       const missionIndexById = new Map(missions.map((item, index) => [item.id, index]));
+
+      function validateMissionCatalog() {
+        const ids = new Set();
+        const issues = [];
+        missions.forEach((item) => {
+          if (ids.has(item.id)) issues.push(`missão duplicada: ${item.id}`);
+          ids.add(item.id);
+        });
+
+        const categorizedIds = new Set(missionCategories.flatMap((category) => category.missionIds));
+        missionCategories.forEach((category) => {
+          category.missionIds.forEach((id) => {
+            if (!ids.has(id)) issues.push(`categoria "${category.title}" aponta para "${id}"`);
+          });
+        });
+
+        missions.forEach((item) => {
+          if (!categorizedIds.has(item.id)) issues.push(`missão sem categoria: ${item.id}`);
+        });
+
+        if (issues.length) console.warn(`Catálogo de missões: ${issues.join(" | ")}`);
+      }
+
+      validateMissionCatalog();
 
       const robotLevelSpecs = [
         [9, 7, 101, 0, 0], [9, 7, 202, 0, 1], [9, 7, 303, 1, 1], [9, 7, 404, 1, 2],
@@ -5347,7 +6350,7 @@
       });
 
       const safeActions = {
-        stop: { id: "stop", icon: "✋", label: "PARE" },
+        stop: { id: "stop", icon: "🛑", label: "PARE" },
         wait: { id: "wait", icon: "⏳", label: "ESPERE" },
         go: { id: "go", icon: "➡️", label: "SIGA" },
         look: { id: "look", icon: "👀", label: "OLHE" },
@@ -5494,6 +6497,67 @@
 
       const logicRounds = Array.from({ length: 50 }, (_, index) => createLogicRound(index));
 
+      const dengueOptionCount = 4;
+
+      const dengueActions = [
+        { id: "cover", visual: "cover", label: "Tampar bem" },
+        { id: "sand", visual: "sandCare", label: "Colocar areia" },
+        { id: "discard", icon: "🚮", label: "Descartar" },
+        { id: "turn", icon: "🔄", label: "Virar e secar" },
+        { id: "scrub", icon: "🪥", label: "Lavar com escova" },
+        { id: "clean", icon: "🧹", label: "Limpar passagem" },
+        { id: "screen", visual: "screen", label: "Colocar tela" },
+        { id: "store", visual: "storeCovered", label: "Guardar coberto" },
+        { id: "change", visual: "changeWater", label: "Trocar e lavar" },
+        { id: "check", icon: "🧼", label: "Limpar e secar" },
+      ];
+
+      const dengueActionById = Object.fromEntries(dengueActions.map((action) => [action.id, action]));
+
+      const dengueScenes = [
+        { icon: "🌱", place: "Pratinho da planta", clue: "Junta água depois da chuva.", answer: "sand", tip: "Pratinho com areia não deixa água parada." },
+        { icon: "🚰", place: "Caixa d'água", clue: "Está aberta no quintal.", answer: "cover", tip: "Caixa d'água precisa ficar bem tampada." },
+        { icon: "⚫", visual: "tire", place: "Pneu velho", clue: "Ficou com água parada.", answer: "discard", related: ["store"], tip: "Pneu parado junta água e deve sair do quintal." },
+        { icon: "🧴", place: "Garrafa sem uso", clue: "Pode acumular água.", answer: "discard", related: ["turn"], tip: "Embalagem sem uso vai para o descarte correto." },
+        { icon: "🪣", place: "Balde no pátio", clue: "Está virado para cima.", answer: "turn", related: ["store"], tip: "Balde virado para baixo não guarda água da chuva." },
+        { icon: "🍃", place: "Calha entupida", clue: "A água não escorre.", answer: "clean", tip: "Calha limpa deixa a água seguir embora." },
+        { icon: "🕳️", place: "Ralo do quintal", clue: "Fica aberto e parado.", answer: "screen", tip: "Tela no ralo ajuda a proteger o quintal." },
+        { icon: "🗑️", place: "Lixeira aberta", clue: "A chuva pode entrar.", answer: "cover", tip: "Lixeira tampada não vira copo de chuva." },
+        { icon: "🐶", place: "Potinho do animal", clue: "Precisa de cuidado diário.", answer: "scrub", related: ["change"], tip: "Potinho precisa ser lavado com escova." },
+        { icon: "🧊", place: "Bandeja da geladeira", clue: "Junta água escondida.", answer: "check", tip: "Água escondida também precisa ser removida." },
+        { icon: "❄️", place: "Ar-condicionado", clue: "A bandeja precisa secar.", answer: "check", tip: "Bandeja seca evita água parada." },
+        { icon: "🏖️", place: "Piscina infantil", clue: "Ficou cheia no canto.", answer: "turn", tip: "Piscina sem uso fica vazia e virada." },
+        { icon: "🛢️", place: "Tambor de água", clue: "Guarda água para uso.", answer: "cover", related: ["screen"], tip: "Água guardada precisa ficar sempre tampada." },
+        { icon: "🥫", place: "Latinha no chão", clue: "Virou copinho de chuva.", answer: "discard", tip: "Lixo no chão pode virar criadouro." },
+        { icon: "🚽", place: "Banheiro pouco usado", clue: "A tampa fica aberta.", answer: "cover", tip: "Lugar pouco usado também precisa de vistoria." },
+        { icon: "🌷", place: "Vaso com água", clue: "A água deve ser renovada.", answer: "change", related: ["scrub"], tip: "Água de vaso precisa ser trocada e limpa." },
+        { icon: "🥡", place: "Pote plástico", clue: "Está largado no pátio.", answer: "discard", related: ["turn", "store"], tip: "Pote largado no pátio pode juntar chuva." },
+        { icon: "🍁", place: "Ralo com folhas", clue: "Folhas seguram água.", answer: "clean", related: ["screen"], tip: "Folhas e sujeira podem prender água." },
+        { icon: "🥣", place: "Bacia guardada", clue: "Pode ficar virada para cima.", answer: "store", related: ["turn"], tip: "Objetos guardados ficam secos e cobertos." },
+        { icon: "🐦", place: "Bebedouro de pássaro", clue: "A água fica parada.", answer: "change", related: ["scrub"], tip: "Bebedouro precisa de água nova e limpeza." },
+      ];
+
+      const dengueHealthTips = [
+        "Água parada precisa de cuidado.",
+        "Febre e dores? Avise um adulto.",
+        "Não use remédio sem orientação.",
+        "Sinais de alerta pedem atendimento.",
+      ];
+
+      const dengueBoardRoute = [14, 7, 0, 1, 8, 15, 16, 9, 2, 3, 10, 17, 18, 11, 4, 5, 12, 19, 20, 13, 6];
+      const dengueBoardColumns = 7;
+      const dengueBoardRows = 3;
+
+      function createDengueRound(index) {
+        const scene = dengueScenes[index % dengueScenes.length];
+        return {
+          ...scene,
+          difficulty: Math.floor(index / dengueScenes.length) + 1,
+        };
+      }
+
+      const dengueRounds = Array.from({ length: 50 }, (_, index) => createDengueRound(index));
+
       const mathLevelPlans = [
         { title: "Aquecimento", icon: "🍎", age: "6-7 anos", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
         { title: "Contas do dia", icon: "🧸", age: "7-8 anos", theme: "Somar e comparar", meta: "até 20", icons: ["🧸", "🟣", "🍊", "🐞", "🌼"] },
@@ -5632,12 +6696,40 @@
         ["🦋", "🐝", "🐞", "🐜", "🐌", "🕷️", "🦗", "🪲", "🐛", "🪱"],
       ];
 
+      const habitatExtraAnswersByIcon = {
+        "🐍": [0, 3],
+        "🦉": [0, 3],
+        "🦇": [0, 3],
+        "🦝": [0, 3],
+        "🐢": [1, 3],
+        "🦆": [1, 2],
+        "🐇": [2, 3],
+        "🦌": [0, 3],
+        "🦊": [0, 3],
+        "🦅": [0, 3],
+        "🐦": [3, 4],
+        "🐿️": [0, 3],
+        "🦋": [3, 4],
+        "🐝": [3, 4],
+        "🐞": [3, 4],
+        "🐌": [3, 4],
+        "🕷️": [0, 4],
+      };
+
+      function uniqueHabitatAnswers(icon, answer) {
+        return [...new Set([answer, ...(habitatExtraAnswersByIcon[icon] || [])])]
+          .filter((index) => Number.isInteger(index) && habitatCategories[index])
+          .sort((left, right) => left - right);
+      }
+
       const habitatItems = Array.from({ length: 50 }, (_, index) => {
         const answer = index % habitatCategories.length;
         const group = habitatIconGroups[answer];
+        const icon = group[Math.floor(index / habitatCategories.length) % group.length];
         return {
-          icon: group[Math.floor(index / habitatCategories.length) % group.length],
+          icon,
           answer,
+          answers: uniqueHabitatAnswers(icon, answer),
         };
       });
 
@@ -6152,7 +7244,10 @@
       };
       const MATH_CUP_TEAM_GRID_COLUMNS = 4;
       const MATH_CUP_TEAM_GRID_ROWS = 3;
-      const MATH_CUP_TEAM_PAGE_SIZE = MATH_CUP_TEAM_GRID_COLUMNS * MATH_CUP_TEAM_GRID_ROWS;
+      const MATH_CUP_DEFAULT_TEAM_PAGE_SIZE = MATH_CUP_TEAM_GRID_COLUMNS * MATH_CUP_TEAM_GRID_ROWS;
+      const MATH_CUP_COMPACT_TEAM_PAGE_SIZE = MATH_CUP_TEAM_GRID_COLUMNS * 2;
+      const MATH_CUP_NARROW_TEAM_PAGE_SIZE = 6;
+      const MATH_CUP_MOBILE_LANDSCAPE_TEAM_PAGE_SIZE = MATH_CUP_TEAM_GRID_COLUMNS;
 
       const mathCupLevelPlans = [
         { title: "Aquecimento", icon: "⚽", age: "6-7 anos", theme: "Juntar e tirar", meta: "contas curtinhas", preview: ["2+3", "7-2", "🥅"] },
@@ -6795,17 +7890,22 @@
           icon: "🔷",
           title: "Padrões e regras",
           levels: [
-            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Continue a trilha", age: "6-7 anos", description: "Complete o padrão.", preview: ["🔴", "🔵", "?"] },
-            { id: "patterns-2", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "8-9 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
-            { id: "patterns-3", activity: "rule", icon: "🧩", title: "Regra escondida", age: "10+ anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
+            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Trilha curta", age: "6-7 anos", description: "Continue o padrão.", preview: ["🔴", "🔵", "?"] },
+            { id: "patterns-2", activity: "complete", icon: "🧱", title: "Trilha esperta", age: "7-8 anos", description: "Observe e complete.", preview: ["▲", "■", "?"] },
+            { id: "patterns-3", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "8-9 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
+            { id: "patterns-4", activity: "rule", icon: "🧩", title: "Regra escondida", age: "9-10 anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
+            { id: "patterns-5", activity: "rule", icon: "🧠", title: "Desafio de regras", age: "10+ anos", description: "Compare padrões.", preview: ["2", "4", "8"] },
           ],
         },
         data: {
           icon: "📊",
           title: "Dados e gráficos",
           levels: [
-            { id: "data-1", activity: "detective", icon: "📊", title: "Olho no gráfico", age: "8-9 anos", description: "Investigue gráficos.", preview: ["📊", "🔎", "✓"] },
-            { id: "data-2", activity: "organize", icon: "🗂️", title: "Conte e compare", age: "9-10 anos", description: "Organize dados.", preview: ["🍎", "📚", "🏷️"] },
+            { id: "data-1", activity: "organize", icon: "🧺", title: "Conte figuras", age: "6-7 anos", description: "Observe os grupos.", preview: ["🐱", "🐶", "?"] },
+            { id: "data-2", activity: "organize", icon: "🗂️", title: "Compare grupos", age: "7-8 anos", description: "Conte e compare.", preview: ["🍎", "📚", "🏷️"] },
+            { id: "data-3", activity: "detective", icon: "📊", title: "Olho no gráfico", age: "8-9 anos", description: "Leia o gráfico.", preview: ["📊", "🔎", "✓"] },
+            { id: "data-4", activity: "detective", icon: "📈", title: "Gráfico esperto", age: "9-10 anos", description: "Compare valores.", preview: ["8", "12", "?"] },
+            { id: "data-5", activity: "detective", icon: "🧠", title: "Desafio dos dados", age: "10+ anos", description: "Resolva com dados.", preview: ["total", "mais", "menos"] },
           ],
         },
       };
@@ -7163,8 +8263,12 @@
         logicHint: false,
         logicWrong: null,
         logicAttempt: 0,
+        dengueWrong: null,
+        dengueAttempt: 0,
+        dengueFinished: false,
         habitatWrong: null,
         habitatAttempt: 0,
+        habitatChosenIndexes: [],
         answerLocked: false,
         answerLockTimer: null,
         cycleChosen: [],
@@ -7222,7 +8326,7 @@
         legacyCompleted: {},
       };
 
-      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "cup"]);
+      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "dengue", "cup"]);
 
       function initialSelectionForMode(mode) {
         return START_UNSELECTED_MODES.has(mode) ? -1 : 0;
@@ -7232,6 +8336,8 @@
         state.round = 0;
         state.score = 0;
         state.selected = selected;
+        state.dengueFinished = false;
+        state.habitatChosenIndexes = [];
       }
 
       function resetLegacyRuntimeState() {
@@ -7374,6 +8480,263 @@
         return { size: [width, height], start, goal, walls: wallList, holes, energies, zone };
       }
 
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function codePointMark(value) {
+        return [...String(value)]
+          .map((char) => char.codePointAt(0).toString(16))
+          .join("")
+          .slice(0, 3)
+          .toUpperCase();
+      }
+
+      function visualCatalog() {
+        const catalog = {};
+        const add = (symbols, meta) => {
+          const list = Array.isArray(symbols) ? symbols : [symbols];
+          list.forEach((symbol) => {
+            catalog[symbol] = { ...meta, symbol, mark: meta.mark || "" };
+          });
+        };
+        const addNamed = (items, kind, tone) => items.forEach(([symbol, label, mark]) => add(symbol, { kind, tone, label, mark }));
+
+        add(["✅", "✓"], { kind: "check", tone: "green", label: "certo" });
+        add(["⚠️"], { kind: "warning", tone: "yellow", label: "alerta" });
+        add(["👀", "🔎"], { kind: "eye", tone: "blue", label: "observe" });
+        add(["⏳", "⏱️", "⏸️"], { kind: "time", tone: "blue", label: "tempo" });
+        add(["▶️"], { kind: "arrow", tone: "green", label: "começar", mark: "▶" });
+        add(["➡️", "↔️", "↕️", "↩️"], { kind: "arrow", tone: "blue", label: "direção", mark: "→" });
+        add(["✋"], { kind: "hand", tone: "red", label: "pare" });
+        add(["👣"], { kind: "footprints", tone: "brown", label: "desça" });
+        add(["🧒", "🧑", "🧑‍🏫", "🚶"], { kind: "person", tone: "blue", label: "pessoa" });
+        add(["🏆", "🥅", "⚽"], { kind: "sport", tone: "yellow", label: "futebol" });
+        add(["🤖"], { kind: "robot", tone: "purple", label: "robô" });
+        add(["🧭"], { kind: "compass", tone: "blue", label: "bússola" });
+        add(["📊", "📈"], { kind: "chart", tone: "blue", label: "gráfico" });
+        add(["🧠"], { kind: "brain", tone: "purple", label: "desafio" });
+        add(["🧩"], { kind: "puzzle", tone: "purple", label: "encaixe" });
+        add(["🚀"], { kind: "rocket", tone: "red", label: "rápido" });
+        add(["🎯"], { kind: "target", tone: "red", label: "alvo" });
+        add(["🛡️", "⛑️", "🩺"], { kind: "safety", tone: "blue", label: "proteção" });
+        add(["☕"], { kind: "cup", tone: "brown", label: "apoio" });
+        add(["📱"], { kind: "phone", tone: "blue", label: "celular" });
+        add(["💬"], { kind: "speech", tone: "blue", label: "comentário" });
+        add(["💡"], { kind: "light", tone: "yellow", label: "ideia" });
+        add(["🎉"], { kind: "spark", tone: "yellow", label: "comemorou" });
+        add(["🏁"], { kind: "finish", tone: "gray", label: "chegada" });
+        add(["🚪"], { kind: "door", tone: "brown", label: "porta" });
+        add(["➕", "✖️"], { kind: "math", tone: "blue", label: "matemática" });
+        add(["🔴", "🔵", "🟢", "🟡", "🟣", "🟨", "🔷", "🔶", "◻️", "⭐", "✨"], { kind: "shape", tone: "mixed", label: "figura" });
+
+        add(["🏠", "🏘️"], { kind: "house", tone: "green", label: "casa" });
+        add(["🏫"], { kind: "school", tone: "blue", label: "escola" });
+        add(["🏙️"], { kind: "city", tone: "blue", label: "cidade" });
+        add(["🚲"], { kind: "bike", tone: "green", label: "bicicleta" });
+        add(["🚗", "🚙"], { kind: "car", tone: "red", label: "carro" });
+        add(["🚧"], { kind: "barrier", tone: "yellow", label: "obra" });
+        add(["🚸"], { kind: "crosswalk", tone: "yellow", label: "faixa" });
+        add(["🛝"], { kind: "park", tone: "green", label: "parque" });
+        add(["🔦"], { kind: "flashlight", tone: "yellow", label: "luz" });
+
+        add(["💧", "💦", "🌊", "🚰", "🧊", "❄️", "🌧️", "☁️", "☀️", "🌙", "🌤️", "💨", "🫧"], { kind: "weather", tone: "blue", label: "natureza" });
+        add(["🌱", "🌿", "🌳", "🌲", "🌼", "🌻", "🌷", "🌹", "🍃", "🍁", "🌾", "🌰", "🫘", "🌸", "☘️", "🎋", "🌵"], { kind: "plant", tone: "green", label: "planta" });
+        add(["🍎", "🍏", "🍓", "🍊", "🍌", "🍇", "🍐", "🍅", "🌽", "🍋", "🍉", "🥕", "🥔", "🧅", "🥦", "🥬", "🌶️", "🥒", "🥜", "🥥", "🥑", "🥭", "🍍", "🍒", "🥝", "🫐", "🫛", "🍫", "🍑", "🍄", "🍪"], { kind: "food", tone: "green", label: "alimento" });
+
+        add(["🦟"], { kind: "insect", tone: "red", label: "mosquito", mark: "AED" });
+        add(["🐾"], { kind: "paw", tone: "brown", label: "animais" });
+        addNamed([
+          ["🐒", "macaco", "MAC"], ["🦜", "arara", "ARA"], ["🐆", "onça", "ON"], ["🦥", "preguiça", "PRE"], ["🐍", "cobra", "COB"], ["🦉", "coruja", "COR"],
+          ["🦧", "orangotango", "ORA"], ["🐅", "tigre", "TIG"], ["🦇", "morcego", "MOR"], ["🦝", "mão-pelada", "MAP"], ["🐶", "cachorro", "CÃO"],
+          ["🐱", "gato", "GAT"], ["🐇", "coelho", "COE"], ["🦌", "veado", "VEA"], ["🦊", "raposa", "RAP"], ["🐺", "lobo", "LOB"], ["🦡", "texugo", "TEX"], ["🐿️", "esquilo", "ESQ"], ["🦔", "ouriço", "OUR"]
+        ], "animal", "brown");
+        addNamed([
+          ["🐠", "peixe", "PEI"], ["🐬", "golfinho", "GFI"], ["🐙", "polvo", "POL"], ["🦀", "caranguejo", "CAR"], ["🐢", "tartaruga", "TAR"], ["🐳", "baleia", "BAL"],
+          ["🐟", "peixe", "PEI"], ["🦭", "foca", "FOC"], ["🦑", "lula", "LUL"], ["🐡", "baiacu", "BAI"], ["🪼", "água-viva", "AGV"], ["🦈", "tubarão", "TUB"], ["🐋", "baleia", "BAL"]
+        ], "fish", "blue");
+        addNamed([
+          ["🐄", "vaca", "VAC"], ["🐎", "cavalo", "CAV"], ["🐑", "ovelha", "OVE"], ["🐖", "porco", "POR"], ["🐓", "galo", "GAL"], ["🐐", "cabra", "CAB"],
+          ["🦆", "pato", "PAT"], ["🦃", "peru", "PER"], ["🐂", "boi", "BOI"], ["🐏", "carneiro", "CAR"], ["🐃", "búfalo", "BUF"], ["🐔", "galinha", "GAL"], ["🫏", "burro", "BUR"]
+        ], "farm", "orange");
+        addNamed([
+          ["🐦", "pássaro", "PAS"], ["🦅", "águia", "AGU"], ["🐣", "pintinho", "PIN"], ["🐤", "ave jovem", "AVE"]
+        ], "bird", "yellow");
+        addNamed([
+          ["🦋", "borboleta", "BOR"], ["🐝", "abelha", "ABE"], ["🐞", "joaninha", "JOA"], ["🐜", "formiga", "FOR"], ["🐌", "caracol", "CAC"],
+          ["🕷️", "aranha", "ARA"], ["🦗", "grilo", "GRI"], ["🪲", "besouro", "BES"], ["🐛", "lagarta", "LAG"], ["🪱", "minhoca", "MIN"]
+        ], "insect", "green");
+        add(["🥚"], { kind: "egg", tone: "cream", label: "ovo" });
+        add(["🟤"], { kind: "cocoon", tone: "brown", label: "casulo" });
+        add(["🐸"], { kind: "frog", tone: "green", label: "sapo" });
+        add(["〰️"], { kind: "larva", tone: "blue", label: "girino" });
+
+        add(["🏖️"], { kind: "sand", tone: "yellow", label: "areia" });
+        add(["🚮", "🗑️"], { kind: "trash", tone: "gray", label: "descartar" });
+        add(["🔄"], { kind: "rotate", tone: "blue", label: "virar" });
+        add(["🪥", "🧹", "🧼"], { kind: "clean", tone: "blue", label: "limpar" });
+        add(["📦", "🥡", "🥫", "🥣", "🪣", "🧴", "🛢️", "🚽"], { kind: "object", tone: "orange", label: "objeto" });
+        add(["🕳️"], { kind: "drain", tone: "gray", label: "ralo" });
+        add(["tire", "⚫"], { kind: "tire", tone: "gray", label: "pneu", frameless: true });
+        add(["cover"], { kind: "cover", tone: "blue", label: "tampar bem", frameless: true });
+        add(["sandCare"], { kind: "sandCare", tone: "yellow", label: "colocar areia", frameless: true });
+        add(["screen"], { kind: "screen", tone: "green", label: "colocar tela", frameless: true });
+        add(["storeCovered"], { kind: "storeCovered", tone: "orange", label: "guardar coberto", frameless: true });
+        add(["changeWater"], { kind: "changeWater", tone: "blue", label: "trocar e lavar", frameless: true });
+
+        add(["📚", "📓", "✏️", "📏", "🗂️", "🏷️"], { kind: "schoolObject", tone: "blue", label: "material" });
+        add(["🎲", "🎈", "🎬", "🎵", "🎮", "♟️", "🪢", "🧃", "🥛", "🥤"], { kind: "object", tone: "purple", label: "objeto" });
+        add(["🚜"], { kind: "tractor", tone: "green", label: "fazenda" });
+        add(["🏪", "🏟️", "🏞️", "🌅"], { kind: "place", tone: "blue", label: "lugar" });
+        add(["🤝"], { kind: "handshake", tone: "blue", label: "passe" });
+        add(["🧤"], { kind: "glove", tone: "blue", label: "goleiro" });
+        add(["🧺"], { kind: "basket", tone: "brown", label: "cesto" });
+        add(["🧱"], { kind: "blocks", tone: "orange", label: "blocos" });
+        add(["🔁"], { kind: "repeat", tone: "blue", label: "repete" });
+        add(["☺"], { kind: "face", tone: "yellow", label: "alegre" });
+
+        return catalog;
+      }
+
+      const visualIcons = visualCatalog();
+      const visualTones = {
+        blue: ["#eaf4ff", "#2368c4"],
+        green: ["#e8f8ed", "#23864b"],
+        yellow: ["#fff5c7", "#b56c00"],
+        red: ["#ffe6e6", "#b72b34"],
+        purple: ["#f0e9ff", "#7040b8"],
+        orange: ["#fff0d8", "#b65f13"],
+        brown: ["#f2e2cf", "#7a4b21"],
+        gray: ["#eef1f4", "#4a5a68"],
+        cream: ["#fff8df", "#8a6a2b"],
+        mixed: ["#f4f7ff", "#1e4c75"],
+      };
+
+      function visualMetaFor(symbol) {
+        if (visualIcons[symbol]) return visualIcons[symbol];
+        return {
+          symbol,
+          kind: "abstract",
+          tone: "mixed",
+          label: "pictograma",
+          mark: codePointMark(symbol),
+        };
+      }
+
+      function visualShell(meta, content) {
+        const [background, color] = visualTones[meta.tone] || visualTones.mixed;
+        const frame = meta.frameless
+          ? ""
+          : `<rect x="5" y="5" width="54" height="54" rx="14" fill="${background}" stroke="${color}" stroke-width="4"/>`;
+        return `<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          ${frame}
+          <g fill="${color}" stroke="${color}" stroke-linecap="round" stroke-linejoin="round">${content}</g>
+        </svg>`;
+      }
+
+      function visualMark(meta, size = 16, y = 48) {
+        const mark = escapeHtml(meta.mark || "");
+        return mark ? `<text x="32" y="${y}" font-size="${size}">${mark}</text>` : "";
+      }
+
+      function visualSvg(meta) {
+        const mark = visualMark(meta);
+        const labelMark = visualMark(meta, meta.mark?.length > 2 ? 10 : 13, 49);
+        const templates = {
+          check: `<path d="M19 33l8 8 18-22" fill="none" stroke-width="8"/>`,
+          warning: `<path d="M32 13l22 39H10z" fill="#fff2b8"/><path d="M32 25v12" fill="none" stroke-width="5"/><circle cx="32" cy="45" r="2.8"/>`,
+          eye: `<path d="M10 32s8-13 22-13 22 13 22 13-8 13-22 13S10 32 10 32z" fill="none" stroke-width="4"/><circle cx="32" cy="32" r="7"/>`,
+          time: `<circle cx="32" cy="32" r="18" fill="none" stroke-width="5"/><path d="M32 20v13l9 6" fill="none" stroke-width="5"/>`,
+          arrow: `<path d="M15 32h30" fill="none" stroke-width="7"/><path d="M36 20l12 12-12 12" fill="none" stroke-width="7"/>`,
+          hand: `<path d="M20 34V20c0-3 5-3 5 0v12M25 32V17c0-3 5-3 5 0v15M30 32V15c0-3 5-3 5 0v17M35 33V19c0-3 5-3 5 0v18l5-6c3-3 7 1 5 5l-8 12c-3 5-8 7-14 6-7-1-13-6-13-15v-5c0-3 5-3 5 0z" fill="none" stroke-width="4"/>`,
+          footprints: `<ellipse cx="24" cy="24" rx="7" ry="11"/><ellipse cx="40" cy="40" rx="7" ry="11"/>`,
+          person: `<circle cx="32" cy="20" r="9"/><path d="M18 52c2-13 26-13 28 0z"/>`,
+          sport: `<circle cx="32" cy="32" r="19" fill="#fff" stroke-width="4"/><path d="M32 18l9 7-3 11H26l-3-11zM23 25l-7 6 6 9M41 25l7 6-6 9M26 36l-6 11M38 36l6 11" fill="none" stroke-width="3"/>`,
+          robot: `<rect x="17" y="20" width="30" height="26" rx="7"/><circle cx="26" cy="32" r="3" fill="#fff"/><circle cx="38" cy="32" r="3" fill="#fff"/><path d="M26 41h12M32 20v-8M25 12h14" fill="none" stroke-width="4"/>`,
+          compass: `<circle cx="32" cy="32" r="19" fill="none" stroke-width="4"/><path d="M40 17l-5 18-18 5 12-11z"/>`,
+          chart: `<rect x="15" y="16" width="9" height="31"/><rect x="28" y="27" width="9" height="20"/><rect x="41" y="21" width="9" height="26"/>`,
+          brain: `<path d="M24 47c-8-1-12-7-10-15 1-5 5-8 9-8 1-8 12-10 17-4 7 0 11 5 11 12 0 8-6 13-14 13H24z" fill="none" stroke-width="4"/><path d="M28 22v25M39 22c-4 4-4 9 1 12-5 2-7 6-5 11" fill="none" stroke-width="3"/>`,
+          puzzle: `<path d="M17 18h13c-1 5 7 5 6 0h11v12c-5-1-5 7 0 6v12H34c1-5-7-5-6 0H17V36c5 1 5-7 0-6z"/>`,
+          rocket: `<path d="M35 12c10 4 14 14 12 26l-9 9-8-13-13-8 9-9c3-3 6-5 9-5z"/><circle cx="38" cy="24" r="4" fill="#fff"/><path d="M22 38l-7 11 11-7" fill="none" stroke-width="5"/>`,
+          target: `<circle cx="32" cy="32" r="20" fill="none" stroke-width="4"/><circle cx="32" cy="32" r="11" fill="none" stroke-width="4"/><circle cx="32" cy="32" r="4"/>`,
+          safety: `<path d="M32 12l18 8v12c0 12-8 20-18 24-10-4-18-12-18-24V20z" fill="none" stroke-width="5"/><path d="M24 33l6 6 12-15" fill="none" stroke-width="5"/>`,
+          cup: `<path d="M23 21h18v25H23z"/><path d="M23 25H13c1 10 5 15 10 15M41 25h10c-1 10-5 15-10 15" fill="none" stroke-width="4"/><path d="M20 50h24" fill="none" stroke-width="5"/>`,
+          phone: `<rect x="21" y="10" width="22" height="44" rx="5" fill="none" stroke-width="5"/><circle cx="32" cy="47" r="2"/>`,
+          speech: `<path d="M14 17h36v24H28l-10 9v-9h-4z" fill="none" stroke-width="5"/>`,
+          light: `<path d="M24 35c-5-5-4-14 4-18 7-3 15 2 15 10 0 3-1 6-4 8l-2 5H26z"/><path d="M26 47h12M28 53h8" fill="none" stroke-width="4"/>`,
+          spark: `<path d="M32 10l5 16 16 6-16 6-5 16-6-16-16-6 16-6z"/>`,
+          finish: `<path d="M20 52V12M22 14h26v24H22" fill="none" stroke-width="5"/><path d="M24 16h6v6h-6zm12 0h6v6h-6zM30 22h6v6h-6zm12 0h6v6h-6zM24 28h6v6h-6zm12 0h6v6h-6z"/>`,
+          door: `<path d="M21 13h25v40H21z" fill="none" stroke-width="5"/><circle cx="39" cy="33" r="2.5"/>`,
+          math: `<path d="M20 32h24M32 20v24" fill="none" stroke-width="6"/>${labelMark}`,
+          shape: `<circle cx="23" cy="25" r="9"/><rect x="34" y="18" width="14" height="14"/><path d="M32 39l11 12H21z"/>`,
+          house: `<path d="M13 31l19-17 19 17" fill="none" stroke-width="5"/><path d="M20 29v22h24V29" fill="none" stroke-width="5"/>`,
+          school: `<path d="M13 25l19-11 19 11v26H13z" fill="none" stroke-width="4"/><path d="M22 31h6M36 31h6M22 40h6M36 40h6M32 51V38" fill="none" stroke-width="4"/>`,
+          city: `<path d="M15 50V18h12v32M31 50V12h18v38" fill="none" stroke-width="5"/><path d="M20 25h3M20 34h3M36 20h4M36 30h4M36 40h4" fill="none" stroke-width="3"/>`,
+          bike: `<circle cx="20" cy="42" r="10" fill="none" stroke-width="4"/><circle cx="45" cy="42" r="10" fill="none" stroke-width="4"/><path d="M20 42l10-16 8 16H20l12-16h9" fill="none" stroke-width="4"/><path d="M39 23h8" fill="none" stroke-width="4"/>`,
+          car: `<path d="M15 39h34l-4-12H20z"/><circle cx="23" cy="44" r="5"/><circle cx="43" cy="44" r="5"/>`,
+          barrier: `<path d="M14 25h36v14H14zM18 25l10 14M30 25l10 14M15 49h34" fill="none" stroke-width="5"/>`,
+          crosswalk: `<path d="M15 50l9-31M49 50l-9-31M24 25h16M22 34h20M19 43h26" fill="none" stroke-width="4"/>`,
+          park: `<path d="M19 46c11-8 18-18 18-31M37 15h13c-2 11-8 18-18 20" fill="none" stroke-width="5"/><circle cx="18" cy="48" r="5"/>`,
+          flashlight: `<path d="M18 40l15-15 11 11-15 15zM35 23l5-5 11 11-5 5" fill="none" stroke-width="5"/>`,
+          weather: `<path d="M21 42h24c6 0 9-4 9-9s-4-8-9-8c-2-9-15-12-21-4-7 0-12 5-12 11s4 10 9 10z" fill="none" stroke-width="4"/><path d="M24 48l-3 6M34 48l-3 6M44 48l-3 6" fill="none" stroke-width="3"/>`,
+          plant: `<path d="M32 52V24" fill="none" stroke-width="5"/><path d="M31 28c-12-1-15-11-14-17 11 0 16 8 14 17zM33 36c13-1 17-10 16-17-12 0-18 8-16 17z"/>`,
+          food: `<circle cx="32" cy="34" r="16"/><path d="M31 19c2-7 8-10 15-9-2 7-8 10-15 9z" fill="#fff" stroke-width="0"/>${labelMark}`,
+          insect: `<ellipse cx="32" cy="33" rx="9" ry="15"/><circle cx="32" cy="17" r="7"/><path d="M23 28l-10-6M41 28l10-6M22 38l-10 5M42 38l10 5M26 18l-8-8M38 18l8-8" fill="none" stroke-width="4"/>${labelMark}`,
+          paw: `<circle cx="23" cy="25" r="5"/><circle cx="32" cy="21" r="5"/><circle cx="41" cy="25" r="5"/><path d="M20 46c2-13 22-13 24 0 1 7-25 7-24 0z"/>`,
+          animal: `<circle cx="32" cy="33" r="15"/><circle cx="21" cy="20" r="7"/><circle cx="43" cy="20" r="7"/><circle cx="26" cy="31" r="2" fill="#fff"/><circle cx="38" cy="31" r="2" fill="#fff"/>${labelMark}`,
+          fish: `<path d="M14 32c10-14 27-14 36 0-9 14-26 14-36 0z"/><path d="M50 32l9-9v18z"/><circle cx="27" cy="29" r="2" fill="#fff"/>${labelMark}`,
+          farm: `<circle cx="32" cy="32" r="16"/><path d="M19 21l-7-8M45 21l7-8M24 38h16" fill="none" stroke-width="4"/>${labelMark}`,
+          bird: `<path d="M17 38c9-18 26-18 34 0-11 8-23 9-34 0z"/><path d="M42 29l12 4-12 4z"/><circle cx="29" cy="30" r="2" fill="#fff"/>${labelMark}`,
+          egg: `<path d="M32 11c11 10 16 21 15 31-1 9-7 14-15 14s-14-5-15-14c-1-10 4-21 15-31z"/>`,
+          cocoon: `<ellipse cx="32" cy="34" rx="14" ry="20"/><path d="M22 27h20M20 36h24M24 45h16" fill="none" stroke="#fff" stroke-width="3"/>`,
+          frog: `<circle cx="32" cy="36" r="15"/><circle cx="22" cy="23" r="7"/><circle cx="42" cy="23" r="7"/><path d="M25 42c4 4 10 4 14 0" fill="none" stroke="#fff" stroke-width="4"/>`,
+          larva: `<path d="M14 38c8-18 17 16 26-2 5-10 10-8 12-2" fill="none" stroke-width="7"/>`,
+          sand: `<path d="M14 49c10-8 27-8 36 0z"/><path d="M22 38l10-20 10 20" fill="none" stroke-width="4"/>`,
+          trash: `<path d="M22 24h20l-2 28H24zM19 24h26M27 19h10" fill="none" stroke-width="5"/>`,
+          rotate: `<path d="M19 24c8-10 24-10 32 1M45 17l7 9-11 2M45 40c-8 10-24 10-32-1M19 47l-7-9 11-2" fill="none" stroke-width="5"/>`,
+          clean: `<path d="M22 15l22 22M38 31l-18 18M18 49l-4 4M24 43l8 8" fill="none" stroke-width="5"/>`,
+          object: `<path d="M18 24l14-8 14 8v23l-14 8-14-8z"/><path d="M18 24l14 8 14-8M32 32v23" fill="none" stroke="#fff" stroke-width="3"/>${labelMark}`,
+          drain: `<circle cx="32" cy="32" r="18" fill="none" stroke-width="5"/><path d="M20 32h24M32 20v24M24 24l16 16M40 24L24 40" fill="none" stroke-width="3"/>`,
+          tire: `<circle cx="32" cy="32" r="21" fill="#151b22" stroke-width="4"/><circle cx="32" cy="32" r="11" fill="#f4f7fb" stroke="none"/><circle cx="32" cy="32" r="5" fill="#5f6b78" stroke="none"/>`,
+          cover: `<path d="M20 25h24v24H20z"/><path d="M16 18h32v8H16z" fill="#ffcf42"/><path d="M24 18v-5h16v5" fill="none" stroke-width="4"/>`,
+          sandCare: `<path d="M18 38h28l-4 13H22z" fill="#fff7cc" stroke-width="4"/><path d="M21 38c6-9 17-10 22 0z" fill="#d99b20" stroke="none"/><path d="M32 34V18" fill="none" stroke-width="4"/><path d="M31 25c-8 0-12-5-12-11 8 0 13 5 12 11zM33 27c8-2 12-8 12-14-8 1-12 7-12 14z" fill="none" stroke-width="3"/><path d="M46 17h8M50 13v8" fill="none" stroke-width="4"/>`,
+          screen: `<rect x="16" y="16" width="32" height="32" rx="3" fill="none" stroke-width="5"/><path d="M22 16v32M32 16v32M42 16v32M16 22h32M16 32h32M16 42h32" fill="none" stroke-width="2"/>`,
+          storeCovered: `<path d="M12 28l20-15 20 15" fill="none" stroke-width="5"/><path d="M17 29h30v22H17z" fill="none" stroke-width="5"/><path d="M24 38h16v13H24z" fill="#fff" stroke-width="4"/><path d="M24 38l8 6 8-6" fill="none" stroke-width="3"/>`,
+          changeWater: `<path d="M18 38h28l-5 13H23z" fill="#eef8ff" stroke-width="5"/><path d="M24 38c5 4 13 4 18 0" fill="none" stroke="#2368c4" stroke-width="4"/><path d="M42 15c7 7 8 15 3 22M45 15l-6 1 2 5M23 18c-6 6-7 13-3 20M18 18l6 1-3 5" fill="none" stroke-width="4"/><circle cx="31" cy="44" r="2" fill="#2368c4" stroke="none"/>`,
+          schoolObject: `<path d="M18 16h26v36H18z" fill="none" stroke-width="5"/><path d="M25 24h12M25 33h12M25 42h8" fill="none" stroke-width="4"/>`,
+          tractor: `<circle cx="23" cy="44" r="9"/><circle cx="45" cy="47" r="5"/><path d="M16 38h18V25h9l7 13h-8" fill="none" stroke-width="5"/>`,
+          place: `<path d="M16 48h32M20 48V24l12-10 12 10v24M27 48V34h10v14" fill="none" stroke-width="5"/>`,
+          handshake: `<path d="M15 33l10-10 11 11M49 33L39 23 27 35M24 38l7 7M31 35l7 7" fill="none" stroke-width="5"/>`,
+          glove: `<path d="M22 42V22c0-3 5-3 5 0v13M27 35V18c0-3 5-3 5 0v17M32 35V17c0-3 5-3 5 0v18M37 35V21c0-3 5-3 5 0v23c0 8-20 8-20-2z" fill="none" stroke-width="4"/>`,
+          basket: `<path d="M18 29h28l-4 21H22zM24 29c0-8 16-8 16 0" fill="none" stroke-width="5"/>`,
+          blocks: `<rect x="15" y="18" width="15" height="15"/><rect x="34" y="18" width="15" height="15"/><rect x="24" y="37" width="15" height="15"/>`,
+          repeat: `<path d="M17 25h26l-6-6M47 39H21l6 6" fill="none" stroke-width="6"/>`,
+          face: `<circle cx="32" cy="32" r="19" fill="none" stroke-width="5"/><circle cx="25" cy="28" r="3"/><circle cx="39" cy="28" r="3"/><path d="M23 39c5 6 13 6 18 0" fill="none" stroke-width="4"/>`,
+          abstract: `<circle cx="32" cy="32" r="18" fill="none" stroke-width="5"/>${visualMark(meta, 11, 33)}`,
+        };
+        return visualShell(meta, templates[meta.kind] || templates.abstract);
+      }
+
+      function visualIconHtml(symbol) {
+        const meta = visualMetaFor(symbol);
+        return `<span class="visual-icon visual-icon-${meta.kind}" role="img" aria-label="${escapeHtml(meta.label)}">${visualSvg(meta)}</span>`;
+      }
+
+      function visualTokenHtml(name) {
+        return visualIconHtml(name);
+      }
+
+      function iconHtml(item) {
+        if (!item) return "";
+        if (item.visual) return visualTokenHtml(item.visual);
+        return item.icon || item;
+      }
+
       function showMessage(text, ms = 700, kind = "good") {
         message.textContent = text;
         message.className = `message ${kind}`;
@@ -7480,6 +8843,19 @@
         return wrapIndex(current + delta, length);
       }
 
+      function moveSelectionIndex({ count, delta, vertical = false, columns = 1, allowUnselected = true, afterMove = null }) {
+        if (count <= 0) return;
+        const step = vertical ? delta * columns : delta;
+        state.selected = allowUnselected
+          ? chooseFromKeyboard(state.selected, step, count)
+          : wrapIndex(state.selected + step, count);
+        if (afterMove) afterMove();
+      }
+
+      function chooseGridColumns(total, preferred) {
+        return Math.max(1, Math.min(preferred, total));
+      }
+
       function rotateByAttempt(items, attempt) {
         if (!items.length) return [];
         const shift = attempt % items.length;
@@ -7582,6 +8958,7 @@
         arrows: legacyCommandRounds.map(cloneValue),
         robot: robotLevels.map(cloneValue),
         logic: logicRounds.map(cloneValue),
+        dengue: dengueRounds.map(cloneValue),
         habitat: habitatItems.map(cloneValue),
         cycle: cycles.map(cloneValue),
         cup: cupRounds.map(cloneValue),
@@ -7630,6 +9007,7 @@
         if (mode === "arrows") resetRoundPool(legacyCommandRounds, roundPools.arrows, seedForMode, { bandSize: 8 });
         if (mode === "robot") resetRoundPool(robotLevels, roundPools.robot, seedForMode, { bandSize: 8 });
         if (mode === "logic") resetRoundPool(logicRounds, roundPools.logic, seedForMode, { bandSize: 10 });
+        if (mode === "dengue") resetRoundPool(dengueRounds, roundPools.dengue, seedForMode, { bandSize: 8 });
         if (mode === "habitat") resetRoundPool(habitatItems, roundPools.habitat, seedForMode, { bandSize: 8 });
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
         if (mode === "cup") resetRoundPool(cupRounds, roundPools.cup, seedForMode, { free: true });
@@ -7785,13 +9163,96 @@
         });
       }
 
+      function dengueActionIconClass(action) {
+        return `dengue-action-icon ${action.visual ? "custom" : ""}`.trim();
+      }
+
+      const dengueSimilarActionsByAnswer = {
+        cover: ["screen", "store"],
+        sand: ["change", "scrub"],
+        discard: ["store", "turn"],
+        turn: ["store", "discard"],
+        scrub: ["change", "check"],
+        clean: ["screen", "check"],
+        screen: ["clean", "cover"],
+        store: ["cover", "turn"],
+        change: ["scrub", "check"],
+        check: ["clean", "change"],
+      };
+
+      function dengueRelatedActionIds(round) {
+        return new Set([
+          ...(dengueSimilarActionsByAnswer[round.answer] || []),
+          ...(round.related || []),
+        ]);
+      }
+
+      function acceptsDengueAction(round, action) {
+        return Boolean(action && action.id === round.answer);
+      }
+
+      function dengueActionClasses(action, index) {
+        return [
+          "dengue-action",
+          index === state.selected ? "selected" : "",
+          state.dengueWrong === index ? "wrong" : "",
+        ].filter(Boolean).join(" ");
+      }
+
+      function dengueOptions() {
+        const round = dengueRounds[state.round];
+        const correctAction = dengueActionById[round.answer];
+        const blockedActions = new Set([round.answer, ...dengueRelatedActionIds(round)]);
+        const distractors = dengueActions.filter((action) => !blockedActions.has(action.id));
+        const shuffledDistractors = seededShuffle(distractors, seedFromParts("dengue-distractors", state.missionSeed, state.round));
+        const options = [correctAction, ...shuffledDistractors.slice(0, dengueOptionCount - 1)]
+          .filter(Boolean)
+          .map(cloneValue);
+        return orderAnswerOptions(options, {
+          seed: seedFromParts("dengue", state.missionSeed, state.round, round.answer),
+          attempt: state.dengueAttempt,
+          isCorrect: (action) => action.id === round.answer,
+        });
+      }
+
+      function habitatAcceptedAnswerIndexes(item) {
+        return item.answers?.length ? item.answers : [item.answer];
+      }
+
+      function acceptsHabitatCategory(item, category) {
+        return Boolean(category && habitatAcceptedAnswerIndexes(item).includes(category.originalIndex));
+      }
+
+      function markHabitatCategory(category) {
+        if (!category || state.habitatChosenIndexes.includes(category.originalIndex)) return;
+        state.habitatChosenIndexes.push(category.originalIndex);
+      }
+
+      function allHabitatCategoriesMarked(item) {
+        return habitatAcceptedAnswerIndexes(item).every((index) => state.habitatChosenIndexes.includes(index));
+      }
+
+      function resetHabitatMarkedCategories() {
+        state.habitatChosenIndexes = [];
+      }
+
+      function habitatClasses(category, index) {
+        return [
+          "habitat",
+          index === state.selected ? "selected" : "",
+          state.habitatChosenIndexes.includes(category.originalIndex) ? "chosen" : "",
+          state.habitatWrong === index ? "wrong" : "",
+        ].filter(Boolean).join(" ");
+      }
+
       function habitatOptions() {
-        const answer = habitatItems[state.round].answer;
+        const item = habitatItems[state.round];
+        const answers = habitatAcceptedAnswerIndexes(item);
         const categories = habitatCategories.map((category, index) => ({ ...category, originalIndex: index }));
         return orderAnswerOptions(categories, {
-          seed: seedFromParts("habitat", state.missionSeed, state.round, habitatItems[state.round].icon),
+          seed: seedFromParts("habitat", state.missionSeed, state.round, item.icon, answers.join("-")),
           attempt: state.habitatAttempt,
-          isCorrect: (category) => category.originalIndex === answer,
+          isCorrect: (category) => answers.includes(category.originalIndex),
         });
       }
 
@@ -7930,6 +9391,28 @@
         ArrowRight: "→",
       };
 
+      const directionControls = [
+        { key: "ArrowUp", area: "up", label: "Subir" },
+        { key: "ArrowLeft", area: "left", label: "Esquerda" },
+        { key: "ArrowRight", area: "right", label: "Direita" },
+        { key: "ArrowDown", area: "down", label: "Descer" },
+      ];
+
+      const arrowChoiceKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+      function directionPadHtml(extraClass = "") {
+        return `<div class="direction-pad ${extraClass}" aria-label="Controles de direção">
+          ${directionControls.map((control) => `<button class="direction-button ${control.area}" type="button" data-key="${control.key}" aria-label="${control.label}">${arrowSymbols[control.key]}</button>`).join("")}
+          <div class="direction-pad-center">•</div>
+        </div>`;
+      }
+
+      function arrowOptionsHtml() {
+        return `<div class="arrow-options">
+          ${arrowChoiceKeys.map((key) => `<div class="arrow-card" role="button" data-key="${key}" aria-label="${arrowSymbols[key]}">${arrowSymbols[key]}</div>`).join("")}
+        </div>`;
+      }
+
       function currentArrowsRound() {
         return legacyCommandRounds[state.round];
       }
@@ -7961,7 +9444,7 @@
 
       function renderArrows() {
         const round = currentArrowsRound();
-        setHeader("Setas e comandos", round.type === "echo" ? "Repita a sequência." : "Aperte a seta certa.");
+        setHeader("Setas e comandos", round.type === "echo" ? "Repita a sequência." : "Escolha a seta certa.");
         setCounters("Fase", `${state.round + 1} / ${legacyCommandRounds.length}`, round.type === "echo" ? "Passos" : "Acertos", round.type === "echo" ? `${state.legacyEchoProgress} / ${round.sequence.length}` : state.score);
         status.textContent = round.type === "echo" ? "Siga a ordem mostrada." : "Olhe a posição da estrela.";
 
@@ -7972,9 +9455,7 @@
               ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress ? "done" : ""} ${index === state.legacyEchoProgress ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
             </div>
             <div class="analysis">Siga uma seta de cada vez.</div>
-            <div class="arrow-options">
-              ${["↑", "↓", "←", "→"].map((option) => `<div class="arrow-card">${option}</div>`).join("")}
-            </div>
+            ${arrowOptionsHtml()}
             ${state.answerLocked ? pauseOverlay() : ""}
           </div>`;
           return;
@@ -7993,9 +9474,7 @@
         }
         content.innerHTML = `<div class="direction-board">
           <div class="direction-grid">${cells.join("")}</div>
-          <div class="arrow-options">
-            ${["↑", "↓", "←", "→"].map((option) => `<div class="arrow-card">${option}</div>`).join("")}
-          </div>
+          ${arrowOptionsHtml()}
           ${state.answerLocked ? pauseOverlay() : ""}
         </div>`;
       }
@@ -8120,19 +9599,23 @@
         legacyRenderers[state.legacyActivity]();
       }
 
+      function returnToMissionMenu(mode) {
+        stopTimer();
+        state.answerLocked = false;
+        state.mode = "menu";
+        const missionIndex = missions.findIndex((item) => item.id === mode);
+        if (missionIndex >= 0) state.menu = missionIndex;
+        state.round = 0;
+        state.selected = 0;
+        state.score = 0;
+        state.dengueFinished = false;
+        render();
+      }
+
       function complete(mode, text) {
         state.completed[mode] = true;
         showCompleteMessage();
-        window.setTimeout(() => {
-          stopTimer();
-          state.answerLocked = false;
-          state.mode = "menu";
-          state.menu = missions.findIndex((item) => item.id === mode);
-          state.round = 0;
-          state.selected = 0;
-          state.score = 0;
-          render();
-        }, 1300);
+        window.setTimeout(() => returnToMissionMenu(mode), 1300);
       }
 
       function menuItemById(id) {
@@ -8251,12 +9734,13 @@
         }
         content.innerHTML = `<div class="robot-layout">
           <div class="robot-playfield">
-            <div class="grid" style="--cell-size:${level.size[1] >= 9 ? 42 : 50}px; grid-template-columns: repeat(${level.size[0]}, minmax(24px, min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
+            <div class="grid" style="--cell-size:${level.size[1] >= 9 ? 42 : 50}px; grid-template-columns: repeat(${level.size[0]}, minmax(var(--grid-cell-min, 24px), min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
             <div class="energy-meter">
               <div class="energy-icon">⚡</div>
               <div class="energy-track"><div class="energy-fill" style="width:${energyPercent}%"></div></div>
               <div class="energy-count">${state.robotCollected.size}/${level.energies.length}</div>
             </div>
+            ${directionPadHtml("robot-inline-controls")}
           </div>
           <div class="side-box">
             <div class="info-box">Zona ${level.zone} de 4<br>${level.holes.length ? "Evite os buracos." : "Aprenda a coletar."}</div>
@@ -8270,6 +9754,7 @@
                 <div class="robot-stat-value">${state.robotFalls}</div>
               </div>
             </div>
+            ${directionPadHtml("robot-side-controls")}
             <div class="chips">${state.commands.slice(-24).map((item) => `<div class="chip">${item}</div>`).join("")}</div>
           </div>
         </div>`;
@@ -8379,6 +9864,111 @@
         </div>`;
       }
 
+      function currentDengueRouteIndex() {
+        return state.round % dengueBoardRoute.length;
+      }
+
+      function currentDengueRouteStart() {
+        return state.round - currentDengueRouteIndex();
+      }
+
+      function currentDengueHealthTip() {
+        const round = dengueRounds[state.round];
+        return round?.tip || dengueHealthTips[state.round % dengueHealthTips.length];
+      }
+
+      function dengueBoardCell(cellIndex, routeByCell) {
+        const routeIndex = routeByCell.get(cellIndex);
+        if (routeIndex === undefined) {
+          return `<div class="dengue-map-cell room">🌿</div>`;
+        }
+        const activeRouteIndex = currentDengueRouteIndex();
+        const stepIndex = currentDengueRouteStart() + routeIndex;
+        const futureRound = dengueRounds[stepIndex];
+        const isActive = routeIndex === activeRouteIndex;
+        const isChecked = routeIndex < activeRouteIndex;
+        const isFinish = stepIndex >= dengueRounds.length;
+        const cellState = isChecked ? "checked" : isActive ? "active" : "upcoming";
+        const visibleIcon = isChecked ? "✅" : isFinish ? "🏁" : iconHtml(futureRound);
+        return `<div class="dengue-map-cell route ${cellState} ${isFinish ? "finish" : ""}" data-step="${routeIndex + 1}">
+          ${isActive ? '<span class="dengue-runner">🧒</span>' : ""}
+          <span>${visibleIcon}</span>
+        </div>`;
+      }
+
+      function renderDengueMap() {
+        const routeByCell = new Map(dengueBoardRoute.map((cellIndex, routeIndex) => [cellIndex, routeIndex]));
+        const cellCount = dengueBoardColumns * dengueBoardRows;
+        return `<div class="dengue-map">
+          ${Array.from({ length: cellCount }, (_, cellIndex) => dengueBoardCell(cellIndex, routeByCell)).join("")}
+        </div>`;
+      }
+
+      function renderDengueFinal() {
+        const cards = [
+          { icon: iconHtml(dengueActionById.cover), label: "Tampou" },
+          { icon: iconHtml(dengueActionById.discard), label: "Descartou" },
+          { icon: iconHtml(dengueActionById.clean), label: "Limpou" },
+          { icon: iconHtml(dengueActionById.change), label: "Trocou água" },
+        ];
+        setHeader("Corrida contra o Aedes", "Casa protegida!");
+        setCounters("Focos", dengueRounds.length, "Limpos", dengueRounds.length);
+        status.textContent = "Casa protegida. Aperte Enter para voltar ao menu.";
+        content.innerHTML = `<div class="dengue-final">
+          <div class="dengue-final-title">🏠 Casa protegida!</div>
+          <div class="dengue-final-subtitle">A vistoria terminou: sem água parada, sem mosquito por perto.</div>
+          <div class="dengue-final-cards">
+            ${cards.map((card) => `<div class="dengue-final-card">
+              <div class="dengue-final-card-icon">${card.icon}</div>
+              <div>${card.label}</div>
+            </div>`).join("")}
+          </div>
+          <div class="dengue-finish-button">Enter para voltar</div>
+        </div>`;
+        content.scrollTop = 0;
+      }
+
+      function renderDengue() {
+        if (state.dengueFinished) {
+          renderDengueFinal();
+          return;
+        }
+        const round = dengueRounds[state.round];
+        const options = dengueOptions();
+        setHeader("Corrida contra o Aedes", "Foco zero.");
+        setCounters("Casa", currentDengueRouteIndex() + 1, "Limpos", state.score);
+        status.textContent = "Avance pela vistoria e escolha um cuidado correto.";
+        content.innerHTML = `<div class="dengue-board">
+          <section class="dengue-scene">
+            <div class="dengue-scene-title">
+              <div class="dengue-danger">🦟 Missão foco zero</div>
+              <div class="dengue-patrol">🧒 Vistoria</div>
+            </div>
+            ${renderDengueMap()}
+            <div class="dengue-inspection">
+              <div class="dengue-icon">${iconHtml(round)}</div>
+              <div>
+                <div class="dengue-place" data-fit-text data-fit-min="15">${round.place}</div>
+                <div class="dengue-clue">${round.clue}</div>
+              </div>
+            </div>
+          </section>
+          <section class="dengue-play">
+            <div class="dengue-play-hint" data-fit-text data-fit-min="14">${iconHtml(round)} ${round.place}</div>
+            <div class="dengue-question">O que fazer?</div>
+            <div class="dengue-health-tip">🩺 ${currentDengueHealthTip()}</div>
+            <div class="dengue-actions ${state.answerLocked ? "locked" : ""}">
+              ${options.map((action, index) => `<div class="${dengueActionClasses(action, index)}">
+                <div class="${dengueActionIconClass(action)}">${iconHtml(action)}</div>
+                <div class="dengue-action-label" data-fit-text data-fit-min="8">${action.label}</div>
+              </div>`).join("")}
+            </div>
+          </section>
+          ${state.answerLocked ? pauseOverlay() : ""}
+        </div>`;
+        content.scrollTop = 0;
+      }
+
       function renderMath() {
         if (state.mathLevel === null) {
           setHeader("Matemática colorida", "Escolha uma faixa.");
@@ -8427,14 +10017,14 @@
         const options = habitatOptions();
         setHeader("Habitats dos animais", "Onde esse animal vive?");
         setCounters("Animal", `${state.round + 1} / ${habitatItems.length}`, "Acertos", state.score);
-        status.textContent = "Escolha o melhor habitat.";
+        status.textContent = "Escolha um habitat correto.";
         content.innerHTML = `<div class="habitat-board">
           <div class="habitat-main">
             <div class="animal-card">${item.icon}</div>
             <div class="habitats ${state.answerLocked ? "locked" : ""}">
-              ${options.map((category, index) => `<div class="habitat ${index === state.selected ? "selected" : ""} ${state.habitatWrong === index ? "wrong" : ""}">
+              ${options.map((category, index) => `<div class="${habitatClasses(category, index)}">
                 <div class="habitat-icon">${category.icon}</div>
-                <div>${category.name}</div>
+                <div data-fit-text data-fit-min="9">${category.name}</div>
               </div>`).join("")}
             </div>
           </div>
@@ -9400,10 +10990,10 @@
       function mathCupStatusText() {
         const challenge = state.mathCupChallenge;
         const prefix = state.mathCupOvertime ? "⏱️ Prorrogação: " : "";
-        if (state.mathCupBreak) return "⏸️ Descanso: aperte Enter.";
+        if (state.mathCupBreak) return "⏸️ Descanso: toque para seguir.";
         if (state.mathCupGoalPause) {
           const details = mathCupGoalPauseDetails();
-          return `${details.title}. ${details.nextPossessionLabel}: aperte Enter.`;
+          return `${details.title}. ${details.nextPossessionLabel}: toque para seguir.`;
         }
         if (challenge) return `${prefix}${mathCupChallengeTitle(challenge)}: escolha a resposta.`;
         if (state.mathCupPossession === "away") return `${prefix}🛡️ Defenda o gol.`;
@@ -9461,9 +11051,10 @@
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Olhe" : "Clique"}</div>
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Pense" : "ou"}</div>
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? mathCupPlayerRole(target) : "Setas"}</div>
-            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? (passType === "longPass" ? "Arriscado" : "Seguro") : "Enter"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? (passType === "longPass" ? "Arriscado" : "Seguro") : "OK"}</div>
           </div>
         </div>`;
+        content.scrollTop = 0;
       }
 
       function mathCupIdleActionHtml(pauseDetails = null) {
@@ -9523,7 +11114,7 @@
             <div class="math-cup-goal-team" data-fit-text data-fit-min="12">${details.scorer.country}</div>
             <div class="math-cup-goal-next" data-fit-text data-fit-min="9">${details.nextDetail}</div>
           </div>
-          <div class="math-cup-goal-action">Enter</div>
+          <div class="math-cup-goal-action">Continuar</div>
         </div>`;
       }
 
@@ -9712,7 +11303,7 @@
             ? goalDetails.nextDetail
             : pauseDetails?.kind === "match"
               ? "Próxima partida."
-              : "Aperte Enter.";
+              : "Toque para seguir.";
           return {
             kind: "pause",
             title,
@@ -9827,7 +11418,7 @@
           <div class="math-cup-break-title">${details.result.icon} ${details.result.label}</div>
           ${mathCupBreakScoreboardHtml(details)}
           ${mathCupNextMatchHtml(details.next)}
-          <div class="math-cup-break-action">Enter</div>
+          <div class="math-cup-break-action">Continuar</div>
         </div>`;
       }
 
@@ -9836,7 +11427,7 @@
         const isFinal = details.kind === "final";
         setHeader("Copa da Matemática", isFinal ? "Campanha vencedora!" : "Descanso");
         setCounters(isFinal ? "Final" : "Jogo", isFinal ? `${mathCupLevels.length} / ${mathCupLevels.length}` : `${state.round + 1} / ${mathCupLevels.length}`, "Vitórias x Derrotas", mathCupRecordLabel());
-        status.textContent = isFinal ? "Aperte Enter." : "Aperte Enter para a próxima partida.";
+        status.textContent = isFinal ? "Toque para seguir." : "Toque para a próxima partida.";
 
         if (isFinal) {
           content.innerHTML = `<div class="math-cup-break">
@@ -9846,7 +11437,7 @@
               <div class="math-cup-break-title">Campanha vencedora!</div>
               <div class="math-cup-break-subtitle">Vitórias ${state.mathCupWins} x ${state.mathCupLosses} derrotas</div>
               ${mathCupBreakScoreboardHtml(details)}
-              <div class="math-cup-break-action">Enter</div>
+              <div class="math-cup-break-action">Continuar</div>
             </div>
           </div>`;
           return;
@@ -9857,7 +11448,7 @@
             <div class="math-cup-break-title">${details.result.icon} ${details.result.label}</div>
             ${mathCupBreakScoreboardHtml(details)}
             ${mathCupNextMatchHtml(details.next)}
-            <div class="math-cup-break-action">Enter</div>
+            <div class="math-cup-break-action">Continuar</div>
           </div>
           </div>`;
       }
@@ -9869,19 +11460,35 @@
         </div>`;
       }
 
+      function mathCupTeamPageSize() {
+        if (window.innerHeight <= 430) {
+          return MATH_CUP_MOBILE_LANDSCAPE_TEAM_PAGE_SIZE;
+        }
+        if (window.innerHeight <= 540) {
+          return window.innerWidth <= 700
+            ? MATH_CUP_NARROW_TEAM_PAGE_SIZE
+            : MATH_CUP_COMPACT_TEAM_PAGE_SIZE;
+        }
+        if (window.innerHeight <= 820 || window.innerWidth <= 980) {
+          return MATH_CUP_COMPACT_TEAM_PAGE_SIZE;
+        }
+        return MATH_CUP_DEFAULT_TEAM_PAGE_SIZE;
+      }
+
       function mathCupTeamPageCount(teams = mathCupTeamChoices()) {
-        return Math.max(1, Math.ceil(teams.length / MATH_CUP_TEAM_PAGE_SIZE));
+        return Math.max(1, Math.ceil(teams.length / mathCupTeamPageSize()));
       }
 
       function currentMathCupTeamPage(teams = mathCupTeamChoices()) {
         const safeSelection = Math.max(0, Math.min(state.selected, teams.length - 1));
-        return Math.floor(safeSelection / MATH_CUP_TEAM_PAGE_SIZE);
+        return Math.floor(safeSelection / mathCupTeamPageSize());
       }
 
       function mathCupTeamPageRange(teams = mathCupTeamChoices()) {
         const page = currentMathCupTeamPage(teams);
-        const start = page * MATH_CUP_TEAM_PAGE_SIZE;
-        const end = Math.min(start + MATH_CUP_TEAM_PAGE_SIZE, teams.length);
+        const pageSize = mathCupTeamPageSize();
+        const start = page * pageSize;
+        const end = Math.min(start + pageSize, teams.length);
         return { page, start, end };
       }
 
@@ -9889,7 +11496,7 @@
         const teams = mathCupTeamChoices();
         const pageCount = mathCupTeamPageCount(teams);
         const targetPage = (page + pageCount) % pageCount;
-        state.selected = Math.min(targetPage * MATH_CUP_TEAM_PAGE_SIZE, teams.length - 1);
+        state.selected = Math.min(targetPage * mathCupTeamPageSize(), teams.length - 1);
       }
 
       function mathCupTeamPagerHtml(page, pageCount) {
@@ -10047,6 +11654,7 @@
         arrows: renderArrows,
         robot: renderRobot,
         logic: renderLogic,
+        dengue: renderDengue,
         math: renderMath,
         habitat: renderHabitat,
         cycle: renderCycle,
@@ -10138,6 +11746,8 @@
         state.logicHint = false;
         state.logicWrong = null;
         state.logicAttempt = 0;
+        state.dengueWrong = null;
+        state.dengueAttempt = 0;
         state.habitatWrong = null;
         state.habitatAttempt = 0;
         state.answerLocked = false;
@@ -10440,6 +12050,54 @@
         render();
       }
 
+      function finishDengueMission() {
+        state.completed.dengue = true;
+        state.dengueFinished = true;
+        state.answerLocked = false;
+        state.selected = -1;
+        stopTimer();
+        showMessage("🏠 Protegida!", 900);
+        render();
+      }
+
+      function handleDengueEnter() {
+        if (state.dengueFinished) {
+          returnToMissionMenu("dengue");
+          return;
+        }
+        if (!hasSelection()) return;
+
+        const round = dengueRounds[state.round];
+        const choice = dengueOptions()[state.selected];
+        if (acceptsDengueAction(round, choice)) {
+          state.dengueWrong = null;
+          state.dengueAttempt = 0;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          if (state.round >= dengueRounds.length) {
+            finishDengueMission();
+            return;
+          }
+          showMessage("✅ Limpou!", 650);
+          render();
+          return;
+        }
+
+        lockAnswer({
+          delay: 1600,
+          messageText: "👀 Revise!",
+          guard: () => state.mode === "dengue",
+          onLock: () => {
+            state.dengueWrong = state.selected;
+          },
+          onUnlock: () => {
+            state.dengueWrong = null;
+            state.dengueAttempt += 1;
+          },
+        });
+      }
+
       function hasSelection() {
         if (state.selected >= 0) return true;
         showMessage("↔️ Escolha!", 650, "info");
@@ -10499,9 +12157,18 @@
 
         const item = habitatItems[state.round];
         const choice = habitatOptions()[state.selected];
-        if (choice?.originalIndex === item.answer) {
-          state.habitatAttempt = 0;
+        if (acceptsHabitatCategory(item, choice)) {
+          state.selected = -1;
           state.habitatWrong = null;
+          markHabitatCategory(choice);
+          if (!allHabitatCategoriesMarked(item)) {
+            showMessage("✅ Mais!", 650, "info");
+            render();
+            return;
+          }
+
+          state.habitatAttempt = 0;
+          resetHabitatMarkedCategories();
           nextQuestion("habitat", habitatItems, "Habitats encontrados!");
           return;
         }
@@ -10515,7 +12182,7 @@
           },
           onUnlock: () => {
             state.habitatWrong = null;
-            state.habitatAttempt += 1;
+            if (!state.habitatChosenIndexes.length) state.habitatAttempt += 1;
           },
         });
       }
@@ -10990,6 +12657,7 @@
         menu: chooseMenu,
         arrows: () => showMessage("↕️ Setas!", 650, "info"),
         logic: handleLogicEnter,
+        dengue: handleDengueEnter,
         math: handleMathEnter,
         habitat: handleHabitatEnter,
         cycle: handleCycleEnter,
@@ -11035,48 +12703,69 @@
           return;
         } else if (state.mode === "logic") {
           const count = logicRounds[state.round].actions.length;
-          state.selected = state.selected < 0
-            ? (delta > 0 ? 0 : count - 1)
-            : (state.selected + delta + count) % count;
-          state.logicWrong = null;
+          moveSelectionIndex({ count, delta, afterMove: () => { state.logicWrong = null; } });
+        } else if (state.mode === "dengue" && !state.dengueFinished) {
+          const count = dengueOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.dengueWrong = null; },
+          });
+        } else if (state.mode === "dengue") {
+          return;
         } else if (state.mode === "math") {
           if (state.mathLevel === null) {
             const count = mathLevels.length;
-            const step = vertical ? delta * 3 : delta;
-            state.selected = (state.selected + step + count) % count;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
           } else {
             const count = mathOptions().length;
-            state.selected = state.selected < 0
-              ? (delta > 0 ? 0 : count - 1)
-              : (state.selected + delta + count) % count;
-            state.mathWrong = null;
+            moveSelectionIndex({ count, delta, afterMove: () => { state.mathWrong = null; } });
           }
         } else if (state.mode === "habitat") {
-          const step = vertical ? delta * 2 : delta;
-          state.selected = chooseFromKeyboard(state.selected, step, habitatOptions().length);
-          state.habitatWrong = null;
+          const count = habitatOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.habitatWrong = null; },
+          });
         } else if (state.mode === "cycle") {
-          state.selected = chooseFromKeyboard(state.selected, delta, state.cycleShuffled.length);
+          moveSelectionIndex({ count: state.cycleShuffled.length, delta });
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
-          state.selected = state.selected < 0
-            ? (delta > 0 ? 0 : count - 1)
-            : (state.selected + delta + count) % count;
-          state.cupWrong = null;
+          moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
         } else if (state.mode === "mathCup") {
           if (state.mathCupLevel === null) {
             const isLevelScreen = state.mathCupScreen === "levels";
             const count = isLevelScreen ? mathCupLevelPlans.length : 2;
-            const step = isLevelScreen && vertical ? delta * 3 : delta;
-            state.selected = (state.selected + step + count) % count;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical: isLevelScreen && vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
           } else if (state.mathCupTeamCode === null) {
             const count = mathCupTeamChoices().length;
-            const step = vertical ? delta * MATH_CUP_TEAM_GRID_COLUMNS : delta;
-            state.selected = (state.selected + step + count) % count;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, MATH_CUP_TEAM_GRID_COLUMNS),
+              allowUnselected: false,
+            });
           } else if (state.mathCupChallenge) {
             const count = mathCupOptions().length;
-            state.selected = chooseFromKeyboard(state.selected, delta, count);
-            state.mathCupWrong = null;
+            moveSelectionIndex({ count, delta, afterMove: () => { state.mathCupWrong = null; } });
           }
         }
         render();
@@ -11099,6 +12788,19 @@
         if (index < 0) return false;
         onActivate(index);
         return true;
+      }
+
+      function activateChoiceClick(event, selector, { clearWrong = null, onConfirm }) {
+        return activateIndexedClick(event, selector, (index) => {
+          state.selected = index;
+          if (clearWrong) clearWrong();
+          onConfirm(index);
+        });
+      }
+
+      function clickedDirectionKey(event, selector) {
+        const target = clickedElement(event, selector);
+        return target?.dataset.key || "";
       }
 
       function activateLevelCardClick(event, onSelect) {
@@ -11138,10 +12840,9 @@
         const selector = selectors[state.legacyActivity];
         if (!selector) return false;
 
-        return activateIndexedClick(event, selector, (index) => {
-          state.selected = index;
-          state.legacyWrong = null;
-          handleLegacyEnter();
+        return activateChoiceClick(event, selector, {
+          clearWrong: () => { state.legacyWrong = null; },
+          onConfirm: handleLegacyEnter,
         });
       }
 
@@ -11153,19 +12854,17 @@
           });
         }
 
-        return activateIndexedClick(event, ".answer-options .option", (index) => {
-          state.selected = index;
-          state.mathWrong = null;
-          handleMathEnter();
+        return activateChoiceClick(event, ".answer-options .option", {
+          clearWrong: () => { state.mathWrong = null; },
+          onConfirm: handleMathEnter,
         });
       }
 
       function handleCupClick(event) {
         if (state.cupPhase !== "choose") return false;
-        return activateIndexedClick(event, ".cup-goal", (index) => {
-          state.selected = index;
-          state.cupWrong = null;
-          handleCupEnter();
+        return activateChoiceClick(event, ".cup-goal", {
+          clearWrong: () => { state.cupWrong = null; },
+          onConfirm: handleCupEnter,
         });
       }
 
@@ -11222,10 +12921,9 @@
 
       function handleMathCupAnswerClick(event) {
         if (!state.mathCupChallenge) return false;
-        return activateIndexedClick(event, ".math-cup-answer", (index) => {
-          state.selected = index;
-          state.mathCupWrong = null;
-          handleMathCupAnswer();
+        return activateChoiceClick(event, ".math-cup-answer", {
+          clearWrong: () => { state.mathCupWrong = null; },
+          onConfirm: handleMathCupAnswer,
         });
       }
 
@@ -11256,21 +12954,43 @@
           || handleMathCupPassClick(event);
       }
 
+      function handleArrowsClick(event) {
+        const key = clickedDirectionKey(event, ".arrow-card");
+        if (!key) return false;
+        handleArrowsKey(key);
+        return true;
+      }
+
+      function handleRobotClick(event) {
+        const key = clickedDirectionKey(event, ".direction-button");
+        if (!key) return false;
+        moveRobot(key);
+        return true;
+      }
+
       const missionClickHandlers = {
-        logic: (event) => activateIndexedClick(event, ".traffic-action", (index) => {
-          state.selected = index;
-          state.logicWrong = null;
-          handleLogicEnter();
+        arrows: handleArrowsClick,
+        robot: handleRobotClick,
+        logic: (event) => activateChoiceClick(event, ".traffic-action", {
+          clearWrong: () => { state.logicWrong = null; },
+          onConfirm: handleLogicEnter,
         }),
+        dengue: (event) => {
+          if (state.dengueFinished) {
+            return activateIndexedClick(event, ".dengue-finish-button", () => returnToMissionMenu("dengue"));
+          }
+          return activateChoiceClick(event, ".dengue-action", {
+            clearWrong: () => { state.dengueWrong = null; },
+            onConfirm: handleDengueEnter,
+          });
+        },
         math: handleMathClick,
-        habitat: (event) => activateIndexedClick(event, ".habitat", (index) => {
-          state.selected = index;
-          state.habitatWrong = null;
-          handleHabitatEnter();
+        habitat: (event) => activateChoiceClick(event, ".habitat", {
+          clearWrong: () => { state.habitatWrong = null; },
+          onConfirm: handleHabitatEnter,
         }),
-        cycle: (event) => activateIndexedClick(event, ".cycle-item", (index) => {
-          state.selected = index;
-          handleCycleEnter();
+        cycle: (event) => activateChoiceClick(event, ".cycle-item", {
+          onConfirm: handleCycleEnter,
         }),
         cup: handleCupClick,
         mathCup: handleMathCupClick,
@@ -11292,7 +13012,7 @@
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .option-card, .answer-card, .shape-card")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
