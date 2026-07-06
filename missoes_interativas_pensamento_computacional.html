@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.1.8">
+  <meta name="app-version" content="2.1.9">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <title>Missões interdisciplinares - Pensamento Computacional</title>
@@ -64,7 +64,7 @@
 
     body {
       display: grid;
-      grid-template-rows: 62px minmax(0, 1fr) 88px;
+      grid-template-rows: 70px minmax(0, 1fr) 88px;
     }
 
     @supports (height: 100dvh) {
@@ -79,7 +79,7 @@
       grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
       gap: 18px;
-      padding: calc(8px + var(--safe-top)) calc(22px + var(--safe-right)) 8px calc(22px + var(--safe-left));
+      padding: calc(7px + var(--safe-top)) calc(22px + var(--safe-right)) 7px calc(22px + var(--safe-left));
       background:
         linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent 30%, rgba(255, 255, 255, 0.04)),
         var(--board-dark);
@@ -106,11 +106,11 @@
       margin: 0;
       min-width: 0;
       font-size: clamp(24px, 3.2vw, 40px);
-      line-height: 1;
+      line-height: 1.18;
       text-align: center;
       font-family: var(--chalk-font);
       text-shadow: var(--chalk-shadow);
-      overflow: hidden;
+      overflow: visible;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -695,16 +695,16 @@
       width: min(980px, 100%);
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 8px;
     }
 
     .menu-card {
-      min-height: 148px;
+      min-height: 112px;
       display: grid;
       grid-template-rows: auto auto 1fr;
-      gap: 6px;
+      gap: 5px;
       place-items: center;
-      padding: 12px 14px;
+      padding: 8px 14px;
       border: 4px solid var(--line);
       border-radius: 14px;
       background: var(--white);
@@ -725,7 +725,7 @@
 
     .menu-card.featured {
       grid-column: 1 / -1;
-      min-height: 166px;
+      min-height: 132px;
       position: relative;
       overflow: hidden;
       border-color: #ffcf42;
@@ -762,18 +762,18 @@
     }
 
     .menu-icon {
-      font-size: 43px;
+      font-size: 34px;
       filter: var(--visual-pop-shadow);
       line-height: 1;
     }
 
     .menu-card.featured .menu-icon {
-      font-size: 54px;
+      font-size: 42px;
       filter: drop-shadow(0 4px 0 rgba(120, 78, 9, 0.22)) var(--visual-pop-shadow);
     }
 
     .menu-card.featured .menu-title {
-      font-size: clamp(27px, 3.5vw, 41px);
+      font-size: clamp(25px, 3vw, 35px);
     }
 
     .menu-card.featured .menu-meta {
@@ -784,7 +784,7 @@
     }
 
     .menu-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 950;
       line-height: 1.04;
     }
@@ -1412,13 +1412,13 @@
     }
 
     .traffic-focus {
+      width: min(760px, 100%);
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-width: min(360px, 88%);
-      padding: 8px 18px;
+      gap: 12px;
+      padding: 10px;
       border: 4px solid var(--yellow);
       border-radius: 16px;
       background: #fff7d8;
@@ -1429,16 +1429,37 @@
       animation: clue-pulse 0.42s ease-in-out 3 alternate;
     }
 
+    .traffic-focus-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 9px;
+      min-height: 70px;
+      padding: 8px 11px;
+      border: 3px solid rgba(214, 169, 67, 0.55);
+      border-radius: 12px;
+      background: #fffdf2;
+    }
+
+    .traffic-focus-title {
+      grid-column: 1 / -1;
+      color: var(--card-muted);
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
     .traffic-focus-icon {
       color: var(--card-ink);
-      font-size: 38px;
+      font-size: 34px;
       line-height: 1;
       text-shadow: none;
     }
 
     .traffic-focus-label {
       color: var(--card-ink);
-      font-size: clamp(24px, 3vw, 34px);
+      font-size: clamp(18px, 2.2vw, 28px);
       font-weight: 950;
       line-height: 1;
       text-transform: uppercase;
@@ -2036,53 +2057,6 @@
       background: var(--level-accent);
     }
 
-    .math-levels {
-      width: min(1040px, 100%);
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .math-level-card {
-      min-height: 174px;
-      display: grid;
-      place-items: center;
-      align-content: center;
-      gap: 8px;
-      padding: 14px 10px;
-      border: 4px solid var(--line);
-      border-radius: 16px;
-      background: var(--white);
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.55);
-      text-align: center;
-      transition: transform 0.12s ease;
-    }
-
-    .math-level-card.selected {
-      border-color: var(--blue);
-      transform: translateY(-7px);
-      box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
-    }
-
-    .math-level-icon {
-      font-size: 42px;
-      filter: var(--visual-pop-shadow);
-      line-height: 1;
-    }
-
-    .math-level-title {
-      font-size: 21px;
-      font-weight: 950;
-      line-height: 1;
-    }
-
-    .math-level-meta {
-      color: var(--card-muted);
-      font-size: 13px;
-      font-weight: 850;
-      line-height: 1.15;
-    }
-
     .math-expression {
       width: 100%;
       display: flex;
@@ -2143,8 +2117,8 @@
     .habitat-main {
       width: 100%;
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
+      grid-template-columns: minmax(190px, 250px) minmax(0, 1fr);
+      gap: clamp(14px, 2vw, 24px);
       align-items: center;
     }
 
@@ -2161,22 +2135,27 @@
 
     .habitats {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 13px;
+      grid-template-columns: repeat(5, minmax(132px, 1fr));
+      gap: clamp(9px, 1.2vw, 13px);
     }
 
     .habitat {
       display: grid;
-      grid-template-columns: 72px 1fr;
+      grid-template-rows: auto auto;
+      justify-items: center;
       align-items: center;
-      min-height: 105px;
-      padding: 13px;
+      min-height: 104px;
+      gap: 7px;
+      padding: 10px 8px;
       border: 4px solid var(--line);
       border-radius: 16px;
       background: var(--white);
       box-shadow: 0 6px 0 rgba(205, 189, 145, 0.5);
-      font-size: 22px;
+      text-align: center;
+      font-size: clamp(14px, 1.25vw, 18px);
       font-weight: 950;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
     }
 
     .habitat.selected {
@@ -2196,7 +2175,7 @@
     }
 
     .habitat-icon {
-      font-size: 48px;
+      font-size: clamp(31px, 2.7vw, 40px);
       filter: var(--visual-pop-shadow);
     }
 
@@ -2241,6 +2220,38 @@
       border-style: solid;
       border-color: var(--green);
       background: #eaf7eb;
+    }
+
+    .cycle-slot.empty {
+      border-color: #d7a72f;
+      background: #fff8dc;
+    }
+
+    .cycle-slot.next {
+      border-style: solid;
+      border-color: var(--orange);
+      background: #fff0d7;
+      box-shadow: 0 0 0 5px rgba(255, 159, 67, 0.18);
+    }
+
+    .cycle-slot-prompt {
+      display: grid;
+      gap: 5px;
+      place-items: center;
+      color: var(--card-ink);
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .cycle-slot-symbol {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .cycle-slot-text {
+      font-size: clamp(12px, 1.4vw, 16px);
+      line-height: 1;
     }
 
     .cycle-item {
@@ -3879,7 +3890,6 @@
     .robot-stat,
     .chips,
     .traffic-action,
-    .math-level-card,
     .option,
     .habitat,
     .animal-card,
@@ -3910,7 +3920,6 @@
     .menu-card,
     .menu-page-button,
     .level-card,
-    .math-level-card,
     .traffic-action,
     .option,
     .habitat,
@@ -3942,8 +3951,7 @@
 
     .menu-title,
     .level-title,
-    .legacy-title,
-    .math-level-title {
+    .legacy-title {
       font-family: var(--read-font);
       letter-spacing: 0;
     }
@@ -3976,13 +3984,17 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .math-levels {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
       .robot-layout,
       .direction-board,
       .habitat-main {
+        grid-template-columns: 1fr;
+      }
+
+      .habitats {
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      }
+
+      .traffic-focus {
         grid-template-columns: 1fr;
       }
 
@@ -4140,7 +4152,6 @@
       .menu-card,
       .menu-page-button,
       .level-card,
-      .math-level-card,
       .traffic-action,
       .option,
       .habitat,
@@ -4159,7 +4170,6 @@
 
       .menu-card,
       .level-card,
-      .math-level-card,
       .traffic-action,
       .option,
       .habitat,
@@ -4178,7 +4188,7 @@
       }
 
       body {
-        grid-template-rows: 52px minmax(0, 1fr) 62px;
+        grid-template-rows: 58px minmax(0, 1fr) 62px;
       }
 
       .topbar {
@@ -4357,14 +4367,12 @@
       .level-count-2,
       .level-count-3,
       .level-count-5,
-      .math-levels,
       .legacy-menu {
         width: min(430px, 100%);
         grid-template-columns: 1fr;
       }
 
       .level-card,
-      .math-level-card,
       .legacy-card {
         min-height: 112px;
         gap: 5px;
@@ -4381,14 +4389,12 @@
       }
 
       .level-title,
-      .legacy-title,
-      .math-level-title {
+      .legacy-title {
         font-size: 17px;
       }
 
       .level-kicker,
-      .legacy-description,
-      .math-level-meta {
+      .legacy-description {
         font-size: 11px;
       }
 
@@ -4587,7 +4593,7 @@
       }
 
       body {
-        grid-template-rows: 44px minmax(0, 1fr) 45px;
+        grid-template-rows: 50px minmax(0, 1fr) 45px;
       }
 
       .topbar {
@@ -4856,7 +4862,7 @@
 
     @media (max-height: 650px) {
       body {
-        grid-template-rows: 60px minmax(0, 1fr) 72px;
+        grid-template-rows: 66px minmax(0, 1fr) 72px;
       }
 
       .topbar {
@@ -4979,57 +4985,60 @@
     }
 
     @media (max-height: 540px) and (orientation: landscape) {
-      body {
-        grid-template-rows: 44px minmax(0, 1fr) 45px;
-      }
-
-      .topbar {
-        padding: calc(4px + var(--safe-top)) calc(10px + var(--safe-right)) 4px calc(10px + var(--safe-left));
-      }
-
-      .stage {
-        padding: 5px calc(8px + var(--safe-right)) 4px calc(8px + var(--safe-left));
-      }
-
-      .panel {
-        gap: 5px;
-        padding: 7px;
-        border-width: 4px;
-      }
-
-      .mission-row {
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 8px;
-      }
-
-      .mission {
-        font-size: clamp(18px, 2.8vw, 22px);
-        text-align: left;
-      }
-
-      .counter {
-        min-width: 78px;
-        padding: 3px 6px;
-        border-width: 2px;
-        border-radius: 10px;
-      }
-
-      .counter-label {
-        font-size: 8px;
-      }
-
-      .counter-value {
-        font-size: 19px;
-      }
-
       .content {
         place-items: center;
         overflow: hidden;
         padding-bottom: 32px;
       }
 
-      .footer {
-        padding: 3px calc(8px + var(--safe-right)) calc(5px + var(--safe-bottom)) calc(8px + var(--safe-left));
+      .math-cup-showcase {
+        width: min(760px, 100%);
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+
+      .math-cup-hero-panel,
+      .math-cup-info-panel {
+        gap: 7px;
+        padding: 10px;
+        border-width: 4px;
+        border-radius: 14px;
+      }
+
+      .math-cup-teacher-panel,
+      .math-cup-showcase-points {
+        display: none;
+      }
+
+      .math-cup-showcase-kicker {
+        padding: 4px 7px;
+        font-size: 10px;
+      }
+
+      .math-cup-showcase-title {
+        font-size: clamp(24px, 4.4vw, 32px);
+        line-height: 1.02;
+      }
+
+      .math-cup-showcase-text,
+      .math-cup-info-text {
+        font-size: clamp(11px, 1.8vw, 13px);
+        line-height: 1.16;
+      }
+
+      .math-cup-showcase-actions,
+      .math-cup-info-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+
+      .math-cup-intro-action,
+      .math-cup-info-action {
+        min-height: 38px;
+        padding: 5px 7px;
+        border-width: 3px;
+        border-radius: 10px;
+        font-size: 12px;
       }
 
       .math-cup-board {
@@ -5177,7 +5186,7 @@
     </div>
     <div class="credit">
       <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
-      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version">v2.1.8</span></div>
+      <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version"></span></div>
     </div>
   </footer>
 
@@ -5274,7 +5283,7 @@
       const mobileNotice = document.getElementById("mobileNotice");
       const SUPPORT_PAGE_URL = "https://pagaum.cafe/amilcarnotari";
       const CONTACT_EMAIL_PARTS = ["amilcar.notari", "gmail.com"];
-      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.8";
+      const APP_VERSION = document.querySelector('meta[name="app-version"]')?.content || "2.1.9";
       const ADULT_HOLD_MS = 3000;
       const CHILD_ABOUT_LOCK_MS = 60000;
       const BACK_HOLD_MS = 1200;
@@ -5294,7 +5303,7 @@
         { id: "arrows", icon: "🧭", title: "Setas e comandos", subject: "Direção e sequência" },
         { id: "patterns", icon: "🔷", title: "Padrões e regras", subject: "Padrões" },
         { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito" },
-        { id: "habitat", icon: "🐾", title: "Casa dos animais", subject: "Biologia" },
+        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia" },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
       ];
@@ -5486,11 +5495,11 @@
       const logicRounds = Array.from({ length: 50 }, (_, index) => createLogicRound(index));
 
       const mathLevelPlans = [
-        { title: "Nível 1", icon: "🍎", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
-        { title: "Nível 2", icon: "🧸", theme: "Contas do dia", meta: "até 20", icons: ["🧸", "🟣", "🍊", "🐞", "🌼"] },
-        { title: "Nível 3", icon: "🏪", theme: "Mercado e placar", meta: "até 50", icons: ["🏪", "⚽", "🎲", "🎈", "🍪"] },
-        { title: "Nível 4", icon: "✖️", theme: "Grupos e tabuada", meta: "vezes e dividir", icons: ["📦", "🧩", "🎯", "🚀", "💎"] },
-        { title: "Nível 5", icon: "🧠", theme: "Desafios mistos", meta: "até 100", icons: ["🧠", "🏆", "🌎", "🔶", "✨"] },
+        { title: "Aquecimento", icon: "🍎", age: "6-7 anos", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
+        { title: "Contas do dia", icon: "🧸", age: "7-8 anos", theme: "Somar e comparar", meta: "até 20", icons: ["🧸", "🟣", "🍊", "🐞", "🌼"] },
+        { title: "Mercado e placar", icon: "🏪", age: "8-9 anos", theme: "Problemas rápidos", meta: "até 50", icons: ["🏪", "⚽", "🎲", "🎈", "🍪"] },
+        { title: "Grupos iguais", icon: "✖️", age: "9-10 anos", theme: "Tabuada e divisão", meta: "vezes e dividir", icons: ["📦", "🧩", "🎯", "🚀", "💎"] },
+        { title: "Desafio misto", icon: "🧠", age: "10+ anos", theme: "Pensar com calma", meta: "até 100", icons: ["🧠", "🏆", "🌎", "🔶", "✨"] },
       ];
 
       function mathAnswer(a, op, b) {
@@ -5610,15 +5619,17 @@
       const habitatCategories = [
         { icon: "🌳", name: "Floresta" },
         { icon: "🌊", name: "Água" },
-        { icon: "🏠", name: "Casa" },
+        { icon: "🚜", name: "Fazenda" },
         { icon: "🌾", name: "Campo" },
+        { icon: "🌼", name: "Jardim" },
       ];
 
       const habitatIconGroups = [
-        ["🐒", "🦜", "🐆", "🦥", "🐍", "🦋", "🦉", "🐜", "🐞", "🦧", "🐅", "🦇", "🐝"],
+        ["🐒", "🦜", "🐆", "🦥", "🐍", "🦉", "🦧", "🐅", "🦇", "🦝"],
         ["🐠", "🐬", "🐙", "🦀", "🐢", "🐳", "🐟", "🦭", "🦑", "🐡", "🪼", "🦈", "🐋"],
-        ["🐕", "🐈", "🐹", "🐇", "🐦", "🐩", "🐱", "🐶", "🐰", "🐁", "🐀", "🦮", "🐕‍🦺"],
         ["🐄", "🐎", "🐑", "🐖", "🐓", "🐐", "🦆", "🦃", "🐂", "🐏", "🐃", "🐔", "🫏"],
+        ["🐇", "🦌", "🦊", "🐺", "🦅", "🦉", "🐦", "🦡", "🐿️", "🦔"],
+        ["🦋", "🐝", "🐞", "🐜", "🐌", "🕷️", "🦗", "🪲", "🐛", "🪱"],
       ];
 
       const habitatItems = Array.from({ length: 50 }, (_, index) => {
@@ -5631,14 +5642,14 @@
       });
 
       const cycleBaseRounds = [
-        { name: "Borboleta", steps: [{ icon: "▫️", label: "ovo" }, { icon: "🐛", label: "lagarta" }, { icon: "🟫", label: "casulo" }, { icon: "🦋", label: "borboleta" }] },
+        { name: "Borboleta", steps: [{ icon: "🥚", label: "ovinhos" }, { icon: "🐛", label: "lagarta" }, { icon: "🟤", label: "casulo" }, { icon: "🦋", label: "borboleta" }] },
         { name: "Planta", steps: [{ icon: "🌰", label: "semente" }, { icon: "🌱", label: "broto" }, { icon: "🌿", label: "planta" }, { icon: "🌻", label: "flor" }, { icon: "🍃", label: "sementes" }] },
-        { name: "Sapo", steps: [{ icon: "⚫⚫", label: "ovos na água" }, { icon: "〰️", label: "girino" }, { icon: "🐸＋", label: "patinhas" }, { icon: "🐸", label: "sapo" }] },
+        { name: "Sapo", steps: [{ icon: "🫧", label: "ovos na água" }, { icon: "〰️", label: "girino" }, { icon: "🐸", label: "sapinho" }, { icon: "🐸", label: "sapo" }] },
         { name: "Chuva", steps: [{ icon: "💧", label: "água" }, { icon: "☀️", label: "calor" }, { icon: "☁️", label: "nuvem" }, { icon: "🌧️", label: "chuva" }, { icon: "🌊", label: "rio" }] },
         { name: "Galinha", steps: [{ icon: "🥚", label: "ovo" }, { icon: "🐣", label: "pintinho" }, { icon: "🐤", label: "jovem" }, { icon: "🐔", label: "galinha" }] },
         { name: "Feijão", steps: [{ icon: "🫘", label: "grão" }, { icon: "💧", label: "água" }, { icon: "🌱", label: "broto" }, { icon: "🌿", label: "folhas" }, { icon: "🫘", label: "novos grãos" }] },
         { name: "Maçã", steps: [{ icon: "🌱", label: "muda" }, { icon: "🌳", label: "árvore" }, { icon: "🌸", label: "flor" }, { icon: "🍏", label: "fruto" }, { icon: "🍎", label: "madura" }] },
-        { name: "Abelha", steps: [{ icon: "▫️", label: "ovo" }, { icon: "🐛", label: "larva" }, { icon: "🟫", label: "pupa" }, { icon: "🐝", label: "abelha" }] },
+        { name: "Abelha", steps: [{ icon: "🥚", label: "ovo" }, { icon: "🐛", label: "larva" }, { icon: "🟤", label: "pupa" }, { icon: "🐝", label: "abelha" }] },
       ];
 
       const plantCycleVariants = [
@@ -6092,8 +6103,7 @@
         "final",
       ];
 
-      const cupRounds = Array.from({ length: 50 }, (_, index) => {
-        const team = cupTeams[index % cupTeams.length];
+      const cupRounds = cupTeams.map((team, index) => {
         const choices = [
           team.flag,
           cupTeams[(index + 11) % cupTeams.length].flag,
@@ -6785,17 +6795,17 @@
           icon: "🔷",
           title: "Padrões e regras",
           levels: [
-            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Nível 1", badge: "Trilha", description: "Complete o padrão.", preview: ["🔴", "🔵", "?"] },
-            { id: "patterns-2", activity: "intruder", icon: "🔎", title: "Nível 2", badge: "Detetive", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
-            { id: "patterns-3", activity: "rule", icon: "🧩", title: "Nível 3", badge: "Regra", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
+            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Continue a trilha", age: "6-7 anos", description: "Complete o padrão.", preview: ["🔴", "🔵", "?"] },
+            { id: "patterns-2", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "8-9 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
+            { id: "patterns-3", activity: "rule", icon: "🧩", title: "Regra escondida", age: "10+ anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
           ],
         },
         data: {
           icon: "📊",
           title: "Dados e gráficos",
           levels: [
-            { id: "data-1", activity: "detective", icon: "📊", title: "Nível 1", badge: "Investigação", description: "Investigue gráficos.", preview: ["📊", "🔎", "✓"] },
-            { id: "data-2", activity: "organize", icon: "🗂️", title: "Nível 2", badge: "Organização", description: "Organize dados.", preview: ["🍎", "📚", "🏷️"] },
+            { id: "data-1", activity: "detective", icon: "📊", title: "Olho no gráfico", age: "8-9 anos", description: "Investigue gráficos.", preview: ["📊", "🔎", "✓"] },
+            { id: "data-2", activity: "organize", icon: "🗂️", title: "Conte e compare", age: "9-10 anos", description: "Organize dados.", preview: ["🍎", "📚", "🏷️"] },
           ],
         },
       };
@@ -7726,6 +7736,23 @@
         </div>`;
       }
 
+      function levelBadge(level) {
+        return level.age || level.badge || "";
+      }
+
+      function levelSelectHtml(levels, { selectedIndex, doneFor = () => false, cardFor }) {
+        return `<div class="level-select level-count-${levels.length}">
+          ${levels.map((level, index) => levelCardHtml({
+            index,
+            total: levels.length,
+            selected: index === selectedIndex,
+            done: doneFor(level, index),
+            badge: levelBadge(level),
+            ...cardFor(level, index),
+          })).join("")}
+        </div>`;
+      }
+
       function colorLabelHtml(text) {
         const colorNames = colorNamesInText(text);
         const swatches = colorNames.map(colorSwatchHtml).join("");
@@ -7881,25 +7908,19 @@
       function renderLevelsMenu() {
         const levelMission = currentLevelMission();
         const levels = currentLegacyLevels();
-        setHeader(levelMission.title, "Escolha um nível.");
-        setCounters("Nível", `${state.legacyGradeIndex + 1} / ${levels.length}`, "Feitos", `${legacyCompletedCount()} / ${legacyActivityTotal()}`);
+        setHeader(levelMission.title, "Escolha uma faixa.");
+        setCounters("Faixa", `${state.legacyGradeIndex + 1} / ${levels.length}`, "Feitos", `${legacyCompletedCount()} / ${legacyActivityTotal()}`);
         status.textContent = `${levelMission.title}: trilhas de desafios.`;
-        content.innerHTML = `<div class="level-select level-count-${levels.length}">
-          ${levels.map((level, index) => {
-            const done = state.legacyCompleted[legacyKey(level.id, level.activity)];
-            return levelCardHtml({
-              index,
-              total: levels.length,
-              selected: index === state.legacyGradeIndex,
-              done,
-              icon: level.icon,
-              title: level.title,
-              badge: level.badge,
-              kicker: level.description,
-              preview: level.preview,
-            });
-          }).join("")}
-        </div>`;
+        content.innerHTML = levelSelectHtml(levels, {
+          selectedIndex: state.legacyGradeIndex,
+          doneFor: (level) => state.legacyCompleted[legacyKey(level.id, level.activity)],
+          cardFor: (level) => ({
+            icon: level.icon,
+            title: level.title,
+            kicker: level.description,
+            preview: level.preview,
+          }),
+        });
       }
 
       const arrowSymbols = {
@@ -8316,7 +8337,7 @@
         const routeText = round.routeLabel ? `${round.routeLabel}: ${round.place}` : round.place;
         setHeader("Meu caminho seguro", "Veja a pista. Escolha a ação.");
         setCounters("Fase", `${state.round + 1} / ${logicRounds.length}`, "Escolha", "← →");
-        status.textContent = `${routeText} • ${clue.label}`;
+        status.textContent = "Observe a situação e a pista.";
         content.innerHTML = `<div class="traffic-board">
           <div class="traffic-scene ${round.night ? "night" : ""}">
             <div class="traffic-sky"></div>
@@ -8337,8 +8358,16 @@
               </div>` : ""}
           </div>
           <div class="traffic-focus ${state.logicHint ? "hint" : ""}">
-            <div class="traffic-focus-icon">${clue.icon}</div>
-            <div class="traffic-focus-label">${clue.label}</div>
+            <div class="traffic-focus-card">
+              <div class="traffic-focus-title">Situação</div>
+              <div class="traffic-focus-icon">${round.placeIcon}</div>
+              <div class="traffic-focus-label" data-fit-text data-fit-min="12">${routeText}</div>
+            </div>
+            <div class="traffic-focus-card">
+              <div class="traffic-focus-title">Pista</div>
+              <div class="traffic-focus-icon">${clue.icon}</div>
+              <div class="traffic-focus-label" data-fit-text data-fit-min="12">${clue.label}</div>
+            </div>
           </div>
           <div class="traffic-actions ${state.answerLocked ? "locked" : ""}">
             ${options.map((choice, index) => `<div class="traffic-action ${index === state.selected ? "selected" : ""} ${state.logicWrong === choice.id ? "wrong" : ""}">
@@ -8352,22 +8381,19 @@
 
       function renderMath() {
         if (state.mathLevel === null) {
-          setHeader("Matemática colorida", "Escolha um nível.");
-          setCounters("Nível", `${state.selected + 1} / ${mathLevels.length}`, "Fases", "50");
+          setHeader("Matemática colorida", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${mathLevels.length}`, "Fases", mathLevelRoundCount());
           status.textContent = "Trilhas coloridas de cálculo.";
-          content.innerHTML = `<div class="level-select level-count-${mathLevels.length}">
-            ${mathLevels.map((level, index) => levelCardHtml({
-              index,
-              total: mathLevels.length,
-              selected: index === state.selected,
+          content.innerHTML = levelSelectHtml(mathLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({
               icon: level.icon,
               title: level.title,
-              badge: `Trilha ${index + 1}`,
               kicker: level.theme,
               meta: level.meta,
               preview: level.icons,
-            })).join("")}
-          </div>`;
+            }),
+          });
           return;
         }
 
@@ -8399,9 +8425,9 @@
       function renderHabitat() {
         const item = habitatItems[state.round];
         const options = habitatOptions();
-        setHeader("Casa dos animais", "Onde esse animal vive?");
+        setHeader("Habitats dos animais", "Onde esse animal vive?");
         setCounters("Animal", `${state.round + 1} / ${habitatItems.length}`, "Acertos", state.score);
-        status.textContent = "Escolha a melhor casa.";
+        status.textContent = "Escolha o melhor habitat.";
         content.innerHTML = `<div class="habitat-board">
           <div class="habitat-main">
             <div class="animal-card">${item.icon}</div>
@@ -8422,6 +8448,10 @@
 
       function currentMathRounds() {
         return mathLevels[state.mathLevel].rounds;
+      }
+
+      function mathLevelRoundCount() {
+        return mathLevels[0]?.rounds.length || 0;
       }
 
       function mathOptions() {
@@ -8459,6 +8489,14 @@
         return `<div class="cycle-step-icon">${step.icon}</div><div class="cycle-step-label">${step.label}</div>`;
       }
 
+      function cycleSlotPromptHtml(index) {
+        const isNext = index === state.cycleChosen.length;
+        return `<div class="cycle-slot-prompt">
+          <div class="cycle-slot-symbol">${isNext ? "✨" : "🔎"}</div>
+          <div class="cycle-slot-text">${isNext ? "agora" : "depois"}</div>
+        </div>`;
+      }
+
       function renderCycle() {
         const cycle = currentCycle();
         const available = state.cycleShuffled;
@@ -8470,7 +8508,8 @@
           <div class="cycle-slots">
             ${cycle.steps.map((_, index) => {
               const chosen = state.cycleChosen[index];
-              return `<div class="cycle-slot ${chosen ? "filled" : ""}">${chosen ? cycleStepHtml(chosen) : index + 1}</div>`;
+              const slotClass = chosen ? "filled" : index === state.cycleChosen.length ? "empty next" : "empty";
+              return `<div class="cycle-slot ${slotClass}">${chosen ? cycleStepHtml(chosen) : cycleSlotPromptHtml(index)}</div>`;
             }).join("")}
           </div>
           <div class="cycle-items ${state.answerLocked ? "locked" : ""}">
@@ -9948,19 +9987,16 @@
         setHeader("Copa da Matemática", "Escolha seu ritmo.");
         setCounters("Faixa", `${state.selected + 1} / ${mathCupLevelPlans.length}`, "Copa", "Campanha");
         status.textContent = "Escolha uma faixa sugerida para a campanha.";
-        content.innerHTML = `<div class="level-select level-count-${mathCupLevelPlans.length}">
-          ${mathCupLevelPlans.map((level, index) => levelCardHtml({
-            index,
-            total: mathCupLevelPlans.length,
-            selected: index === state.selected,
+        content.innerHTML = levelSelectHtml(mathCupLevelPlans, {
+          selectedIndex: state.selected,
+          cardFor: (level) => ({
             icon: level.icon,
             title: level.title,
-            badge: level.age,
             kicker: level.theme,
             meta: level.meta,
             preview: level.preview,
-          })).join("")}
-        </div>`;
+          }),
+        });
       }
 
       function renderMathCup() {
@@ -10466,7 +10502,7 @@
         if (choice?.originalIndex === item.answer) {
           state.habitatAttempt = 0;
           state.habitatWrong = null;
-          nextQuestion("habitat", habitatItems, "Animais em suas casas!");
+          nextQuestion("habitat", habitatItems, "Habitats encontrados!");
           return;
         }
 
@@ -11065,6 +11101,10 @@
         return true;
       }
 
+      function activateLevelCardClick(event, onSelect) {
+        return activateIndexedClick(event, ".level-card", onSelect);
+      }
+
       function handleMenuClick(event) {
         const pageButton = clickedElement(event, ".menu-page-button");
         if (pageButton) {
@@ -11082,7 +11122,7 @@
 
       function handleLegacyClick(event) {
         if (!state.legacyActivity) {
-          return activateIndexedClick(event, ".level-card", (index) => {
+          return activateLevelCardClick(event, (index) => {
             state.legacyGradeIndex = index;
             handleLegacyEnter();
           });
@@ -11107,7 +11147,7 @@
 
       function handleMathClick(event) {
         if (state.mathLevel === null) {
-          return activateIndexedClick(event, ".level-card, .math-level-card", (index) => {
+          return activateLevelCardClick(event, (index) => {
             state.selected = index;
             handleMathEnter();
           });
@@ -11131,7 +11171,7 @@
 
       function handleMathCupLevelClick(event) {
         if (state.mathCupLevel !== null) return false;
-        return activateIndexedClick(event, ".level-card, .math-level-card", (index) => {
+        return activateLevelCardClick(event, (index) => {
           state.selected = index;
           handleMathCupEnter();
         });
