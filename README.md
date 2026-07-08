@@ -33,7 +33,7 @@ O conteúdo evita coleta de dados dos alunos, cadastro, login, câmera, microfon
 Referências oficiais:
 
 - BNCC: https://www.gov.br/mec/pt-br/cne/base-nacional-comum-curricular-bncc
-- Computação na Educação Básica: https://www.gov.br/mec/pt-br/cne/resolucoes/esolucoes-ceb-2022
+- Computação na Educação Básica: https://www.gov.br/mec/pt-br/cne/resolucoes/resolucoes-ceb-2022
 - Temas Contemporâneos Transversais: https://www.gov.br/mec/pt-br/assuntos/eb/guia_pratico_temas_contemporaneos.pdf
 - Dengue e Aedes aegypti: https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dengue
 - Programa Saúde na Escola: https://www.gov.br/mec/pt-br/programa-saude-na-escola/tematicas
