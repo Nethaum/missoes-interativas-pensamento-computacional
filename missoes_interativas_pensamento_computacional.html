@@ -9686,7 +9686,7 @@
         const page = currentMenuPage();
         const category = missionCategories[page];
         const pageItems = currentMenuItems();
-        setHeader("Missões interdisciplinaInterativasres", category.title);
+        setHeader("Missões Interativas", category.title);
         setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
         status.textContent = category.description;
         content.innerHTML = `<div class="menu">
