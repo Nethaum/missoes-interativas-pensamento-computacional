@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.0">
+  <meta name="app-version" content="2.3.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
-    <title>Missões Interativas - Pensamento Computacional</title>
-    <link rel="canonical" href="https://nethaum.github.io/missoes-interativas-pensamento-computacional/missoes_interativas_pensamento_computacional.html">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-      <link rel="apple-touch-icon" href="favicon.svg">
-    <link rel="manifest" href="manifest.json">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Missões Interativas - Pensamento Computacional">
-    <meta property="og:description" content="Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
-    <meta property="og:url" content="https://nethaum.github.io/missoes-interativas-pensamento-computacional/missoes_interativas_pensamento_computacional.html">
-      <meta property="og:image" content="https://nethaum.github.io/missoes-interativas-pensamento-computacional/favicon.svg">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Missões Interativas - Pensamento Computacional">
-    <meta name="twitter:description" content="Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
+  <meta name="theme-color" content="#1e5a42">
+  <title>Missões Interativas - Pensamento Computacional</title>
+  <link rel="canonical" href="https://nethaum.github.io/missoes-interativas-pensamento-computacional/missoes_interativas_pensamento_computacional.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Missões Interativas - Pensamento Computacional">
+  <meta property="og:description" content="Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
+  <meta property="og:url" content="https://nethaum.github.io/missoes-interativas-pensamento-computacional/missoes_interativas_pensamento_computacional.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Missões Interativas - Pensamento Computacional">
+  <meta name="twitter:description" content="Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <style>
     :root {
       --paper: #1e5a42;
@@ -2136,9 +2135,9 @@
     .level-card::after {
       content: "";
       position: absolute;
-      right: -22px;
-      bottom: -28px;
-      width: 88px;
+      right: 10px;
+      bottom: 10px;
+      width: 64px;
       aspect-ratio: 1;
       border-radius: 50%;
       background: color-mix(in srgb, var(--level-accent) 20%, transparent);
@@ -2542,9 +2541,15 @@
 
     .level-kicker {
       color: var(--card-muted);
+      display: grid;
+      gap: 2px;
       font-size: 14px;
       font-weight: 900;
       line-height: 1.12;
+    }
+
+    .level-kicker span {
+      display: block;
     }
 
     .level-preview {
@@ -6256,7 +6261,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.0",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.1",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -9099,7 +9104,7 @@
 
       function levelPreviewHtml(items = []) {
         return `<div class="level-preview">
-          ${items.map((item) => `<span class="level-token">${item}</span>`).join("")}
+          ${items.map((item) => `<span class="level-token">${item}</span>`).join(" ")}
         </div>`;
       }
 
@@ -9120,7 +9125,7 @@
           <div class="level-badge">${done ? "Feito" : badge}</div>
           <div class="level-icon">${done ? "✓" : icon}</div>
           <div class="level-title">${title}</div>
-          <div class="level-kicker">${kicker}${meta ? `<br>${meta}` : ""}</div>
+          <div class="level-kicker"><span>${kicker}</span>${meta ? ` <span>${meta}</span>` : ""}</div>
           ${levelPreviewHtml(preview)}
           ${levelProgressHtml(done ? total : index + 1, total)}
         </div>`;
@@ -9689,7 +9694,7 @@
         const page = currentMenuPage();
         const category = missionCategories[page];
         const pageItems = currentMenuItems();
-        setHeader("Missões interdisciplinares", category.title);
+        setHeader("Missões Interativas", category.title);
         setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
         status.textContent = category.description;
         content.innerHTML = `<div class="menu">

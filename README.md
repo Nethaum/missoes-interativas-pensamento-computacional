@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.3.0
+Versão atual: 2.3.1
 
 ## Acesse
 
@@ -22,7 +22,7 @@ As atividades foram pensadas para uso direto em sala, com linguagem simples, pou
 
 O material foi organizado para apoiar aulas de Pensamento Computacional nos anos iniciais, em diálogo com a BNCC, com as normas de Computação na Educação Básica e com temas contemporâneos transversais como saúde, meio ambiente, cidadania e segurança.
 
-As missões interdisciplinares usam referências oficiais como eixo de conteúdo:
+As missões interativas usam referências oficiais como eixo de conteúdo:
 
 - Educação e computação: BNCC e normas nacionais de Computação na Educação Básica.
 - Saúde e ambiente: orientações do Ministério da Saúde sobre prevenção da dengue e eliminação de criadouros do Aedes aegypti.
@@ -51,12 +51,13 @@ A **Corrida contra o Aedes** trabalha saúde, ambiente e prevenção em formato 
 
 Essas missões contam com visual mais elaborado e foram pensadas também para apresentações, feiras e aulas especiais.
 
-## Destaques da versão 2.3.0
+## Destaques da versão 2.3.1
 
 - Corrida contra o Aedes com mapa de percurso, dicas contextualizadas e tela final própria.
 - Organização interna mais modular para facilitar novas missões e ajustes futuros.
 - Navegação e seleção de respostas mais padronizadas entre teclado, mouse, toque e painel interativo.
 - Validação leve do catálogo de missões para evitar duplicidades e categorias incompletas.
+- Metadados públicos, manifesto e ícone revisados para publicação web mais consistente.
 
 ## Missões
 

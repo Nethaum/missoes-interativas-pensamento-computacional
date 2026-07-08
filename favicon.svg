@@ -1,5 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="32" fill="#1e5a42"/>
-  <rect x="16" y="16" width="160" height="160" rx="24" fill="#214f3e" stroke="#b9874b" stroke-width="6"/>
-  <text x="96" y="120" font-family="Arial, sans-serif" font-size="96" font-weight="900" text-anchor="middle" fill="#fff7d6">🧩</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Missões Interativas">
+  <rect width="192" height="192" rx="34" fill="#1e5a42"/>
+  <rect x="15" y="15" width="162" height="162" rx="26" fill="#214f3e" stroke="#b9874b" stroke-width="7"/>
+  <path d="M45 75h102M45 117h102" stroke="#fff7d6" stroke-width="10" stroke-linecap="round" opacity=".92"/>
+  <circle cx="60" cy="75" r="18" fill="#78b7ff" stroke="#142033" stroke-width="7"/>
+  <circle cx="96" cy="117" r="18" fill="#ffe36a" stroke="#142033" stroke-width="7"/>
+  <circle cx="132" cy="75" r="18" fill="#86e28d" stroke="#142033" stroke-width="7"/>
+  <path d="M72 75h42M96 99V90M96 144v-9" stroke="#142033" stroke-width="8" stroke-linecap="round"/>
+  <path d="M52 145c20-16 68-16 88 0" fill="none" stroke="#fff7d6" stroke-width="9" stroke-linecap="round"/>
 </svg>

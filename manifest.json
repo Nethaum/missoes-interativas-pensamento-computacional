@@ -3,10 +3,13 @@
   "short_name": "Missões Interativas",
   "description": "Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.",
   "start_url": "./missoes_interativas_pensamento_computacional.html",
-  "display": "fullscreen",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
   "background_color": "#1e5a42",
   "theme_color": "#1e5a42",
   "lang": "pt-BR",
+  "categories": ["education", "games"],
   "icons": [
     {
       "src": "favicon.svg",
