@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.1">
+  <meta name="app-version" content="2.3.16">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -121,7 +121,7 @@
       text-align: center;
       font-family: var(--chalk-font);
       text-shadow: var(--chalk-shadow);
-      overflow: visible;
+      overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -646,6 +646,9 @@
     .message.info {
       background: #e6f1ff;
       color: #245db3;
+      min-width: min(280px, calc(100% - 48px));
+      padding: 16px 22px;
+      font-size: clamp(20px, 3vw, 30px);
     }
 
     .message.complete {
@@ -1584,6 +1587,85 @@
       text-transform: uppercase;
     }
 
+    .dengue-race {
+      display: grid;
+      gap: 4px;
+      padding: 10px 12px;
+      border: 3px solid rgba(24, 72, 50, 0.22);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 253, 240, 0.9));
+    }
+
+    .dengue-race-labels {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: Arial, sans-serif;
+      font-size: clamp(9px, 2.4vw, 11px);
+      font-weight: 950;
+      color: #4a5a68;
+      text-transform: uppercase;
+    }
+
+    .dengue-race-track {
+      position: relative;
+      height: clamp(28px, 6vw, 34px);
+      border-radius: 999px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(24, 72, 50, 0.1),
+        rgba(24, 72, 50, 0.1) 2%,
+        transparent 2%,
+        transparent 4%
+      ), #eef2e4;
+      border: 3px solid rgba(24, 72, 50, 0.18);
+      overflow: visible;
+    }
+
+    .dengue-race-house {
+      position: absolute;
+      right: -2px;
+      top: 50%;
+      transform: translate(50%, -50%);
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1;
+    }
+
+    .dengue-race-figure {
+      position: absolute;
+      top: 50%;
+      width: clamp(24px, 6vw, 30px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: clamp(14px, 3.6vw, 18px);
+      transition: left 0.5s ease;
+      box-shadow: 0 2px 0 rgba(21, 31, 48, 0.22);
+    }
+
+    .dengue-race-figure.child {
+      transform: translate(-50%, -50%);
+      background: #2f6dd6;
+      border: 2px solid #fffdf0;
+      z-index: 2;
+    }
+
+    .dengue-race-figure.mosquito {
+      transform: translate(-50%, -50%);
+      background: #fff0f0;
+      border: 2px solid #b23030;
+      z-index: 1;
+    }
+
+    .dengue-race-warning {
+      font-family: Arial, sans-serif;
+      font-size: clamp(9px, 2.3vw, 11px);
+      font-weight: 800;
+      color: #8a1f1f;
+      text-align: center;
+    }
+
     .dengue-map {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -2259,33 +2341,25 @@
 
     .math-cup-showcase-points,
     .math-cup-info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .math-cup-showcase-point,
     .math-cup-info-item {
-      min-height: 62px;
       display: grid;
       align-content: center;
-      gap: 3px;
-      padding: 10px;
-      border: 3px solid #d6caa4;
-      border-radius: 13px;
-      background: #fffdf0;
+      gap: 2px;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 999px;
+      background: #eef4e6;
       color: #184832;
       font-size: 14px;
-      font-weight: 950;
+      font-weight: 800;
       line-height: 1.1;
       text-align: center;
-    }
-
-    .math-cup-info-item span {
-      color: #445064;
-      font-size: 12px;
-      font-weight: 850;
-      line-height: 1.1;
     }
 
     .math-cup-showcase-actions,
@@ -2376,6 +2450,12 @@
 
     .math-cup-mini-player.ball {
       background: #ffcf42;
+      animation: math-cup-mini-ball-bounce 1.6s ease-in-out infinite;
+    }
+
+    @keyframes math-cup-mini-ball-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
     .math-cup-info-view {
@@ -2395,16 +2475,6 @@
       font-weight: 950;
       line-height: 1;
       text-transform: uppercase;
-    }
-
-    .math-cup-team-group-title {
-      margin: 0 0 8px;
-      color: #fff7cc;
-      font-size: clamp(18px, 1.9vw, 26px);
-      font-weight: 950;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.22), 0 0 6px rgba(255, 231, 142, 0.5);
     }
 
     .math-cup-team-grid {
@@ -3442,12 +3512,6 @@
       aspect-ratio: 3 / 2;
     }
 
-    .math-cup-country {
-      font-size: clamp(16px, 2vw, 22px);
-      font-weight: 950;
-      line-height: 1.06;
-    }
-
     .math-cup-stat-label {
       color: var(--card-muted);
       font-size: 12px;
@@ -3886,12 +3950,16 @@
 
     .math-cup-answer.note {
       min-height: 46px;
-      border-color: #d6caa4;
-      background: #f7f2dd;
-      color: #445064;
-      font-size: clamp(15px, 1.7vw, 21px);
-      line-height: 1.05;
-      text-transform: uppercase;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #5b6472;
+      font-size: clamp(14px, 1.6vw, 19px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.15;
+      text-transform: none;
     }
 
     .math-cup-answer.selected {
@@ -3926,7 +3994,6 @@
         0 0 30px rgba(255, 207, 66, 0.55);
     }
 
-    .legacy-menu,
     .pattern-board,
     .intruder-board,
     .data-quiz-board,
@@ -3936,68 +4003,6 @@
       display: grid;
       gap: 18px;
       justify-items: center;
-    }
-
-    .legacy-menu {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .legacy-card {
-      width: 100%;
-      display: grid;
-      grid-template-rows: auto auto 1fr;
-      gap: 9px;
-      min-height: 174px;
-      padding: 15px;
-      border: 4px solid var(--line);
-      border-radius: 12px;
-      background: var(--white);
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.55);
-      text-align: center;
-      transition: transform 0.12s ease, border-color 0.12s ease;
-    }
-
-    .legacy-card.selected {
-      border-color: var(--blue);
-      transform: translateY(-6px);
-      box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
-    }
-
-    .legacy-card.done {
-      border-color: var(--green);
-    }
-
-    .legacy-icon {
-      justify-self: center;
-      display: grid;
-      place-items: center;
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
-      background: #5b3c96;
-      color: var(--white);
-      font-size: 30px;
-      font-weight: 950;
-      text-shadow: 0 1px 0 var(--visual-outline-soft), 0 0 1px var(--visual-outline);
-    }
-
-    .legacy-card.done .legacy-icon {
-      background: #206a3a;
-      color: var(--white);
-    }
-
-    .legacy-title {
-      font-size: 21px;
-      font-weight: 950;
-      line-height: 1.08;
-    }
-
-    .legacy-description {
-      align-self: start;
-      color: var(--card-muted);
-      font-size: 14px;
-      font-weight: 800;
-      line-height: 1.25;
     }
 
     .sequence-row,
@@ -4440,7 +4445,6 @@
     .cup-country,
     .cup-reminder,
     .level-card,
-    .legacy-card,
     .shape-card,
     .option-card,
     .answer-card,
@@ -4497,8 +4501,7 @@
     }
 
     .menu-title,
-    .level-title,
-    .legacy-title {
+    .level-title {
       font-family: var(--read-font);
       letter-spacing: 0;
     }
@@ -4516,7 +4519,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .legacy-menu,
       .answer-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -4658,10 +4660,6 @@
 
       .math-cup-team .flag-art {
         width: 78px;
-      }
-
-      .math-cup-country {
-        font-size: 14px;
       }
 
       .math-cup-challenge {
@@ -4930,35 +4928,30 @@
       .level-select,
       .level-count-2,
       .level-count-3,
-      .level-count-5,
-      .legacy-menu {
+      .level-count-5 {
         width: min(430px, 100%);
         grid-template-columns: 1fr;
       }
 
-      .level-card,
-      .legacy-card {
+      .level-card {
         min-height: 112px;
         gap: 5px;
         padding: 9px;
         border-width: 3px;
       }
 
-      .level-icon,
-      .legacy-icon {
+      .level-icon {
         width: 44px;
         height: 44px;
         border-radius: 13px;
         font-size: 25px;
       }
 
-      .level-title,
-      .legacy-title {
+      .level-title {
         font-size: 17px;
       }
 
-      .level-kicker,
-      .legacy-description {
+      .level-kicker {
         font-size: 11px;
       }
 
@@ -5134,11 +5127,6 @@
         gap: 12px;
         max-height: 100%;
         padding: 0 4px 48px;
-      }
-
-      .math-cup-team-group-title {
-        margin-bottom: 6px;
-        font-size: clamp(15px, 4.4vw, 21px);
       }
 
       .math-cup-team-grid {
@@ -5642,11 +5630,6 @@
         gap: 6px;
         padding: 0 4px 6px;
         align-content: start;
-      }
-
-      .math-cup-team-group-title {
-        margin-bottom: 5px;
-        font-size: clamp(14px, 2.4vw, 18px);
       }
 
       .math-cup-team-grid {
@@ -6261,7 +6244,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.1",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.16",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -6515,6 +6498,7 @@
       const logicRounds = Array.from({ length: 50 }, (_, index) => createLogicRound(index));
 
       const dengueOptionCount = 4;
+      const dengueMosquitoSteps = 8;
 
       const dengueActions = [
         { id: "cover", visual: "cover", label: "Tampar bem" },
@@ -6531,28 +6515,65 @@
 
       const dengueActionById = Object.fromEntries(dengueActions.map((action) => [action.id, action]));
 
-      const dengueScenes = [
-        { icon: "🌱", place: "Pratinho da planta", clue: "Junta água depois da chuva.", answer: "sand", tip: "Pratinho com areia não deixa água parada." },
-        { icon: "🚰", place: "Caixa d'água", clue: "Está aberta no quintal.", answer: "cover", tip: "Caixa d'água precisa ficar bem tampada." },
-        { icon: "⚫", visual: "tire", place: "Pneu velho", clue: "Ficou com água parada.", answer: "discard", related: ["store"], tip: "Pneu parado junta água e deve sair do quintal." },
-        { icon: "🧴", place: "Garrafa sem uso", clue: "Pode acumular água.", answer: "discard", related: ["turn"], tip: "Embalagem sem uso vai para o descarte correto." },
-        { icon: "🪣", place: "Balde no pátio", clue: "Está virado para cima.", answer: "turn", related: ["store"], tip: "Balde virado para baixo não guarda água da chuva." },
-        { icon: "🍃", place: "Calha entupida", clue: "A água não escorre.", answer: "clean", tip: "Calha limpa deixa a água seguir embora." },
-        { icon: "🕳️", place: "Ralo do quintal", clue: "Fica aberto e parado.", answer: "screen", tip: "Tela no ralo ajuda a proteger o quintal." },
-        { icon: "🗑️", place: "Lixeira aberta", clue: "A chuva pode entrar.", answer: "cover", tip: "Lixeira tampada não vira copo de chuva." },
-        { icon: "🐶", place: "Potinho do animal", clue: "Precisa de cuidado diário.", answer: "scrub", related: ["change"], tip: "Potinho precisa ser lavado com escova." },
-        { icon: "🧊", place: "Bandeja da geladeira", clue: "Junta água escondida.", answer: "check", tip: "Água escondida também precisa ser removida." },
-        { icon: "❄️", place: "Ar-condicionado", clue: "A bandeja precisa secar.", answer: "check", tip: "Bandeja seca evita água parada." },
-        { icon: "🏖️", place: "Piscina infantil", clue: "Ficou cheia no canto.", answer: "turn", tip: "Piscina sem uso fica vazia e virada." },
-        { icon: "🛢️", place: "Tambor de água", clue: "Guarda água para uso.", answer: "cover", related: ["screen"], tip: "Água guardada precisa ficar sempre tampada." },
-        { icon: "🥫", place: "Latinha no chão", clue: "Virou copinho de chuva.", answer: "discard", tip: "Lixo no chão pode virar criadouro." },
-        { icon: "🚽", place: "Banheiro pouco usado", clue: "A tampa fica aberta.", answer: "cover", tip: "Lugar pouco usado também precisa de vistoria." },
-        { icon: "🌷", place: "Vaso com água", clue: "A água deve ser renovada.", answer: "change", related: ["scrub"], tip: "Água de vaso precisa ser trocada e limpa." },
-        { icon: "🥡", place: "Pote plástico", clue: "Está largado no pátio.", answer: "discard", related: ["turn", "store"], tip: "Pote largado no pátio pode juntar chuva." },
-        { icon: "🍁", place: "Ralo com folhas", clue: "Folhas seguram água.", answer: "clean", related: ["screen"], tip: "Folhas e sujeira podem prender água." },
-        { icon: "🥣", place: "Bacia guardada", clue: "Pode ficar virada para cima.", answer: "store", related: ["turn"], tip: "Objetos guardados ficam secos e cobertos." },
-        { icon: "🐦", place: "Bebedouro de pássaro", clue: "A água fica parada.", answer: "change", related: ["scrub"], tip: "Bebedouro precisa de água nova e limpeza." },
+      const denguePhases = [
+        { id: "casa", title: "Ao redor de casa", icon: "🏠" },
+        { id: "escola", title: "Na escola", icon: "🏫" },
+        { id: "bairro", title: "No bairro", icon: "🏘️" },
       ];
+
+      const dengueScenesByPhase = {
+        casa: [
+          { icon: "🌱", place: "Pratinho da planta", clue: "Junta água depois da chuva.", answer: "sand", tip: "Pratinho com areia não deixa água parada." },
+          { icon: "🚰", place: "Caixa d'água", clue: "Está aberta no quintal.", answer: "cover", tip: "Caixa d'água precisa ficar bem tampada." },
+          { icon: "⚫", visual: "tire", place: "Pneu velho", clue: "Ficou com água parada.", answer: "discard", related: ["store"], tip: "Pneu parado junta água e deve sair do quintal." },
+          { icon: "🧴", place: "Garrafa sem uso", clue: "Pode acumular água.", answer: "discard", related: ["turn"], tip: "Embalagem sem uso vai para o descarte correto." },
+          { icon: "🪣", place: "Balde no pátio", clue: "Está virado para cima.", answer: "turn", related: ["store"], tip: "Balde virado para baixo não guarda água da chuva." },
+          { icon: "🍃", place: "Calha entupida", clue: "A água não escorre.", answer: "clean", tip: "Calha limpa deixa a água seguir embora." },
+          { icon: "🕳️", place: "Ralo do quintal", clue: "Fica aberto e parado.", answer: "screen", tip: "Tela no ralo ajuda a proteger o quintal." },
+          { icon: "🗑️", place: "Lixeira aberta", clue: "A chuva pode entrar.", answer: "cover", tip: "Lixeira tampada não vira copo de chuva." },
+          { icon: "🐶", place: "Potinho do animal", clue: "Precisa de cuidado diário.", answer: "scrub", related: ["change"], tip: "Potinho precisa ser lavado com escova." },
+          { icon: "🧊", place: "Bandeja da geladeira", clue: "Junta água escondida.", answer: "check", tip: "Água escondida também precisa ser removida." },
+          { icon: "❄️", place: "Ar-condicionado", clue: "A bandeja precisa secar.", answer: "check", tip: "Bandeja seca evita água parada." },
+          { icon: "🏖️", place: "Piscina infantil", clue: "Ficou cheia no canto.", answer: "turn", tip: "Piscina sem uso fica vazia e virada." },
+          { icon: "🛢️", place: "Tambor de água", clue: "Guarda água para uso.", answer: "cover", related: ["screen"], tip: "Água guardada precisa ficar sempre tampada." },
+          { icon: "🥫", place: "Latinha no chão", clue: "Virou copinho de chuva.", answer: "discard", tip: "Lixo no chão pode virar criadouro." },
+          { icon: "🚽", place: "Banheiro pouco usado", clue: "A tampa fica aberta.", answer: "cover", tip: "Lugar pouco usado também precisa de vistoria." },
+          { icon: "🌷", place: "Vaso com água", clue: "A água deve ser renovada.", answer: "change", related: ["scrub"], tip: "Água de vaso precisa ser trocada e limpa." },
+          { icon: "🥡", place: "Pote plástico", clue: "Está largado no pátio.", answer: "discard", related: ["turn", "store"], tip: "Pote largado no pátio pode juntar chuva." },
+          { icon: "🍁", place: "Ralo com folhas", clue: "Folhas seguram água.", answer: "clean", related: ["screen"], tip: "Folhas e sujeira podem prender água." },
+          { icon: "🥣", place: "Bacia guardada", clue: "Pode ficar virada para cima.", answer: "store", related: ["turn"], tip: "Objetos guardados ficam secos e cobertos." },
+          { icon: "🐦", place: "Bebedouro de pássaro", clue: "A água fica parada.", answer: "change", related: ["scrub"], tip: "Bebedouro precisa de água nova e limpeza." },
+        ],
+        escola: [
+          { icon: "🌵", place: "Vaso de planta da sala", clue: "Ficou cheio depois de regar demais.", answer: "sand", tip: "Vaso da sala também pode juntar água parada." },
+          { icon: "🚰", place: "Caixa d'água da escola", clue: "A tampa ficou entreaberta.", answer: "cover", tip: "Caixa d'água da escola também precisa ficar bem fechada." },
+          { icon: "⚫", visual: "tire", place: "Pneu do parquinho", clue: "Serve de brinquedo, mas junta água quando chove.", answer: "turn", related: ["store", "discard"], tip: "Pneu de brincar vira para não juntar água da chuva." },
+          { icon: "🥤", place: "Copinho na lixeira reciclável", clue: "Ficou cheio de água da chuva.", answer: "discard", tip: "Copo e embalagem molhados vão para o descarte certo." },
+          { icon: "💧", place: "Torneira do bebedouro", clue: "Pinga e forma poça no chão.", answer: "check", tip: "Poça perto do bebedouro também precisa secar." },
+          { icon: "🍂", place: "Calha da quadra coberta", clue: "As folhas travaram a água.", answer: "clean", related: ["screen"], tip: "Calha sem folhas deixa a chuva escoar." },
+          { icon: "🧴", place: "Garrafinha esquecida", clue: "Ficou com um fundo de água há dias.", answer: "change", related: ["scrub"], tip: "Garrafinha esquecida também precisa de água trocada e limpeza." },
+          { icon: "🌻", place: "Floreira da horta", clue: "Represa água entre as fileiras.", answer: "clean", tip: "Horta bem cuidada não deixa água acumular entre as plantas." },
+        ],
+        bairro: [
+          { icon: "🏚️", place: "Terreno baldio", clue: "Tem lixo e vasilhames espalhados.", answer: "discard", tip: "Terreno com lixo espalhado é um esconderijo para o mosquito." },
+          { icon: "⚫", visual: "tire", place: "Pátio da borracharia", clue: "Pneus empilhados do lado de fora.", answer: "cover", related: ["store"], tip: "Pneus guardados devem ficar cobertos para não juntar chuva." },
+          { icon: "🧱", place: "Obra em construção", clue: "As caixas d'água ficam destampadas.", answer: "cover", tip: "Caixas d'água de obra também precisam ficar tampadas." },
+          { icon: "📦", place: "Caixa de isopor na feira", clue: "Guarda gelo e água no fundo.", answer: "discard", tip: "Isopor usado deve ir para o descarte, não ficar largado na rua." },
+          { icon: "⛲", place: "Fonte da praça desligada", clue: "A água parada não circula.", answer: "change", related: ["scrub"], tip: "Fonte parada também precisa de manutenção para não virar criadouro." },
+          { icon: "🚗", place: "Balde do lava-rápido", clue: "Fica cheio entre um carro e outro.", answer: "turn", related: ["store", "discard"], tip: "Balde parado no intervalo deve ficar virado para não acumular água." },
+          { icon: "🏬", place: "Calha da loja", clue: "Está entupida de galhos.", answer: "clean", tip: "Calha de loja também pode virar criadouro se ficar entupida." },
+          { icon: "🗑️", place: "Lixeira comunitária", clue: "Fica destampada na calçada.", answer: "cover", tip: "Lixeira da rua também precisa ficar bem fechada." },
+        ],
+      };
+
+      const dengueScenes = denguePhases.flatMap((phase) =>
+        dengueScenesByPhase[phase.id].map((scene) => ({
+          ...scene,
+          phaseId: phase.id,
+          phaseTitle: phase.title,
+          phaseIcon: phase.icon,
+        })),
+      );
 
       const dengueHealthTips = [
         "Água parada precisa de cuidado.",
@@ -6566,14 +6587,10 @@
       const dengueBoardRows = 3;
 
       function createDengueRound(index) {
-        const scene = dengueScenes[index % dengueScenes.length];
-        return {
-          ...scene,
-          difficulty: Math.floor(index / dengueScenes.length) + 1,
-        };
+        return { ...dengueScenes[index] };
       }
 
-      const dengueRounds = Array.from({ length: 50 }, (_, index) => createDengueRound(index));
+      const dengueRounds = dengueScenes.map((_, index) => createDengueRound(index));
 
       const mathLevelPlans = [
         { title: "Aquecimento", icon: "🍎", age: "6-7 anos", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
@@ -7724,8 +7741,21 @@
         return mathChoices(answer, seed, difficulty + 1);
       }
 
+      const MATH_CUP_STAGE_DIFFICULTY_BOOST = {
+        groups: 0,
+        round32: 1,
+        round16: 1,
+        quarter: 2,
+        semi: 2,
+        third: 1,
+        final: 2,
+      };
+
       function createMathCupProblem(schoolLevelIndex, matchIndex, challengeType, seed, lineIndex = 0) {
-        const difficulty = Math.max(0, Math.min(mathCupLevelPlans.length - 1, schoolLevelIndex ?? 0));
+        const baseDifficulty = Math.max(0, Math.min(mathCupLevelPlans.length - 1, schoolLevelIndex ?? 0));
+        const stageKey = mathCupLevels[matchIndex]?.stageKey || "groups";
+        const stageBoost = MATH_CUP_STAGE_DIFFICULTY_BOOST[stageKey] || 0;
+        const difficulty = Math.min(mathCupLevelPlans.length - 1, baseDifficulty + stageBoost);
         const actionBoost = { pass: 0, longPass: 1, dribble: 1, defense: 1, shot: 2 }[challengeType] || 0;
         const phase = Math.min(4, Math.floor(lineIndex / 2) + actionBoost);
         const kindOffset = { pass: 1, longPass: 3, dribble: 5, defense: 6, shot: 8 }[challengeType] || 0;
@@ -8283,6 +8313,8 @@
         dengueWrong: null,
         dengueAttempt: 0,
         dengueFinished: false,
+        dengueStreak: 0,
+        dengueMistakes: 0,
         habitatWrong: null,
         habitatAttempt: 0,
         habitatChosenIndexes: [],
@@ -8320,6 +8352,8 @@
         mathCupChallengeTimeLeft: MATH_CUP_CONFIG.challengeSeconds,
         mathCupChallengeStartedAt: 0,
         mathCupChallengeTimerId: null,
+        mathCupInputGuardTimer: null,
+        mathCupInputGuard: false,
         mathCupDecisionTimeLeft: MATH_CUP_CONFIG.passDecisionSeconds,
         mathCupDecisionStartedAt: 0,
         mathCupDecisionTimerId: null,
@@ -9626,6 +9660,8 @@
         state.selected = 0;
         state.score = 0;
         state.dengueFinished = false;
+        state.dengueStreak = 0;
+        state.dengueMistakes = 0;
         render();
       }
 
@@ -9921,6 +9957,35 @@
         </div>`;
       }
 
+      function dengueChildRaceProgress() {
+        return Math.min(1, state.round / dengueRounds.length);
+      }
+
+      function dengueMosquitoRaceProgress() {
+        return Math.min(1, state.dengueMistakes / dengueMosquitoSteps);
+      }
+
+      function dengueMosquitoCaughtUp() {
+        return state.dengueMistakes >= dengueMosquitoSteps;
+      }
+
+      function renderDengueRace() {
+        const childPct = Math.round(dengueChildRaceProgress() * 100);
+        const mosquitoPct = Math.round(dengueMosquitoRaceProgress() * 100);
+        return `<div class="dengue-race">
+          <div class="dengue-race-labels">
+            <span>🧒 Você</span>
+            <span>🦟 Mosquito</span>
+          </div>
+          <div class="dengue-race-track">
+            <span class="dengue-race-house">🏠</span>
+            <div class="dengue-race-figure mosquito" style="left: ${mosquitoPct}%;">🦟</div>
+            <div class="dengue-race-figure child" style="left: ${childPct}%;">🧒</div>
+          </div>
+          ${dengueMosquitoCaughtUp() ? '<div class="dengue-race-warning">Ele quase chegou! Capriche nas próximas escolhas.</div>' : ""}
+        </div>`;
+      }
+
       function renderDengueFinal() {
         const cards = [
           { icon: iconHtml(dengueActionById.cover), label: "Tampou" },
@@ -9928,12 +9993,15 @@
           { icon: iconHtml(dengueActionById.clean), label: "Limpou" },
           { icon: iconHtml(dengueActionById.change), label: "Trocou água" },
         ];
+        const raceSubtitle = dengueMosquitoCaughtUp()
+          ? "Foi correria: o mosquito quase chegou primeiro. Bora tentar de novo e vencer com folga?"
+          : "A vistoria terminou: sem água parada, sem mosquito por perto.";
         setHeader("Corrida contra o Aedes", "Casa protegida!");
         setCounters("Focos", dengueRounds.length, "Limpos", dengueRounds.length);
         status.textContent = "Casa protegida. Aperte Enter para voltar ao menu.";
         content.innerHTML = `<div class="dengue-final">
           <div class="dengue-final-title">🏠 Casa protegida!</div>
-          <div class="dengue-final-subtitle">A vistoria terminou: sem água parada, sem mosquito por perto.</div>
+          <div class="dengue-final-subtitle">${raceSubtitle}</div>
           <div class="dengue-final-cards">
             ${cards.map((card) => `<div class="dengue-final-card">
               <div class="dengue-final-card-icon">${card.icon}</div>
@@ -9959,8 +10027,9 @@
           <section class="dengue-scene">
             <div class="dengue-scene-title">
               <div class="dengue-danger">🦟 Missão foco zero</div>
-              <div class="dengue-patrol">🧒 Vistoria</div>
+              <div class="dengue-patrol">${round.phaseIcon} ${round.phaseTitle}</div>
             </div>
+            ${renderDengueRace()}
             ${renderDengueMap()}
             <div class="dengue-inspection">
               <div class="dengue-icon">${iconHtml(round)}</div>
@@ -10603,16 +10672,23 @@
         return `${minutes}:${remainingSeconds}`;
       }
 
+      const MATH_CUP_CHALLENGE_SECONDS_BY_LEVEL = [35, 30, 26, 22, 20];
+      const MATH_CUP_MATCH_SECONDS_BY_LEVEL = [160, 135, 115, 100, 90];
+
       function mathCupTimeSettings(roundIndex = state.round) {
         return MATH_CUP_CONFIG;
       }
 
       function mathCupMatchSeconds() {
-        return mathCupTimeSettings().matchSeconds;
+        const durations = MATH_CUP_MATCH_SECONDS_BY_LEVEL;
+        const level = Math.max(0, Math.min(durations.length - 1, state.mathCupLevel ?? 0));
+        return durations[level];
       }
 
       function mathCupChallengeSeconds() {
-        return mathCupTimeSettings().challengeSeconds;
+        const levels = MATH_CUP_CHALLENGE_SECONDS_BY_LEVEL;
+        const level = Math.max(0, Math.min(levels.length - 1, state.mathCupLevel ?? 0));
+        return levels[level];
       }
 
       function mathCupPassDecisionSeconds() {
@@ -11065,10 +11141,10 @@
             <span>${state.mathCupDecisionTimeLeft}s</span>
           </div>
           <div class="math-cup-answers">
-            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Olhe" : "Clique"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Olhe" : "👆 Toque"}</div>
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? "Pense" : "ou"}</div>
-            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? mathCupPlayerRole(target) : "Setas"}</div>
-            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? (passType === "longPass" ? "Arriscado" : "Seguro") : "OK"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? mathCupPlayerRole(target) : "⌨️ Setas"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${target ? (passType === "longPass" ? "Arriscado" : "Seguro") : "+ Enter"}</div>
           </div>
         </div>`;
         content.scrollTop = 0;
@@ -11558,13 +11634,12 @@
             <div class="math-cup-showcase-kicker">Experiência principal</div>
             <div class="math-cup-showcase-title" data-fit-text data-fit-min="28">Copa da Matemática</div>
             <div class="math-cup-showcase-text">
-              Escolha uma seleção, pense nos passes, resolva enigmas e faça o gol no adversário usando matemática.
+              Escolha um time e faça o gol resolvendo contas!
             </div>
             <div class="math-cup-showcase-points">
-              <div class="math-cup-showcase-point">🧠 Cálculo mental</div>
-              <div class="math-cup-showcase-point">🎯 Decisão rápida</div>
+              <div class="math-cup-showcase-point">🧠 Cálculo</div>
+              <div class="math-cup-showcase-point">🎯 Decisão</div>
               <div class="math-cup-showcase-point">⚽ Estratégia</div>
-              <div class="math-cup-showcase-point">📊 Probabilidade</div>
             </div>
             <div class="math-cup-showcase-actions">
               <button class="math-cup-intro-action ${state.selected === 0 ? "selected" : ""}" type="button">▶️ Jogar</button>
@@ -11574,7 +11649,7 @@
           <aside class="math-cup-teacher-panel">
             ${mathCupMiniFieldHtml()}
             <div class="math-cup-showcase-text">
-              Uma atividade de feira com cara de jogo: a criança calcula, escolhe e acompanha as consequências de cada lance.
+              Cada passe e cada chute pedem uma conta certa.
             </div>
           </aside>
         </div>`;
@@ -11588,16 +11663,16 @@
           <section class="math-cup-info-panel">
             <div class="math-cup-info-title">Matemática em campo</div>
             <div class="math-cup-info-text">
-              A cada passe, drible, defesa ou chute, a criança resolve um enigma matemático. O jogo mistura cálculo mental, leitura da situação e tomada de decisão.
+              A cada lance, resolve uma conta pra decidir o que fazer.
             </div>
             <div class="math-cup-info-grid">
-              <div class="math-cup-info-item">➕ Operações<br><span>somar, tirar, multiplicar e dividir</span></div>
-              <div class="math-cup-info-item">🧩 Lógica<br><span>sequências, padrões e escolhas</span></div>
-              <div class="math-cup-info-item">🎲 Probabilidade<br><span>passes, dribles e defesas têm risco</span></div>
-              <div class="math-cup-info-item">🧭 Estratégia<br><span>decidir o melhor caminho até o gol</span></div>
+              <div class="math-cup-info-item">➕ Contas</div>
+              <div class="math-cup-info-item">🧩 Lógica</div>
+              <div class="math-cup-info-item">🎲 Sorte</div>
+              <div class="math-cup-info-item">🧭 Estratégia</div>
             </div>
             <div class="math-cup-info-text">
-              A dificuldade cresce de forma progressiva e pode ser escolhida por faixa etária sugerida, sem prender a atividade a uma turma específica.
+              Fica mais difícil aos poucos, do jeitinho certo pra cada idade.
             </div>
             <div class="math-cup-info-actions">
               <button class="math-cup-info-action ${state.selected === 0 ? "selected" : ""}" type="button">▶️ Jogar agora</button>
@@ -11765,6 +11840,8 @@
         state.logicAttempt = 0;
         state.dengueWrong = null;
         state.dengueAttempt = 0;
+        state.dengueStreak = 0;
+        state.dengueMistakes = 0;
         state.habitatWrong = null;
         state.habitatAttempt = 0;
         state.answerLocked = false;
@@ -12089,6 +12166,7 @@
         if (acceptsDengueAction(round, choice)) {
           state.dengueWrong = null;
           state.dengueAttempt = 0;
+          state.dengueStreak += 1;
           state.score += 1;
           state.round += 1;
           state.selected = -1;
@@ -12096,7 +12174,11 @@
             finishDengueMission();
             return;
           }
-          showMessage("✅ Limpou!", 650);
+          if (state.dengueStreak > 0 && state.dengueStreak % 3 === 0) {
+            showMessage(`🔥 ${state.dengueStreak} seguidas!`, 750);
+          } else {
+            showMessage("✅ Limpou!", 650);
+          }
           render();
           return;
         }
@@ -12107,6 +12189,8 @@
           guard: () => state.mode === "dengue",
           onLock: () => {
             state.dengueWrong = state.selected;
+            state.dengueStreak = 0;
+            state.dengueMistakes += 1;
           },
           onUnlock: () => {
             state.dengueWrong = null;
@@ -12553,6 +12637,16 @@
         });
       }
 
+      const MATH_CUP_DOUBLE_TAP_GUARD_MS = 380;
+
+      function guardMathCupDoubleTap() {
+        state.mathCupInputGuard = true;
+        window.clearTimeout(state.mathCupInputGuardTimer);
+        state.mathCupInputGuardTimer = window.setTimeout(() => {
+          state.mathCupInputGuard = false;
+        }, MATH_CUP_DOUBLE_TAP_GUARD_MS);
+      }
+
       function handleMathCupAnswer() {
         if (!hasSelection()) return;
         const challenge = state.mathCupChallenge;
@@ -12564,6 +12658,7 @@
 
         stopMathCupChallengeClock();
         resetMathCupChallengeState();
+        guardMathCupDoubleTap();
 
         if (challenge.type === "pass" || challenge.type === "longPass") {
           completeMathCupPass(challenge);
@@ -13055,7 +13150,7 @@
           return;
         }
 
-        if (state.answerLocked) return;
+        if (state.answerLocked || state.mathCupInputGuard) return;
 
         if (!state.mathCupChallenge) {
           const passTarget = clickedMathCupPassTarget(event);
@@ -13249,11 +13344,14 @@
       function stopTimer() {
         window.clearTimeout(state.answerLockTimer);
         window.clearTimeout(state.cupStudyTimer);
+        window.clearTimeout(state.mathCupInputGuardTimer);
         window.clearInterval(state.mathCupTimerId);
         window.clearInterval(state.mathCupChallengeTimerId);
         window.clearInterval(state.mathCupDecisionTimerId);
         state.answerLockTimer = null;
         state.cupStudyTimer = null;
+        state.mathCupInputGuardTimer = null;
+        state.mathCupInputGuard = false;
         state.mathCupTimerId = null;
         state.mathCupChallengeTimerId = null;
         state.mathCupDecisionTimerId = null;
