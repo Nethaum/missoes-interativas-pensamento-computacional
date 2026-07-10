@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.16">
+  <meta name="app-version" content="2.3.17">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -6244,7 +6244,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.16",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.17",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -7914,8 +7914,9 @@
         Música: "🎵",
         Noite: "🌙",
         Nublado: "☁️",
+        Ônibus: "🚌",
         Peixe: "🐟",
-        Pega: "🏃",
+        "Pega-pega": "🏃",
         Pera: "🍐",
         Praça: "🏞️",
         Quadra: "🏟️",
@@ -8197,9 +8198,9 @@
           const second = Math.max(tieFirst, tieSecond);
           return {
             labels, values,
-            question: `Quem empatou com ${values[first]} votos?`,
+            question: `Quais dois têm ${values[first]} votos?`,
             ...pairDataOptions(labels, first, second, index),
-            why: `${pairLabel(labels, first, second)} têm ${values[first]} votos.`,
+            why: `${pairLabel(labels, first, second)} têm ${values[first]} votos cada.`,
           };
         }
 
@@ -8233,12 +8234,35 @@
         ["Lápis", "Borracha", "Régua"],
       ];
 
+      function uniqueComparisonCounts(counts, questionType, seed) {
+        const adjusted = [...counts];
+        const targetIndex = seed % adjusted.length;
+
+        if (questionType === 1) {
+          const maxValue = Math.max(...adjusted);
+          if (adjusted.filter((value) => value === maxValue).length > 1) adjusted[targetIndex] = maxValue + 1;
+        }
+
+        if (questionType === 2) {
+          const minValue = Math.min(...adjusted);
+          if (adjusted.filter((value) => value === minValue).length > 1) {
+            adjusted.forEach((value, index) => {
+              if (index !== targetIndex && value === minValue) adjusted[index] += 1;
+            });
+          }
+        }
+
+        return adjusted;
+      }
+
       function createOrganizeRound(index) {
         const labels = organizeThemes[index % organizeThemes.length];
         const phase = Math.floor(index / 10);
-        const counts = labels.map((_, labelIndex) =>
+        const questionType = index % 4;
+        const rawCounts = labels.map((_, labelIndex) =>
           1 + phase + ((index * (labelIndex + 2) + labelIndex * 3) % (4 + phase))
         );
+        const counts = uniqueComparisonCounts(rawCounts, questionType, index);
         const items = labels.flatMap((label, labelIndex) => Array(counts[labelIndex]).fill(label));
         const shuffledItems = shuffle(items, seedFromParts("organize-items", index));
         const maxValue = Math.max(...counts);
@@ -8246,7 +8270,6 @@
         const maxIndex = counts.indexOf(maxValue);
         const minIndex = counts.indexOf(minValue);
         const selectedIndex = index % labels.length;
-        const questionType = index % 4;
 
         if (questionType === 0) {
           return {
