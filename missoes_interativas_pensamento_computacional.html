@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.17">
+  <meta name="app-version" content="2.3.19">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -713,6 +713,7 @@
     }
 
     .menu-card {
+      position: relative;
       min-height: 112px;
       display: grid;
       grid-template-rows: auto auto 1fr;
@@ -725,6 +726,28 @@
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
       text-align: center;
       transition: transform 0.12s ease;
+    }
+
+    .menu-age-badge {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      padding: 3px 8px;
+      border: 2px solid #2f6dd6;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #12356e;
+      font-size: 11px;
+      font-weight: 950;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .menu-card.featured .menu-age-badge {
+      right: 14px;
+      top: 12px;
+      font-size: 13px;
+      padding: 5px 10px;
     }
 
     .menu-card.selected {
@@ -6244,7 +6267,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.17",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.19",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -7320,10 +7343,10 @@
       ];
 
       const mathCupChallengeInfo = {
-        pass: { icon: "🤝", label: "Passe", success: "⚽ Passe!" },
+        pass: { icon: "🤝", label: "Passe", success: "✅ Passou!" },
         longPass: { icon: "🚀", label: "Passe longo", success: "🚀 Passe longo!" },
         dribble: { icon: "⚡", label: "Drible", success: "⚡ Driblou!" },
-        defense: { icon: "🛡️", label: "Defesa", success: "🛡️ Defendeu!" },
+        defense: { icon: "🛡️", label: "Defesa", success: "✅ Recuperou a bola!" },
         shot: { icon: "🥅", label: "Chute final", success: "🏆 Golaço!" },
       };
 
@@ -9749,6 +9772,14 @@
         return menuItemsForPage(currentMenuPage());
       }
 
+      function missionAgeRangeLabel(missionId) {
+        const levels = missionId === "mathCup" ? mathCupLevelPlans : levelMissions[missionId]?.levels;
+        if (!levels || !levels.length) return null;
+        const firstNumber = levels[0].age.match(/\d+/)?.[0] || levels[0].age;
+        const lastAge = levels[levels.length - 1].age;
+        return `${firstNumber} a ${lastAge}`;
+      }
+
       function renderMenu() {
         const page = currentMenuPage();
         const category = missionCategories[page];
@@ -9757,11 +9788,15 @@
         setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
         status.textContent = category.description;
         content.innerHTML = `<div class="menu">
-          ${pageItems.map((item) => `<div class="menu-card ${item.featured ? "featured" : ""} ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
+          ${pageItems.map((item) => {
+            const ageRange = missionAgeRangeLabel(item.id);
+            return `<div class="menu-card ${item.featured ? "featured" : ""} ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
+            ${ageRange ? `<div class="menu-age-badge">${ageRange}</div>` : ""}
             <div class="menu-icon">${state.completed[item.id] ? "✅" : item.icon}</div>
             <div class="menu-title">${item.title}</div>
             <div class="menu-meta">${item.subject}</div>
-          </div>`).join("")}
+          </div>`;
+          }).join("")}
           <div class="menu-page-controls">
             <button class="menu-page-button" type="button" data-menu-page="prev" ${page === 0 ? "disabled" : ""}>‹</button>
             <div class="menu-page">Categoria ${page + 1} de ${menuPageCount()}</div>
@@ -11068,7 +11103,7 @@
       }
 
       function interceptMathCupPass(challenge) {
-        showMessage("⚽ Interceptou!", 750, "warn");
+        showMessage("😬 Interceptado!", 950, "warn");
         startMathCupDefenseChallenge(
           interceptedMathCupOpponentLine(challenge),
           challenge.holderId || state.mathCupHolderId || "gk"
@@ -11081,7 +11116,7 @@
       }
 
       function loseMathCupDribble(challenge) {
-        showMessage("🛡️ Defesa!", 750, "warn");
+        showMessage("😅 Bloquearam o drible!", 950, "warn");
         startMathCupDefenseChallenge(
           MATH_CUP_CONFIG.opponentDefenderRestartLine,
           challenge.holderId || state.mathCupHolderId || "p9",
@@ -11095,7 +11130,7 @@
       }
 
       function saveMathCupShot(challenge) {
-        showMessage("🧤 Defendeu!", 800, "warn");
+        showMessage("😬 O goleiro pegou!", 950, "warn");
         startMathCupDefenseChallenge(
           MATH_CUP_CONFIG.shotSaveRestartLine,
           challenge.holderId || state.mathCupHolderId || "p9",
