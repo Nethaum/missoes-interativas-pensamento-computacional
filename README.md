@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.3.16
+Versão atual: 2.3.17
 
 ## Acesse
 
@@ -50,6 +50,10 @@ A **Copa da Matemática** combina futebol, estratégia, cálculo mental, tomada 
 A **Corrida contra o Aedes** trabalha saúde, ambiente e prevenção em formato de percurso interativo, com foco em reconhecer e eliminar pontos de água parada.
 
 Essas missões contam com visual mais elaborado e foram pensadas também para apresentações, feiras e aulas especiais.
+
+## Destaques da versão 2.3.17
+
+- Revisada a missão Dados e gráficos: o item Ônibus passou a ter ícone próprio e as fases de comparação não geram mais pergunta com empate total quando a resposta esperada é "qual aparece mais" ou "qual aparece menos".
 
 ## Destaques da versão 2.3.16
 
