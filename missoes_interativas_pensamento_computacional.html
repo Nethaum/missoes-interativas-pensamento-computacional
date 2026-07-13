@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.19">
+  <meta name="app-version" content="2.3.20">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -101,7 +101,7 @@
     .brand {
       display: grid;
       align-items: center;
-      min-width: 170px;
+      min-width: 140px;
     }
 
     .subject {
@@ -116,7 +116,7 @@
     h1 {
       margin: 0;
       min-width: 0;
-      font-size: clamp(24px, 3.2vw, 40px);
+      font-size: clamp(20px, 2.8vw, 36px);
       line-height: 1.18;
       text-align: center;
       font-family: var(--chalk-font);
@@ -610,6 +610,36 @@
       opacity: 1;
     }
 
+    #homeButton {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #homeButton::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: 3px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffcf42, #68d987);
+      transform: scaleX(var(--back-hold-progress, 0));
+      transform-origin: left center;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    #homeButton.back-hold {
+      border-color: #ffcf42;
+      background: rgba(65, 78, 28, 0.72);
+      box-shadow: 0 0 14px rgba(255, 207, 66, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    #homeButton.back-hold::after {
+      opacity: 1;
+    }
+
     .message {
       position: fixed;
       left: 50%;
@@ -991,40 +1021,40 @@
 
     .door-frame {
       position: relative;
-      width: 58%;
-      height: 76%;
-      border: 3px solid #ffd66e;
-      border-bottom-width: 5px;
-      border-radius: 5px 5px 2px 2px;
-      background: #2a1d48;
-      box-shadow: 0 0 8px rgba(255, 214, 110, 0.65);
-      perspective: 80px;
+      width: 74%;
+      height: 74%;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      background: radial-gradient(circle at 50% 50%, #ffffff 0%, #d9ecff 35%, #7fb8ff 65%, #23417a 100%);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.65);
+      overflow: hidden;
     }
 
     .door {
       position: absolute;
-      inset: 2px;
-      border: 2px solid #7d451f;
-      border-radius: 3px 3px 1px 1px;
-      background: #c97835;
-      transform-origin: left center;
-      transition: transform 0.2s ease;
-    }
-
-    .door::after {
-      content: "";
-      position: absolute;
-      right: 15%;
-      top: 50%;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: #ffe26f;
+      inset: 0;
+      background: conic-gradient(
+        from 0deg,
+        rgba(255, 255, 255, 0) 0deg,
+        rgba(255, 255, 255, 0.9) 40deg,
+        rgba(255, 255, 255, 0) 90deg,
+        rgba(255, 255, 255, 0) 180deg,
+        rgba(255, 255, 255, 0.6) 220deg,
+        rgba(255, 255, 255, 0) 270deg
+      );
+      opacity: 0.35;
+      transition: opacity 0.3s ease;
     }
 
     .door.open {
-      transform: rotateY(-58deg);
-      background: #e99545;
+      opacity: 1;
+      animation: portal-spin 1.3s linear infinite;
+    }
+
+    @keyframes portal-spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .goal:not(.locked) .door-frame {
@@ -1033,7 +1063,7 @@
 
     @keyframes door-ready {
       from {
-        box-shadow: 0 0 7px rgba(255, 214, 110, 0.65);
+        box-shadow: 0 0 7px rgba(255, 255, 255, 0.65);
       }
       to {
         box-shadow: 0 0 16px 4px rgba(86, 216, 120, 0.9);
@@ -1041,7 +1071,8 @@
     }
 
     .door.closed {
-      transform: rotateY(0);
+      opacity: 0.25;
+      filter: grayscale(0.7) brightness(0.7);
     }
 
     .energy {
@@ -1055,15 +1086,76 @@
       box-shadow: 0 0 8px rgba(255, 204, 69, 0.9);
     }
 
+    .energy-spark {
+      position: absolute;
+      z-index: 5;
+      top: -6px;
+      right: -6px;
+      font-size: 14px;
+      pointer-events: none;
+      animation: fx-stamp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both, fx-energy-spark-fade 0.65s ease 0.2s both;
+    }
+
+    @keyframes fx-energy-spark-fade {
+      to { opacity: 0; }
+    }
+
+    .robot.bump {
+      animation: fx-shake 0.4s ease;
+    }
+
+    .robot.stunned {
+      filter: grayscale(0.55) brightness(0.9);
+    }
+
+    .robot.stunned::after {
+      content: "💫";
+      position: absolute;
+      top: -13px;
+      right: -9px;
+      font-size: 13px;
+      animation: dizzy-spin 0.6s linear infinite;
+    }
+
+    @keyframes dizzy-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .robot.falling {
+      animation: robot-fall 0.5s ease forwards;
+    }
+
+    @keyframes robot-fall {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: scale(0.15) rotate(340deg); opacity: 0.15; }
+    }
+
     .hole {
       position: relative;
       z-index: 3;
       width: 72%;
       height: 72%;
-      border: 4px solid #69728a;
+      overflow: hidden;
+      border: 3px solid rgba(196, 140, 255, 0.55);
       border-radius: 50%;
-      background: #03050a;
-      box-shadow: inset 0 0 0 4px #151927;
+      background: conic-gradient(from 0deg, #1a0533, #4b1a8f, #8b2fd1, #2a0a52, #1a0533);
+      box-shadow: 0 0 10px 2px rgba(139, 47, 209, 0.65), inset 0 0 10px rgba(0, 0, 0, 0.7);
+      animation: wormhole-spin 1.6s linear infinite;
+    }
+
+    .hole::after {
+      content: "";
+      position: absolute;
+      inset: 32%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #05000d 40%, transparent 75%);
+    }
+
+    @keyframes wormhole-spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .trail::after {
@@ -1080,13 +1172,42 @@
     }
 
     .info-box {
+      display: grid;
+      gap: 5px;
       padding: 14px;
       border: 4px solid var(--line);
       border-radius: 15px;
       background: var(--white);
-      font-size: 21px;
-      font-weight: 900;
       text-align: center;
+    }
+
+    .zone-progress {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .zone-dot {
+      opacity: 0.35;
+      filter: grayscale(1);
+    }
+
+    .zone-dot.filled {
+      opacity: 1;
+      filter: none;
+    }
+
+    .info-box-title {
+      font-size: 19px;
+      font-weight: 950;
+    }
+
+    .info-box-hint {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
     }
 
     .robot-stats {
@@ -1103,6 +1224,13 @@
       text-align: center;
     }
 
+    .robot-stat-icon {
+      font-size: 21px;
+      line-height: 1;
+      margin-bottom: 2px;
+      filter: var(--visual-pop-shadow);
+    }
+
     .robot-stat-label {
       color: var(--muted);
       font-size: 12px;
@@ -1113,29 +1241,6 @@
     .robot-stat-value {
       color: var(--blue);
       font-size: 25px;
-      font-weight: 950;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      min-height: 78px;
-      padding: 12px;
-      border: 4px solid var(--line);
-      border-radius: 15px;
-      background: var(--white);
-    }
-
-    .chip {
-      display: grid;
-      place-items: center;
-      width: 35px;
-      height: 35px;
-      border-radius: 10px;
-      background: var(--purple);
-      color: var(--white);
-      font-size: 21px;
       font-weight: 950;
     }
 
@@ -1508,9 +1613,70 @@
       box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
     }
 
+    @keyframes fx-shake {
+      10%, 90% { transform: translateX(-2px); }
+      20%, 80% { transform: translateX(3px); }
+      30%, 50%, 70% { transform: translateX(-5px); }
+      40%, 60% { transform: translateX(5px); }
+    }
+
+    @keyframes fx-stamp-pop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.3) rotate(8deg); opacity: 1; }
+      100% { transform: scale(1) rotate(-6deg); opacity: 1; }
+    }
+
+    @keyframes fx-confetti-fall {
+      0% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--dx, 0px)), 60px) rotate(220deg); opacity: 0; }
+    }
+
+    @keyframes fx-panel-flash {
+      0%, 100% { filter: drop-shadow(0 0 0 rgba(72, 191, 116, 0)); }
+      35% { filter: drop-shadow(0 0 16px rgba(72, 191, 116, 0.9)); }
+    }
+
+    .fx-flash {
+      animation: fx-panel-flash 0.6s ease;
+    }
+
+    .fx-stamp {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      z-index: 3;
+      font-size: 28px;
+      filter: drop-shadow(0 3px 0 rgba(21, 31, 48, 0.28));
+      animation: fx-stamp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      pointer-events: none;
+    }
+
+    .fx-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .fx-confetti span {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      font-size: 16px;
+      animation: fx-confetti-fall 0.85s ease-out both;
+    }
+
+    .fx-confetti span:nth-child(1) { --dx: -34px; animation-delay: 0s; }
+    .fx-confetti span:nth-child(2) { --dx: 4px; animation-delay: 0.06s; }
+    .fx-confetti span:nth-child(3) { --dx: 30px; animation-delay: 0.02s; }
+    .fx-confetti span:nth-child(4) { --dx: -18px; animation-delay: 0.12s; }
+    .fx-confetti span:nth-child(5) { --dx: 20px; animation-delay: 0.16s; }
+    .fx-confetti span:nth-child(6) { --dx: -6px; animation-delay: 0.09s; }
+
     .traffic-action.wrong {
       border-color: var(--red);
       background: #fff0f0;
+      animation: fx-shake 0.5s ease;
     }
 
     .traffic-focus {
@@ -1586,6 +1752,16 @@
         radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.48), transparent 25%),
         linear-gradient(135deg, #e8f5dc, #fff3bd);
       box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28);
+    }
+
+    .dengue-scene.success {
+      animation: dengue-scene-flash 0.62s ease;
+    }
+
+    @keyframes dengue-scene-flash {
+      0% { box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28), 0 0 0 0 rgba(72, 191, 116, 0); border-color: #ffcf42; }
+      35% { box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28), 0 0 34px 8px rgba(72, 191, 116, 0.55); border-color: #4cbf74; }
+      100% { box-shadow: 0 8px 0 rgba(111, 89, 30, 0.28), 0 0 0 0 rgba(72, 191, 116, 0); border-color: #ffcf42; }
     }
 
     .dengue-scene-title {
@@ -1679,6 +1855,24 @@
       background: #fff0f0;
       border: 2px solid #b23030;
       z-index: 1;
+    }
+
+    .dengue-race-figure.mosquito.lunge {
+      animation: dengue-mosquito-lunge 0.5s ease;
+    }
+
+    .dengue-race-figure.child.hop {
+      animation: dengue-child-hop 0.5s ease;
+    }
+
+    @keyframes dengue-mosquito-lunge {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.4) rotate(-8deg); }
+    }
+
+    @keyframes dengue-child-hop {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      40% { transform: translate(-50%, -80%) scale(1.15); }
     }
 
     .dengue-race-warning {
@@ -1832,6 +2026,55 @@
       background: #fff0cf;
       font-size: 50px;
       filter: var(--visual-pop-shadow);
+    }
+
+    .dengue-icon-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .dengue-stamp {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      z-index: 3;
+      font-size: 30px;
+      filter: drop-shadow(0 3px 0 rgba(21, 31, 48, 0.28));
+      animation: dengue-stamp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .dengue-confetti {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .dengue-confetti span {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      font-size: 18px;
+      animation: dengue-confetti-fall 0.85s ease-out both;
+    }
+
+    .dengue-confetti span:nth-child(1) { --dx: -34px; animation-delay: 0s; }
+    .dengue-confetti span:nth-child(2) { --dx: 4px; animation-delay: 0.06s; }
+    .dengue-confetti span:nth-child(3) { --dx: 30px; animation-delay: 0.02s; }
+    .dengue-confetti span:nth-child(4) { --dx: -18px; animation-delay: 0.12s; }
+    .dengue-confetti span:nth-child(5) { --dx: 20px; animation-delay: 0.16s; }
+    .dengue-confetti span:nth-child(6) { --dx: -6px; animation-delay: 0.09s; }
+
+    @keyframes dengue-stamp-pop {
+      0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+      60% { transform: scale(1.3) rotate(8deg); opacity: 1; }
+      100% { transform: scale(1) rotate(-6deg); opacity: 1; }
+    }
+
+    @keyframes dengue-confetti-fall {
+      0% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--dx, 0px)), 60px) rotate(220deg); opacity: 0; }
     }
 
     .visual-icon {
@@ -2070,12 +2313,27 @@
     .dengue-action.wrong {
       border-color: var(--red);
       background: #fff0f0;
+      animation: dengue-shake 0.5s ease;
     }
 
-    .dengue-actions.locked .dengue-action:not(.wrong) {
+    .dengue-action.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 10px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .dengue-actions.locked .dengue-action:not(.wrong):not(.correct) {
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
+    }
+
+    @keyframes dengue-shake {
+      10%, 90% { transform: translateX(-2px); }
+      20%, 80% { transform: translateX(3px); }
+      30%, 50%, 70% { transform: translateX(-5px); }
+      40%, 60% { transform: translateX(5px); }
     }
 
     .dengue-action-icon {
@@ -2175,9 +2433,17 @@
     .option.wrong {
       border-color: var(--red);
       background: #fff0f0;
+      animation: fx-shake 0.5s ease;
     }
 
-    .answer-options.locked .option:not(.wrong) {
+    .option.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-7px) scale(1.04);
+      box-shadow: 0 11px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .answer-options.locked .option:not(.wrong):not(.correct) {
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
@@ -2799,9 +3065,17 @@
     .habitat.wrong {
       border-color: var(--red);
       background: #fff0f0;
+      animation: fx-shake 0.5s ease;
     }
 
-    .habitats.locked .habitat:not(.wrong) {
+    .habitat.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 10px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .habitats.locked .habitat:not(.wrong):not(.correct):not(.chosen) {
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
@@ -2897,10 +3171,27 @@
       transform: translateY(-6px);
     }
 
-    .cycle-items.locked .cycle-item {
+    .cycle-item.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .cycle-item.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 10px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .cycle-items.locked .cycle-item:not(.wrong):not(.correct) {
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
+    }
+
+    .cycle-slot.placed {
+      animation: fx-stamp-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both, fx-panel-flash 0.6s ease;
     }
 
     .cup-board {
@@ -3037,6 +3328,14 @@
     .cup-goal.wrong {
       border-color: var(--red);
       background-color: rgba(116, 28, 35, 0.65);
+      animation: fx-shake 0.5s ease;
+    }
+
+    .cup-goal.correct {
+      border-color: #4cd97e;
+      background-color: rgba(47, 158, 82, 0.55);
+      transform: translateY(-7px) scale(1.04);
+      box-shadow: 0 0 0 4px rgba(76, 217, 126, 0.35);
     }
 
     .cup-flag {
@@ -3058,7 +3357,7 @@
       opacity: 1;
     }
 
-    .cup-question.locked .cup-goal {
+    .cup-question.locked .cup-goal:not(.correct) {
       opacity: 0.35;
       filter: grayscale(0.4);
       transform: none;
@@ -3790,6 +4089,7 @@
     }
 
     .math-cup-question {
+      position: relative;
       grid-column: 1;
       grid-row: 2;
       display: grid;
@@ -3994,12 +4294,24 @@
     .math-cup-answer.wrong {
       border-color: var(--red);
       background: #fff0f0;
+      animation: fx-shake 0.5s ease;
     }
 
-    .math-cup-challenge.locked .math-cup-answer:not(.wrong) {
+    .math-cup-answer.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 10px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .math-cup-challenge.locked .math-cup-answer:not(.wrong):not(.correct) {
       opacity: 0.42;
       filter: grayscale(0.35);
       transform: none;
+    }
+
+    .math-cup-challenge.success {
+      animation: fx-panel-flash 0.62s ease;
     }
 
     .math-cup-board.final-play .math-cup-field {
@@ -4101,12 +4413,23 @@
       border-color: var(--red);
       background: #fff0f0;
       color: #a91f2a;
+      animation: fx-shake 0.5s ease;
     }
 
-    .legacy-locked .option-card:not(.wrong),
-    .legacy-locked .answer-card:not(.wrong),
-    .legacy-locked .shape-card:not(.wrong),
-    .legacy-locked .arrow-card:not(.wrong) {
+    .option-card.correct,
+    .answer-card.correct,
+    .shape-card.correct,
+    .arrow-card.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+      transform: translateY(-7px) scale(1.04);
+      box-shadow: 0 11px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
+    }
+
+    .legacy-locked .option-card:not(.wrong):not(.correct),
+    .legacy-locked .answer-card:not(.wrong):not(.correct),
+    .legacy-locked .shape-card:not(.wrong):not(.correct),
+    .legacy-locked .arrow-card:not(.wrong):not(.correct) {
       opacity: 0.45;
       transform: none;
     }
@@ -4456,7 +4779,6 @@
     .energy-meter,
     .info-box,
     .robot-stat,
-    .chips,
     .traffic-action,
     .dengue-action,
     .dengue-scene,
@@ -5404,7 +5726,8 @@
       }
 
       .mission {
-        font-size: clamp(18px, 3.4vw, 25px);
+        font-size: clamp(13px, 2.4vw, 17px);
+        line-height: 1.05;
         text-align: left;
       }
 
@@ -5921,6 +6244,11 @@
     }
 
     @media (max-height: 540px) and (orientation: landscape) {
+      .mission {
+        font-size: clamp(13px, 2.4vw, 17px);
+        line-height: 1.05;
+      }
+
       .content {
         place-items: center;
         overflow: hidden;
@@ -6134,6 +6462,7 @@
     </div>
     <h1 id="title">Missões Interativas</h1>
     <div class="actions">
+      <button id="homeButton" type="button" title="Início" aria-label="Início">🏠</button>
       <button id="resetButton" type="button" title="Recomeçar" aria-label="Recomeçar">↻</button>
       <button id="fullscreenButton" type="button" title="Tela cheia" aria-label="Tela cheia">⛶</button>
     </div>
@@ -6246,6 +6575,7 @@
       const status = document.getElementById("status");
       const message = document.getElementById("message");
       const backButton = document.getElementById("backButton");
+      const homeButton = document.getElementById("homeButton");
       const resetButton = document.getElementById("resetButton");
       const fullscreenButton = document.getElementById("fullscreenButton");
       const aboutButton = document.getElementById("aboutButton");
@@ -6267,7 +6597,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.19",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.20",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -6289,6 +6619,8 @@
       let backHoldFrame = null;
       let backHoldStartedAt = 0;
       let backHoldSource = null;
+      let backHoldButton = null;
+      let backHoldCompleteAction = null;
       let suppressNextContentClick = false;
 
       const missions = [
@@ -8348,33 +8680,45 @@
         missionSeed: 0,
         robot: [0, 0],
         trail: [],
-        commands: [],
         robotCollected: new Set(),
         robotFalls: 0,
         robotSteps: 0,
         robotFinishing: false,
+        robotFalling: false,
+        robotStunned: false,
+        robotJustCollected: null,
+        robotBump: false,
         logicHint: false,
         logicWrong: null,
+        logicCorrectId: null,
         logicAttempt: 0,
         dengueWrong: null,
         dengueAttempt: 0,
         dengueFinished: false,
         dengueStreak: 0,
         dengueMistakes: 0,
+        dengueCorrectIndex: null,
+        dengueSolved: false,
         habitatWrong: null,
         habitatAttempt: 0,
         habitatChosenIndexes: [],
+        habitatCorrect: false,
         answerLocked: false,
         answerLockTimer: null,
         cycleChosen: [],
         cycleShuffled: [],
         cycleAttempt: 0,
+        cycleWrong: null,
+        cycleCorrectIndex: null,
+        cycleJustFilledSlot: null,
         mathLevel: null,
         mathAttempt: 0,
         mathWrong: null,
+        mathCorrectIndex: null,
         cupPhase: "study",
         cupAttempt: 0,
         cupWrong: null,
+        cupCorrectIndex: null,
         cupStudyTimer: null,
         mathCupStage: 0,
         mathCupScreen: "intro",
@@ -8405,6 +8749,7 @@
         mathCupDecisionTimerId: null,
         mathCupAttempt: 0,
         mathCupWrong: null,
+        mathCupCorrectIndex: null,
         mathCupTrail: [],
         mathCupPassTargets: [],
         mathCupPassSelected: -1,
@@ -8418,6 +8763,8 @@
         legacyGradeIndex: 0,
         legacyAttempt: 0,
         legacyWrong: null,
+        legacyCorrectIndex: null,
+        legacyCorrect: false,
         legacyFeedback: "",
         legacyEchoProgress: 0,
         legacyCompleted: {},
@@ -8440,6 +8787,8 @@
       function resetLegacyRuntimeState() {
         state.legacyAttempt = 0;
         state.legacyWrong = null;
+        state.legacyCorrectIndex = null;
+        state.legacyCorrect = false;
         state.legacyFeedback = "";
         state.legacyEchoProgress = 0;
       }
@@ -9293,6 +9642,7 @@
           "dengue-action",
           index === state.selected ? "selected" : "",
           state.dengueWrong === index ? "wrong" : "",
+          state.dengueSolved && state.dengueCorrectIndex === index ? "correct" : "",
         ].filter(Boolean).join(" ");
       }
 
@@ -9354,7 +9704,7 @@
       }
 
       function legacyOptionClass(baseClass, index) {
-        return `${baseClass} ${index === state.selected ? "selected" : ""} ${state.legacyWrong === index ? "wrong" : ""}`;
+        return `${baseClass} ${index === state.selected ? "selected" : ""} ${state.legacyWrong === index ? "wrong" : ""} ${state.legacyCorrectIndex === index ? "correct" : ""}`;
       }
 
       function legacyLockedClass() {
@@ -9433,25 +9783,36 @@
       }
 
       function advanceLegacyRound(rounds, finalMessage, feedback = "✅ Certo!") {
-        state.score += 1;
-        state.round += 1;
-        state.selected = -1;
-        resetLegacyRuntimeState();
-        if (state.round >= rounds.length) {
-          completeLegacyActivity(finalMessage);
-          return;
-        }
-        showMessage(feedback, 650);
+        state.legacyWrong = null;
+        state.legacyCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage(feedback, 550);
         render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (!isLevelMission(state.mode) || !state.legacyActivity) return;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          resetLegacyRuntimeState();
+          if (state.round >= rounds.length) {
+            completeLegacyActivity(finalMessage);
+            return;
+          }
+          render();
+        }, 480);
       }
 
       function advanceLegacyQuiz(rounds, finalMessage, why = "") {
-        state.score += 1;
+        state.legacyCorrectIndex = state.selected;
         state.legacyFeedback = why;
+        state.answerLocked = true;
         showMessage("✅ Certo!", 750);
         render();
-        window.setTimeout(() => {
+        state.answerLockTimer = window.setTimeout(() => {
           if (!isLevelMission(state.mode) || !state.legacyActivity) return;
+          state.answerLocked = false;
+          state.score += 1;
           state.round += 1;
           state.selected = -1;
           resetLegacyRuntimeState();
@@ -9515,17 +9876,25 @@
       }
 
       function advanceArrowsRound(messageText = "✅ Certo!") {
-        state.score += 1;
-        state.round += 1;
-        state.legacyEchoProgress = 0;
-        state.selected = -1;
         state.legacyWrong = null;
-        if (state.round >= legacyCommandRounds.length) {
-          complete("arrows", "Comandos concluídos!");
-          return;
-        }
-        showMessage(messageText, 650);
+        state.legacyCorrect = true;
+        state.answerLocked = true;
+        showMessage(messageText, 550);
         render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "arrows") return;
+          state.legacyCorrect = false;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.legacyEchoProgress = 0;
+          state.selected = -1;
+          if (state.round >= legacyCommandRounds.length) {
+            complete("arrows", "Comandos concluídos!");
+            return;
+          }
+          render();
+        }, 480);
       }
 
       function lockArrowsMistake(messageText = "👀 Olhe!") {
@@ -9546,14 +9915,14 @@
         status.textContent = round.type === "echo" ? "Siga a ordem mostrada." : "Olhe a posição da estrela.";
 
         if (round.type === "echo") {
-          content.innerHTML = `<div class="echo-board">
+          content.innerHTML = `<div class="echo-board ${state.legacyCorrect ? "fx-flash" : ""}">
             <div class="echo-robot">☺</div>
             <div class="command-display">
-              ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress ? "done" : ""} ${index === state.legacyEchoProgress ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
+              ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress || state.legacyCorrect ? "done" : ""} ${index === state.legacyEchoProgress && !state.legacyCorrect ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
             </div>
             <div class="analysis">Siga uma seta de cada vez.</div>
             ${arrowOptionsHtml()}
-            ${state.answerLocked ? pauseOverlay() : ""}
+            ${state.answerLocked && !state.legacyCorrect ? pauseOverlay() : ""}
           </div>`;
           return;
         }
@@ -9569,10 +9938,10 @@
             </div>`);
           }
         }
-        content.innerHTML = `<div class="direction-board">
+        content.innerHTML = `<div class="direction-board ${state.legacyCorrect ? "fx-flash" : ""}">
           <div class="direction-grid">${cells.join("")}</div>
           ${arrowOptionsHtml()}
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && !state.legacyCorrect ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9606,7 +9975,7 @@
         setHeader("Complete o padrão", "Escolha o próximo.");
         setCounters("Fase", `${state.round + 1} / ${legacyPatternRounds.length}`, "Acertos", state.score);
         status.textContent = round.text;
-        content.innerHTML = `<div class="pattern-board ${legacyLockedClass()}">
+        content.innerHTML = `<div class="pattern-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="sequence-row">
             ${round.sequence.map((item) => `<div class="shape-card">${legacyItemHtml(item)}</div>`).join("")}
             <div class="shape-card question">?</div>
@@ -9614,7 +9983,7 @@
           <div class="options-row">
             ${options.map((item, index) => `<div class="${legacyOptionClass("option-card", index)}">${legacyItemHtml(item)}</div>`).join("")}
           </div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9623,12 +9992,12 @@
         setHeader("Ache o intruso", "Qual figura quebrou o padrão?");
         setCounters("Desafio", `${state.round + 1} / ${legacyIntruderRounds.length}`, "Acertos", state.score);
         status.textContent = state.legacyFeedback || "Procure a mudança.";
-        content.innerHTML = `<div class="intruder-board ${legacyLockedClass()}">
+        content.innerHTML = `<div class="intruder-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="intruder-row">
             ${round.sequence.map((item, index) => `<div class="${legacyOptionClass("shape-card", index)}">${legacyItemHtml(item)}</div>`).join("")}
           </div>
           <div class="analysis">Qual item não combina?</div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9638,10 +10007,10 @@
         setHeader("Descubra a regra", "Escolha a regra.");
         setCounters("Regra", `${state.round + 1} / ${legacyRuleRounds.length}`, "Acertos", state.score);
         status.textContent = state.legacyFeedback || "Observe o grupo que repete.";
-        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()}">
+        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="sequence-row">${round.sequence.map((item) => `<div class="shape-card">${legacyItemHtml(item)}</div>`).join("")}</div>
           <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${option}</div>`).join("")}</div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9652,7 +10021,7 @@
         setHeader("Detetive dos dados", "Observe o gráfico.");
         setCounters("Gráfico", `${state.round + 1} / ${legacyDataQuizRounds.length}`, "Acertos", state.score);
         status.textContent = state.legacyFeedback || "Compare números e alturas.";
-        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()}">
+        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="quiz-question">${round.question}</div>
           <div class="mini-chart">
             ${round.labels.map((label, index) => `<div class="mini-bar-wrap">
@@ -9662,7 +10031,7 @@
             </div>`).join("")}
           </div>
           <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9672,11 +10041,11 @@
         setHeader("Organize dados", "Conte e compare.");
         setCounters("Conjunto", `${state.round + 1} / ${legacyOrganizeRounds.length}`, "Acertos", state.score);
         status.textContent = state.legacyFeedback || "Agrupe os itens iguais.";
-        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()}">
+        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="quiz-question">${round.question}</div>
           <div class="dataset">${round.items.map((item) => `<div class="data-chip">${colorLabelHtml(item)}</div>`).join("")}</div>
           <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -9708,6 +10077,8 @@
         state.dengueFinished = false;
         state.dengueStreak = 0;
         state.dengueMistakes = 0;
+        state.dengueCorrectIndex = null;
+        state.dengueSolved = false;
         render();
       }
 
@@ -9805,15 +10176,45 @@
         </div>`;
       }
 
+      function robotOpenCells(level) {
+        const walls = new Set(level.walls.map((wall) => wall.join(",")));
+        const cells = [];
+        for (let y = 0; y < level.size[1]; y += 1) {
+          for (let x = 0; x < level.size[0]; x += 1) {
+            const id = `${x},${y}`;
+            if (!walls.has(id)) cells.push([x, y]);
+          }
+        }
+        return cells;
+      }
+
+      function pickWormholeExit(level, fromId) {
+        const otherHoles = level.holes.filter((hole) => hole.join(",") !== fromId);
+        if (otherHoles.length) {
+          return otherHoles[Math.floor(Math.random() * otherHoles.length)];
+        }
+        const holeIds = new Set(level.holes.map((hole) => hole.join(",")));
+        const goalId = level.goal.join(",");
+        const candidates = robotOpenCells(level).filter(([x, y]) => {
+          const id = `${x},${y}`;
+          return id !== fromId && id !== goalId && !holeIds.has(id);
+        });
+        if (!candidates.length) return [...level.start];
+        return candidates[Math.floor(Math.random() * candidates.length)];
+      }
+
       function resetRobot() {
         const level = robotLevels[state.round];
         state.robot = [...level.start];
         state.trail = [state.robot.join(",")];
-        state.commands = [];
         state.robotCollected = new Set();
         state.robotFalls = 0;
         state.robotSteps = 0;
         state.robotFinishing = false;
+        state.robotFalling = false;
+        state.robotStunned = false;
+        state.robotJustCollected = null;
+        state.robotBump = false;
       }
 
       function renderRobot() {
@@ -9837,9 +10238,10 @@
             const isGoal = level.goal[0] === x && level.goal[1] === y;
             cells.push(`<div class="cell ${walls.has(id) ? "wall" : ""} ${state.trail.includes(id) ? "trail" : ""}">
               ${energies.has(id) && !state.robotCollected.has(id) ? '<div class="energy"></div>' : ""}
+              ${id === state.robotJustCollected ? '<div class="energy-spark">✨</div>' : ""}
               ${holes.has(id) ? '<div class="hole"></div>' : ""}
-              ${isGoal ? `<div class="goal ${portalOpen ? "" : "locked"}"><div class="door-frame"><div class="door ${portalOpen ? "open" : "closed"}"></div></div></div>` : ""}
-              ${isRobot ? '<div class="robot">🤖</div>' : ""}
+              ${isGoal ? `<div class="goal ${portalOpen ? "" : "locked"}"><div class="door-frame"><div class="door ${portalOpen ? "open" : "closed"}"></div></div>${state.robotFinishing ? '<div class="fx-confetti"><span>🎉</span><span>✨</span><span>⭐</span><span>🎉</span><span>✨</span><span>⭐</span></div>' : ""}</div>` : ""}
+              ${isRobot ? `<div class="robot ${state.robotBump ? "bump" : ""} ${state.robotFalling ? "falling" : ""} ${state.robotStunned ? "stunned" : ""}">🤖</div>` : ""}
             </div>`);
           }
         }
@@ -9854,28 +10256,37 @@
             ${directionPadHtml("robot-inline-controls")}
           </div>
           <div class="side-box">
-            <div class="info-box">Zona ${level.zone} de 4<br>${level.holes.length ? "Evite os buracos." : "Aprenda a coletar."}</div>
+            <div class="info-box">
+              <div class="zone-progress">
+                ${[1, 2, 3, 4].map((n) => `<span class="zone-dot ${n <= level.zone ? "filled" : ""}">${n <= level.zone ? "⭐" : "☆"}</span>`).join("")}
+              </div>
+              <div class="info-box-title">Zona ${level.zone} de 4</div>
+              <div class="info-box-hint">${level.holes.length ? "🌀 Fuja dos buracos de minhoca!" : "⚡ Colete toda a energia!"}</div>
+            </div>
             <div class="robot-stats">
               <div class="robot-stat">
+                <div class="robot-stat-icon">👣</div>
                 <div class="robot-stat-label">Passos</div>
                 <div class="robot-stat-value">${state.robotSteps}</div>
               </div>
               <div class="robot-stat">
-                <div class="robot-stat-label">Quedas</div>
+                <div class="robot-stat-icon">🌀</div>
+                <div class="robot-stat-label">Buracos</div>
                 <div class="robot-stat-value">${state.robotFalls}</div>
               </div>
             </div>
             ${directionPadHtml("robot-side-controls")}
-            <div class="chips">${state.commands.slice(-24).map((item) => `<div class="chip">${item}</div>`).join("")}</div>
           </div>
         </div>`;
       }
 
       function moveRobot(key) {
-        if (state.robotFinishing) return;
+        if (state.robotFinishing || state.robotFalling || state.robotStunned) return;
+        state.robotJustCollected = null;
+        state.robotBump = false;
         const moves = {
-          ArrowUp: [0, -1, "↑"], ArrowDown: [0, 1, "↓"],
-          ArrowLeft: [-1, 0, "←"], ArrowRight: [1, 0, "→"],
+          ArrowUp: [0, -1], ArrowDown: [0, 1],
+          ArrowLeft: [-1, 0], ArrowRight: [1, 0],
         };
         const move = moves[key];
         const level = robotLevels[state.round];
@@ -9883,19 +10294,35 @@
         const ny = state.robot[1] + move[1];
         const blocked = level.walls.some((wall) => wall[0] === nx && wall[1] === ny);
         if (nx < 0 || ny < 0 || nx >= level.size[0] || ny >= level.size[1] || blocked) {
-          showMessage("🧱 Parede!", 600, "warn");
+          state.robotBump = true;
+          state.robotStunned = true;
+          showMessage("🧱 Tonto!", 600, "warn");
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "robot") return;
+            state.robotStunned = false;
+            state.robotBump = false;
+            render();
+          }, 400);
           return;
         }
         state.robotSteps += 1;
-        state.commands.push(move[2]);
         const nextId = `${nx},${ny}`;
         const isHole = level.holes.some((hole) => hole[0] === nx && hole[1] === ny);
         if (isHole) {
           state.robotFalls += 1;
-          state.robot = [...level.start];
-          state.trail = [state.robot.join(",")];
-          showMessage("🕳️ Caiu!", 900, "bad");
+          state.robot = [nx, ny];
+          state.robotFalling = true;
+          showMessage("🌀 Buraco de minhoca!", 900, "bad");
           render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "robot") return;
+            state.robotFalling = false;
+            const exit = pickWormholeExit(level, nextId);
+            state.robot = exit;
+            state.trail = [exit.join(",")];
+            render();
+          }, 500);
           return;
         }
         state.robot = [nx, ny];
@@ -9903,16 +10330,19 @@
         const isEnergy = level.energies.some((energy) => energy[0] === nx && energy[1] === ny);
         if (isEnergy && !state.robotCollected.has(nextId)) {
           state.robotCollected.add(nextId);
+          state.robotJustCollected = nextId;
         }
         if (nx === level.goal[0] && ny === level.goal[1]) {
           if (state.robotCollected.size < level.energies.length) {
-            showMessage("🚪 Fechada!", 700, "warn");
+            showMessage("✨ Falta energia!", 700, "warn");
             render();
             return;
           }
           state.robotFinishing = true;
           showMessage("🎉 Chegou!", 800);
-          window.setTimeout(() => {
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "robot") return;
             state.round += 1;
             if (state.round >= robotLevels.length) {
               complete("robot", "Todos os caminhos concluídos!");
@@ -9921,6 +10351,7 @@
             resetRobot();
             render();
           }, 900);
+          return;
         }
         render();
       }
@@ -9935,7 +10366,7 @@
         setCounters("Fase", `${state.round + 1} / ${logicRounds.length}`, "Escolha", "← →");
         status.textContent = "Observe a situação e a pista.";
         content.innerHTML = `<div class="traffic-board">
-          <div class="traffic-scene ${round.night ? "night" : ""}">
+          <div class="traffic-scene ${round.night ? "night" : ""} ${state.logicCorrectId !== null ? "fx-flash" : ""}">
             <div class="traffic-sky"></div>
             <div class="traffic-ground"></div>
             <div class="traffic-road"></div>
@@ -9966,12 +10397,12 @@
             </div>
           </div>
           <div class="traffic-actions ${state.answerLocked ? "locked" : ""}">
-            ${options.map((choice, index) => `<div class="traffic-action ${index === state.selected ? "selected" : ""} ${state.logicWrong === choice.id ? "wrong" : ""}">
+            ${options.map((choice, index) => `<div class="traffic-action ${index === state.selected ? "selected" : ""} ${state.logicWrong === choice.id ? "wrong" : ""} ${state.logicCorrectId === choice.id ? "correct" : ""}">
               <div class="traffic-action-icon">${choice.icon}</div>
               <div>${choice.label}</div>
             </div>`).join("")}
           </div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.logicCorrectId === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -10037,8 +10468,8 @@
           </div>
           <div class="dengue-race-track">
             <span class="dengue-race-house">🏠</span>
-            <div class="dengue-race-figure mosquito" style="left: ${mosquitoPct}%;">🦟</div>
-            <div class="dengue-race-figure child" style="left: ${childPct}%;">🧒</div>
+            <div class="dengue-race-figure mosquito ${state.dengueWrong !== null ? "lunge" : ""}" style="left: ${mosquitoPct}%;">🦟</div>
+            <div class="dengue-race-figure child ${state.dengueSolved ? "hop" : ""}" style="left: ${childPct}%;">🧒</div>
           </div>
           ${dengueMosquitoCaughtUp() ? '<div class="dengue-race-warning">Ele quase chegou! Capriche nas próximas escolhas.</div>' : ""}
         </div>`;
@@ -10082,7 +10513,7 @@
         setCounters("Casa", currentDengueRouteIndex() + 1, "Limpos", state.score);
         status.textContent = "Avance pela vistoria e escolha um cuidado correto.";
         content.innerHTML = `<div class="dengue-board">
-          <section class="dengue-scene">
+          <section class="dengue-scene ${state.dengueSolved ? "success" : ""}">
             <div class="dengue-scene-title">
               <div class="dengue-danger">🦟 Missão foco zero</div>
               <div class="dengue-patrol">${round.phaseIcon} ${round.phaseTitle}</div>
@@ -10090,7 +10521,10 @@
             ${renderDengueRace()}
             ${renderDengueMap()}
             <div class="dengue-inspection">
-              <div class="dengue-icon">${iconHtml(round)}</div>
+              <div class="dengue-icon-wrap">
+                <div class="dengue-icon">${iconHtml(round)}</div>
+                ${state.dengueSolved ? '<div class="dengue-stamp">✅</div><div class="dengue-confetti"><span>🎉</span><span>✨</span><span>💧</span><span>🎉</span><span>✨</span><span>💧</span></div>' : ""}
+              </div>
               <div>
                 <div class="dengue-place" data-fit-text data-fit-min="15">${round.place}</div>
                 <div class="dengue-clue">${round.clue}</div>
@@ -10099,7 +10533,7 @@
           </section>
           <section class="dengue-play">
             <div class="dengue-play-hint" data-fit-text data-fit-min="14">${iconHtml(round)} ${round.place}</div>
-            <div class="dengue-question">O que fazer?</div>
+            <div class="dengue-question">🧰 Toque na ferramenta certa!</div>
             <div class="dengue-health-tip">🩺 ${currentDengueHealthTip()}</div>
             <div class="dengue-actions ${state.answerLocked ? "locked" : ""}">
               ${options.map((action, index) => `<div class="${dengueActionClasses(action, index)}">
@@ -10108,7 +10542,7 @@
               </div>`).join("")}
             </div>
           </section>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && !state.dengueSolved ? pauseOverlay() : ""}
         </div>`;
         content.scrollTop = 0;
       }
@@ -10143,16 +10577,16 @@
         setCounters("Fase", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
         status.textContent = round.status;
         content.innerHTML = `<div class="math-board">
-          <div class="math-expression">
+          <div class="math-expression ${state.mathCorrectIndex !== null ? "fx-flash" : ""}">
             <div class="object-group">${renderGroup(round.icon, round.a)}</div>
             <div class="operator">${round.op}</div>
             <div class="object-group">${renderGroup(round.icon, round.b)}</div>
             <div class="operator">= ?</div>
           </div>
           <div class="options answer-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((item, index) => `<div class="option ${index === state.selected ? "selected" : ""} ${state.mathWrong === index ? "wrong" : ""}">${item}</div>`).join("")}
+            ${options.map((item, index) => `<div class="option ${index === state.selected ? "selected" : ""} ${state.mathWrong === index ? "wrong" : ""} ${state.mathCorrectIndex === index ? "correct" : ""}">${item}</div>`).join("")}
           </div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.mathCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -10164,7 +10598,7 @@
         status.textContent = "Escolha um habitat correto.";
         content.innerHTML = `<div class="habitat-board">
           <div class="habitat-main">
-            <div class="animal-card">${item.icon}</div>
+            <div class="animal-card ${state.habitatCorrect ? "fx-flash" : ""}" style="position:relative;">${item.icon}${state.habitatCorrect ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🌿</span><span>🎉</span><span>✨</span><span>🌿</span></div>' : ""}</div>
             <div class="habitats ${state.answerLocked ? "locked" : ""}">
               ${options.map((category, index) => `<div class="${habitatClasses(category, index)}">
                 <div class="habitat-icon">${category.icon}</div>
@@ -10172,7 +10606,7 @@
               </div>`).join("")}
             </div>
           </div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && !state.habitatCorrect ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -10242,14 +10676,15 @@
           <div class="cycle-slots">
             ${cycle.steps.map((_, index) => {
               const chosen = state.cycleChosen[index];
-              const slotClass = chosen ? "filled" : index === state.cycleChosen.length ? "empty next" : "empty";
+              const justPlaced = index === state.cycleJustFilledSlot ? " placed" : "";
+              const slotClass = chosen ? `filled${justPlaced}` : index === state.cycleChosen.length ? "empty next" : "empty";
               return `<div class="cycle-slot ${slotClass}">${chosen ? cycleStepHtml(chosen) : cycleSlotPromptHtml(index)}</div>`;
             }).join("")}
           </div>
           <div class="cycle-items ${state.answerLocked ? "locked" : ""}">
-            ${available.map((item, index) => `<div class="cycle-item ${index === state.selected ? "selected" : ""}">${cycleStepHtml(item)}</div>`).join("")}
+            ${available.map((item, index) => `<div class="cycle-item ${index === state.selected ? "selected" : ""} ${state.cycleWrong === index ? "wrong" : ""} ${state.cycleCorrectIndex === index ? "correct" : ""}">${cycleStepHtml(item)}</div>`).join("")}
           </div>
-          ${state.answerLocked ? pauseOverlay() : ""}
+          ${state.answerLocked && state.cycleCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -10550,16 +10985,18 @@
         }
 
         const options = cupOptions();
+        const solved = state.cupCorrectIndex !== null;
         content.innerHTML = `<div class="cup-board">
-          <div class="cup-question ${state.answerLocked ? "locked" : ""}">
+          <div class="cup-question ${state.answerLocked ? "locked" : ""} ${solved ? "fx-flash" : ""}">
             <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
             <div class="cup-goals">
-              ${options.map((flag, index) => `<div class="cup-goal ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""}">
+              ${options.map((flag, index) => `<div class="cup-goal ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""} ${state.cupCorrectIndex === index ? "correct" : ""}">
                 ${flagArt(flag, "cup-flag")}
                 <div class="cup-ball">⚽</div>
+                ${state.cupCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>⚽</span><span>🎉</span><span>✨</span><span>⚽</span></div>' : ""}
               </div>`).join("")}
             </div>
-            ${state.answerLocked ? `<div class="cup-reminder">${flagArt(round.flag, "cup-reminder-flag")}<div data-fit-text data-fit-min="10">${round.country}</div></div>` : ""}
+            ${state.answerLocked && !solved ? `<div class="cup-reminder">${flagArt(round.flag, "cup-reminder-flag")}<div data-fit-text data-fit-min="10">${round.country}</div></div>` : ""}
           </div>
         </div>`;
       }
@@ -10659,6 +11096,7 @@
         state.mathCupChallenge = null;
         state.mathCupAttempt = 0;
         state.mathCupWrong = null;
+        state.mathCupCorrectIndex = null;
         if (resetSelection) state.selected = -1;
       }
 
@@ -11170,18 +11608,19 @@
         const challenge = state.mathCupChallenge;
         const options = mathCupOptions();
         const timerPercent = Math.max(0, Math.min(100, Math.round((state.mathCupChallengeTimeLeft / mathCupChallengeSeconds()) * 100)));
-        return `<div class="math-cup-challenge ${challenge.type} ${state.answerLocked ? "locked" : ""}">
+        const solved = state.mathCupCorrectIndex !== null;
+        return `<div class="math-cup-challenge ${challenge.type} ${state.answerLocked ? "locked" : ""} ${solved ? "success" : ""}">
           <div class="math-cup-challenge-title" data-fit-text data-fit-min="14">${mathCupChallengeTitle(challenge)} ${mathCupChallengeRiskNote(challenge)}</div>
-          <div class="math-cup-question" data-fit-text data-fit-min="18">${challenge.question}</div>
+          <div class="math-cup-question" data-fit-text data-fit-min="18">${challenge.question}${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>⚽</span><span>🎉</span><span>✨</span><span>⚽</span></div>' : ""}</div>
           <div class="math-cup-challenge-timer">
             <span>⏳</span>
             <div class="math-cup-timer-track"><div class="math-cup-timer-fill" style="width:${timerPercent}%"></div></div>
             <span>${state.mathCupChallengeTimeLeft}s</span>
           </div>
           <div class="math-cup-answers">
-            ${options.map((option, index) => `<div class="math-cup-answer ${index === state.selected ? "selected" : ""} ${state.mathCupWrong === index ? "wrong" : ""}" data-fit-text data-fit-min="14">${option}</div>`).join("")}
+            ${options.map((option, index) => `<div class="math-cup-answer ${index === state.selected ? "selected" : ""} ${state.mathCupWrong === index ? "wrong" : ""} ${state.mathCupCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="14">${option}</div>`).join("")}
           </div>
-          ${state.answerLocked ? pauseOverlay(challenge.type === "defense" ? "⚽" : "🛡️") : ""}
+          ${state.answerLocked && !solved ? pauseOverlay(challenge.type === "defense" ? "⚽" : "🛡️") : ""}
         </div>`;
       }
 
@@ -11895,23 +12334,32 @@
         resetRoundState(initialSelectionForMode(mode));
         state.logicHint = false;
         state.logicWrong = null;
+        state.logicCorrectId = null;
         state.logicAttempt = 0;
         state.dengueWrong = null;
         state.dengueAttempt = 0;
         state.dengueStreak = 0;
         state.dengueMistakes = 0;
+        state.dengueCorrectIndex = null;
+        state.dengueSolved = false;
         state.habitatWrong = null;
         state.habitatAttempt = 0;
+        state.habitatCorrect = false;
         state.answerLocked = false;
         state.cycleChosen = [];
         state.cycleAttempt = 0;
+        state.cycleWrong = null;
+        state.cycleCorrectIndex = null;
+        state.cycleJustFilledSlot = null;
         state.cycleShuffled = mode === "cycle" ? cycleOrder(cycles[0].steps) : [];
         state.mathLevel = null;
         state.mathAttempt = 0;
         state.mathWrong = null;
+        state.mathCorrectIndex = null;
         state.cupPhase = "study";
         state.cupAttempt = 0;
         state.cupWrong = null;
+        state.cupCorrectIndex = null;
         resetMathCupCampaignState({
           resetLevel: true,
           resetTeam: true,
@@ -11938,6 +12386,7 @@
         resetRoundState(0);
         state.mathAttempt = 0;
         state.mathWrong = null;
+        state.mathCorrectIndex = null;
         render();
       }
 
@@ -12188,18 +12637,26 @@
           logicMistake(choice.id);
           return;
         }
-        state.score += 1;
-        state.round += 1;
-        state.selected = -1;
         state.logicWrong = null;
-        state.logicHint = false;
-        state.logicAttempt = 0;
-        if (state.round >= logicRounds.length) {
-          complete("logic", "Caminho concluído!");
-          return;
-        }
-        showMessage("✅ Seguro!", 650);
+        state.logicCorrectId = choice.id;
+        state.answerLocked = true;
+        showMessage("✅ Seguro!", 620);
         render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "logic") return;
+          state.logicCorrectId = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.logicHint = false;
+          state.logicAttempt = 0;
+          if (state.round >= logicRounds.length) {
+            complete("logic", "Caminho concluído!");
+            return;
+          }
+          render();
+        }, 500);
       }
 
       function finishDengueMission() {
@@ -12222,22 +12679,33 @@
         const round = dengueRounds[state.round];
         const choice = dengueOptions()[state.selected];
         if (acceptsDengueAction(round, choice)) {
+          const correctIndex = state.selected;
           state.dengueWrong = null;
           state.dengueAttempt = 0;
           state.dengueStreak += 1;
           state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          if (state.round >= dengueRounds.length) {
-            finishDengueMission();
-            return;
-          }
+          state.answerLocked = true;
+          state.dengueCorrectIndex = correctIndex;
+          state.dengueSolved = true;
           if (state.dengueStreak > 0 && state.dengueStreak % 3 === 0) {
-            showMessage(`🔥 ${state.dengueStreak} seguidas!`, 750);
+            showMessage(`🔥 ${state.dengueStreak} seguidas!`, 620);
           } else {
-            showMessage("✅ Limpou!", 650);
+            showMessage("✅ Limpou!", 620);
           }
           render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "dengue") return;
+            state.answerLocked = false;
+            state.dengueCorrectIndex = null;
+            state.dengueSolved = false;
+            state.selected = -1;
+            state.round += 1;
+            if (state.round >= dengueRounds.length) {
+              finishDengueMission();
+              return;
+            }
+            render();
+          }, 620);
           return;
         }
 
@@ -12298,17 +12766,25 @@
           return;
         }
 
-        state.score += 1;
-        state.round += 1;
-        state.selected = -1;
-        state.mathAttempt = 0;
         state.mathWrong = null;
-        if (state.round >= rounds.length) {
-          complete("math", "Contas concluídas!");
-          return;
-        }
-        showMessage("✅ Acertou!");
+        state.mathCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✅ Acertou!", 550);
         render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "math") return;
+          state.mathCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.mathAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("math", "Contas concluídas!");
+            return;
+          }
+          render();
+        }, 480);
       }
 
       function handleHabitatEnter() {
@@ -12327,8 +12803,17 @@
           }
 
           state.habitatAttempt = 0;
-          resetHabitatMarkedCategories();
-          nextQuestion("habitat", habitatItems, "Habitats encontrados!");
+          state.habitatCorrect = true;
+          state.answerLocked = true;
+          showMessage("✅ Encontrou!", 550);
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "habitat") return;
+            state.habitatCorrect = false;
+            state.answerLocked = false;
+            resetHabitatMarkedCategories();
+            nextQuestion("habitat", habitatItems, "Habitats encontrados!");
+          }, 500);
           return;
         }
 
@@ -12357,11 +12842,16 @@
         const choice = available[state.selected];
         const expected = cycle.steps[state.cycleChosen.length];
         if (choice !== expected) {
+          const wrongIndex = state.selected;
           lockAnswer({
             delay: 1500,
             messageText: "👀 Ordem!",
             guard: () => state.mode === "cycle",
+            onLock: () => {
+              state.cycleWrong = wrongIndex;
+            },
             onUnlock: () => {
+              state.cycleWrong = null;
               state.cycleAttempt += 1;
               refreshCycleChoices();
             },
@@ -12370,21 +12860,31 @@
         }
 
         state.cycleChosen.push(choice);
+        state.cycleCorrectIndex = state.selected;
+        state.cycleJustFilledSlot = state.cycleChosen.length - 1;
+        state.answerLocked = true;
         state.selected = -1;
-        if (state.cycleChosen.length === cycle.steps.length) {
-          state.round += 1;
-          state.cycleChosen = [];
-          state.cycleAttempt = 0;
-          if (state.round >= cycles.length) {
-            complete("cycle", "Ciclos organizados!");
-            return;
-          }
-          refreshCycleChoices();
-          showMessage("✅ Certo!");
-        } else {
-          refreshCycleChoices();
-        }
         render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "cycle") return;
+          state.cycleCorrectIndex = null;
+          state.cycleJustFilledSlot = null;
+          state.answerLocked = false;
+          if (state.cycleChosen.length === cycle.steps.length) {
+            state.round += 1;
+            state.cycleChosen = [];
+            state.cycleAttempt = 0;
+            if (state.round >= cycles.length) {
+              complete("cycle", "Ciclos organizados!");
+              return;
+            }
+            refreshCycleChoices();
+            showMessage("✅ Certo!");
+          } else {
+            refreshCycleChoices();
+          }
+          render();
+        }, 500);
       }
 
       function handleCupEnter() {
@@ -12411,19 +12911,27 @@
           return;
         }
 
-        state.score += 1;
-        state.round += 1;
-        state.selected = -1;
-        state.cupAttempt = 0;
         state.cupWrong = null;
-        if (state.round >= cupRounds.length) {
-          complete("cup", "Copa concluída!");
-          return;
-        }
-        state.cupPhase = "study";
-        showMessage("⚽ Gol!", 750);
+        state.cupCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("⚽ Gol!", 620);
         render();
-        scheduleCupChoices();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "cup") return;
+          state.cupCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.cupAttempt = 0;
+          if (state.round >= cupRounds.length) {
+            complete("cup", "Copa concluída!");
+            return;
+          }
+          state.cupPhase = "study";
+          render();
+          scheduleCupChoices();
+        }, 600);
       }
 
       function startMathCupChallenge(type, context = {}) {
@@ -12447,6 +12955,7 @@
         };
         state.mathCupAttempt = 0;
         state.mathCupWrong = null;
+        state.mathCupCorrectIndex = null;
         state.selected = -1;
         startMathCupChallengeClock();
         render();
@@ -12715,18 +13224,27 @@
         }
 
         stopMathCupChallengeClock();
-        resetMathCupChallengeState();
-        guardMathCupDoubleTap();
+        state.mathCupWrong = null;
+        state.mathCupCorrectIndex = state.selected;
+        state.answerLocked = true;
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "mathCup" || !state.mathCupChallenge) return;
+          state.mathCupCorrectIndex = null;
+          state.answerLocked = false;
+          resetMathCupChallengeState();
+          guardMathCupDoubleTap();
 
-        if (challenge.type === "pass" || challenge.type === "longPass") {
-          completeMathCupPass(challenge);
-        } else if (challenge.type === "dribble") {
-          completeMathCupDribble(challenge);
-        } else if (challenge.type === "defense") {
-          completeMathCupDefense(challenge);
-        } else {
-          completeMathCupShot(challenge);
-        }
+          if (challenge.type === "pass" || challenge.type === "longPass") {
+            completeMathCupPass(challenge);
+          } else if (challenge.type === "dribble") {
+            completeMathCupDribble(challenge);
+          } else if (challenge.type === "defense") {
+            completeMathCupDefense(challenge);
+          } else {
+            completeMathCupShot(challenge);
+          }
+        }, 380);
       }
 
       function returnMathCupToMenu() {
@@ -12909,7 +13427,7 @@
             afterMove: () => { state.habitatWrong = null; },
           });
         } else if (state.mode === "cycle") {
-          moveSelectionIndex({ count: state.cycleShuffled.length, delta });
+          moveSelectionIndex({ count: state.cycleShuffled.length, delta, afterMove: () => { state.cycleWrong = null; } });
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
@@ -13499,7 +14017,8 @@
       }
 
       function setBackHoldProgress(progress) {
-        backButton.style.setProperty("--back-hold-progress", String(Math.max(0, Math.min(1, progress))));
+        if (!backHoldButton) return;
+        backHoldButton.style.setProperty("--back-hold-progress", String(Math.max(0, Math.min(1, progress))));
       }
 
       function resetBackHold() {
@@ -13507,8 +14026,12 @@
         backHoldFrame = null;
         backHoldStartedAt = 0;
         backHoldSource = null;
-        backButton.classList.remove("back-hold");
-        setBackHoldProgress(0);
+        if (backHoldButton) {
+          backHoldButton.classList.remove("back-hold");
+          setBackHoldProgress(0);
+        }
+        backHoldButton = null;
+        backHoldCompleteAction = null;
       }
 
       function prepareFullscreenEscapeHold() {
@@ -13521,8 +14044,9 @@
 
       function completeBackHold() {
         const fromKeyboardEscape = backHoldSource === "keyboard";
+        const action = backHoldCompleteAction;
         resetBackHold();
-        handleBackAction({ fromKeyboardEscape });
+        action?.({ fromKeyboardEscape });
       }
 
       function tickBackHold() {
@@ -13536,18 +14060,39 @@
         backHoldFrame = window.requestAnimationFrame(tickBackHold);
       }
 
+      function startHoldAction(button, action, { fromKeyboardEscape = false, holdMessage = "Segure" } = {}) {
+        if (backHoldStartedAt) return;
+        if (fromKeyboardEscape) prepareFullscreenEscapeHold();
+        backHoldButton = button;
+        backHoldCompleteAction = action;
+        backHoldSource = fromKeyboardEscape ? "keyboard" : "pointer";
+        backHoldStartedAt = Date.now();
+        button.classList.add("back-hold");
+        showMessage(fromKeyboardEscape ? "Segure Esc" : holdMessage, 900, "info");
+        tickBackHold();
+      }
+
       function requestBackAction({ fromKeyboardEscape = false } = {}) {
         if (!isBackActionProtected()) {
           handleBackAction({ fromKeyboardEscape });
           return;
         }
-        if (backHoldStartedAt) return;
-        if (fromKeyboardEscape) prepareFullscreenEscapeHold();
-        backHoldSource = fromKeyboardEscape ? "keyboard" : "pointer";
-        backHoldStartedAt = Date.now();
-        backButton.classList.add("back-hold");
-        showMessage(fromKeyboardEscape ? "Segure Esc" : "Segure voltar", 900, "info");
-        tickBackHold();
+        startHoldAction(backButton, handleBackAction, { fromKeyboardEscape, holdMessage: "Segure voltar" });
+      }
+
+      function goHome() {
+        stopTimer();
+        state.answerLocked = false;
+        state.mode = "menu";
+        render();
+      }
+
+      function requestHomeAction() {
+        if (!isBackActionProtected()) {
+          goHome();
+          return;
+        }
+        startHoldAction(homeButton, goHome, { holdMessage: "Segure início" });
       }
 
       function handleBackAction({ fromKeyboardEscape = false } = {}) {
@@ -13665,6 +14210,18 @@
       backButton.addEventListener("pointerleave", resetBackHold);
       backButton.addEventListener("pointercancel", resetBackHold);
       backButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      homeButton.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        requestHomeAction();
+      });
+      homeButton.addEventListener("pointerup", resetBackHold);
+      homeButton.addEventListener("pointerleave", resetBackHold);
+      homeButton.addEventListener("pointercancel", resetBackHold);
+      homeButton.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
       });
