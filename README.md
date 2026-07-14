@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.3.20
+Versão atual: 2.3.21
 
 ## Acesse
 
@@ -43,13 +43,13 @@ Referências oficiais:
 
 O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência.
 
-## Projetos destaque
+## Destaques
 
-A **Copa da Matemática** combina futebol, estratégia, cálculo mental, tomada de decisão e probabilidade em uma campanha com seleções da Copa do Mundo.
+Seleção de missões pensadas também para apresentações, feiras e aulas especiais:
 
-A **Corrida contra o Aedes** trabalha saúde, ambiente e prevenção em formato de percurso interativo, com foco em reconhecer e eliminar pontos de água parada.
-
-Essas missões contam com visual mais elaborado e foram pensadas também para apresentações, feiras e aulas especiais.
+- **Copa da Matemática** — futebol, estratégia, cálculo mental e probabilidade em uma campanha com seleções da Copa do Mundo.
+- **Vertebrados e Invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
+- **Copa das Bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
 
 ## Manutenção
 
@@ -59,13 +59,16 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
+- Coleta Seletiva: separação de resíduos e cuidado com o meio ambiente.
+- Caderneta de Vacinação: organização e cuidado com a saúde.
 - Robô Coletor: sequência de comandos e planejamento de caminho.
 - Matemática Colorida: cálculo mental com dificuldade progressiva.
 - Copa das Bandeiras: reconhecimento de países e bandeiras.
-- Setas e Comandos: direção, sequência e leitura de instruções.
+- Setas e Sequências: direção, sequência e leitura de instruções.
 - Padrões e Regras: repetição, lógica visual e descoberta de regras.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos Animais: relação entre seres vivos e ambientes.
+- Vertebrados e Invertebrados: classificação de seres vivos com raio-x interativo.
 - Ciclos da Natureza: ordenação de etapas de fenômenos naturais.
 - Dados e Gráficos: contagem, comparação e leitura de informações.
 

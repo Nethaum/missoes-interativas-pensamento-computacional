@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.20">
+  <meta name="app-version" content="2.3.21">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -780,6 +780,30 @@
       padding: 5px 10px;
     }
 
+    .menu-age-badge.tone-1 {
+      border-color: var(--green);
+      background: #eaf9ee;
+      color: #145c31;
+    }
+
+    .menu-age-badge.tone-2 {
+      border-color: var(--orange);
+      background: #fff2dc;
+      color: #6f4508;
+    }
+
+    .menu-age-badge.tone-3 {
+      border-color: var(--purple);
+      background: #f2ebff;
+      color: #3f2274;
+    }
+
+    .menu-age-badge.tone-4 {
+      border-color: var(--red);
+      background: #ffecec;
+      color: #7a1f24;
+    }
+
     .menu-card.selected {
       border-color: var(--blue);
       transform: translateY(-6px);
@@ -805,7 +829,7 @@
     }
 
     .menu-card.featured::before {
-      content: "Projeto destaque";
+      content: "Destaque";
       position: absolute;
       left: 14px;
       top: 12px;
@@ -906,6 +930,70 @@
       opacity: 0.35;
       transform: none;
       cursor: default;
+    }
+
+    .menu-home {
+      width: min(760px, 100%);
+      display: grid;
+      gap: 12px;
+    }
+
+    .menu-home-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      text-align: left;
+      transition: transform 0.12s ease;
+      cursor: pointer;
+    }
+
+    .menu-home-card.selected {
+      border-color: var(--blue);
+      transform: translateY(-6px);
+      box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .menu-home-icon {
+      font-size: 40px;
+      filter: var(--visual-pop-shadow);
+      line-height: 1;
+    }
+
+    .menu-home-text {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .menu-home-title {
+      font-size: 22px;
+      font-weight: 950;
+      color: var(--card-ink);
+      line-height: 1.1;
+    }
+
+    .menu-home-desc {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--card-muted);
+      line-height: 1.25;
+    }
+
+    .menu-home-count {
+      font-size: 13px;
+      font-weight: 950;
+      color: var(--card-muted);
+      white-space: nowrap;
+      padding: 4px 10px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: #f4efe0;
     }
 
     .robot-layout {
@@ -1352,6 +1440,93 @@
     .intruder-board,
     .data-quiz-board {
       position: relative;
+    }
+
+    .math-cup-shootout {
+      width: min(720px, 100%);
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .shootout-scoreboard {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+    }
+
+    .shootout-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 0.8fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+    }
+
+    .shootout-team {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      color: var(--card-ink);
+      font-size: clamp(13px, 1.4vw, 17px);
+      font-weight: 950;
+      text-shadow: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .shootout-flag {
+      width: 28px;
+      aspect-ratio: 3 / 2;
+      flex-shrink: 0;
+    }
+
+    .shootout-kicks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .shootout-kick {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 16px;
+      border: 2px solid var(--line);
+      background: var(--white);
+    }
+
+    .shootout-kick.scored {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .shootout-kick.missed {
+      border-color: var(--red);
+      background: #fff0f0;
+    }
+
+    .shootout-kick.pending {
+      opacity: 0.5;
+    }
+
+    .shootout-waiting {
+      padding: 18px 24px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 950;
+      text-align: center;
+      text-shadow: none;
     }
 
     .traffic-scene {
@@ -2227,6 +2402,95 @@
       text-align: center;
     }
 
+    .recycle-theme .dengue-scene,
+    .dengue-final.recycle-theme {
+      border-color: #4cbf74;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.48), transparent 25%),
+        linear-gradient(135deg, #dcf3ea, #d7ecfb);
+    }
+
+    .recycle-theme .dengue-danger {
+      border-color: #1f8a4c;
+      background: #e1f7e9;
+      color: #145c31;
+    }
+
+    .recycle-theme .dengue-icon {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .recycle-theme .dengue-question {
+      border-color: #2f6dd6;
+      background: #eaf3ff;
+    }
+
+    .vertebrate-theme .dengue-scene,
+    .dengue-final.vertebrate-theme {
+      border-color: #8a63e0;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.48), transparent 25%),
+        linear-gradient(135deg, #ece3fb, #dbeafe);
+    }
+
+    .vertebrate-theme .dengue-danger {
+      border-color: #6a3fc0;
+      background: #ece3fb;
+      color: #3f2274;
+    }
+
+    .vertebrate-theme .dengue-icon {
+      border-color: #8a63e0;
+      background: #efe8fd;
+    }
+
+    .vertebrate-theme .dengue-question {
+      border-color: #2f6dd6;
+      background: #eaf3ff;
+    }
+
+    .xray-reveal {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      overflow: hidden;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .xray-reveal::before {
+      content: "";
+      position: absolute;
+      inset: -10% 0;
+      background: linear-gradient(180deg, transparent, rgba(139, 213, 255, 0.9), transparent);
+      transform: translateY(-120%);
+      animation: xray-sweep 0.7s ease forwards;
+    }
+
+    @keyframes xray-sweep {
+      to {
+        transform: translateY(120%);
+      }
+    }
+
+    .xray-badge {
+      position: absolute;
+      z-index: 3;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      padding: 4px 10px;
+      border: 2px solid #2f6dd6;
+      border-radius: 999px;
+      background: #eaf3ff;
+      color: #12356e;
+      font-size: 11px;
+      font-weight: 950;
+      animation: fx-stamp-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
     .dengue-final-title {
       font-size: clamp(28px, 4vw, 48px);
       font-weight: 950;
@@ -2468,6 +2732,10 @@
 
     .level-count-5 {
       grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .level-count-6 {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 
     .level-card {
@@ -3958,6 +4226,49 @@
         inset 0 0 0 5px rgba(245, 186, 56, 0.18);
     }
 
+    .math-cup-break-card.eliminated {
+      border-color: #b6bfd6;
+      background: linear-gradient(180deg, #eef1fa, #fffdf0 72%);
+    }
+
+    .math-cup-eliminated-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .math-cup-eliminated-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 58px;
+      padding: 10px;
+      border: 4px solid #205ed1;
+      border-radius: 14px;
+      background: #e6f1ff;
+      color: #205ed1;
+      font-family: var(--read-font);
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1.05;
+      text-align: center;
+      box-shadow: 0 6px 0 rgba(32, 94, 209, 0.22);
+      cursor: pointer;
+    }
+
+    .math-cup-eliminated-action.secondary {
+      background: #fff7d5;
+      border-color: #ad7c12;
+      color: #5b3506;
+    }
+
+    .math-cup-eliminated-action.selected {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
     .math-cup-break-title {
       color: #205ed1;
       font-size: clamp(30px, 4.6vw, 56px);
@@ -4046,6 +4357,84 @@
 
     .math-cup-stop-overlay .math-cup-break-title {
       font-size: clamp(28px, 4vw, 48px);
+    }
+
+    .math-cup-standings {
+      width: 100%;
+      display: grid;
+      gap: 6px;
+    }
+
+    .standings-title {
+      font-weight: 950;
+      font-size: clamp(12px, 1.6vw, 15px);
+      color: var(--card-ink);
+    }
+
+    .standings-table {
+      display: grid;
+      gap: 3px;
+      width: 100%;
+    }
+
+    .standings-row {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr) repeat(4, 24px);
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: rgba(23, 32, 51, 0.05);
+    }
+
+    .standings-row.standings-head {
+      font-size: 10px;
+      font-weight: 800;
+      opacity: 0.6;
+      background: none;
+      padding: 0 8px;
+    }
+
+    .standings-row.highlight {
+      background: #fff6d8;
+      box-shadow: 0 0 0 2px #ffd766 inset;
+    }
+
+    .standings-pos {
+      font-weight: 900;
+      font-size: 12px;
+      text-align: center;
+      color: var(--card-ink);
+    }
+
+    .standings-team {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      font-weight: 800;
+      font-size: clamp(10px, 1.4vw, 13px);
+      color: var(--card-ink);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .standings-flag {
+      width: 18px;
+      aspect-ratio: 3 / 2;
+      flex-shrink: 0;
+    }
+
+    .standings-stat {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--card-ink);
+    }
+
+    .standings-stat.pts {
+      font-weight: 950;
     }
 
     .math-cup-challenge {
@@ -4874,7 +5263,8 @@
 
       .level-count-2,
       .level-count-3,
-      .level-count-5 {
+      .level-count-5,
+      .level-count-6 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -5243,6 +5633,35 @@
         font-size: 31px;
       }
 
+      .menu-home {
+        width: min(430px, 100%);
+        gap: 9px;
+      }
+
+      .menu-home-card {
+        padding: 10px 12px;
+        gap: 10px;
+        border-width: 3px;
+        border-radius: 12px;
+      }
+
+      .menu-home-icon {
+        font-size: 30px;
+      }
+
+      .menu-home-title {
+        font-size: 18px;
+      }
+
+      .menu-home-desc {
+        font-size: 12px;
+      }
+
+      .menu-home-count {
+        font-size: 11px;
+        padding: 3px 8px;
+      }
+
       .menu-card.featured .menu-icon {
         font-size: 39px;
       }
@@ -5273,7 +5692,8 @@
       .level-select,
       .level-count-2,
       .level-count-3,
-      .level-count-5 {
+      .level-count-5,
+      .level-count-6 {
         width: min(430px, 100%);
         grid-template-columns: 1fr;
       }
@@ -6625,38 +7045,51 @@
 
       const missions = [
         { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
-        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", featured: true },
-        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo" },
+        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
+        { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania", ageRange: "6 a 10+ anos" },
+        { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
+        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
         { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
-        { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países" },
-        { id: "arrows", icon: "🧭", title: "Setas e comandos", subject: "Direção e sequência" },
+        { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países", ageRange: "6 a 10+ anos", featured: true },
+        { id: "arrows", icon: "🧭", title: "Setas e sequências", subject: "Direção e sequência", ageRange: "6 a 10+ anos" },
         { id: "patterns", icon: "🔷", title: "Padrões e regras", subject: "Padrões" },
-        { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito" },
-        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia" },
-        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza" },
+        { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito", ageRange: "6 a 10+ anos" },
+        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
+        { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos", featured: true },
+        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
       ];
 
       const missionCategories = [
         {
-          title: "Projetos destaque",
+          title: "Destaques",
+          icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
-          missionIds: ["mathCup", "dengue"],
+          missionIds: ["mathCup", "vertebrate", "cup"],
         },
         {
-          title: "Jogos rápidos",
-          description: "Jogos completos para começar a aula com energia.",
-          missionIds: ["robot", "math", "cup"],
+          title: "Cidadania e saúde",
+          icon: "🩺",
+          description: "Saúde, meio ambiente, prevenção e segurança no dia a dia.",
+          missionIds: ["recycle", "vaccine", "dengue", "logic"],
         },
         {
-          title: "Lógica e programação",
-          description: "Sequências, padrões e decisões para treinar pensamento computacional.",
-          missionIds: ["arrows", "patterns", "logic"],
+          title: "Comandos e movimentos",
+          icon: "🕹️",
+          description: "Sequências de comandos para guiar personagens e robôs.",
+          missionIds: ["robot", "arrows"],
         },
         {
-          title: "Natureza e dados",
-          description: "Missões interativas para observar, contar e comparar.",
-          missionIds: ["habitat", "cycle", "data"],
+          title: "Lógica e matemática",
+          icon: "🧮",
+          description: "Cálculo mental, padrões e leitura de dados para treinar o raciocínio.",
+          missionIds: ["patterns", "math", "data"],
+        },
+        {
+          title: "Natureza",
+          icon: "🌱",
+          description: "Observação da natureza: habitats e ciclos dos seres vivos.",
+          missionIds: ["habitat", "cycle"],
         },
       ];
 
@@ -6947,6 +7380,156 @@
 
       const dengueRounds = dengueScenes.map((_, index) => createDengueRound(index));
 
+      const recycleOptionCount = 4;
+      const recyclePollutionSteps = 8;
+
+      const recycleActions = [
+        { id: "paper", icon: "🔵", label: "Papel (azul)" },
+        { id: "plastic", icon: "🔴", label: "Plástico (vermelho)" },
+        { id: "glass", icon: "🟢", label: "Vidro (verde)" },
+        { id: "metal", icon: "🟡", label: "Metal (amarelo)" },
+        { id: "organic", icon: "🟤", label: "Orgânico (marrom)" },
+      ];
+
+      const recycleActionById = Object.fromEntries(recycleActions.map((action) => [action.id, action]));
+
+      const recyclePhases = [
+        { id: "casa", title: "Em casa", icon: "🏠" },
+        { id: "escola", title: "Na escola", icon: "🏫" },
+        { id: "bairro", title: "No bairro", icon: "🏘️" },
+      ];
+
+      const recycleScenesByPhase = {
+        casa: [
+          { icon: "📰", place: "Jornal de ontem", clue: "Já foi lido.", answer: "paper", tip: "Papel limpo e seco vai para o azul." },
+          { icon: "📦", place: "Caixa de papelão", clue: "A entrega chegou.", answer: "paper", tip: "Papelão dobrado ocupa menos espaço na lixeira." },
+          { icon: "🧻", place: "Rolo vazio", clue: "Sobrou do papel toalha.", answer: "paper", tip: "Rolinhos de papelão também são recicláveis." },
+          { icon: "🥤", place: "Copo descartável", clue: "Usado no lanche.", answer: "plastic", tip: "Copo e embalagem plástica vão para o vermelho." },
+          { icon: "🧴", place: "Frasco de shampoo", clue: "Já está vazio.", answer: "plastic", tip: "Frasco vazio pode ser reciclado, sem precisar lavar demais." },
+          { icon: "🛍️", place: "Sacola de mercado", clue: "Está rasgada.", answer: "plastic", tip: "Sacolas plásticas também são recicláveis." },
+          { icon: "🍾", place: "Garrafa de vidro", clue: "Do suco da festa.", answer: "glass", tip: "Vidro vai para o verde, com cuidado para não quebrar." },
+          { icon: "🫙", place: "Pote de conserva", clue: "Já foi lavado.", answer: "glass", tip: "Potes de vidro podem ser reciclados ou reaproveitados." },
+          { icon: "🥫", place: "Lata de milho", clue: "Ficou vazia no almoço.", answer: "metal", tip: "Latinhas de metal vão para o amarelo." },
+          { icon: "🧴", place: "Tampinha de metal", clue: "Caiu perto do fogão.", answer: "metal", visual: "object", tip: "Tampinhas de metal também podem ser recicladas." },
+          { icon: "🍌", place: "Casca de banana", clue: "Sobrou do lanche.", answer: "organic", tip: "Restos de fruta viram adubo no orgânico." },
+          { icon: "🥚", place: "Casca de ovo", clue: "Do bolo de hoje.", answer: "organic", tip: "Casca de ovo é ótima para compostagem." },
+          { icon: "☕", place: "Borra de café", clue: "Sobrou do coador.", answer: "organic", tip: "Borra de café pode virar adubo para plantas." },
+        ],
+        escola: [
+          { icon: "📓", place: "Caderno do ano passado", clue: "Já não é mais usado.", answer: "paper", tip: "Cadernos velhos também são recicláveis." },
+          { icon: "🗞️", place: "Folha de rascunho", clue: "Só tem um lado escrito.", answer: "paper", tip: "Rascunho pode virar papel reciclado." },
+          { icon: "🥤", place: "Copo da cantina", clue: "Usado no recreio.", answer: "plastic", tip: "Copo plástico da cantina também vai para o vermelho." },
+          { icon: "🧃", place: "Canudo de plástico", clue: "Sobrou do suco.", answer: "plastic", tip: "Canudos de plástico também são recicláveis." },
+          { icon: "🥫", place: "Lata da merenda", clue: "Serviu milho para a turma.", answer: "metal", tip: "Latas da cozinha da escola também vão para o amarelo." },
+          { icon: "🍎", place: "Resto da fruta", clue: "Ninguém comeu tudo.", answer: "organic", tip: "Restos de comida vão para o orgânico, não para o lixo comum." },
+        ],
+        bairro: [
+          { icon: "📦", place: "Caixa na calçada", clue: "Vizinho fez uma entrega.", answer: "paper", tip: "Papelão na rua também deve ir para a coleta seletiva." },
+          { icon: "🍾", place: "Garrafa no parque", clue: "Alguém deixou no banco.", answer: "glass", tip: "Vidro esquecido também precisa de descarte correto." },
+          { icon: "🥫", place: "Lata no chão", clue: "Perto da lixeira pública.", answer: "metal", tip: "Latinhas soltas também podem ser recicladas." },
+          { icon: "🛍️", place: "Sacola no chão", clue: "O vento trouxe até aqui.", answer: "plastic", tip: "Sacola solta na rua também vai para o vermelho." },
+          { icon: "🍂", place: "Folhas varridas", clue: "O jardineiro juntou um monte.", answer: "organic", tip: "Folhas e galhos também são resíduos orgânicos." },
+        ],
+      };
+
+      const recycleScenes = recyclePhases.flatMap((phase) =>
+        recycleScenesByPhase[phase.id].map((scene) => ({
+          ...scene,
+          phaseId: phase.id,
+          phaseTitle: phase.title,
+          phaseIcon: phase.icon,
+        })),
+      );
+
+      const recycleTips = [
+        "Separar o lixo ajuda a reaproveitar materiais.",
+        "Lave embalagens sujas antes de descartar.",
+        "Pilhas e eletrônicos têm coleta própria.",
+        "Reduzir o lixo também é uma forma de cuidar do planeta.",
+      ];
+
+      function createRecycleRound(index) {
+        return { ...recycleScenes[index] };
+      }
+
+      const recycleRounds = recycleScenes.map((_, index) => createRecycleRound(index));
+
+      const vertebrateSupers = [
+        { id: "vertebrate", icon: "🦴", label: "Vertebrado" },
+        { id: "invertebrate", icon: "🐚", label: "Invertebrado" },
+      ];
+
+      const vertebrateGroups = [
+        { id: "mammal", super: "vertebrate", icon: "🦁", label: "Mamífero" },
+        { id: "bird", super: "vertebrate", icon: "🦜", label: "Ave" },
+        { id: "reptile", super: "vertebrate", icon: "🦎", label: "Réptil" },
+        { id: "amphibian", super: "vertebrate", icon: "🐸", label: "Anfíbio" },
+        { id: "fish", super: "vertebrate", icon: "🐟", label: "Peixe" },
+        { id: "insect", super: "invertebrate", icon: "🐝", label: "Inseto" },
+        { id: "arachnid", super: "invertebrate", icon: "🕷️", label: "Aracnídeo" },
+        { id: "crustacean", super: "invertebrate", icon: "🦀", label: "Crustáceo" },
+        { id: "mollusk", super: "invertebrate", icon: "🐌", label: "Molusco" },
+        { id: "worm", super: "invertebrate", icon: "🪱", label: "Verme" },
+      ];
+
+      const vertebrateGroupById = Object.fromEntries(vertebrateGroups.map((group) => [group.id, group]));
+
+      const vertebrateAnimals = [
+        { icon: "🦁", name: "Leão", group: "mammal" },
+        { icon: "🐘", name: "Elefante", group: "mammal" },
+        { icon: "🐒", name: "Macaco", group: "mammal" },
+        { icon: "🐕", name: "Cachorro", group: "mammal" },
+        { icon: "🐄", name: "Vaca", group: "mammal" },
+        { icon: "🦇", name: "Morcego", group: "mammal" },
+        { icon: "🐬", name: "Golfinho", group: "mammal" },
+        { icon: "🐋", name: "Baleia", group: "mammal" },
+        { icon: "🦜", name: "Papagaio", group: "bird" },
+        { icon: "🦅", name: "Águia", group: "bird" },
+        { icon: "🐧", name: "Pinguim", group: "bird" },
+        { icon: "🦆", name: "Pato", group: "bird" },
+        { icon: "🦉", name: "Coruja", group: "bird" },
+        { icon: "🐔", name: "Galinha", group: "bird" },
+        { icon: "🐍", name: "Cobra", group: "reptile" },
+        { icon: "🦎", name: "Lagarto", group: "reptile" },
+        { icon: "🐢", name: "Tartaruga", group: "reptile" },
+        { icon: "🐊", name: "Jacaré", group: "reptile" },
+        { icon: "🐸", name: "Sapo", group: "amphibian" },
+        { icon: "🐸", name: "Rã", group: "amphibian" },
+        { icon: "🐸", name: "Perereca", group: "amphibian" },
+        { icon: "🐟", name: "Peixe", group: "fish" },
+        { icon: "🐠", name: "Peixe-palhaço", group: "fish" },
+        { icon: "🦈", name: "Tubarão", group: "fish" },
+        { icon: "🐡", name: "Baiacu", group: "fish" },
+        { icon: "🐝", name: "Abelha", group: "insect" },
+        { icon: "🦋", name: "Borboleta", group: "insect" },
+        { icon: "🐜", name: "Formiga", group: "insect" },
+        { icon: "🐞", name: "Joaninha", group: "insect" },
+        { icon: "🦗", name: "Grilo", group: "insect" },
+        { icon: "🪰", name: "Mosca", group: "insect" },
+        { icon: "🕷️", name: "Aranha", group: "arachnid" },
+        { icon: "🦂", name: "Escorpião", group: "arachnid" },
+        { icon: "🦀", name: "Caranguejo", group: "crustacean" },
+        { icon: "🦐", name: "Camarão", group: "crustacean" },
+        { icon: "🦞", name: "Lagosta", group: "crustacean" },
+        { icon: "🐌", name: "Caracol", group: "mollusk" },
+        { icon: "🐙", name: "Polvo", group: "mollusk" },
+        { icon: "🦑", name: "Lula", group: "mollusk" },
+        { icon: "🪱", name: "Minhoca", group: "worm" },
+      ];
+
+      function createVertebrateRound(index) {
+        const animal = vertebrateAnimals[index % vertebrateAnimals.length];
+        const group = vertebrateGroupById[animal.group];
+        return {
+          icon: animal.icon,
+          place: animal.name,
+          groupId: group.id,
+          superId: group.super,
+        };
+      }
+
+      const vertebrateRounds = vertebrateAnimals.map((_, index) => createVertebrateRound(index));
+
       const mathLevelPlans = [
         { title: "Aquecimento", icon: "🍎", age: "6-7 anos", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
         { title: "Contas do dia", icon: "🧸", age: "7-8 anos", theme: "Somar e comparar", meta: "até 20", icons: ["🧸", "🟣", "🍊", "🐞", "🌼"] },
@@ -7167,6 +7750,46 @@
           steps: cycle.steps.map((step) => ({ ...step })),
         };
       });
+
+      const vaccineMilestones = [
+        { icon: "👶", label: "BCG ao nascer" },
+        { icon: "🧬", label: "Hepatite B ao nascer" },
+        { icon: "💉", label: "Pentavalente (1ª dose) aos 2 meses" },
+        { icon: "💉", label: "Pentavalente (2ª dose) aos 4 meses" },
+        { icon: "💉", label: "Pentavalente (3ª dose) aos 6 meses" },
+        { icon: "🌡️", label: "Febre amarela aos 9 meses" },
+        { icon: "🎂", label: "Tríplice viral ao 1 ano" },
+        { icon: "🦵", label: "Reforço da poliomielite aos 15 meses" },
+        { icon: "🛡️", label: "Reforço da tríplice bacteriana aos 4 anos" },
+      ];
+
+      const vaccineBaseRounds = [
+        { name: "Recém-nascido", indexes: [0, 1, 2, 3] },
+        { name: "Bebê pequeno", indexes: [1, 2, 3, 4] },
+        { name: "Quase um aninho", indexes: [2, 3, 4, 5] },
+        { name: "Um aninho", indexes: [3, 4, 5, 6] },
+        { name: "Depois do aniversário", indexes: [4, 5, 6, 7] },
+        { name: "Rumo aos 4 anos", indexes: [5, 6, 7, 8] },
+        { name: "Caderneta em dia", indexes: [0, 2, 6, 8] },
+        { name: "Do nascimento à escola", indexes: [0, 3, 6, 8] },
+      ].map((round) => ({
+        name: round.name,
+        steps: round.indexes.map((index) => ({ ...vaccineMilestones[index] })),
+      }));
+
+      const vaccineRounds = Array.from({ length: 24 }, (_, index) => {
+        const round = vaccineBaseRounds[index % vaccineBaseRounds.length];
+        return {
+          name: round.name,
+          steps: round.steps.map((step) => ({ ...step })),
+        };
+      });
+
+      const vaccineTips = [
+        "A carteirinha real é definida pelo posto de saúde, siga sempre ela.",
+        "Vacina em dia protege você e quem está por perto.",
+        "Dúvidas sobre vacinas? Pergunte a um adulto ou ao posto de saúde.",
+      ];
 
       const cupTeams = [
               {
@@ -7602,6 +8225,7 @@
         width: 10,
         height: 7,
         matchSeconds: 90,
+        extraTimeSeconds: 45,
         challengeSeconds: 20,
         passDecisionSeconds: 8,
         passMissChance: 0.06,
@@ -7643,7 +8267,8 @@
         { title: "Passe certo", icon: "🧤", age: "7-8 anos", theme: "Contas do dia", meta: "dobro e até 20", preview: ["12-5", "dobro", "⚽"] },
         { title: "Jogo esperto", icon: "🎯", age: "8-9 anos", theme: "Sequências e grupos", meta: "pensar o padrão", preview: ["3x4", "+2", "🏃"] },
         { title: "Craque do cálculo", icon: "🏟️", age: "9-10 anos", theme: "Tabuada e divisão", meta: "lances rápidos", preview: ["36÷4", "7x8", "🥅"] },
-        { title: "Final de campeonato", icon: "🏆", age: "10+ anos", theme: "Desafios mistos", meta: "para ir além", preview: ["84÷7", "metade", "🏆"] },
+        { title: "Final de campeonato", icon: "🏆", age: "10-11 anos", theme: "Desafios mistos", meta: "para ir além", preview: ["84÷7", "metade", "🏆"] },
+        { title: "Bola de ouro", icon: "🥇", age: "11+ anos", theme: "Desafios avançados", meta: "contas grandes", preview: ["12x9", "144÷12", "🥇"] },
       ];
 
       const mathCupFormation = [
@@ -8185,7 +8810,7 @@
             question = `${a} + ${b} = ?`;
             answer = a + b;
           }
-        } else {
+        } else if (difficulty === 4) {
           const a = 24 + ((seed * 7 + phase) % 48);
           const b = 8 + ((seed * 5 + kindOffset + phase) % 22);
           if (kind === 0) {
@@ -8204,6 +8829,35 @@
           } else if (kind === 3) {
             const divisor = 2 + ((seed + phase) % 8);
             const quotient = 4 + ((seed + kindOffset) % 12);
+            question = `${divisor * quotient} ÷ ${divisor} = ?`;
+            answer = quotient;
+          } else if (kind === 4) {
+            question = `${a + b} - ${b} = ?`;
+            answer = a;
+          } else {
+            question = `${a} + ${b} = ?`;
+            answer = a + b;
+          }
+        } else {
+          const a = 45 + ((seed * 7 + phase) % 90);
+          const b = 16 + ((seed * 5 + kindOffset + phase) % 40);
+          if (kind === 0) {
+            const base = 6 + ((seed + phase) % 7);
+            const groups = 6 + ((seed + kindOffset) % 7);
+            question = `${groups} x ${base} = ?`;
+            answer = base * groups;
+          } else if (kind === 1) {
+            const start = 7 + (seed % 12);
+            const step = 6 + ((seed + phase) % 4);
+            question = `${start}, ${start + step}, ${start + step * 2}, ?`;
+            answer = start + step * 3;
+          } else if (kind === 2) {
+            const half = 20 + (seed % 40);
+            question = `Metade de ${half * 2} = ?`;
+            answer = half;
+          } else if (kind === 3) {
+            const divisor = 3 + ((seed + phase) % 10);
+            const quotient = 6 + ((seed + kindOffset) % 14);
             question = `${divisor * quotient} ÷ ${divisor} = ?`;
             answer = quotient;
           } else if (kind === 4) {
@@ -8672,6 +9326,7 @@
 
       const state = {
         mode: "menu",
+        menuHome: true,
         menu: 0,
         round: 0,
         selected: 0,
@@ -8699,6 +9354,27 @@
         dengueMistakes: 0,
         dengueCorrectIndex: null,
         dengueSolved: false,
+        recycleWrong: null,
+        recycleAttempt: 0,
+        recycleFinished: false,
+        recycleStreak: 0,
+        recyclePollution: 0,
+        recycleCorrectIndex: null,
+        recycleSolved: false,
+        vertebrateStage: 1,
+        vertebrateWrong: null,
+        vertebrateAttempt: 0,
+        vertebrateFinished: false,
+        vertebrateStreak: 0,
+        vertebrateCorrectIndex: null,
+        vertebrateSolved: false,
+        vertebrateXray: false,
+        vaccineChosen: [],
+        vaccineShuffled: [],
+        vaccineAttempt: 0,
+        vaccineWrong: null,
+        vaccineCorrectIndex: null,
+        vaccineJustFilledSlot: null,
         habitatWrong: null,
         habitatAttempt: 0,
         habitatChosenIndexes: [],
@@ -8737,6 +9413,8 @@
         mathCupMatchStartedAt: 0,
         mathCupTimerId: null,
         mathCupOvertime: false,
+        mathCupExtraTime: false,
+        mathCupShootout: null,
         mathCupPlayer: [1, 3],
         mathCupChallenge: null,
         mathCupChallengeTimeLeft: MATH_CUP_CONFIG.challengeSeconds,
@@ -8770,7 +9448,7 @@
         legacyCompleted: {},
       };
 
-      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "dengue", "cup"]);
+      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "dengue", "recycle", "vertebrate", "cup"]);
 
       function initialSelectionForMode(mode) {
         return START_UNSELECTED_MODES.has(mode) ? -1 : 0;
@@ -8781,6 +9459,9 @@
         state.score = 0;
         state.selected = selected;
         state.dengueFinished = false;
+        state.recycleFinished = false;
+        state.vertebrateFinished = false;
+        state.vertebrateStage = 1;
         state.habitatChosenIndexes = [];
       }
 
@@ -9405,8 +10086,11 @@
         robot: robotLevels.map(cloneValue),
         logic: logicRounds.map(cloneValue),
         dengue: dengueRounds.map(cloneValue),
+        recycle: recycleRounds.map(cloneValue),
+        vertebrate: vertebrateRounds.map(cloneValue),
         habitat: habitatItems.map(cloneValue),
         cycle: cycles.map(cloneValue),
+        vaccine: vaccineRounds.map(cloneValue),
         cup: cupRounds.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
@@ -9454,8 +10138,11 @@
         if (mode === "robot") resetRoundPool(robotLevels, roundPools.robot, seedForMode, { bandSize: 8 });
         if (mode === "logic") resetRoundPool(logicRounds, roundPools.logic, seedForMode, { bandSize: 10 });
         if (mode === "dengue") resetRoundPool(dengueRounds, roundPools.dengue, seedForMode, { bandSize: 8 });
+        if (mode === "recycle") resetRoundPool(recycleRounds, roundPools.recycle, seedForMode, { bandSize: 8 });
+        if (mode === "vertebrate") resetRoundPool(vertebrateRounds, roundPools.vertebrate, seedForMode, { bandSize: 8 });
         if (mode === "habitat") resetRoundPool(habitatItems, roundPools.habitat, seedForMode, { bandSize: 8 });
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
+        if (mode === "vaccine") resetRoundPool(vaccineRounds, roundPools.vaccine, seedForMode, { bandSize: 8 });
         if (mode === "cup") resetRoundPool(cupRounds, roundPools.cup, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -9659,6 +10346,60 @@
           seed: seedFromParts("dengue", state.missionSeed, state.round, round.answer),
           attempt: state.dengueAttempt,
           isCorrect: (action) => action.id === round.answer,
+        });
+      }
+
+      function acceptsRecycleAction(round, action) {
+        return Boolean(action && action.id === round.answer);
+      }
+
+      function recycleActionClasses(action, index) {
+        return [
+          "dengue-action",
+          index === state.selected ? "selected" : "",
+          state.recycleWrong === index ? "wrong" : "",
+          state.recycleSolved && state.recycleCorrectIndex === index ? "correct" : "",
+        ].filter(Boolean).join(" ");
+      }
+
+      function recycleOptions() {
+        const round = recycleRounds[state.round];
+        const correctAction = recycleActionById[round.answer];
+        const distractors = recycleActions.filter((action) => action.id !== round.answer);
+        const shuffledDistractors = seededShuffle(distractors, seedFromParts("recycle-distractors", state.missionSeed, state.round));
+        const options = [correctAction, ...shuffledDistractors.slice(0, recycleOptionCount - 1)]
+          .filter(Boolean)
+          .map(cloneValue);
+        return orderAnswerOptions(options, {
+          seed: seedFromParts("recycle", state.missionSeed, state.round, round.answer),
+          attempt: state.recycleAttempt,
+          isCorrect: (action) => action.id === round.answer,
+        });
+      }
+
+      function vertebrateActionClasses(index) {
+        return [
+          "dengue-action",
+          index === state.selected ? "selected" : "",
+          state.vertebrateWrong === index ? "wrong" : "",
+          state.vertebrateSolved && state.vertebrateCorrectIndex === index ? "correct" : "",
+        ].filter(Boolean).join(" ");
+      }
+
+      function vertebrateOptions() {
+        const round = vertebrateRounds[state.round];
+        if (state.vertebrateStage === 1) {
+          return orderAnswerOptions(vertebrateSupers.map(cloneValue), {
+            seed: seedFromParts("vertebrate-super", state.missionSeed, state.round),
+            attempt: state.vertebrateAttempt,
+            isCorrect: (option) => option.id === round.superId,
+          });
+        }
+        const groups = vertebrateGroups.filter((group) => group.super === round.superId).map(cloneValue);
+        return orderAnswerOptions(groups, {
+          seed: seedFromParts("vertebrate-group", state.missionSeed, state.round),
+          attempt: state.vertebrateAttempt,
+          isCorrect: (option) => option.id === round.groupId,
         });
       }
 
@@ -9910,7 +10651,7 @@
 
       function renderArrows() {
         const round = currentArrowsRound();
-        setHeader("Setas e comandos", round.type === "echo" ? "Repita a sequência." : "Escolha a seta certa.");
+        setHeader("Setas e sequências", round.type === "echo" ? "Repita a sequência." : "Escolha a seta certa.");
         setCounters("Fase", `${state.round + 1} / ${legacyCommandRounds.length}`, round.type === "echo" ? "Passos" : "Acertos", round.type === "echo" ? `${state.legacyEchoProgress} / ${round.sequence.length}` : state.score);
         status.textContent = round.type === "echo" ? "Siga a ordem mostrada." : "Olhe a posição da estrela.";
 
@@ -10069,6 +10810,7 @@
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
+        state.menuHome = false;
         const missionIndex = missions.findIndex((item) => item.id === mode);
         if (missionIndex >= 0) state.menu = missionIndex;
         state.round = 0;
@@ -10079,6 +10821,17 @@
         state.dengueMistakes = 0;
         state.dengueCorrectIndex = null;
         state.dengueSolved = false;
+        state.recycleFinished = false;
+        state.recycleStreak = 0;
+        state.recyclePollution = 0;
+        state.recycleCorrectIndex = null;
+        state.recycleSolved = false;
+        state.vertebrateFinished = false;
+        state.vertebrateStage = 1;
+        state.vertebrateStreak = 0;
+        state.vertebrateCorrectIndex = null;
+        state.vertebrateSolved = false;
+        state.vertebrateXray = false;
         render();
       }
 
@@ -10124,8 +10877,14 @@
       }
 
       function goToPreviousMenuPage() {
+        if (state.menuHome) return false;
         const page = currentMenuPage();
-        if (page === 0) return false;
+        if (page === 0) {
+          state.menuHome = true;
+          state.selected = 0;
+          render();
+          return true;
+        }
         selectMenuPage(page - 1);
         render();
         return true;
@@ -10143,27 +10902,70 @@
         return menuItemsForPage(currentMenuPage());
       }
 
+      const missionAgeLevelSources = {
+        mathCup: mathCupLevelPlans,
+        math: mathLevels,
+      };
+
       function missionAgeRangeLabel(missionId) {
-        const levels = missionId === "mathCup" ? mathCupLevelPlans : levelMissions[missionId]?.levels;
-        if (!levels || !levels.length) return null;
-        const firstNumber = levels[0].age.match(/\d+/)?.[0] || levels[0].age;
-        const lastAge = levels[levels.length - 1].age;
-        return `${firstNumber} a ${lastAge}`;
+        const levels = missionAgeLevelSources[missionId] || levelMissions[missionId]?.levels;
+        if (levels && levels.length) {
+          const firstNumber = levels[0].age.match(/\d+/)?.[0] || levels[0].age;
+          const lastAge = levels[levels.length - 1].age;
+          return `${firstNumber} a ${lastAge}`;
+        }
+        return missions[missionIndexById.get(missionId)]?.ageRange || null;
+      }
+
+      function ageBadgeTone(ageRange) {
+        const firstNumber = Number.parseInt(ageRange.match(/\d+/)?.[0] || "6", 10);
+        return Math.min(4, Math.max(0, firstNumber - 6));
+      }
+
+      function renderMenuHome() {
+        setHeader("Missões Interativas", "Escolha uma categoria");
+        setCounters("Categorias", `${missionCategories.length}`, "Feitas", Object.keys(state.completed).length);
+        status.textContent = "Toque numa categoria para ver as missões.";
+        content.innerHTML = `<div class="menu-home">
+          ${missionCategories.map((category, index) => `
+            <div class="menu-home-card ${index === state.selected ? "selected" : ""}" data-category-index="${index}">
+              <div class="menu-home-icon">${category.icon}</div>
+              <div class="menu-home-text">
+                <div class="menu-home-title">${category.title}</div>
+                <div class="menu-home-desc">${category.description}</div>
+              </div>
+              <div class="menu-home-count">${category.missionIds.length} missões</div>
+            </div>`).join("")}
+        </div>`;
+      }
+
+      function enterMenuCategory(index) {
+        const category = missionCategories[index];
+        if (!category) return;
+        const firstItem = menuItemById(category.missionIds[0]);
+        if (!firstItem) return;
+        state.menuHome = false;
+        state.menu = firstItem.globalIndex;
+        render();
       }
 
       function renderMenu() {
+        if (state.menuHome) {
+          renderMenuHome();
+          return;
+        }
         const page = currentMenuPage();
         const category = missionCategories[page];
         const pageItems = currentMenuItems();
-        setHeader("Missões Interativas", category.title);
+        setHeader("Missões Interativas", `${category.icon} ${category.title}`);
         setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
         status.textContent = category.description;
         content.innerHTML = `<div class="menu">
           ${pageItems.map((item) => {
             const ageRange = missionAgeRangeLabel(item.id);
             return `<div class="menu-card ${item.featured ? "featured" : ""} ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
-            ${ageRange ? `<div class="menu-age-badge">${ageRange}</div>` : ""}
-            <div class="menu-icon">${state.completed[item.id] ? "✅" : item.icon}</div>
+            ${ageRange ? `<div class="menu-age-badge tone-${ageBadgeTone(ageRange)}">${ageRange}</div>` : ""}
+            <div class="menu-icon">${item.icon}</div>
             <div class="menu-title">${item.title}</div>
             <div class="menu-meta">${item.subject}</div>
           </div>`;
@@ -10547,6 +11349,237 @@
         content.scrollTop = 0;
       }
 
+      function currentRecycleRouteIndex() {
+        return state.round % dengueBoardRoute.length;
+      }
+
+      function currentRecycleRouteStart() {
+        return state.round - currentRecycleRouteIndex();
+      }
+
+      function currentRecycleTip() {
+        const round = recycleRounds[state.round];
+        return round?.tip || recycleTips[state.round % recycleTips.length];
+      }
+
+      function recycleBoardCell(cellIndex, routeByCell) {
+        const routeIndex = routeByCell.get(cellIndex);
+        if (routeIndex === undefined) {
+          return `<div class="dengue-map-cell room">🌿</div>`;
+        }
+        const activeRouteIndex = currentRecycleRouteIndex();
+        const stepIndex = currentRecycleRouteStart() + routeIndex;
+        const futureRound = recycleRounds[stepIndex];
+        const isActive = routeIndex === activeRouteIndex;
+        const isChecked = routeIndex < activeRouteIndex;
+        const isFinish = stepIndex >= recycleRounds.length;
+        const cellState = isChecked ? "checked" : isActive ? "active" : "upcoming";
+        const visibleIcon = isChecked ? "✅" : isFinish ? "🏁" : iconHtml(futureRound);
+        return `<div class="dengue-map-cell route ${cellState} ${isFinish ? "finish" : ""}" data-step="${routeIndex + 1}">
+          ${isActive ? '<span class="dengue-runner">🧒</span>' : ""}
+          <span>${visibleIcon}</span>
+        </div>`;
+      }
+
+      function renderRecycleMap() {
+        const routeByCell = new Map(dengueBoardRoute.map((cellIndex, routeIndex) => [cellIndex, routeIndex]));
+        const cellCount = dengueBoardColumns * dengueBoardRows;
+        return `<div class="dengue-map">
+          ${Array.from({ length: cellCount }, (_, cellIndex) => recycleBoardCell(cellIndex, routeByCell)).join("")}
+        </div>`;
+      }
+
+      function recycleChildRaceProgress() {
+        return Math.min(1, state.round / recycleRounds.length);
+      }
+
+      function recyclePollutionRaceProgress() {
+        return Math.min(1, state.recyclePollution / recyclePollutionSteps);
+      }
+
+      function recyclePollutionCaughtUp() {
+        return state.recyclePollution >= recyclePollutionSteps;
+      }
+
+      function renderRecycleRace() {
+        const childPct = Math.round(recycleChildRaceProgress() * 100);
+        const pollutionPct = Math.round(recyclePollutionRaceProgress() * 100);
+        return `<div class="dengue-race">
+          <div class="dengue-race-labels">
+            <span>🧒 Você</span>
+            <span>🏭 Poluição</span>
+          </div>
+          <div class="dengue-race-track">
+            <span class="dengue-race-house">🌎</span>
+            <div class="dengue-race-figure mosquito ${state.recycleWrong !== null ? "lunge" : ""}" style="left: ${pollutionPct}%;">🏭</div>
+            <div class="dengue-race-figure child ${state.recycleSolved ? "hop" : ""}" style="left: ${childPct}%;">🧒</div>
+          </div>
+          ${recyclePollutionCaughtUp() ? '<div class="dengue-race-warning">A poluição quase alcançou! Capriche na próxima separação.</div>' : ""}
+        </div>`;
+      }
+
+      function finishRecycleMission() {
+        state.completed.recycle = true;
+        state.recycleFinished = true;
+        state.answerLocked = false;
+        state.selected = -1;
+        stopTimer();
+        showMessage("♻️ Separado!", 900);
+        render();
+      }
+
+      function renderRecycleFinal() {
+        const cards = [
+          { icon: iconHtml(recycleActionById.paper), label: "Papel" },
+          { icon: iconHtml(recycleActionById.plastic), label: "Plástico" },
+          { icon: iconHtml(recycleActionById.glass), label: "Vidro" },
+          { icon: iconHtml(recycleActionById.metal), label: "Metal" },
+        ];
+        const raceSubtitle = recyclePollutionCaughtUp()
+          ? "Foi correria: a poluição quase alcançou. Bora tentar de novo e vencer com folga?"
+          : "A separação terminou: cada material no lugar certo.";
+        setHeader("Coleta seletiva", "Tudo separado!");
+        setCounters("Itens", recycleRounds.length, "Separados", recycleRounds.length);
+        status.textContent = "Tudo separado. Aperte Enter para voltar ao menu.";
+        content.innerHTML = `<div class="dengue-final recycle-theme">
+          <div class="dengue-final-title">♻️ Tudo separado!</div>
+          <div class="dengue-final-subtitle">${raceSubtitle}</div>
+          <div class="dengue-final-cards">
+            ${cards.map((card) => `<div class="dengue-final-card">
+              <div class="dengue-final-card-icon">${card.icon}</div>
+              <div>${card.label}</div>
+            </div>`).join("")}
+          </div>
+          <div class="dengue-finish-button">Enter para voltar</div>
+        </div>`;
+        content.scrollTop = 0;
+      }
+
+      function renderRecycle() {
+        if (state.recycleFinished) {
+          renderRecycleFinal();
+          return;
+        }
+        const round = recycleRounds[state.round];
+        const options = recycleOptions();
+        setHeader("Coleta seletiva", "Separe certo.");
+        setCounters("Item", currentRecycleRouteIndex() + 1, "Separados", state.score);
+        status.textContent = "Avance pela coleta e escolha a lixeira correta.";
+        content.innerHTML = `<div class="dengue-board recycle-theme">
+          <section class="dengue-scene ${state.recycleSolved ? "success" : ""}">
+            <div class="dengue-scene-title">
+              <div class="dengue-danger">♻️ Missão recicla</div>
+              <div class="dengue-patrol">${round.phaseIcon} ${round.phaseTitle}</div>
+            </div>
+            ${renderRecycleRace()}
+            ${renderRecycleMap()}
+            <div class="dengue-inspection">
+              <div class="dengue-icon-wrap">
+                <div class="dengue-icon">${iconHtml(round)}</div>
+                ${state.recycleSolved ? '<div class="dengue-stamp">✅</div><div class="dengue-confetti"><span>♻️</span><span>✨</span><span>🌱</span><span>♻️</span><span>✨</span><span>🌱</span></div>' : ""}
+              </div>
+              <div>
+                <div class="dengue-place" data-fit-text data-fit-min="15">${round.place}</div>
+                <div class="dengue-clue">${round.clue}</div>
+              </div>
+            </div>
+          </section>
+          <section class="dengue-play">
+            <div class="dengue-play-hint" data-fit-text data-fit-min="14">${iconHtml(round)} ${round.place}</div>
+            <div class="dengue-question">♻️ Toque na lixeira certa!</div>
+            <div class="dengue-health-tip">🌱 ${currentRecycleTip()}</div>
+            <div class="dengue-actions ${state.answerLocked ? "locked" : ""}">
+              ${options.map((action, index) => `<div class="${recycleActionClasses(action, index)}">
+                <div class="dengue-action-icon">${iconHtml(action)}</div>
+                <div class="dengue-action-label" data-fit-text data-fit-min="8">${action.label}</div>
+              </div>`).join("")}
+            </div>
+          </section>
+          ${state.answerLocked && !state.recycleSolved ? pauseOverlay() : ""}
+        </div>`;
+        content.scrollTop = 0;
+      }
+
+      function finishVertebrateMission() {
+        state.completed.vertebrate = true;
+        state.vertebrateFinished = true;
+        state.answerLocked = false;
+        state.selected = -1;
+        stopTimer();
+        showMessage("🦴 Classificado!", 900);
+        render();
+      }
+
+      function renderVertebrateFinal() {
+        const cards = vertebrateSupers.flatMap((superGroup) =>
+          vertebrateGroups
+            .filter((group) => group.super === superGroup.id)
+            .slice(0, 2)
+            .map((group) => ({ icon: group.icon, label: group.label })),
+        );
+        setHeader("Vertebrados e invertebrados", "Turma classificada!");
+        setCounters("Animais", vertebrateRounds.length, "Classificados", vertebrateRounds.length);
+        status.textContent = "Turma classificada. Aperte Enter para voltar ao menu.";
+        content.innerHTML = `<div class="dengue-final vertebrate-theme">
+          <div class="dengue-final-title">🦴 Turma classificada!</div>
+          <div class="dengue-final-subtitle">Cada animal no grupo certo: vertebrados com esqueleto interno, invertebrados sem coluna vertebral.</div>
+          <div class="dengue-final-cards">
+            ${cards.map((card) => `<div class="dengue-final-card">
+              <div class="dengue-final-card-icon">${card.icon}</div>
+              <div>${card.label}</div>
+            </div>`).join("")}
+          </div>
+          <div class="dengue-finish-button">Enter para voltar</div>
+        </div>`;
+        content.scrollTop = 0;
+      }
+
+      function renderVertebrate() {
+        if (state.vertebrateFinished) {
+          renderVertebrateFinal();
+          return;
+        }
+        const round = vertebrateRounds[state.round];
+        const options = vertebrateOptions();
+        const superLabel = vertebrateSupers.find((superGroup) => superGroup.id === round.superId)?.label || "";
+        const stageQuestion = state.vertebrateStage === 1
+          ? "É vertebrado ou invertebrado?"
+          : `Qual grupo de ${superLabel.toLowerCase()}s?`;
+        setHeader("Vertebrados e invertebrados", state.vertebrateStage === 1 ? "Observe o animal." : "Escolha o grupo.");
+        setCounters("Animal", state.round + 1, "Classificados", state.score);
+        status.textContent = "Observe o animal e responda.";
+        content.innerHTML = `<div class="dengue-board vertebrate-theme">
+          <section class="dengue-scene ${state.vertebrateSolved ? "success" : ""}">
+            <div class="dengue-scene-title">
+              <div class="dengue-danger">🦴 Vertebrados e invertebrados</div>
+              <div class="dengue-patrol">Etapa ${state.vertebrateStage} de 2</div>
+            </div>
+            <div class="dengue-inspection">
+              <div class="dengue-icon-wrap">
+                <div class="dengue-icon">${round.icon}</div>
+                ${state.vertebrateXray ? `<div class="xray-reveal"></div><div class="xray-badge">${round.superId === "vertebrate" ? "🦴 Tem esqueleto interno!" : "🐚 Sem esqueleto interno!"}</div><div class="dengue-confetti"><span>🦴</span><span>✨</span><span>🔬</span><span>🦴</span><span>✨</span><span>🔬</span></div>` : ""}
+                ${state.vertebrateSolved && !state.vertebrateXray ? '<div class="dengue-stamp">✅</div>' : ""}
+              </div>
+              <div>
+                <div class="dengue-place" data-fit-text data-fit-min="15">${round.place}</div>
+                <div class="dengue-clue">${state.vertebrateStage === 2 ? `Já sabemos: é ${superLabel.toLowerCase()}.` : "Observe bem o animal."}</div>
+              </div>
+            </div>
+          </section>
+          <section class="dengue-play">
+            <div class="dengue-question">${stageQuestion}</div>
+            <div class="dengue-actions ${state.answerLocked ? "locked" : ""}">
+              ${options.map((action, index) => `<div class="${vertebrateActionClasses(index)}">
+                <div class="dengue-action-icon">${action.icon}</div>
+                <div class="dengue-action-label" data-fit-text data-fit-min="8">${action.label}</div>
+              </div>`).join("")}
+            </div>
+          </section>
+          ${state.answerLocked && !state.vertebrateSolved ? pauseOverlay() : ""}
+        </div>`;
+        content.scrollTop = 0;
+      }
+
       function renderMath() {
         if (state.mathLevel === null) {
           setHeader("Matemática colorida", "Escolha uma faixa.");
@@ -10665,6 +11698,40 @@
         </div>`;
       }
 
+      function currentVaccineRound() {
+        return vaccineRounds[state.round];
+      }
+
+      function remainingVaccineSteps(round = currentVaccineRound()) {
+        return round.steps.filter((step) => !state.vaccineChosen.includes(step));
+      }
+
+      function vaccineOrder(steps) {
+        let ordered = orderAnswerOptions(steps, {
+          seed: seedFromParts("vaccine", state.missionSeed, state.round, state.vaccineChosen.length),
+          attempt: state.vaccineAttempt,
+          isCorrect: (step) => step === steps[0],
+        });
+        if (ordered.length > 1 && matchesOrder(ordered, steps)) ordered = rotateByAttempt(ordered, 1);
+        return ordered;
+      }
+
+      function refreshVaccineChoices() {
+        state.vaccineShuffled = vaccineOrder(remainingVaccineSteps());
+      }
+
+      function vaccineStepHtml(step) {
+        return `<div class="cycle-step-icon">${step.icon}</div><div class="cycle-step-label">${step.label}</div>`;
+      }
+
+      function vaccineSlotPromptHtml(index) {
+        const isNext = index === state.vaccineChosen.length;
+        return `<div class="cycle-slot-prompt">
+          <div class="cycle-slot-symbol">${isNext ? "✨" : "🔎"}</div>
+          <div class="cycle-slot-text">${isNext ? "agora" : "depois"}</div>
+        </div>`;
+      }
+
       function renderCycle() {
         const cycle = currentCycle();
         const available = state.cycleShuffled;
@@ -10685,6 +11752,30 @@
             ${available.map((item, index) => `<div class="cycle-item ${index === state.selected ? "selected" : ""} ${state.cycleWrong === index ? "wrong" : ""} ${state.cycleCorrectIndex === index ? "correct" : ""}">${cycleStepHtml(item)}</div>`).join("")}
           </div>
           ${state.answerLocked && state.cycleCorrectIndex === null ? pauseOverlay() : ""}
+        </div>`;
+      }
+
+      function renderVaccine() {
+        const round = currentVaccineRound();
+        const available = state.vaccineShuffled;
+        state.selected = Math.min(state.selected, Math.max(0, available.length - 1));
+        setHeader("Caderneta de vacinação", round.name);
+        setCounters("Etapa", `${state.round + 1} / ${vaccineRounds.length}`, "Passos", `${state.vaccineChosen.length} / ${round.steps.length}`);
+        status.textContent = state.answerLocked ? "Observe a ordem." : state.vaccineChosen.length ? "Qual vem depois?" : "O que vem primeiro?";
+        content.innerHTML = `<div class="cycle-board">
+          <div class="cycle-slots">
+            ${round.steps.map((_, index) => {
+              const chosen = state.vaccineChosen[index];
+              const justPlaced = index === state.vaccineJustFilledSlot ? " placed" : "";
+              const slotClass = chosen ? `filled${justPlaced}` : index === state.vaccineChosen.length ? "empty next" : "empty";
+              return `<div class="cycle-slot ${slotClass}">${chosen ? vaccineStepHtml(chosen) : vaccineSlotPromptHtml(index)}</div>`;
+            }).join("")}
+          </div>
+          <div class="cycle-items ${state.answerLocked ? "locked" : ""}">
+            ${available.map((item, index) => `<div class="cycle-item ${index === state.selected ? "selected" : ""} ${state.vaccineWrong === index ? "wrong" : ""} ${state.vaccineCorrectIndex === index ? "correct" : ""}">${vaccineStepHtml(item)}</div>`).join("")}
+          </div>
+          <div class="dengue-health-tip">💉 ${vaccineTips[state.round % vaccineTips.length]}</div>
+          ${state.answerLocked && state.vaccineCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -11168,14 +12259,15 @@
         return `${minutes}:${remainingSeconds}`;
       }
 
-      const MATH_CUP_CHALLENGE_SECONDS_BY_LEVEL = [35, 30, 26, 22, 20];
-      const MATH_CUP_MATCH_SECONDS_BY_LEVEL = [160, 135, 115, 100, 90];
+      const MATH_CUP_CHALLENGE_SECONDS_BY_LEVEL = [35, 30, 26, 22, 20, 18];
+      const MATH_CUP_MATCH_SECONDS_BY_LEVEL = [160, 135, 115, 100, 90, 90];
 
       function mathCupTimeSettings(roundIndex = state.round) {
         return MATH_CUP_CONFIG;
       }
 
       function mathCupMatchSeconds() {
+        if (state.mathCupExtraTime) return MATH_CUP_CONFIG.extraTimeSeconds;
         const durations = MATH_CUP_MATCH_SECONDS_BY_LEVEL;
         const level = Math.max(0, Math.min(durations.length - 1, state.mathCupLevel ?? 0));
         return durations[level];
@@ -11192,11 +12284,17 @@
       }
 
       function mathCupTimeLabel() {
-        return state.mathCupOvertime ? "Prorrogação" : formatMathCupTime(state.mathCupMatchTimeLeft);
+        if (state.mathCupOvertime) return "Acréscimos";
+        if (state.mathCupExtraTime) return `Pró. ${formatMathCupTime(state.mathCupMatchTimeLeft)}`;
+        return formatMathCupTime(state.mathCupMatchTimeLeft);
       }
 
       function isMathCupScoreSettled() {
         return state.score !== state.mathCupOpponentScore;
+      }
+
+      function isMathCupKnockoutStage(level = currentMathCupLevel()) {
+        return Boolean(level?.stageKey) && level.stageKey !== "groups";
       }
 
       function startMathCupOvertime(messageText = "⏱️ Último lance!") {
@@ -11206,10 +12304,141 @@
         render();
       }
 
+      function startMathCupExtraTime() {
+        state.mathCupOvertime = false;
+        state.mathCupExtraTime = true;
+        state.mathCupMatchTimeLeft = mathCupMatchSeconds();
+        resetMathCupAttack();
+        showMessage("⏱️ Prorrogação!", 900, "info");
+        render();
+        startMathCupClock();
+      }
+
       function finishMathCupOvertimeIfSettled(messageText = "⏱️ Fim da partida!") {
-        if (!state.mathCupOvertime || !isMathCupScoreSettled()) return false;
-        finishMathCupMatch(messageText, state.score > state.mathCupOpponentScore ? "info" : "warn");
+        if (!state.mathCupOvertime) return false;
+
+        if (isMathCupScoreSettled()) {
+          finishMathCupMatch(messageText, state.score > state.mathCupOpponentScore ? "info" : "warn");
+          return true;
+        }
+
+        if (!isMathCupKnockoutStage()) {
+          finishMathCupMatch("🤝 Empate!", "info");
+          return true;
+        }
+
+        if (state.mathCupExtraTime) {
+          startMathCupPenaltyShootout();
+          return true;
+        }
+
+        startMathCupExtraTime();
         return true;
+      }
+
+      function mathCupPenaltyChance(team) {
+        const strength = mathCupTeamStrength(team);
+        return clampNumber(0.62 + (strength / 400), 0.55, 0.88);
+      }
+
+      function startMathCupPenaltyShootout() {
+        stopMathCupClock();
+        stopMathCupChallengeClock();
+        state.mathCupOvertime = false;
+        state.mathCupExtraTime = false;
+        state.mathCupShootout = { homeKicks: [], awayKicks: [], turn: "home" };
+        showMessage("🥅 Pênaltis!", 900, "warn");
+        render();
+        state.answerLockTimer = window.setTimeout(() => advanceMathCupPenaltyTurn(), 1000);
+      }
+
+      function advanceMathCupPenaltyTurn() {
+        if (state.mode !== "mathCup" || !state.mathCupShootout) return;
+        if (state.mathCupShootout.turn === "home") {
+          startMathCupChallenge("shot", { holderId: state.mathCupHolderId || "p9" });
+        } else {
+          resolveMathCupOpponentPenaltyKick();
+        }
+      }
+
+      function resolveMathCupOpponentPenaltyKick() {
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "mathCup" || !state.mathCupShootout) return;
+          const level = currentMathCupLevel();
+          const shootout = state.mathCupShootout;
+          const kickNumber = shootout.homeKicks.length + shootout.awayKicks.length;
+          const chance = mathCupPenaltyChance(level.opponent);
+          const roll = seededRandom(seedFromParts("math-cup-penalty", state.missionSeed, state.round, kickNumber))();
+          const scored = roll < chance;
+          showMessage(scored ? "⚽ Gol do adversário!" : "🧤 Você defendeu!", 800, scored ? "bad" : "good");
+          recordMathCupPenaltyKick(scored);
+        }, 1100);
+      }
+
+      function checkMathCupShootoutDecided() {
+        const { homeKicks, awayKicks } = state.mathCupShootout;
+        if (homeKicks.length !== awayKicks.length || homeKicks.length < 5) return null;
+        const homeScore = homeKicks.filter(Boolean).length;
+        const awayScore = awayKicks.filter(Boolean).length;
+        if (homeScore === awayScore) return null;
+        return homeScore > awayScore ? "home" : "away";
+      }
+
+      function recordMathCupPenaltyKick(scored) {
+        const shootout = state.mathCupShootout;
+        if (!shootout) return;
+        const kickingSide = shootout.turn;
+        if (kickingSide === "home") shootout.homeKicks.push(scored);
+        else shootout.awayKicks.push(scored);
+
+        if (kickingSide === "away") {
+          const decided = checkMathCupShootoutDecided();
+          if (decided) {
+            finishMathCupPenaltyShootout(decided);
+            return;
+          }
+        }
+
+        shootout.turn = kickingSide === "home" ? "away" : "home";
+        render();
+        state.answerLockTimer = window.setTimeout(() => advanceMathCupPenaltyTurn(), 900);
+      }
+
+      function finishMathCupPenaltyShootout(winnerSide) {
+        stopMathCupChallengeClock();
+        state.mathCupShootout.winner = winnerSide;
+        const playerWon = winnerSide === "home";
+        showMessage(playerWon ? "🏆 Venceu nos pênaltis!" : "🥅 Perdeu nos pênaltis!", 900, playerWon ? "good" : "bad");
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "mathCup") return;
+          finishMathCupMatch(
+            playerWon ? "🏆 Classificou nos pênaltis!" : "🥅 Eliminado nos pênaltis!",
+            playerWon ? "info" : "warn",
+          );
+          state.mathCupShootout = null;
+        }, 1400);
+      }
+
+      function handleMathCupPenaltyAnswer() {
+        if (!hasSelection()) return;
+        const challenge = state.mathCupChallenge;
+        const choice = mathCupOptions()[state.selected];
+        const scored = choice === challenge.answer;
+        state.mathCupWrong = scored ? null : state.selected;
+        state.mathCupCorrectIndex = scored ? state.selected : null;
+        state.answerLocked = true;
+        showMessage(scored ? "⚽ Gol!" : "🧤 Defendeu!", 700, scored ? "good" : "warn");
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "mathCup" || !state.mathCupShootout) return;
+          state.mathCupWrong = null;
+          state.mathCupCorrectIndex = null;
+          state.answerLocked = false;
+          resetMathCupChallengeState();
+          recordMathCupPenaltyKick(scored);
+        }, 700);
       }
 
       function tickMathCupClock() {
@@ -11229,7 +12458,10 @@
 
         state.mathCupMatchTimeLeft = remainingSeconds;
         if (remainingSeconds === 0) {
-          startMathCupOvertime(isMathCupScoreSettled() ? "⏱️ Último lance!" : "⏱️ Prorrogação!");
+          const messageText = isMathCupScoreSettled()
+            ? "⏱️ Último lance!"
+            : state.mathCupExtraTime ? "⏱️ Fim da prorrogação!" : "⏱️ Prorrogação!";
+          startMathCupOvertime(messageText);
           return;
         }
         render();
@@ -11252,7 +12484,7 @@
 
       function startMathCupClock() {
         stopMathCupClock();
-        if (state.mathCupOvertime) return;
+        if (state.mathCupOvertime || state.mathCupShootout) return;
         if (state.mathCupBreak || state.mathCupGoalPause) return;
         if (isMathCupChoosingPass()) return;
         const elapsedSeconds = mathCupMatchSeconds() - state.mathCupMatchTimeLeft;
@@ -11301,6 +12533,10 @@
         state.mathCupChallengeTimeLeft = remainingSeconds;
         if (remainingSeconds === 0) {
           stopMathCupChallengeClock();
+          if (state.mathCupShootout) {
+            recordMathCupPenaltyKick(false);
+            return;
+          }
           mathCupMistake({ timedOut: true });
           return;
         }
@@ -11316,8 +12552,10 @@
       }
 
       function resetMathCupClock() {
-        state.mathCupMatchTimeLeft = mathCupMatchSeconds();
         state.mathCupOvertime = false;
+        state.mathCupExtraTime = false;
+        state.mathCupShootout = null;
+        state.mathCupMatchTimeLeft = mathCupMatchSeconds();
         startMathCupClock();
       }
 
@@ -11337,6 +12575,12 @@
         if (homeScore > awayScore) return { type: "win", label: "Vitória", icon: "🏆" };
         if (homeScore < awayScore) return { type: "loss", label: "Derrota", icon: "🥅" };
         if (level?.stageKey && level.stageKey !== "groups") {
+          const shootoutWinner = state.mathCupShootout?.winner;
+          if (shootoutWinner) {
+            return shootoutWinner === "home"
+              ? { type: "win", label: "Classificou nos pênaltis", icon: "🏆" }
+              : { type: "loss", label: "Eliminado nos pênaltis", icon: "🥅" };
+          }
           const winner = resolveMathCupWinner(level, homeScore, awayScore);
           return winner === level.code
             ? { type: "win", label: "Classificou", icon: "🏆" }
@@ -11394,6 +12638,9 @@
           home: { country: finishedLevel.country, flag: finishedLevel.flag, score: state.score },
           away: { country: finishedLevel.opponent.country, flag: finishedLevel.opponent.flag, score: state.mathCupOpponentScore },
           result: mathCupMatchResult(),
+          stageKey: finishedLevel.stageKey,
+          group: finishedLevel.group,
+          teamCode: finishedLevel.code,
         };
         stopMathCupClock();
         stopMathCupChallengeClock();
@@ -11406,12 +12653,13 @@
         resetMathCupChallengeState();
         state.mathCupGoalPause = null;
         if (state.round >= mathCupLevels.length) {
-          if (mathCupHasWinningCampaign()) {
-            state.mathCupBreak = { kind: "final", ...breakData };
-            render();
-          } else {
-            complete("mathCup", "Copa da Matemática concluída!");
-          }
+          state.completed.mathCup = true;
+          state.selected = 0;
+          state.mathCupBreak = {
+            kind: mathCupHasWinningCampaign() ? "final" : "eliminated",
+            ...breakData,
+          };
+          render();
           return;
         }
         const nextLevel = currentMathCupLevel();
@@ -11578,7 +12826,7 @@
 
       function mathCupStatusText() {
         const challenge = state.mathCupChallenge;
-        const prefix = state.mathCupOvertime ? "⏱️ Prorrogação: " : "";
+        const prefix = state.mathCupOvertime || state.mathCupExtraTime ? "⏱️ Prorrogação: " : "";
         if (state.mathCupBreak) return "⏸️ Descanso: toque para seguir.";
         if (state.mathCupGoalPause) {
           const details = mathCupGoalPauseDetails();
@@ -11661,7 +12909,7 @@
           <div class="math-cup-answers summary">
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${mathCupPlayerLabel()}</div>
             <div class="math-cup-answer note" data-fit-text data-fit-min="10">${mathCupActionLabel()}</div>
-            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${state.mathCupOvertime ? "Prorrogação" : "Jogo"}</div>
+            <div class="math-cup-answer note" data-fit-text data-fit-min="10">${state.mathCupOvertime || state.mathCupExtraTime ? "Prorrogação" : "Jogo"}</div>
           </div>
         </div>`;
       }
@@ -12003,10 +13251,39 @@
         </div>`;
       }
 
+      function mathCupStandingsTableHtml(group, highlightCode) {
+        const rows = mathCupGroupRows(group);
+        return `<div class="math-cup-standings">
+          <div class="standings-title">📋 Classificação · Grupo ${group}</div>
+          <div class="standings-table">
+            <div class="standings-row standings-head">
+              <span class="standings-pos"></span>
+              <span class="standings-team">Seleção</span>
+              <span class="standings-stat">V</span>
+              <span class="standings-stat">E</span>
+              <span class="standings-stat">D</span>
+              <span class="standings-stat pts">Pts</span>
+            </div>
+            ${rows.map((row, index) => {
+              const team = mathCupTeamByCode(row.code);
+              return `<div class="standings-row ${row.code === highlightCode ? "highlight" : ""}">
+                <span class="standings-pos">${index + 1}º</span>
+                <span class="standings-team">${flagArt(team.flag, "standings-flag")}<span data-fit-text data-fit-min="8">${team.country}</span></span>
+                <span class="standings-stat">${row.wins}</span>
+                <span class="standings-stat">${row.draws}</span>
+                <span class="standings-stat">${row.losses}</span>
+                <span class="standings-stat pts">${row.points}</span>
+              </div>`;
+            }).join("")}
+          </div>
+        </div>`;
+      }
+
       function mathCupBreakOverlayHtml(details) {
         return `<div class="math-cup-stop-overlay">
           <div class="math-cup-break-title">${details.result.icon} ${details.result.label}</div>
           ${mathCupBreakScoreboardHtml(details)}
+          ${details.stageKey === "groups" && details.group ? mathCupStandingsTableHtml(details.group, details.teamCode) : ""}
           ${mathCupNextMatchHtml(details.next)}
           <div class="math-cup-break-action">Continuar</div>
         </div>`;
@@ -12015,11 +13292,11 @@
       function renderMathCupBreak() {
         const details = state.mathCupBreak;
         const isFinal = details.kind === "final";
-        setHeader("Copa da Matemática", isFinal ? "Campanha vencedora!" : "Descanso");
-        setCounters(isFinal ? "Final" : "Jogo", isFinal ? `${mathCupLevels.length} / ${mathCupLevels.length}` : `${state.round + 1} / ${mathCupLevels.length}`, "Vitórias x Derrotas", mathCupRecordLabel());
-        status.textContent = isFinal ? "Toque para seguir." : "Toque para a próxima partida.";
+        setHeader("Copa da Matemática", isFinal ? "Campanha vencedora!" : "Fim de campanha");
+        setCounters(isFinal ? "Final" : "Parou em", isFinal ? `${mathCupLevels.length} / ${mathCupLevels.length}` : (mathCupStageShortLabels[details.stageKey] || "Fase de grupos"), "Vitórias x Derrotas", mathCupRecordLabel());
 
         if (isFinal) {
+          status.textContent = "Toque para seguir.";
           content.innerHTML = `<div class="math-cup-break">
             <div class="math-cup-break-card final">
               <div class="math-cup-celebration-strip"><span>⚽</span><span>⭐</span><span>🏆</span><span>⭐</span><span>⚽</span></div>
@@ -12033,12 +13310,17 @@
           return;
         }
 
+        status.textContent = "Veja o que aconteceu e escolha o que fazer.";
+        const stageLabel = mathCupStageShortLabels[details.stageKey] || "Fase de grupos";
         content.innerHTML = `<div class="math-cup-break">
-          <div class="math-cup-break-card">
+          <div class="math-cup-break-card eliminated">
             <div class="math-cup-break-title">${details.result.icon} ${details.result.label}</div>
+            <div class="math-cup-break-subtitle">${stageLabel} · Vitórias ${state.mathCupWins} x ${state.mathCupLosses} derrotas</div>
             ${mathCupBreakScoreboardHtml(details)}
-            ${mathCupNextMatchHtml(details.next)}
-            <div class="math-cup-break-action">Continuar</div>
+            <div class="math-cup-eliminated-actions">
+              <div class="math-cup-eliminated-action ${state.selected === 0 ? "selected" : ""}">🔄 Jogar de novo</div>
+              <div class="math-cup-eliminated-action secondary ${state.selected === 1 ? "selected" : ""}">🏠 Voltar ao menu</div>
+            </div>
           </div>
           </div>`;
       }
@@ -12123,7 +13405,7 @@
       }
 
       function renderMathCupIntro() {
-        setHeader("Copa da Matemática", "Projeto destaque");
+        setHeader("Copa da Matemática", "Destaque");
         setCounters("Projeto", "Destaque", "Modo", "Feira");
         status.textContent = "Futebol, estratégia e cálculo mental.";
         content.innerHTML = `<div class="math-cup-showcase">
@@ -12195,6 +13477,32 @@
         });
       }
 
+      function mathCupPenaltyRowHtml(teamLabel, flagHtml, kicks) {
+        const taken = kicks.map((scored, index) => `<span class="shootout-kick ${scored ? "scored" : "missed"}" data-fit-text data-fit-min="10">${scored ? "⚽" : "❌"}</span>`).join("");
+        const pending = Array.from({ length: Math.max(0, 5 - kicks.length) }, () => `<span class="shootout-kick pending">⚪</span>`).join("");
+        return `<div class="shootout-row">
+          <div class="shootout-team">${flagHtml}<span data-fit-text data-fit-min="10">${teamLabel}</span></div>
+          <div class="shootout-kicks">${taken}${pending}</div>
+        </div>`;
+      }
+
+      function renderMathCupShootout() {
+        const level = currentMathCupLevel();
+        const shootout = state.mathCupShootout;
+        const homeScore = shootout.homeKicks.filter(Boolean).length;
+        const awayScore = shootout.awayKicks.filter(Boolean).length;
+        setHeader("Copa da Matemática", "Disputa de pênaltis!");
+        setCounters("Cobrança", `${shootout.homeKicks.length + shootout.awayKicks.length + 1}`, "Placar", `${homeScore} x ${awayScore}`);
+        status.textContent = shootout.turn === "home" ? "Sua vez de cobrar!" : "O adversário vai cobrar...";
+        content.innerHTML = `<div class="math-cup-shootout" style="${mathCupColorVariables(level)}">
+          <div class="shootout-scoreboard">
+            ${mathCupPenaltyRowHtml(level.country, flagArt(level.flag, "shootout-flag"), shootout.homeKicks)}
+            ${mathCupPenaltyRowHtml(level.opponent.country, flagArt(level.opponent.flag, "shootout-flag"), shootout.awayKicks)}
+          </div>
+          ${state.mathCupChallenge ? mathCupChallengeHtml() : `<div class="shootout-waiting">🥅 ${level.opponent.country} está cobrando...</div>`}
+        </div>`;
+      }
+
       function renderMathCup() {
         if (state.mathCupLevel === null) {
           if (state.mathCupScreen === "info") {
@@ -12216,10 +13524,16 @@
           return;
         }
 
-        if (state.mathCupBreak?.kind === "final") {
+        if (state.mathCupBreak?.kind === "final" || state.mathCupBreak?.kind === "eliminated") {
           renderMathCupBreak();
           return;
         }
+
+        if (state.mathCupShootout) {
+          renderMathCupShootout();
+          return;
+        }
+
         const level = currentMathCupLevel();
         const breakDetails = state.mathCupBreak;
         setHeader("Copa da Matemática", mathCupCampaignPlaceLabel(level));
@@ -12244,9 +13558,12 @@
         robot: renderRobot,
         logic: renderLogic,
         dengue: renderDengue,
+        recycle: renderRecycle,
+        vertebrate: renderVertebrate,
         math: renderMath,
         habitat: renderHabitat,
         cycle: renderCycle,
+        vaccine: renderVaccine,
         cup: renderCup,
         mathCup: renderMathCup,
       };
@@ -12308,6 +13625,9 @@
           state.mathCupScreen = "intro";
         }
         if (resetTeam) state.mathCupTeamCode = null;
+        state.mathCupOvertime = false;
+        state.mathCupExtraTime = false;
+        state.mathCupShootout = null;
         resetMathCupChallengeState({ resetSelection: false });
         state.mathCupChallengeTimeLeft = mathCupChallengeSeconds();
         state.mathCupChallengeStartedAt = 0;
@@ -12342,6 +13662,19 @@
         state.dengueMistakes = 0;
         state.dengueCorrectIndex = null;
         state.dengueSolved = false;
+        state.recycleWrong = null;
+        state.recycleAttempt = 0;
+        state.recycleStreak = 0;
+        state.recyclePollution = 0;
+        state.recycleCorrectIndex = null;
+        state.recycleSolved = false;
+        state.vertebrateStage = 1;
+        state.vertebrateWrong = null;
+        state.vertebrateAttempt = 0;
+        state.vertebrateStreak = 0;
+        state.vertebrateCorrectIndex = null;
+        state.vertebrateSolved = false;
+        state.vertebrateXray = false;
         state.habitatWrong = null;
         state.habitatAttempt = 0;
         state.habitatCorrect = false;
@@ -12352,6 +13685,12 @@
         state.cycleCorrectIndex = null;
         state.cycleJustFilledSlot = null;
         state.cycleShuffled = mode === "cycle" ? cycleOrder(cycles[0].steps) : [];
+        state.vaccineChosen = [];
+        state.vaccineAttempt = 0;
+        state.vaccineWrong = null;
+        state.vaccineCorrectIndex = null;
+        state.vaccineJustFilledSlot = null;
+        state.vaccineShuffled = mode === "vaccine" ? vaccineOrder(vaccineRounds[0].steps) : [];
         state.mathLevel = null;
         state.mathAttempt = 0;
         state.mathWrong = null;
@@ -12376,6 +13715,10 @@
       }
 
       function chooseMenu() {
+        if (state.menuHome) {
+          enterMenuCategory(state.selected);
+          return;
+        }
         reset(missions[state.menu].id);
       }
 
@@ -12439,6 +13782,15 @@
         resetRoundState(-1);
         startMathCupMatch();
         showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function restartMathCupCampaign() {
+        resetMathCupCampaignState();
+        mathCupLevels = createMathCupSchedule(state.mathCupTeamCode);
+        resetRoundState(-1);
+        startMathCupMatch();
+        showMessage("▶️ Vai de novo!", 650, "info");
         render();
       }
 
@@ -12725,6 +14077,161 @@
         });
       }
 
+      function handleRecycleEnter() {
+        if (state.recycleFinished) {
+          returnToMissionMenu("recycle");
+          return;
+        }
+        if (!hasSelection()) return;
+
+        const round = recycleRounds[state.round];
+        const choice = recycleOptions()[state.selected];
+        if (acceptsRecycleAction(round, choice)) {
+          const correctIndex = state.selected;
+          state.recycleWrong = null;
+          state.recycleAttempt = 0;
+          state.recycleStreak += 1;
+          state.score += 1;
+          state.answerLocked = true;
+          state.recycleCorrectIndex = correctIndex;
+          state.recycleSolved = true;
+          if (state.recycleStreak > 0 && state.recycleStreak % 3 === 0) {
+            showMessage(`🔥 ${state.recycleStreak} seguidas!`, 620);
+          } else {
+            showMessage("✅ Separou!", 620);
+          }
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "recycle") return;
+            state.answerLocked = false;
+            state.recycleCorrectIndex = null;
+            state.recycleSolved = false;
+            state.selected = -1;
+            state.round += 1;
+            if (state.round >= recycleRounds.length) {
+              finishRecycleMission();
+              return;
+            }
+            render();
+          }, 620);
+          return;
+        }
+
+        lockAnswer({
+          delay: 1600,
+          messageText: "👀 Revise!",
+          guard: () => state.mode === "recycle",
+          onLock: () => {
+            state.recycleWrong = state.selected;
+            state.recycleStreak = 0;
+            state.recyclePollution += 1;
+          },
+          onUnlock: () => {
+            state.recycleWrong = null;
+            state.recycleAttempt += 1;
+          },
+        });
+      }
+
+      function handleVertebrateEnter() {
+        if (state.vertebrateFinished) {
+          returnToMissionMenu("vertebrate");
+          return;
+        }
+        if (!hasSelection()) return;
+
+        const round = vertebrateRounds[state.round];
+        const choice = vertebrateOptions()[state.selected];
+
+        if (state.vertebrateStage === 1) {
+          if (choice.id !== round.superId) {
+            const wrongIndex = state.selected;
+            lockAnswer({
+              delay: 1500,
+              messageText: "👀 Pense!",
+              guard: () => state.mode === "vertebrate",
+              onLock: () => {
+                state.vertebrateWrong = wrongIndex;
+                state.vertebrateStreak = 0;
+              },
+              onUnlock: () => {
+                state.vertebrateWrong = null;
+                state.vertebrateAttempt += 1;
+              },
+            });
+            return;
+          }
+
+          const correctIndex = state.selected;
+          state.vertebrateWrong = null;
+          state.vertebrateCorrectIndex = correctIndex;
+          state.vertebrateSolved = true;
+          state.answerLocked = true;
+          showMessage("✅ Isso!", 550);
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "vertebrate") return;
+            state.vertebrateCorrectIndex = null;
+            state.vertebrateSolved = false;
+            state.answerLocked = false;
+            state.selected = -1;
+            state.vertebrateStage = 2;
+            state.vertebrateAttempt = 0;
+            render();
+          }, 500);
+          return;
+        }
+
+        if (choice.id !== round.groupId) {
+          const wrongIndex = state.selected;
+          lockAnswer({
+            delay: 1600,
+            messageText: "👀 Revise!",
+            guard: () => state.mode === "vertebrate",
+            onLock: () => {
+              state.vertebrateWrong = wrongIndex;
+              state.vertebrateStreak = 0;
+            },
+            onUnlock: () => {
+              state.vertebrateWrong = null;
+              state.vertebrateAttempt += 1;
+            },
+          });
+          return;
+        }
+
+        const correctIndex = state.selected;
+        state.vertebrateWrong = null;
+        state.vertebrateStreak += 1;
+        state.score += 1;
+        state.vertebrateCorrectIndex = correctIndex;
+        state.vertebrateSolved = true;
+        state.vertebrateXray = true;
+        state.answerLocked = true;
+        if (state.vertebrateStreak > 0 && state.vertebrateStreak % 3 === 0) {
+          showMessage(`🔥 ${state.vertebrateStreak} seguidas!`, 700);
+        } else {
+          showMessage("🦴 Raio-x revelado!", 700);
+        }
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "vertebrate") return;
+          state.answerLocked = false;
+          state.vertebrateCorrectIndex = null;
+          state.vertebrateSolved = false;
+          state.vertebrateXray = false;
+          state.selected = -1;
+          state.vertebrateStage = 1;
+          state.vertebrateAttempt = 0;
+          state.round += 1;
+          if (state.round >= vertebrateRounds.length) {
+            finishVertebrateMission();
+            return;
+          }
+          render();
+        }, 900);
+      }
+
       function hasSelection() {
         if (state.selected >= 0) return true;
         showMessage("↔️ Escolha!", 650, "info");
@@ -12882,6 +14389,62 @@
             showMessage("✅ Certo!");
           } else {
             refreshCycleChoices();
+          }
+          render();
+        }, 500);
+      }
+
+      function handleVaccineEnter() {
+        const round = currentVaccineRound();
+        const available = state.vaccineShuffled;
+        if (state.selected < 0 || !available.length) {
+          showMessage("↔️ Escolha!", 650, "info");
+          return;
+        }
+
+        const choice = available[state.selected];
+        const expected = round.steps[state.vaccineChosen.length];
+        if (choice !== expected) {
+          const wrongIndex = state.selected;
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Ordem!",
+            guard: () => state.mode === "vaccine",
+            onLock: () => {
+              state.vaccineWrong = wrongIndex;
+            },
+            onUnlock: () => {
+              state.vaccineWrong = null;
+              state.vaccineAttempt += 1;
+              refreshVaccineChoices();
+            },
+          });
+          return;
+        }
+
+        state.vaccineChosen.push(choice);
+        state.vaccineCorrectIndex = state.selected;
+        state.vaccineJustFilledSlot = state.vaccineChosen.length - 1;
+        state.answerLocked = true;
+        state.selected = -1;
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "vaccine") return;
+          state.vaccineCorrectIndex = null;
+          state.vaccineJustFilledSlot = null;
+          state.answerLocked = false;
+          if (state.vaccineChosen.length === round.steps.length) {
+            state.round += 1;
+            state.vaccineChosen = [];
+            state.vaccineAttempt = 0;
+            if (state.round >= vaccineRounds.length) {
+              complete("vaccine", "Caderneta em dia!");
+              return;
+            }
+            refreshVaccineChoices();
+            showMessage("✅ Certo!");
+          } else {
+            refreshVaccineChoices();
           }
           render();
         }, 500);
@@ -13112,6 +14675,7 @@
         setMathCupHomePossession(target);
         clearMathCupPassTargets();
         showMessage(mathCupChallengeInfo[challenge.type].success, 650);
+        if (finishMathCupOvertimeIfSettled()) return;
         if (isMathCupFinalStage()) {
           startMathCupFinalDribble();
           return;
@@ -13254,6 +14818,7 @@
         state.mathCupBreak = null;
         state.mathCupGoalPause = null;
         state.mode = "menu";
+        state.menuHome = false;
         state.menu = missions.findIndex((item) => item.id === "mathCup");
         state.round = 0;
         state.selected = 0;
@@ -13265,6 +14830,11 @@
         if (!state.mathCupBreak) return false;
         if (state.mathCupBreak.kind === "final") {
           returnMathCupToMenu();
+          return true;
+        }
+        if (state.mathCupBreak.kind === "eliminated") {
+          if (state.selected === 0) restartMathCupCampaign();
+          else returnMathCupToMenu();
           return true;
         }
         state.mathCupBreak = null;
@@ -13312,6 +14882,11 @@
 
         if (continueMathCupPause()) return;
 
+        if (state.mathCupShootout) {
+          if (state.mathCupChallenge) handleMathCupPenaltyAnswer();
+          return;
+        }
+
         if (state.mathCupChallenge) {
           handleMathCupAnswer();
           return;
@@ -13346,9 +14921,12 @@
         arrows: () => showMessage("↕️ Setas!", 650, "info"),
         logic: handleLogicEnter,
         dengue: handleDengueEnter,
+        recycle: handleRecycleEnter,
+        vertebrate: handleVertebrateEnter,
         math: handleMathEnter,
         habitat: handleHabitatEnter,
         cycle: handleCycleEnter,
+        vaccine: handleVaccineEnter,
         cup: handleCupEnter,
         mathCup: handleMathCupEnter,
       };
@@ -13362,6 +14940,10 @@
       }
 
       function moveMenuSelection(delta, vertical = false) {
+        if (state.menuHome) {
+          moveSelectionIndex({ count: missionCategories.length, delta, allowUnselected: false });
+          return;
+        }
         const page = currentMenuPage();
         const pageItems = currentMenuItems();
         const localIndex = Math.max(0, pageItems.findIndex((item) => item.globalIndex === state.menu));
@@ -13403,6 +14985,28 @@
           });
         } else if (state.mode === "dengue") {
           return;
+        } else if (state.mode === "recycle" && !state.recycleFinished) {
+          const count = recycleOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.recycleWrong = null; },
+          });
+        } else if (state.mode === "recycle") {
+          return;
+        } else if (state.mode === "vertebrate" && !state.vertebrateFinished) {
+          const count = vertebrateOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.vertebrateWrong = null; },
+          });
+        } else if (state.mode === "vertebrate") {
+          return;
         } else if (state.mode === "math") {
           if (state.mathLevel === null) {
             const count = mathLevels.length;
@@ -13428,11 +15032,15 @@
           });
         } else if (state.mode === "cycle") {
           moveSelectionIndex({ count: state.cycleShuffled.length, delta, afterMove: () => { state.cycleWrong = null; } });
+        } else if (state.mode === "vaccine") {
+          moveSelectionIndex({ count: state.vaccineShuffled.length, delta, afterMove: () => { state.vaccineWrong = null; } });
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
         } else if (state.mode === "mathCup") {
-          if (state.mathCupLevel === null) {
+          if (state.mathCupBreak?.kind === "eliminated") {
+            moveSelectionIndex({ count: 2, delta, allowUnselected: false });
+          } else if (state.mathCupLevel === null) {
             const isLevelScreen = state.mathCupScreen === "levels";
             const count = isLevelScreen ? mathCupLevelPlans.length : 2;
             moveSelectionIndex({
@@ -13496,6 +15104,12 @@
       }
 
       function handleMenuClick(event) {
+        if (state.menuHome) {
+          return activateIndexedClick(event, ".menu-home-card", (index) => {
+            state.selected = index;
+            enterMenuCategory(index);
+          });
+        }
         const pageButton = clickedElement(event, ".menu-page-button");
         if (pageButton) {
           if (pageButton.dataset.menuPage === "prev") return goToPreviousMenuPage();
@@ -13607,11 +15221,19 @@
         return clickedMathCupPauseControl(event) ? continueMathCupPause() : false;
       }
 
+      function handleMathCupEliminatedClick(event) {
+        if (state.mathCupBreak?.kind !== "eliminated") return false;
+        return activateIndexedClick(event, ".math-cup-eliminated-action", (index) => {
+          state.selected = index;
+          continueMathCupAfterBreak();
+        });
+      }
+
       function handleMathCupAnswerClick(event) {
         if (!state.mathCupChallenge) return false;
         return activateChoiceClick(event, ".math-cup-answer", {
           clearWrong: () => { state.mathCupWrong = null; },
-          onConfirm: handleMathCupAnswer,
+          onConfirm: state.mathCupShootout ? handleMathCupPenaltyAnswer : handleMathCupAnswer,
         });
       }
 
@@ -13637,6 +15259,7 @@
         return handleMathCupOpeningClick(event)
           || handleMathCupLevelClick(event)
           || handleMathCupTeamClick(event)
+          || handleMathCupEliminatedClick(event)
           || handleMathCupPauseClick(event)
           || handleMathCupAnswerClick(event)
           || handleMathCupPassClick(event);
@@ -13672,6 +15295,24 @@
             onConfirm: handleDengueEnter,
           });
         },
+        recycle: (event) => {
+          if (state.recycleFinished) {
+            return activateIndexedClick(event, ".dengue-finish-button", () => returnToMissionMenu("recycle"));
+          }
+          return activateChoiceClick(event, ".dengue-action", {
+            clearWrong: () => { state.recycleWrong = null; },
+            onConfirm: handleRecycleEnter,
+          });
+        },
+        vertebrate: (event) => {
+          if (state.vertebrateFinished) {
+            return activateIndexedClick(event, ".dengue-finish-button", () => returnToMissionMenu("vertebrate"));
+          }
+          return activateChoiceClick(event, ".dengue-action", {
+            clearWrong: () => { state.vertebrateWrong = null; },
+            onConfirm: handleVertebrateEnter,
+          });
+        },
         math: handleMathClick,
         habitat: (event) => activateChoiceClick(event, ".habitat", {
           clearWrong: () => { state.habitatWrong = null; },
@@ -13679,6 +15320,9 @@
         }),
         cycle: (event) => activateChoiceClick(event, ".cycle-item", {
           onConfirm: handleCycleEnter,
+        }),
+        vaccine: (event) => activateChoiceClick(event, ".cycle-item", {
+          onConfirm: handleVaccineEnter,
         }),
         cup: handleCupClick,
         mathCup: handleMathCupClick,
@@ -13946,7 +15590,7 @@
       let restoreFullscreenAfterEscape = false;
 
       function canExitFullscreenWithEscape() {
-        return state.mode === "menu" && currentMenuPage() === 0;
+        return state.mode === "menu" && state.menuHome;
       }
 
       async function lockFullscreenEscape() {
@@ -14083,7 +15727,10 @@
       function goHome() {
         stopTimer();
         state.answerLocked = false;
+        const previousPage = state.mode === "menu" && state.menuHome ? state.selected : currentMenuPage();
         state.mode = "menu";
+        state.menuHome = true;
+        state.selected = previousPage;
         render();
       }
 
