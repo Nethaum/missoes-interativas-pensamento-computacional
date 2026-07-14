@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.3.21
+Versão atual: 2.4.0
 
 ## Acesse
 
@@ -14,7 +14,7 @@ O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem 
 
 ## Objetivo
 
-Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
+Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, códigos, dispositivos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
 
 As atividades foram pensadas para uso direto em sala, com linguagem simples, pouco texto e interação por teclado, mouse ou toque conforme a missão.
 
@@ -53,6 +53,7 @@ Seleção de missões pensadas também para apresentações, feiras e aulas espe
 
 ## Novidades recentes
 
+- Novas missões Mensagem secreta e Entrada ou saída, ampliando o trabalho com códigos, símbolos e dispositivos de entrada/saída.
 - Copa da Matemática com dificuldade por faixa etária, placares mais claros, prorrogação, disputa de pênaltis, classificação de grupo e tela de eliminação.
 - Robô Coletor com portal, buraco de minhoca e novas situações de planejamento de caminho.
 - Menu reorganizado por categorias, com página inicial e botão de retorno ao início.
@@ -74,6 +75,8 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 - Copa das bandeiras: reconhecimento de países e bandeiras.
 - Setas e sequências: direção, sequência e leitura de instruções.
 - Padrões e regras: repetição, lógica visual e descoberta de regras.
+- Mensagem secreta: leitura de símbolos, códigos simples e associação de ideias.
+- Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
@@ -103,5 +106,3 @@ O material é gratuito para uso educacional. A área "Sobre" reúne informaçõe
 ## Créditos
 
 Criado por Prof. Amilcar Notari Neto.
-
-Com apoio de Claude e Codex em revisão, organização e evolução do material.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.3.21">
+  <meta name="app-version" content="2.4.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -3657,6 +3657,191 @@
       aspect-ratio: 3 / 2;
     }
 
+    .code-board {
+      width: min(720px, 100%);
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .code-legend {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      padding: 10px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .code-legend-item {
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      padding: 4px;
+    }
+
+    .code-legend-symbol {
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .code-legend-word {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--card-muted);
+      text-align: center;
+    }
+
+    .code-message {
+      display: flex;
+      gap: 14px;
+      padding: 16px 28px;
+      border: 5px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .code-symbol {
+      font-size: 52px;
+      line-height: 1;
+    }
+
+    .code-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .code-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 64px;
+      display: grid;
+      place-items: center;
+      padding: 10px 14px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 16px;
+      text-align: center;
+      text-shadow: none;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .code-option.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .code-option.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .code-option.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .code-options.locked .code-option:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
+    .device-board {
+      width: min(520px, 100%);
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .device-card {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      padding: 20px 30px;
+      border: 5px solid var(--line);
+      border-radius: 20px;
+      background: var(--white);
+      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .device-icon {
+      font-size: 64px;
+      line-height: 1;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .device-name {
+      font-size: 20px;
+      font-weight: 950;
+      color: var(--card-ink);
+      text-shadow: none;
+    }
+
+    .device-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .device-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 72px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 20px;
+      text-shadow: none;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .device-option.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .device-option.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .device-option.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .device-options.locked .device-option:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
     .flag-art {
       position: relative;
       display: grid;
@@ -5230,7 +5415,9 @@
     .legacy-locked .shape-card,
     .legacy-locked .option-card,
     .legacy-locked .answer-card,
-    .math-cup-challenge.locked .math-cup-answer {
+    .math-cup-challenge.locked .math-cup-answer,
+    .code-options.locked .code-option,
+    .device-options.locked .device-option {
       cursor: default;
     }
 
@@ -5460,7 +5647,9 @@
       .math-cup-break-action,
       .math-cup-goal-pause,
       .math-cup-player.pass-target,
-      .math-cup-cell.pass-target-cell {
+      .math-cup-cell.pass-target-cell,
+      .code-option,
+      .device-option {
         touch-action: manipulation;
       }
 
@@ -5660,6 +5849,37 @@
       .menu-home-count {
         font-size: 11px;
         padding: 3px 8px;
+      }
+
+      .code-legend {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .code-symbol {
+        font-size: 38px;
+      }
+
+      .code-message {
+        padding: 12px 18px;
+        gap: 10px;
+      }
+
+      .code-option {
+        min-height: 52px;
+        font-size: 14px;
+      }
+
+      .device-icon {
+        font-size: 48px;
+      }
+
+      .device-name {
+        font-size: 16px;
+      }
+
+      .device-option {
+        min-height: 60px;
+        font-size: 17px;
       }
 
       .menu-card.featured .menu-icon {
@@ -7017,7 +7237,7 @@
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
       const APP_CONFIG = Object.freeze({
-        version: document.querySelector('meta[name="app-version"]')?.content || "2.3.20",
+        version: document.querySelector('meta[name="app-version"]')?.content || "2.4.0",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
         contactEmailParts: ["amilcar.notari", "gmail.com"],
         timings: {
@@ -7058,6 +7278,8 @@
         { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos", featured: true },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
+        { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
+        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
       ];
 
       const missionCategories = [
@@ -7076,14 +7298,14 @@
         {
           title: "Comandos e movimentos",
           icon: "🕹️",
-          description: "Sequências de comandos para guiar personagens e robôs.",
-          missionIds: ["robot", "arrows"],
+          description: "Sequências de comandos, robótica e como nos comunicamos com o computador.",
+          missionIds: ["robot", "arrows", "devices"],
         },
         {
           title: "Lógica e matemática",
           icon: "🧮",
-          description: "Cálculo mental, padrões e leitura de dados para treinar o raciocínio.",
-          missionIds: ["patterns", "math", "data"],
+          description: "Cálculo mental, padrões, códigos e leitura de dados para treinar o raciocínio.",
+          missionIds: ["patterns", "math", "data", "code"],
         },
         {
           title: "Natureza",
@@ -8940,6 +9162,54 @@
         Xadrez: "♟️",
       };
 
+      const codeWords = [
+        { symbol: "🏠", word: "casa" },
+        { symbol: "🐶", word: "cachorro" },
+        { symbol: "☀️", word: "sol" },
+        { symbol: "💧", word: "água" },
+        { symbol: "🍎", word: "maçã" },
+        { symbol: "⭐", word: "estrela" },
+        { symbol: "🎵", word: "música" },
+        { symbol: "😊", word: "feliz" },
+      ];
+
+      const codeRounds = codeWords.flatMap((first, index) => [3, 5].map((offset) => {
+        const secondIndex = (index + offset) % codeWords.length;
+        const answer = [index, secondIndex];
+        const choices = [answer, ...[1, 2, 6].map((shift) => [
+          (index + shift) % codeWords.length,
+          (secondIndex + shift) % codeWords.length,
+        ])];
+        return {
+          symbols: [first.symbol, codeWords[secondIndex].symbol],
+          answer,
+          choices,
+        };
+      }));
+
+      function codeChoiceLabel([a, b]) {
+        const first = codeWords[a].word;
+        const second = codeWords[b].word;
+        return `${first.charAt(0).toUpperCase()}${first.slice(1)} e ${second}`;
+      }
+
+      const deviceItems = [
+        { icon: "🖱️", name: "Mouse", type: "entrada" },
+        { icon: "⌨️", name: "Teclado", type: "entrada" },
+        { icon: "🎤", name: "Microfone", type: "entrada" },
+        { icon: "📷", name: "Câmera", type: "entrada" },
+        { icon: "🕹️", name: "Controle de videogame", type: "entrada" },
+        { icon: "👆", name: "Tela de toque", type: "entrada" },
+        { icon: "🖥️", name: "Monitor", type: "saída" },
+        { icon: "🔊", name: "Caixa de som", type: "saída" },
+        { icon: "🎧", name: "Fone de ouvido", type: "saída" },
+        { icon: "🖨️", name: "Impressora", type: "saída" },
+        { icon: "📽️", name: "Projetor", type: "saída" },
+        { icon: "📺", name: "Televisão", type: "saída" },
+      ];
+
+      const deviceAnswerTypes = ["entrada", "saída"];
+
       const chartPalette = ["blue", "orange", "green", "purple"];
 
       const levelMissions = {
@@ -9379,6 +9649,12 @@
         habitatAttempt: 0,
         habitatChosenIndexes: [],
         habitatCorrect: false,
+        codeWrong: null,
+        codeAttempt: 0,
+        codeCorrectIndex: null,
+        devicesWrong: null,
+        devicesAttempt: 0,
+        devicesCorrectIndex: null,
         answerLocked: false,
         answerLockTimer: null,
         cycleChosen: [],
@@ -10092,6 +10368,8 @@
         cycle: cycles.map(cloneValue),
         vaccine: vaccineRounds.map(cloneValue),
         cup: cupRounds.map(cloneValue),
+        code: codeRounds.map(cloneValue),
+        devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
           complete: legacyPatternRounds.map(cloneValue),
@@ -10144,6 +10422,8 @@
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
         if (mode === "vaccine") resetRoundPool(vaccineRounds, roundPools.vaccine, seedForMode, { bandSize: 8 });
         if (mode === "cup") resetRoundPool(cupRounds, roundPools.cup, seedForMode, { free: true });
+        if (mode === "code") resetRoundPool(codeRounds, roundPools.code, seedForMode, { free: true });
+        if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
 
@@ -12057,6 +12337,24 @@
         });
       }
 
+      function codeOptions() {
+        const round = codeRounds[state.round];
+        return orderAnswerOptions(round.choices, {
+          seed: seedFromParts("code", state.missionSeed, state.round, round.answer.join("-")),
+          attempt: state.codeAttempt,
+          isCorrect: (choice) => choice[0] === round.answer[0] && choice[1] === round.answer[1],
+        });
+      }
+
+      function deviceOptions() {
+        const item = deviceItems[state.round];
+        return orderAnswerOptions(deviceAnswerTypes, {
+          seed: seedFromParts("devices", state.missionSeed, state.round, item.name),
+          attempt: state.devicesAttempt,
+          isCorrect: (type) => type === item.type,
+        });
+      }
+
       function renderCup() {
         const round = cupRounds[state.round];
         setHeader("Copa das bandeiras", state.cupPhase === "study" ? "Observe!" : "Qual é a bandeira?");
@@ -12088,6 +12386,48 @@
               </div>`).join("")}
             </div>
             ${state.answerLocked && !solved ? `<div class="cup-reminder">${flagArt(round.flag, "cup-reminder-flag")}<div data-fit-text data-fit-min="10">${round.country}</div></div>` : ""}
+          </div>
+        </div>`;
+      }
+
+      function renderCode() {
+        const round = codeRounds[state.round];
+        const options = codeOptions();
+        setHeader("Mensagem secreta", "Decifre o código.");
+        setCounters("Mensagem", `${state.round + 1} / ${codeRounds.length}`, "Acertos", state.score);
+        status.textContent = "Veja a chave e escolha o que a mensagem diz.";
+        content.innerHTML = `<div class="code-board">
+          <div class="code-legend">
+            ${codeWords.map((entry) => `<div class="code-legend-item"><span class="code-legend-symbol">${entry.symbol}</span><span class="code-legend-word" data-fit-text data-fit-min="8">${entry.word}</span></div>`).join("")}
+          </div>
+          <div class="code-message">
+            ${round.symbols.map((symbol) => `<span class="code-symbol">${symbol}</span>`).join("")}
+          </div>
+          <div class="code-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((choice, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="10">
+              ${codeChoiceLabel(choice)}
+              ${state.codeCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔐</span><span>🎉</span><span>✨</span><span>🔐</span></div>' : ""}
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function renderDevices() {
+        const item = deviceItems[state.round];
+        const options = deviceOptions();
+        setHeader("Entrada ou saída", "Como o computador troca informação?");
+        setCounters("Dispositivo", `${state.round + 1} / ${deviceItems.length}`, "Acertos", state.score);
+        status.textContent = "Esse dispositivo manda informação para o computador ou recebe informação dele?";
+        content.innerHTML = `<div class="device-board">
+          <div class="device-card ${state.devicesCorrectIndex !== null ? "fx-flash" : ""}">
+            <div class="device-icon">${item.icon}</div>
+            <div class="device-name" data-fit-text data-fit-min="12">${item.name}</div>
+          </div>
+          <div class="device-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((type, index) => `<div class="device-option ${index === state.selected ? "selected" : ""} ${state.devicesWrong === index ? "wrong" : ""} ${state.devicesCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="12">
+              ${type === "entrada" ? "📥 Entrada" : "📤 Saída"}
+              ${state.devicesCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🖥️</span><span>🎉</span><span>✨</span><span>🖥️</span></div>' : ""}
+            </div>`).join("")}
           </div>
         </div>`;
       }
@@ -13565,6 +13905,8 @@
         cycle: renderCycle,
         vaccine: renderVaccine,
         cup: renderCup,
+        code: renderCode,
+        devices: renderDevices,
         mathCup: renderMathCup,
       };
 
@@ -13699,6 +14041,12 @@
         state.cupAttempt = 0;
         state.cupWrong = null;
         state.cupCorrectIndex = null;
+        state.codeAttempt = 0;
+        state.codeWrong = null;
+        state.codeCorrectIndex = null;
+        state.devicesAttempt = 0;
+        state.devicesWrong = null;
+        state.devicesCorrectIndex = null;
         resetMathCupCampaignState({
           resetLevel: true,
           resetTeam: true,
@@ -14497,6 +14845,77 @@
         }, 600);
       }
 
+      function handleCodeEnter() {
+        if (!hasSelection()) return;
+        const round = codeRounds[state.round];
+        const choice = codeOptions()[state.selected];
+        const isCorrect = choice[0] === round.answer[0] && choice[1] === round.answer[1];
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Olhe a chave!",
+            guard: () => state.mode === "code",
+            onLock: () => { state.codeWrong = state.selected; },
+            onUnlock: () => { state.codeWrong = null; state.codeAttempt += 1; },
+          });
+          return;
+        }
+        state.codeWrong = null;
+        state.codeCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🔓 Decifrado!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "code") return;
+          state.codeCorrectIndex = null;
+          state.answerLocked = false;
+          state.codeAttempt = 0;
+          nextQuestion("code", codeRounds, "Códigos decifrados!");
+        }, 600);
+      }
+
+      function handleCodeClick(event) {
+        return activateChoiceClick(event, ".code-option", {
+          clearWrong: () => { state.codeWrong = null; },
+          onConfirm: handleCodeEnter,
+        });
+      }
+
+      function handleDevicesEnter() {
+        if (!hasSelection()) return;
+        const item = deviceItems[state.round];
+        const choice = deviceOptions()[state.selected];
+        if (choice !== item.type) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Pense de novo!",
+            guard: () => state.mode === "devices",
+            onLock: () => { state.devicesWrong = state.selected; },
+            onUnlock: () => { state.devicesWrong = null; state.devicesAttempt += 1; },
+          });
+          return;
+        }
+        state.devicesWrong = null;
+        state.devicesCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✅ Certo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "devices") return;
+          state.devicesCorrectIndex = null;
+          state.answerLocked = false;
+          state.devicesAttempt = 0;
+          nextQuestion("devices", deviceItems, "Dispositivos classificados!");
+        }, 600);
+      }
+
+      function handleDevicesClick(event) {
+        return activateChoiceClick(event, ".device-option", {
+          clearWrong: () => { state.devicesWrong = null; },
+          onConfirm: handleDevicesEnter,
+        });
+      }
+
       function startMathCupChallenge(type, context = {}) {
         stopMathCupChallengeClock();
         stopMathCupDecisionClock();
@@ -14928,6 +15347,8 @@
         cycle: handleCycleEnter,
         vaccine: handleVaccineEnter,
         cup: handleCupEnter,
+        code: handleCodeEnter,
+        devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
       };
 
@@ -15037,6 +15458,18 @@
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
+        } else if (state.mode === "code") {
+          const count = codeOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.codeWrong = null; },
+          });
+        } else if (state.mode === "devices") {
+          const count = deviceOptions().length;
+          moveSelectionIndex({ count, delta, afterMove: () => { state.devicesWrong = null; } });
         } else if (state.mode === "mathCup") {
           if (state.mathCupBreak?.kind === "eliminated") {
             moveSelectionIndex({ count: 2, delta, allowUnselected: false });
@@ -15325,6 +15758,8 @@
           onConfirm: handleVaccineEnter,
         }),
         cup: handleCupClick,
+        code: handleCodeClick,
+        devices: handleDevicesClick,
         mathCup: handleMathCupClick,
       };
 
@@ -15344,7 +15779,7 @@
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
