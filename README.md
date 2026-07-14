@@ -8,7 +8,9 @@ Versão atual: 2.4.0
 
 Página pública:
 
-https://nethaum.github.io/missoes-interativas-pensamento-computacional/missoes_interativas_pensamento_computacional.html
+https://nethaum.github.io/missoes-interativas-pensamento-computacional/
+
+O link antigo (com o nome do arquivo) continua funcionando e redireciona para o endereço acima.
 
 O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem instalação.
 
