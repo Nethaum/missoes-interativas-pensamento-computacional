@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.3.17
+Versão atual: 2.4.0
 
 ## Acesse
 
@@ -14,7 +14,7 @@ O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem 
 
 ## Objetivo
 
-Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
+Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, códigos, dispositivos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
 
 As atividades foram pensadas para uso direto em sala, com linguagem simples, pouco texto e interação por teclado, mouse ou toque conforme a missão.
 
@@ -43,13 +43,22 @@ Referências oficiais:
 
 O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência.
 
-## Projetos destaque
+## Destaques
 
-A **Copa da Matemática** combina futebol, estratégia, cálculo mental, tomada de decisão e probabilidade em uma campanha com seleções da Copa do Mundo.
+Seleção de missões pensadas também para apresentações, feiras e aulas especiais:
 
-A **Corrida contra o Aedes** trabalha saúde, ambiente e prevenção em formato de percurso interativo, com foco em reconhecer e eliminar pontos de água parada.
+- **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
+- **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
+- **Copa das bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
 
-Essas missões contam com visual mais elaborado e foram pensadas também para apresentações, feiras e aulas especiais.
+## Novidades recentes
+
+- Novas missões Mensagem secreta e Entrada ou saída, ampliando o trabalho com códigos, símbolos e dispositivos de entrada/saída.
+- Copa da Matemática com dificuldade por faixa etária, placares mais claros, prorrogação, disputa de pênaltis, classificação de grupo e tela de eliminação.
+- Robô Coletor com portal, buraco de minhoca e novas situações de planejamento de caminho.
+- Menu reorganizado por categorias, com página inicial e botão de retorno ao início.
+- Feedback visual de acerto e erro nas missões para facilitar o acompanhamento em sala.
+- Ajustes em Dados e Gráficos, contraste visual, navegação e uso em telas diferentes.
 
 ## Manutenção
 
@@ -59,15 +68,20 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
-- Robô Coletor: sequência de comandos e planejamento de caminho.
-- Matemática Colorida: cálculo mental com dificuldade progressiva.
-- Copa das Bandeiras: reconhecimento de países e bandeiras.
-- Setas e Comandos: direção, sequência e leitura de instruções.
-- Padrões e Regras: repetição, lógica visual e descoberta de regras.
+- Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
+- Caderneta de vacinação: organização e cuidado com a saúde.
+- Robô coletor: sequência de comandos e planejamento de caminho.
+- Matemática colorida: cálculo mental com dificuldade progressiva.
+- Copa das bandeiras: reconhecimento de países e bandeiras.
+- Setas e sequências: direção, sequência e leitura de instruções.
+- Padrões e regras: repetição, lógica visual e descoberta de regras.
+- Mensagem secreta: leitura de símbolos, códigos simples e associação de ideias.
+- Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
-- Habitats dos Animais: relação entre seres vivos e ambientes.
-- Ciclos da Natureza: ordenação de etapas de fenômenos naturais.
-- Dados e Gráficos: contagem, comparação e leitura de informações.
+- Habitats dos animais: relação entre seres vivos e ambientes.
+- Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
+- Ciclos da natureza: ordenação de etapas de fenômenos naturais.
+- Dados e gráficos: contagem, comparação e leitura de informações.
 
 ## Como usar em sala
 
@@ -88,5 +102,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 ## Uso educacional
 
 O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário e canais para comentários, sugestões e relatos de problemas.
+
+## Créditos
 
 Criado por Prof. Amilcar Notari Neto.
