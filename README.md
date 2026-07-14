@@ -47,9 +47,17 @@ O projeto foi pensado para desktop, notebook, painel interativo e celular. Em te
 
 Seleção de missões pensadas também para apresentações, feiras e aulas especiais:
 
-- **Copa da Matemática** — futebol, estratégia, cálculo mental e probabilidade em uma campanha com seleções da Copa do Mundo.
-- **Vertebrados e Invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
-- **Copa das Bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
+- **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
+- **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
+- **Copa das bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
+
+## Novidades recentes
+
+- Copa da Matemática com dificuldade por faixa etária, placares mais claros, prorrogação, disputa de pênaltis, classificação de grupo e tela de eliminação.
+- Robô Coletor com portal, buraco de minhoca e novas situações de planejamento de caminho.
+- Menu reorganizado por categorias, com página inicial e botão de retorno ao início.
+- Feedback visual de acerto e erro nas missões para facilitar o acompanhamento em sala.
+- Ajustes em Dados e Gráficos, contraste visual, navegação e uso em telas diferentes.
 
 ## Manutenção
 
@@ -59,18 +67,18 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
-- Coleta Seletiva: separação de resíduos e cuidado com o meio ambiente.
-- Caderneta de Vacinação: organização e cuidado com a saúde.
-- Robô Coletor: sequência de comandos e planejamento de caminho.
-- Matemática Colorida: cálculo mental com dificuldade progressiva.
-- Copa das Bandeiras: reconhecimento de países e bandeiras.
-- Setas e Sequências: direção, sequência e leitura de instruções.
-- Padrões e Regras: repetição, lógica visual e descoberta de regras.
+- Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
+- Caderneta de vacinação: organização e cuidado com a saúde.
+- Robô coletor: sequência de comandos e planejamento de caminho.
+- Matemática colorida: cálculo mental com dificuldade progressiva.
+- Copa das bandeiras: reconhecimento de países e bandeiras.
+- Setas e sequências: direção, sequência e leitura de instruções.
+- Padrões e regras: repetição, lógica visual e descoberta de regras.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
-- Habitats dos Animais: relação entre seres vivos e ambientes.
-- Vertebrados e Invertebrados: classificação de seres vivos com raio-x interativo.
-- Ciclos da Natureza: ordenação de etapas de fenômenos naturais.
-- Dados e Gráficos: contagem, comparação e leitura de informações.
+- Habitats dos animais: relação entre seres vivos e ambientes.
+- Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
+- Ciclos da natureza: ordenação de etapas de fenômenos naturais.
+- Dados e gráficos: contagem, comparação e leitura de informações.
 
 ## Como usar em sala
 
