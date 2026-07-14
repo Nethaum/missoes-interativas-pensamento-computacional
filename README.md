@@ -100,4 +100,8 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário e canais para comentários, sugestões e relatos de problemas.
 
+## Créditos
+
 Criado por Prof. Amilcar Notari Neto.
+
+Com apoio de Claude e Codex em revisão, organização e evolução do material.
