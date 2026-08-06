@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.4.0">
+  <meta name="app-version" content="2.4.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -8710,6 +8710,12 @@
         if (homeScore > awayScore) return level.code;
         if (awayScore > homeScore) return level.opponent.code;
 
+        const isPlayerMatch = level.code === state.mathCupTeamCode || level.opponent.code === state.mathCupTeamCode;
+        const shootoutWinner = isPlayerMatch ? state.mathCupShootout?.winner : null;
+        if (shootoutWinner) {
+          return shootoutWinner === "home" ? level.code : level.opponent.code;
+        }
+
         const random = seededRandom(seedFromParts("math-cup-tie", state.missionSeed, level.match));
         return random() < mathCupWinProbability(level, level.opponent)
           ? level.code
@@ -9171,27 +9177,76 @@
         { symbol: "⭐", word: "estrela" },
         { symbol: "🎵", word: "música" },
         { symbol: "😊", word: "feliz" },
+        { symbol: "🐱", word: "gato" },
+        { symbol: "🌙", word: "lua" },
+        { symbol: "📚", word: "livro" },
+        { symbol: "🎈", word: "balão" },
       ];
 
-      const codeRounds = codeWords.flatMap((first, index) => [3, 5].map((offset) => {
-        const secondIndex = (index + offset) % codeWords.length;
-        const answer = [index, secondIndex];
-        const choices = [answer, ...[1, 2, 6].map((shift) => [
-          (index + shift) % codeWords.length,
-          (secondIndex + shift) % codeWords.length,
-        ])];
-        return {
-          symbols: [first.symbol, codeWords[secondIndex].symbol],
-          answer,
-          choices,
-        };
-      }));
+      const codeLevelPlans = [
+        { title: "Primeiras palavras", icon: "🔡", age: "6-7 anos", theme: "Poucos símbolos", meta: "2 símbolos", wordCount: 6, messageLength: 2, roundCount: 14 },
+        { title: "Mensagens curtas", icon: "🔐", age: "7-8 anos", theme: "Decifre a dupla", meta: "2 símbolos", wordCount: 8, messageLength: 2, roundCount: 18 },
+        { title: "Mensagens compridas", icon: "📜", age: "8-9 anos", theme: "Três símbolos", meta: "3 símbolos", wordCount: 8, messageLength: 3, roundCount: 22 },
+        { title: "Código avançado", icon: "🧩", age: "9-10 anos", theme: "Mais palavras", meta: "3 símbolos", wordCount: 10, messageLength: 3, roundCount: 26 },
+        { title: "Mestre dos códigos", icon: "🕵️", age: "10+ anos", theme: "Vocabulário completo", meta: "3 símbolos", wordCount: 12, messageLength: 3, roundCount: 30 },
+      ];
 
-      function codeChoiceLabel([a, b]) {
-        const first = codeWords[a].word;
-        const second = codeWords[b].word;
-        return `${first.charAt(0).toUpperCase()}${first.slice(1)} e ${second}`;
+      function codeTuplePermutations(wordCount, messageLength) {
+        const results = [];
+        const used = new Array(wordCount).fill(false);
+        const current = [];
+        function backtrack() {
+          if (current.length === messageLength) {
+            results.push([...current]);
+            return;
+          }
+          for (let i = 0; i < wordCount; i += 1) {
+            if (used[i]) continue;
+            used[i] = true;
+            current.push(i);
+            backtrack();
+            current.pop();
+            used[i] = false;
+          }
+        }
+        backtrack();
+        return results;
       }
+
+      function generateCodeTuples(wordCount, messageLength, roundCount) {
+        const all = codeTuplePermutations(wordCount, messageLength);
+        const shuffled = seededShuffle(all, seedFromParts("code-tuples", wordCount, messageLength));
+        return shuffled.slice(0, roundCount);
+      }
+
+      function codeChoicesFor(answerTuple, wordCount) {
+        const shifts = [1, 2, 3];
+        const distractors = shifts.map((shift) => answerTuple.map((index) => (index + shift) % wordCount));
+        return [answerTuple, ...distractors];
+      }
+
+      function codeChoiceLabel(indexes, words) {
+        const labelWords = indexes.map((index) => words[index].word);
+        const capitalized = labelWords[0].charAt(0).toUpperCase() + labelWords[0].slice(1);
+        if (labelWords.length === 2) return `${capitalized} e ${labelWords[1]}`;
+        return `${capitalized}, ${labelWords.slice(1, -1).join(", ")} e ${labelWords[labelWords.length - 1]}`;
+      }
+
+      const codeLevels = codeLevelPlans.map((plan) => {
+        const words = codeWords.slice(0, plan.wordCount);
+        const tuples = generateCodeTuples(plan.wordCount, plan.messageLength, plan.roundCount);
+        const rounds = tuples.map((answer) => ({
+          symbols: answer.map((index) => words[index].symbol),
+          answer,
+          choices: codeChoicesFor(answer, plan.wordCount),
+        }));
+        return {
+          ...plan,
+          words,
+          preview: words.slice(0, 3).map((entry) => entry.symbol),
+          rounds,
+        };
+      });
 
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
@@ -9649,6 +9704,7 @@
         habitatAttempt: 0,
         habitatChosenIndexes: [],
         habitatCorrect: false,
+        codeLevel: null,
         codeWrong: null,
         codeAttempt: 0,
         codeCorrectIndex: null,
@@ -10368,7 +10424,7 @@
         cycle: cycles.map(cloneValue),
         vaccine: vaccineRounds.map(cloneValue),
         cup: cupRounds.map(cloneValue),
-        code: codeRounds.map(cloneValue),
+        code: codeLevels.map((level) => level.rounds.map(cloneValue)),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
@@ -10392,6 +10448,13 @@
           const source = roundPools.math[levelIndex];
           const bandSize = levelIndex >= 3 ? 6 : 10;
           resetRoundPool(level.rounds, source, seedFromParts(seed, "math", levelIndex), { bandSize });
+        });
+      }
+
+      function resetCodeRoundPools(seed) {
+        codeLevels.forEach((level, levelIndex) => {
+          const source = roundPools.code[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "code", levelIndex), { free: true });
         });
       }
 
@@ -10422,7 +10485,7 @@
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
         if (mode === "vaccine") resetRoundPool(vaccineRounds, roundPools.vaccine, seedForMode, { bandSize: 8 });
         if (mode === "cup") resetRoundPool(cupRounds, roundPools.cup, seedForMode, { free: true });
-        if (mode === "code") resetRoundPool(codeRounds, roundPools.code, seedForMode, { free: true });
+        if (mode === "code") resetCodeRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -11185,6 +11248,7 @@
       const missionAgeLevelSources = {
         mathCup: mathCupLevelPlans,
         math: mathLevels,
+        code: codeLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -12337,12 +12401,20 @@
         });
       }
 
+      function codeTupleEquals(a, b) {
+        return a.length === b.length && a.every((value, index) => value === b[index]);
+      }
+
+      function currentCodeRounds() {
+        return codeLevels[state.codeLevel].rounds;
+      }
+
       function codeOptions() {
-        const round = codeRounds[state.round];
+        const round = currentCodeRounds()[state.round];
         return orderAnswerOptions(round.choices, {
-          seed: seedFromParts("code", state.missionSeed, state.round, round.answer.join("-")),
+          seed: seedFromParts("code", state.missionSeed, state.codeLevel, state.round, round.answer.join("-")),
           attempt: state.codeAttempt,
-          isCorrect: (choice) => choice[0] === round.answer[0] && choice[1] === round.answer[1],
+          isCorrect: (choice) => codeTupleEquals(choice, round.answer),
         });
       }
 
@@ -12391,21 +12463,40 @@
       }
 
       function renderCode() {
-        const round = codeRounds[state.round];
+        if (state.codeLevel === null) {
+          setHeader("Mensagem secreta", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${codeLevels.length}`, "Fases", codeLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Trilhas de códigos e símbolos.";
+          content.innerHTML = levelSelectHtml(codeLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({
+              icon: level.icon,
+              title: level.title,
+              kicker: level.theme,
+              meta: level.meta,
+              preview: level.preview,
+            }),
+          });
+          return;
+        }
+
+        const level = codeLevels[state.codeLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
         const options = codeOptions();
-        setHeader("Mensagem secreta", "Decifre o código.");
-        setCounters("Mensagem", `${state.round + 1} / ${codeRounds.length}`, "Acertos", state.score);
+        setHeader("Mensagem secreta", `${level.title}: decifre o código.`);
+        setCounters("Mensagem", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
         status.textContent = "Veja a chave e escolha o que a mensagem diz.";
         content.innerHTML = `<div class="code-board">
           <div class="code-legend">
-            ${codeWords.map((entry) => `<div class="code-legend-item"><span class="code-legend-symbol">${entry.symbol}</span><span class="code-legend-word" data-fit-text data-fit-min="8">${entry.word}</span></div>`).join("")}
+            ${level.words.map((entry) => `<div class="code-legend-item"><span class="code-legend-symbol">${entry.symbol}</span><span class="code-legend-word" data-fit-text data-fit-min="8">${entry.word}</span></div>`).join("")}
           </div>
           <div class="code-message">
             ${round.symbols.map((symbol) => `<span class="code-symbol">${symbol}</span>`).join("")}
           </div>
           <div class="code-options ${state.answerLocked ? "locked" : ""}">
             ${options.map((choice, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="10">
-              ${codeChoiceLabel(choice)}
+              ${codeChoiceLabel(choice, level.words)}
               ${state.codeCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔐</span><span>🎉</span><span>✨</span><span>🔐</span></div>' : ""}
             </div>`).join("")}
           </div>
@@ -14041,6 +14132,7 @@
         state.cupAttempt = 0;
         state.cupWrong = null;
         state.cupCorrectIndex = null;
+        state.codeLevel = null;
         state.codeAttempt = 0;
         state.codeWrong = null;
         state.codeCorrectIndex = null;
@@ -14845,11 +14937,37 @@
         }, 600);
       }
 
+      function startCodeLevel() {
+        state.codeLevel = state.selected;
+        resetRoundState(-1);
+        state.codeAttempt = 0;
+        state.codeWrong = null;
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToCodeLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.codeLevel = null;
+        resetRoundState(0);
+        state.codeAttempt = 0;
+        state.codeWrong = null;
+        state.codeCorrectIndex = null;
+        render();
+      }
+
       function handleCodeEnter() {
+        if (state.codeLevel === null) {
+          startCodeLevel();
+          return;
+        }
         if (!hasSelection()) return;
-        const round = codeRounds[state.round];
+        const rounds = currentCodeRounds();
+        const round = rounds[state.round];
+        if (!round) return;
         const choice = codeOptions()[state.selected];
-        const isCorrect = choice[0] === round.answer[0] && choice[1] === round.answer[1];
+        const isCorrect = codeTupleEquals(choice, round.answer);
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -14869,12 +14987,25 @@
           if (state.mode !== "code") return;
           state.codeCorrectIndex = null;
           state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
           state.codeAttempt = 0;
-          nextQuestion("code", codeRounds, "Códigos decifrados!");
+          if (state.round >= rounds.length) {
+            complete("code", "Códigos decifrados!");
+            return;
+          }
+          render();
         }, 600);
       }
 
       function handleCodeClick(event) {
+        if (state.codeLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            handleCodeEnter();
+          });
+        }
         return activateChoiceClick(event, ".code-option", {
           clearWrong: () => { state.codeWrong = null; },
           onConfirm: handleCodeEnter,
@@ -15459,14 +15590,25 @@
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
         } else if (state.mode === "code") {
-          const count = codeOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.codeWrong = null; },
-          });
+          if (state.codeLevel === null) {
+            const count = codeLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = codeOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 2),
+              afterMove: () => { state.codeWrong = null; },
+            });
+          }
         } else if (state.mode === "devices") {
           const count = deviceOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.devicesWrong = null; } });
@@ -16199,6 +16341,10 @@
         }
         if (state.mode === "math" && state.mathLevel !== null) {
           backToMathLevels();
+          return;
+        }
+        if (state.mode === "code" && state.codeLevel !== null) {
+          backToCodeLevels();
           return;
         }
         if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
