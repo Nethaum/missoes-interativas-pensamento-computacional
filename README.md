@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
 
-Versão atual: 2.4.1
+Versão atual: 2.5.0
 
 ## Acesse
 
@@ -55,6 +55,9 @@ Seleção de missões pensadas também para apresentações, feiras e aulas espe
 
 ## Novidades recentes
 
+- Novas missões Desmistificador de Pixels, Caça ao Bug e Chef Cozinheiro, trazendo código binário, depuração de comandos e algoritmo de receitas.
+- Indicador de faixa etária durante o jogo, para o professor acompanhar a dificuldade em uso.
+- Detetive de Padrões (antes Padrões e regras) com novos desafios de sequência.
 - Novas missões Mensagem secreta e Entrada ou saída, ampliando o trabalho com códigos, símbolos e dispositivos de entrada/saída.
 - Copa da Matemática com dificuldade por faixa etária, placares mais claros, prorrogação, disputa de pênaltis, classificação de grupo e tela de eliminação.
 - Robô Coletor com portal, buraco de minhoca e novas situações de planejamento de caminho.
@@ -76,9 +79,12 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 - Matemática colorida: cálculo mental com dificuldade progressiva.
 - Copa das bandeiras: reconhecimento de países e bandeiras.
 - Setas e sequências: direção, sequência e leitura de instruções.
-- Padrões e regras: repetição, lógica visual e descoberta de regras.
+- Detetive de Padrões: repetição, lógica visual e descoberta de regras.
 - Mensagem secreta: leitura de símbolos, códigos simples e associação de ideias.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
+- Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
+- Caça ao Bug: depuração de comandos, encontrar o passo errado num caminho.
+- Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.

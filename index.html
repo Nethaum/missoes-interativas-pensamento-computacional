@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.4.1">
+  <meta name="app-version" content="2.5.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -184,6 +184,14 @@
       gap: 16px;
     }
 
+    .mission-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
     .mission {
       min-width: 0;
       font-size: clamp(25px, 3vw, 38px);
@@ -192,6 +200,27 @@
       font-family: var(--chalk-font);
       text-shadow: var(--chalk-shadow);
     }
+
+    .age-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 11px;
+      border-radius: 999px;
+      border: 3px solid rgba(255, 247, 214, 0.7);
+      background: var(--blue);
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 900;
+      font-family: var(--chalk-font);
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+
+    .age-badge.tone-0 { background: var(--blue); }
+    .age-badge.tone-1 { background: var(--green); }
+    .age-badge.tone-2 { background: var(--orange); }
+    .age-badge.tone-3 { background: var(--purple); }
+    .age-badge.tone-4 { background: var(--red); }
 
     .counters {
       display: flex;
@@ -733,6 +762,80 @@
       text-shadow: var(--chalk-shadow);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
       pointer-events: none;
+    }
+
+    .update-banner {
+      position: fixed;
+      top: calc(76px + var(--safe-top, 0px));
+      left: 50%;
+      z-index: 30;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+      max-width: min(460px, calc(100vw - 28px));
+      padding: 9px 10px 9px 16px;
+      border: 3px solid rgba(255, 247, 214, 0.86);
+      border-radius: 16px;
+      background: rgba(23, 63, 50, 0.97);
+      color: var(--white);
+      font-family: var(--read-font);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .update-banner-text {
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.15;
+      text-shadow: var(--chalk-shadow);
+    }
+
+    .update-banner-button {
+      flex-shrink: 0;
+      width: auto;
+      height: auto;
+      padding: 7px 12px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 10px;
+      background: var(--blue);
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .update-banner-dismiss {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 720px) {
+      .update-banner {
+        top: calc(58px + var(--safe-top, 0px));
+        max-width: calc(100vw - 20px);
+        padding: 8px 8px 8px 12px;
+      }
+
+      .update-banner-text {
+        font-size: 12px;
+      }
+
+      .update-banner-button {
+        padding: 6px 9px;
+        font-size: 12px;
+      }
     }
 
     .menu {
@@ -3761,6 +3864,221 @@
       transform: none;
     }
 
+    .pixel-board {
+      width: min(760px, 100%);
+      display: grid;
+      gap: 16px;
+      justify-items: center;
+    }
+
+    .pixel-code {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 18px;
+      border: 5px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .pixel-code-row {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .pixel-bit {
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      background: #eef1f6;
+      color: var(--card-muted);
+      font-size: 13px;
+      font-weight: 900;
+      font-family: var(--chalk-font);
+    }
+
+    .pixel-bit.on {
+      background: #2b2f3a;
+      color: var(--white);
+    }
+
+    .pixel-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pixel-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .pixel-option.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .pixel-option.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .pixel-option.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .pixel-options.locked .pixel-option:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
+    .pixel-grid {
+      display: grid;
+      gap: 2px;
+      width: min(148px, 32vw);
+      aspect-ratio: 1;
+    }
+
+    .pixel-cell {
+      border-radius: 2px;
+      background: #eef1f6;
+    }
+
+    .pixel-cell.on {
+      background: #2b2f3a;
+    }
+
+    .bug-board {
+      width: min(760px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .bug-grid {
+      display: grid;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .bug-cell {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(58px, var(--legacy-cell-fluid, 58px));
+      aspect-ratio: 1;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(160deg, #fff9e8, #eaf6ff 65%);
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .bug-goal {
+      font-size: clamp(20px, 4vw, 30px);
+      line-height: 1;
+      animation: legacy-star-twinkle 1.3s ease-in-out infinite;
+    }
+
+    .bug-robot {
+      position: absolute;
+      font-size: clamp(18px, 3.6vw, 26px);
+      line-height: 1;
+    }
+
+    .bug-step {
+      position: absolute;
+      bottom: 2px;
+      right: 3px;
+      min-width: 14px;
+      padding: 0 3px;
+      border-radius: 6px;
+      background: var(--purple);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .bug-chip-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .bug-chip {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      min-width: 58px;
+      padding: 8px 12px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .bug-chip-step {
+      font-size: 10px;
+      font-weight: 900;
+      color: var(--card-muted);
+    }
+
+    .bug-chip-arrow {
+      font-size: 30px;
+      line-height: 1;
+      color: var(--card-ink);
+    }
+
+    .bug-chip.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .bug-chip.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .bug-chip.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .bug-chip-row.locked .bug-chip:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
     .device-board {
       width: min(520px, 100%);
       display: grid;
@@ -4941,17 +5259,25 @@
     }
 
     .arrow-card {
-      border-color: rgba(255, 247, 214, 0.9);
-      background:
-        radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.15), transparent 34%),
-        #254238;
-      box-shadow: 0 7px 0 rgba(17, 29, 24, 0.72);
-      color: #ffe15d;
+      border-color: var(--line);
+      background: linear-gradient(160deg, #a9d4ff, var(--blue));
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.55);
+      color: var(--card-ink);
       font-size: clamp(54px, 7vw, 76px);
       line-height: 1;
-      text-shadow:
-        0 3px 0 #6d4307,
-        0 0 12px rgba(255, 225, 93, 0.45);
+      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.45);
+    }
+
+    .arrow-card:nth-child(2) {
+      background: linear-gradient(160deg, #d8c2ff, var(--purple));
+    }
+
+    .arrow-card:nth-child(3) {
+      background: linear-gradient(160deg, #a9f0e2, var(--teal));
+    }
+
+    .arrow-card:nth-child(4) {
+      background: linear-gradient(160deg, #ffc2e2, var(--pink));
     }
 
     .shape-card,
@@ -5198,7 +5524,7 @@
       aspect-ratio: 1;
       border: 4px solid var(--line);
       border-radius: 16px;
-      background: var(--white);
+      background: linear-gradient(160deg, #fff9e8, #eaf6ff 65%);
       box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
       overflow: hidden;
     }
@@ -5217,6 +5543,16 @@
       background: rgba(133, 84, 216, 0.3);
     }
 
+    @keyframes legacy-token-bounce {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-6px) rotate(2deg); }
+    }
+
+    @keyframes legacy-star-twinkle {
+      0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 transparent); }
+      50% { transform: scale(1.16) rotate(-6deg); filter: drop-shadow(0 0 10px rgba(255, 210, 63, 0.75)); }
+    }
+
     .legacy-robot-token {
       position: relative;
       z-index: 2;
@@ -5226,13 +5562,13 @@
       height: 68%;
       border: 4px solid #d8ecff;
       border-radius: 16px;
-      background: #2767d8;
+      background: linear-gradient(160deg, #4f95ff, #2767d8);
       color: var(--white);
       box-shadow: 0 4px 0 #143c88;
       font-size: clamp(22px, 3vw, 32px);
       font-weight: 950;
       line-height: 1;
-      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+      animation: legacy-token-bounce 1.1s ease-in-out infinite;
     }
 
     .star-token {
@@ -5242,16 +5578,9 @@
       place-items: center;
       width: clamp(48px, 6vw, 70px);
       height: clamp(48px, 6vw, 70px);
-      border: 4px solid #5f3a00;
       border-radius: 50%;
-      background: #3b2a12;
-      color: #ffd23f;
       font-size: clamp(34px, 5vw, 60px);
-      font-weight: 950;
-      -webkit-text-stroke: 2px #5f3a00;
-      text-shadow:
-        0 3px 0 #5f3a00,
-        0 0 14px rgba(255, 210, 63, 0.55);
+      animation: legacy-star-twinkle 1.3s ease-in-out infinite;
     }
 
     .analysis {
@@ -5723,6 +6052,16 @@
       .mission {
         font-size: clamp(19px, 6.5vw, 25px);
         text-align: center;
+      }
+
+      .mission-text {
+        justify-content: center;
+      }
+
+      .age-badge {
+        padding: 2px 9px;
+        border-width: 2px;
+        font-size: 11px;
       }
 
       .counters {
@@ -6369,6 +6708,12 @@
         font-size: clamp(13px, 2.4vw, 17px);
         line-height: 1.05;
         text-align: left;
+      }
+
+      .age-badge {
+        padding: 1px 8px;
+        border-width: 2px;
+        font-size: 10px;
       }
 
       .counter {
@@ -7111,7 +7456,10 @@
   <main class="stage">
     <section class="panel">
       <div class="mission-row">
-        <div id="mission" class="mission">Escolha uma missão.</div>
+        <div class="mission-text">
+          <div id="mission" class="mission">Escolha uma missão.</div>
+          <span id="ageBadge" class="age-badge" hidden></span>
+        </div>
         <div class="counters">
           <div class="counter">
             <div id="leftLabel" class="counter-label">Missão</div>
@@ -7130,6 +7478,12 @@
   </main>
 
   <div id="mobileNotice" class="mobile-notice" hidden>📱 Vire o celular para jogar melhor.</div>
+
+  <div id="updateBanner" class="update-banner" hidden>
+    <span class="update-banner-text">🔄 Nova versão disponível.</span>
+    <button id="updateBannerButton" class="update-banner-button" type="button">Atualizar</button>
+    <button id="updateBannerDismiss" class="update-banner-dismiss" type="button" aria-label="Fechar aviso">✕</button>
+  </div>
 
   <footer class="footer">
     <div class="footer-info">
@@ -7205,6 +7559,7 @@
     (() => {
       const title = document.getElementById("title");
       const mission = document.getElementById("mission");
+      const ageBadge = document.getElementById("ageBadge");
       const content = document.getElementById("content");
       const leftLabel = document.getElementById("leftLabel");
       const leftValue = document.getElementById("leftValue");
@@ -7236,6 +7591,9 @@
       const feedbackNotice = document.getElementById("feedbackNotice");
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
+      const updateBanner = document.getElementById("updateBanner");
+      const updateBannerButton = document.getElementById("updateBannerButton");
+      const updateBannerDismiss = document.getElementById("updateBannerDismiss");
       const APP_CONFIG = Object.freeze({
         version: document.querySelector('meta[name="app-version"]')?.content || "2.4.0",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
@@ -7272,7 +7630,7 @@
         { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "cup", icon: "⚽", title: "Copa das bandeiras", subject: "Bandeiras dos países", ageRange: "6 a 10+ anos", featured: true },
         { id: "arrows", icon: "🧭", title: "Setas e sequências", subject: "Direção e sequência", ageRange: "6 a 10+ anos" },
-        { id: "patterns", icon: "🔷", title: "Padrões e regras", subject: "Padrões" },
+        { id: "patterns", icon: "🔷", title: "Detetive de Padrões", subject: "Padrões" },
         { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito", ageRange: "6 a 10+ anos" },
         { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
         { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos", featured: true },
@@ -7280,6 +7638,9 @@
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
         { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
         { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
+        { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
+        { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
+        { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
       ];
 
       const missionCategories = [
@@ -7290,28 +7651,28 @@
           missionIds: ["mathCup", "vertebrate", "cup"],
         },
         {
-          title: "Cidadania e saúde",
-          icon: "🩺",
-          description: "Saúde, meio ambiente, prevenção e segurança no dia a dia.",
-          missionIds: ["recycle", "vaccine", "dengue", "logic"],
+          title: "Sequência e algoritmos",
+          icon: "🔁",
+          description: "Planejar, ordenar e corrigir passos: a base de todo algoritmo.",
+          missionIds: ["robot", "arrows", "chef", "cycle", "vaccine", "bug"],
         },
         {
-          title: "Comandos e movimentos",
-          icon: "🕹️",
-          description: "Sequências de comandos, robótica e como nos comunicamos com o computador.",
-          missionIds: ["robot", "arrows", "devices"],
+          title: "Padrões, códigos e dados",
+          icon: "🧠",
+          description: "Reconhecer padrões, decodificar símbolos e ler dados e imagens.",
+          missionIds: ["patterns", "code", "pixels", "data"],
         },
         {
-          title: "Lógica e matemática",
-          icon: "🧮",
-          description: "Cálculo mental, padrões, códigos e leitura de dados para treinar o raciocínio.",
-          missionIds: ["patterns", "math", "data", "code"],
+          title: "Classificação e organização",
+          icon: "🗂️",
+          description: "Separar, agrupar e organizar itens pelas suas características.",
+          missionIds: ["recycle", "devices", "habitat"],
         },
         {
-          title: "Natureza",
-          icon: "🌱",
-          description: "Observação da natureza: habitats e ciclos dos seres vivos.",
-          missionIds: ["habitat", "cycle"],
+          title: "Lógica e decisão",
+          icon: "💡",
+          description: "Calcular, avaliar situações e escolher a melhor decisão.",
+          missionIds: ["dengue", "logic", "math"],
         },
       ];
 
@@ -7970,6 +8331,27 @@
         return {
           name: cycle.name,
           steps: cycle.steps.map((step) => ({ ...step })),
+        };
+      });
+
+      const chefBaseRecipes = [
+        { name: "Suco de laranja", steps: [{ icon: "🍊", label: "cortar as laranjas" }, { icon: "🥤", label: "espremer o suco" }, { icon: "🧊", label: "servir com gelo" }] },
+        { name: "Sanduíche", steps: [{ icon: "🍞", label: "abrir o pão" }, { icon: "🧈", label: "passar manteiga" }, { icon: "🧀", label: "colocar o queijo" }, { icon: "🥪", label: "fechar o pão" }] },
+        { name: "Salada de frutas", steps: [{ icon: "🍎", label: "lavar as frutas" }, { icon: "🔪", label: "cortar em pedaços" }, { icon: "🥣", label: "colocar na tigela" }, { icon: "🍯", label: "regar com mel" }] },
+        { name: "Pipoca", steps: [{ icon: "🌽", label: "colocar o milho na panela" }, { icon: "🔥", label: "esquentar no fogo" }, { icon: "💥", label: "esperar estourar" }, { icon: "🧂", label: "salgar" }] },
+        { name: "Vitamina de banana", steps: [{ icon: "🍌", label: "descascar a banana" }, { icon: "🥛", label: "colocar o leite" }, { icon: "🌀", label: "bater no liquidificador" }, { icon: "🥤", label: "servir gelado" }] },
+        { name: "Bolo simples", steps: [{ icon: "🥚", label: "misturar os ovos" }, { icon: "🌾", label: "acrescentar a farinha" }, { icon: "🥣", label: "bater a massa" }, { icon: "🔥", label: "assar no forno" }, { icon: "🎂", label: "decorar o bolo" }] },
+        { name: "Pizza rápida", steps: [{ icon: "🫓", label: "esticar a massa" }, { icon: "🍅", label: "espalhar o molho" }, { icon: "🧀", label: "colocar o queijo" }, { icon: "🔥", label: "assar no forno" }, { icon: "🍕", label: "fatiar e servir" }] },
+        { name: "Café da manhã", steps: [{ icon: "🍳", label: "fritar o ovo" }, { icon: "🍞", label: "torrar o pão" }, { icon: "🧈", label: "passar manteiga" }, { icon: "🥛", label: "servir o leite" }, { icon: "🍽️", label: "montar o prato" }] },
+        { name: "Macarrão", steps: [{ icon: "💧", label: "ferver a água" }, { icon: "🍝", label: "colocar o macarrão" }, { icon: "⏱️", label: "esperar cozinhar" }, { icon: "🚿", label: "escorrer a água" }, { icon: "🍅", label: "misturar o molho" }, { icon: "🍽️", label: "servir quente" }] },
+        { name: "Sorvete caseiro", steps: [{ icon: "🍓", label: "escolher a fruta" }, { icon: "🌀", label: "bater no liquidificador" }, { icon: "🥛", label: "acrescentar o leite" }, { icon: "❄️", label: "colocar no congelador" }, { icon: "⏱️", label: "esperar gelar" }, { icon: "🍨", label: "servir na tacinha" }] },
+      ];
+
+      const chefRecipes = Array.from({ length: 24 }, (_, index) => {
+        const recipe = chefBaseRecipes[index % chefBaseRecipes.length];
+        return {
+          name: recipe.name,
+          steps: recipe.steps.map((step) => ({ ...step })),
         };
       });
 
@@ -9248,6 +9630,156 @@
         };
       });
 
+      const pixelLevelPlans = [
+        { title: "Primeiros pixels", icon: "🧩", age: "6-7 anos", theme: "Grade pequena", meta: "4x4", size: 4, roundCount: 18 },
+        { title: "Desenhos simples", icon: "🖍️", age: "7-8 anos", theme: "Mais formas em 4x4", meta: "4x4", size: 4, roundCount: 18 },
+        { title: "Códigos maiores", icon: "🔢", age: "8-9 anos", theme: "Grade 5x5", meta: "5x5", size: 5, roundCount: 18 },
+        { title: "Desenhos detalhados", icon: "🎨", age: "9-10 anos", theme: "Mais formas em 5x5", meta: "5x5", size: 5, roundCount: 18 },
+        { title: "Mestre dos pixels", icon: "🖥️", age: "10+ anos", theme: "Grade 6x6", meta: "6x6", size: 6, roundCount: 18 },
+      ];
+
+      const pixelShapesByTier = [
+        [
+          { name: "diagonal", grid: ["1000", "0100", "0010", "0001"] },
+          { name: "moldura", grid: ["1111", "1001", "1001", "1111"] },
+          { name: "coluna", grid: ["0110", "0110", "0110", "0110"] },
+          { name: "triangulo", grid: ["0001", "0011", "0111", "1111"] },
+          { name: "seta-cima", grid: ["0110", "0110", "1111", "0110"] },
+          { name: "xis", grid: ["1001", "0110", "0110", "1001"] },
+        ],
+        [
+          { name: "quadrado-centro", grid: ["0000", "0110", "0110", "0000"] },
+          { name: "colunas-laterais", grid: ["1001", "1001", "1001", "1001"] },
+          { name: "escada", grid: ["1000", "1100", "1110", "1111"] },
+          { name: "losango", grid: ["0110", "1001", "1001", "0110"] },
+          { name: "letra-l", grid: ["1000", "1000", "1000", "1111"] },
+          { name: "seta-baixo", grid: ["0110", "0110", "1111", "0110"].slice().reverse() },
+        ],
+        [
+          { name: "moldura-5", grid: ["11111", "10001", "10001", "10001", "11111"] },
+          { name: "cruz-5", grid: ["00100", "00100", "11111", "00100", "00100"] },
+          { name: "xis-5", grid: ["10001", "01010", "00100", "01010", "10001"] },
+          { name: "triangulo-5", grid: ["00100", "00100", "01110", "01110", "11111"] },
+          { name: "seta-direita-5", grid: ["00100", "00110", "11111", "00110", "00100"] },
+          { name: "diamante-5", grid: ["00100", "01010", "10001", "01010", "00100"] },
+        ],
+        [
+          { name: "coracao-5", grid: ["01010", "11111", "11111", "01110", "00100"] },
+          { name: "casa-5", grid: ["00100", "01110", "11111", "10001", "11111"] },
+          { name: "seta-cima-5", grid: ["00100", "01110", "10101", "00100", "00100"] },
+          { name: "anel-5", grid: ["11111", "10001", "10101", "10001", "11111"] },
+          { name: "escada-5", grid: ["11000", "01100", "00110", "00011", "00001"] },
+          { name: "ampulheta-5", grid: ["11111", "01110", "00100", "01110", "11111"] },
+        ],
+        [
+          { name: "moldura-6", grid: ["111111", "100001", "100001", "100001", "100001", "111111"] },
+          { name: "cruz-6", grid: ["001100", "001100", "111111", "111111", "001100", "001100"] },
+          { name: "xis-6", grid: ["100001", "010010", "001100", "001100", "010010", "100001"] },
+          { name: "seta-cima-6", grid: ["001100", "011110", "110011", "001100", "001100", "001100"] },
+          { name: "bolha-6", grid: ["000000", "001100", "011110", "011110", "001100", "000000"] },
+          { name: "escada-6", grid: ["100000", "110000", "111000", "111100", "111110", "111111"] },
+        ],
+      ];
+
+      function pixelChoicesFor(answerIndex, shapeCount) {
+        const shifts = [1, 2, 3];
+        return [answerIndex, ...shifts.map((shift) => (answerIndex + shift) % shapeCount)];
+      }
+
+      function pixelGridEquals(a, b) {
+        return a.length === b.length && a.every((row, index) => row === b[index]);
+      }
+
+      const pixelLevels = pixelLevelPlans.map((plan, tierIndex) => {
+        const shapes = pixelShapesByTier[tierIndex];
+        const baseRounds = shapes.map((shape, index) => ({
+          code: shape.grid,
+          options: pixelChoicesFor(index, shapes.length),
+          answer: 0,
+        }));
+        const rounds = expandOptionRounds(baseRounds, plan.roundCount).map((round) => ({
+          code: round.code,
+          answer: round.answer,
+          optionGrids: round.options.map((shapeIndex) => shapes[shapeIndex].grid),
+        }));
+        return {
+          ...plan,
+          preview: shapes[0].grid[0].split("").map((bit) => (bit === "1" ? "⬛" : "⬜")),
+          rounds,
+        };
+      });
+
+      const bugLevelPlans = [
+        { title: "Primeiros passos", icon: "🐞", age: "6-7 anos", theme: "Grade 3x3", meta: "3 comandos", cols: 3, rows: 3, length: 3, roundCount: 16 },
+        { title: "Mais comandos", icon: "🔍", age: "7-8 anos", theme: "Grade 3x3", meta: "4 comandos", cols: 3, rows: 3, length: 4, roundCount: 16 },
+        { title: "Caminhos maiores", icon: "🛠️", age: "8-9 anos", theme: "Grade 4x4", meta: "5 comandos", cols: 4, rows: 4, length: 5, roundCount: 16 },
+        { title: "Depuração esperta", icon: "🧠", age: "9-10 anos", theme: "Grade 4x4", meta: "6 comandos", cols: 4, rows: 4, length: 6, roundCount: 16 },
+        { title: "Mestre da depuração", icon: "🕵️", age: "10+ anos", theme: "Grade 5x5", meta: "7 comandos", cols: 5, rows: 5, length: 7, roundCount: 16 },
+      ];
+
+      const bugMoveVectors = {
+        ArrowUp: [0, -1],
+        ArrowDown: [0, 1],
+        ArrowLeft: [-1, 0],
+        ArrowRight: [1, 0],
+      };
+
+      const bugDirectionKeys = Object.keys(bugMoveVectors);
+
+      function generateBugCorrectMoves(length, cols, rows, seed) {
+        const random = seededRandom(seedFromParts("bug-path", seed));
+        const maxRight = Math.min(cols - 1, length - 1);
+        const minRight = Math.max(1, length - (rows - 1));
+        const rightCount = minRight + Math.floor(random() * (maxRight - minRight + 1));
+        const downCount = length - rightCount;
+        const moves = [];
+        for (let i = 0; i < rightCount; i += 1) moves.push("ArrowRight");
+        for (let i = 0; i < downCount; i += 1) moves.push("ArrowDown");
+        return shuffle(moves, seedFromParts("bug-shuffle", seed));
+      }
+
+      function bugSimulatePath(start, sequence, cols, rows) {
+        const trail = [start];
+        let [x, y] = start;
+        sequence.forEach((key) => {
+          const [dx, dy] = bugMoveVectors[key];
+          x = Math.max(0, Math.min(cols - 1, x + dx));
+          y = Math.max(0, Math.min(rows - 1, y + dy));
+          trail.push([x, y]);
+        });
+        return trail;
+      }
+
+      function generateBugRound(plan, seed) {
+        const correctMoves = generateBugCorrectMoves(plan.length, plan.cols, plan.rows, seed);
+        const goal = bugSimulatePath([0, 0], correctMoves, plan.cols, plan.rows).pop();
+        const indexRandom = seededRandom(seedFromParts("bug-index", seed));
+        const bugIndex = Math.floor(indexRandom() * plan.length);
+        const altRandom = seededRandom(seedFromParts("bug-alt", seed));
+        const alternatives = bugDirectionKeys.filter((key) => key !== correctMoves[bugIndex]);
+        const wrongDirection = alternatives[Math.floor(altRandom() * alternatives.length)];
+        const sequence = correctMoves.map((move, index) => (index === bugIndex ? wrongDirection : move));
+        const trail = bugSimulatePath([0, 0], sequence, plan.cols, plan.rows);
+        return {
+          start: [0, 0],
+          goal,
+          sequence,
+          trail,
+          answer: bugIndex,
+        };
+      }
+
+      const bugLevels = bugLevelPlans.map((plan, tierIndex) => {
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
+          generateBugRound(plan, seedFromParts("bug-round", tierIndex, index))
+        );
+        return {
+          ...plan,
+          preview: ["🐞", "🤖", "🏁"],
+          rounds,
+        };
+      });
+
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
         { icon: "⌨️", name: "Teclado", type: "entrada" },
@@ -9270,7 +9802,7 @@
       const levelMissions = {
         patterns: {
           icon: "🔷",
-          title: "Padrões e regras",
+          title: "Detetive de Padrões",
           levels: [
             { id: "patterns-1", activity: "complete", icon: "🔁", title: "Trilha curta", age: "6-7 anos", description: "Continue o padrão.", preview: ["🔴", "🔵", "?"] },
             { id: "patterns-2", activity: "complete", icon: "🧱", title: "Trilha esperta", age: "7-8 anos", description: "Observe e complete.", preview: ["▲", "■", "?"] },
@@ -9376,6 +9908,18 @@
           answer: 2,
           text: "Estrela, bola, estrela, bola, estrela...",
         },
+        {
+          sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }],
+          options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐸", color: "green" }],
+          answer: 0,
+          text: "Cachorro late, gato mia, cachorro late, gato mia...",
+        },
+        {
+          sequence: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }, { label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }],
+          options: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐷", color: "pink" }, { label: "🐑", color: "purple" }],
+          answer: 0,
+          text: "Galo canta, vaca muge, vaca muge, galo canta...",
+        },
       ];
 
       let legacyIntruderRounds = [
@@ -9394,6 +9938,7 @@
         { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }], options: ["Muda cor", "Pequeno e grande", "Sempre grande", "Sempre pequeno"], answer: 1, why: "A cor não muda; o tamanho alterna." },
         { sequence: legacyPatternRounds[4].sequence, options: ["A, B, B", "A, A, B", "Só B", "A, B, C"], answer: 0, why: "O grupo repetido é A, B, B." },
         { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: ["Uma bola", "Duas bolas e duas estrelas", "Duas estrelas e uma bola", "Só estrelas"], answer: 1, why: "A regra forma pares." },
+        { sequence: legacyPatternRounds[6].sequence, options: ["Cachorro e gato", "Só gato", "Dois cachorros", "Muda todo dia"], answer: 0, why: "A regra é cachorro, gato e repetir." },
       ];
 
       const dataChartThemes = [
@@ -9708,6 +10253,20 @@
         codeWrong: null,
         codeAttempt: 0,
         codeCorrectIndex: null,
+        pixelLevel: null,
+        pixelWrong: null,
+        pixelAttempt: 0,
+        pixelCorrectIndex: null,
+        bugLevel: null,
+        bugWrong: null,
+        bugAttempt: 0,
+        bugCorrectIndex: null,
+        chefChosen: [],
+        chefShuffled: [],
+        chefAttempt: 0,
+        chefWrong: null,
+        chefCorrectIndex: null,
+        chefJustFilledSlot: null,
         devicesWrong: null,
         devicesAttempt: 0,
         devicesCorrectIndex: null,
@@ -10425,6 +10984,9 @@
         vaccine: vaccineRounds.map(cloneValue),
         cup: cupRounds.map(cloneValue),
         code: codeLevels.map((level) => level.rounds.map(cloneValue)),
+        pixels: pixelLevels.map((level) => level.rounds.map(cloneValue)),
+        bug: bugLevels.map((level) => level.rounds.map(cloneValue)),
+        chef: chefRecipes.map(cloneValue),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
@@ -10458,6 +11020,20 @@
         });
       }
 
+      function resetPixelRoundPools(seed) {
+        pixelLevels.forEach((level, levelIndex) => {
+          const source = roundPools.pixels[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "pixels", levelIndex), { free: true });
+        });
+      }
+
+      function resetBugRoundPools(seed) {
+        bugLevels.forEach((level, levelIndex) => {
+          const source = roundPools.bug[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "bug", levelIndex), { free: true });
+        });
+      }
+
       function resetLegacyRoundPool(activity, seed) {
         const source = roundPools.legacy[activity];
         if (!source) return;
@@ -10484,8 +11060,11 @@
         if (mode === "habitat") resetRoundPool(habitatItems, roundPools.habitat, seedForMode, { bandSize: 8 });
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
         if (mode === "vaccine") resetRoundPool(vaccineRounds, roundPools.vaccine, seedForMode, { bandSize: 8 });
+        if (mode === "chef") resetRoundPool(chefRecipes, roundPools.chef, seedForMode, { bandSize: 8 });
         if (mode === "cup") resetRoundPool(cupRounds, roundPools.cup, seedForMode, { free: true });
         if (mode === "code") resetCodeRoundPools(seedForMode);
+        if (mode === "pixels") resetPixelRoundPools(seedForMode);
+        if (mode === "bug") resetBugRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -11000,7 +11579,7 @@
 
         if (round.type === "echo") {
           content.innerHTML = `<div class="echo-board ${state.legacyCorrect ? "fx-flash" : ""}">
-            <div class="echo-robot">☺</div>
+            <div class="echo-robot">🤖</div>
             <div class="command-display">
               ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress || state.legacyCorrect ? "done" : ""} ${index === state.legacyEchoProgress && !state.legacyCorrect ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
             </div>
@@ -11017,8 +11596,8 @@
             const isRobot = round.robot[0] === x && round.robot[1] === y;
             const isGoal = round.goal[0] === x && round.goal[1] === y;
             cells.push(`<div class="legacy-robot-cell">
-              ${isGoal ? '<div class="star-token">★</div>' : ""}
-              ${isRobot ? '<div class="legacy-robot-token">☺</div>' : ""}
+              ${isGoal ? '<div class="star-token">⭐</div>' : ""}
+              ${isRobot ? '<div class="legacy-robot-token">🤖</div>' : ""}
             </div>`);
           }
         }
@@ -11249,6 +11828,8 @@
         mathCup: mathCupLevelPlans,
         math: mathLevels,
         code: codeLevels,
+        pixels: pixelLevels,
+        bug: bugLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -12123,6 +12704,59 @@
         </div>`;
       }
 
+      function currentChefRecipe() {
+        return chefRecipes[state.round];
+      }
+
+      function remainingChefSteps(recipe = currentChefRecipe()) {
+        return recipe.steps.filter((step) => !state.chefChosen.includes(step));
+      }
+
+      function chefOrder(steps) {
+        let ordered = orderAnswerOptions(steps, {
+          seed: seedFromParts("chef", state.missionSeed, state.round, state.chefChosen.length),
+          attempt: state.chefAttempt,
+          isCorrect: (step) => step === steps[0],
+        });
+        if (ordered.length > 1 && matchesOrder(ordered, steps)) ordered = rotateByAttempt(ordered, 1);
+        return ordered;
+      }
+
+      function refreshChefChoices() {
+        state.chefShuffled = chefOrder(remainingChefSteps());
+      }
+
+      function chefSlotPromptHtml(index) {
+        const isNext = index === state.chefChosen.length;
+        return `<div class="cycle-slot-prompt">
+          <div class="cycle-slot-symbol">${isNext ? "✨" : "🔎"}</div>
+          <div class="cycle-slot-text">${isNext ? "agora" : "depois"}</div>
+        </div>`;
+      }
+
+      function renderChef() {
+        const recipe = currentChefRecipe();
+        const available = state.chefShuffled;
+        state.selected = Math.min(state.selected, Math.max(0, available.length - 1));
+        setHeader("Chef Cozinheiro", recipe.name);
+        setCounters("Receita", `${state.round + 1} / ${chefRecipes.length}`, "Passos", `${state.chefChosen.length} / ${recipe.steps.length}`);
+        status.textContent = state.answerLocked ? "Observe a ordem." : state.chefChosen.length ? "Qual é o próximo passo?" : "Qual é o primeiro passo?";
+        content.innerHTML = `<div class="cycle-board">
+          <div class="cycle-slots">
+            ${recipe.steps.map((_, index) => {
+              const chosen = state.chefChosen[index];
+              const justPlaced = index === state.chefJustFilledSlot ? " placed" : "";
+              const slotClass = chosen ? `filled${justPlaced}` : index === state.chefChosen.length ? "empty next" : "empty";
+              return `<div class="cycle-slot ${slotClass}">${chosen ? cycleStepHtml(chosen) : chefSlotPromptHtml(index)}</div>`;
+            }).join("")}
+          </div>
+          <div class="cycle-items ${state.answerLocked ? "locked" : ""}">
+            ${available.map((item, index) => `<div class="cycle-item ${index === state.selected ? "selected" : ""} ${state.chefWrong === index ? "wrong" : ""} ${state.chefCorrectIndex === index ? "correct" : ""}">${cycleStepHtml(item)}</div>`).join("")}
+          </div>
+          ${state.answerLocked && state.chefCorrectIndex === null ? pauseOverlay() : ""}
+        </div>`;
+      }
+
       const flagSvgs = {
               "ca": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1200\" height=\"600\" viewBox=\"0 0 9600 4800\"><path fill=\"red\" d=\"M0 0h2400l99 99h4602l99-99h2400v4800H7200l-99-99H2499l-99 99H0z\"/><path fill=\"#fff\" d=\"M2400 0h4800v4800H2400zm2490 4430-45-863a95 95 0 0 1 111-98l859 151-116-320a65 65 0 0 1 20-73l941-762-212-99a65 65 0 0 1-34-79l186-572-542 115a65 65 0 0 1-73-38l-105-247-423 454a65 65 0 0 1-111-57l204-1052-327 189a65 65 0 0 1-91-27l-332-652-332 652a65 65 0 0 1-91 27l-327-189 204 1052a65 65 0 0 1-111 57l-423-454-105 247a65 65 0 0 1-73 38l-542-115 186 572a65 65 0 0 1-34 79l-212 99 941 762a65 65 0 0 1 20 73l-116 320 859-151a95 95 0 0 1 111 98l-45 863z\"/></svg>",
               "us": "<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"1235\" height=\"650\" viewBox=\"0 0 7410 3900\"><path fill=\"#b31942\" d=\"M0 0h7410v3900H0\"/><path stroke=\"#FFF\" stroke-width=\"300\" d=\"M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0\"/><path fill=\"#0a3161\" d=\"M0 0h2964v2100H0\"/><g fill=\"#FFF\"><g id=\"d\"><g id=\"c\"><g id=\"e\"><g id=\"b\"><path id=\"a\" d=\"m247 90 70.534 217.082-184.66-134.164h228.253L176.466 307.082z\"/><use xlink:href=\"#a\" y=\"420\"/><use xlink:href=\"#a\" y=\"840\"/><use xlink:href=\"#a\" y=\"1260\"/></g><use xlink:href=\"#a\" y=\"1680\"/></g><use xlink:href=\"#b\" x=\"247\" y=\"210\"/></g><use xlink:href=\"#c\" x=\"494\"/></g><use xlink:href=\"#d\" x=\"988\"/><use xlink:href=\"#c\" x=\"1976\"/><use xlink:href=\"#e\" x=\"2470\"/></g></svg>",
@@ -12498,6 +13132,126 @@
             ${options.map((choice, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="10">
               ${codeChoiceLabel(choice, level.words)}
               ${state.codeCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔐</span><span>🎉</span><span>✨</span><span>🔐</span></div>' : ""}
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function currentPixelRounds() {
+        return pixelLevels[state.pixelLevel].rounds;
+      }
+
+      function pixelOptions() {
+        const round = currentPixelRounds()[state.round];
+        return orderAnswerOptions(round.optionGrids, {
+          seed: seedFromParts("pixels", state.missionSeed, state.pixelLevel, state.round, round.code.join("-")),
+          attempt: state.pixelAttempt,
+          isCorrect: (grid) => pixelGridEquals(grid, round.optionGrids[round.answer]),
+        });
+      }
+
+      function pixelGridHtml(grid, size, extraClass = "") {
+        const cells = grid.map((row) => row.split("").map((bit) => `<div class="pixel-cell ${bit === "1" ? "on" : ""}"></div>`).join("")).join("");
+        return `<div class="pixel-grid ${extraClass}" style="grid-template-columns: repeat(${size}, 1fr)">${cells}</div>`;
+      }
+
+      function renderPixels() {
+        if (state.pixelLevel === null) {
+          setHeader("Desmistificador de Pixels", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${pixelLevels.length}`, "Fases", pixelLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Trilhas de código binário e imagens.";
+          content.innerHTML = levelSelectHtml(pixelLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({
+              icon: level.icon,
+              title: level.title,
+              kicker: level.theme,
+              meta: level.meta,
+              preview: level.preview,
+            }),
+          });
+          return;
+        }
+
+        const level = pixelLevels[state.pixelLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const options = pixelOptions();
+        setHeader("Desmistificador de Pixels", `${level.title}: leia o código.`);
+        setCounters("Código", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = "1 pinta o quadrado, 0 deixa em branco. Qual desenho é esse?";
+        content.innerHTML = `<div class="pixel-board">
+          <div class="pixel-code">
+            ${round.code.map((row) => `<div class="pixel-code-row">${row.split("").map((bit) => `<span class="pixel-bit ${bit === "1" ? "on" : ""}">${bit}</span>`).join("")}</div>`).join("")}
+          </div>
+          <div class="pixel-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((grid, index) => `<div class="pixel-option ${index === state.selected ? "selected" : ""} ${state.pixelWrong === index ? "wrong" : ""} ${state.pixelCorrectIndex === index ? "correct" : ""}">
+              ${pixelGridHtml(grid, level.size, "mini")}
+              ${state.pixelCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🧩</span><span>🎉</span><span>✨</span><span>🧩</span></div>' : ""}
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function currentBugRounds() {
+        return bugLevels[state.bugLevel].rounds;
+      }
+
+      function bugTrailStepsAt(trail, x, y) {
+        const steps = [];
+        trail.forEach((cell, index) => {
+          if (cell[0] === x && cell[1] === y) steps.push(index);
+        });
+        return steps;
+      }
+
+      function renderBug() {
+        if (state.bugLevel === null) {
+          setHeader("Caça ao Bug", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${bugLevels.length}`, "Fases", bugLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Encontre o comando errado no caminho do robô.";
+          content.innerHTML = levelSelectHtml(bugLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({
+              icon: level.icon,
+              title: level.title,
+              kicker: level.theme,
+              meta: level.meta,
+              preview: level.preview,
+            }),
+          });
+          return;
+        }
+
+        const level = bugLevels[state.bugLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        setHeader("Caça ao Bug", `${level.title}: ache o comando errado.`);
+        setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = "O robô não chegou até a estrela. Clique no comando que está errado.";
+
+        const cells = [];
+        for (let y = 0; y < level.rows; y += 1) {
+          for (let x = 0; x < level.cols; x += 1) {
+            const isStart = x === 0 && y === 0;
+            const isGoal = round.goal[0] === x && round.goal[1] === y;
+            const steps = bugTrailStepsAt(round.trail, x, y).filter((step) => step > 0);
+            const lastStep = steps.length ? steps[steps.length - 1] : null;
+            cells.push(`<div class="bug-cell">
+              ${isGoal ? '<div class="bug-goal">⭐</div>' : ""}
+              ${isStart ? '<div class="bug-robot">🤖</div>' : ""}
+              ${lastStep !== null ? `<div class="bug-step">${lastStep}</div>` : ""}
+            </div>`);
+          }
+        }
+
+        content.innerHTML = `<div class="bug-board">
+          <div class="bug-grid" style="grid-template-columns: repeat(${level.cols}, 1fr)">${cells.join("")}</div>
+          <div class="bug-chip-row ${state.answerLocked ? "locked" : ""}">
+            ${round.sequence.map((key, index) => `<div class="bug-chip ${index === state.selected ? "selected" : ""} ${state.bugWrong === index ? "wrong" : ""} ${state.bugCorrectIndex === index ? "correct" : ""}">
+              <span class="bug-chip-step">${index + 1}</span>
+              <span class="bug-chip-arrow">${arrowSymbols[key]}</span>
+              ${state.bugCorrectIndex === index ? '<div class="fx-stamp">🐞</div>' : ""}
             </div>`).join("")}
           </div>
         </div>`;
@@ -13995,8 +14749,11 @@
         habitat: renderHabitat,
         cycle: renderCycle,
         vaccine: renderVaccine,
+        chef: renderChef,
         cup: renderCup,
         code: renderCode,
+        pixels: renderPixels,
+        bug: renderBug,
         devices: renderDevices,
         mathCup: renderMathCup,
       };
@@ -14039,11 +14796,45 @@
         fitTextElements();
       }
 
+      const missionLevelStateKeys = {
+        math: "mathLevel",
+        code: "codeLevel",
+        pixels: "pixelLevel",
+        bug: "bugLevel",
+        mathCup: "mathCupLevel",
+      };
+
+      function currentMissionLevelInfo() {
+        const stateKey = missionLevelStateKeys[state.mode];
+        if (stateKey) {
+          const index = state[stateKey];
+          if (index === null || index === undefined) return null;
+          const levels = missionAgeLevelSources[state.mode];
+          return levels ? { level: levels[index], index } : null;
+        }
+        if (isLevelMission(state.mode) && state.legacyActivity) {
+          return { level: currentLegacyLevel(), index: state.legacyGradeIndex };
+        }
+        return null;
+      }
+
+      function updateAgeBadge() {
+        const info = currentMissionLevelInfo();
+        if (!info || !info.level || !info.level.age) {
+          ageBadge.hidden = true;
+          return;
+        }
+        ageBadge.hidden = false;
+        ageBadge.textContent = `🎓 ${info.level.age}`;
+        ageBadge.className = `age-badge tone-${info.index % 5}`;
+      }
+
       function render() {
         const renderer = isLevelMission(state.mode)
           ? renderLevels
           : missionRenderers[state.mode] || renderMenu;
         renderer();
+        updateAgeBadge();
         scheduleTextFit();
       }
 
@@ -14124,6 +14915,12 @@
         state.vaccineCorrectIndex = null;
         state.vaccineJustFilledSlot = null;
         state.vaccineShuffled = mode === "vaccine" ? vaccineOrder(vaccineRounds[0].steps) : [];
+        state.chefChosen = [];
+        state.chefAttempt = 0;
+        state.chefWrong = null;
+        state.chefCorrectIndex = null;
+        state.chefJustFilledSlot = null;
+        state.chefShuffled = mode === "chef" ? chefOrder(chefRecipes[0].steps) : [];
         state.mathLevel = null;
         state.mathAttempt = 0;
         state.mathWrong = null;
@@ -14136,6 +14933,14 @@
         state.codeAttempt = 0;
         state.codeWrong = null;
         state.codeCorrectIndex = null;
+        state.pixelLevel = null;
+        state.pixelAttempt = 0;
+        state.pixelWrong = null;
+        state.pixelCorrectIndex = null;
+        state.bugLevel = null;
+        state.bugAttempt = 0;
+        state.bugWrong = null;
+        state.bugCorrectIndex = null;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
@@ -14890,6 +15695,62 @@
         }, 500);
       }
 
+      function handleChefEnter() {
+        const recipe = currentChefRecipe();
+        const available = state.chefShuffled;
+        if (state.selected < 0 || !available.length) {
+          showMessage("↔️ Escolha!", 650, "info");
+          return;
+        }
+
+        const choice = available[state.selected];
+        const expected = recipe.steps[state.chefChosen.length];
+        if (choice !== expected) {
+          const wrongIndex = state.selected;
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Ordem!",
+            guard: () => state.mode === "chef",
+            onLock: () => {
+              state.chefWrong = wrongIndex;
+            },
+            onUnlock: () => {
+              state.chefWrong = null;
+              state.chefAttempt += 1;
+              refreshChefChoices();
+            },
+          });
+          return;
+        }
+
+        state.chefChosen.push(choice);
+        state.chefCorrectIndex = state.selected;
+        state.chefJustFilledSlot = state.chefChosen.length - 1;
+        state.answerLocked = true;
+        state.selected = -1;
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "chef") return;
+          state.chefCorrectIndex = null;
+          state.chefJustFilledSlot = null;
+          state.answerLocked = false;
+          if (state.chefChosen.length === recipe.steps.length) {
+            state.round += 1;
+            state.chefChosen = [];
+            state.chefAttempt = 0;
+            if (state.round >= chefRecipes.length) {
+              complete("chef", "Receitas prontas!");
+              return;
+            }
+            refreshChefChoices();
+            showMessage("✅ Certo!");
+          } else {
+            refreshChefChoices();
+          }
+          render();
+        }, 500);
+      }
+
       function handleCupEnter() {
         if (state.cupPhase !== "choose" || state.selected < 0) {
           if (state.cupPhase === "choose") showMessage("↔️ Escolha!", 650, "info");
@@ -14957,6 +15818,46 @@
         render();
       }
 
+      function startPixelLevel() {
+        state.pixelLevel = state.selected;
+        resetRoundState(-1);
+        state.pixelAttempt = 0;
+        state.pixelWrong = null;
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToPixelLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.pixelLevel = null;
+        resetRoundState(0);
+        state.pixelAttempt = 0;
+        state.pixelWrong = null;
+        state.pixelCorrectIndex = null;
+        render();
+      }
+
+      function startBugLevel() {
+        state.bugLevel = state.selected;
+        resetRoundState(-1);
+        state.bugAttempt = 0;
+        state.bugWrong = null;
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToBugLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.bugLevel = null;
+        resetRoundState(0);
+        state.bugAttempt = 0;
+        state.bugWrong = null;
+        state.bugCorrectIndex = null;
+        render();
+      }
+
       function handleCodeEnter() {
         if (state.codeLevel === null) {
           startCodeLevel();
@@ -15009,6 +15910,115 @@
         return activateChoiceClick(event, ".code-option", {
           clearWrong: () => { state.codeWrong = null; },
           onConfirm: handleCodeEnter,
+        });
+      }
+
+      function handlePixelEnter() {
+        if (state.pixelLevel === null) {
+          startPixelLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        const rounds = currentPixelRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const choice = pixelOptions()[state.selected];
+        const isCorrect = pixelGridEquals(choice, round.optionGrids[round.answer]);
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Olhe o código!",
+            guard: () => state.mode === "pixels",
+            onLock: () => { state.pixelWrong = state.selected; },
+            onUnlock: () => { state.pixelWrong = null; state.pixelAttempt += 1; },
+          });
+          return;
+        }
+        state.pixelWrong = null;
+        state.pixelCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🧩 Decifrado!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "pixels") return;
+          state.pixelCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.pixelAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("pixels", "Pixels desvendados!");
+            return;
+          }
+          render();
+        }, 600);
+      }
+
+      function handlePixelClick(event) {
+        if (state.pixelLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            handlePixelEnter();
+          });
+        }
+        return activateChoiceClick(event, ".pixel-option", {
+          clearWrong: () => { state.pixelWrong = null; },
+          onConfirm: handlePixelEnter,
+        });
+      }
+
+      function handleBugEnter() {
+        if (state.bugLevel === null) {
+          startBugLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        const rounds = currentBugRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const isCorrect = state.selected === round.answer;
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Olhe o caminho!",
+            guard: () => state.mode === "bug",
+            onLock: () => { state.bugWrong = state.selected; },
+            onUnlock: () => { state.bugWrong = null; state.bugAttempt += 1; },
+          });
+          return;
+        }
+        state.bugWrong = null;
+        state.bugCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🐞 Encontrado!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "bug") return;
+          state.bugCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.bugAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("bug", "Bugs corrigidos!");
+            return;
+          }
+          render();
+        }, 600);
+      }
+
+      function handleBugClick(event) {
+        if (state.bugLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            handleBugEnter();
+          });
+        }
+        return activateChoiceClick(event, ".bug-chip", {
+          clearWrong: () => { state.bugWrong = null; },
+          onConfirm: handleBugEnter,
         });
       }
 
@@ -15318,7 +16328,7 @@
         });
       }
 
-      const MATH_CUP_DOUBLE_TAP_GUARD_MS = 380;
+      const MATH_CUP_DOUBLE_TAP_GUARD_MS = 80;
 
       function guardMathCupDoubleTap() {
         state.mathCupInputGuard = true;
@@ -15477,8 +16487,11 @@
         habitat: handleHabitatEnter,
         cycle: handleCycleEnter,
         vaccine: handleVaccineEnter,
+        chef: handleChefEnter,
         cup: handleCupEnter,
         code: handleCodeEnter,
+        pixels: handlePixelEnter,
+        bug: handleBugEnter,
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
       };
@@ -15586,6 +16599,8 @@
           moveSelectionIndex({ count: state.cycleShuffled.length, delta, afterMove: () => { state.cycleWrong = null; } });
         } else if (state.mode === "vaccine") {
           moveSelectionIndex({ count: state.vaccineShuffled.length, delta, afterMove: () => { state.vaccineWrong = null; } });
+        } else if (state.mode === "chef") {
+          moveSelectionIndex({ count: state.chefShuffled.length, delta, afterMove: () => { state.chefWrong = null; } });
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
@@ -15607,6 +16622,44 @@
               vertical,
               columns: chooseGridColumns(count, 2),
               afterMove: () => { state.codeWrong = null; },
+            });
+          }
+        } else if (state.mode === "pixels") {
+          if (state.pixelLevel === null) {
+            const count = pixelLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = pixelOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 2),
+              afterMove: () => { state.pixelWrong = null; },
+            });
+          }
+        } else if (state.mode === "bug") {
+          if (state.bugLevel === null) {
+            const count = bugLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = currentBugRounds()[state.round].sequence.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              afterMove: () => { state.bugWrong = null; },
             });
           }
         } else if (state.mode === "devices") {
@@ -15899,8 +16952,13 @@
         vaccine: (event) => activateChoiceClick(event, ".cycle-item", {
           onConfirm: handleVaccineEnter,
         }),
+        chef: (event) => activateChoiceClick(event, ".cycle-item", {
+          onConfirm: handleChefEnter,
+        }),
         cup: handleCupClick,
         code: handleCodeClick,
+        pixels: handlePixelClick,
+        bug: handleBugClick,
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
       };
@@ -15921,7 +16979,7 @@
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -15947,7 +17005,14 @@
           return;
         }
 
-        if (state.answerLocked || state.mathCupInputGuard) return;
+        if (state.answerLocked || state.mathCupInputGuard) {
+          if (clickedElement(event, ".math-cup-answer, .math-cup-player.pass-target, .math-cup-cell.pass-target-cell")) {
+            suppressNextContentClick = true;
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          return;
+        }
 
         if (!state.mathCupChallenge) {
           const passTarget = clickedMathCupPassTarget(event);
@@ -16347,6 +17412,14 @@
           backToCodeLevels();
           return;
         }
+        if (state.mode === "pixels" && state.pixelLevel !== null) {
+          backToPixelLevels();
+          return;
+        }
+        if (state.mode === "bug" && state.bugLevel !== null) {
+          backToBugLevels();
+          return;
+        }
         if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
           backToMathCupLevels();
           return;
@@ -16459,6 +17532,36 @@
       });
       fullscreenButton.addEventListener("click", toggleFullscreen);
       appVersion.textContent = `v${APP_VERSION}`;
+
+      let updateCheckInFlight = false;
+
+      async function checkForUpdate() {
+        if (!location.protocol.startsWith("http") || updateCheckInFlight || !updateBanner.hidden) return;
+        updateCheckInFlight = true;
+        try {
+          const response = await fetch(location.pathname + location.search, { cache: "no-store" });
+          if (!response.ok) return;
+          const html = await response.text();
+          const match = html.match(/<meta\s+name="app-version"\s+content="([^"]+)"/i);
+          const latestVersion = match?.[1];
+          if (latestVersion && latestVersion !== APP_VERSION) {
+            updateBanner.hidden = false;
+          }
+        } catch (error) {
+          // offline ou sem acesso à rede: ignora silenciosamente
+        } finally {
+          updateCheckInFlight = false;
+        }
+      }
+
+      updateBannerButton.addEventListener("click", () => location.reload());
+      updateBannerDismiss.addEventListener("click", () => { updateBanner.hidden = true; });
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) checkForUpdate();
+      });
+      window.setTimeout(checkForUpdate, 20000);
+      window.setInterval(checkForUpdate, 10 * 60 * 1000);
+
       updateViewportMode();
       render();
     })();
