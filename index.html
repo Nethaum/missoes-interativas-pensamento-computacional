@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.5.0">
+  <meta name="app-version" content="2.6.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -318,6 +318,20 @@
       gap: 5px;
     }
 
+    .about-buttons {
+      justify-self: end;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+      margin: 0 0 4px auto;
+    }
+
+    .teacher-button {
+      border-color: rgba(120, 183, 255, 0.75) !important;
+      background: rgba(120, 183, 255, 0.16) !important;
+    }
+
     .about-button {
       justify-self: end;
       margin: 0 0 4px auto;
@@ -331,6 +345,10 @@
       font-weight: 950;
       line-height: 1;
       cursor: pointer;
+    }
+
+    .about-buttons .about-button {
+      margin: 0;
     }
 
     .about-button:disabled {
@@ -407,8 +425,15 @@
     }
 
     .audience-gate[hidden],
-    .support-box[hidden] {
+    .support-box[hidden],
+    .donate-box[hidden],
+    .feedback-box[hidden] {
       display: none;
+    }
+
+    .donate-box {
+      display: grid;
+      gap: 10px;
     }
 
     .audience-gate,
@@ -508,6 +533,158 @@
       border: 3px solid #cdbd91;
       border-radius: 14px;
       background: #f4fbff;
+    }
+
+    .lesson-plan-box {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 3px solid var(--blue);
+      border-radius: 14px;
+      background: #f0f8ff;
+      box-shadow: 0 0 0 4px rgba(120, 183, 255, 0.18);
+    }
+
+    .lesson-plan-badge {
+      justify-self: start;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .lesson-plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .lesson-plan-button {
+      padding: 9px 6px;
+      border: 3px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .lesson-plan-button:hover {
+      border-color: var(--blue);
+    }
+
+    .lesson-plan-modal {
+      z-index: 81;
+    }
+
+    .lesson-plan-dialog {
+      width: min(720px, 100%);
+      max-height: min(90vh, 900px);
+    }
+
+    .lesson-plan-content {
+      display: grid;
+      gap: 10px;
+      text-transform: none;
+    }
+
+    .lesson-plan-title {
+      font-size: 22px;
+      font-weight: 950;
+      color: var(--card-ink);
+      margin: 0;
+    }
+
+    .lesson-plan-meta {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--card-muted);
+    }
+
+    .lesson-plan-section-title {
+      margin: 6px 0 0;
+      font-size: 15px;
+      font-weight: 950;
+      color: #184832;
+      border-bottom: 2px solid #e4d7a6;
+      padding-bottom: 3px;
+    }
+
+    .lesson-plan-list {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .lesson-plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .lesson-plan-table th,
+    .lesson-plan-table td {
+      border: 1px solid #d6caa4;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .lesson-plan-table th {
+      background: #fff7d5;
+    }
+
+    .lesson-plan-footnote {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--card-muted);
+      text-align: center;
+    }
+
+    .lesson-plan-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .lesson-plan-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .lesson-plan-table {
+        font-size: 12px;
+      }
+    }
+
+    @media print {
+      body > *:not(#lessonPlanModal) {
+        display: none !important;
+      }
+
+      #lessonPlanModal {
+        position: static !important;
+        background: none !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+
+      .lesson-plan-dialog {
+        width: 100% !important;
+        max-height: none !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .lesson-plan-print-hide {
+        display: none !important;
+      }
     }
 
     .support-qr-label {
@@ -1033,6 +1210,83 @@
       opacity: 0.35;
       transform: none;
       cursor: default;
+    }
+
+    .age-picker {
+      width: min(1100px, 100%);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .age-picker-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 210px;
+      display: grid;
+      grid-template-rows: 1fr auto auto;
+      align-items: center;
+      justify-items: center;
+      gap: 8px;
+      padding: 18px 12px;
+      border: 4px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.78)),
+        var(--level-soft);
+      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.55);
+      color: var(--card-ink);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .age-picker-card.selected {
+      border-color: var(--level-accent);
+      transform: translateY(-7px);
+      box-shadow: 0 12px 0 color-mix(in srgb, var(--level-accent) 26%, transparent);
+    }
+
+    .age-picker-card.tone-0 { --level-accent: var(--blue); --level-soft: #eaf4ff; }
+    .age-picker-card.tone-1 { --level-accent: var(--green); --level-soft: #eaf9ee; }
+    .age-picker-card.tone-2 { --level-accent: var(--orange); --level-soft: #fff2dc; }
+    .age-picker-card.tone-3 { --level-accent: var(--purple); --level-soft: #f2ebff; }
+    .age-picker-card.tone-4 { --level-accent: var(--red); --level-soft: #ffecec; }
+
+    .age-picker-icon {
+      line-height: 1;
+      filter: var(--visual-pop-shadow);
+    }
+
+    .age-picker-grade {
+      font-size: 17px;
+      font-weight: 950;
+      line-height: 1.1;
+    }
+
+    .age-picker-age {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--level-accent);
+      color: var(--card-ink);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 720px) {
+      .age-picker {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .age-picker-card {
+        min-height: 150px;
+        padding: 12px 8px;
+      }
+
+      .age-picker-grade {
+        font-size: 14px;
+      }
     }
 
     .menu-home {
@@ -4078,6 +4332,163 @@
       filter: grayscale(0.35);
       transform: none;
     }
+
+    .loop-board {
+      width: min(760px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .loop-target {
+      padding: 14px 24px;
+      border: 5px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 950;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .loop-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .loop-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 64px;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 900;
+      font-size: 17px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease;
+    }
+
+    .loop-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .loop-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
+    .loop-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .loop-options.locked .loop-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
+
+    .sort-board {
+      width: min(760px, 100%);
+      display: grid;
+      justify-items: center;
+    }
+
+    .sort-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .sort-item {
+      position: relative;
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      width: 84px;
+      min-height: 96px;
+      padding: 10px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.15s ease;
+    }
+
+    .sort-item-icon { font-size: 34px; line-height: 1; }
+    .sort-item-value { font-size: 15px; font-weight: 950; color: var(--card-muted); }
+
+    .sort-item.selected { border-color: var(--blue); transform: translateY(-6px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .sort-item.wrong { border-color: var(--red); animation: fx-shake 0.5s ease; }
+    .sort-item.swapped { border-color: #2f9e52; transform: scale(1.06); }
+    .sort-row.locked .sort-item { cursor: default; }
+
+    .var-board {
+      width: min(560px, 100%);
+      display: grid;
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .var-preview {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .var-preview-visual {
+      width: 90px;
+      height: 90px;
+      display: grid;
+      place-items: center;
+      border: 5px solid var(--line);
+      border-radius: 20px;
+      background: var(--white);
+      font-size: 46px;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .var-box {
+      padding: 10px 18px;
+      border: 4px dashed var(--line);
+      border-radius: 14px;
+      background: #fff8dc;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+    }
+
+    .var-box-icon { font-size: 22px; }
+    .var-box-name { font-size: 13px; font-weight: 950; color: var(--card-muted); letter-spacing: 0.03em; }
+    .var-box-value { font-size: 18px; font-weight: 950; color: var(--card-ink); }
+
+    .var-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .var-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      padding: 12px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease;
+    }
+
+    .var-option-visual { font-size: 30px; line-height: 1; }
+    .var-option-label { font-size: 14px; font-weight: 900; color: var(--card-ink); }
+
+    .var-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .var-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
+    .var-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .var-options.locked .var-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
     .device-board {
       width: min(520px, 100%);
@@ -7490,7 +7901,10 @@
       <div id="status" class="status">Prontos para começar!</div>
     </div>
     <div class="credit">
-      <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
+      <div class="about-buttons">
+        <button id="aboutButton" class="about-button" type="button">Sobre ☕</button>
+        <button id="teacherButton" class="about-button teacher-button" type="button">👩‍🏫 Professor</button>
+      </div>
       <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version"></span></div>
     </div>
   </footer>
@@ -7499,19 +7913,21 @@
     <div class="about-dialog" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
       <button id="aboutCloseButton" class="about-close" type="button" aria-label="Fechar">×</button>
       <h2 id="aboutTitle" class="about-title">Sobre este material</h2>
-      <p class="about-text">
-        Missões interativas criadas para aulas de Pensamento Computacional, com uso educacional gratuito.
-      </p>
-      <p class="about-text">
-        Sem cadastro, login ou coleta de dados dos alunos.
-      </p>
-      <p class="about-text">
-        Criado por Prof. Amilcar Notari Neto
-      </p>
+      <div id="aboutIntro">
+        <p class="about-text">
+          Missões interativas criadas para aulas de Pensamento Computacional, com uso educacional gratuito.
+        </p>
+        <p class="about-text">
+          Sem cadastro, login ou coleta de dados dos alunos.
+        </p>
+        <p class="about-text">
+          Criado por Prof. Amilcar Notari Neto
+        </p>
+      </div>
       <div id="audienceGate" class="audience-gate">
         <div class="support-title">Área para adultos</div>
         <p class="support-text">
-          Se você é aluno, feche esta área. O apoio é voluntário e o material continua gratuito.
+          Se você é aluno, feche esta área. Aqui ficam os planos de aula para professores e o apoio ao projeto — ambos voluntários e gratuitos.
         </p>
         <div class="audience-actions">
           <button id="childAudienceButton" class="audience-button child" type="button">🧒 Sou criança</button>
@@ -7523,6 +7939,13 @@
         <div id="audienceNotice" class="support-notice">Adultos devem segurar o botão por 3 segundos.</div>
       </div>
       <div id="supportBox" class="support-box" hidden>
+        <div class="lesson-plan-box">
+          <div class="lesson-plan-badge">👩‍🏫 Área do professor</div>
+          <div class="support-title">📋 Planos de aula (BNCC)</div>
+          <p class="support-text">Um plano por série, do 1º ao 9º ano, com objetivos, competências da BNCC e sequência de aula pronta para imprimir.</p>
+          <div id="lessonPlanGrid" class="lesson-plan-grid"></div>
+        </div>
+        <div id="donateBox" class="donate-box">
         <div class="support-title">☕ Apoie este projeto</div>
         <p class="support-text">
           Área para adultos. O apoio é voluntário e o material continua gratuito para os alunos.
@@ -7539,7 +7962,8 @@
             <button id="supportCopyButton" class="support-copy-button" type="button">Copiar link</button>
           </div>
         </div>
-        <div class="feedback-box">
+        </div>
+        <div id="feedbackBox" class="feedback-box">
           <div class="support-title">💬 Comentários</div>
           <p class="support-text">
             Elogios, avaliações, ideias e bugs ajudam este material a ficar melhor.
@@ -7551,6 +7975,17 @@
             <button id="feedbackCopyEmailButton" class="support-copy-button" type="button">Copiar contato</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lessonPlanModal" class="about-modal lesson-plan-modal" hidden>
+    <div class="about-dialog lesson-plan-dialog" role="dialog" aria-modal="true" aria-labelledby="lessonPlanTitle">
+      <button id="lessonPlanCloseButton" class="about-close lesson-plan-print-hide" type="button" aria-label="Fechar">×</button>
+      <div id="lessonPlanContent" class="lesson-plan-content"></div>
+      <div class="lesson-plan-actions lesson-plan-print-hide">
+        <button id="lessonPlanPrintButton" class="support-open-link" type="button">🖨️ Imprimir / salvar PDF</button>
+        <button id="lessonPlanBackButton" class="support-copy-button" type="button">↩️ Voltar</button>
       </div>
     </div>
   </div>
@@ -7574,7 +8009,10 @@
       const resetButton = document.getElementById("resetButton");
       const fullscreenButton = document.getElementById("fullscreenButton");
       const aboutButton = document.getElementById("aboutButton");
+      const teacherButton = document.getElementById("teacherButton");
       const aboutModal = document.getElementById("aboutModal");
+      const aboutTitle = document.getElementById("aboutTitle");
+      const aboutIntro = document.getElementById("aboutIntro");
       const aboutCloseButton = document.getElementById("aboutCloseButton");
       const audienceGate = document.getElementById("audienceGate");
       const childAudienceButton = document.getElementById("childAudienceButton");
@@ -7582,6 +8020,8 @@
       const adultHoldText = document.getElementById("adultHoldText");
       const audienceNotice = document.getElementById("audienceNotice");
       const supportBox = document.getElementById("supportBox");
+      const donateBox = document.getElementById("donateBox");
+      const feedbackBox = document.getElementById("feedbackBox");
       const supportNotice = document.getElementById("supportNotice");
       const supportUnlockedPanel = document.getElementById("supportUnlockedPanel");
       const supportOpenLink = document.getElementById("supportOpenLink");
@@ -7594,6 +8034,12 @@
       const updateBanner = document.getElementById("updateBanner");
       const updateBannerButton = document.getElementById("updateBannerButton");
       const updateBannerDismiss = document.getElementById("updateBannerDismiss");
+      const lessonPlanGrid = document.getElementById("lessonPlanGrid");
+      const lessonPlanModal = document.getElementById("lessonPlanModal");
+      const lessonPlanContent = document.getElementById("lessonPlanContent");
+      const lessonPlanCloseButton = document.getElementById("lessonPlanCloseButton");
+      const lessonPlanBackButton = document.getElementById("lessonPlanBackButton");
+      const lessonPlanPrintButton = document.getElementById("lessonPlanPrintButton");
       const APP_CONFIG = Object.freeze({
         version: document.querySelector('meta[name="app-version"]')?.content || "2.4.0",
         supportPageUrl: "https://pagaum.cafe/amilcarnotari",
@@ -7613,6 +8059,7 @@
       const BACK_HOLD_MS = APP_CONFIG.timings.backHoldMs;
       let adultHoldFrame = null;
       let adultHoldStartedAt = 0;
+      let aboutModalTeacherOnly = false;
       let childAboutLockInterval = null;
       let backHoldFrame = null;
       let backHoldStartedAt = 0;
@@ -7620,6 +8067,14 @@
       let backHoldButton = null;
       let backHoldCompleteAction = null;
       let suppressNextContentClick = false;
+
+      const ageBands = [
+        { grade: "1º e 2º ano", ageLabel: "6-7 anos", icon: "🧒", tone: 0 },
+        { grade: "3º e 4º ano", ageLabel: "8-9 anos", icon: "🧒", tone: 1 },
+        { grade: "5º e 6º ano", ageLabel: "10-11 anos", icon: "🧑", tone: 2 },
+        { grade: "7º e 8º ano", ageLabel: "12-13 anos", icon: "🧑", tone: 3 },
+        { grade: "9º ano", ageLabel: "14 anos", icon: "🧑‍🎓", tone: 4 },
+      ];
 
       const missions = [
         { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
@@ -7641,6 +8096,9 @@
         { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
         { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
+        { id: "loop", icon: "🔁", title: "Fábrica de Laços", subject: "Repetição e laços" },
+        { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
+        { id: "var", icon: "🎁", title: "Tradutor de Sinais", subject: "Variáveis" },
       ];
 
       const missionCategories = [
@@ -7673,6 +8131,231 @@
           icon: "💡",
           description: "Calcular, avaliar situações e escolher a melhor decisão.",
           missionIds: ["dengue", "logic", "math"],
+        },
+        {
+          title: "Lógica de programação",
+          icon: "🧑‍💻",
+          description: "Laços, ordenação e variáveis: os blocos que formam um programa.",
+          missionIds: ["loop", "sort", "var"],
+        },
+      ];
+
+      const lessonPlans = [
+        {
+          grade: "1º ano",
+          ageLabel: "6-7 anos",
+          theme: "Primeiros passos: sequência e comandos",
+          duration: "45 minutos",
+          objectives: [
+            "Reconhecer que o computador segue instruções em uma ordem exata.",
+            "Identificar e repetir uma sequência simples de comandos.",
+            "Perceber que trocar a ordem dos comandos muda o resultado.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "5 — Cultura digital"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Roda de conversa: \"o que é dar um comando?\" Peça exemplos do dia a dia, como uma receita." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Setas e Sequências e resolva as primeiras fases junto com a turma, pensando em voz alta." },
+            { step: "Prática em duplas", time: "15 min", description: "Alunos jogam Robô Coletor em duplas, revezando quem escolhe o próximo comando." },
+            { step: "Fechamento", time: "10 min", description: "Cada dupla conta uma fase que resolveu e como decidiu a ordem dos comandos." },
+          ],
+          missions: ["arrows", "robot", "recycle"],
+          assessment: [
+            "A criança segue a ordem correta de comandos na maior parte das tentativas?",
+            "Consegue apontar quando um comando está fora de ordem?",
+            "Participa da roda de conversa com um exemplo próprio?",
+          ],
+        },
+        {
+          grade: "2º ano",
+          ageLabel: "6-7 anos",
+          theme: "Sequência com mais autonomia",
+          duration: "45 minutos",
+          objectives: [
+            "Planejar uma sequência de passos antes de executá-la.",
+            "Perceber que a ordem dos passos importa para o resultado.",
+            "Começar a comparar semelhanças e diferenças entre padrões visuais.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "9 — Empatia e cooperação"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Retome o conceito de comando e pergunte: \"dá pra planejar antes de agir?\"" },
+            { step: "Prática individual", time: "15 min", description: "Alunos jogam Robô Coletor sozinhos, tentando planejar o caminho antes de clicar." },
+            { step: "Novo desafio", time: "15 min", description: "Introduza Chef Cozinheiro: ordenar os passos de uma receita." },
+            { step: "Fechamento", time: "10 min", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada?" },
+          ],
+          missions: ["robot", "chef", "patterns"],
+          assessment: [
+            "Planeja ao menos parte do caminho antes de executar?",
+            "Identifica o passo certo para continuar uma receita?",
+            "Reconhece um padrão simples de repetição visual?",
+          ],
+        },
+        {
+          grade: "3º ano",
+          ageLabel: "8-9 anos",
+          theme: "Repetição: fazer mais com menos comandos",
+          duration: "50 minutos",
+          objectives: [
+            "Compreender o conceito de repetição (laço) como forma de evitar repetir comandos.",
+            "Calcular quantas vezes um bloco deve se repetir para atingir um objetivo.",
+            "Relacionar repetição com fenômenos naturais que se repetem em ciclos.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "5 — Cultura digital"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Pergunte: \"em vez de escrever 'ande' 6 vezes, existe um jeito mais curto de dizer isso?\"" },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e resolva as primeiras fases, destacando o \"repita N vezes\"." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Fábrica de Laços e, em seguida, Ciclos da Natureza." },
+            { step: "Fechamento", time: "10 min", description: "Discuta: que outras coisas na natureza \"se repetem\" como um laço?" },
+          ],
+          missions: ["loop", "code", "cycle"],
+          assessment: [
+            "Consegue calcular o total de um laço (repetições × passo)?",
+            "Identifica visualmente um ciclo que se repete na natureza?",
+            "Tenta mais de uma combinação antes de desistir de uma fase?",
+          ],
+        },
+        {
+          grade: "4º ano",
+          ageLabel: "8-9 anos",
+          theme: "Códigos, símbolos e decisões",
+          duration: "50 minutos",
+          objectives: [
+            "Decodificar uma mensagem simples a partir de símbolos combinados.",
+            "Organizar informações em grupos e comparar quantidades.",
+            "Tomar decisões simples com base em uma situação observada.",
+          ],
+          competencies: ["4 — Comunicação", "10 — Responsabilidade e cidadania"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Mostre um pequeno código secreto no quadro e desafie a turma a adivinhar o significado." },
+            { step: "Exploração guiada", time: "15 min", description: "Jogue Mensagem Secreta em grupo, decifrando juntos as primeiras fases." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Dados e Gráficos e Corrida contra o Aedes individualmente." },
+            { step: "Fechamento", time: "10 min", description: "Converse sobre como observar informações antes de decidir algo ajuda no dia a dia." },
+          ],
+          missions: ["code", "data", "dengue"],
+          assessment: [
+            "Consegue relacionar símbolo e significado corretamente?",
+            "Lê um gráfico simples e compara valores?",
+            "Justifica a decisão tomada em um cenário observado?",
+          ],
+        },
+        {
+          grade: "5º ano",
+          ageLabel: "10-11 anos",
+          theme: "Depuração: encontrar e corrigir erros",
+          duration: "50 minutos",
+          objectives: [
+            "Ler uma sequência de comandos já pronta, sem criá-la do zero.",
+            "Localizar o ponto exato onde uma sequência deixa de funcionar.",
+            "Propor a correção certa para o erro encontrado.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "7 — Argumentação"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Explique o que é um \"bug\": um erro escondido em um conjunto de instruções." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Caça ao Bug e analise juntos por que o robô não chegou ao destino." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Caça ao Bug e depois Copa da Matemática (fase amistosa)." },
+            { step: "Fechamento", time: "10 min", description: "Peça que expliquem, em uma frase, como encontraram o erro em uma fase." },
+          ],
+          missions: ["bug", "mathCup", "pixels"],
+          assessment: [
+            "Localiza o comando errado sem precisar de várias tentativas?",
+            "Explica com suas palavras por que aquele comando estava errado?",
+            "Mantém a calma diante de um erro e tenta de novo?",
+          ],
+        },
+        {
+          grade: "6º ano",
+          ageLabel: "10-11 anos",
+          theme: "Dados e imagens em binário",
+          duration: "50 minutos",
+          objectives: [
+            "Compreender que uma imagem pode ser representada por uma sequência de números (0 e 1).",
+            "Ordenar uma lista de itens seguindo um critério claro.",
+            "Ler e comparar dados apresentados em gráficos.",
+          ],
+          competencies: ["1 — Conhecimento", "5 — Cultura digital"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Pergunte: \"como um computador guarda um desenho, se ele só entende números?\"" },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Desmistificador de Pixels e decodifique um desenho junto com a turma." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Desmistificador de Pixels e depois Estante Organizada." },
+            { step: "Fechamento", time: "10 min", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
+          ],
+          missions: ["pixels", "sort", "data"],
+          assessment: [
+            "Consegue \"ler\" um código binário simples e prever o desenho?",
+            "Ordena uma lista pequena trocando apenas itens vizinhos?",
+            "Relaciona o conteúdo da aula com uma tecnologia do cotidiano?",
+          ],
+        },
+        {
+          grade: "7º ano",
+          ageLabel: "12-13 anos",
+          theme: "Variáveis: guardando valores",
+          duration: "50 minutos",
+          objectives: [
+            "Compreender a variável como um espaço nomeado que guarda um valor.",
+            "Relacionar a troca do valor de uma variável com a mudança visual de um objeto.",
+            "Comparar diferentes formas de ordenar uma lista de itens.",
+          ],
+          competencies: ["1 — Conhecimento", "2 — Pensamento científico, crítico e criativo"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Compare uma variável a uma caixa rotulada que guarda um valor que pode mudar." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Tradutor de Sinais e mostre como o valor da caixa muda o personagem." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Tradutor de Sinais e depois Estante Organizada." },
+            { step: "Fechamento", time: "10 min", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
+          ],
+          missions: ["var", "sort", "math"],
+          assessment: [
+            "Explica com uma frase o que é uma variável?",
+            "Relaciona corretamente o valor escolhido ao resultado visual?",
+            "Consegue ordenar uma lista maior trocando itens vizinhos?",
+          ],
+        },
+        {
+          grade: "8º ano",
+          ageLabel: "12-13 anos",
+          theme: "Eficiência: comparando soluções",
+          duration: "50 minutos",
+          objectives: [
+            "Perceber que um mesmo problema pode ter mais de uma solução correta.",
+            "Comparar soluções de forma intuitiva quanto à quantidade de passos usados.",
+            "Depurar sequências mais longas com múltiplos comandos.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "7 — Argumentação"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Pergunte: \"duas soluções diferentes podem estar certas ao mesmo tempo?\"" },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e compare duas combinações que chegam ao mesmo total." },
+            { step: "Prática individual", time: "20 min", description: "Alunos jogam Fábrica de Laços e depois Caça ao Bug, em grades maiores." },
+            { step: "Fechamento", time: "10 min", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
+          ],
+          missions: ["loop", "bug", "code"],
+          assessment: [
+            "Encontra mais de uma combinação correta para o mesmo total?",
+            "Argumenta por que preferiu uma solução a outra?",
+            "Resolve fases de depuração com sequências mais longas?",
+          ],
+        },
+        {
+          grade: "9º ano",
+          ageLabel: "14 anos",
+          theme: "Pensamento computacional integrado",
+          duration: "55 minutos",
+          objectives: [
+            "Integrar decomposição, reconhecimento de padrões, abstração e algoritmos em desafios combinados.",
+            "Refletir sobre onde a lógica de programação aparece em tecnologias do cotidiano.",
+            "Resolver desafios de maior complexidade com autonomia.",
+          ],
+          competencies: ["2 — Pensamento científico, crítico e criativo", "6 — Trabalho e projeto de vida"],
+          sequence: [
+            { step: "Abertura", time: "5 min", description: "Roda de conversa: onde vocês acham que existe \"pensamento computacional\" fora do computador?" },
+            { step: "Circuito de missões", time: "30 min", description: "Turma se divide em estações: Mensagem Secreta, Desmistificador de Pixels, Caça ao Bug e Fábrica de Laços, todas na fase de 9º ano." },
+            { step: "Desafio final", time: "10 min", description: "Copa da Matemática em dupla, faixa mais avançada, como encerramento competitivo." },
+            { step: "Fechamento", time: "10 min", description: "Cada aluno cita um pilar do pensamento computacional e dá um exemplo pessoal." },
+          ],
+          missions: ["code", "pixels", "bug", "loop"],
+          assessment: [
+            "Resolve desafios da fase mais avançada com autonomia?",
+            "Nomeia corretamente ao menos um pilar do pensamento computacional?",
+            "Relaciona o conteúdo a uma tecnologia real que usa no dia a dia?",
+          ],
         },
       ];
 
@@ -8115,10 +8798,10 @@
 
       const mathLevelPlans = [
         { title: "Aquecimento", icon: "🍎", age: "6-7 anos", theme: "Juntar e tirar", meta: "até 10", icons: ["🍎", "⭐", "🔵", "🍓", "🟨"] },
-        { title: "Contas do dia", icon: "🧸", age: "7-8 anos", theme: "Somar e comparar", meta: "até 20", icons: ["🧸", "🟣", "🍊", "🐞", "🌼"] },
         { title: "Mercado e placar", icon: "🏪", age: "8-9 anos", theme: "Problemas rápidos", meta: "até 50", icons: ["🏪", "⚽", "🎲", "🎈", "🍪"] },
-        { title: "Grupos iguais", icon: "✖️", age: "9-10 anos", theme: "Tabuada e divisão", meta: "vezes e dividir", icons: ["📦", "🧩", "🎯", "🚀", "💎"] },
-        { title: "Desafio misto", icon: "🧠", age: "10+ anos", theme: "Pensar com calma", meta: "até 100", icons: ["🧠", "🏆", "🌎", "🔶", "✨"] },
+        { title: "Grupos iguais", icon: "✖️", age: "10-11 anos", theme: "Tabuada e divisão", meta: "vezes e dividir", icons: ["📦", "🧩", "🎯", "🚀", "💎"] },
+        { title: "Desafio avançado", icon: "🧠", age: "12-13 anos", theme: "Contas grandes, as 4 operações", meta: "até 300", icons: ["🧠", "🏆", "🌎", "🔶", "✨"] },
+        { title: "Mestre do cálculo", icon: "🎓", age: "14 anos", theme: "Multiplicação e divisão avançadas", meta: "até 500", icons: ["🎓", "🚀", "💠", "🏅", "🔷"] },
       ];
 
       function mathAnswer(a, op, b) {
@@ -8167,16 +8850,6 @@
             b = 1 + (index % Math.min(5, a));
           }
         } else if (levelIndex === 1) {
-          op = index % 2 === 0 ? "+" : "-";
-          if (op === "+") {
-            a = 6 + ((index * 3) % 9);
-            b = 2 + ((index * 2) % 7);
-          } else {
-            a = 11 + ((index * 3) % 10);
-            b = 2 + ((index * 2) % 8);
-            if (b > a) b = Math.max(1, a - 3);
-          }
-        } else if (levelIndex === 2) {
           op = index % 3 === 1 ? "-" : "+";
           if (op === "+") {
             a = 12 + ((index * 5) % 26);
@@ -8186,7 +8859,7 @@
             b = 7 + ((index * 5) % 19);
             if (b > a) b = Math.max(4, a - 11);
           }
-        } else if (levelIndex === 3) {
+        } else if (levelIndex === 2) {
           op = index % 3 === 2 ? "÷" : "×";
           const phase = Math.floor(index / 10);
           const factorLimit = Math.min(12, 8 + phase);
@@ -8198,23 +8871,42 @@
             const result = 2 + ((index * 3 + phase) % Math.min(12, factorLimit));
             a = b * result;
           }
+        } else if (levelIndex === 3) {
+          const ops = ["+", "-", "×", "÷"];
+          op = ops[index % ops.length];
+          const phase = Math.floor(index / 10);
+          if (op === "+") {
+            a = 45 + phase * 10 + ((index * 7) % (80 + phase * 8));
+            b = 20 + phase * 6 + ((index * 5) % (45 + phase * 5));
+          } else if (op === "-") {
+            a = 90 + phase * 12 + ((index * 6) % (70 + phase * 7));
+            b = 25 + phase * 6 + ((index * 5) % (50 + phase * 6));
+            if (b > a) b = Math.max(10, a - 30);
+          } else if (op === "×") {
+            a = 6 + (index % Math.min(15, 11 + phase));
+            b = 4 + ((index * 2 + phase) % Math.min(13, 10 + phase));
+          } else {
+            b = 4 + ((index * 2 + phase) % Math.min(13, 10 + phase));
+            const result = 5 + ((index * 3 + phase) % Math.min(18, 14 + phase));
+            a = b * result;
+          }
         } else {
           const ops = ["+", "-", "×", "÷"];
           op = ops[index % ops.length];
           const phase = Math.floor(index / 10);
           if (op === "+") {
-            a = 24 + phase * 8 + ((index * 7) % (47 + phase * 6));
-            b = 12 + phase * 5 + ((index * 5) % (28 + phase * 4));
+            a = 120 + phase * 15 + ((index * 7) % (150 + phase * 10));
+            b = 45 + phase * 8 + ((index * 5) % (90 + phase * 8));
           } else if (op === "-") {
-            a = 55 + phase * 10 + ((index * 6) % (44 + phase * 6));
-            b = 14 + phase * 5 + ((index * 5) % (34 + phase * 5));
-            if (b > a) b = Math.max(8, a - 22);
+            a = 200 + phase * 18 + ((index * 6) % (160 + phase * 10));
+            b = 60 + phase * 8 + ((index * 5) % (110 + phase * 8));
+            if (b > a) b = Math.max(20, a - 60);
           } else if (op === "×") {
-            a = 4 + (index % Math.min(12, 9 + phase));
-            b = 3 + ((index * 2 + phase) % Math.min(12, 9 + phase));
+            a = 8 + (index % Math.min(20, 15 + phase));
+            b = 6 + ((index * 2 + phase) % Math.min(18, 14 + phase));
           } else {
-            b = 3 + ((index * 2 + phase) % Math.min(12, 9 + phase));
-            const result = 4 + ((index * 3 + phase) % Math.min(15, 11 + phase));
+            b = 6 + ((index * 2 + phase) % Math.min(18, 14 + phase));
+            const result = 7 + ((index * 3 + phase) % Math.min(22, 17 + phase));
             a = b * result;
           }
         }
@@ -9567,10 +10259,10 @@
 
       const codeLevelPlans = [
         { title: "Primeiras palavras", icon: "🔡", age: "6-7 anos", theme: "Poucos símbolos", meta: "2 símbolos", wordCount: 6, messageLength: 2, roundCount: 14 },
-        { title: "Mensagens curtas", icon: "🔐", age: "7-8 anos", theme: "Decifre a dupla", meta: "2 símbolos", wordCount: 8, messageLength: 2, roundCount: 18 },
         { title: "Mensagens compridas", icon: "📜", age: "8-9 anos", theme: "Três símbolos", meta: "3 símbolos", wordCount: 8, messageLength: 3, roundCount: 22 },
-        { title: "Código avançado", icon: "🧩", age: "9-10 anos", theme: "Mais palavras", meta: "3 símbolos", wordCount: 10, messageLength: 3, roundCount: 26 },
-        { title: "Mestre dos códigos", icon: "🕵️", age: "10+ anos", theme: "Vocabulário completo", meta: "3 símbolos", wordCount: 12, messageLength: 3, roundCount: 30 },
+        { title: "Código avançado", icon: "🧩", age: "10-11 anos", theme: "Mais palavras", meta: "3 símbolos", wordCount: 10, messageLength: 3, roundCount: 26 },
+        { title: "Mestre dos códigos", icon: "🕵️", age: "12-13 anos", theme: "Vocabulário completo", meta: "4 símbolos", wordCount: 12, messageLength: 4, roundCount: 32 },
+        { title: "Decodificador expert", icon: "🕶️", age: "14 anos", theme: "Mensagens longas", meta: "5 símbolos", wordCount: 12, messageLength: 5, roundCount: 36 },
       ];
 
       function codeTuplePermutations(wordCount, messageLength) {
@@ -9632,10 +10324,10 @@
 
       const pixelLevelPlans = [
         { title: "Primeiros pixels", icon: "🧩", age: "6-7 anos", theme: "Grade pequena", meta: "4x4", size: 4, roundCount: 18 },
-        { title: "Desenhos simples", icon: "🖍️", age: "7-8 anos", theme: "Mais formas em 4x4", meta: "4x4", size: 4, roundCount: 18 },
-        { title: "Códigos maiores", icon: "🔢", age: "8-9 anos", theme: "Grade 5x5", meta: "5x5", size: 5, roundCount: 18 },
-        { title: "Desenhos detalhados", icon: "🎨", age: "9-10 anos", theme: "Mais formas em 5x5", meta: "5x5", size: 5, roundCount: 18 },
-        { title: "Mestre dos pixels", icon: "🖥️", age: "10+ anos", theme: "Grade 6x6", meta: "6x6", size: 6, roundCount: 18 },
+        { title: "Códigos maiores", icon: "🔢", age: "8-9 anos", theme: "Grade 5x5", meta: "5x5", size: 5, roundCount: 20 },
+        { title: "Desenhos detalhados", icon: "🎨", age: "10-11 anos", theme: "Mais formas em 5x5", meta: "5x5", size: 5, roundCount: 22 },
+        { title: "Mestre dos pixels", icon: "🖥️", age: "12-13 anos", theme: "Grade 7x7", meta: "7x7", size: 7, roundCount: 26 },
+        { title: "Decodificador de imagens", icon: "🛰️", age: "14 anos", theme: "Grade 8x8", meta: "8x8", size: 8, roundCount: 30 },
       ];
 
       const pixelShapesByTier = [
@@ -9646,14 +10338,6 @@
           { name: "triangulo", grid: ["0001", "0011", "0111", "1111"] },
           { name: "seta-cima", grid: ["0110", "0110", "1111", "0110"] },
           { name: "xis", grid: ["1001", "0110", "0110", "1001"] },
-        ],
-        [
-          { name: "quadrado-centro", grid: ["0000", "0110", "0110", "0000"] },
-          { name: "colunas-laterais", grid: ["1001", "1001", "1001", "1001"] },
-          { name: "escada", grid: ["1000", "1100", "1110", "1111"] },
-          { name: "losango", grid: ["0110", "1001", "1001", "0110"] },
-          { name: "letra-l", grid: ["1000", "1000", "1000", "1111"] },
-          { name: "seta-baixo", grid: ["0110", "0110", "1111", "0110"].slice().reverse() },
         ],
         [
           { name: "moldura-5", grid: ["11111", "10001", "10001", "10001", "11111"] },
@@ -9672,12 +10356,20 @@
           { name: "ampulheta-5", grid: ["11111", "01110", "00100", "01110", "11111"] },
         ],
         [
-          { name: "moldura-6", grid: ["111111", "100001", "100001", "100001", "100001", "111111"] },
-          { name: "cruz-6", grid: ["001100", "001100", "111111", "111111", "001100", "001100"] },
-          { name: "xis-6", grid: ["100001", "010010", "001100", "001100", "010010", "100001"] },
-          { name: "seta-cima-6", grid: ["001100", "011110", "110011", "001100", "001100", "001100"] },
-          { name: "bolha-6", grid: ["000000", "001100", "011110", "011110", "001100", "000000"] },
-          { name: "escada-6", grid: ["100000", "110000", "111000", "111100", "111110", "111111"] },
+          { name: "moldura-7", grid: ["1111111", "1000001", "1000001", "1000001", "1000001", "1000001", "1111111"] },
+          { name: "cruz-7", grid: ["0011100", "0011100", "0011100", "1111111", "0011100", "0011100", "0011100"] },
+          { name: "xis-7", grid: ["1000001", "0100010", "0010100", "0001000", "0010100", "0100010", "1000001"] },
+          { name: "diamante-7", grid: ["0001000", "0011100", "0111110", "1111111", "0111110", "0011100", "0001000"] },
+          { name: "seta-cima-7", grid: ["0001000", "0011100", "0111110", "1111111", "0001000", "0001000", "0001000"] },
+          { name: "escada-7", grid: ["1000000", "1100000", "1110000", "1111000", "1111100", "1111110", "1111111"] },
+        ],
+        [
+          { name: "moldura-8", grid: ["11111111", "10000001", "10000001", "10000001", "10000001", "10000001", "10000001", "11111111"] },
+          { name: "cruz-8", grid: ["00111100", "00111100", "00111100", "11111111", "11111111", "00111100", "00111100", "00111100"] },
+          { name: "xis-8", grid: ["10000001", "01000010", "00100100", "00011000", "00011000", "00100100", "01000010", "10000001"] },
+          { name: "diamante-8", grid: ["00011000", "00111100", "01111110", "11111111", "11111111", "01111110", "00111100", "00011000"] },
+          { name: "seta-cima-8", grid: ["00011000", "00111100", "01111110", "11111111", "00011000", "00011000", "00011000", "00011000"] },
+          { name: "escada-8", grid: ["10000000", "11000000", "11100000", "11110000", "11111000", "11111100", "11111110", "11111111"] },
         ],
       ];
 
@@ -9711,10 +10403,10 @@
 
       const bugLevelPlans = [
         { title: "Primeiros passos", icon: "🐞", age: "6-7 anos", theme: "Grade 3x3", meta: "3 comandos", cols: 3, rows: 3, length: 3, roundCount: 16 },
-        { title: "Mais comandos", icon: "🔍", age: "7-8 anos", theme: "Grade 3x3", meta: "4 comandos", cols: 3, rows: 3, length: 4, roundCount: 16 },
         { title: "Caminhos maiores", icon: "🛠️", age: "8-9 anos", theme: "Grade 4x4", meta: "5 comandos", cols: 4, rows: 4, length: 5, roundCount: 16 },
-        { title: "Depuração esperta", icon: "🧠", age: "9-10 anos", theme: "Grade 4x4", meta: "6 comandos", cols: 4, rows: 4, length: 6, roundCount: 16 },
-        { title: "Mestre da depuração", icon: "🕵️", age: "10+ anos", theme: "Grade 5x5", meta: "7 comandos", cols: 5, rows: 5, length: 7, roundCount: 16 },
+        { title: "Depuração esperta", icon: "🧠", age: "10-11 anos", theme: "Grade 5x5", meta: "7 comandos", cols: 5, rows: 5, length: 7, roundCount: 18 },
+        { title: "Mestre da depuração", icon: "🕵️", age: "12-13 anos", theme: "Grade 6x6", meta: "9 comandos", cols: 6, rows: 6, length: 9, roundCount: 20 },
+        { title: "Especialista em bugs", icon: "🧑‍💻", age: "14 anos", theme: "Grade 7x7", meta: "11 comandos", cols: 7, rows: 7, length: 11, roundCount: 24 },
       ];
 
       const bugMoveVectors = {
@@ -9780,6 +10472,173 @@
         };
       });
 
+      const loopLevelPlans = [
+        { title: "Primeiros laços", icon: "🔁", age: "6-7 anos", theme: "Repetir para andar", meta: "sem passo extra", maxRepeat: 4, maxStep: 3, extraStep: false, roundCount: 16 },
+        { title: "Laços espertos", icon: "🐰", age: "8-9 anos", theme: "Repetir para chegar longe", meta: "sem passo extra", maxRepeat: 6, maxStep: 4, extraStep: false, roundCount: 18 },
+        { title: "Dois laços", icon: "🧵", age: "10-11 anos", theme: "Repita e ande mais um pouco", meta: "com passo extra", maxRepeat: 6, maxStep: 5, extraStep: true, roundCount: 20 },
+        { title: "Laço avançado", icon: "⚙️", age: "12-13 anos", theme: "Números maiores", meta: "com passo extra", maxRepeat: 9, maxStep: 7, extraStep: true, roundCount: 24 },
+        { title: "Mestre dos laços", icon: "🏗️", age: "14 anos", theme: "Laços grandes", meta: "com passo extra", maxRepeat: 12, maxStep: 9, extraStep: true, roundCount: 28 },
+      ];
+
+      function generateLoopBlock(plan, seed) {
+        const random = seededRandom(seedFromParts("loop-block", seed));
+        const repeat = 2 + Math.floor(random() * (plan.maxRepeat - 1));
+        const step = 1 + Math.floor(random() * plan.maxStep);
+        const extra = plan.extraStep ? Math.floor(random() * step) : 0;
+        return { repeat, step, extra };
+      }
+
+      function loopTotal(block) {
+        return block.repeat * block.step + block.extra;
+      }
+
+      function loopBlocksEqual(a, b) {
+        return a.repeat === b.repeat && a.step === b.step && a.extra === b.extra;
+      }
+
+      function loopDistractors(correct) {
+        const candidates = [
+          { repeat: correct.repeat + 1, step: correct.step, extra: correct.extra },
+          { repeat: Math.max(1, correct.repeat - 1), step: correct.step, extra: correct.extra },
+          { repeat: correct.repeat, step: correct.step + 1, extra: correct.extra },
+          { repeat: correct.repeat, step: Math.max(1, correct.step - 1), extra: correct.extra },
+          { repeat: Math.max(1, correct.step), step: Math.max(1, correct.repeat), extra: correct.extra },
+          { repeat: correct.repeat + 2, step: correct.step, extra: correct.extra },
+        ];
+        const correctTotal = loopTotal(correct);
+        const unique = [];
+        candidates.forEach((candidate) => {
+          if (unique.length >= 3) return;
+          if (loopTotal(candidate) === correctTotal) return;
+          if (loopBlocksEqual(candidate, correct)) return;
+          if (unique.some((item) => loopBlocksEqual(item, candidate))) return;
+          unique.push(candidate);
+        });
+        let bump = 1;
+        while (unique.length < 3) {
+          const candidate = { repeat: correct.repeat + bump, step: correct.step, extra: correct.extra };
+          if (loopTotal(candidate) !== correctTotal && !unique.some((item) => loopBlocksEqual(item, candidate))) {
+            unique.push(candidate);
+          }
+          bump += 1;
+        }
+        return unique;
+      }
+
+      function generateLoopRound(plan, seed) {
+        const correct = generateLoopBlock(plan, seed);
+        const blocks = [correct, ...loopDistractors(correct)];
+        return {
+          target: loopTotal(correct),
+          blocks,
+          answer: 0,
+        };
+      }
+
+      const loopLevels = loopLevelPlans.map((plan, tierIndex) => {
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
+          generateLoopRound(plan, seedFromParts("loop-tier", tierIndex, index))
+        );
+        return { ...plan, preview: ["🔁", "➡️", "🎯"], rounds };
+      });
+
+      const sortLevelPlans = [
+        { title: "Três na fila", icon: "📚", age: "6-7 anos", theme: "Coloque em ordem", meta: "3 itens", itemCount: 3, roundCount: 14 },
+        { title: "Quatro na fila", icon: "🗂️", age: "8-9 anos", theme: "Troque os vizinhos", meta: "4 itens", itemCount: 4, roundCount: 16 },
+        { title: "Estante maior", icon: "📦", age: "10-11 anos", theme: "Troque os vizinhos", meta: "5 itens", itemCount: 5, roundCount: 18 },
+        { title: "Estante cheia", icon: "🏬", age: "12-13 anos", theme: "Troque os vizinhos", meta: "6 itens", itemCount: 6, roundCount: 20 },
+        { title: "Mestre da ordenação", icon: "🧮", age: "14 anos", theme: "Troque os vizinhos", meta: "7 itens", itemCount: 7, roundCount: 22 },
+      ];
+
+      const sortIconSets = [
+        ["📕", "📗", "📘", "📙", "📓", "📔", "📒"],
+        ["🥤", "🧃", "🍶", "🫙", "🧴", "🍾", "🏺"],
+        ["🎈", "⚽", "🏀", "🏐", "🎾", "🏈", "🎱"],
+      ];
+
+      function generateSortRound(plan, seed) {
+        const iconSet = sortIconSets[seed % sortIconSets.length];
+        const values = Array.from({ length: plan.itemCount }, (_, i) => i + 1);
+        const shuffled = shuffle(values, seedFromParts("sort-round", seed));
+        const isSorted = shuffled.every((value, index) => index === 0 || shuffled[index - 1] <= value);
+        if (isSorted) {
+          const mid = Math.floor(shuffled.length / 2);
+          [shuffled[0], shuffled[mid]] = [shuffled[mid], shuffled[0]];
+        }
+        const items = shuffled.map((value) => ({ value, icon: iconSet[value - 1] }));
+        return { items };
+      }
+
+      const sortLevels = sortLevelPlans.map((plan, tierIndex) => {
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
+          generateSortRound(plan, tierIndex * 100 + index)
+        );
+        return { ...plan, preview: ["🔀", "↔️", "✅"], rounds };
+      });
+
+      const varAttributeSets = [
+        { name: "COR", icon: "🎨", values: [
+          { label: "vermelho", visual: "🔴" },
+          { label: "azul", visual: "🔵" },
+          { label: "verde", visual: "🟢" },
+          { label: "amarelo", visual: "🟡" },
+          { label: "roxo", visual: "🟣" },
+          { label: "laranja", visual: "🟠" },
+        ] },
+        { name: "TAMANHO", icon: "📏", values: [
+          { label: "pequeno", visual: "🔹" },
+          { label: "médio", visual: "🔷" },
+          { label: "grande", visual: "🟦" },
+        ] },
+        { name: "FORMA", icon: "🔺", values: [
+          { label: "círculo", visual: "⚪" },
+          { label: "quadrado", visual: "⬜" },
+          { label: "triângulo", visual: "🔺" },
+          { label: "estrela", visual: "⭐" },
+          { label: "coração", visual: "💛" },
+        ] },
+        { name: "QUANTIDADE", icon: "🔢", values: [
+          { label: "1", visual: "1️⃣" },
+          { label: "2", visual: "2️⃣" },
+          { label: "3", visual: "3️⃣" },
+          { label: "4", visual: "4️⃣" },
+          { label: "5", visual: "5️⃣" },
+        ] },
+      ];
+
+      const varLevelPlans = [
+        { title: "Primeira variável", icon: "🎁", age: "6-7 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [0], roundCount: 14 },
+        { title: "Caixa de formas", icon: "📦", age: "8-9 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [2], roundCount: 16 },
+        { title: "Caixa de tamanhos", icon: "🧰", age: "10-11 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [1], roundCount: 18 },
+        { title: "Variáveis numéricas", icon: "🔢", age: "12-13 anos", theme: "Guarde um número na caixa", meta: "1 atributo", attributeIndexes: [3], roundCount: 20 },
+        { title: "Mestre das variáveis", icon: "🖥️", age: "14 anos", theme: "Qualquer atributo", meta: "vários atributos", attributeIndexes: [0, 1, 2, 3], roundCount: 22 },
+      ];
+
+      function generateVarRound(plan, seed) {
+        const attrPool = plan.attributeIndexes;
+        const attrIndex = attrPool[seed % attrPool.length];
+        const attribute = varAttributeSets[attrIndex];
+        const random = seededRandom(seedFromParts("var-round", seed, attrIndex));
+        const answerIndex = Math.floor(random() * attribute.values.length);
+        const distractorPool = attribute.values
+          .map((_, index) => index)
+          .filter((index) => index !== answerIndex);
+        const shuffledDistractors = shuffle(distractorPool, seedFromParts("var-distractors", seed, attrIndex));
+        const optionIndexes = [answerIndex, ...shuffledDistractors.slice(0, 3)];
+        return {
+          attrIndex,
+          answerValueIndex: answerIndex,
+          optionValueIndexes: optionIndexes,
+        };
+      }
+
+      const varLevels = varLevelPlans.map((plan, tierIndex) => {
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
+          generateVarRound(plan, tierIndex * 100 + index)
+        );
+        return { ...plan, preview: ["🎁", "➡️", "🖼️"], rounds };
+      });
+
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
         { icon: "⌨️", name: "Teclado", type: "entrada" },
@@ -9805,10 +10664,10 @@
           title: "Detetive de Padrões",
           levels: [
             { id: "patterns-1", activity: "complete", icon: "🔁", title: "Trilha curta", age: "6-7 anos", description: "Continue o padrão.", preview: ["🔴", "🔵", "?"] },
-            { id: "patterns-2", activity: "complete", icon: "🧱", title: "Trilha esperta", age: "7-8 anos", description: "Observe e complete.", preview: ["▲", "■", "?"] },
-            { id: "patterns-3", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "8-9 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
-            { id: "patterns-4", activity: "rule", icon: "🧩", title: "Regra escondida", age: "9-10 anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
-            { id: "patterns-5", activity: "rule", icon: "🧠", title: "Desafio de regras", age: "10+ anos", description: "Compare padrões.", preview: ["2", "4", "8"] },
+            { id: "patterns-2", activity: "complete", icon: "🧱", title: "Trilha esperta", age: "8-9 anos", description: "Observe e complete.", preview: ["▲", "■", "?"] },
+            { id: "patterns-3", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "10-11 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
+            { id: "patterns-4", activity: "rule", icon: "🧩", title: "Regra escondida", age: "12-13 anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
+            { id: "patterns-5", activity: "rule", icon: "🧠", title: "Desafio de regras", age: "14 anos", description: "Compare padrões complexos.", preview: ["2", "4", "8"] },
           ],
         },
         data: {
@@ -9816,10 +10675,10 @@
           title: "Dados e gráficos",
           levels: [
             { id: "data-1", activity: "organize", icon: "🧺", title: "Conte figuras", age: "6-7 anos", description: "Observe os grupos.", preview: ["🐱", "🐶", "?"] },
-            { id: "data-2", activity: "organize", icon: "🗂️", title: "Compare grupos", age: "7-8 anos", description: "Conte e compare.", preview: ["🍎", "📚", "🏷️"] },
-            { id: "data-3", activity: "detective", icon: "📊", title: "Olho no gráfico", age: "8-9 anos", description: "Leia o gráfico.", preview: ["📊", "🔎", "✓"] },
-            { id: "data-4", activity: "detective", icon: "📈", title: "Gráfico esperto", age: "9-10 anos", description: "Compare valores.", preview: ["8", "12", "?"] },
-            { id: "data-5", activity: "detective", icon: "🧠", title: "Desafio dos dados", age: "10+ anos", description: "Resolva com dados.", preview: ["total", "mais", "menos"] },
+            { id: "data-2", activity: "organize", icon: "🗂️", title: "Compare grupos", age: "8-9 anos", description: "Conte e compare.", preview: ["🍎", "📚", "🏷️"] },
+            { id: "data-3", activity: "detective", icon: "📊", title: "Olho no gráfico", age: "10-11 anos", description: "Leia o gráfico.", preview: ["📊", "🔎", "✓"] },
+            { id: "data-4", activity: "detective", icon: "📈", title: "Gráfico esperto", age: "12-13 anos", description: "Compare valores.", preview: ["8", "12", "?"] },
+            { id: "data-5", activity: "detective", icon: "🧠", title: "Desafio dos dados", age: "14 anos", description: "Resolva com dados complexos.", preview: ["total", "mais", "menos"] },
           ],
         },
       };
@@ -10195,6 +11054,7 @@
       legacyOrganizeRounds = expandOptionRounds(legacyOrganizeRounds);
 
       const state = {
+        ageBand: null,
         mode: "menu",
         menuHome: true,
         menu: 0,
@@ -10261,6 +11121,20 @@
         bugWrong: null,
         bugAttempt: 0,
         bugCorrectIndex: null,
+        loopLevel: null,
+        loopWrong: null,
+        loopAttempt: 0,
+        loopCorrectIndex: null,
+        sortLevel: null,
+        sortItems: [],
+        sortSelectedIndex: -1,
+        sortMoves: 0,
+        sortWrong: null,
+        sortJustSwapped: null,
+        varLevel: null,
+        varWrong: null,
+        varAttempt: 0,
+        varCorrectIndex: null,
         chefChosen: [],
         chefShuffled: [],
         chefAttempt: 0,
@@ -10986,6 +11860,9 @@
         code: codeLevels.map((level) => level.rounds.map(cloneValue)),
         pixels: pixelLevels.map((level) => level.rounds.map(cloneValue)),
         bug: bugLevels.map((level) => level.rounds.map(cloneValue)),
+        loop: loopLevels.map((level) => level.rounds.map(cloneValue)),
+        sort: sortLevels.map((level) => level.rounds.map(cloneValue)),
+        var: varLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
@@ -11034,6 +11911,27 @@
         });
       }
 
+      function resetLoopRoundPools(seed) {
+        loopLevels.forEach((level, levelIndex) => {
+          const source = roundPools.loop[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "loop", levelIndex), { free: true });
+        });
+      }
+
+      function resetSortRoundPools(seed) {
+        sortLevels.forEach((level, levelIndex) => {
+          const source = roundPools.sort[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "sort", levelIndex), { free: true });
+        });
+      }
+
+      function resetVarRoundPools(seed) {
+        varLevels.forEach((level, levelIndex) => {
+          const source = roundPools.var[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "var", levelIndex), { free: true });
+        });
+      }
+
       function resetLegacyRoundPool(activity, seed) {
         const source = roundPools.legacy[activity];
         if (!source) return;
@@ -11065,6 +11963,9 @@
         if (mode === "code") resetCodeRoundPools(seedForMode);
         if (mode === "pixels") resetPixelRoundPools(seedForMode);
         if (mode === "bug") resetBugRoundPools(seedForMode);
+        if (mode === "loop") resetLoopRoundPools(seedForMode);
+        if (mode === "sort") resetSortRoundPools(seedForMode);
+        if (mode === "var") resetVarRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -11830,6 +12731,9 @@
         code: codeLevels,
         pixels: pixelLevels,
         bug: bugLevels,
+        loop: loopLevels,
+        sort: sortLevels,
+        var: varLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -11845,6 +12749,29 @@
       function ageBadgeTone(ageRange) {
         const firstNumber = Number.parseInt(ageRange.match(/\d+/)?.[0] || "6", 10);
         return Math.min(4, Math.max(0, firstNumber - 6));
+      }
+
+      function renderAgePicker() {
+        setHeader("Missões Interativas", "Escolha sua idade");
+        ageBadge.hidden = true;
+        setCounters("Passo", "Início", "Faixas", `${ageBands.length}`);
+        status.textContent = "Toque na sua idade ou série para começar.";
+        content.innerHTML = `<div class="age-picker">
+          ${ageBands.map((band, index) => `<div class="age-picker-card tone-${band.tone} ${index === state.selected ? "selected" : ""}" data-age-index="${index}">
+            <div class="age-picker-icon" style="font-size:${32 + index * 7}px">${band.icon}</div>
+            <div class="age-picker-grade">${band.grade}</div>
+            <div class="age-picker-age">${band.ageLabel}</div>
+          </div>`).join("")}
+        </div>`;
+      }
+
+      function chooseAgeBand(index) {
+        if (index < 0 || index >= ageBands.length) return;
+        state.ageBand = index;
+        state.selected = 0;
+        state.menuHome = true;
+        showMessage("▶️ Vamos lá!", 650, "info");
+        render();
       }
 
       function renderMenuHome() {
@@ -13252,6 +14179,147 @@
               <span class="bug-chip-step">${index + 1}</span>
               <span class="bug-chip-arrow">${arrowSymbols[key]}</span>
               ${state.bugCorrectIndex === index ? '<div class="fx-stamp">🐞</div>' : ""}
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function currentLoopRounds() {
+        return loopLevels[state.loopLevel].rounds;
+      }
+
+      function loopOptions() {
+        const round = currentLoopRounds()[state.round];
+        return orderAnswerOptions(round.blocks, {
+          seed: seedFromParts("loop", state.missionSeed, state.loopLevel, state.round, round.target),
+          attempt: state.loopAttempt,
+          isCorrect: (block) => loopBlocksEqual(block, round.blocks[round.answer]),
+        });
+      }
+
+      function loopBlockLabel(block) {
+        const extraPart = block.extra ? ` + ${block.extra}` : "";
+        return `🔁 ${block.repeat}x: avançar ${block.step}${extraPart}`;
+      }
+
+      function renderLoop() {
+        if (state.loopLevel === null) {
+          setHeader("Fábrica de Laços", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${loopLevels.length}`, "Fases", loopLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Trilhas de repetição.";
+          content.innerHTML = levelSelectHtml(loopLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
+          });
+          return;
+        }
+        const level = loopLevels[state.loopLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const options = loopOptions();
+        setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
+        setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = `O robô precisa andar ${round.target} casas. Qual laço funciona?`;
+        content.innerHTML = `<div class="loop-board">
+          <div class="loop-target">🎯 ${round.target} passos</div>
+          <div class="loop-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((block, index) => `<div class="loop-option ${index === state.selected ? "selected" : ""} ${state.loopWrong === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">
+              ${loopBlockLabel(block)}
+              ${state.loopCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function currentSortRounds() {
+        return sortLevels[state.sortLevel].rounds;
+      }
+
+      function startSortRound() {
+        const round = currentSortRounds()[state.round];
+        state.sortItems = round.items.map((item) => ({ ...item }));
+        state.sortSelectedIndex = -1;
+        state.sortMoves = 0;
+        state.sortWrong = null;
+        state.sortJustSwapped = null;
+      }
+
+      function sortIsSolved() {
+        return state.sortItems.every((item, index) => index === 0 || state.sortItems[index - 1].value <= item.value);
+      }
+
+      function renderSort() {
+        if (state.sortLevel === null) {
+          setHeader("Estante Organizada", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${sortLevels.length}`, "Fases", sortLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Troque os vizinhos até ordenar.";
+          content.innerHTML = levelSelectHtml(sortLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
+          });
+          return;
+        }
+        const level = sortLevels[state.sortLevel];
+        const rounds = level.rounds;
+        setHeader("Estante Organizada", `${level.title}: troque os vizinhos.`);
+        setCounters("Estante", `${state.round + 1} / ${rounds.length}`, "Trocas", state.sortMoves);
+        status.textContent = "Toque em um item e depois no vizinho para trocar.";
+        content.innerHTML = `<div class="sort-board">
+          <div class="sort-row ${state.answerLocked ? "locked" : ""}">
+            ${state.sortItems.map((item, index) => `<div class="sort-item ${index === state.sortSelectedIndex ? "selected" : ""} ${state.sortWrong === index ? "wrong" : ""} ${state.sortJustSwapped?.includes(index) ? "swapped" : ""}">
+              <span class="sort-item-icon">${item.icon}</span>
+              <span class="sort-item-value">${item.value}</span>
+            </div>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function currentVarRounds() {
+        return varLevels[state.varLevel].rounds;
+      }
+
+      function varOptions() {
+        const round = currentVarRounds()[state.round];
+        return orderAnswerOptions(round.optionValueIndexes, {
+          seed: seedFromParts("var", state.missionSeed, state.varLevel, state.round, round.attrIndex, round.answerValueIndex),
+          attempt: state.varAttempt,
+          isCorrect: (valueIndex) => valueIndex === round.answerValueIndex,
+        });
+      }
+
+      function renderVar() {
+        if (state.varLevel === null) {
+          setHeader("Tradutor de Sinais", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${varLevels.length}`, "Fases", varLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Guarde o valor certo na caixa.";
+          content.innerHTML = levelSelectHtml(varLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
+          });
+          return;
+        }
+        const level = varLevels[state.varLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const attribute = varAttributeSets[round.attrIndex];
+        const options = varOptions();
+        const answerValue = attribute.values[round.answerValueIndex];
+        setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
+        setCounters("Caixa", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = `O personagem precisa ficar assim. Escolha o valor certo para a caixa ${attribute.name}.`;
+        content.innerHTML = `<div class="var-board">
+          <div class="var-preview">
+            <div class="var-preview-visual">${answerValue.visual}</div>
+            <div class="var-box">
+              <span class="var-box-icon">${attribute.icon}</span>
+              <span class="var-box-name">${attribute.name}</span>
+              <span class="var-box-value">${state.varCorrectIndex !== null ? answerValue.label : "?"}</span>
+            </div>
+          </div>
+          <div class="var-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((valueIndex, index) => `<div class="var-option ${index === state.selected ? "selected" : ""} ${state.varWrong === index ? "wrong" : ""} ${state.varCorrectIndex === index ? "correct" : ""}">
+              <span class="var-option-visual">${attribute.values[valueIndex].visual}</span>
+              <span class="var-option-label">${attribute.values[valueIndex].label}</span>
             </div>`).join("")}
           </div>
         </div>`;
@@ -14754,6 +15822,9 @@
         code: renderCode,
         pixels: renderPixels,
         bug: renderBug,
+        loop: renderLoop,
+        sort: renderSort,
+        var: renderVar,
         devices: renderDevices,
         mathCup: renderMathCup,
       };
@@ -14801,8 +15872,36 @@
         code: "codeLevel",
         pixels: "pixelLevel",
         bug: "bugLevel",
+        loop: "loopLevel",
+        sort: "sortLevel",
+        var: "varLevel",
         mathCup: "mathCupLevel",
       };
+
+      function mathCupTierForAgeBand(ageBand) {
+        const map = [0, 2, 4, 5, 5];
+        return map[ageBand] ?? 0;
+      }
+
+      function applyAutoTierForMode(mode) {
+        if (state.ageBand === null) return;
+        if (mode === "mathCup") return;
+        if (mode === "sort") {
+          state.sortLevel = state.ageBand;
+          startSortRound();
+          return;
+        }
+        const stateKey = missionLevelStateKeys[mode];
+        if (stateKey) {
+          state[stateKey] = state.ageBand;
+          state.selected = -1;
+          return;
+        }
+        if (isLevelMission(mode)) {
+          state.legacyGradeIndex = state.ageBand;
+          openLegacyGrade();
+        }
+      }
 
       function currentMissionLevelInfo() {
         const stateKey = missionLevelStateKeys[state.mode];
@@ -14830,6 +15929,11 @@
       }
 
       function render() {
+        if (state.ageBand === null) {
+          renderAgePicker();
+          scheduleTextFit();
+          return;
+        }
         const renderer = isLevelMission(state.mode)
           ? renderLevels
           : missionRenderers[state.mode] || renderMenu;
@@ -14941,6 +16045,20 @@
         state.bugAttempt = 0;
         state.bugWrong = null;
         state.bugCorrectIndex = null;
+        state.loopLevel = null;
+        state.loopAttempt = 0;
+        state.loopWrong = null;
+        state.loopCorrectIndex = null;
+        state.sortLevel = null;
+        state.sortItems = [];
+        state.sortSelectedIndex = -1;
+        state.sortMoves = 0;
+        state.sortWrong = null;
+        state.sortJustSwapped = null;
+        state.varLevel = null;
+        state.varAttempt = 0;
+        state.varWrong = null;
+        state.varCorrectIndex = null;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
@@ -14955,6 +16073,7 @@
           state.legacyGradeIndex = 0;
         }
         if (mode === "robot") resetRobot();
+        applyAutoTierForMode(mode);
         render();
         if (mode === "cup") scheduleCupChoices();
       }
@@ -15006,12 +16125,12 @@
           startMathCupLevel();
           return;
         }
-        if (state.selected === 0) openMathCupLevelSelect();
+        if (state.selected === 0) startMathCupLevel(mathCupTierForAgeBand(state.ageBand));
         else openMathCupInfo();
       }
 
-      function startMathCupLevel() {
-        state.mathCupLevel = Math.max(0, state.selected);
+      function startMathCupLevel(levelIndex = Math.max(0, state.selected)) {
+        state.mathCupLevel = levelIndex;
         state.mathCupTeamCode = null;
         mathCupLevels = [];
         resetRoundState(0);
@@ -15858,6 +16977,66 @@
         render();
       }
 
+      function startLoopLevel() {
+        state.loopLevel = state.selected;
+        resetRoundState(-1);
+        state.loopAttempt = 0;
+        state.loopWrong = null;
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToLoopLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.loopLevel = null;
+        resetRoundState(0);
+        state.loopAttempt = 0;
+        state.loopWrong = null;
+        state.loopCorrectIndex = null;
+        render();
+      }
+
+      function startSortLevel() {
+        state.sortLevel = state.selected;
+        resetRoundState(0);
+        startSortRound();
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToSortLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.sortLevel = null;
+        resetRoundState(0);
+        state.sortItems = [];
+        state.sortSelectedIndex = -1;
+        state.sortWrong = null;
+        state.sortJustSwapped = null;
+        render();
+      }
+
+      function startVarLevel() {
+        state.varLevel = state.selected;
+        resetRoundState(-1);
+        state.varAttempt = 0;
+        state.varWrong = null;
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToVarLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.varLevel = null;
+        resetRoundState(0);
+        state.varAttempt = 0;
+        state.varWrong = null;
+        state.varCorrectIndex = null;
+        render();
+      }
+
       function handleCodeEnter() {
         if (state.codeLevel === null) {
           startCodeLevel();
@@ -16019,6 +17198,196 @@
         return activateChoiceClick(event, ".bug-chip", {
           clearWrong: () => { state.bugWrong = null; },
           onConfirm: handleBugEnter,
+        });
+      }
+
+      function handleLoopEnter() {
+        if (state.loopLevel === null) {
+          startLoopLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        const rounds = currentLoopRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const choice = loopOptions()[state.selected];
+        const isCorrect = loopBlocksEqual(choice, round.blocks[round.answer]);
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Confira a conta!",
+            guard: () => state.mode === "loop",
+            onLock: () => { state.loopWrong = state.selected; },
+            onUnlock: () => { state.loopWrong = null; state.loopAttempt += 1; },
+          });
+          return;
+        }
+        state.loopWrong = null;
+        state.loopCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🔁 Certo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "loop") return;
+          state.loopCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.loopAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("loop", "Laços concluídos!");
+            return;
+          }
+          render();
+        }, 600);
+      }
+
+      function handleLoopClick(event) {
+        if (state.loopLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            handleLoopEnter();
+          });
+        }
+        return activateChoiceClick(event, ".loop-option", {
+          clearWrong: () => { state.loopWrong = null; },
+          onConfirm: handleLoopEnter,
+        });
+      }
+
+      function completeSortRound() {
+        state.answerLocked = true;
+        showMessage("✅ Ordenado!", 700);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "sort") return;
+          state.answerLocked = false;
+          state.round += 1;
+          const rounds = currentSortRounds();
+          if (state.round >= rounds.length) {
+            complete("sort", "Estante organizada!");
+            return;
+          }
+          startSortRound();
+          render();
+        }, 700);
+      }
+
+      function handleSortSelect(index) {
+        if (state.answerLocked) return;
+        if (state.sortSelectedIndex === -1) {
+          state.sortSelectedIndex = index;
+          render();
+          return;
+        }
+        if (state.sortSelectedIndex === index) {
+          state.sortSelectedIndex = -1;
+          render();
+          return;
+        }
+        const distance = Math.abs(state.sortSelectedIndex - index);
+        if (distance !== 1) {
+          state.sortWrong = index;
+          render();
+          window.setTimeout(() => {
+            if (state.mode !== "sort") return;
+            state.sortWrong = null;
+            render();
+          }, 500);
+          return;
+        }
+        const a = state.sortSelectedIndex;
+        const b = index;
+        [state.sortItems[a], state.sortItems[b]] = [state.sortItems[b], state.sortItems[a]];
+        state.sortMoves += 1;
+        state.sortJustSwapped = [a, b];
+        state.sortSelectedIndex = -1;
+        state.answerLocked = true;
+        render();
+        window.setTimeout(() => {
+          if (state.mode !== "sort") return;
+          state.sortJustSwapped = null;
+          state.answerLocked = false;
+          if (sortIsSolved()) {
+            completeSortRound();
+          } else {
+            render();
+          }
+        }, 400);
+      }
+
+      function handleSortEnter() {
+        if (state.sortLevel === null) {
+          startSortLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        handleSortSelect(state.selected);
+      }
+
+      function handleSortClick(event) {
+        if (state.sortLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            startSortLevel();
+          });
+        }
+        return activateIndexedClick(event, ".sort-item", (index) => handleSortSelect(index));
+      }
+
+      function handleVarEnter() {
+        if (state.varLevel === null) {
+          startVarLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        const rounds = currentVarRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const choice = varOptions()[state.selected];
+        const isCorrect = choice === round.answerValueIndex;
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Tente outro valor!",
+            guard: () => state.mode === "var",
+            onLock: () => { state.varWrong = state.selected; },
+            onUnlock: () => { state.varWrong = null; state.varAttempt += 1; },
+          });
+          return;
+        }
+        state.varWrong = null;
+        state.varCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🎁 Guardado!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "var") return;
+          state.varCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.varAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("var", "Variáveis dominadas!");
+            return;
+          }
+          render();
+        }, 600);
+      }
+
+      function handleVarClick(event) {
+        if (state.varLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            handleVarEnter();
+          });
+        }
+        return activateChoiceClick(event, ".var-option", {
+          clearWrong: () => { state.varWrong = null; },
+          onConfirm: handleVarEnter,
         });
       }
 
@@ -16492,11 +17861,18 @@
         code: handleCodeEnter,
         pixels: handlePixelEnter,
         bug: handleBugEnter,
+        loop: handleLoopEnter,
+        sort: handleSortEnter,
+        var: handleVarEnter,
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
       };
 
       function handleEnter() {
+        if (state.ageBand === null) {
+          chooseAgeBand(state.selected);
+          return;
+        }
         if (isLevelMission(state.mode)) {
           handleLegacyEnter();
           return;
@@ -16531,6 +17907,10 @@
       }
 
       function moveSelection(delta, vertical = false) {
+        if (state.ageBand === null) {
+          moveSelectionIndex({ count: ageBands.length, delta, vertical, columns: chooseGridColumns(ageBands.length, 5), allowUnselected: false });
+          return;
+        }
         if (state.mode === "menu") {
           moveMenuSelection(delta, vertical);
         } else if (isLevelMission(state.mode)) {
@@ -16660,6 +18040,60 @@
               count,
               delta,
               afterMove: () => { state.bugWrong = null; },
+            });
+          }
+        } else if (state.mode === "loop") {
+          if (state.loopLevel === null) {
+            const count = loopLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = loopOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 2),
+              afterMove: () => { state.loopWrong = null; },
+            });
+          }
+        } else if (state.mode === "sort") {
+          if (state.sortLevel === null) {
+            const count = sortLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = state.sortItems.length;
+            moveSelectionIndex({ count, delta, allowUnselected: false });
+          }
+        } else if (state.mode === "var") {
+          if (state.varLevel === null) {
+            const count = varLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = varOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 2),
+              afterMove: () => { state.varWrong = null; },
             });
           }
         } else if (state.mode === "devices") {
@@ -16959,6 +18393,9 @@
         code: handleCodeClick,
         pixels: handlePixelClick,
         bug: handleBugClick,
+        loop: handleLoopClick,
+        sort: handleSortClick,
+        var: handleVarClick,
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
       };
@@ -16971,6 +18408,12 @@
           return;
         }
 
+        if (state.ageBand === null) {
+          const handled = activateIndexedClick(event, ".age-picker-card", (index) => chooseAgeBand(index));
+          if (handled) { event.preventDefault(); event.stopPropagation(); }
+          return;
+        }
+
         const handler = state.mode === "menu"
           ? handleMenuClick
           : isLevelMission(state.mode)
@@ -16979,7 +18422,7 @@
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .loop-option, .sort-item, .var-option")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -17031,7 +18474,7 @@
       }
 
       function isAboutModalOpen() {
-        return !aboutModal.hidden;
+        return !aboutModal.hidden || !lessonPlanModal.hidden;
       }
 
       function viewportSize() {
@@ -17073,8 +18516,52 @@
         adultHoldText.textContent = "🧑 Sou adulto";
       }
 
-      function openAboutModal() {
+      function missionTitleById(id) {
+        const item = missions.find((entry) => entry.id === id);
+        return item ? `${item.icon} ${item.title}` : id;
+      }
+
+      function lessonPlanHtml(plan) {
+        return `
+          <h2 class="lesson-plan-title">${plan.grade} · ${plan.theme}</h2>
+          <div class="lesson-plan-meta">Faixa etária sugerida: ${plan.ageLabel} · Duração: ${plan.duration}</div>
+          <h3 class="lesson-plan-section-title">Objetivos de aprendizagem</h3>
+          <ul class="lesson-plan-list">${plan.objectives.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <h3 class="lesson-plan-section-title">Competências Gerais da BNCC</h3>
+          <ul class="lesson-plan-list">${plan.competencies.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <h3 class="lesson-plan-section-title">Sequência didática</h3>
+          <table class="lesson-plan-table">
+            <thead><tr><th>Etapa</th><th>Tempo</th><th>O que fazer</th></tr></thead>
+            <tbody>${plan.sequence.map((item) => `<tr><td>${item.step}</td><td>${item.time}</td><td>${item.description}</td></tr>`).join("")}</tbody>
+          </table>
+          <h3 class="lesson-plan-section-title">Missões recomendadas</h3>
+          <ul class="lesson-plan-list">${plan.missions.map((id) => `<li>${missionTitleById(id)}</li>`).join("")}</ul>
+          <h3 class="lesson-plan-section-title">Avaliação (observação em sala)</h3>
+          <ul class="lesson-plan-list">${plan.assessment.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <div class="lesson-plan-footnote">Alinhado às Competências Gerais da BNCC. Missões Interativas — Pensamento Computacional.</div>
+        `;
+      }
+
+      function renderLessonPlanGrid() {
+        lessonPlanGrid.innerHTML = lessonPlans.map((plan, index) => `<button class="lesson-plan-button" type="button" data-plan-index="${index}">${plan.grade}</button>`).join("");
+      }
+
+      function openLessonPlan(index) {
+        const plan = lessonPlans[index];
+        if (!plan) return;
+        lessonPlanContent.innerHTML = lessonPlanHtml(plan);
+        lessonPlanModal.hidden = false;
+      }
+
+      function closeLessonPlanModal() {
+        lessonPlanModal.hidden = true;
+      }
+
+      function openAboutModal(teacherOnly = false) {
+        aboutModalTeacherOnly = teacherOnly;
         aboutModal.hidden = false;
+        aboutIntro.hidden = teacherOnly;
+        aboutTitle.textContent = teacherOnly ? "Área do professor" : "Sobre este material";
         audienceGate.hidden = false;
         supportBox.hidden = true;
         supportUnlockedPanel.hidden = true;
@@ -17099,6 +18586,8 @@
         }
         audienceGate.hidden = true;
         supportBox.hidden = false;
+        donateBox.hidden = aboutModalTeacherOnly;
+        feedbackBox.hidden = aboutModalTeacherOnly;
         supportOpenLink.href = SUPPORT_PAGE_URL;
         feedbackEmailLink.href = feedbackMailUrl();
         supportUnlockedPanel.hidden = false;
@@ -17149,15 +18638,19 @@
           childAboutLockInterval = null;
           aboutButton.disabled = false;
           aboutButton.textContent = "Sobre ☕";
+          teacherButton.disabled = false;
+          teacherButton.textContent = "👩‍🏫 Professor";
           return;
         }
         aboutButton.textContent = `Sobre ☕ ${secondsLeft}s`;
+        teacherButton.textContent = `👩‍🏫 Professor ${secondsLeft}s`;
       }
 
       function lockAboutForChild() {
         closeAboutModal();
         const unlockAt = Date.now() + CHILD_ABOUT_LOCK_MS;
         aboutButton.disabled = true;
+        teacherButton.disabled = true;
         updateAboutLock(unlockAt);
         window.clearInterval(childAboutLockInterval);
         childAboutLockInterval = window.setInterval(() => updateAboutLock(unlockAt), 1000);
@@ -17369,10 +18862,10 @@
       function goHome() {
         stopTimer();
         state.answerLocked = false;
-        const previousPage = state.mode === "menu" && state.menuHome ? state.selected : currentMenuPage();
         state.mode = "menu";
         state.menuHome = true;
-        state.selected = previousPage;
+        state.ageBand = null;
+        state.selected = 0;
         render();
       }
 
@@ -17420,6 +18913,18 @@
           backToBugLevels();
           return;
         }
+        if (state.mode === "loop" && state.loopLevel !== null) {
+          backToLoopLevels();
+          return;
+        }
+        if (state.mode === "sort" && state.sortLevel !== null) {
+          backToSortLevels();
+          return;
+        }
+        if (state.mode === "var" && state.varLevel !== null) {
+          backToVarLevels();
+          return;
+        }
         if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
           backToMathCupLevels();
           return;
@@ -17435,7 +18940,11 @@
           if (event.key === "Escape") {
             event.preventDefault();
             event.stopPropagation();
-            closeAboutModal();
+            if (!lessonPlanModal.hidden) {
+              closeLessonPlanModal();
+            } else {
+              closeAboutModal();
+            }
             return;
           }
           event.preventDefault();
@@ -17490,11 +18999,24 @@
       window.visualViewport?.addEventListener("resize", handleViewportChange);
       content.addEventListener("pointerdown", handleContentPointerDown);
       content.addEventListener("click", handleContentClick);
-      aboutButton.addEventListener("click", openAboutModal);
+      aboutButton.addEventListener("click", () => openAboutModal(false));
+      teacherButton.addEventListener("click", () => openAboutModal(true));
       aboutCloseButton.addEventListener("click", closeAboutModal);
       aboutModal.addEventListener("click", (event) => {
         if (event.target === aboutModal) closeAboutModal();
       });
+      lessonPlanGrid.addEventListener("click", (event) => {
+        const button = event.target.closest(".lesson-plan-button");
+        if (!button) return;
+        openLessonPlan(Number(button.dataset.planIndex));
+      });
+      lessonPlanCloseButton.addEventListener("click", closeLessonPlanModal);
+      lessonPlanBackButton.addEventListener("click", closeLessonPlanModal);
+      lessonPlanModal.addEventListener("click", (event) => {
+        if (event.target === lessonPlanModal) closeLessonPlanModal();
+      });
+      lessonPlanPrintButton.addEventListener("click", () => window.print());
+      renderLessonPlanGrid();
       childAudienceButton.addEventListener("click", lockAboutForChild);
       adultHoldButton.addEventListener("pointerdown", startAdultHold);
       adultHoldButton.addEventListener("pointerup", cancelAdultHold);

@@ -1,8 +1,8 @@
 # Missões Interativas - Pensamento Computacional
 
-Material em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.
+Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.5.0
+Versão atual: 2.6.0
 
 ## Acesse
 
@@ -16,7 +16,7 @@ O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem 
 
 ## Objetivo
 
-Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, dados, gráficos, códigos, dispositivos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
+Reunir missões curtas, visuais e interativas para trabalhar raciocínio lógico, sequências, padrões, lógica de programação (laços, variáveis, ordenação, depuração), dados, gráficos, códigos, dispositivos, matemática, bandeiras, natureza, biologia, saúde, ambiente e segurança no trânsito.
 
 As atividades foram pensadas para uso direto em sala, com linguagem simples, pouco texto e interação por teclado, mouse ou toque conforme a missão.
 
@@ -53,23 +53,13 @@ Seleção de missões pensadas também para apresentações, feiras e aulas espe
 - **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
 - **Copa das bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
 
-## Novidades recentes
-
-- Novas missões Desmistificador de Pixels, Caça ao Bug e Chef Cozinheiro, trazendo código binário, depuração de comandos e algoritmo de receitas.
-- Indicador de faixa etária durante o jogo, para o professor acompanhar a dificuldade em uso.
-- Detetive de Padrões (antes Padrões e regras) com novos desafios de sequência.
-- Novas missões Mensagem secreta e Entrada ou saída, ampliando o trabalho com códigos, símbolos e dispositivos de entrada/saída.
-- Copa da Matemática com dificuldade por faixa etária, placares mais claros, prorrogação, disputa de pênaltis, classificação de grupo e tela de eliminação.
-- Robô Coletor com portal, buraco de minhoca e novas situações de planejamento de caminho.
-- Menu reorganizado por categorias, com página inicial e botão de retorno ao início.
-- Feedback visual de acerto e erro nas missões para facilitar o acompanhamento em sala.
-- Ajustes em Dados e Gráficos, contraste visual, navegação e uso em telas diferentes.
-
 ## Manutenção
 
-O material é revisado continuamente para corrigir problemas, melhorar a leitura em diferentes telas e manter as missões adequadas ao uso em sala. O histórico detalhado de mudanças fica registrado nos commits do repositório.
+O material é revisado continuamente para corrigir problemas, melhorar a leitura em diferentes telas e manter as missões adequadas ao uso em sala. A página avisa automaticamente quando uma nova versão é publicada. O histórico detalhado de mudanças fica registrado nos commits do repositório.
 
 ## Missões
+
+As missões são organizadas em categorias por propósito pedagógico (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão), com faixas de dificuldade que vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
@@ -85,6 +75,9 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
 - Caça ao Bug: depuração de comandos, encontrar o passo errado num caminho.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
+- Fábrica de Laços: repetição e laços, montando o bloco certo para chegar ao total pedido.
+- Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
+- Tradutor de Sinais: variáveis, guardando o valor certo numa caixa para mudar o personagem.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
@@ -94,9 +87,10 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 ## Como usar em sala
 
 1. Abra a página pública ou o arquivo HTML local.
-2. Escolha uma missão no menu principal.
-3. Oriente a turma a observar antes de responder.
-4. Use as faixas de idade como referência flexível, ajustando conforme a turma.
+2. Escolha a idade ou série do aluno na tela inicial.
+3. Escolha uma missão no menu principal — as missões niveladas já abrem na dificuldade certa.
+4. Oriente a turma a observar antes de responder.
+5. Use as faixas de idade como referência flexível, ajustando conforme a turma.
 
 ## Controles
 
@@ -104,12 +98,13 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 - Setas na tela ou no teclado: mover, navegar e escolher.
 - Enter ou botão de continuar: confirmar quando a missão estiver aguardando.
 - Voltar: segure o botão de voltar ou segure Esc para evitar saídas acidentais.
+- Início: segure o botão para reiniciar a escolha de idade/série, útil ao trocar de aluno ou turma.
 - R: reiniciar a missão atual.
 - F: alternar tela cheia.
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, alinhados às Competências Gerais da BNCC e prontos para impressão) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 
