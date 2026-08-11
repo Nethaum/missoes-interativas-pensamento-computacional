@@ -73,6 +73,7 @@ As missões são organizadas em categorias por propósito pedagógico (sequênci
 - Mensagem secreta: leitura de símbolos, códigos simples e associação de ideias.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
+- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material.
 - Caça ao Bug: depuração de comandos, encontrar o passo errado num caminho.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Fábrica de Laços: repetição e laços, montando o bloco certo para chegar ao total pedido.

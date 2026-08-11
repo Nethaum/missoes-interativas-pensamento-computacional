@@ -301,6 +301,7 @@
       display: grid;
       justify-items: end;
       gap: 3px;
+      min-width: 0;
       color: rgba(255, 247, 214, 0.78);
       font-family: var(--read-font);
       font-size: 11px;
@@ -334,6 +335,8 @@
 
     .about-button {
       justify-self: end;
+      width: auto;
+      height: auto;
       margin: 0 0 4px auto;
       padding: 4px 8px;
       border: 2px solid rgba(255, 247, 214, 0.58);
@@ -344,6 +347,7 @@
       font-size: 12px;
       font-weight: 950;
       line-height: 1;
+      white-space: nowrap;
       cursor: pointer;
     }
 
@@ -4156,8 +4160,7 @@
     }
 
     .pixel-bit.on {
-      background: #2b2f3a;
-      color: var(--white);
+      color: var(--card-ink);
     }
 
     .pixel-options {
@@ -4489,6 +4492,86 @@
     .var-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
     .var-option.correct { border-color: #2f9e52; background: #e6f9ec; }
     .var-options.locked .var-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
+
+    .decoder-board {
+      width: min(680px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .decoder-robot {
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .decoder-robot-part {
+      font-size: 26px;
+      line-height: 1;
+      opacity: 0.15;
+      filter: grayscale(1);
+      transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .decoder-robot-part.shown {
+      opacity: 1;
+      filter: grayscale(0);
+      transform: scale(1.15);
+    }
+
+    .decoder-word {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .decoder-letter-slot {
+      width: 34px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-bottom: 4px solid var(--line);
+      font-size: 20px;
+      font-weight: 950;
+      color: var(--card-ink);
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .decoder-letter-slot.revealed { border-bottom-color: #2f9e52; background: #e6f9ec; }
+
+    .decoder-alphabet {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .decoder-letter {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--line);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease;
+    }
+
+    .decoder-letter.selected { border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 8px 0 rgba(52, 120, 229, 0.22); }
+    .decoder-letter.correct { border-color: #2f9e52; background: #e6f9ec; opacity: 0.55; cursor: default; }
+    .decoder-letter.wrong { border-color: var(--red); background: #fff0f0; opacity: 0.55; cursor: default; animation: fx-shake 0.5s ease; }
+    .decoder-alphabet.locked .decoder-letter:not(.correct):not(.wrong) { opacity: 0.42; filter: grayscale(0.35); }
 
     .device-board {
       width: min(520px, 100%);
@@ -6506,7 +6589,7 @@
       }
 
       .footer {
-        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 8px;
         padding: 5px calc(8px + var(--safe-right)) calc(7px + var(--safe-bottom)) calc(8px + var(--safe-left));
       }
@@ -6521,8 +6604,8 @@
       }
 
       .about-button {
-        min-width: 62px;
-        height: 38px;
+        min-width: 80px;
+        min-height: 38px;
         padding: 5px 7px;
         font-size: 11px;
       }
@@ -7162,8 +7245,8 @@
       }
 
       .about-button {
-        min-width: 58px;
-        height: 34px;
+        min-width: 72px;
+        min-height: 34px;
         padding: 4px 6px;
         font-size: 10px;
       }
@@ -8099,6 +8182,7 @@
         { id: "loop", icon: "🔁", title: "Fábrica de Laços", subject: "Repetição e laços" },
         { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
         { id: "var", icon: "🎁", title: "Tradutor de Sinais", subject: "Variáveis" },
+        { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras" },
       ];
 
       const missionCategories = [
@@ -8118,7 +8202,7 @@
           title: "Padrões, códigos e dados",
           icon: "🧠",
           description: "Reconhecer padrões, decodificar símbolos e ler dados e imagens.",
-          missionIds: ["patterns", "code", "pixels", "data"],
+          missionIds: ["patterns", "code", "pixels", "data", "decoder"],
         },
         {
           title: "Classificação e organização",
@@ -10322,6 +10406,93 @@
         };
       });
 
+      const DECODER_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+      const decoderRobotParts = ["🔩", "🦾", "🦿", "📡", "🔋", "🤖"];
+
+      const decoderThemeMeta = {
+        math: { label: "Matemática", icon: "➗" },
+        nature: { label: "Natureza", icon: "🌿" },
+        tech: { label: "Tecnologia", icon: "💻" },
+        traffic: { label: "Trânsito", icon: "🚦" },
+        health: { label: "Saúde", icon: "❤️" },
+        flags: { label: "Bandeiras", icon: "🚩" },
+        animals: { label: "Animais", icon: "🐾" },
+      };
+
+      const decoderLevelPlans = [
+        {
+          title: "Primeiras pistas", icon: "🔩", age: "6-7 anos", theme: "Palavras curtas", meta: "3 a 5 letras",
+          words: [
+            { word: "SOL", theme: "nature" }, { word: "LUA", theme: "nature" }, { word: "MAR", theme: "nature" },
+            { word: "AGUA", theme: "nature" }, { word: "TERRA", theme: "nature" },
+            { word: "GATO", theme: "animals" }, { word: "URSO", theme: "animals" }, { word: "PATO", theme: "animals" },
+            { word: "PEIXE", theme: "animals" }, { word: "LEAO", theme: "animals" },
+            { word: "ROBO", theme: "tech" }, { word: "DADO", theme: "tech" }, { word: "REDE", theme: "tech" },
+            { word: "TELA", theme: "tech" }, { word: "CHIP", theme: "tech" },
+            { word: "PARE", theme: "traffic" }, { word: "FAIXA", theme: "traffic" }, { word: "MOTO", theme: "traffic" },
+            { word: "PISTA", theme: "traffic" },
+            { word: "SOMA", theme: "math" }, { word: "ZERO", theme: "math" }, { word: "PAR", theme: "math" }, { word: "CONTA", theme: "math" },
+            { word: "PAIS", theme: "flags" }, { word: "AZUL", theme: "flags" }, { word: "VERDE", theme: "flags" }, { word: "COR", theme: "flags" },
+            { word: "SONO", theme: "health" }, { word: "SUCO", theme: "health" },
+          ],
+        },
+        {
+          title: "Pistas espertas", icon: "🦾", age: "8-9 anos", theme: "Palavras médias", meta: "5 a 7 letras",
+          words: [
+            { word: "CHUVA", theme: "nature" }, { word: "SEMENTE", theme: "nature" }, { word: "PLANETA", theme: "nature" }, { word: "NUVEM", theme: "nature" },
+            { word: "COELHO", theme: "animals" }, { word: "JACARE", theme: "animals" }, { word: "BALEIA", theme: "animals" }, { word: "TUCANO", theme: "animals" },
+            { word: "TECLADO", theme: "tech" }, { word: "SENSOR", theme: "tech" }, { word: "PIXEL", theme: "tech" }, { word: "BATERIA", theme: "tech" },
+            { word: "PLACA", theme: "traffic" }, { word: "FAROL", theme: "traffic" }, { word: "CALCADA", theme: "traffic" },
+            { word: "DOBRO", theme: "math" }, { word: "METADE", theme: "math" }, { word: "MEDIDA", theme: "math" }, { word: "NUMERO", theme: "math" }, { word: "DIVIDIR", theme: "math" },
+            { word: "SIMBOLO", theme: "flags" }, { word: "NACAO", theme: "flags" }, { word: "CORES", theme: "flags" },
+            { word: "VACINA", theme: "health" }, { word: "DENGUE", theme: "health" }, { word: "REMEDIO", theme: "health" }, { word: "HIGIENE", theme: "health" },
+          ],
+        },
+        {
+          title: "Grandes descobertas", icon: "🦿", age: "10-11 anos", theme: "Palavras maiores", meta: "6 a 9 letras",
+          words: [
+            { word: "FLORESTA", theme: "nature" }, { word: "NASCENTE", theme: "nature" }, { word: "POLINIZAR", theme: "nature" },
+            { word: "GOLFINHO", theme: "animals" }, { word: "TARTARUGA", theme: "animals" }, { word: "BORBOLETA", theme: "animals" }, { word: "CACHORRO", theme: "animals" },
+            { word: "CIRCUITO", theme: "tech" }, { word: "ALGORITMO", theme: "tech" }, { word: "MONITOR", theme: "tech" }, { word: "SOFTWARE", theme: "tech" },
+            { word: "SEMAFORO", theme: "traffic" }, { word: "CICLISTA", theme: "traffic" }, { word: "CAPACETE", theme: "traffic" }, { word: "PEDESTRE", theme: "traffic" },
+            { word: "PERIMETRO", theme: "math" }, { word: "TRIANGULO", theme: "math" }, { word: "MULTIPLO", theme: "math" }, { word: "DIVISOR", theme: "math" },
+            { word: "BANDEIRA", theme: "flags" }, { word: "FRONTEIRA", theme: "flags" },
+            { word: "EXERCICIO", theme: "health" }, { word: "HOSPITAL", theme: "health" }, { word: "CONTAGIO", theme: "health" }, { word: "IMUNIDADE", theme: "health" },
+          ],
+        },
+        {
+          title: "Vocabulário avançado", icon: "📡", age: "12-13 anos", theme: "Palavras longas", meta: "8 a 11 letras",
+          words: [
+            { word: "ECOSSISTEMA", theme: "nature" }, { word: "RECICLAGEM", theme: "nature" }, { word: "ATMOSFERA", theme: "nature" }, { word: "OXIGENIO", theme: "nature" },
+            { word: "MIGRATORIO", theme: "animals" }, { word: "CARNIVORO", theme: "animals" }, { word: "HERBIVORO", theme: "animals" }, { word: "PREDADOR", theme: "animals" },
+            { word: "PROGRAMACAO", theme: "tech" }, { word: "COMPILADOR", theme: "tech" }, { word: "DEPURACAO", theme: "tech" }, { word: "INTERFACE", theme: "tech" }, { word: "VARIAVEL", theme: "tech" },
+            { word: "ROTATORIA", theme: "traffic" }, { word: "SINALIZACAO", theme: "traffic" }, { word: "COMBUSTIVEL", theme: "traffic" },
+            { word: "EQUIVALENTE", theme: "math" }, { word: "DENOMINADOR", theme: "math" }, { word: "NUMERADOR", theme: "math" },
+            { word: "HEMISFERIO", theme: "flags" },
+            { word: "VACINACAO", theme: "health" }, { word: "PREVENCAO", theme: "health" }, { word: "TRANSMISSAO", theme: "health" }, { word: "SANEAMENTO", theme: "health" },
+          ],
+        },
+        {
+          title: "Mestre decifrador", icon: "🎓", age: "14 anos", theme: "Vocabulário completo", meta: "9 ou mais letras",
+          words: [
+            { word: "BIODIVERSIDADE", theme: "nature" }, { word: "FOTOSSINTESE", theme: "nature" }, { word: "DESMATAMENTO", theme: "nature" }, { word: "SUSTENTABILIDADE", theme: "nature" }, { word: "AQUECIMENTO", theme: "nature" },
+            { word: "INVERTEBRADO", theme: "animals" }, { word: "VERTEBRADO", theme: "animals" }, { word: "METAMORFOSE", theme: "animals" },
+            { word: "INTELIGENCIA", theme: "tech" }, { word: "PROGRAMADOR", theme: "tech" }, { word: "CIBERSEGURANCA", theme: "tech" }, { word: "CRIPTOGRAFIA", theme: "tech" }, { word: "ALGORITMICO", theme: "tech" },
+            { word: "ENGARRAFAMENTO", theme: "traffic" }, { word: "FISCALIZACAO", theme: "traffic" }, { word: "INFRAESTRUTURA", theme: "traffic" },
+            { word: "PROBABILIDADE", theme: "math" }, { word: "TRIGONOMETRIA", theme: "math" }, { word: "EXPONENCIAL", theme: "math" },
+            { word: "INDEPENDENCIA", theme: "flags" }, { word: "NACIONALIDADE", theme: "flags" }, { word: "COLONIZACAO", theme: "flags" },
+            { word: "EPIDEMIOLOGIA", theme: "health" }, { word: "IMUNIZACAO", theme: "health" }, { word: "CONTAMINACAO", theme: "health" },
+          ],
+        },
+      ];
+
+      const decoderLevels = decoderLevelPlans.map((plan) => ({
+        ...plan,
+        preview: ["🔤", "🤖", "🔍"],
+        rounds: plan.words.map((entry) => ({ ...entry })),
+      }));
+
       const pixelLevelPlans = [
         { title: "Primeiros pixels", icon: "🧩", age: "6-7 anos", theme: "Grade pequena", meta: "4x4", size: 4, roundCount: 18 },
         { title: "Códigos maiores", icon: "🔢", age: "8-9 anos", theme: "Grade 5x5", meta: "5x5", size: 5, roundCount: 20 },
@@ -11135,6 +11306,9 @@
         varWrong: null,
         varAttempt: 0,
         varCorrectIndex: null,
+        decoderLevel: null,
+        decoderGuessed: [],
+        decoderWrong: 0,
         chefChosen: [],
         chefShuffled: [],
         chefAttempt: 0,
@@ -11863,6 +12037,7 @@
         loop: loopLevels.map((level) => level.rounds.map(cloneValue)),
         sort: sortLevels.map((level) => level.rounds.map(cloneValue)),
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
+        decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
@@ -11932,6 +12107,13 @@
         });
       }
 
+      function resetDecoderRoundPools(seed) {
+        decoderLevels.forEach((level, levelIndex) => {
+          const source = roundPools.decoder[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "decoder", levelIndex), { free: true });
+        });
+      }
+
       function resetLegacyRoundPool(activity, seed) {
         const source = roundPools.legacy[activity];
         if (!source) return;
@@ -11966,6 +12148,7 @@
         if (mode === "loop") resetLoopRoundPools(seedForMode);
         if (mode === "sort") resetSortRoundPools(seedForMode);
         if (mode === "var") resetVarRoundPools(seedForMode);
+        if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -12734,6 +12917,7 @@
         loop: loopLevels,
         sort: sortLevels,
         var: varLevels,
+        decoder: decoderLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -14325,6 +14509,68 @@
         </div>`;
       }
 
+      function currentDecoderRounds() {
+        return decoderLevels[state.decoderLevel].rounds;
+      }
+
+      function startDecoderRound() {
+        state.decoderGuessed = [];
+        state.decoderWrong = 0;
+      }
+
+      function decoderWordSolved() {
+        const round = currentDecoderRounds()[state.round];
+        return round.word.split("").every((letter) => state.decoderGuessed.includes(letter));
+      }
+
+      function decoderFailed() {
+        return state.decoderWrong >= decoderRobotParts.length;
+      }
+
+      function renderDecoder() {
+        if (state.decoderLevel === null) {
+          setHeader("Robô Decifrador", "Escolha uma faixa.");
+          setCounters("Faixa", `${state.selected + 1} / ${decoderLevels.length}`, "Palavras", decoderLevels[state.selected]?.rounds.length || 0);
+          status.textContent = "Adivinhe a palavra secreta, letra por letra.";
+          content.innerHTML = levelSelectHtml(decoderLevels, {
+            selectedIndex: state.selected,
+            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
+          });
+          return;
+        }
+        const level = decoderLevels[state.decoderLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const themeMeta = decoderThemeMeta[round.theme];
+        const failed = decoderFailed();
+        setHeader("Robô Decifrador", `${level.title}: descubra a palavra.`);
+        setCounters("Palavra", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = `Dica: ${themeMeta.icon} ${themeMeta.label}. Toque nas letras para descobrir a palavra.`;
+        content.innerHTML = `<div class="decoder-board">
+          <div class="decoder-robot">
+            ${decoderRobotParts.map((part, index) => `<span class="decoder-robot-part ${index < state.decoderWrong ? "shown" : ""}">${part}</span>`).join("")}
+          </div>
+          <div class="decoder-word">
+            ${round.word.split("").map((letter) => {
+              const revealed = failed || state.decoderGuessed.includes(letter);
+              return `<span class="decoder-letter-slot ${revealed ? "revealed" : ""}">${revealed ? letter : ""}</span>`;
+            }).join("")}
+          </div>
+          <div class="decoder-alphabet ${state.answerLocked ? "locked" : ""}">
+            ${DECODER_ALPHABET.map((letter, index) => {
+              const guessed = state.decoderGuessed.includes(letter);
+              const correct = guessed && round.word.includes(letter);
+              const wrong = guessed && !correct;
+              const classes = ["decoder-letter"];
+              if (index === state.selected) classes.push("selected");
+              if (correct) classes.push("correct");
+              if (wrong) classes.push("wrong");
+              return `<button type="button" class="${classes.join(" ")}" ${guessed ? "disabled" : ""}>${letter}</button>`;
+            }).join("")}
+          </div>
+        </div>`;
+      }
+
       function renderDevices() {
         const item = deviceItems[state.round];
         const options = deviceOptions();
@@ -15825,6 +16071,7 @@
         loop: renderLoop,
         sort: renderSort,
         var: renderVar,
+        decoder: renderDecoder,
         devices: renderDevices,
         mathCup: renderMathCup,
       };
@@ -15875,6 +16122,7 @@
         loop: "loopLevel",
         sort: "sortLevel",
         var: "varLevel",
+        decoder: "decoderLevel",
         mathCup: "mathCupLevel",
       };
 
@@ -15889,6 +16137,11 @@
         if (mode === "sort") {
           state.sortLevel = state.ageBand;
           startSortRound();
+          return;
+        }
+        if (mode === "decoder") {
+          state.decoderLevel = state.ageBand;
+          startDecoderRound();
           return;
         }
         const stateKey = missionLevelStateKeys[mode];
@@ -16059,6 +16312,9 @@
         state.varAttempt = 0;
         state.varWrong = null;
         state.varCorrectIndex = null;
+        state.decoderLevel = null;
+        state.decoderGuessed = [];
+        state.decoderWrong = 0;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
@@ -17037,6 +17293,24 @@
         render();
       }
 
+      function startDecoderLevel() {
+        state.decoderLevel = state.selected;
+        resetRoundState(-1);
+        startDecoderRound();
+        showMessage("▶️ Vai!", 650, "info");
+        render();
+      }
+
+      function backToDecoderLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.decoderLevel = null;
+        resetRoundState(0);
+        state.decoderGuessed = [];
+        state.decoderWrong = 0;
+        render();
+      }
+
       function handleCodeEnter() {
         if (state.codeLevel === null) {
           startCodeLevel();
@@ -17389,6 +17663,73 @@
           clearWrong: () => { state.varWrong = null; },
           onConfirm: handleVarEnter,
         });
+      }
+
+      function completeDecoderRound(success) {
+        state.answerLocked = true;
+        const rounds = currentDecoderRounds();
+        const round = rounds[state.round];
+        if (success) {
+          showMessage("🤖 Decifrado!", 700);
+        } else {
+          showMessage(`👀 Era: ${round.word}`, 1400, "warn");
+        }
+        render();
+        const delay = success ? 700 : 1400;
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "decoder") return;
+          state.answerLocked = false;
+          if (success) state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          if (state.round >= rounds.length) {
+            complete("decoder", "Robô decifrado!");
+            return;
+          }
+          startDecoderRound();
+          render();
+        }, delay);
+      }
+
+      function handleDecoderGuess(letter) {
+        if (state.decoderLevel === null || state.answerLocked) return;
+        if (state.decoderGuessed.includes(letter)) return;
+        const round = currentDecoderRounds()[state.round];
+        if (!round) return;
+        state.decoderGuessed = [...state.decoderGuessed, letter];
+        if (round.word.includes(letter)) {
+          if (decoderWordSolved()) {
+            completeDecoderRound(true);
+            return;
+          }
+          render();
+          return;
+        }
+        state.decoderWrong += 1;
+        if (decoderFailed()) {
+          completeDecoderRound(false);
+          return;
+        }
+        render();
+      }
+
+      function handleDecoderEnter() {
+        if (state.decoderLevel === null) {
+          startDecoderLevel();
+          return;
+        }
+        if (!hasSelection()) return;
+        handleDecoderGuess(DECODER_ALPHABET[state.selected]);
+      }
+
+      function handleDecoderClick(event) {
+        if (state.decoderLevel === null) {
+          return activateLevelCardClick(event, (index) => {
+            state.selected = index;
+            startDecoderLevel();
+          });
+        }
+        return activateIndexedClick(event, ".decoder-letter", (index) => handleDecoderGuess(DECODER_ALPHABET[index]));
       }
 
       function handleDevicesEnter() {
@@ -17864,6 +18205,7 @@
         loop: handleLoopEnter,
         sort: handleSortEnter,
         var: handleVarEnter,
+        decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
       };
@@ -18094,6 +18436,25 @@
               vertical,
               columns: chooseGridColumns(count, 2),
               afterMove: () => { state.varWrong = null; },
+            });
+          }
+        } else if (state.mode === "decoder") {
+          if (state.decoderLevel === null) {
+            const count = decoderLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = DECODER_ALPHABET.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 7),
             });
           }
         } else if (state.mode === "devices") {
@@ -18396,6 +18757,7 @@
         loop: handleLoopClick,
         sort: handleSortClick,
         var: handleVarClick,
+        decoder: handleDecoderClick,
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
       };
@@ -18422,7 +18784,7 @@
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .loop-option, .sort-item, .var-option")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .loop-option, .sort-item, .var-option, .decoder-letter")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -18925,6 +19287,10 @@
           backToVarLevels();
           return;
         }
+        if (state.mode === "decoder" && state.decoderLevel !== null) {
+          backToDecoderLevels();
+          return;
+        }
         if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
           backToMathCupLevels();
           return;
@@ -18955,6 +19321,10 @@
         event.preventDefault();
         event.stopPropagation();
         if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (state.mode === "decoder" && state.decoderLevel !== null && /^[a-zA-Z]$/.test(event.key)) {
+          handleDecoderGuess(event.key.toUpperCase());
+          return;
+        }
         if (event.key.toLowerCase() === "f") {
           toggleFullscreen();
         } else if (event.key === "Escape") {
