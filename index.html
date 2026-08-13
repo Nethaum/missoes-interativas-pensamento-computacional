@@ -2,13 +2,21 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <script>
+    (function () {
+      if (location.hostname.endsWith("github.io")) {
+        var path = location.pathname.replace(/^\/missoes-interativas-pensamento-computacional/, "");
+        location.replace("https://www.pensamentocomputacional.pro.br" + path + location.search + location.hash);
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="app-version" content="2.6.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
   <title>Missões Interativas - Pensamento Computacional</title>
-  <link rel="canonical" href="https://nethaum.github.io/missoes-interativas-pensamento-computacional/">
+  <link rel="canonical" href="https://www.pensamentocomputacional.pro.br/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
   <meta property="og:type" content="website">
@@ -130,6 +138,19 @@
       display: flex;
       justify-content: flex-end;
       gap: 9px;
+    }
+
+    #homeButton,
+    #resetButton,
+    #fullscreenButton,
+    .panel-back-button {
+      line-height: 1;
+      text-align: center;
+    }
+
+    #homeButton,
+    #resetButton {
+      text-indent: -3px;
     }
 
     button {
@@ -258,6 +279,28 @@
       display: grid;
       place-items: center;
       overflow: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+    }
+
+    .content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 999px;
+    }
+
+    .content:has(.menu-filters) {
+      place-items: start center;
+      overflow: auto;
+      padding-bottom: 16px;
+      margin-right: 56px;
     }
 
     .footer {
@@ -309,6 +352,13 @@
       line-height: 1.15;
       text-align: right;
       text-transform: none;
+    }
+
+    .site-url {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 247, 214, 0.42);
+      letter-spacing: 0.2px;
     }
 
     .credit-line {
@@ -850,6 +900,36 @@
       opacity: 1;
     }
 
+    #resetButton {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #resetButton::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      bottom: 3px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ffcf42, #68d987);
+      transform: scaleX(var(--back-hold-progress, 0));
+      transform-origin: left center;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    #resetButton.back-hold {
+      border-color: #ffcf42;
+      background: rgba(65, 78, 28, 0.72);
+      box-shadow: 0 0 14px rgba(255, 207, 66, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    #resetButton.back-hold::after {
+      opacity: 1;
+    }
+
     .message {
       position: fixed;
       left: 50%;
@@ -1172,48 +1252,45 @@
       line-height: 1.12;
     }
 
-    .menu-page {
-      grid-column: 1 / -1;
-      justify-self: center;
-      color: var(--muted);
-      font-family: var(--chalk-font);
-      font-size: 18px;
-      font-weight: 950;
-      text-shadow: var(--chalk-shadow);
-    }
-
-    .menu-page-controls {
-      grid-column: 1 / -1;
-      justify-self: center;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .menu-page-controls .menu-page {
-      grid-column: auto;
-    }
-
-    .menu-page-button {
+    .menu-screen {
+      width: min(980px, 100%);
       display: grid;
-      place-items: center;
-      width: 44px;
-      aspect-ratio: 1;
-      border: 3px solid rgba(255, 248, 220, 0.78);
-      border-radius: 12px;
-      background: rgba(255, 248, 220, 0.1);
-      color: var(--chalk);
-      font-family: var(--read-font);
-      font-size: 28px;
-      font-weight: 950;
-      line-height: 1;
-      box-shadow: 0 4px 0 rgba(18, 66, 43, 0.35);
+      gap: 14px;
+      justify-items: center;
     }
 
-    .menu-page-button:disabled {
-      opacity: 0.35;
-      transform: none;
-      cursor: default;
+    .menu-filters {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .menu-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: auto;
+      height: auto;
+      padding: 8px 16px;
+      border: 3px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .menu-filter-chip.active {
+      border-color: var(--blue);
+      background: #eaf3ff;
+      color: #12356e;
     }
 
     .age-picker {
@@ -1291,70 +1368,6 @@
       .age-picker-grade {
         font-size: 14px;
       }
-    }
-
-    .menu-home {
-      width: min(760px, 100%);
-      display: grid;
-      gap: 12px;
-    }
-
-    .menu-home-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 18px;
-      border: 4px solid var(--line);
-      border-radius: 16px;
-      background: var(--white);
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
-      text-align: left;
-      transition: transform 0.12s ease;
-      cursor: pointer;
-    }
-
-    .menu-home-card.selected {
-      border-color: var(--blue);
-      transform: translateY(-6px);
-      box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
-    }
-
-    .menu-home-icon {
-      font-size: 40px;
-      filter: var(--visual-pop-shadow);
-      line-height: 1;
-    }
-
-    .menu-home-text {
-      display: grid;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .menu-home-title {
-      font-size: 22px;
-      font-weight: 950;
-      color: var(--card-ink);
-      line-height: 1.1;
-    }
-
-    .menu-home-desc {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--card-muted);
-      line-height: 1.25;
-    }
-
-    .menu-home-count {
-      font-size: 13px;
-      font-weight: 950;
-      color: var(--card-muted);
-      white-space: nowrap;
-      padding: 4px 10px;
-      border: 2px solid var(--line);
-      border-radius: 999px;
-      background: #f4efe0;
     }
 
     .robot-layout {
@@ -4050,26 +4063,57 @@
     }
 
     .code-legend-word {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--card-muted);
+      font-size: 17px;
+      font-weight: 950;
+      color: var(--card-ink);
       text-align: center;
     }
 
     .code-message {
+      width: 100%;
       display: flex;
-      gap: 14px;
-      padding: 16px 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 20px;
       border: 5px solid var(--line);
       border-radius: 18px;
       background: var(--white);
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
     }
 
-    .code-symbol {
-      font-size: 52px;
-      line-height: 1;
+    .code-symbol-cell {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
     }
+
+    .code-symbol {
+      font-size: 34px;
+      line-height: 1;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      opacity: 0.55;
+    }
+
+    .code-symbol-cell.active .code-symbol { opacity: 1; transform: scale(1.15); }
+    .code-symbol-cell.revealed .code-symbol { opacity: 1; }
+
+    .code-symbol-letter {
+      width: 30px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-bottom: 4px solid var(--line);
+      font-size: 18px;
+      font-weight: 950;
+      color: var(--card-ink);
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 6px 6px 0 0;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .code-symbol-cell.active .code-symbol-letter { border-bottom-color: var(--blue); }
+    .code-symbol-cell.revealed .code-symbol-letter { border-bottom-color: #2f9e52; background: #e6f9ec; }
 
     .code-options {
       width: 100%;
@@ -4245,36 +4289,81 @@
       aspect-ratio: 1;
       border: 4px solid var(--line);
       border-radius: 14px;
-      background: linear-gradient(160deg, #fff9e8, #eaf6ff 65%);
+      background: #17213b;
       box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
+      overflow: hidden;
+      transition: background 0.3s ease;
     }
 
-    .bug-goal {
-      font-size: clamp(20px, 4vw, 30px);
-      line-height: 1;
-      animation: legacy-star-twinkle 1.3s ease-in-out infinite;
+    .bug-cell.visited {
+      background: radial-gradient(circle at 50% 50%, rgba(255, 204, 69, 0.55) 0%, #17213b 70%);
+    }
+
+    .bug-cell.visited::after {
+      content: "";
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border: 2px solid #fff4a8;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 9px rgba(255, 204, 69, 0.9);
+    }
+
+    .bug-cell.active {
+      border-color: var(--blue);
+      box-shadow: 0 6px 0 rgba(52, 120, 229, 0.3), 0 0 0 4px rgba(52, 120, 229, 0.22);
     }
 
     .bug-robot {
       position: absolute;
       font-size: clamp(18px, 3.6vw, 26px);
       line-height: 1;
+      animation: bug-robot-hop 0.4s ease;
     }
 
-    .bug-step {
-      position: absolute;
-      bottom: 2px;
-      right: 3px;
-      min-width: 14px;
-      padding: 0 3px;
-      border-radius: 6px;
-      background: var(--purple);
-      color: var(--white);
-      font-size: 10px;
-      font-weight: 900;
-      line-height: 1.4;
-      text-align: center;
+    @keyframes bug-robot-hop {
+      0% { transform: translateY(0) scale(1); }
+      40% { transform: translateY(-10px) scale(1.15); }
+      100% { transform: translateY(0) scale(1); }
     }
+
+    .bug-replay-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      padding: 10px 24px;
+      font-size: 16px;
+      font-weight: 900;
+      font-family: inherit;
+      white-space: nowrap;
+      color: var(--card-ink);
+      cursor: pointer;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .bug-replay-button:disabled {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      cursor: default;
+    }
+
+    .bug-corrected-banner {
+      padding: 10px 22px;
+      border-radius: 999px;
+      border: 4px solid #2f9e52;
+      background: #e6f9ec;
+      color: #1f7a3d;
+      font-weight: 900;
+      font-size: 16px;
+      animation: fx-stamp-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
 
     .bug-chip-row {
       width: 100%;
@@ -4290,9 +4379,10 @@
       overflow: hidden;
       display: grid;
       justify-items: center;
-      gap: 2px;
-      min-width: 58px;
-      padding: 8px 12px;
+      align-content: center;
+      gap: 7px;
+      min-width: 60px;
+      padding: 10px 12px 12px;
       border: 4px solid var(--line);
       border-radius: 14px;
       background: var(--white);
@@ -4302,13 +4392,21 @@
     }
 
     .bug-chip-step {
+      display: grid;
+      place-items: center;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: var(--purple);
+      color: var(--white);
       font-size: 10px;
       font-weight: 900;
-      color: var(--card-muted);
+      line-height: 1;
     }
 
     .bug-chip-arrow {
-      font-size: 30px;
+      font-size: 28px;
       line-height: 1;
       color: var(--card-ink);
     }
@@ -4336,6 +4434,18 @@
       transform: none;
     }
 
+    .bug-chip.active {
+      border-color: var(--blue);
+      background: #eaf3ff;
+      animation: bug-chip-pulse 0.45s ease;
+    }
+
+    @keyframes bug-chip-pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
     .loop-board {
       width: min(760px, 100%);
       display: grid;
@@ -4343,15 +4453,56 @@
       justify-items: center;
     }
 
-    .loop-target {
-      padding: 14px 24px;
+    .loop-track {
+      position: relative;
+      width: 100%;
+      height: 68px;
+      padding: 0 18px;
       border: 5px solid var(--line);
       border-radius: 18px;
-      background: var(--white);
-      color: var(--card-ink);
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 950;
+      background: linear-gradient(90deg, #eef4ff, #f7fbff);
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .loop-robot {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .loop-robot.walking {
+      animation: loop-robot-walk 0.9s ease forwards;
+    }
+
+    @keyframes loop-robot-walk {
+      from { left: 0%; }
+      to { left: var(--loop-target-percent, 0%); }
+    }
+
+    .loop-flag {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: grid;
+      justify-items: center;
+      font-size: 26px;
+      line-height: 1;
+      z-index: 1;
+    }
+
+    .loop-flag-label {
+      font-size: 11px;
+      font-weight: 950;
+      color: var(--card-ink);
+      background: var(--white);
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 1px 6px;
+      margin-top: 2px;
     }
 
     .loop-options {
@@ -4365,21 +4516,56 @@
       position: relative;
       isolation: isolate;
       overflow: hidden;
-      min-height: 64px;
+      min-height: 90px;
       display: grid;
-      place-items: center;
-      padding: 14px;
+      gap: 10px;
+      align-content: center;
+      justify-items: center;
+      padding: 12px 14px;
       border: 4px solid var(--line);
       border-radius: 14px;
       background: var(--white);
       color: var(--card-ink);
-      font-weight: 900;
-      font-size: 17px;
-      text-align: center;
       cursor: pointer;
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
       transition: transform 0.12s ease;
     }
+
+    .loop-option-label { font-weight: 900; font-size: 15px; text-align: center; }
+
+    .loop-option-bar-track {
+      position: relative;
+      width: 100%;
+      height: 20px;
+      border-radius: 6px;
+      background: #eef1f6;
+    }
+
+    .loop-option-target-line {
+      position: absolute;
+      top: -4px;
+      bottom: -4px;
+      width: 3px;
+      background: var(--card-ink);
+      z-index: 2;
+    }
+
+    .loop-option-bar {
+      position: relative;
+      display: flex;
+      height: 100%;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .loop-bar-segment {
+      height: 100%;
+      background: var(--blue);
+      box-sizing: border-box;
+      border-right: 1px solid rgba(255, 255, 255, 0.55);
+    }
+
+    .loop-bar-segment.extra { background: var(--orange); }
 
     .loop-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
     .loop-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
@@ -4424,43 +4610,76 @@
     .sort-row.locked .sort-item { cursor: default; }
 
     .var-board {
-      width: min(560px, 100%);
+      width: min(680px, 100%);
       display: grid;
       gap: 20px;
       justify-items: center;
     }
 
-    .var-preview {
+    .var-tracks {
+      width: 100%;
       display: flex;
-      align-items: center;
-      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
     }
 
-    .var-preview-visual {
-      width: 90px;
-      height: 90px;
+    .var-tracks.pair .var-track { width: min(300px, 100%); }
+
+    .var-track {
+      width: min(420px, 100%);
       display: grid;
-      place-items: center;
-      border: 5px solid var(--line);
-      border-radius: 20px;
+      gap: 8px;
+      padding: 12px 16px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
       background: var(--white);
-      font-size: 46px;
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
     }
 
-    .var-box {
-      padding: 10px 18px;
-      border: 4px dashed var(--line);
-      border-radius: 14px;
-      background: #fff8dc;
-      display: grid;
-      justify-items: center;
-      gap: 2px;
+    .var-track-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 950;
+      color: var(--card-muted);
+      letter-spacing: 0.03em;
     }
 
-    .var-box-icon { font-size: 22px; }
-    .var-box-name { font-size: 13px; font-weight: 950; color: var(--card-muted); letter-spacing: 0.03em; }
-    .var-box-value { font-size: 18px; font-weight: 950; color: var(--card-ink); }
+    .var-track-icon { font-size: 18px; }
+
+    .var-commands {
+      display: grid;
+      gap: 6px;
+    }
+
+    .var-command {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 3px dashed var(--line);
+      border-radius: 10px;
+      background: #fff8dc;
+    }
+
+    .var-command.noop { background: #f2f2f2; opacity: 0.75; }
+
+    .var-command-step {
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .var-command-text { font-size: 13px; font-weight: 900; color: var(--card-ink); flex: 1; }
+    .var-command-value { font-size: 22px; line-height: 1; }
 
     .var-options {
       width: 100%;
@@ -4468,6 +4687,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
+
+    .var-options.pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .var-option {
       position: relative;
@@ -4485,8 +4706,7 @@
       transition: transform 0.12s ease;
     }
 
-    .var-option-visual { font-size: 30px; line-height: 1; }
-    .var-option-label { font-size: 14px; font-weight: 900; color: var(--card-ink); }
+    .var-option-visual { font-size: 30px; line-height: 1; letter-spacing: 6px; }
 
     .var-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
     .var-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
@@ -4500,6 +4720,21 @@
       justify-items: center;
     }
 
+    .subject-theme-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 950;
+      box-shadow: 0 5px 0 rgba(52, 120, 229, 0.32);
+    }
+
+    .subject-theme-icon { font-size: 22px; line-height: 1; }
+    .subject-theme-label { font-size: 16px; }
+
     .decoder-robot {
       display: flex;
       gap: 8px;
@@ -4508,6 +4743,13 @@
       border-radius: 16px;
       background: var(--white);
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .decoder-robot.decoder-robot-complete {
+      border-color: var(--orange);
+      background: #fff6e8;
+      animation: fx-shake 0.5s ease;
     }
 
     .decoder-robot-part {
@@ -4525,10 +4767,13 @@
     }
 
     .decoder-word {
+      position: relative;
+      isolation: isolate;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 6px;
+      padding: 4px;
     }
 
     .decoder-letter-slot {
@@ -4542,9 +4787,22 @@
       color: var(--card-ink);
       background: rgba(255, 255, 255, 0.5);
       border-radius: 6px 6px 0 0;
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
 
     .decoder-letter-slot.revealed { border-bottom-color: #2f9e52; background: #e6f9ec; }
+    .decoder-word.failed .decoder-letter-slot.revealed { border-bottom-color: var(--orange); background: #fff6e8; }
+
+    .decoder-outcome {
+      padding: 8px 18px;
+      border-radius: 14px;
+      font-weight: 950;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .decoder-outcome-win { background: #e6f9ec; color: #1c7a3d; }
+    .decoder-outcome-fail { background: #fff6e8; color: #a15c00; }
 
     .decoder-alphabet {
       width: 100%;
@@ -6170,7 +6428,6 @@
     }
 
     .menu-card,
-    .menu-page-button,
     .counter,
     .message,
     .energy-meter,
@@ -6206,7 +6463,6 @@
     }
 
     .menu-card,
-    .menu-page-button,
     .level-card,
     .arrow-card,
     .direction-button,
@@ -6453,7 +6709,6 @@
     @media (hover: none) and (pointer: coarse) {
       button,
       .menu-card,
-      .menu-page-button,
       .level-card,
       .arrow-card,
       .direction-button,
@@ -6599,7 +6854,8 @@
         line-height: 1.1;
       }
 
-      .credit-line {
+      .credit-line,
+      .site-url {
         display: none;
       }
 
@@ -6655,33 +6911,14 @@
         font-size: 31px;
       }
 
-      .menu-home {
+      .menu-screen {
         width: min(430px, 100%);
         gap: 9px;
       }
 
-      .menu-home-card {
-        padding: 10px 12px;
-        gap: 10px;
-        border-width: 3px;
-        border-radius: 12px;
-      }
-
-      .menu-home-icon {
-        font-size: 30px;
-      }
-
-      .menu-home-title {
-        font-size: 18px;
-      }
-
-      .menu-home-desc {
+      .menu-filter-chip {
+        padding: 6px 12px;
         font-size: 12px;
-      }
-
-      .menu-home-count {
-        font-size: 11px;
-        padding: 3px 8px;
       }
 
       .code-legend {
@@ -6727,19 +6964,6 @@
       .menu-meta,
       .menu-card.featured .menu-meta {
         font-size: 12px;
-      }
-
-      .menu-page-controls {
-        gap: 8px;
-      }
-
-      .menu-page {
-        font-size: 12px;
-      }
-
-      .menu-page-button {
-        width: 42px;
-        font-size: 25px;
       }
 
       .level-select,
@@ -7240,7 +7464,8 @@
         font-size: 11px;
       }
 
-      .credit-line {
+      .credit-line,
+      .site-url {
         display: none;
       }
 
@@ -7739,6 +7964,11 @@
         overflow: auto;
       }
 
+      .content:has(.menu-filters) {
+        place-items: start center;
+        overflow: auto;
+      }
+
       .content:has(.habitat-board) {
         place-items: center;
         overflow: hidden;
@@ -7942,7 +8172,7 @@
     <h1 id="title">Missões Interativas</h1>
     <div class="actions">
       <button id="homeButton" type="button" title="Início" aria-label="Início">🏠</button>
-      <button id="resetButton" type="button" title="Recomeçar" aria-label="Recomeçar">↻</button>
+      <button id="resetButton" type="button" title="Recomeçar" aria-label="Recomeçar">🔄</button>
       <button id="fullscreenButton" type="button" title="Tela cheia" aria-label="Tela cheia">⛶</button>
     </div>
   </header>
@@ -7966,7 +8196,7 @@
         </div>
       </div>
       <div id="content" class="content"></div>
-      <button id="backButton" class="panel-back-button" type="button" title="Voltar" aria-label="Voltar">←</button>
+      <button id="backButton" class="panel-back-button" type="button" title="Voltar" aria-label="Voltar">🔙</button>
     </section>
     <div id="message" class="message">Muito bem!</div>
   </main>
@@ -7989,6 +8219,7 @@
         <button id="teacherButton" class="about-button teacher-button" type="button">👩‍🏫 Professor</button>
       </div>
       <div class="credit-line">Criado por Prof. Amilcar Notari Neto <span id="appVersion" class="app-version"></span></div>
+      <div class="site-url">www.pensamentocomputacional.pro.br</div>
     </div>
   </footer>
 
@@ -8202,19 +8433,19 @@
           title: "Padrões, códigos e dados",
           icon: "🧠",
           description: "Reconhecer padrões, decodificar símbolos e ler dados e imagens.",
-          missionIds: ["patterns", "code", "pixels", "data", "decoder"],
+          missionIds: ["patterns", "code", "pixels", "data", "decoder", "cup"],
         },
         {
           title: "Classificação e organização",
           icon: "🗂️",
           description: "Separar, agrupar e organizar itens pelas suas características.",
-          missionIds: ["recycle", "devices", "habitat"],
+          missionIds: ["recycle", "devices", "habitat", "vertebrate"],
         },
         {
           title: "Lógica e decisão",
           icon: "💡",
           description: "Calcular, avaliar situações e escolher a melhor decisão.",
-          missionIds: ["dengue", "logic", "math"],
+          missionIds: ["dengue", "logic", "math", "mathCup"],
         },
         {
           title: "Lógica de programação",
@@ -8382,7 +8613,7 @@
           competencies: ["1 — Conhecimento", "2 — Pensamento científico, crítico e criativo"],
           sequence: [
             { step: "Abertura", time: "5 min", description: "Compare uma variável a uma caixa rotulada que guarda um valor que pode mudar." },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Tradutor de Sinais e mostre como o valor da caixa muda o personagem." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Tradutor de Sinais e siga com a turma cada comando da sequência até descobrir o valor final da variável." },
             { step: "Prática individual", time: "20 min", description: "Alunos jogam Tradutor de Sinais e depois Estante Organizada." },
             { step: "Fechamento", time: "10 min", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
           ],
@@ -9578,15 +9809,6 @@
         { match: 104, stageKey: "final", stage: "Final", a: "W101", b: "W102" },
       ];
 
-      const mathCupKnockoutStageKeys = [
-        "round32",
-        "round16",
-        "quarter",
-        "semi",
-        "third",
-        "final",
-      ];
-
       const cupRounds = cupTeams.map((team, index) => {
         const choices = [
           team.flag,
@@ -10326,98 +10548,117 @@
         Xadrez: "♟️",
       };
 
-      const codeWords = [
-        { symbol: "🏠", word: "casa" },
-        { symbol: "🐶", word: "cachorro" },
-        { symbol: "☀️", word: "sol" },
-        { symbol: "💧", word: "água" },
-        { symbol: "🍎", word: "maçã" },
-        { symbol: "⭐", word: "estrela" },
-        { symbol: "🎵", word: "música" },
-        { symbol: "😊", word: "feliz" },
-        { symbol: "🐱", word: "gato" },
-        { symbol: "🌙", word: "lua" },
-        { symbol: "📚", word: "livro" },
-        { symbol: "🎈", word: "balão" },
+      const codeSymbolPool = [
+        "🐝", "🪣", "🔒", "🦷", "⭐", "🚁", "🐊", "🧤", "🍄", "👃",
+        "🍯", "🦆", "⏰", "🍦", "🐢", "🍇", "🐘", "🎯", "🦋", "🎈",
+        "🍎", "🌙", "☀️", "🔺", "🧦", "🐟",
       ];
 
       const codeLevelPlans = [
-        { title: "Primeiras palavras", icon: "🔡", age: "6-7 anos", theme: "Poucos símbolos", meta: "2 símbolos", wordCount: 6, messageLength: 2, roundCount: 14 },
-        { title: "Mensagens compridas", icon: "📜", age: "8-9 anos", theme: "Três símbolos", meta: "3 símbolos", wordCount: 8, messageLength: 3, roundCount: 22 },
-        { title: "Código avançado", icon: "🧩", age: "10-11 anos", theme: "Mais palavras", meta: "3 símbolos", wordCount: 10, messageLength: 3, roundCount: 26 },
-        { title: "Mestre dos códigos", icon: "🕵️", age: "12-13 anos", theme: "Vocabulário completo", meta: "4 símbolos", wordCount: 12, messageLength: 4, roundCount: 32 },
-        { title: "Decodificador expert", icon: "🕶️", age: "14 anos", theme: "Mensagens longas", meta: "5 símbolos", wordCount: 12, messageLength: 5, roundCount: 36 },
+        {
+          title: "Primeiras palavras", icon: "🔡", age: "6-7 anos", theme: "Palavras curtas", meta: "3 a 5 letras",
+          words: [
+            { word: "VENTO", theme: "nature" }, { word: "AREIA", theme: "nature" }, { word: "FOLHA", theme: "nature" },
+            { word: "RATO", theme: "animals" }, { word: "COBRA", theme: "animals" }, { word: "GALO", theme: "animals" },
+            { word: "FIO", theme: "tech" }, { word: "TECLA", theme: "tech" }, { word: "CABO", theme: "tech" },
+            { word: "CARRO", theme: "traffic" }, { word: "VIA", theme: "traffic" },
+            { word: "MAIS", theme: "math" }, { word: "DEZ", theme: "math" },
+            { word: "ROXO", theme: "flags" }, { word: "ROSA", theme: "flags" },
+            { word: "OLHO", theme: "health" }, { word: "BOCA", theme: "health" }, { word: "MAO", theme: "health" },
+            { word: "TEXTO", theme: "portugues" }, { word: "SOM", theme: "portugues" },
+            { word: "REINO", theme: "historia" }, { word: "MOEDA", theme: "historia" },
+            { word: "SUL", theme: "geografia" }, { word: "VALE", theme: "geografia" },
+            { word: "CANTO", theme: "arte" }, { word: "DANCA", theme: "arte" },
+          ],
+        },
+        {
+          title: "Mensagens espertas", icon: "📜", age: "8-9 anos", theme: "Palavras médias", meta: "5 a 7 letras",
+          words: [
+            { word: "FLORES", theme: "nature" }, { word: "GALHO", theme: "nature" }, { word: "RAIZES", theme: "nature" },
+            { word: "PINGUIM", theme: "animals" }, { word: "CAVALO", theme: "animals" }, { word: "GIRAFA", theme: "animals" },
+            { word: "MOUSE", theme: "tech" }, { word: "ANTENA", theme: "tech" },
+            { word: "VOLANTE", theme: "traffic" }, { word: "GARAGEM", theme: "traffic" },
+            { word: "SOMAR", theme: "math" }, { word: "METROS", theme: "math" }, { word: "LITROS", theme: "math" },
+            { word: "EMBLEMA", theme: "flags" }, { word: "ESCUDO", theme: "flags" },
+            { word: "OUVIDO", theme: "health" }, { word: "REPOUSO", theme: "health" },
+            { word: "LEITURA", theme: "portugues" }, { word: "ESCRITA", theme: "portugues" }, { word: "POESIA", theme: "portugues" },
+            { word: "CAPITAO", theme: "historia" }, { word: "TRIBO", theme: "historia" },
+            { word: "DESERTO", theme: "geografia" }, { word: "CIDADE", theme: "geografia" },
+            { word: "DESENHO", theme: "arte" }, { word: "CANCAO", theme: "arte" },
+          ],
+        },
+        {
+          title: "Código avançado", icon: "🧩", age: "10-11 anos", theme: "Palavras maiores", meta: "6 a 9 letras",
+          words: [
+            { word: "MINHOCA", theme: "nature" }, { word: "SAVANA", theme: "nature" }, { word: "PANTANO", theme: "nature" },
+            { word: "ARANHA", theme: "animals" }, { word: "LAGARTO", theme: "animals" }, { word: "CAMALEAO", theme: "animals" },
+            { word: "INTERNET", theme: "tech" }, { word: "CODIGO", theme: "tech" },
+            { word: "RODOVIA", theme: "traffic" }, { word: "VIADUTO", theme: "traffic" },
+            { word: "DECIMAL", theme: "math" }, { word: "CENTENA", theme: "math" }, { word: "ANGULO", theme: "math" },
+            { word: "REGIAO", theme: "flags" }, { word: "ALIANCA", theme: "flags" },
+            { word: "NUTRICAO", theme: "health" }, { word: "SINTOMA", theme: "health" },
+            { word: "GRAMATICA", theme: "portugues" }, { word: "SINONIMO", theme: "portugues" },
+            { word: "ESCRAVO", theme: "historia" }, { word: "COLONO", theme: "historia" },
+            { word: "VEGETACAO", theme: "geografia" }, { word: "POPULACAO", theme: "geografia" },
+            { word: "HARMONIA", theme: "arte" }, { word: "SINFONIA", theme: "arte" },
+          ],
+        },
+        {
+          title: "Mestre dos códigos", icon: "🕵️", age: "12-13 anos", theme: "Vocabulário avançado", meta: "8 a 11 letras",
+          words: [
+            { word: "BIOMASSA", theme: "nature" }, { word: "SEDIMENTO", theme: "nature" },
+            { word: "MAMIFERO", theme: "animals" }, { word: "MARSUPIAL", theme: "animals" },
+            { word: "SERVIDOR", theme: "tech" }, { word: "PERIFERICO", theme: "tech" },
+            { word: "MOTOCICLETA", theme: "traffic" }, { word: "INFRATOR", theme: "traffic" },
+            { word: "GEOMETRIA", theme: "math" }, { word: "ESTATISTICA", theme: "math" },
+            { word: "CONTINENTE", theme: "flags" }, { word: "SOBERANIA", theme: "flags" },
+            { word: "IMUNOLOGIA", theme: "health" }, { word: "ANATOMIA", theme: "health" },
+            { word: "SUBSTANTIVO", theme: "portugues" }, { word: "LINGUAGEM", theme: "portugues" },
+            { word: "ABOLICAO", theme: "historia" }, { word: "FEUDALISMO", theme: "historia" },
+            { word: "HIDROGRAFIA", theme: "geografia" }, { word: "TOPOGRAFIA", theme: "geografia" },
+            { word: "ESCULTOR", theme: "arte" }, { word: "CENOGRAFIA", theme: "arte" },
+          ],
+        },
+        {
+          title: "Decodificador expert", icon: "🕶️", age: "14 anos", theme: "Vocabulário completo", meta: "9 ou mais letras",
+          words: [
+            { word: "PRECIPITACAO", theme: "nature" }, { word: "DECOMPOSICAO", theme: "nature" },
+            { word: "POLINIZACAO", theme: "animals" }, { word: "PARASITISMO", theme: "animals" },
+            { word: "TELECOMUNICACAO", theme: "tech" }, { word: "AUTOMACAO", theme: "tech" },
+            { word: "CONGESTIONAMENTO", theme: "traffic" },
+            { word: "RADICIACAO", theme: "math" }, { word: "FATORIZACAO", theme: "math" },
+            { word: "GEOPOLITICA", theme: "flags" }, { word: "DIPLOMACIA", theme: "flags" },
+            { word: "FARMACOLOGIA", theme: "health" }, { word: "NEUROLOGIA", theme: "health" },
+            { word: "SEMANTICA", theme: "portugues" }, { word: "LITERATURA", theme: "portugues" },
+            { word: "ABSOLUTISMO", theme: "historia" }, { word: "IMPERIALISMO", theme: "historia" },
+            { word: "DEMOGRAFIA", theme: "geografia" },
+            { word: "IMPRESSIONISMO", theme: "arte" }, { word: "ARQUITETURA", theme: "arte" },
+          ],
+        },
       ];
 
-      function codeTuplePermutations(wordCount, messageLength) {
-        const results = [];
-        const used = new Array(wordCount).fill(false);
-        const current = [];
-        function backtrack() {
-          if (current.length === messageLength) {
-            results.push([...current]);
-            return;
-          }
-          for (let i = 0; i < wordCount; i += 1) {
-            if (used[i]) continue;
-            used[i] = true;
-            current.push(i);
-            backtrack();
-            current.pop();
-            used[i] = false;
-          }
-        }
-        backtrack();
-        return results;
-      }
-
-      function generateCodeTuples(wordCount, messageLength, roundCount) {
-        const all = codeTuplePermutations(wordCount, messageLength);
-        const shuffled = seededShuffle(all, seedFromParts("code-tuples", wordCount, messageLength));
-        return shuffled.slice(0, roundCount);
-      }
-
-      function codeChoicesFor(answerTuple, wordCount) {
-        const shifts = [1, 2, 3];
-        const distractors = shifts.map((shift) => answerTuple.map((index) => (index + shift) % wordCount));
-        return [answerTuple, ...distractors];
-      }
-
-      function codeChoiceLabel(indexes, words) {
-        const labelWords = indexes.map((index) => words[index].word);
-        const capitalized = labelWords[0].charAt(0).toUpperCase() + labelWords[0].slice(1);
-        if (labelWords.length === 2) return `${capitalized} e ${labelWords[1]}`;
-        return `${capitalized}, ${labelWords.slice(1, -1).join(", ")} e ${labelWords[labelWords.length - 1]}`;
-      }
-
-      const codeLevels = codeLevelPlans.map((plan) => {
-        const words = codeWords.slice(0, plan.wordCount);
-        const tuples = generateCodeTuples(plan.wordCount, plan.messageLength, plan.roundCount);
-        const rounds = tuples.map((answer) => ({
-          symbols: answer.map((index) => words[index].symbol),
-          answer,
-          choices: codeChoicesFor(answer, plan.wordCount),
-        }));
-        return {
-          ...plan,
-          words,
-          preview: words.slice(0, 3).map((entry) => entry.symbol),
-          rounds,
-        };
-      });
+      const codeLevels = codeLevelPlans.map((plan) => ({
+        ...plan,
+        preview: ["🔐", "🔤", "✅"],
+        rounds: plan.words.map((entry) => ({ ...entry })),
+      }));
 
       const DECODER_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
       const decoderRobotParts = ["🔩", "🦾", "🦿", "📡", "🔋", "🤖"];
 
-      const decoderThemeMeta = {
+      const subjectThemeMeta = {
         math: { label: "Matemática", icon: "➗" },
-        nature: { label: "Natureza", icon: "🌿" },
+        nature: { label: "Ciências e natureza", icon: "🌿" },
         tech: { label: "Tecnologia", icon: "💻" },
         traffic: { label: "Trânsito", icon: "🚦" },
         health: { label: "Saúde", icon: "❤️" },
         flags: { label: "Bandeiras", icon: "🚩" },
         animals: { label: "Animais", icon: "🐾" },
+        portugues: { label: "Português", icon: "📖" },
+        historia: { label: "História", icon: "📜" },
+        geografia: { label: "Geografia", icon: "🗺️" },
+        arte: { label: "Arte", icon: "🎨" },
       };
 
       const decoderLevelPlans = [
@@ -10434,7 +10675,12 @@
             { word: "PISTA", theme: "traffic" },
             { word: "SOMA", theme: "math" }, { word: "ZERO", theme: "math" }, { word: "PAR", theme: "math" }, { word: "CONTA", theme: "math" },
             { word: "PAIS", theme: "flags" }, { word: "AZUL", theme: "flags" }, { word: "VERDE", theme: "flags" }, { word: "COR", theme: "flags" },
-            { word: "SONO", theme: "health" }, { word: "SUCO", theme: "health" },
+            { word: "SONO", theme: "health" }, { word: "SUCO", theme: "health" }, { word: "OSSO", theme: "health" }, { word: "DENTE", theme: "health" },
+            { word: "LAPIS", theme: "arte" }, { word: "TINTA", theme: "arte" },
+            { word: "MAPA", theme: "geografia" }, { word: "MONTE", theme: "geografia" }, { word: "RIO", theme: "geografia" }, { word: "PONTE", theme: "geografia" },
+            { word: "REI", theme: "historia" }, { word: "INDIO", theme: "historia" },
+            { word: "LIVRO", theme: "portugues" }, { word: "LETRA", theme: "portugues" }, { word: "RIMA", theme: "portugues" },
+            { word: "RODA", theme: "tech" },
           ],
         },
         {
@@ -10446,7 +10692,12 @@
             { word: "PLACA", theme: "traffic" }, { word: "FAROL", theme: "traffic" }, { word: "CALCADA", theme: "traffic" },
             { word: "DOBRO", theme: "math" }, { word: "METADE", theme: "math" }, { word: "MEDIDA", theme: "math" }, { word: "NUMERO", theme: "math" }, { word: "DIVIDIR", theme: "math" },
             { word: "SIMBOLO", theme: "flags" }, { word: "NACAO", theme: "flags" }, { word: "CORES", theme: "flags" },
-            { word: "VACINA", theme: "health" }, { word: "DENGUE", theme: "health" }, { word: "REMEDIO", theme: "health" }, { word: "HIGIENE", theme: "health" },
+            { word: "VACINA", theme: "health" }, { word: "DENGUE", theme: "health" }, { word: "REMEDIO", theme: "health" }, { word: "HIGIENE", theme: "health" }, { word: "MUSCULO", theme: "health" }, { word: "PULMAO", theme: "health" },
+            { word: "SILABA", theme: "portugues" }, { word: "VERBO", theme: "portugues" }, { word: "FRASE", theme: "portugues" },
+            { word: "COLONIA", theme: "historia" }, { word: "CARAVELA", theme: "historia" },
+            { word: "PLANALTO", theme: "geografia" }, { word: "OCEANO", theme: "geografia" }, { word: "CLIMA", theme: "geografia" }, { word: "BUSSOLA", theme: "geografia" },
+            { word: "PINTURA", theme: "arte" }, { word: "MUSICA", theme: "arte" }, { word: "TEATRO", theme: "arte" },
+            { word: "FRACAO", theme: "math" },
           ],
         },
         {
@@ -10458,7 +10709,12 @@
             { word: "SEMAFORO", theme: "traffic" }, { word: "CICLISTA", theme: "traffic" }, { word: "CAPACETE", theme: "traffic" }, { word: "PEDESTRE", theme: "traffic" },
             { word: "PERIMETRO", theme: "math" }, { word: "TRIANGULO", theme: "math" }, { word: "MULTIPLO", theme: "math" }, { word: "DIVISOR", theme: "math" },
             { word: "BANDEIRA", theme: "flags" }, { word: "FRONTEIRA", theme: "flags" },
-            { word: "EXERCICIO", theme: "health" }, { word: "HOSPITAL", theme: "health" }, { word: "CONTAGIO", theme: "health" }, { word: "IMUNIDADE", theme: "health" },
+            { word: "EXERCICIO", theme: "health" }, { word: "HOSPITAL", theme: "health" }, { word: "CONTAGIO", theme: "health" }, { word: "IMUNIDADE", theme: "health" }, { word: "ESQUELETO", theme: "health" }, { word: "VITAMINA", theme: "health" }, { word: "NUTRIENTE", theme: "health" },
+            { word: "ADJETIVO", theme: "portugues" }, { word: "PARAGRAFO", theme: "portugues" },
+            { word: "PIRAMIDE", theme: "historia" }, { word: "IMPERIO", theme: "historia" },
+            { word: "RELEVO", theme: "geografia" }, { word: "VULCAO", theme: "geografia" }, { word: "PLANICIE", theme: "geografia" }, { word: "ANTARTIDA", theme: "geografia" },
+            { word: "ESCULTURA", theme: "arte" }, { word: "MELODIA", theme: "arte" },
+            { word: "CELULA", theme: "nature" }, { word: "ENERGIA", theme: "nature" },
           ],
         },
         {
@@ -10470,7 +10726,13 @@
             { word: "ROTATORIA", theme: "traffic" }, { word: "SINALIZACAO", theme: "traffic" }, { word: "COMBUSTIVEL", theme: "traffic" },
             { word: "EQUIVALENTE", theme: "math" }, { word: "DENOMINADOR", theme: "math" }, { word: "NUMERADOR", theme: "math" },
             { word: "HEMISFERIO", theme: "flags" },
-            { word: "VACINACAO", theme: "health" }, { word: "PREVENCAO", theme: "health" }, { word: "TRANSMISSAO", theme: "health" }, { word: "SANEAMENTO", theme: "health" },
+            { word: "VACINACAO", theme: "health" }, { word: "PREVENCAO", theme: "health" }, { word: "TRANSMISSAO", theme: "health" }, { word: "SANEAMENTO", theme: "health" }, { word: "RESPIRACAO", theme: "health" }, { word: "METABOLISMO", theme: "health" },
+            { word: "CONJUNCAO", theme: "portugues" }, { word: "PONTUACAO", theme: "portugues" },
+            { word: "ESCRAVIDAO", theme: "historia" }, { word: "MONARQUIA", theme: "historia" },
+            { word: "URBANIZACAO", theme: "geografia" }, { word: "LATITUDE", theme: "geografia" }, { word: "LONGITUDE", theme: "geografia" }, { word: "ARQUIPELAGO", theme: "geografia" },
+            { word: "MODERNISMO", theme: "arte" },
+            { word: "PORCENTAGEM", theme: "math" },
+            { word: "MOLECULA", theme: "nature" },
           ],
         },
         {
@@ -10483,6 +10745,13 @@
             { word: "PROBABILIDADE", theme: "math" }, { word: "TRIGONOMETRIA", theme: "math" }, { word: "EXPONENCIAL", theme: "math" },
             { word: "INDEPENDENCIA", theme: "flags" }, { word: "NACIONALIDADE", theme: "flags" }, { word: "COLONIZACAO", theme: "flags" },
             { word: "EPIDEMIOLOGIA", theme: "health" }, { word: "IMUNIZACAO", theme: "health" }, { word: "CONTAMINACAO", theme: "health" },
+            { word: "MORFOLOGIA", theme: "portugues" }, { word: "INTERPRETACAO", theme: "portugues" },
+            { word: "INCONFIDENCIA", theme: "historia" }, { word: "REVOLUCAO", theme: "historia" }, { word: "COLONIALISMO", theme: "historia" },
+            { word: "GLOBALIZACAO", theme: "geografia" }, { word: "DESERTIFICACAO", theme: "geografia" },
+            { word: "EXPRESSIONISMO", theme: "arte" },
+            { word: "ELETRICIDADE", theme: "nature" }, { word: "RADIOATIVIDADE", theme: "nature" },
+            { word: "POLINOMIO", theme: "math" },
+            { word: "BIOTECNOLOGIA", theme: "tech" }, { word: "NANOTECNOLOGIA", theme: "tech" },
           ],
         },
       ];
@@ -10615,11 +10884,25 @@
 
       function generateBugRound(plan, seed) {
         const correctMoves = generateBugCorrectMoves(plan.length, plan.cols, plan.rows, seed);
-        const goal = bugSimulatePath([0, 0], correctMoves, plan.cols, plan.rows).pop();
+        const correctTrail = bugSimulatePath([0, 0], correctMoves, plan.cols, plan.rows);
+        const goal = correctTrail[correctTrail.length - 1];
         const indexRandom = seededRandom(seedFromParts("bug-index", seed));
         const bugIndex = Math.floor(indexRandom() * plan.length);
+        const posAtBug = correctTrail[bugIndex];
         const altRandom = seededRandom(seedFromParts("bug-alt", seed));
-        const alternatives = bugDirectionKeys.filter((key) => key !== correctMoves[bugIndex]);
+        const doesntClamp = (key) => {
+          const [dx, dy] = bugMoveVectors[key];
+          const nx = Math.max(0, Math.min(plan.cols - 1, posAtBug[0] + dx));
+          const ny = Math.max(0, Math.min(plan.rows - 1, posAtBug[1] + dy));
+          return nx !== posAtBug[0] || ny !== posAtBug[1];
+        };
+        let alternatives = ["ArrowUp", "ArrowLeft"].filter((key) => key !== correctMoves[bugIndex] && doesntClamp(key));
+        if (!alternatives.length) {
+          alternatives = bugDirectionKeys.filter((key) => key !== correctMoves[bugIndex] && doesntClamp(key));
+        }
+        if (!alternatives.length) {
+          alternatives = bugDirectionKeys.filter((key) => key !== correctMoves[bugIndex]);
+        }
         const wrongDirection = alternatives[Math.floor(altRandom() * alternatives.length)];
         const sequence = correctMoves.map((move, index) => (index === bugIndex ? wrongDirection : move));
         const trail = bugSimulatePath([0, 0], sequence, plan.cols, plan.rows);
@@ -10628,6 +10911,8 @@
           goal,
           sequence,
           trail,
+          correctMoves,
+          correctTrail,
           answer: bugIndex,
         };
       }
@@ -10760,6 +11045,7 @@
           { label: "pequeno", visual: "🔹" },
           { label: "médio", visual: "🔷" },
           { label: "grande", visual: "🟦" },
+          { label: "gigante", visual: "🟪" },
         ] },
         { name: "FORMA", icon: "🔺", values: [
           { label: "círculo", visual: "⚪" },
@@ -10778,29 +11064,44 @@
       ];
 
       const varLevelPlans = [
-        { title: "Primeira variável", icon: "🎁", age: "6-7 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [0], roundCount: 14 },
-        { title: "Caixa de formas", icon: "📦", age: "8-9 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [2], roundCount: 16 },
-        { title: "Caixa de tamanhos", icon: "🧰", age: "10-11 anos", theme: "Guarde um valor na caixa", meta: "1 atributo", attributeIndexes: [1], roundCount: 18 },
-        { title: "Variáveis numéricas", icon: "🔢", age: "12-13 anos", theme: "Guarde um número na caixa", meta: "1 atributo", attributeIndexes: [3], roundCount: 20 },
-        { title: "Mestre das variáveis", icon: "🖥️", age: "14 anos", theme: "Qualquer atributo", meta: "vários atributos", attributeIndexes: [0, 1, 2, 3], roundCount: 22 },
+        { title: "Primeira variável", icon: "🎁", age: "6-7 anos", theme: "Guarde e troque o valor", meta: "2 comandos", attributeIndexes: [0], commandCount: 2, variableCount: 1, allowDecoy: false, roundCount: 16 },
+        { title: "Caixa de formas", icon: "📦", age: "8-9 anos", theme: "Siga os comandos", meta: "3 comandos", attributeIndexes: [2], commandCount: 3, variableCount: 1, allowDecoy: false, roundCount: 18 },
+        { title: "Caixa de tamanhos", icon: "🧰", age: "10-11 anos", theme: "Siga os comandos", meta: "3 comandos", attributeIndexes: [1], commandCount: 3, variableCount: 1, allowDecoy: false, roundCount: 20 },
+        { title: "Variáveis numéricas", icon: "🔢", age: "12-13 anos", theme: "Cuidado com as pegadinhas", meta: "4 comandos", attributeIndexes: [3], commandCount: 4, variableCount: 1, allowDecoy: true, roundCount: 22 },
+        { title: "Mestre das variáveis", icon: "🖥️", age: "14 anos", theme: "Duas variáveis ao mesmo tempo", meta: "2 variáveis", attributeIndexes: [0, 1, 2, 3], commandCount: 3, variableCount: 2, allowDecoy: true, roundCount: 24 },
       ];
 
-      function generateVarRound(plan, seed) {
-        const attrPool = plan.attributeIndexes;
-        const attrIndex = attrPool[seed % attrPool.length];
+      function generateVarTrack(attrIndex, commandCount, allowDecoy, seed) {
         const attribute = varAttributeSets[attrIndex];
-        const random = seededRandom(seedFromParts("var-round", seed, attrIndex));
-        const answerIndex = Math.floor(random() * attribute.values.length);
-        const distractorPool = attribute.values
-          .map((_, index) => index)
-          .filter((index) => index !== answerIndex);
-        const shuffledDistractors = shuffle(distractorPool, seedFromParts("var-distractors", seed, attrIndex));
-        const optionIndexes = [answerIndex, ...shuffledDistractors.slice(0, 3)];
-        return {
-          attrIndex,
-          answerValueIndex: answerIndex,
-          optionValueIndexes: optionIndexes,
-        };
+        const random = seededRandom(seedFromParts("var-track", seed, attrIndex));
+        const commands = [];
+        let lastValueIndex = -1;
+        for (let i = 0; i < commandCount; i += 1) {
+          const isDecoy = allowDecoy && i > 0 && random() < 0.3;
+          if (isDecoy) {
+            commands.push({ type: "noop", valueIndex: lastValueIndex });
+            continue;
+          }
+          let valueIndex = Math.floor(random() * attribute.values.length);
+          if (attribute.values.length > 1) {
+            while (valueIndex === lastValueIndex) {
+              valueIndex = Math.floor(random() * attribute.values.length);
+            }
+          }
+          commands.push({ type: i === 0 ? "set" : "change", valueIndex });
+          lastValueIndex = valueIndex;
+        }
+        const seenValues = [...new Set(commands.map((c) => c.valueIndex))].filter((v) => v !== lastValueIndex);
+        return { attrIndex, commands, finalValueIndex: lastValueIndex, seenValues };
+      }
+
+      function generateVarRound(plan, seed) {
+        const shuffledPool = shuffle(plan.attributeIndexes, seedFromParts("var-attrs", seed));
+        const attrIndexes = shuffledPool.slice(0, plan.variableCount);
+        const tracks = attrIndexes.map((attrIndex, trackIndex) =>
+          generateVarTrack(attrIndex, plan.commandCount, plan.allowDecoy, seedFromParts(seed, "track", trackIndex))
+        );
+        return { tracks };
       }
 
       const varLevels = varLevelPlans.map((plan, tierIndex) => {
@@ -10809,6 +11110,23 @@
         );
         return { ...plan, preview: ["🎁", "➡️", "🖼️"], rounds };
       });
+
+      function varTrackDistractor(track, excludeIndexes) {
+        const attribute = varAttributeSets[track.attrIndex];
+        const seenPool = track.seenValues.filter((v) => !excludeIndexes.includes(v));
+        const fallbackPool = attribute.values
+          .map((_, index) => index)
+          .filter((index) => index !== track.finalValueIndex && !excludeIndexes.includes(index));
+        const pool = seenPool.length ? seenPool : fallbackPool;
+        const seed = seedFromParts("var-track-distractor", track.attrIndex, track.finalValueIndex, excludeIndexes.join("-"));
+        const shuffled = shuffle(pool.length ? pool : fallbackPool, seed);
+        return shuffled[0];
+      }
+
+      function isVarChoiceCorrect(choice, round) {
+        if (round.tracks.length === 1) return choice === round.tracks[0].finalValueIndex;
+        return choice.a === round.tracks[0].finalValueIndex && choice.b === round.tracks[1].finalValueIndex;
+      }
 
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
@@ -10901,75 +11219,106 @@
         };
       });
 
-      let legacyPatternRounds = [
-        {
-          sequence: [{ kind: "circle", color: "blue" }, { kind: "circle", color: "red" }, { kind: "circle", color: "blue" }, { kind: "circle", color: "red" }],
-          options: [{ kind: "circle", color: "blue" }, { kind: "circle", color: "red" }, { kind: "square", color: "green" }, { label: "▲", color: "purple" }],
-          answer: 0,
-          text: "Azul, vermelho, azul, vermelho...",
-        },
-        {
-          sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }],
-          options: [{ kind: "square", color: "orange", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "circle", color: "purple" }, { label: "★", color: "yellow" }],
-          answer: 1,
-          text: "Pequeno, grande, pequeno, grande...",
-        },
-        {
-          sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }],
-          options: [{ label: "■", color: "teal" }, { label: "●", color: "orange" }, { label: "▲", color: "purple" }, { label: "★", color: "yellow" }],
-          answer: 2,
-          text: "Triângulo, quadrado, triângulo, quadrado...",
-        },
-        {
-          sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }],
-          options: [{ label: "1", color: "blue" }, { label: "3", color: "orange" }, { label: "2", color: "green" }, { label: "4", color: "purple" }],
-          answer: 1,
-          text: "1, 2, 3, 1, 2...",
-        },
-        {
-          sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }],
-          options: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "C", color: "purple" }, { label: "D", color: "teal" }],
-          answer: 0,
-          text: "A, B, B, A, B, B...",
-        },
-        {
-          sequence: [{ label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }],
-          options: [{ label: "★", color: "orange" }, { label: "▲", color: "green" }, { label: "●", color: "blue" }, { label: "■", color: "purple" }],
-          answer: 2,
-          text: "Estrela, bola, estrela, bola, estrela...",
-        },
-        {
-          sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }],
-          options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐸", color: "green" }],
-          answer: 0,
-          text: "Cachorro late, gato mia, cachorro late, gato mia...",
-        },
-        {
-          sequence: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }, { label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }],
-          options: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐷", color: "pink" }, { label: "🐑", color: "purple" }],
-          answer: 0,
-          text: "Galo canta, vaca muge, vaca muge, galo canta...",
-        },
+      const legacyPatternBaseTier0 = [
+        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟢", color: "green" }, { label: "▲", color: "purple" }], answer: 0, text: "Vermelho, azul, vermelho, azul..." },
+        { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }], options: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }, { kind: "circle", color: "purple" }, { label: "★", color: "yellow" }], answer: 0, text: "Pequeno, grande, pequeno, grande..." },
+        { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], options: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "●", color: "orange" }, { label: "★", color: "yellow" }], answer: 0, text: "Triângulo, quadrado, triângulo, quadrado..." },
+        { sequence: [{ label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }], options: [{ label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "▲", color: "green" }, { label: "■", color: "purple" }], answer: 0, text: "Estrela, bola, estrela, bola, estrela..." },
+        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐸", color: "green" }], answer: 0, text: "Cachorro late, gato mia, cachorro late, gato mia..." },
+        { sequence: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "blue" }, { label: "☁️", color: "teal" }], answer: 0, text: "Sol, lua, sol, lua..." },
+        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }], options: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }, { label: "🍊", color: "orange" }], answer: 0, text: "Maçã, banana, maçã, banana..." },
+        { sequence: [{ label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }, { label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }], options: [{ label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }, { label: "➡️", color: "green" }, { label: "⬅️", color: "orange" }], answer: 0, text: "Para cima, para baixo, para cima, para baixo..." },
+        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }], options: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚌", color: "orange" }, { label: "✈️", color: "blue" }], answer: 0, text: "Carro, bicicleta, carro, bicicleta..." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }], options: [{ label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "3", color: "purple" }, { label: "4", color: "orange" }], answer: 0, text: "1, 2, 1, 2, 1..." },
+        { sequence: [{ label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }], options: [{ label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "C", color: "teal" }, { label: "D", color: "blue" }], answer: 0, text: "A, B, A, B, A..." },
+        { sequence: [{ label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }, { label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }], options: [{ label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }, { label: "🟦", color: "blue" }, { label: "🟥", color: "red" }], answer: 0, text: "Amarelo, verde, amarelo, verde..." },
+        { sequence: [{ label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }, { label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }], options: [{ label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }, { label: "🐟", color: "blue" }, { label: "🐢", color: "teal" }], answer: 0, text: "Sapo, pato, sapo, pato..." },
+        { sequence: [{ label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "❄️", color: "teal" }, { label: "🌈", color: "purple" }], answer: 0, text: "Sol, chuva, sol, chuva..." },
+        { sequence: [{ label: "🔺", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔺", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🔺", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟪", color: "purple" }, { label: "⬛", color: "teal" }], answer: 0, text: "Triângulo, bola, triângulo, bola..." },
+        { sequence: [{ label: "🧦", color: "orange" }, { label: "👟", color: "teal" }, { label: "🧦", color: "orange" }, { label: "👟", color: "teal" }], options: [{ label: "🧦", color: "orange" }, { label: "👟", color: "teal" }, { label: "🧢", color: "blue" }, { label: "🎒", color: "purple" }], answer: 0, text: "Meia, tênis, meia, tênis..." },
       ];
 
-      let legacyIntruderRounds = [
+      const legacyPatternBaseTier1 = [
+        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }], options: [{ label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "4", color: "purple" }], answer: 0, text: "1, 2, 3, 1, 2..." },
+        { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }], options: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "C", color: "purple" }, { label: "D", color: "teal" }], answer: 0, text: "A, B, B, A, B, B..." },
+        { sequence: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }, { label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }], options: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐷", color: "pink" }, { label: "🐑", color: "purple" }], answer: 0, text: "Galo canta, vaca muge, vaca muge, galo canta..." },
+        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟢", color: "green" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🟢", color: "green" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "⚪", color: "teal" }], answer: 0, text: "Vermelho, azul, verde, vermelho, azul..." },
+        { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: [{ label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "▲", color: "green" }, { label: "■", color: "purple" }], answer: 0, text: "Bola, bola, estrela se repete." },
+        { sequence: [{ label: "🍎", color: "red" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍎", color: "red" }], options: [{ label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍇", color: "purple" }, { label: "🍊", color: "orange" }], answer: 0, text: "Maçã, maçã, banana se repete." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "1", color: "blue" }], options: [{ label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "3", color: "purple" }, { label: "0", color: "orange" }], answer: 0, text: "Um, um, dois se repete." },
+        { sequence: [{ label: "🐱", color: "orange" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐱", color: "orange" }], options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐹", color: "teal" }], answer: 0, text: "Gato, gato, cachorro se repete." },
+        { sequence: [{ label: "X", color: "purple" }, { label: "Y", color: "teal" }, { label: "Z", color: "orange" }, { label: "X", color: "purple" }, { label: "Y", color: "teal" }], options: [{ label: "Z", color: "orange" }, { label: "X", color: "purple" }, { label: "Y", color: "teal" }, { label: "W", color: "blue" }], answer: 0, text: "X, Y, Z, X, Y..." },
+        { sequence: [{ label: "🟥", color: "red" }, { label: "🟦", color: "blue" }, { label: "🟨", color: "yellow" }, { label: "🟥", color: "red" }, { label: "🟦", color: "blue" }], options: [{ label: "🟨", color: "yellow" }, { label: "🟥", color: "red" }, { label: "🟦", color: "blue" }, { label: "🟩", color: "green" }], answer: 0, text: "Vermelho, azul, amarelo, vermelho, azul..." },
+        { sequence: [{ kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "large" }, { kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "small" }], options: [{ kind: "square", color: "blue", size: "large" }, { kind: "square", color: "blue", size: "small" }, { kind: "circle", color: "green" }, { label: "▲", color: "orange" }], answer: 0, text: "Pequeno, pequeno, grande se repete." },
+        { sequence: [{ label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "blue" }, { label: "☁️", color: "teal" }], answer: 0, text: "Lua, lua, sol se repete." },
+        { sequence: [{ label: "3", color: "teal" }, { label: "3", color: "teal" }, { label: "5", color: "orange" }, { label: "3", color: "teal" }, { label: "3", color: "teal" }], options: [{ label: "5", color: "orange" }, { label: "3", color: "teal" }, { label: "1", color: "blue" }, { label: "7", color: "purple" }], answer: 0, text: "3, 3, 5 se repete." },
+        { sequence: [{ label: "🐦", color: "blue" }, { label: "🐦", color: "blue" }, { label: "🐟", color: "teal" }, { label: "🐦", color: "blue" }, { label: "🐦", color: "blue" }], options: [{ label: "🐟", color: "teal" }, { label: "🐦", color: "blue" }, { label: "🐝", color: "yellow" }, { label: "🦋", color: "purple" }], answer: 0, text: "Passarinho, passarinho, peixe se repete." },
+        { sequence: [{ label: "▲", color: "green" }, { label: "▲", color: "green" }, { label: "■", color: "orange" }, { label: "▲", color: "green" }, { label: "▲", color: "green" }], options: [{ label: "■", color: "orange" }, { label: "▲", color: "green" }, { label: "●", color: "blue" }, { label: "★", color: "purple" }], answer: 0, text: "Triângulo, triângulo, quadrado se repete." },
+        { sequence: [{ label: "🚌", color: "orange" }, { label: "🚌", color: "orange" }, { label: "🚗", color: "red" }, { label: "🚌", color: "orange" }, { label: "🚌", color: "orange" }], options: [{ label: "🚗", color: "red" }, { label: "🚌", color: "orange" }, { label: "🚲", color: "green" }, { label: "✈️", color: "blue" }], answer: 0, text: "Ônibus, ônibus, carro se repete." },
+      ];
+
+      const legacyIntruderBase = [
         { sequence: [{ kind: "circle", color: "blue" }, { kind: "circle", color: "red" }, { kind: "circle", color: "blue" }, { kind: "circle", color: "green" }, { kind: "circle", color: "blue" }, { kind: "circle", color: "red" }], answer: 3, why: "O verde entrou no lugar do vermelho." },
         { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "●", color: "orange" }, { label: "■", color: "teal" }], answer: 4, why: "A bola interrompe a repetição." },
         { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "3", color: "orange" }, { label: "3", color: "orange" }], answer: 4, why: "Depois do 1 deveria aparecer o 2." },
         { sequence: [{ kind: "square", color: "pink", size: "small" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "small" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "large" }], answer: 4, why: "O padrão alterna pequeno e grande." },
         { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }], answer: 5, why: "O grupo correto é A, B, B." },
         { sequence: [{ label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "▲", color: "green" }, { label: "●", color: "blue" }], answer: 4, why: "A regra repete duas estrelas e uma bola." },
+        { sequence: [{ label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🟢", color: "green" }, { label: "🔵", color: "blue" }], answer: 4, why: "O padrão é vermelho, vermelho, azul; o verde não pertence." },
+        { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "●", color: "orange" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], answer: 3, why: "O padrão alterna triângulo e quadrado; a bola não pertence." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "3", color: "orange" }, { label: "5", color: "purple" }, { label: "5", color: "purple" }, { label: "6", color: "green" }], answer: 3, why: "Os números sobem de 1 em 1; faltou o 4." },
+        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐦", color: "purple" }, { label: "🐱", color: "orange" }], answer: 4, why: "O padrão é cachorro, cachorro, gato; o passarinho não pertence." },
+        { sequence: [{ kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }], answer: 5, why: "O grupo é grande, grande, pequeno; o último devia ser pequeno." },
+        { sequence: [{ label: "A", color: "purple" }, { label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "C", color: "teal" }, { label: "B", color: "orange" }], answer: 4, why: "O padrão é A, A, B; o C não pertence." },
+        { sequence: [{ label: "☀️", color: "yellow" }, { label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "☀️", color: "yellow" }, { label: "❄️", color: "teal" }, { label: "🌧️", color: "blue" }], answer: 4, why: "O padrão é sol, sol, chuva; a neve não pertence." },
+        { sequence: [{ label: "🔺", color: "purple" }, { label: "🟠", color: "orange" }, { label: "🔷", color: "teal" }, { label: "🔺", color: "purple" }, { label: "🔺", color: "purple" }, { label: "🔷", color: "teal" }], answer: 4, why: "O padrão é triângulo, laranja, losango; o triângulo extra não pertence." },
+        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍇", color: "purple" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }], answer: 3, why: "O padrão alterna maçã e banana; a uva não pertence." },
+        { sequence: [{ label: "2", color: "blue" }, { label: "4", color: "teal" }, { label: "2", color: "blue" }, { label: "5", color: "orange" }, { label: "2", color: "blue" }, { label: "4", color: "teal" }], answer: 3, why: "O padrão é 2, 4, 2, 4; o 5 não pertence." },
+        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚌", color: "orange" }, { label: "🚲", color: "green" }], answer: 4, why: "O padrão alterna carro e bicicleta; o ônibus não pertence." },
+        { sequence: [{ label: "⭐", color: "yellow" }, { label: "☁️", color: "teal" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "yellow" }, { label: "⭐", color: "yellow" }, { label: "🌙", color: "purple" }], answer: 1, why: "O padrão é estrela, estrela, lua; a nuvem não pertence." },
       ];
 
-      let legacyRuleRounds = [
-        { sequence: legacyPatternRounds[0].sequence, options: ["Azul e vermelho", "Duas azuis", "Só vermelho", "Muda tamanho"], answer: 0, why: "A regra é azul, vermelho e repetir." },
-        { sequence: [{ label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], options: ["Um triângulo", "Dois triângulos e um quadrado", "Três quadrados", "Só muda cor"], answer: 1, why: "O grupo tem dois triângulos e um quadrado." },
+      const legacyRuleBaseTier3 = [
+        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: ["Azul e vermelho", "Duas azuis", "Só vermelho", "Muda tamanho"], answer: 0, why: "A regra é azul, vermelho e repetir." },
+        { sequence: [{ label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], options: ["Dois triângulos e um quadrado", "Um triângulo", "Três quadrados", "Só muda cor"], answer: 0, why: "O grupo tem dois triângulos e um quadrado." },
         { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }], options: ["1, 2, 3 e repete", "Só o 1", "3, 2, 1", "Pula o 2"], answer: 0, why: "Os números 1, 2 e 3 formam o grupo." },
-        { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }], options: ["Muda cor", "Pequeno e grande", "Sempre grande", "Sempre pequeno"], answer: 1, why: "A cor não muda; o tamanho alterna." },
-        { sequence: legacyPatternRounds[4].sequence, options: ["A, B, B", "A, A, B", "Só B", "A, B, C"], answer: 0, why: "O grupo repetido é A, B, B." },
-        { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: ["Uma bola", "Duas bolas e duas estrelas", "Duas estrelas e uma bola", "Só estrelas"], answer: 1, why: "A regra forma pares." },
-        { sequence: legacyPatternRounds[6].sequence, options: ["Cachorro e gato", "Só gato", "Dois cachorros", "Muda todo dia"], answer: 0, why: "A regra é cachorro, gato e repetir." },
+        { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }], options: ["Pequeno e grande alternam", "Muda cor", "Sempre grande", "Sempre pequeno"], answer: 0, why: "A cor não muda; o tamanho alterna." },
+        { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }], options: ["A, B, B", "A, A, B", "Só B", "A, B, C"], answer: 0, why: "O grupo repetido é A, B, B." },
+        { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: ["Duas bolas e duas estrelas", "Uma bola", "Duas estrelas e uma bola", "Só estrelas"], answer: 0, why: "A regra forma pares." },
+        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: ["Cachorro e gato", "Só gato", "Dois cachorros", "Muda todo dia"], answer: 0, why: "A regra é cachorro, gato e repetir." },
+        { sequence: [{ label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: ["Duas vermelhas e uma azul", "Só azul", "Uma vermelha e duas azuis", "Sempre alterna"], answer: 0, why: "O grupo repetido é vermelho, vermelho, azul." },
+        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: ["Dois cachorros e um gato", "Só gatos", "Um cachorro e dois gatos", "Muda toda vez"], answer: 0, why: "O grupo repetido é cachorro, cachorro, gato." },
+        { sequence: [{ label: "2", color: "teal" }, { label: "4", color: "orange" }, { label: "2", color: "teal" }, { label: "4", color: "orange" }, { label: "2", color: "teal" }, { label: "4", color: "orange" }], options: ["Alterna 2 e 4", "Sempre soma 1", "Só números pares diferentes", "Sempre 2"], answer: 0, why: "Os números alternam entre 2 e 4." },
+        { sequence: [{ kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }, { kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }, { kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }], options: ["Grande e pequeno alternam", "Sempre grande", "Sempre pequeno", "Muda de cor"], answer: 0, why: "O tamanho alterna entre grande e pequeno." },
+        { sequence: [{ label: "A", color: "teal" }, { label: "B", color: "orange" }, { label: "C", color: "purple" }, { label: "A", color: "teal" }, { label: "B", color: "orange" }, { label: "C", color: "purple" }], options: ["A, B, C e repete", "Só A e B", "C, B, A", "Pula letras"], answer: 0, why: "As letras A, B e C formam o grupo que se repete." },
+        { sequence: [{ label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }], options: ["Duas luas e um sol", "Só sol", "Uma lua e dois sóis", "Sempre sol"], answer: 0, why: "O grupo repetido é lua, lua, sol." },
+        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }], options: ["Carro e bicicleta alternam", "Só carros", "Três veículos diferentes", "Sempre o mesmo"], answer: 0, why: "Carro e bicicleta se alternam sem parar." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }], options: ["Dois uns e um dois", "Só uns", "Um um e dois", "Sempre cresce"], answer: 0, why: "O grupo repetido é um, um, dois." },
+        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }], options: ["Maçã, banana, uva e repete", "Só maçã", "Ordem muda toda vez", "Duas frutas só"], answer: 0, why: "Maçã, banana e uva formam o grupo que se repete." },
       ];
+
+      const legacyRuleBaseTier4 = [
+        { sequence: [{ label: "2", color: "blue" }, { label: "4", color: "teal" }, { label: "6", color: "green" }, { label: "8", color: "orange" }, { label: "10", color: "purple" }], options: ["Soma 2 a cada passo", "Dobra a cada passo", "Soma 1 a cada passo", "Sempre par ao acaso"], answer: 0, why: "Cada número aumenta 2 em relação ao anterior." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "4", color: "green" }, { label: "8", color: "orange" }, { label: "16", color: "purple" }], options: ["Dobra a cada passo", "Soma 2 a cada passo", "Soma 1 a cada passo", "Alterna par e ímpar"], answer: 0, why: "Cada número é o dobro do anterior." },
+        { sequence: [{ label: "3", color: "blue" }, { label: "6", color: "teal" }, { label: "9", color: "green" }, { label: "12", color: "orange" }], options: ["Soma 3 a cada passo", "Dobra a cada passo", "Soma 1 a cada passo", "Divide por 2"], answer: 0, why: "Cada número aumenta 3 em relação ao anterior." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "teal" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "5", color: "purple" }], options: ["Cada número é a soma dos dois anteriores", "Soma 1 sempre", "Dobra sempre", "Alterna 1 e 5"], answer: 0, why: "1+1=2, 1+2=3, 2+3=5: cada número soma os dois de trás." },
+        { sequence: [{ label: "20", color: "blue" }, { label: "18", color: "teal" }, { label: "16", color: "green" }, { label: "14", color: "orange" }], options: ["Diminui 2 a cada passo", "Aumenta 2 a cada passo", "Dobra a cada passo", "Divide por 2"], answer: 0, why: "Cada número diminui 2 em relação ao anterior." },
+        { sequence: [{ label: "●", color: "red", size: "small" }, { label: "●", color: "blue", size: "large" }, { label: "●", color: "red", size: "small" }, { label: "●", color: "blue", size: "large" }], options: ["Cor e tamanho mudam juntos", "Só a cor muda", "Só o tamanho muda", "Nada muda"], answer: 0, why: "Vermelho pequeno e azul grande alternam sempre juntos." },
+        { sequence: [{ label: "40", color: "blue" }, { label: "20", color: "teal" }, { label: "10", color: "green" }, { label: "5", color: "orange" }], options: ["Divide por 2 a cada passo", "Soma 5 a cada passo", "Subtrai 10 a cada passo", "Dobra a cada passo"], answer: 0, why: "Cada número é a metade do anterior." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "4", color: "teal" }, { label: "9", color: "green" }, { label: "16", color: "orange" }], options: ["São quadrados: 1, 4, 9, 16", "Soma 3 a cada passo", "Dobra a cada passo", "Soma números pares"], answer: 0, why: "1×1, 2×2, 3×3, 4×4: são os números ao quadrado." },
+        { sequence: [{ label: "5", color: "blue" }, { label: "10", color: "teal" }, { label: "20", color: "green" }, { label: "40", color: "orange" }], options: ["Dobra a cada passo", "Soma 5 a cada passo", "Soma 10 a cada passo", "Divide por 2"], answer: 0, why: "Cada número é o dobro do anterior." },
+        { sequence: [{ label: "A", color: "blue" }, { label: "C", color: "teal" }, { label: "E", color: "green" }, { label: "G", color: "orange" }], options: ["Pula uma letra a cada passo", "Ordem normal do alfabeto", "Só vogais", "Anda de trás para frente"], answer: 0, why: "Pula B, D e F: A, C, E, G." },
+        { sequence: [{ label: "9", color: "blue" }, { label: "7", color: "teal" }, { label: "5", color: "green" }, { label: "3", color: "orange" }], options: ["Diminui 2 a cada passo", "Aumenta 2 a cada passo", "Dobra a cada passo", "Divide por 3"], answer: 0, why: "Cada número diminui 2 em relação ao anterior." },
+        { sequence: [{ label: "2", color: "blue" }, { label: "3", color: "teal" }, { label: "5", color: "green" }, { label: "8", color: "orange" }, { label: "13", color: "purple" }], options: ["Cada número é a soma dos dois anteriores", "Soma 1 sempre", "Dobra sempre", "São números primos"], answer: 0, why: "2+3=5, 3+5=8, 5+8=13: cada número soma os dois de trás." },
+        { sequence: [{ label: "▲", color: "red" }, { label: "■", color: "blue" }, { label: "▲", color: "red" }, { label: "■", color: "blue" }], options: ["Forma e cor mudam juntas", "Só a forma muda", "Só a cor muda", "É aleatório"], answer: 0, why: "Triângulo vermelho e quadrado azul sempre alternam juntos." },
+        { sequence: [{ label: "1", color: "blue" }, { label: "3", color: "teal" }, { label: "9", color: "green" }, { label: "27", color: "orange" }], options: ["Multiplica por 3 a cada passo", "Soma 3 a cada passo", "Soma 9 a cada passo", "Dobra a cada passo"], answer: 0, why: "Cada número é o triplo do anterior." },
+        { sequence: [{ label: "100", color: "blue" }, { label: "90", color: "teal" }, { label: "80", color: "green" }, { label: "70", color: "orange" }], options: ["Diminui 10 a cada passo", "Divide por 10", "Aumenta 10 a cada passo", "Divide por 2"], answer: 0, why: "Cada número diminui 10 em relação ao anterior." },
+        { sequence: [{ label: "4", color: "blue" }, { label: "4", color: "blue" }, { label: "8", color: "teal" }, { label: "8", color: "teal" }, { label: "16", color: "green" }, { label: "16", color: "green" }], options: ["Repete e dobra: 4, 4, 8, 8, 16, 16", "Só soma 4", "Só dobra sem repetir", "Números aleatórios"], answer: 0, why: "Cada número aparece duas vezes antes de dobrar." },
+      ];
+
+      let legacyPatternRounds = [];
+      let legacyIntruderRounds = [];
+      let legacyRuleRounds = [];
 
       const dataChartThemes = [
         ["Maçã", "Banana", "Uva", "Pera"],
@@ -11124,13 +11473,7 @@
 
       let legacyDataQuizRounds = Array.from({ length: 50 }, (_, index) => createDataQuizRound(index));
 
-      let legacyOrganizeRounds = [
-        { items: ["Azul", "Verde", "Azul", "Rosa", "Azul", "Verde", "Rosa", "Azul"], question: "Quantas vezes aparece azul?", options: ["3", "4", "5", "6"], answer: 1, why: "Azul aparece 4 vezes." },
-        { items: ["Gato", "Cão", "Peixe", "Cão", "Gato", "Cão", "Peixe", "Cão"], question: "Qual animal aparece mais?", options: ["Gato", "Cão", "Peixe", "Todos"], answer: 1, why: "Cão aparece 4 vezes." },
-        { items: ["Sol", "Chuva", "Sol", "Nublado", "Sol", "Chuva", "Sol"], question: "Quantos dias não foram de sol?", options: ["2", "3", "4", "5"], answer: 1, why: "Chuva 2 + nublado 1 = 3." },
-        { items: ["A", "B", "A", "C", "B", "A", "C", "B", "A", "A"], question: "Do mais frequente ao menos frequente:", options: ["A, B, C", "B, A, C", "C, B, A", "A, C, B"], answer: 0, why: "A aparece 5, B 3 e C 2." },
-        { items: ["10", "8", "10", "9", "8", "10", "7", "8"], question: "Quais notas empataram?", options: ["10 e 9", "10 e 8", "8 e 7", "9 e 7"], answer: 1, why: "10 e 8 aparecem 3 vezes." },
-      ];
+      let legacyOrganizeRounds = [];
 
       const organizeThemes = [
         ["Gato", "Cão", "Peixe"],
@@ -11218,17 +11561,19 @@
 
       legacyOrganizeRounds = Array.from({ length: 50 }, (_, index) => createOrganizeRound(index));
 
-      legacyPatternRounds = expandOptionRounds(legacyPatternRounds);
-      legacyIntruderRounds = expandIntruderRounds(legacyIntruderRounds);
-      legacyRuleRounds = expandOptionRounds(legacyRuleRounds);
+      const legacyPatternPoolTier0 = expandOptionRounds(legacyPatternBaseTier0);
+      const legacyPatternPoolTier1 = expandOptionRounds(legacyPatternBaseTier1);
+      const legacyIntruderPool = expandIntruderRounds(legacyIntruderBase);
+      const legacyRulePoolTier3 = expandOptionRounds(legacyRuleBaseTier3);
+      const legacyRulePoolTier4 = expandOptionRounds(legacyRuleBaseTier4);
+      legacyIntruderRounds = legacyIntruderPool.map(cloneValue);
       legacyDataQuizRounds = expandOptionRounds(legacyDataQuizRounds);
       legacyOrganizeRounds = expandOptionRounds(legacyOrganizeRounds);
 
       const state = {
         ageBand: null,
         mode: "menu",
-        menuHome: true,
-        menu: 0,
+        menuFilter: null,
         round: 0,
         selected: 0,
         score: 0,
@@ -11284,6 +11629,8 @@
         codeWrong: null,
         codeAttempt: 0,
         codeCorrectIndex: null,
+        codeLetterMap: {},
+        codeDecoded: [],
         pixelLevel: null,
         pixelWrong: null,
         pixelAttempt: 0,
@@ -11292,6 +11639,9 @@
         bugWrong: null,
         bugAttempt: 0,
         bugCorrectIndex: null,
+        bugAnimStep: 0,
+        bugAnimTimer: null,
+        bugShowCorrected: false,
         loopLevel: null,
         loopWrong: null,
         loopAttempt: 0,
@@ -12042,9 +12392,9 @@
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
-          complete: legacyPatternRounds.map(cloneValue),
-          intruder: legacyIntruderRounds.map(cloneValue),
-          rule: legacyRuleRounds.map(cloneValue),
+          complete: [legacyPatternPoolTier0.map(cloneValue), legacyPatternPoolTier1.map(cloneValue)],
+          intruder: legacyIntruderPool.map(cloneValue),
+          rule: [legacyRulePoolTier3.map(cloneValue), legacyRulePoolTier4.map(cloneValue)],
           detective: legacyDataQuizRounds.map(cloneValue),
           organize: legacyOrganizeRounds.map(cloneValue),
         },
@@ -12115,8 +12465,6 @@
       }
 
       function resetLegacyRoundPool(activity, seed) {
-        const source = roundPools.legacy[activity];
-        if (!source) return;
         const targetByActivity = {
           complete: legacyPatternRounds,
           intruder: legacyIntruderRounds,
@@ -12124,7 +12472,16 @@
           detective: legacyDataQuizRounds,
           organize: legacyOrganizeRounds,
         };
-        resetRoundPool(targetByActivity[activity], source, seedFromParts(seed, "legacy", activity), {
+        const target = targetByActivity[activity];
+        if (!target) return;
+        let source = roundPools.legacy[activity];
+        if (activity === "complete") {
+          source = roundPools.legacy.complete[state.legacyGradeIndex] || roundPools.legacy.complete[0];
+        } else if (activity === "rule") {
+          source = roundPools.legacy.rule[state.legacyGradeIndex - 3] || roundPools.legacy.rule[0];
+        }
+        if (!source) return;
+        resetRoundPool(target, source, seedFromParts(seed, "legacy", activity, state.legacyGradeIndex), {
           bandSize: activity === "detective" || activity === "organize" ? 8 : 10,
         });
       }
@@ -12509,11 +12866,6 @@
         stopTimer();
         state.answerLocked = false;
         resetLegacyRuntimeState();
-        if (state.legacyActivity) {
-          returnToLegacyLevelMenu();
-          render();
-          return;
-        }
         state.mode = "menu";
         render();
       }
@@ -12816,11 +13168,10 @@
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
-        state.menuHome = false;
+        state.menuFilter = null;
         const missionIndex = missions.findIndex((item) => item.id === mode);
-        if (missionIndex >= 0) state.menu = missionIndex;
+        state.selected = missionIndex >= 0 ? missionIndex : 0;
         state.round = 0;
-        state.selected = 0;
         state.score = 0;
         state.dengueFinished = false;
         state.dengueStreak = 0;
@@ -12856,56 +13207,19 @@
         };
       }
 
-      function menuPageCount() {
-        return missionCategories.length;
-      }
-
-      function currentMenuPage() {
-        const currentMissionId = missions[state.menu]?.id;
-        const categoryIndex = missionCategories.findIndex((category) =>
-          category.missionIds.includes(currentMissionId)
-        );
-        return Math.max(0, categoryIndex);
-      }
-
-      function menuItemsForPage(page) {
-        return (missionCategories[page]?.missionIds || [])
+      function filteredMenuItems() {
+        if (state.menuFilter === null) {
+          return missions.map((item, index) => ({ ...item, globalIndex: index }));
+        }
+        return (missionCategories[state.menuFilter]?.missionIds || [])
           .map(menuItemById)
           .filter(Boolean);
       }
 
-      function selectMenuPage(page, localIndex = 0) {
-        const pageItems = menuItemsForPage(page);
-        if (!pageItems.length) return false;
-        const boundedIndex = Math.max(0, Math.min(localIndex, pageItems.length - 1));
-        state.menu = pageItems[boundedIndex].globalIndex;
-        return true;
-      }
-
-      function goToPreviousMenuPage() {
-        if (state.menuHome) return false;
-        const page = currentMenuPage();
-        if (page === 0) {
-          state.menuHome = true;
-          state.selected = 0;
-          render();
-          return true;
-        }
-        selectMenuPage(page - 1);
+      function setMenuFilter(filterIndex) {
+        state.menuFilter = filterIndex;
+        state.selected = 0;
         render();
-        return true;
-      }
-
-      function goToNextMenuPage() {
-        const page = currentMenuPage();
-        if (page >= menuPageCount() - 1) return false;
-        selectMenuPage(page + 1);
-        render();
-        return true;
-      }
-
-      function currentMenuItems() {
-        return menuItemsForPage(currentMenuPage());
       }
 
       const missionAgeLevelSources = {
@@ -12953,63 +13267,33 @@
         if (index < 0 || index >= ageBands.length) return;
         state.ageBand = index;
         state.selected = 0;
-        state.menuHome = true;
+        state.menuFilter = null;
         showMessage("▶️ Vamos lá!", 650, "info");
         render();
       }
 
-      function renderMenuHome() {
-        setHeader("Missões Interativas", "Escolha uma categoria");
-        setCounters("Categorias", `${missionCategories.length}`, "Feitas", Object.keys(state.completed).length);
-        status.textContent = "Toque numa categoria para ver as missões.";
-        content.innerHTML = `<div class="menu-home">
-          ${missionCategories.map((category, index) => `
-            <div class="menu-home-card ${index === state.selected ? "selected" : ""}" data-category-index="${index}">
-              <div class="menu-home-icon">${category.icon}</div>
-              <div class="menu-home-text">
-                <div class="menu-home-title">${category.title}</div>
-                <div class="menu-home-desc">${category.description}</div>
-              </div>
-              <div class="menu-home-count">${category.missionIds.length} missões</div>
-            </div>`).join("")}
-        </div>`;
-      }
-
-      function enterMenuCategory(index) {
-        const category = missionCategories[index];
-        if (!category) return;
-        const firstItem = menuItemById(category.missionIds[0]);
-        if (!firstItem) return;
-        state.menuHome = false;
-        state.menu = firstItem.globalIndex;
-        render();
-      }
-
       function renderMenu() {
-        if (state.menuHome) {
-          renderMenuHome();
-          return;
-        }
-        const page = currentMenuPage();
-        const category = missionCategories[page];
-        const pageItems = currentMenuItems();
-        setHeader("Missões Interativas", `${category.icon} ${category.title}`);
-        setCounters("Categoria", `${page + 1} / ${menuPageCount()}`, "Feitas", Object.keys(state.completed).length);
-        status.textContent = category.description;
-        content.innerHTML = `<div class="menu">
-          ${pageItems.map((item) => {
-            const ageRange = missionAgeRangeLabel(item.id);
-            return `<div class="menu-card ${item.featured ? "featured" : ""} ${item.globalIndex === state.menu ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
-            ${ageRange ? `<div class="menu-age-badge tone-${ageBadgeTone(ageRange)}">${ageRange}</div>` : ""}
-            <div class="menu-icon">${item.icon}</div>
-            <div class="menu-title">${item.title}</div>
-            <div class="menu-meta">${item.subject}</div>
-          </div>`;
-          }).join("")}
-          <div class="menu-page-controls">
-            <button class="menu-page-button" type="button" data-menu-page="prev" ${page === 0 ? "disabled" : ""}>‹</button>
-            <div class="menu-page">Categoria ${page + 1} de ${menuPageCount()}</div>
-            <button class="menu-page-button" type="button" data-menu-page="next" ${page >= menuPageCount() - 1 ? "disabled" : ""}>›</button>
+        const items = filteredMenuItems();
+        const activeFilter = state.menuFilter;
+        const category = activeFilter === null ? null : missionCategories[activeFilter];
+        setHeader("Missões Interativas", category ? `${category.icon} ${category.title}` : "Todas as missões");
+        setCounters("Missões", `${items.length}`, "Feitas", `${Object.keys(state.completed).length}`);
+        status.textContent = category ? category.description : "Toque numa missão pra jogar, ou filtre por categoria.";
+        content.innerHTML = `<div class="menu-screen">
+          <div class="menu-filters">
+            <button type="button" class="menu-filter-chip ${activeFilter === null ? "active" : ""}" data-filter="all">🔷 Todas</button>
+            ${missionCategories.map((cat, index) => `<button type="button" class="menu-filter-chip ${activeFilter === index ? "active" : ""}" data-filter="${index}">${cat.icon} ${cat.title}</button>`).join("")}
+          </div>
+          <div class="menu">
+            ${items.map((item, index) => {
+              const ageRange = missionAgeRangeLabel(item.id);
+              return `<div class="menu-card ${item.featured ? "featured" : ""} ${index === state.selected ? "selected" : ""} ${state.completed[item.id] ? "done" : ""}">
+              ${ageRange ? `<div class="menu-age-badge tone-${ageBadgeTone(ageRange)}">${ageRange}</div>` : ""}
+              <div class="menu-icon">${item.icon}</div>
+              <div class="menu-title">${item.title}</div>
+              <div class="menu-meta">${item.subject}</div>
+            </div>`;
+            }).join("")}
           </div>
         </div>`;
       }
@@ -13617,23 +13901,6 @@
       }
 
       function renderMath() {
-        if (state.mathLevel === null) {
-          setHeader("Matemática colorida", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${mathLevels.length}`, "Fases", mathLevelRoundCount());
-          status.textContent = "Trilhas coloridas de cálculo.";
-          content.innerHTML = levelSelectHtml(mathLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({
-              icon: level.icon,
-              title: level.title,
-              kicker: level.theme,
-              meta: level.meta,
-              preview: level.icons,
-            }),
-          });
-          return;
-        }
-
         const level = mathLevels[state.mathLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
@@ -13685,10 +13952,6 @@
 
       function currentMathRounds() {
         return mathLevels[state.mathLevel].rounds;
-      }
-
-      function mathLevelRoundCount() {
-        return mathLevels[0]?.rounds.length || 0;
       }
 
       function mathOptions() {
@@ -14146,20 +14409,54 @@
         });
       }
 
-      function codeTupleEquals(a, b) {
-        return a.length === b.length && a.every((value, index) => value === b[index]);
-      }
-
       function currentCodeRounds() {
         return codeLevels[state.codeLevel].rounds;
       }
 
+      function startCodeRound() {
+        const round = currentCodeRounds()[state.round];
+        const seed = seedFromParts("code-map", state.missionSeed, state.codeLevel, state.round);
+        const shuffledSymbols = shuffle(codeSymbolPool, seed);
+        const letterMap = {};
+        DECODER_ALPHABET.forEach((letter, index) => { letterMap[letter] = shuffledSymbols[index]; });
+        state.codeLetterMap = letterMap;
+        state.codeDecoded = round.word.split("").map(() => false);
+        state.codeAttempt = 0;
+        state.codeWrong = null;
+        state.codeCorrectIndex = null;
+      }
+
+      function codeActiveIndex() {
+        return state.codeDecoded.indexOf(false);
+      }
+
+      function codeSolved() {
+        return codeActiveIndex() === -1;
+      }
+
       function codeOptions() {
         const round = currentCodeRounds()[state.round];
-        return orderAnswerOptions(round.choices, {
-          seed: seedFromParts("code", state.missionSeed, state.codeLevel, state.round, round.answer.join("-")),
+        const activeIndex = codeActiveIndex();
+        if (activeIndex === -1) return [];
+        const targetLetter = round.word[activeIndex];
+        const seed = seedFromParts("code", state.missionSeed, state.codeLevel, state.round, activeIndex);
+        const uniqueLetters = [...new Set(round.word.split(""))].filter((letter) => letter !== targetLetter);
+        const shuffledDistractors = shuffle(uniqueLetters, seed);
+        const extra = [];
+        let offset = 0;
+        while (shuffledDistractors.length + extra.length < 3 && offset < 40) {
+          const random = seededRandom(seedFromParts(seed, "extra", offset))();
+          const candidate = DECODER_ALPHABET[Math.floor(random * DECODER_ALPHABET.length)];
+          if (candidate !== targetLetter && !uniqueLetters.includes(candidate) && !extra.includes(candidate)) {
+            extra.push(candidate);
+          }
+          offset += 1;
+        }
+        const letters = [targetLetter, ...shuffledDistractors.slice(0, 3 - extra.length), ...extra];
+        return orderAnswerOptions(letters, {
+          seed,
           attempt: state.codeAttempt,
-          isCorrect: (choice) => codeTupleEquals(choice, round.answer),
+          isCorrect: (letter) => letter === targetLetter,
         });
       }
 
@@ -14208,40 +14505,39 @@
       }
 
       function renderCode() {
-        if (state.codeLevel === null) {
-          setHeader("Mensagem secreta", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${codeLevels.length}`, "Fases", codeLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Trilhas de códigos e símbolos.";
-          content.innerHTML = levelSelectHtml(codeLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({
-              icon: level.icon,
-              title: level.title,
-              kicker: level.theme,
-              meta: level.meta,
-              preview: level.preview,
-            }),
-          });
-          return;
-        }
-
         const level = codeLevels[state.codeLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
+        const themeMeta = subjectThemeMeta[round.theme];
+        const activeIndex = codeActiveIndex();
         const options = codeOptions();
+        const uniqueLetters = [...new Set(round.word.split(""))];
         setHeader("Mensagem secreta", `${level.title}: decifre o código.`);
         setCounters("Mensagem", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = "Veja a chave e escolha o que a mensagem diz.";
+        status.textContent = "Veja a legenda e escolha a letra certa para cada símbolo.";
         content.innerHTML = `<div class="code-board">
+          <div class="subject-theme-badge">
+            <span class="subject-theme-icon">${themeMeta.icon}</span>
+            <span class="subject-theme-label">Dica: ${themeMeta.label}</span>
+          </div>
           <div class="code-legend">
-            ${level.words.map((entry) => `<div class="code-legend-item"><span class="code-legend-symbol">${entry.symbol}</span><span class="code-legend-word" data-fit-text data-fit-min="8">${entry.word}</span></div>`).join("")}
+            ${uniqueLetters.map((letter) => `<div class="code-legend-item"><span class="code-legend-symbol">${state.codeLetterMap[letter]}</span><span class="code-legend-word">${letter}</span></div>`).join("")}
           </div>
           <div class="code-message">
-            ${round.symbols.map((symbol) => `<span class="code-symbol">${symbol}</span>`).join("")}
+            ${round.word.split("").map((letter, index) => {
+              const done = state.codeDecoded[index];
+              const classes = ["code-symbol-cell"];
+              if (done) classes.push("revealed");
+              if (index === activeIndex) classes.push("active");
+              return `<div class="${classes.join(" ")}">
+                <span class="code-symbol">${state.codeLetterMap[letter]}</span>
+                <span class="code-symbol-letter">${done ? letter : ""}</span>
+              </div>`;
+            }).join("")}
           </div>
           <div class="code-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((choice, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="10">
-              ${codeChoiceLabel(choice, level.words)}
+            ${options.map((letter, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}">
+              ${letter}
               ${state.codeCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔐</span><span>🎉</span><span>✨</span><span>🔐</span></div>' : ""}
             </div>`).join("")}
           </div>
@@ -14267,23 +14563,6 @@
       }
 
       function renderPixels() {
-        if (state.pixelLevel === null) {
-          setHeader("Desmistificador de Pixels", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${pixelLevels.length}`, "Fases", pixelLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Trilhas de código binário e imagens.";
-          content.innerHTML = levelSelectHtml(pixelLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({
-              icon: level.icon,
-              title: level.title,
-              kicker: level.theme,
-              meta: level.meta,
-              preview: level.preview,
-            }),
-          });
-          return;
-        }
-
         const level = pixelLevels[state.pixelLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
@@ -14316,55 +14595,94 @@
         return steps;
       }
 
-      function renderBug() {
-        if (state.bugLevel === null) {
-          setHeader("Caça ao Bug", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${bugLevels.length}`, "Fases", bugLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Encontre o comando errado no caminho do robô.";
-          content.innerHTML = levelSelectHtml(bugLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({
-              icon: level.icon,
-              title: level.title,
-              kicker: level.theme,
-              meta: level.meta,
-              preview: level.preview,
-            }),
-          });
-          return;
-        }
+      function bugPlayAnimation() {
+        window.clearTimeout(state.bugAnimTimer);
+        state.bugAnimTimer = null;
+        state.bugShowCorrected = false;
+        state.bugAnimStep = 0;
+        render();
+        const round = currentBugRounds()[state.round];
+        if (!round) return;
+        const totalSteps = round.trail.length - 1;
+        const tick = () => {
+          if (state.mode !== "bug") return;
+          state.bugAnimStep = Math.min(state.bugAnimStep + 1, totalSteps);
+          render();
+          if (state.bugAnimStep < totalSteps) {
+            state.bugAnimTimer = window.setTimeout(tick, 450);
+          } else {
+            state.bugAnimTimer = null;
+          }
+        };
+        state.bugAnimTimer = window.setTimeout(tick, 450);
+      }
 
+      function bugPlayCorrectedAnimation(onComplete) {
+        window.clearTimeout(state.bugAnimTimer);
+        state.bugAnimTimer = null;
+        state.bugShowCorrected = true;
+        state.bugAnimStep = 0;
+        render();
+        const round = currentBugRounds()[state.round];
+        const totalSteps = round.correctTrail.length - 1;
+        const tick = () => {
+          if (state.mode !== "bug") return;
+          state.bugAnimStep = Math.min(state.bugAnimStep + 1, totalSteps);
+          render();
+          if (state.bugAnimStep < totalSteps) {
+            state.bugAnimTimer = window.setTimeout(tick, 320);
+          } else {
+            state.bugAnimTimer = window.setTimeout(() => {
+              if (state.mode !== "bug") return;
+              onComplete();
+            }, 550);
+          }
+        };
+        state.bugAnimTimer = window.setTimeout(tick, 320);
+      }
+
+      function renderBug() {
         const level = bugLevels[state.bugLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
+        const showingCorrected = state.bugShowCorrected;
+        const activeTrail = showingCorrected ? round.correctTrail : round.trail;
+        const activeSequence = showingCorrected ? round.correctMoves : round.sequence;
+        const animStep = Math.min(state.bugAnimStep, activeTrail.length - 1);
+        const robotCell = activeTrail[animStep];
+
         setHeader("Caça ao Bug", `${level.title}: ache o comando errado.`);
         setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = "O robô não chegou até a estrela. Clique no comando que está errado.";
+        status.textContent = showingCorrected
+          ? "Assim é o caminho certo até a estrela!"
+          : "Veja o robô andar e clique no comando que está errado.";
 
         const cells = [];
         for (let y = 0; y < level.rows; y += 1) {
           for (let x = 0; x < level.cols; x += 1) {
-            const isStart = x === 0 && y === 0;
             const isGoal = round.goal[0] === x && round.goal[1] === y;
-            const steps = bugTrailStepsAt(round.trail, x, y).filter((step) => step > 0);
-            const lastStep = steps.length ? steps[steps.length - 1] : null;
-            cells.push(`<div class="bug-cell">
-              ${isGoal ? '<div class="bug-goal">⭐</div>' : ""}
-              ${isStart ? '<div class="bug-robot">🤖</div>' : ""}
-              ${lastStep !== null ? `<div class="bug-step">${lastStep}</div>` : ""}
+            const isRobotHere = robotCell[0] === x && robotCell[1] === y;
+            const visited = !isRobotHere && bugTrailStepsAt(activeTrail, x, y).some((step) => step >= 0 && step <= animStep);
+            cells.push(`<div class="bug-cell ${isRobotHere ? "active" : ""} ${visited ? "visited" : ""}">
+              ${isGoal ? '<div class="door-frame"><div class="door open"></div></div>' : ""}
+              ${isRobotHere ? '<div class="bug-robot">🤖</div>' : ""}
             </div>`);
           }
         }
 
         content.innerHTML = `<div class="bug-board">
           <div class="bug-grid" style="grid-template-columns: repeat(${level.cols}, 1fr)">${cells.join("")}</div>
+          ${showingCorrected
+            ? `<div class="bug-corrected-banner">✅ Caminho corrigido!</div>`
+            : `
+          <button type="button" class="bug-replay-button" ${state.answerLocked ? "disabled" : ""}>▶️ Ver de novo</button>
           <div class="bug-chip-row ${state.answerLocked ? "locked" : ""}">
-            ${round.sequence.map((key, index) => `<div class="bug-chip ${index === state.selected ? "selected" : ""} ${state.bugWrong === index ? "wrong" : ""} ${state.bugCorrectIndex === index ? "correct" : ""}">
+            ${activeSequence.map((key, index) => `<div class="bug-chip ${index === state.selected ? "selected" : ""} ${state.bugWrong === index ? "wrong" : ""} ${state.bugCorrectIndex === index ? "correct" : ""} ${index === animStep - 1 ? "active" : ""}">
               <span class="bug-chip-step">${index + 1}</span>
               <span class="bug-chip-arrow">${arrowSymbols[key]}</span>
               ${state.bugCorrectIndex === index ? '<div class="fx-stamp">🐞</div>' : ""}
             </div>`).join("")}
-          </div>
+          </div>`}
         </div>`;
       }
 
@@ -14387,30 +14705,37 @@
       }
 
       function renderLoop() {
-        if (state.loopLevel === null) {
-          setHeader("Fábrica de Laços", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${loopLevels.length}`, "Fases", loopLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Trilhas de repetição.";
-          content.innerHTML = levelSelectHtml(loopLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
-          });
-          return;
-        }
         const level = loopLevels[state.loopLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
         const options = loopOptions();
+        const solved = state.loopCorrectIndex !== null;
+        const maxTotal = Math.max(round.target, ...round.blocks.map(loopTotal));
+        const percentFor = (value) => (value / maxTotal) * 100;
+        const targetPercent = percentFor(round.target);
         setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
         setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = `O robô precisa andar ${round.target} casas. Qual laço funciona?`;
+        status.textContent = `O robô precisa andar ${round.target} casas. Qual laço leva ele até a bandeira?`;
         content.innerHTML = `<div class="loop-board">
-          <div class="loop-target">🎯 ${round.target} passos</div>
+          <div class="loop-track">
+            <div class="loop-flag" style="left:${targetPercent}%">🏁<span class="loop-flag-label">${round.target}</span></div>
+            <div class="loop-robot ${solved ? "walking" : ""}" style="--loop-target-percent:${targetPercent}%">🤖</div>
+          </div>
           <div class="loop-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((block, index) => `<div class="loop-option ${index === state.selected ? "selected" : ""} ${state.loopWrong === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">
-              ${loopBlockLabel(block)}
-              ${state.loopCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
-            </div>`).join("")}
+            ${options.map((block, index) => {
+              const segWidth = percentFor(block.step);
+              const extraWidth = percentFor(block.extra);
+              const segments = Array.from({ length: block.repeat }, () => `<span class="loop-bar-segment" style="width:${segWidth}%"></span>`).join("");
+              const extraSeg = block.extra ? `<span class="loop-bar-segment extra" style="width:${extraWidth}%"></span>` : "";
+              return `<div class="loop-option ${index === state.selected ? "selected" : ""} ${state.loopWrong === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">
+                <span class="loop-option-label">${loopBlockLabel(block)}</span>
+                <div class="loop-option-bar-track">
+                  <span class="loop-option-target-line" style="left:${targetPercent}%"></span>
+                  <div class="loop-option-bar">${segments}${extraSeg}</div>
+                </div>
+                ${state.loopCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
+              </div>`;
+            }).join("")}
           </div>
         </div>`;
       }
@@ -14433,16 +14758,6 @@
       }
 
       function renderSort() {
-        if (state.sortLevel === null) {
-          setHeader("Estante Organizada", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${sortLevels.length}`, "Fases", sortLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Troque os vizinhos até ordenar.";
-          content.innerHTML = levelSelectHtml(sortLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
-          });
-          return;
-        }
         const level = sortLevels[state.sortLevel];
         const rounds = level.rounds;
         setHeader("Estante Organizada", `${level.title}: troque os vizinhos.`);
@@ -14464,47 +14779,78 @@
 
       function varOptions() {
         const round = currentVarRounds()[state.round];
-        return orderAnswerOptions(round.optionValueIndexes, {
-          seed: seedFromParts("var", state.missionSeed, state.varLevel, state.round, round.attrIndex, round.answerValueIndex),
+        const seed = seedFromParts("var", state.missionSeed, state.varLevel, state.round);
+        if (round.tracks.length === 1) {
+          const track = round.tracks[0];
+          const distractors = [];
+          while (distractors.length < 3) {
+            distractors.push(varTrackDistractor(track, [track.finalValueIndex, ...distractors]));
+          }
+          const optionValues = [track.finalValueIndex, ...distractors];
+          return orderAnswerOptions(optionValues, {
+            seed,
+            attempt: state.varAttempt,
+            isCorrect: (valueIndex) => valueIndex === track.finalValueIndex,
+          });
+        }
+        const [trackA, trackB] = round.tracks;
+        const correctA = trackA.finalValueIndex;
+        const correctB = trackB.finalValueIndex;
+        const wrongA = varTrackDistractor(trackA, [correctA]);
+        const wrongB = varTrackDistractor(trackB, [correctB]);
+        const wrongA2 = varTrackDistractor(trackA, [correctA, wrongA]);
+        const wrongB2 = varTrackDistractor(trackB, [correctB, wrongB]);
+        const pairs = [
+          { a: correctA, b: correctB },
+          { a: wrongA, b: correctB },
+          { a: correctA, b: wrongB },
+          { a: wrongA2, b: wrongB2 },
+        ];
+        return orderAnswerOptions(pairs, {
+          seed,
           attempt: state.varAttempt,
-          isCorrect: (valueIndex) => valueIndex === round.answerValueIndex,
+          isCorrect: (pair) => pair.a === correctA && pair.b === correctB,
         });
       }
 
       function renderVar() {
-        if (state.varLevel === null) {
-          setHeader("Tradutor de Sinais", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${varLevels.length}`, "Fases", varLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Guarde o valor certo na caixa.";
-          content.innerHTML = levelSelectHtml(varLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
-          });
-          return;
-        }
         const level = varLevels[state.varLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
-        const attribute = varAttributeSets[round.attrIndex];
         const options = varOptions();
-        const answerValue = attribute.values[round.answerValueIndex];
+        const isPair = round.tracks.length > 1;
+        const verbFor = (type) => (type === "set" ? "Guarde" : type === "change" ? "Troque para" : "Mantém");
         setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
-        setCounters("Caixa", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = `O personagem precisa ficar assim. Escolha o valor certo para a caixa ${attribute.name}.`;
+        setCounters("Comando", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = isPair
+          ? "Siga os comandos de cada caixa e escolha os valores finais."
+          : "Siga os comandos e escolha o valor final da variável.";
         content.innerHTML = `<div class="var-board">
-          <div class="var-preview">
-            <div class="var-preview-visual">${answerValue.visual}</div>
-            <div class="var-box">
-              <span class="var-box-icon">${attribute.icon}</span>
-              <span class="var-box-name">${attribute.name}</span>
-              <span class="var-box-value">${state.varCorrectIndex !== null ? answerValue.label : "?"}</span>
-            </div>
+          <div class="var-tracks ${isPair ? "pair" : ""}">
+            ${round.tracks.map((track) => {
+              const attribute = varAttributeSets[track.attrIndex];
+              return `<div class="var-track">
+                <div class="var-track-header"><span class="var-track-icon">${attribute.icon}</span><span class="var-track-name">${attribute.name}</span></div>
+                <div class="var-commands">
+                  ${track.commands.map((cmd, index) => `<div class="var-command ${cmd.type === "noop" ? "noop" : ""}">
+                    <span class="var-command-step">${index + 1}</span>
+                    <span class="var-command-text">${verbFor(cmd.type)}</span>
+                    <span class="var-command-value">${attribute.values[cmd.valueIndex].visual}</span>
+                  </div>`).join("")}
+                </div>
+              </div>`;
+            }).join("")}
           </div>
-          <div class="var-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((valueIndex, index) => `<div class="var-option ${index === state.selected ? "selected" : ""} ${state.varWrong === index ? "wrong" : ""} ${state.varCorrectIndex === index ? "correct" : ""}">
-              <span class="var-option-visual">${attribute.values[valueIndex].visual}</span>
-              <span class="var-option-label">${attribute.values[valueIndex].label}</span>
-            </div>`).join("")}
+          <div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
+            ${options.map((option, index) => {
+              const visuals = isPair
+                ? round.tracks.map((track, trackIndex) => varAttributeSets[track.attrIndex].values[trackIndex === 0 ? option.a : option.b].visual).join(" ")
+                : varAttributeSets[round.tracks[0].attrIndex].values[option].visual;
+              return `<div class="var-option ${index === state.selected ? "selected" : ""} ${state.varWrong === index ? "wrong" : ""} ${state.varCorrectIndex === index ? "correct" : ""}">
+                <span class="var-option-visual">${visuals}</span>
+                ${state.varCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
+              </div>`;
+            }).join("")}
           </div>
         </div>`;
       }
@@ -14528,34 +14874,32 @@
       }
 
       function renderDecoder() {
-        if (state.decoderLevel === null) {
-          setHeader("Robô Decifrador", "Escolha uma faixa.");
-          setCounters("Faixa", `${state.selected + 1} / ${decoderLevels.length}`, "Palavras", decoderLevels[state.selected]?.rounds.length || 0);
-          status.textContent = "Adivinhe a palavra secreta, letra por letra.";
-          content.innerHTML = levelSelectHtml(decoderLevels, {
-            selectedIndex: state.selected,
-            cardFor: (level) => ({ icon: level.icon, title: level.title, kicker: level.theme, meta: level.meta, preview: level.preview }),
-          });
-          return;
-        }
         const level = decoderLevels[state.decoderLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
-        const themeMeta = decoderThemeMeta[round.theme];
+        const themeMeta = subjectThemeMeta[round.theme];
         const failed = decoderFailed();
+        const solved = decoderWordSolved();
         setHeader("Robô Decifrador", `${level.title}: descubra a palavra.`);
         setCounters("Palavra", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = `Dica: ${themeMeta.icon} ${themeMeta.label}. Toque nas letras para descobrir a palavra.`;
+        status.textContent = "Toque nas letras para descobrir a palavra.";
         content.innerHTML = `<div class="decoder-board">
-          <div class="decoder-robot">
+          <div class="subject-theme-badge">
+            <span class="subject-theme-icon">${themeMeta.icon}</span>
+            <span class="subject-theme-label">Dica: ${themeMeta.label}</span>
+          </div>
+          <div class="decoder-robot ${failed ? "decoder-robot-complete" : ""}">
             ${decoderRobotParts.map((part, index) => `<span class="decoder-robot-part ${index < state.decoderWrong ? "shown" : ""}">${part}</span>`).join("")}
           </div>
-          <div class="decoder-word">
+          <div class="decoder-word ${solved ? "solved" : ""} ${failed ? "failed" : ""}">
             ${round.word.split("").map((letter) => {
               const revealed = failed || state.decoderGuessed.includes(letter);
               return `<span class="decoder-letter-slot ${revealed ? "revealed" : ""}">${revealed ? letter : ""}</span>`;
             }).join("")}
+            ${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🎉</span><span>✨</span></div>' : ""}
           </div>
+          ${failed ? '<div class="decoder-outcome decoder-outcome-fail">🤖 Robô completo! Não foi desta vez.</div>' : ""}
+          ${solved ? '<div class="decoder-outcome decoder-outcome-win">🎉 Você decifrou a palavra!</div>' : ""}
           <div class="decoder-alphabet ${state.answerLocked ? "locked" : ""}">
             ${DECODER_ALPHABET.map((letter, index) => {
               const guessed = state.decoderGuessed.includes(letter);
@@ -16144,6 +16488,17 @@
           startDecoderRound();
           return;
         }
+        if (mode === "code") {
+          state.codeLevel = state.ageBand;
+          startCodeRound();
+          return;
+        }
+        if (mode === "bug") {
+          state.bugLevel = state.ageBand;
+          state.selected = -1;
+          bugPlayAnimation();
+          return;
+        }
         const stateKey = missionLevelStateKeys[mode];
         if (stateKey) {
           state[stateKey] = state.ageBand;
@@ -16290,10 +16645,16 @@
         state.codeAttempt = 0;
         state.codeWrong = null;
         state.codeCorrectIndex = null;
+        state.codeLetterMap = {};
+        state.codeDecoded = [];
         state.pixelLevel = null;
         state.pixelAttempt = 0;
         state.pixelWrong = null;
         state.pixelCorrectIndex = null;
+        window.clearTimeout(state.bugAnimTimer);
+        state.bugAnimTimer = null;
+        state.bugAnimStep = 0;
+        state.bugShowCorrected = false;
         state.bugLevel = null;
         state.bugAttempt = 0;
         state.bugWrong = null;
@@ -16335,11 +16696,9 @@
       }
 
       function chooseMenu() {
-        if (state.menuHome) {
-          enterMenuCategory(state.selected);
-          return;
-        }
-        reset(missions[state.menu].id);
+        const item = filteredMenuItems()[state.selected];
+        if (!item) return;
+        reset(item.id);
       }
 
       function backToMathLevels() {
@@ -16350,6 +16709,7 @@
         state.mathAttempt = 0;
         state.mathWrong = null;
         state.mathCorrectIndex = null;
+        state.mode = "menu";
         render();
       }
 
@@ -16858,20 +17218,7 @@
         return false;
       }
 
-      function startMathLevel() {
-        state.mathLevel = state.selected;
-        resetRoundState(-1);
-        state.mathAttempt = 0;
-        state.mathWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
-        render();
-      }
-
       function handleMathEnter() {
-        if (state.mathLevel === null) {
-          startMathLevel();
-          return;
-        }
         if (!hasSelection()) return;
 
         const rounds = currentMathRounds();
@@ -17173,15 +17520,6 @@
         }, 600);
       }
 
-      function startCodeLevel() {
-        state.codeLevel = state.selected;
-        resetRoundState(-1);
-        state.codeAttempt = 0;
-        state.codeWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
-        render();
-      }
-
       function backToCodeLevels() {
         stopTimer();
         state.answerLocked = false;
@@ -17190,15 +17528,9 @@
         state.codeAttempt = 0;
         state.codeWrong = null;
         state.codeCorrectIndex = null;
-        render();
-      }
-
-      function startPixelLevel() {
-        state.pixelLevel = state.selected;
-        resetRoundState(-1);
-        state.pixelAttempt = 0;
-        state.pixelWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
+        state.codeLetterMap = {};
+        state.codeDecoded = [];
+        state.mode = "menu";
         render();
       }
 
@@ -17210,35 +17542,23 @@
         state.pixelAttempt = 0;
         state.pixelWrong = null;
         state.pixelCorrectIndex = null;
-        render();
-      }
-
-      function startBugLevel() {
-        state.bugLevel = state.selected;
-        resetRoundState(-1);
-        state.bugAttempt = 0;
-        state.bugWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
+        state.mode = "menu";
         render();
       }
 
       function backToBugLevels() {
         stopTimer();
         state.answerLocked = false;
+        window.clearTimeout(state.bugAnimTimer);
+        state.bugAnimTimer = null;
+        state.bugAnimStep = 0;
+        state.bugShowCorrected = false;
         state.bugLevel = null;
         resetRoundState(0);
         state.bugAttempt = 0;
         state.bugWrong = null;
         state.bugCorrectIndex = null;
-        render();
-      }
-
-      function startLoopLevel() {
-        state.loopLevel = state.selected;
-        resetRoundState(-1);
-        state.loopAttempt = 0;
-        state.loopWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
+        state.mode = "menu";
         render();
       }
 
@@ -17250,14 +17570,7 @@
         state.loopAttempt = 0;
         state.loopWrong = null;
         state.loopCorrectIndex = null;
-        render();
-      }
-
-      function startSortLevel() {
-        state.sortLevel = state.selected;
-        resetRoundState(0);
-        startSortRound();
-        showMessage("▶️ Vai!", 650, "info");
+        state.mode = "menu";
         render();
       }
 
@@ -17270,15 +17583,7 @@
         state.sortSelectedIndex = -1;
         state.sortWrong = null;
         state.sortJustSwapped = null;
-        render();
-      }
-
-      function startVarLevel() {
-        state.varLevel = state.selected;
-        resetRoundState(-1);
-        state.varAttempt = 0;
-        state.varWrong = null;
-        showMessage("▶️ Vai!", 650, "info");
+        state.mode = "menu";
         render();
       }
 
@@ -17290,14 +17595,7 @@
         state.varAttempt = 0;
         state.varWrong = null;
         state.varCorrectIndex = null;
-        render();
-      }
-
-      function startDecoderLevel() {
-        state.decoderLevel = state.selected;
-        resetRoundState(-1);
-        startDecoderRound();
-        showMessage("▶️ Vai!", 650, "info");
+        state.mode = "menu";
         render();
       }
 
@@ -17308,24 +17606,23 @@
         resetRoundState(0);
         state.decoderGuessed = [];
         state.decoderWrong = 0;
+        state.mode = "menu";
         render();
       }
 
       function handleCodeEnter() {
-        if (state.codeLevel === null) {
-          startCodeLevel();
-          return;
-        }
         if (!hasSelection()) return;
         const rounds = currentCodeRounds();
         const round = rounds[state.round];
         if (!round) return;
+        const activeIndex = codeActiveIndex();
+        if (activeIndex === -1) return;
+        const targetLetter = round.word[activeIndex];
         const choice = codeOptions()[state.selected];
-        const isCorrect = codeTupleEquals(choice, round.answer);
-        if (!isCorrect) {
+        if (choice !== targetLetter) {
           lockAnswer({
-            delay: 1500,
-            messageText: "👀 Olhe a chave!",
+            delay: 1100,
+            messageText: "👀 Olhe a legenda!",
             guard: () => state.mode === "code",
             onLock: () => { state.codeWrong = state.selected; },
             onUnlock: () => { state.codeWrong = null; state.codeAttempt += 1; },
@@ -17334,32 +17631,31 @@
         }
         state.codeWrong = null;
         state.codeCorrectIndex = state.selected;
+        state.codeDecoded[activeIndex] = true;
         state.answerLocked = true;
-        showMessage("🔓 Decifrado!", 600);
+        const wordDone = codeSolved();
+        showMessage(wordDone ? "🔓 Mensagem decifrada!" : "✅ Letra certa!", wordDone ? 800 : 500);
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "code") return;
           state.codeCorrectIndex = null;
           state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
           state.selected = -1;
           state.codeAttempt = 0;
-          if (state.round >= rounds.length) {
-            complete("code", "Códigos decifrados!");
-            return;
+          if (wordDone) {
+            state.score += 1;
+            state.round += 1;
+            if (state.round >= rounds.length) {
+              complete("code", "Códigos decifrados!");
+              return;
+            }
+            startCodeRound();
           }
           render();
-        }, 600);
+        }, wordDone ? 800 : 500);
       }
 
       function handleCodeClick(event) {
-        if (state.codeLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handleCodeEnter();
-          });
-        }
         return activateChoiceClick(event, ".code-option", {
           clearWrong: () => { state.codeWrong = null; },
           onConfirm: handleCodeEnter,
@@ -17367,10 +17663,6 @@
       }
 
       function handlePixelEnter() {
-        if (state.pixelLevel === null) {
-          startPixelLevel();
-          return;
-        }
         if (!hasSelection()) return;
         const rounds = currentPixelRounds();
         const round = rounds[state.round];
@@ -17409,12 +17701,6 @@
       }
 
       function handlePixelClick(event) {
-        if (state.pixelLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handlePixelEnter();
-          });
-        }
         return activateChoiceClick(event, ".pixel-option", {
           clearWrong: () => { state.pixelWrong = null; },
           onConfirm: handlePixelEnter,
@@ -17422,10 +17708,6 @@
       }
 
       function handleBugEnter() {
-        if (state.bugLevel === null) {
-          startBugLevel();
-          return;
-        }
         if (!hasSelection()) return;
         const rounds = currentBugRounds();
         const round = rounds[state.round];
@@ -17448,26 +17730,27 @@
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "bug") return;
-          state.bugCorrectIndex = null;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          state.bugAttempt = 0;
-          if (state.round >= rounds.length) {
-            complete("bug", "Bugs corrigidos!");
-            return;
-          }
-          render();
+          bugPlayCorrectedAnimation(() => {
+            if (state.mode !== "bug") return;
+            state.bugCorrectIndex = null;
+            state.answerLocked = false;
+            state.score += 1;
+            state.round += 1;
+            state.selected = -1;
+            state.bugAttempt = 0;
+            if (state.round >= rounds.length) {
+              complete("bug", "Bugs corrigidos!");
+              return;
+            }
+            bugPlayAnimation();
+          });
         }, 600);
       }
 
       function handleBugClick(event) {
-        if (state.bugLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handleBugEnter();
-          });
+        if (clickedElement(event, ".bug-replay-button")) {
+          if (!state.answerLocked) bugPlayAnimation();
+          return true;
         }
         return activateChoiceClick(event, ".bug-chip", {
           clearWrong: () => { state.bugWrong = null; },
@@ -17476,10 +17759,6 @@
       }
 
       function handleLoopEnter() {
-        if (state.loopLevel === null) {
-          startLoopLevel();
-          return;
-        }
         if (!hasSelection()) return;
         const rounds = currentLoopRounds();
         const round = rounds[state.round];
@@ -17518,12 +17797,6 @@
       }
 
       function handleLoopClick(event) {
-        if (state.loopLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handleLoopEnter();
-          });
-        }
         return activateChoiceClick(event, ".loop-option", {
           clearWrong: () => { state.loopWrong = null; },
           onConfirm: handleLoopEnter,
@@ -17592,35 +17865,21 @@
       }
 
       function handleSortEnter() {
-        if (state.sortLevel === null) {
-          startSortLevel();
-          return;
-        }
         if (!hasSelection()) return;
         handleSortSelect(state.selected);
       }
 
       function handleSortClick(event) {
-        if (state.sortLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            startSortLevel();
-          });
-        }
         return activateIndexedClick(event, ".sort-item", (index) => handleSortSelect(index));
       }
 
       function handleVarEnter() {
-        if (state.varLevel === null) {
-          startVarLevel();
-          return;
-        }
         if (!hasSelection()) return;
         const rounds = currentVarRounds();
         const round = rounds[state.round];
         if (!round) return;
         const choice = varOptions()[state.selected];
-        const isCorrect = choice === round.answerValueIndex;
+        const isCorrect = isVarChoiceCorrect(choice, round);
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -17653,12 +17912,6 @@
       }
 
       function handleVarClick(event) {
-        if (state.varLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handleVarEnter();
-          });
-        }
         return activateChoiceClick(event, ".var-option", {
           clearWrong: () => { state.varWrong = null; },
           onConfirm: handleVarEnter,
@@ -17670,12 +17923,12 @@
         const rounds = currentDecoderRounds();
         const round = rounds[state.round];
         if (success) {
-          showMessage("🤖 Decifrado!", 700);
+          showMessage("✅ Você decifrou a palavra!", 900);
         } else {
-          showMessage(`👀 Era: ${round.word}`, 1400, "warn");
+          showMessage(`🤖 Não foi desta vez! Era: ${round.word}`, 1600, "warn");
         }
         render();
-        const delay = success ? 700 : 1400;
+        const delay = success ? 900 : 1600;
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "decoder") return;
           state.answerLocked = false;
@@ -17702,6 +17955,7 @@
             completeDecoderRound(true);
             return;
           }
+          showMessage(`✅ Letra ${letter} certa!`, 550);
           render();
           return;
         }
@@ -17710,25 +17964,16 @@
           completeDecoderRound(false);
           return;
         }
+        showMessage(`❌ Não tem a letra ${letter}`, 600, "warn");
         render();
       }
 
       function handleDecoderEnter() {
-        if (state.decoderLevel === null) {
-          startDecoderLevel();
-          return;
-        }
         if (!hasSelection()) return;
         handleDecoderGuess(DECODER_ALPHABET[state.selected]);
       }
 
       function handleDecoderClick(event) {
-        if (state.decoderLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            startDecoderLevel();
-          });
-        }
         return activateIndexedClick(event, ".decoder-letter", (index) => handleDecoderGuess(DECODER_ALPHABET[index]));
       }
 
@@ -18088,10 +18333,9 @@
         state.mathCupBreak = null;
         state.mathCupGoalPause = null;
         state.mode = "menu";
-        state.menuHome = false;
-        state.menu = missions.findIndex((item) => item.id === "mathCup");
+        state.menuFilter = null;
+        state.selected = missions.findIndex((item) => item.id === "mathCup");
         state.round = 0;
-        state.selected = 0;
         state.score = 0;
         render();
       }
@@ -18223,29 +18467,8 @@
       }
 
       function moveMenuSelection(delta, vertical = false) {
-        if (state.menuHome) {
-          moveSelectionIndex({ count: missionCategories.length, delta, allowUnselected: false });
-          return;
-        }
-        const page = currentMenuPage();
-        const pageItems = currentMenuItems();
-        const localIndex = Math.max(0, pageItems.findIndex((item) => item.globalIndex === state.menu));
-        const step = vertical ? delta * 2 : delta;
-        const nextLocalIndex = localIndex + step;
-
-        if (nextLocalIndex < 0) {
-          const previousPage = page > 0 ? page - 1 : menuPageCount() - 1;
-          selectMenuPage(previousPage, menuItemsForPage(previousPage).length - 1);
-          return;
-        }
-
-        if (nextLocalIndex >= pageItems.length) {
-          const nextPage = page < menuPageCount() - 1 ? page + 1 : 0;
-          selectMenuPage(nextPage);
-          return;
-        }
-
-        state.menu = pageItems[nextLocalIndex].globalIndex;
+        const items = filteredMenuItems();
+        moveSelectionIndex({ count: items.length, delta, vertical, columns: 2, allowUnselected: false });
       }
 
       function moveSelection(delta, vertical = false) {
@@ -18527,22 +18750,15 @@
       }
 
       function handleMenuClick(event) {
-        if (state.menuHome) {
-          return activateIndexedClick(event, ".menu-home-card", (index) => {
-            state.selected = index;
-            enterMenuCategory(index);
-          });
-        }
-        const pageButton = clickedElement(event, ".menu-page-button");
-        if (pageButton) {
-          if (pageButton.dataset.menuPage === "prev") return goToPreviousMenuPage();
-          return goToNextMenuPage();
+        const filterChip = clickedElement(event, ".menu-filter-chip");
+        if (filterChip) {
+          const filterValue = filterChip.dataset.filter;
+          setMenuFilter(filterValue === "all" ? null : Number(filterValue));
+          return true;
         }
 
         return activateIndexedClick(event, ".menu-card", (index) => {
-          const item = currentMenuItems()[index];
-          if (!item) return;
-          state.menu = item.globalIndex;
+          state.selected = index;
           chooseMenu();
         });
       }
@@ -18572,13 +18788,6 @@
       }
 
       function handleMathClick(event) {
-        if (state.mathLevel === null) {
-          return activateLevelCardClick(event, (index) => {
-            state.selected = index;
-            handleMathEnter();
-          });
-        }
-
         return activateChoiceClick(event, ".answer-options .option", {
           clearWrong: () => { state.mathWrong = null; },
           onConfirm: handleMathEnter,
@@ -19087,7 +19296,7 @@
       let restoreFullscreenAfterEscape = false;
 
       function canExitFullscreenWithEscape() {
-        return state.mode === "menu" && state.menuHome;
+        return state.mode === "menu";
       }
 
       async function lockFullscreenEscape() {
@@ -19154,7 +19363,11 @@
       });
 
       function isBackActionProtected() {
-        return state.mode !== "menu";
+        if (state.mode === "menu") return false;
+        const stateKey = missionLevelStateKeys[state.mode];
+        if (stateKey) return state[stateKey] !== null;
+        if (isLevelMission(state.mode)) return state.legacyActivity !== null;
+        return true;
       }
 
       function setBackHoldProgress(progress) {
@@ -19225,7 +19438,16 @@
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
-        state.menuHome = true;
+        state.menuFilter = null;
+        state.selected = 0;
+        render();
+      }
+
+      function restartFresh() {
+        stopTimer();
+        state.answerLocked = false;
+        state.mode = "menu";
+        state.menuFilter = null;
         state.ageBand = null;
         state.selected = 0;
         render();
@@ -19252,7 +19474,7 @@
         }
 
         if (state.mode === "menu") {
-          if (!goToPreviousMenuPage()) exitFullscreenIfActive();
+          exitFullscreenIfActive();
           return;
         }
         if (isLevelMission(state.mode)) {
@@ -19418,9 +19640,17 @@
         event.preventDefault();
         event.stopPropagation();
       });
-      resetButton.addEventListener("click", () => {
-        if (isLevelMission(state.mode)) resetLegacyView();
-        else reset(state.mode);
+      resetButton.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        startHoldAction(resetButton, restartFresh, { holdMessage: "Segure recomeçar" });
+      });
+      resetButton.addEventListener("pointerup", resetBackHold);
+      resetButton.addEventListener("pointerleave", resetBackHold);
+      resetButton.addEventListener("pointercancel", resetBackHold);
+      resetButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
       });
       fullscreenButton.addEventListener("click", toggleFullscreen);
       appVersion.textContent = `v${APP_VERSION}`;

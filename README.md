@@ -8,9 +8,9 @@ Versão atual: 2.6.0
 
 Página pública:
 
-https://nethaum.github.io/missoes-interativas-pensamento-computacional/
+https://www.pensamentocomputacional.pro.br/
 
-O link antigo (com o nome do arquivo) continua funcionando e redireciona para o endereço acima.
+Os links antigos (endereço do GitHub Pages e o com o nome do arquivo) continuam funcionando e redirecionam para o endereço acima.
 
 O arquivo também pode ser aberto localmente em qualquer navegador moderno, sem instalação.
 
@@ -47,7 +47,7 @@ O projeto foi pensado para desktop, notebook, painel interativo e celular. Em te
 
 ## Destaques
 
-Seleção de missões pensadas também para apresentações, feiras e aulas especiais:
+Missões pensadas também para apresentações, feiras e aulas especiais, reunidas no filtro ⭐ Destaques do menu:
 
 - **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
 - **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
@@ -59,7 +59,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 ## Missões
 
-As missões são organizadas em categorias por propósito pedagógico (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão), com faixas de dificuldade que vão do 1º ao 9º ano.
+Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
@@ -70,15 +70,15 @@ As missões são organizadas em categorias por propósito pedagógico (sequênci
 - Copa das bandeiras: reconhecimento de países e bandeiras.
 - Setas e sequências: direção, sequência e leitura de instruções.
 - Detetive de Padrões: repetição, lógica visual e descoberta de regras.
-- Mensagem secreta: leitura de símbolos, códigos simples e associação de ideias.
+- Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
 - Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material.
-- Caça ao Bug: depuração de comandos, encontrar o passo errado num caminho.
+- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e assista à correção.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
-- Fábrica de Laços: repetição e laços, montando o bloco certo para chegar ao total pedido.
+- Fábrica de Laços: repetição e laços, comparando visualmente qual bloco leva o robô até a bandeira na trilha.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
-- Tradutor de Sinais: variáveis, guardando o valor certo numa caixa para mudar o personagem.
+- Tradutor de Sinais: variáveis, seguindo uma sequência de comandos que trocam o valor até descobrir o valor final.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
@@ -98,8 +98,9 @@ As missões são organizadas em categorias por propósito pedagógico (sequênci
 - Toque, mouse ou painel interativo: selecionar cartões, respostas e botões na tela.
 - Setas na tela ou no teclado: mover, navegar e escolher.
 - Enter ou botão de continuar: confirmar quando a missão estiver aguardando.
-- Voltar: segure o botão de voltar ou segure Esc para evitar saídas acidentais.
-- Início: segure o botão para reiniciar a escolha de idade/série, útil ao trocar de aluno ou turma.
+- Voltar: toque simples nas telas de escolha; segure o botão (ou Esc) quando houver uma rodada em andamento, para evitar saídas acidentais.
+- Início: toque simples leva ao menu de missões (ou à escolha de idade, se ainda não tiver sido feita); segura durante uma rodada em andamento.
+- Recomeçar (🔄): segure para voltar à escolha de idade/série e sortear rodadas novas, útil ao trocar de aluno ou turma.
 - R: reiniciar a missão atual.
 - F: alternar tela cheia.
 
