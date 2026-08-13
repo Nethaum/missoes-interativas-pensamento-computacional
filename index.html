@@ -6791,8 +6791,12 @@
       }
 
       .mission {
-        font-size: clamp(19px, 6.5vw, 25px);
+        font-size: clamp(17px, 5.6vw, 22px);
         text-align: center;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       .mission-text {
@@ -16855,6 +16859,7 @@
           return;
         }
         fitTextElements();
+        fitMissionTitle();
       }
 
       const missionLevelStateKeys = {
