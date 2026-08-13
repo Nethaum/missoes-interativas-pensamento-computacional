@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.7.0">
+  <meta name="app-version" content="2.7.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -8078,6 +8078,51 @@
         place-items: center;
         overflow: hidden;
         padding-bottom: 22px;
+      }
+
+      .content:has(.ttt-wrap) {
+        place-items: start center;
+        overflow: auto;
+        padding-bottom: 12px;
+      }
+
+      .ttt-wrap {
+        width: min(680px, calc(100% - 40px));
+        grid-template-columns: minmax(170px, 0.45fr) minmax(220px, 0.65fr);
+        align-items: center;
+        gap: 14px;
+      }
+
+      .ttt-board:only-child {
+        grid-column: 1 / -1;
+      }
+
+      .ttt-board {
+        width: min(34vh, 160px);
+      }
+
+      .ttt-enigma {
+        padding: 8px 10px;
+        gap: 6px;
+      }
+
+      .ttt-enigma-theme {
+        font-size: 11px;
+      }
+
+      .ttt-enigma-question {
+        font-size: clamp(13px, 1.8vw, 16px);
+      }
+
+      .ttt-enigma-options {
+        gap: 6px;
+      }
+
+      .ttt-enigma-options .option {
+        min-height: 40px;
+        padding: 6px 8px;
+        font-size: clamp(11px, 1.3vw, 13px);
+        line-height: 1.1;
       }
 
       .habitat-board {
