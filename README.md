@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.7.1
+Versão atual: 2.7.2
 
 ## Acesse
 
@@ -73,7 +73,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
-- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material.
+- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
 - Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e assista à correção.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Fábrica de Laços: repetição e laços, comparando visualmente qual bloco leva o robô até a bandeira na trilha.

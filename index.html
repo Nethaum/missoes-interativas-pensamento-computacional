@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.7.1">
+  <meta name="app-version" content="2.7.2">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -4727,6 +4727,26 @@
     .subject-theme-icon { font-size: 22px; line-height: 1; }
     .subject-theme-label { font-size: 16px; }
 
+    .decoder-hints {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .decoder-hint-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 4px 0 rgba(196, 130, 40, 0.4);
+    }
+
     .decoder-robot {
       display: flex;
       gap: 8px;
@@ -7144,9 +7164,17 @@
         gap: 8px;
       }
 
+      .ttt-wrap {
+        gap: 10px;
+      }
+
       .ttt-board {
-        width: min(260px, 78vw);
+        width: min(220px, 68vw);
         gap: 8px;
+      }
+
+      .ttt-board.ttt-board-dim {
+        display: none;
       }
 
       .ttt-cell {
@@ -7154,13 +7182,24 @@
         border-radius: 12px;
       }
 
+      .ttt-enigma {
+        padding: 12px;
+        gap: 8px;
+      }
+
+      .ttt-enigma-question {
+        font-size: clamp(15px, 4.4vw, 19px);
+      }
+
       .ttt-enigma-options {
         grid-template-columns: 1fr;
+        gap: 8px;
       }
 
       .ttt-enigma-options .option {
-        min-height: 56px;
+        min-height: 52px;
         padding: 8px 12px;
+        font-size: clamp(13px, 3.6vw, 16px);
       }
 
       .dengue-scene,
@@ -8101,7 +8140,12 @@
         width: min(34vh, 160px);
       }
 
+      .ttt-board.ttt-board-dim {
+        display: none;
+      }
+
       .ttt-enigma {
+        grid-column: 1 / -1;
         padding: 8px 10px;
         gap: 6px;
       }
@@ -15790,6 +15834,18 @@
         return state.decoderWrong >= decoderRobotParts.length;
       }
 
+      function decoderExtraHintCount() {
+        return Math.min(state.decoderWrong, 2);
+      }
+
+      function decoderExtraHints(word) {
+        const hints = [];
+        const extra = decoderExtraHintCount();
+        if (extra >= 1) hints.push(`🔤 Começa com "${word[0]}"`);
+        if (extra >= 2) hints.push(`🔚 Termina com "${word[word.length - 1]}"`);
+        return hints;
+      }
+
       function renderDecoder() {
         const level = decoderLevels[state.decoderLevel];
         const rounds = level.rounds;
@@ -15801,9 +15857,12 @@
         setCounters("Palavra", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
         status.textContent = "Toque nas letras para descobrir a palavra.";
         content.innerHTML = `<div class="decoder-board">
-          <div class="subject-theme-badge">
-            <span class="subject-theme-icon">${themeMeta.icon}</span>
-            <span class="subject-theme-label">Dica: ${themeMeta.label}</span>
+          <div class="decoder-hints">
+            <div class="subject-theme-badge">
+              <span class="subject-theme-icon">${themeMeta.icon}</span>
+              <span class="subject-theme-label">Dica: ${themeMeta.label}</span>
+            </div>
+            ${decoderExtraHints(round.word).map((text) => `<div class="decoder-hint-chip">${text}</div>`).join("")}
           </div>
           <div class="decoder-robot ${failed ? "decoder-robot-complete" : ""}">
             ${decoderRobotParts.map((part, index) => `<span class="decoder-robot-part ${index < state.decoderWrong ? "shown" : ""}">${part}</span>`).join("")}
