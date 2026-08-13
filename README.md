@@ -51,7 +51,7 @@ Missões pensadas também para apresentações, feiras e aulas especiais, reunid
 
 - **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
 - **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
-- **Copa das bandeiras** — reconhecimento de bandeiras e países em ritmo de jogo rápido.
+- **Bandeiras do Mundo** — reconhecimento das bandeiras de todos os países, em ritmo de jogo rápido.
 
 ## Manutenção
 
@@ -67,7 +67,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Caderneta de vacinação: organização e cuidado com a saúde.
 - Robô coletor: sequência de comandos e planejamento de caminho.
 - Matemática colorida: cálculo mental com dificuldade progressiva.
-- Copa das bandeiras: reconhecimento de países e bandeiras.
+- Bandeiras do Mundo: reconhecimento das bandeiras de todos os países.
 - Setas e sequências: direção, sequência e leitura de instruções.
 - Detetive de Padrões: repetição, lógica visual e descoberta de regras.
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
@@ -111,3 +111,5 @@ O material é gratuito para uso educacional. A área "Sobre" reúne informaçõe
 ## Créditos
 
 Criado por Prof. Amilcar Notari Neto.
+
+As bandeiras em SVG usadas nas missões vêm do projeto [flag-icons](https://github.com/lipis/flag-icons) (licença MIT, Copyright (c) Panayiotis Lipiridis).
