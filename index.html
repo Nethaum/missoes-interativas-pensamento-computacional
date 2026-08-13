@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.6.0">
+  <meta name="app-version" content="2.7.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -6132,6 +6132,96 @@
       line-height: 1.1;
     }
 
+    .ttt-wrap {
+      width: min(720px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .ttt-board {
+      width: min(320px, 82vw);
+      aspect-ratio: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+      transition: opacity 0.2s ease;
+    }
+
+    .ttt-board-dim {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .ttt-cell {
+      display: grid;
+      place-items: center;
+      font-size: clamp(32px, 8vw, 54px);
+      background: var(--white);
+      border: 5px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .ttt-cell.filled {
+      cursor: default;
+    }
+
+    .ttt-cell.selected {
+      border-color: var(--blue);
+    }
+
+    .ttt-cell.win {
+      background: #eaf9ee;
+      border-color: var(--green);
+    }
+
+    .ttt-enigma {
+      width: 100%;
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      padding: 18px;
+      border: 5px solid var(--line);
+      border-radius: 20px;
+      background: var(--white);
+      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.58);
+      position: relative;
+    }
+
+    .ttt-enigma-theme {
+      font-weight: 900;
+      font-size: 14px;
+      color: var(--card-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .ttt-enigma-question {
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 900;
+      color: var(--card-ink);
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .ttt-enigma-options {
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ttt-enigma-options .option {
+      min-height: 74px;
+      padding: 10px 14px;
+      font-size: clamp(14px, 1.7vw, 18px);
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+    }
+
     .dataset {
       width: min(880px, 100%);
       display: flex;
@@ -7052,6 +7142,25 @@
 
       .dengue-board {
         gap: 8px;
+      }
+
+      .ttt-board {
+        width: min(260px, 78vw);
+        gap: 8px;
+      }
+
+      .ttt-cell {
+        border-width: 4px;
+        border-radius: 12px;
+      }
+
+      .ttt-enigma-options {
+        grid-template-columns: 1fr;
+      }
+
+      .ttt-enigma-options .option {
+        min-height: 56px;
+        padding: 8px 12px;
       }
 
       .dengue-scene,
@@ -8410,6 +8519,7 @@
         { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
         { id: "var", icon: "🎁", title: "Tradutor de Sinais", subject: "Variáveis" },
         { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras" },
+        { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas" },
       ];
 
       const missionCategories = [
@@ -8441,7 +8551,7 @@
           title: "Lógica e decisão",
           icon: "💡",
           description: "Calcular, avaliar situações e escolher a melhor decisão.",
-          missionIds: ["dengue", "logic", "math", "mathCup"],
+          missionIds: ["dengue", "logic", "math", "mathCup", "ttt"],
         },
         {
           title: "Lógica de programação",
@@ -11159,6 +11269,202 @@
         rounds: plan.words.map((entry) => ({ ...entry })),
       }));
 
+      const tttLevelPlans = [
+        {
+          title: "Enigmas iniciais", icon: "🟢", age: "6-7 anos",
+          rounds: [
+            { theme: "math", question: "Quanto é 2 + 3?", options: ["4", "5", "6", "3"], answer: 1 },
+            { theme: "math", question: "Qual número vem depois do 7?", options: ["6", "9", "8", "10"], answer: 2 },
+            { theme: "math", question: "Quantos lados tem um triângulo?", options: ["2", "3", "4", "5"], answer: 1 },
+            { theme: "math", question: "Quanto é 5 - 2?", options: ["1", "2", "3", "4"], answer: 2 },
+            { theme: "nature", question: "O que as plantas precisam para crescer?", options: ["Água e luz do sol", "Areia e gelo", "Fumaça", "Sal"], answer: 0 },
+            { theme: "nature", question: "Qual destes é um fenômeno da natureza?", options: ["Chuva", "Carro", "Livro", "Cadeira"], answer: 0 },
+            { theme: "nature", question: "Em que estação do ano costuma fazer mais frio?", options: ["Verão", "Inverno", "Primavera", "Outono"], answer: 1 },
+            { theme: "nature", question: "Qual destes vem do céu quando chove?", options: ["Água", "Areia", "Fogo", "Papel"], answer: 0 },
+            { theme: "tech", question: "Qual destes aparelhos usamos para ver vídeos e jogos?", options: ["Geladeira", "Tablet", "Panela", "Guarda-chuva"], answer: 1 },
+            { theme: "tech", question: "Como se chama o desenho que aparece na tela do computador?", options: ["Imagem", "Cheiro", "Som", "Sabor"], answer: 0 },
+            { theme: "tech", question: "O que usamos para digitar letras no computador?", options: ["Teclado", "Garfo", "Escova", "Martelo"], answer: 0 },
+            { theme: "tech", question: "Para que serve o mouse do computador?", options: ["Para apontar e clicar na tela", "Para comer", "Para ouvir música sem fio", "Para escrever com tinta"], answer: 0 },
+            { theme: "traffic", question: "Qual cor do semáforo manda parar?", options: ["Verde", "Amarelo", "Vermelho", "Azul"], answer: 2 },
+            { theme: "traffic", question: "Onde a pessoa deve atravessar a rua com segurança?", options: ["Faixa de pedestres", "No meio do quarteirão", "Correndo entre carros", "Fechando os olhos"], answer: 0 },
+            { theme: "traffic", question: "Qual cor do semáforo manda seguir em frente?", options: ["Vermelho", "Verde", "Roxo", "Preto"], answer: 1 },
+            { theme: "traffic", question: "Quem deve usar capacete ao andar de bicicleta?", options: ["Só os adultos", "Ninguém precisa", "O ciclista", "Só à noite"], answer: 2 },
+            { theme: "health", question: "O que devemos fazer antes das refeições?", options: ["Lavar as mãos", "Pular", "Gritar", "Dormir"], answer: 0 },
+            { theme: "health", question: "Quantas vezes ao dia é bom escovar os dentes, pelo menos?", options: ["Nunca", "1 vez", "3 vezes", "10 vezes"], answer: 2 },
+            { theme: "health", question: "Qual destes alimentos é uma fruta?", options: ["Maçã", "Cadeira", "Sapato", "Livro"], answer: 0 },
+            { theme: "flags", question: "Quais são as cores da bandeira do Brasil?", options: ["Verde, amarelo, azul e branco", "Vermelho e preto", "Rosa e roxo", "Laranja e cinza"], answer: 0 },
+            { theme: "flags", question: "O que a bandeira de um país representa?", options: ["O país e seu povo", "Um tipo de comida", "Um brinquedo", "Um animal de estimação"], answer: 0 },
+            { theme: "flags", question: "Qual formato costuma ter a maioria das bandeiras dos países?", options: ["Retângulo", "Círculo", "Triângulo", "Estrela"], answer: 0 },
+            { theme: "animals", question: "Qual destes animais sabe voar?", options: ["Peixe", "Pássaro", "Minhoca", "Caracol"], answer: 1 },
+            { theme: "animals", question: "Qual destes animais vive na água?", options: ["Peixe", "Cachorro", "Galinha", "Coelho"], answer: 0 },
+            { theme: "animals", question: "Como se chama o filhote do cachorro?", options: ["Bezerro", "Cachorrinho", "Girino", "Poldro"], answer: 1 },
+            { theme: "portugues", question: "Quantas vogais tem o alfabeto?", options: ["3", "5", "7", "10"], answer: 1 },
+            { theme: "portugues", question: "Qual destas palavras começa com a letra B?", options: ["Bola", "Casa", "Rato", "Sol"], answer: 0 },
+            { theme: "portugues", question: "Qual destas palavras rima com \"GATO\"?", options: ["Pato", "Flor", "Mesa", "Livro"], answer: 0 },
+            { theme: "historia", question: "Como se chamam os primeiros povos que viveram no Brasil?", options: ["Indígenas", "Robôs", "Astronautas", "Vikings"], answer: 0 },
+            { theme: "historia", question: "O que os historiadores estudam?", options: ["O futuro", "O passado das pessoas", "Somente números", "Somente plantas"], answer: 1 },
+            { theme: "geografia", question: "Como se chama o lugar onde a água corre entre as margens até o mar?", options: ["Rio", "Deserto", "Vulcão", "Estrada"], answer: 0 },
+            { theme: "geografia", question: "Qual destes é o nome do nosso país?", options: ["Brasil", "Marte", "Lua", "Saturno"], answer: 0 },
+            { theme: "arte", question: "Quais são as três cores primárias?", options: ["Azul, amarelo e vermelho", "Verde, rosa e cinza", "Preto, branco e roxo", "Laranja, marrom e dourado"], answer: 0 },
+            { theme: "arte", question: "O que usamos para pintar um desenho?", options: ["Tinta", "Sabão", "Sal", "Vinagre"], answer: 0 },
+          ],
+        },
+        {
+          title: "Enigmas em dobro", icon: "🟡", age: "8-9 anos",
+          rounds: [
+            { theme: "math", question: "Quanto é 6 x 3?", options: ["12", "15", "18", "21"], answer: 2 },
+            { theme: "math", question: "Quanto é 20 ÷ 4?", options: ["4", "5", "6", "8"], answer: 1 },
+            { theme: "math", question: "Qual é a metade de 50?", options: ["20", "25", "30", "15"], answer: 1 },
+            { theme: "math", question: "Quantos lados tem um hexágono?", options: ["5", "6", "7", "8"], answer: 1 },
+            { theme: "nature", question: "Qual é o processo pelo qual as plantas produzem seu próprio alimento usando luz do sol?", options: ["Fotossíntese", "Respiração", "Digestão", "Evaporação"], answer: 0 },
+            { theme: "nature", question: "Qual destes é um estado da água?", options: ["Sólido", "Rápido", "Pesado", "Colorido"], answer: 0 },
+            { theme: "nature", question: "O que a chuva, o rio e o mar têm em comum?", options: ["São formas de água", "São tipos de rocha", "São animais", "São plantas"], answer: 0 },
+            { theme: "nature", question: "Como se chama o conjunto de seres vivos e o ambiente onde vivem juntos?", options: ["Ecossistema", "Sistema solar", "Alfabeto", "Cardápio"], answer: 0 },
+            { theme: "tech", question: "Como se chama a rede mundial que conecta computadores?", options: ["Internet", "Televisão", "Rádio", "Jornal"], answer: 0 },
+            { theme: "tech", question: "O que é um \"arquivo\" no computador?", options: ["Um conjunto de dados guardado", "Um tipo de fruta", "Uma peça de roupa", "Um animal"], answer: 0 },
+            { theme: "tech", question: "Qual destes é um exemplo de hardware (parte física do computador)?", options: ["Teclado", "Aplicativo", "Música digital", "Senha"], answer: 0 },
+            { theme: "tech", question: "O que significa \"salvar\" um arquivo no computador?", options: ["Guardar as informações para não perdê-las", "Apagar tudo", "Imprimir em papel", "Desligar o computador"], answer: 0 },
+            { theme: "traffic", question: "O que a faixa amarela contínua no meio da rua indica?", options: ["Proibido ultrapassar", "Pode ultrapassar sempre", "É uma calçada", "É uma ciclovia"], answer: 0 },
+            { theme: "traffic", question: "Qual equipamento de segurança é obrigatório para motociclistas?", options: ["Capacete", "Chapéu", "Boné", "Óculos escuros"], answer: 0 },
+            { theme: "traffic", question: "O que o pedestre deve fazer antes de atravessar a rua, mesmo na faixa?", options: ["Olhar para os dois lados", "Fechar os olhos", "Correr sem olhar", "Ficar de costas"], answer: 0 },
+            { theme: "health", question: "Qual mosquito transmite a dengue?", options: ["Aedes aegypti", "Abelha", "Mosca comum", "Pernilongo azul"], answer: 0 },
+            { theme: "health", question: "Água parada em vasos e pneus pode causar o quê?", options: ["Criadouro do mosquito da dengue", "Mais oxigênio no ar", "Menos poeira", "Nada de importante"], answer: 0 },
+            { theme: "health", question: "Qual destes hábitos ajuda a prevenir doenças?", options: ["Lavar as mãos com frequência", "Deixar lixo espalhado", "Beber água suja", "Não dormir"], answer: 0 },
+            { theme: "flags", question: "As bandeiras de muitos países usam cores para representar o quê?", options: ["História, natureza e valores do povo", "Apenas o clima", "Só o time de futebol", "O nome do presidente"], answer: 0 },
+            { theme: "flags", question: "O que geralmente representa a estrela em algumas bandeiras?", options: ["Estados ou regiões do país", "Um tipo de fruta", "Um animal de estimação", "Um instrumento musical"], answer: 0 },
+            { theme: "animals", question: "Animais que têm coluna vertebral são chamados de quê?", options: ["Vertebrados", "Invertebrados", "Vegetais", "Minerais"], answer: 0 },
+            { theme: "animals", question: "Qual destes é um animal invertebrado?", options: ["Borboleta", "Cachorro", "Gato", "Peixe"], answer: 0 },
+            { theme: "animals", question: "Qual grupo de animais bota ovos e tem penas?", options: ["Aves", "Mamíferos", "Répteis", "Anfíbios"], answer: 0 },
+            { theme: "portugues", question: "Qual é o plural da palavra \"animal\"?", options: ["Animais", "Animals", "Animales", "Animaus"], answer: 0 },
+            { theme: "portugues", question: "O que é um substantivo?", options: ["Palavra que nomeia seres, lugares ou coisas", "Palavra que indica ação", "Só um número", "Um sinal de pontuação"], answer: 0 },
+            { theme: "portugues", question: "Qual destas frases está no plural?", options: ["Os livros estão na mesa", "O livro está na mesa", "Livro na mesa", "Está na mesa"], answer: 0 },
+            { theme: "historia", question: "Quem é considerado o navegador que chegou ao Brasil em 1500?", options: ["Pedro Álvares Cabral", "Tiradentes", "Dom Pedro I", "Santos Dumont"], answer: 0 },
+            { theme: "historia", question: "Antes da chegada dos europeus, quem já vivia no território brasileiro?", options: ["Povos indígenas", "Só animais", "Ninguém", "Só piratas"], answer: 0 },
+            { theme: "geografia", question: "Como se chama a linha imaginária que divide a Terra em hemisfério norte e sul?", options: ["Linha do Equador", "Meridiano de Greenwich", "Trópico de Câncer", "Polo Norte"], answer: 0 },
+            { theme: "geografia", question: "Qual é a capital do Brasil?", options: ["Brasília", "São Paulo", "Rio de Janeiro", "Salvador"], answer: 0 },
+            { theme: "geografia", question: "Como se chama a maior floresta tropical do mundo, presente no Brasil?", options: ["Amazônia", "Mata Atlântica", "Caatinga", "Cerrado"], answer: 0 },
+            { theme: "arte", question: "Quem pintou o famoso quadro \"Abaporu\"?", options: ["Tarsila do Amaral", "Pablo Picasso", "Leonardo da Vinci", "Cândido Portinari"], answer: 0 },
+            { theme: "arte", question: "O que é uma escultura?", options: ["Uma obra de arte em três dimensões", "Uma música", "Um poema", "Um filme"], answer: 0 },
+          ],
+        },
+        {
+          title: "Enigmas espertos", icon: "🟠", age: "10-11 anos",
+          rounds: [
+            { theme: "math", question: "Quanto é 12 x 12?", options: ["124", "144", "132", "154"], answer: 1 },
+            { theme: "math", question: "Qual é o resultado de 3/4 em porcentagem?", options: ["50%", "75%", "25%", "100%"], answer: 1 },
+            { theme: "math", question: "Quanto é a raiz quadrada de 81?", options: ["7", "8", "9", "10"], answer: 2 },
+            { theme: "math", question: "Quanto é 15% de 200?", options: ["20", "30", "25", "35"], answer: 1 },
+            { theme: "nature", question: "Qual é o principal gás que as plantas absorvem na fotossíntese?", options: ["Gás carbônico (CO2)", "Oxigênio", "Nitrogênio", "Gás hélio"], answer: 0 },
+            { theme: "nature", question: "Como se chama a camada de gases que envolve a Terra?", options: ["Atmosfera", "Litosfera", "Hidrosfera", "Estratosfera profunda"], answer: 0 },
+            { theme: "nature", question: "Qual é o ciclo que descreve a água evaporando, formando nuvens e caindo como chuva?", options: ["Ciclo da água", "Ciclo do carbono", "Fotossíntese", "Cadeia alimentar"], answer: 0 },
+            { theme: "nature", question: "O que é biodiversidade?", options: ["A variedade de seres vivos em um ambiente", "Um tipo de rocha", "Um instrumento de medir temperatura", "Um tipo de solo"], answer: 0 },
+            { theme: "tech", question: "O que é um algoritmo?", options: ["Uma sequência de passos para resolver um problema", "Um tipo de vírus de computador", "Uma marca de computador", "Um jogo eletrônico"], answer: 0 },
+            { theme: "tech", question: "Qual destes é um exemplo de código binário?", options: ["10110", "ABCDE", "1,2,3,4", "!@#$"], answer: 0 },
+            { theme: "tech", question: "O que significa a sigla \"CPU\"?", options: ["Unidade central de processamento", "Cabo de proteção universal", "Central de programas úteis", "Chip de proteção urgente"], answer: 0 },
+            { theme: "tech", question: "O que é uma variável na programação?", options: ["Um espaço que guarda um valor que pode mudar", "Um tipo de vírus", "Uma cor da tela", "Um botão do mouse"], answer: 0 },
+            { theme: "traffic", question: "Qual é a função da rotatória no trânsito?", options: ["Organizar o cruzamento de várias vias", "Servir de estacionamento", "Ser uma calçada", "Ser uma ciclovia exclusiva"], answer: 0 },
+            { theme: "traffic", question: "O que significa uma placa de trânsito triangular com borda vermelha?", options: ["Advertência de perigo", "Proibição total", "Informação turística", "Serviço de ambulância"], answer: 0 },
+            { theme: "traffic", question: "Por que é importante usar o cinto de segurança no carro?", options: ["Reduz o risco de ferimentos graves em acidentes", "Deixa o carro mais rápido", "Economiza combustível", "É apenas decorativo"], answer: 0 },
+            { theme: "health", question: "O que são anticorpos?", options: ["Substâncias que defendem o corpo contra doenças", "Tipos de vitamina", "Um exame de sangue", "Um tipo de remédio para dor"], answer: 0 },
+            { theme: "health", question: "Qual é a função da vacina no corpo?", options: ["Preparar o sistema imunológico contra uma doença", "Curar uma fratura", "Aumentar a altura", "Melhorar a visão"], answer: 0 },
+            { theme: "health", question: "Qual sistema do corpo é responsável pela respiração?", options: ["Sistema respiratório", "Sistema digestivo", "Sistema nervoso", "Sistema esquelético"], answer: 0 },
+            { theme: "flags", question: "Bandeiras que usam a Cruz do Sul geralmente representam países de qual região?", options: ["Hemisfério Sul", "Hemisfério Norte", "Só a Europa", "Só a Ásia"], answer: 0 },
+            { theme: "flags", question: "Qual país tem uma folha vermelha no centro da bandeira?", options: ["Canadá", "Japão", "Suíça", "Turquia"], answer: 0 },
+            { theme: "animals", question: "Qual é a diferença principal entre anfíbios e répteis?", options: ["Anfíbios vivem parte da vida na água e parte na terra", "Répteis não têm pele", "Anfíbios não respiram", "Répteis vivem só na água"], answer: 0 },
+            { theme: "animals", question: "O que significa um animal ser \"carnívoro\"?", options: ["Se alimenta principalmente de carne", "Se alimenta só de plantas", "Não come nada", "Vive só na água"], answer: 0 },
+            { theme: "animals", question: "Qual é o maior mamífero do planeta?", options: ["Baleia-azul", "Elefante-africano", "Girafa", "Urso-polar"], answer: 0 },
+            { theme: "portugues", question: "O que é um sinônimo?", options: ["Palavra com significado parecido a outra", "Palavra com significado oposto", "Um sinal de pontuação", "Uma palavra estrangeira"], answer: 0 },
+            { theme: "portugues", question: "Qual destas é uma palavra no plural formado com acento?", options: ["Cidadão → cidadãos", "Casa → casas", "Flor → flores", "Papel → papéis"], answer: 3 },
+            { theme: "portugues", question: "O que é um verbo?", options: ["Palavra que indica ação, estado ou fenômeno", "Palavra que nomeia um objeto", "Palavra que liga frases", "Um número"], answer: 0 },
+            { theme: "historia", question: "Em que ano o Brasil se tornou independente de Portugal?", options: ["1822", "1500", "1889", "1750"], answer: 0 },
+            { theme: "historia", question: "Quem proclamou a independência do Brasil?", options: ["Dom Pedro I", "Dom Pedro II", "Tiradentes", "Getúlio Vargas"], answer: 0 },
+            { theme: "geografia", question: "Como se chamam as grandes massas de terra do planeta, como América e África?", options: ["Continentes", "Oceanos", "Ilhas", "Arquipélagos"], answer: 0 },
+            { theme: "geografia", question: "Qual é o maior oceano do mundo?", options: ["Oceano Pacífico", "Oceano Atlântico", "Oceano Índico", "Oceano Ártico"], answer: 0 },
+            { theme: "geografia", question: "O que é uma latitude?", options: ["Distância medida em graus a partir da Linha do Equador", "Tipo de vegetação", "Um instrumento de navegação antigo", "Um tipo de solo"], answer: 0 },
+            { theme: "arte", question: "Qual movimento artístico ficou marcado pelas obras de Pablo Picasso, com formas geométricas?", options: ["Cubismo", "Impressionismo", "Realismo", "Barroco"], answer: 0 },
+            { theme: "arte", question: "O que foi a Semana de Arte Moderna de 1922, no Brasil?", options: ["Um movimento cultural que buscou uma identidade artística brasileira", "Um estilo de dança clássica europeia", "Um tipo de arquitetura medieval", "Um gênero musical eletrônico"], answer: 0 },
+          ],
+        },
+        {
+          title: "Enigmas avançados", icon: "🔴", age: "12-13 anos",
+          rounds: [
+            { theme: "math", question: "Qual é o valor de x na equação 2x + 4 = 12?", options: ["4", "6", "8", "2"], answer: 0 },
+            { theme: "math", question: "Quanto é 7² (7 ao quadrado)?", options: ["14", "49", "21", "56"], answer: 1 },
+            { theme: "math", question: "Qual é a probabilidade de tirar um número par ao lançar um dado de 6 faces?", options: ["1/2", "1/3", "1/6", "2/3"], answer: 0 },
+            { theme: "math", question: "Se um produto custa R$ 80 e tem 25% de desconto, qual é o valor do desconto?", options: ["R$ 15", "R$ 20", "R$ 25", "R$ 30"], answer: 1 },
+            { theme: "nature", question: "O que é o efeito estufa?", options: ["Retenção de calor na atmosfera por gases como o CO2", "Um tipo de vulcão", "Um fenômeno só do espaço", "Um tipo de terremoto"], answer: 0 },
+            { theme: "nature", question: "Qual é a principal causa do desmatamento na Amazônia?", options: ["Expansão agropecuária e exploração ilegal de madeira", "Excesso de chuva", "Vulcões", "Terremotos"], answer: 0 },
+            { theme: "nature", question: "O que é uma célula, na biologia?", options: ["A menor unidade da vida", "Um tipo de átomo", "Um órgão do corpo", "Um tipo de vírus só"], answer: 0 },
+            { theme: "nature", question: "O que é reciclagem?", options: ["Transformar materiais usados em novos produtos", "Jogar lixo em qualquer lugar", "Queimar todo o lixo", "Enterrar lixo sem separar"], answer: 0 },
+            { theme: "tech", question: "O que é criptografia?", options: ["Técnica para proteger informações transformando-as em código", "Um tipo de vírus de computador", "Uma linguagem de programação antiga", "Um tipo de teclado"], answer: 0 },
+            { theme: "tech", question: "O que faz um \"depurador\" (debugger) em programação?", options: ["Ajuda a encontrar e corrigir erros no código", "Deixa o computador mais rápido", "Cria imagens 3D", "Traduz idiomas"], answer: 0 },
+            { theme: "tech", question: "O que é inteligência artificial?", options: ["Sistemas capazes de simular capacidades humanas de raciocínio", "Um tipo de bateria", "Um cabo de rede", "Um vírus de computador"], answer: 0 },
+            { theme: "tech", question: "O que é um algoritmo eficiente?", options: ["Aquele que resolve um problema usando menos passos ou recursos", "Aquele que usa o máximo de memória possível", "Aquele que nunca termina", "Aquele que só funciona uma vez"], answer: 0 },
+            { theme: "traffic", question: "O que caracteriza uma \"infração de trânsito\"?", options: ["Desrespeito a uma norma de trânsito", "Um tipo de veículo", "Uma placa de sinalização", "Um tipo de pista"], answer: 0 },
+            { theme: "traffic", question: "Por que engarrafamentos prejudicam o meio ambiente?", options: ["Aumentam a emissão de poluentes com carros parados", "Deixam as ruas mais limpas", "Diminuem o barulho", "Não têm nenhum efeito"], answer: 0 },
+            { theme: "traffic", question: "Qual é a função da fiscalização de trânsito, como radares e blitz?", options: ["Garantir o cumprimento das leis e reduzir acidentes", "Atrapalhar os motoristas", "Aumentar o trânsito", "Vender multas"], answer: 0 },
+            { theme: "health", question: "O que é uma epidemia?", options: ["Aumento rápido de casos de uma doença em uma região", "Uma vacina nova", "Um tipo de remédio", "Um exame médico"], answer: 0 },
+            { theme: "health", question: "Como as vacinas ajudam na imunização coletiva (imunidade de rebanho)?", options: ["Reduzindo a circulação da doença quando muitas pessoas são vacinadas", "Aumentando o número de doentes", "Eliminando a necessidade de higiene", "Substituindo hospitais"], answer: 0 },
+            { theme: "health", question: "O que é o saneamento básico?", options: ["Conjunto de serviços como água tratada e esgoto, que previne doenças", "Um tipo de exercício físico", "Um remédio natural", "Um tipo de vacina"], answer: 0 },
+            { theme: "flags", question: "O que geralmente acontece com o desenho da bandeira de um país após sua independência?", options: ["Ele costuma mudar, deixando de usar símbolos do antigo colonizador", "A bandeira nunca muda", "O país perde o nome", "Não há relação"], answer: 0 },
+            { theme: "flags", question: "O que a bandeira do país de uma pessoa geralmente identifica?", options: ["De qual nação a pessoa é cidadã", "Não tem relação com o país", "É apenas decorativa", "Indica só o clima do país"], answer: 0 },
+            { theme: "animals", question: "O que caracteriza um animal \"migratório\"?", options: ["Se desloca sazonalmente entre regiões diferentes", "Vive sempre no mesmo lugar", "Não se move nunca", "Só existe em zoológicos"], answer: 0 },
+            { theme: "animals", question: "O que é metamorfose, como a que ocorre em borboletas?", options: ["Mudança de forma do corpo ao longo do desenvolvimento", "Um tipo de doença", "Uma dieta especial", "Um tipo de habitat"], answer: 0 },
+            { theme: "animals", question: "O que significa um animal ser \"predador\"?", options: ["Caça outros animais para se alimentar", "Só come plantas", "Vive na água doce", "É sempre pequeno"], answer: 0 },
+            { theme: "portugues", question: "O que é uma oração subordinada?", options: ["Uma oração que depende de outra para ter sentido completo", "Uma oração sem verbo", "Um tipo de rima", "Um sinal de pontuação"], answer: 0 },
+            { theme: "portugues", question: "O que a conjunção \"mas\" costuma indicar?", options: ["Oposição ou contraste entre ideias", "Adição de ideias", "Uma condição", "Uma causa"], answer: 0 },
+            { theme: "portugues", question: "O que é um parágrafo?", options: ["Um bloco de texto que desenvolve uma ideia principal", "Uma única palavra", "Um sinal de pontuação", "Um tipo de rima"], answer: 0 },
+            { theme: "historia", question: "O que foi a Inconfidência Mineira?", options: ["Um movimento de conspiração contra o domínio português em Minas Gerais", "Uma guerra entre Brasil e Argentina", "A chegada dos portugueses ao Brasil", "Uma eleição presidencial"], answer: 0 },
+            { theme: "historia", question: "O que caracterizou o período da Monarquia no Brasil?", options: ["Governo liderado por um imperador, como Dom Pedro I e II", "Governo eleito por voto popular direto desde o início", "Ausência total de governo", "Governo controlado só por indígenas"], answer: 0 },
+            { theme: "geografia", question: "O que é urbanização?", options: ["Processo de crescimento das cidades e concentração da população nelas", "Processo de criação de florestas", "Diminuição da população mundial", "Construção de estradas rurais apenas"], answer: 0 },
+            { theme: "geografia", question: "O que são as linhas de longitude usadas nos mapas?", options: ["Linhas verticais que medem a distância a partir do Meridiano de Greenwich", "Linhas que medem a temperatura", "Linhas que indicam relevo", "Linhas que mostram rios"], answer: 0 },
+            { theme: "geografia", question: "O que caracteriza um clima árido, como em desertos?", options: ["Baixa umidade e pouca chuva", "Chuva constante o ano todo", "Neve o ano inteiro", "Umidade muito alta sempre"], answer: 0 },
+            { theme: "arte", question: "O que caracterizou o movimento Barroco na arte?", options: ["Uso de contrastes fortes de luz, sombra e dramaticidade", "Formas simples e cores neutras", "Apenas desenhos geométricos", "Ausência total de cor"], answer: 0 },
+            { theme: "arte", question: "O que é uma \"instalação\" na arte contemporânea?", options: ["Obra que ocupa e transforma um espaço, com diferentes materiais", "Um tipo de pintura a óleo apenas", "Uma escultura em mármore só", "Um tipo de dança clássica"], answer: 0 },
+          ],
+        },
+        {
+          title: "Enigmas mestres", icon: "🟣", age: "14 anos",
+          rounds: [
+            { theme: "math", question: "Qual é o resultado de 2³ + 3²?", options: ["17", "13", "15", "11"], answer: 0 },
+            { theme: "math", question: "Em uma equação do 1º grau, 3x - 5 = 10, qual é o valor de x?", options: ["5", "3", "15", "10"], answer: 0 },
+            { theme: "math", question: "Qual é a probabilidade de, ao lançar duas moedas, sair \"cara\" nas duas?", options: ["1/4", "1/2", "1/3", "3/4"], answer: 0 },
+            { theme: "math", question: "Qual é o valor aproximado de π (pi), usado em cálculos com círculos?", options: ["3,14", "2,71", "1,41", "4,20"], answer: 0 },
+            { theme: "nature", question: "O que é o processo de eutrofização em rios e lagos?", options: ["Excesso de nutrientes que causa proliferação de algas e reduz o oxigênio da água", "Congelamento total da água", "Aumento da profundidade do rio", "Formação de novos peixes"], answer: 0 },
+            { theme: "nature", question: "O que estuda a epidemiologia?", options: ["A distribuição e os fatores que determinam doenças em populações", "Somente a anatomia do corpo humano", "A formação de rochas", "O comportamento de plantas apenas"], answer: 0 },
+            { theme: "nature", question: "O que é biotecnologia?", options: ["Uso de organismos vivos ou seus processos para criar produtos e soluções", "Um tipo de energia solar", "Um tipo de rocha vulcânica", "Um sistema de transporte público"], answer: 0 },
+            { theme: "nature", question: "O que caracteriza o aquecimento global?", options: ["Aumento da temperatura média da Terra, associado ao acúmulo de gases de efeito estufa", "Diminuição constante da temperatura do planeta", "Um fenômeno que só ocorre nos polos", "Ausência de qualquer mudança climática"], answer: 0 },
+            { theme: "tech", question: "O que é cibersegurança?", options: ["Conjunto de práticas para proteger sistemas e dados contra ataques", "Um tipo de jogo eletrônico", "Uma linguagem de programação", "Um tipo de cabo de rede"], answer: 0 },
+            { theme: "tech", question: "O que caracteriza uma linguagem de programação de alto nível?", options: ["É mais próxima da linguagem humana e mais fácil de entender", "É escrita apenas em números binários", "Só funciona em supercomputadores", "Não pode ser traduzida pelo computador"], answer: 0 },
+            { theme: "tech", question: "O que é um algoritmo recursivo?", options: ["Aquele que chama a si mesmo para resolver partes menores de um problema", "Aquele que nunca usa variáveis", "Aquele que só funciona com números pares", "Aquele que não tem início nem fim"], answer: 0 },
+            { theme: "tech", question: "O que é nanotecnologia?", options: ["Manipulação da matéria em escala extremamente pequena, em nível atômico e molecular", "Um tipo de rede de internet muito rápida", "Um tipo de bateria recarregável comum", "Um sistema de armazenamento em nuvem"], answer: 0 },
+            { theme: "traffic", question: "O que é a infraestrutura viária de uma cidade?", options: ["Conjunto de vias, sinalizações e estruturas para o trânsito", "Somente os carros que circulam", "Apenas os semáforos", "Só as calçadas"], answer: 0 },
+            { theme: "traffic", question: "Como a fiscalização eletrônica (radares) contribui para a segurança viária?", options: ["Ajuda a reduzir excesso de velocidade e acidentes", "Aumenta o número de acidentes", "Não tem nenhum efeito no trânsito", "Serve só para arrecadar dinheiro, sem outro efeito"], answer: 0 },
+            { theme: "traffic", question: "O que caracteriza um combustível mais sustentável para veículos?", options: ["Gera menos poluentes e usa fontes renováveis", "É sempre mais barato", "Não precisa de motor", "É proibido por lei"], answer: 0 },
+            { theme: "health", question: "O que é a transmissão vetorial de uma doença, como no caso da dengue?", options: ["Quando um organismo, como um mosquito, transmite o agente da doença", "Transmissão só pelo ar", "Transmissão só por contato direto entre pessoas", "Transmissão apenas por alimentos"], answer: 0 },
+            { theme: "health", question: "O que é o metabolismo?", options: ["Conjunto de reações químicas que mantêm a vida das células", "Um tipo de exame de sangue apenas", "Um órgão do corpo", "Um tipo de vacina"], answer: 0 },
+            { theme: "health", question: "O que caracteriza uma doença crônica?", options: ["Se desenvolve e persiste por longo período de tempo", "Dura apenas algumas horas", "Sempre é contagiosa", "Nunca precisa de tratamento"], answer: 0 },
+            { theme: "flags", question: "O que geralmente motiva a mudança do desenho de uma bandeira nacional ao longo da história?", options: ["Mudanças políticas, independência ou novos governos", "Apenas a moda do momento", "O clima do país", "O time de futebol nacional"], answer: 0 },
+            { theme: "flags", question: "O que a bandeira de um país geralmente simboliza em eventos internacionais, como Jogos Olímpicos?", options: ["A identidade e soberania da nação representada", "Apenas uma decoração sem significado", "O nome do atleta favorito", "O clima local"], answer: 0 },
+            { theme: "animals", question: "O que caracteriza a relação de predador e presa em uma cadeia alimentar?", options: ["Fluxo de energia de um organismo para outro através da alimentação", "Ausência total de interação entre espécies", "Somente competição por território", "Relação apenas entre plantas"], answer: 0 },
+            { theme: "animals", question: "Por que a biodiversidade é importante para os ecossistemas?", options: ["Garante equilíbrio e resiliência ambiental", "Aumenta a quantidade total de água em um ambiente", "Reduz o número de espécies extintas apenas", "Diminui o tamanho médio dos animais"], answer: 0 },
+            { theme: "animals", question: "O que caracteriza uma espécie em extinção?", options: ["Corre alto risco de desaparecer devido à redução de sua população", "Está se reproduzindo em excesso", "Vive apenas em cativeiro por escolha", "Não tem predadores naturais"], answer: 0 },
+            { theme: "portugues", question: "O que é a interpretação de texto?", options: ["Compreender e analisar o sentido e as intenções de um texto", "Apenas ler as palavras em voz alta", "Contar quantas letras o texto tem", "Traduzir o texto para outro idioma"], answer: 0 },
+            { theme: "portugues", question: "O que caracteriza a morfologia, no estudo da língua portuguesa?", options: ["Estudo da estrutura e formação das palavras", "Estudo apenas da pontuação", "Estudo só da pronúncia", "Estudo apenas de rimas"], answer: 0 },
+            { theme: "portugues", question: "O que é uma figura de linguagem, como a metáfora?", options: ["Um recurso que dá sentido figurado ou expressivo à linguagem", "Um erro gramatical comum", "Um tipo de pontuação", "Uma regra de acentuação"], answer: 0 },
+            { theme: "historia", question: "O que caracterizou o movimento conhecido como Revolução Industrial?", options: ["Transformação da produção artesanal em produção mecanizada e em larga escala", "Fim total do uso de máquinas", "Retorno à vida totalmente rural", "Abolição imediata de todas as fronteiras"], answer: 0 },
+            { theme: "historia", question: "O que foi o colonialismo?", options: ["Domínio político e econômico de um território por outra nação", "Um tipo de eleição democrática", "Uma aliança comercial entre iguais", "Um tratado de paz apenas"], answer: 0 },
+            { theme: "historia", question: "O que caracterizou o processo de Independência de várias colônias na América?", options: ["Ruptura política com a metrópole europeia que as colonizava", "Manutenção total do domínio colonial", "Fusão de todas as colônias em um só país", "Ausência de qualquer conflito"], answer: 0 },
+            { theme: "geografia", question: "O que é a globalização?", options: ["Processo de integração econômica, cultural e social entre países", "Isolamento total entre nações", "Redução do comércio internacional a zero", "Um tipo de clima"], answer: 0 },
+            { theme: "geografia", question: "O que caracteriza a desertificação de uma área?", options: ["Degradação do solo que o torna árido, perdendo capacidade produtiva", "Aumento da vegetação nativa", "Formação de novos rios", "Elevação do nível do mar apenas"], answer: 0 },
+            { theme: "arte", question: "O que caracterizou o Expressionismo na arte?", options: ["Ênfase na expressão emocional e subjetiva, muitas vezes com distorções", "Representação extremamente realista e fiel da realidade", "Ausência total de cor", "Uso exclusivo de formas geométricas puras"], answer: 0 },
+            { theme: "arte", question: "O que caracteriza a arte contemporânea, de modo geral?", options: ["Diversidade de estilos, materiais e questionamentos sobre o próprio conceito de arte", "Um único estilo obrigatório para todos os artistas", "Proibição do uso de tecnologia", "Repetição exata de obras clássicas"], answer: 0 },
+          ],
+        },
+      ];
+
+      const tttLevels = tttLevelPlans;
+
       const pixelLevelPlans = [
         { title: "Primeiros pixels", icon: "🧩", age: "6-7 anos", theme: "Grade pequena", meta: "4x4", size: 4, roundCount: 18 },
         { title: "Códigos maiores", icon: "🔢", age: "8-9 anos", theme: "Grade 5x5", meta: "5x5", size: 5, roundCount: 20 },
@@ -12056,6 +12362,18 @@
         decoderLevel: null,
         decoderGuessed: [],
         decoderWrong: 0,
+        tttLevel: null,
+        tttOpponent: null,
+        tttBoard: [],
+        tttTurn: "X",
+        tttRoundIndex: 0,
+        tttEnigma: null,
+        tttEnigmaCell: null,
+        tttWrong: null,
+        tttCorrectIndex: null,
+        tttAttempt: 0,
+        tttWinner: null,
+        tttWinLine: null,
         chefChosen: [],
         chefShuffled: [],
         chefAttempt: 0,
@@ -12785,6 +13103,7 @@
         sort: sortLevels.map((level) => level.rounds.map(cloneValue)),
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
+        ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
@@ -12861,6 +13180,13 @@
         });
       }
 
+      function resetTttRoundPools(seed) {
+        tttLevels.forEach((level, levelIndex) => {
+          const source = roundPools.ttt[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "ttt", levelIndex), { free: true });
+        });
+      }
+
       function resetLegacyRoundPool(activity, seed) {
         const targetByActivity = {
           complete: legacyPatternRounds,
@@ -12903,6 +13229,7 @@
         if (mode === "sort") resetSortRoundPools(seedForMode);
         if (mode === "var") resetVarRoundPools(seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
+        if (mode === "ttt") resetTttRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
@@ -13629,6 +13956,7 @@
         sort: sortLevels,
         var: varLevels,
         decoder: decoderLevels,
+        ttt: tttLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -14358,6 +14686,147 @@
           attempt: state.mathAttempt,
           isCorrect: (option) => option === round.answer,
         });
+      }
+
+      const TTT_LINES = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6],
+      ];
+
+      function tttResult(board) {
+        for (const line of TTT_LINES) {
+          const [a, b, c] = line;
+          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return { winner: board[a], line };
+          }
+        }
+        if (board.every((cell) => cell !== null)) return { winner: "draw", line: null };
+        return null;
+      }
+
+      function tttBestAiMove(board) {
+        const empties = board.map((cell, index) => (cell === null ? index : null)).filter((index) => index !== null);
+        for (const index of empties) {
+          const copy = [...board];
+          copy[index] = "O";
+          if (tttResult(copy)?.winner === "O") return index;
+        }
+        for (const index of empties) {
+          const copy = [...board];
+          copy[index] = "X";
+          if (tttResult(copy)?.winner === "X") return index;
+        }
+        if (empties.includes(4)) return 4;
+        const corners = [0, 2, 6, 8].filter((index) => empties.includes(index));
+        if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+        return empties[Math.floor(Math.random() * empties.length)];
+      }
+
+      function currentTttRounds() {
+        return tttLevels[state.tttLevel].rounds;
+      }
+
+      function tttEnigmaOptions() {
+        const round = state.tttEnigma;
+        if (!round) return [];
+        const correctText = round.options[round.answer];
+        return orderAnswerOptions(round.options, {
+          seed: seedFromParts("ttt", state.missionSeed, state.tttLevel, state.tttRoundIndex, round.answer),
+          attempt: state.tttAttempt,
+          isCorrect: (option) => option === correctText,
+        });
+      }
+
+      function startTttMatch(opponent) {
+        state.tttOpponent = opponent;
+        state.tttBoard = Array(9).fill(null);
+        state.tttTurn = "X";
+        state.tttWinner = null;
+        state.tttWinLine = null;
+        state.tttEnigma = null;
+        state.tttEnigmaCell = null;
+        state.tttWrong = null;
+        state.tttCorrectIndex = null;
+        state.tttAttempt = 0;
+        state.selected = -1;
+        render();
+      }
+
+      function drawTttEnigma(cellIndex) {
+        const rounds = currentTttRounds();
+        const round = rounds[state.tttRoundIndex % rounds.length];
+        state.tttRoundIndex += 1;
+        state.tttEnigma = round;
+        state.tttEnigmaCell = cellIndex;
+        state.tttWrong = null;
+        state.tttCorrectIndex = null;
+        state.tttAttempt = 0;
+        state.selected = -1;
+        render();
+      }
+
+      function tttFinishTurn() {
+        const outcome = tttResult(state.tttBoard);
+        if (outcome) {
+          state.tttWinner = outcome.winner;
+          state.tttWinLine = outcome.line;
+          render();
+          const text = outcome.winner === "draw" ? "Empate!" : outcome.winner === "X" ? "X venceu!" : "O venceu!";
+          window.setTimeout(() => complete("ttt", text), 1300);
+          return;
+        }
+        state.tttTurn = state.tttTurn === "X" ? "O" : "X";
+        if (state.tttOpponent === "pc" && state.tttTurn === "O") {
+          window.setTimeout(() => {
+            if (state.mode !== "ttt" || state.tttWinner) return;
+            const move = tttBestAiMove(state.tttBoard);
+            state.tttBoard[move] = "O";
+            tttFinishTurn();
+          }, 650);
+          return;
+        }
+        render();
+      }
+
+      function handleTttEnigmaEnter() {
+        if (!hasSelection()) return;
+        const options = tttEnigmaOptions();
+        const round = state.tttEnigma;
+        const correctText = round.options[round.answer];
+        if (options[state.selected] !== correctText) {
+          lockAnswer({
+            delay: 1600,
+            messageText: "👀 Olhe!",
+            guard: () => state.mode === "ttt",
+            onLock: () => { state.tttWrong = state.selected; },
+            onUnlock: () => {
+              state.tttWrong = null;
+              state.tttEnigma = null;
+              state.tttEnigmaCell = null;
+              state.tttAttempt = 0;
+              tttFinishTurn();
+            },
+          });
+          return;
+        }
+
+        state.tttWrong = null;
+        state.tttCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✅ Acertou!", 550);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "ttt") return;
+          state.score += 1;
+          state.tttBoard[state.tttEnigmaCell] = state.tttTurn;
+          state.tttEnigma = null;
+          state.tttEnigmaCell = null;
+          state.tttCorrectIndex = null;
+          state.answerLocked = false;
+          state.selected = -1;
+          tttFinishTurn();
+        }, 480);
       }
 
       function remainingCycleSteps(cycle = currentCycle()) {
@@ -15336,6 +15805,66 @@
             </div>`).join("")}
           </div>
         </div>`;
+      }
+
+      function renderTtt() {
+        const level = tttLevels[state.tttLevel];
+
+        if (state.tttOpponent === null) {
+          setHeader("Jogo da Velha dos Enigmas", "Escolha contra quem você vai jogar");
+          setCounters("Fase", level.title, "Faixa", level.age);
+          status.textContent = "Escolha um modo para começar a partida.";
+          content.innerHTML = levelSelectHtml(
+            [
+              { icon: "🤖", title: "Contra o PC", kicker: "Você joga contra o computador" },
+              { icon: "🧑‍🤝‍🧑", title: "Contra o coleguinha", kicker: "Dois jogadores no mesmo aparelho" },
+            ],
+            {
+              selectedIndex: state.selected,
+              cardFor: (option) => option,
+            },
+          );
+          return;
+        }
+
+        const opponentLabel = state.tttOpponent === "pc" ? "PC" : "Jogador 2";
+        const turnLabel = state.tttWinner
+          ? "Fim de jogo"
+          : state.tttTurn === "X"
+            ? `❌ Vez de ${state.tttOpponent === "pc" ? "você" : "Jogador 1"}`
+            : `⭕ Vez do ${opponentLabel}`;
+        setHeader("Jogo da Velha dos Enigmas", state.tttOpponent === "pc" ? "Você (❌) contra o PC (⭕)" : "Jogador 1 (❌) contra Jogador 2 (⭕)");
+        setCounters("Vez", turnLabel, "Acertos", state.score);
+        status.textContent = state.tttEnigma
+          ? "Resolva o enigma para marcar a casa."
+          : state.tttWinner
+            ? (state.tttWinner === "draw" ? "Empate! Ninguém completou a linha." : `${state.tttWinner === "X" ? "❌" : "⭕"} completou a linha e venceu!`)
+            : "Escolha uma casa vazia no tabuleiro.";
+
+        const boardHtml = `<div class="ttt-board ${state.tttEnigma ? "ttt-board-dim" : ""}">
+          ${state.tttBoard.map((cell, index) => {
+            const isWin = Boolean(state.tttWinLine && state.tttWinLine.includes(index));
+            const markClass = cell === "X" ? "mark-x" : cell === "O" ? "mark-o" : "";
+            const selectable = !cell && !state.tttEnigma && !state.tttWinner;
+            return `<div class="ttt-cell ${cell ? "filled" : ""} ${markClass} ${isWin ? "win" : ""} ${index === state.selected && selectable ? "selected" : ""}" data-cell="${index}">${cell === "X" ? "❌" : cell === "O" ? "⭕" : ""}</div>`;
+          }).join("")}
+        </div>`;
+
+        let enigmaHtml = "";
+        if (state.tttEnigma) {
+          const meta = subjectThemeMeta[state.tttEnigma.theme];
+          const options = tttEnigmaOptions();
+          enigmaHtml = `<div class="ttt-enigma">
+            <div class="ttt-enigma-theme">${meta.icon} ${meta.label}</div>
+            <div class="ttt-enigma-question" data-fit-text data-fit-min="13">${state.tttEnigma.question}</div>
+            <div class="options answer-options ttt-enigma-options ${state.answerLocked ? "locked" : ""}">
+              ${options.map((item, index) => `<div class="option ${index === state.selected ? "selected" : ""} ${state.tttWrong === index ? "wrong" : ""} ${state.tttCorrectIndex === index ? "correct" : ""}">${item}</div>`).join("")}
+            </div>
+            ${state.answerLocked && state.tttCorrectIndex === null ? pauseOverlay() : ""}
+          </div>`;
+        }
+
+        content.innerHTML = `<div class="ttt-wrap">${boardHtml}${enigmaHtml}</div>`;
       }
 
       function currentMathCupLevel() {
@@ -16821,6 +17350,7 @@
         decoder: renderDecoder,
         devices: renderDevices,
         mathCup: renderMathCup,
+        ttt: renderTtt,
       };
 
       function textFitsBox(element) {
@@ -16859,7 +17389,6 @@
           return;
         }
         fitTextElements();
-        fitMissionTitle();
       }
 
       const missionLevelStateKeys = {
@@ -16872,6 +17401,7 @@
         var: "varLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
+        ttt: "tttLevel",
       };
 
       function mathCupTierForAgeBand(ageBand) {
@@ -17080,6 +17610,18 @@
         state.decoderLevel = null;
         state.decoderGuessed = [];
         state.decoderWrong = 0;
+        state.tttLevel = null;
+        state.tttOpponent = null;
+        state.tttBoard = [];
+        state.tttTurn = "X";
+        state.tttRoundIndex = 0;
+        state.tttEnigma = null;
+        state.tttEnigmaCell = null;
+        state.tttWrong = null;
+        state.tttCorrectIndex = null;
+        state.tttAttempt = 0;
+        state.tttWinner = null;
+        state.tttWinLine = null;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
@@ -18416,6 +18958,47 @@
         });
       }
 
+      function handleTttEnter() {
+        if (state.tttOpponent === null) {
+          if (!hasSelection()) return;
+          startTttMatch(state.selected === 1 ? "friend" : "pc");
+          return;
+        }
+        if (state.tttEnigma) {
+          handleTttEnigmaEnter();
+          return;
+        }
+        if (state.tttWinner) return;
+        if (!hasSelection()) return;
+        const index = state.selected;
+        if (state.tttBoard[index] !== null) return;
+        if (state.tttOpponent === "pc" && state.tttTurn !== "X") return;
+        drawTttEnigma(index);
+      }
+
+      function handleTttClick(event) {
+        if (state.tttOpponent === null) {
+          return activateLevelCardClick(event, (index) => {
+            startTttMatch(index === 1 ? "friend" : "pc");
+          });
+        }
+        if (state.tttEnigma) {
+          return activateChoiceClick(event, ".ttt-enigma-options .option", {
+            clearWrong: () => { state.tttWrong = null; },
+            onConfirm: handleTttEnigmaEnter,
+          });
+        }
+        if (state.tttWinner) return false;
+        const cell = clickedElement(event, ".ttt-cell");
+        if (!cell) return false;
+        const index = Number(cell.dataset.cell);
+        if (!Number.isInteger(index) || state.tttBoard[index] !== null) return false;
+        if (state.tttOpponent === "pc" && state.tttTurn !== "X") return false;
+        state.selected = index;
+        drawTttEnigma(index);
+        return true;
+      }
+
       function startMathCupChallenge(type, context = {}) {
         stopMathCupChallengeClock();
         stopMathCupDecisionClock();
@@ -18856,6 +19439,7 @@
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
+        ttt: handleTttEnter,
       };
 
       function handleEnter() {
@@ -19112,6 +19696,15 @@
           } else if (state.mathCupChallenge) {
             const count = mathCupOptions().length;
             moveSelectionIndex({ count, delta, afterMove: () => { state.mathCupWrong = null; } });
+          }
+        } else if (state.mode === "ttt") {
+          if (state.tttOpponent === null) {
+            moveSelectionIndex({ count: 2, delta, vertical, columns: chooseGridColumns(2, 2), allowUnselected: false });
+          } else if (state.tttEnigma) {
+            const count = tttEnigmaOptions().length;
+            moveSelectionIndex({ count, delta, afterMove: () => { state.tttWrong = null; } });
+          } else if (!state.tttWinner) {
+            moveSelectionIndex({ count: 9, delta, vertical, columns: 3 });
           }
         }
         render();
@@ -19373,6 +19966,7 @@
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
+        ttt: handleTttClick,
       };
 
       function handleContentClick(event) {
