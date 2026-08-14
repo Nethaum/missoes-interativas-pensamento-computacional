@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.7.3">
+  <meta name="app-version" content="2.7.4">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -14793,8 +14793,17 @@
         return null;
       }
 
-      function tttBestAiMove(board) {
+      function tttShuffledEmpties(board) {
         const empties = board.map((cell, index) => (cell === null ? index : null)).filter((index) => index !== null);
+        for (let i = empties.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [empties[i], empties[j]] = [empties[j], empties[i]];
+        }
+        return empties;
+      }
+
+      function tttBestAiMove(board) {
+        const empties = tttShuffledEmpties(board);
         for (const index of empties) {
           const copy = [...board];
           copy[index] = "O";
@@ -14805,9 +14814,10 @@
           copy[index] = "X";
           if (tttResult(copy)?.winner === "X") return index;
         }
-        if (empties.includes(4)) return 4;
-        const corners = [0, 2, 6, 8].filter((index) => empties.includes(index));
-        if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+        const pool = [];
+        if (empties.includes(4)) pool.push(4, 4);
+        [0, 2, 6, 8].filter((index) => empties.includes(index)).forEach((index) => pool.push(index));
+        if (pool.length) return pool[Math.floor(Math.random() * pool.length)];
         return empties[Math.floor(Math.random() * empties.length)];
       }
 
