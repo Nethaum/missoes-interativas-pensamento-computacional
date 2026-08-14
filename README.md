@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.7.2
+Versão atual: 2.7.3
 
 ## Acesse
 
@@ -84,7 +84,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
 - Ciclos da natureza: ordenação de etapas de fenômenos naturais.
 - Dados e gráficos: contagem, comparação e leitura de informações.
-- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa.
+- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
 
 ## Como usar em sala
 

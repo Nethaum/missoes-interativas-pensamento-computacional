@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.7.2">
+  <meta name="app-version" content="2.7.3">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -286,6 +286,12 @@
     .content::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.4);
       border-radius: 999px;
+    }
+
+    .content:has(.ttt-wrap) {
+      place-items: start center;
+      overflow: auto;
+      padding-bottom: 16px;
     }
 
     .content:has(.menu-filters) {
@@ -6170,8 +6176,7 @@
     }
 
     .ttt-board-dim {
-      opacity: 0.35;
-      pointer-events: none;
+      display: none;
     }
 
     .ttt-cell {
@@ -7173,10 +7178,6 @@
         gap: 8px;
       }
 
-      .ttt-board.ttt-board-dim {
-        display: none;
-      }
-
       .ttt-cell {
         border-width: 4px;
         border-radius: 12px;
@@ -8138,10 +8139,6 @@
 
       .ttt-board {
         width: min(34vh, 160px);
-      }
-
-      .ttt-board.ttt-board-dim {
-        display: none;
       }
 
       .ttt-enigma {
@@ -12463,6 +12460,8 @@
         tttAttempt: 0,
         tttWinner: null,
         tttWinLine: null,
+        tttScoreX: 0,
+        tttScoreO: 0,
         chefChosen: [],
         chefShuffled: [],
         chefAttempt: 0,
@@ -14827,8 +14826,7 @@
         });
       }
 
-      function startTttMatch(opponent) {
-        state.tttOpponent = opponent;
+      function startTttRound() {
         state.tttBoard = Array(9).fill(null);
         state.tttTurn = "X";
         state.tttWinner = null;
@@ -14840,6 +14838,13 @@
         state.tttAttempt = 0;
         state.selected = -1;
         render();
+      }
+
+      function startTttMatch(opponent) {
+        state.tttOpponent = opponent;
+        state.tttScoreX = 0;
+        state.tttScoreO = 0;
+        startTttRound();
       }
 
       function drawTttEnigma(cellIndex) {
@@ -14860,9 +14865,21 @@
         if (outcome) {
           state.tttWinner = outcome.winner;
           state.tttWinLine = outcome.line;
+          if (outcome.winner === "X") state.tttScoreX += 1;
+          if (outcome.winner === "O") state.tttScoreO += 1;
+          const firstTime = !state.completed.ttt;
+          state.completed.ttt = true;
           render();
-          const text = outcome.winner === "draw" ? "Empate!" : outcome.winner === "X" ? "X venceu!" : "O venceu!";
-          window.setTimeout(() => complete("ttt", text), 1300);
+          if (firstTime) {
+            showCompleteMessage();
+          } else {
+            const text = outcome.winner === "draw" ? "🤝 Empate!" : outcome.winner === "X" ? "❌ venceu!" : "⭕ venceu!";
+            showMessage(text, 1200);
+          }
+          window.setTimeout(() => {
+            if (state.mode !== "ttt") return;
+            startTttRound();
+          }, 1800);
           return;
         }
         state.tttTurn = state.tttTurn === "X" ? "O" : "X";
@@ -15938,11 +15955,11 @@
             ? `❌ Vez de ${state.tttOpponent === "pc" ? "você" : "Jogador 1"}`
             : `⭕ Vez do ${opponentLabel}`;
         setHeader("Jogo da Velha dos Enigmas", state.tttOpponent === "pc" ? "Você (❌) contra o PC (⭕)" : "Jogador 1 (❌) contra Jogador 2 (⭕)");
-        setCounters("Vez", turnLabel, "Acertos", state.score);
+        setCounters("Vez", turnLabel, "Placar", `❌ ${state.tttScoreX} × ${state.tttScoreO} ⭕`);
         status.textContent = state.tttEnigma
           ? "Resolva o enigma para marcar a casa."
           : state.tttWinner
-            ? (state.tttWinner === "draw" ? "Empate! Ninguém completou a linha." : `${state.tttWinner === "X" ? "❌" : "⭕"} completou a linha e venceu!`)
+            ? (state.tttWinner === "draw" ? "Empate! Uma nova partida já vai começar." : `${state.tttWinner === "X" ? "❌" : "⭕"} completou a linha! Uma nova partida já vai começar.`)
             : "Escolha uma casa vazia no tabuleiro.";
 
         const boardHtml = `<div class="ttt-board ${state.tttEnigma ? "ttt-board-dim" : ""}">
@@ -17726,6 +17743,8 @@
         state.tttAttempt = 0;
         state.tttWinner = null;
         state.tttWinLine = null;
+        state.tttScoreX = 0;
+        state.tttScoreO = 0;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
