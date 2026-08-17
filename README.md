@@ -74,11 +74,11 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
 - Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
-- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e assista à correção.
+- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
-- Fábrica de Laços: repetição e laços, comparando visualmente qual bloco leva o robô até a bandeira na trilha.
+- Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
-- Tradutor de Sinais: variáveis, seguindo uma sequência de comandos que trocam o valor até descobrir o valor final.
+- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa até descobrir o valor final.
 - Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.

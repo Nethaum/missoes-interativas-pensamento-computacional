@@ -4446,6 +4446,60 @@
       100% { transform: scale(1); }
     }
 
+    .bug-fix-panel {
+      width: 100%;
+      display: grid;
+      justify-items: center;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 3px dashed var(--line);
+    }
+
+    .bug-fix-label {
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--card-ink);
+    }
+
+    .bug-fix-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .bug-fix-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .bug-fix-arrow { font-size: 28px; line-height: 1; color: var(--card-ink); }
+
+    .bug-fix-option.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .bug-fix-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
+    .bug-fix-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .bug-fix-options.locked .bug-fix-option:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
+
     .loop-board {
       width: min(760px, 100%);
       display: grid;
@@ -4475,12 +4529,14 @@
     }
 
     .loop-robot.walking {
-      animation: loop-robot-walk 0.9s ease forwards;
+      animation: loop-robot-cheer 0.6s ease;
     }
 
-    @keyframes loop-robot-walk {
-      from { left: 0%; }
-      to { left: var(--loop-target-percent, 0%); }
+    @keyframes loop-robot-cheer {
+      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      40% { transform: translate(-50%, -50%) scale(1.25) rotate(-8deg); }
+      70% { transform: translate(-50%, -50%) scale(1.1) rotate(6deg); }
+      100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
     }
 
     .loop-flag {
@@ -4505,33 +4561,120 @@
       margin-top: 2px;
     }
 
-    .loop-options {
+    .loop-builder {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 14px;
+      justify-items: center;
+      padding: 16px 18px;
+      border: 4px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
     }
 
-    .loop-option {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      min-height: 90px;
+    .loop-builder-step {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--card-ink);
+      text-align: center;
+    }
+
+    .loop-stepper-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .loop-stepper {
       display: grid;
-      gap: 10px;
-      align-content: center;
+      gap: 6px;
       justify-items: center;
-      padding: 12px 14px;
+    }
+
+    .loop-stepper-label {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--card-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .loop-stepper-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .loop-stepper-btn {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
       border: 4px solid var(--line);
-      border-radius: 14px;
-      background: var(--white);
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 950;
+      font-family: inherit;
+      box-shadow: 0 5px 0 rgba(52, 120, 229, 0.4);
+      cursor: pointer;
+    }
+
+    .loop-stepper-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .loop-stepper-value {
+      min-width: 40px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 950;
+      color: var(--card-ink);
+    }
+
+    .loop-total {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--card-ink);
+      padding: 5px 18px;
+      border-radius: 999px;
+      background: #eef1f6;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .loop-total.wrong { background: #ffe1e1; color: #a3242c; animation: fx-shake 0.5s ease; }
+    .loop-total.correct { background: #e6f9ec; color: #1f7a3d; }
+
+    .loop-confirm-button,
+    .var-next-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      background: var(--yellow);
+      padding: 12px 30px;
+      font-size: 18px;
+      font-weight: 950;
+      font-family: inherit;
       color: var(--card-ink);
       cursor: pointer;
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
-      transition: transform 0.12s ease;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
     }
 
-    .loop-option-label { font-weight: 900; font-size: 15px; text-align: center; }
+    .loop-builder.locked .loop-confirm-button,
+    .loop-confirm-button:disabled {
+      opacity: 0.5;
+      cursor: default;
+      box-shadow: none;
+    }
 
     .loop-option-bar-track {
       position: relative;
@@ -4566,11 +4709,6 @@
     }
 
     .loop-bar-segment.extra { background: var(--orange); }
-
-    .loop-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
-    .loop-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
-    .loop-option.correct { border-color: #2f9e52; background: #e6f9ec; }
-    .loop-options.locked .loop-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
     .sort-board {
       width: min(760px, 100%);
@@ -4680,6 +4818,27 @@
 
     .var-command-text { font-size: 13px; font-weight: 900; color: var(--card-ink); flex: 1; }
     .var-command-value { font-size: 22px; line-height: 1; }
+
+    .var-command.just-revealed { animation: var-reveal-pop 0.3s ease; }
+
+    @keyframes var-reveal-pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .var-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 3px solid var(--line);
+      border-radius: 12px;
+      background: #fff8dc;
+    }
+
+    .var-box-label { font-size: 11px; font-weight: 900; color: var(--card-muted); }
+    .var-box-value { font-size: 26px; line-height: 1; transition: transform 0.2s ease; }
+    .var-box.empty .var-box-value { opacity: 0.5; }
 
     .var-options {
       width: 100%;
@@ -11793,59 +11952,12 @@ const brStatesList = [
         { title: "Mestre dos laços", icon: "🏗️", age: "14 anos", theme: "Laços grandes", meta: "com passo extra", maxRepeat: 12, maxStep: 9, extraStep: true, roundCount: 28 },
       ];
 
-      function generateLoopBlock(plan, seed) {
-        const random = seededRandom(seedFromParts("loop-block", seed));
+      function generateLoopRound(plan, seed) {
+        const random = seededRandom(seedFromParts("loop-round", seed));
         const repeat = 2 + Math.floor(random() * (plan.maxRepeat - 1));
         const step = 1 + Math.floor(random() * plan.maxStep);
         const extra = plan.extraStep ? Math.floor(random() * step) : 0;
-        return { repeat, step, extra };
-      }
-
-      function loopTotal(block) {
-        return block.repeat * block.step + block.extra;
-      }
-
-      function loopBlocksEqual(a, b) {
-        return a.repeat === b.repeat && a.step === b.step && a.extra === b.extra;
-      }
-
-      function loopDistractors(correct) {
-        const candidates = [
-          { repeat: correct.repeat + 1, step: correct.step, extra: correct.extra },
-          { repeat: Math.max(1, correct.repeat - 1), step: correct.step, extra: correct.extra },
-          { repeat: correct.repeat, step: correct.step + 1, extra: correct.extra },
-          { repeat: correct.repeat, step: Math.max(1, correct.step - 1), extra: correct.extra },
-          { repeat: Math.max(1, correct.step), step: Math.max(1, correct.repeat), extra: correct.extra },
-          { repeat: correct.repeat + 2, step: correct.step, extra: correct.extra },
-        ];
-        const correctTotal = loopTotal(correct);
-        const unique = [];
-        candidates.forEach((candidate) => {
-          if (unique.length >= 3) return;
-          if (loopTotal(candidate) === correctTotal) return;
-          if (loopBlocksEqual(candidate, correct)) return;
-          if (unique.some((item) => loopBlocksEqual(item, candidate))) return;
-          unique.push(candidate);
-        });
-        let bump = 1;
-        while (unique.length < 3) {
-          const candidate = { repeat: correct.repeat + bump, step: correct.step, extra: correct.extra };
-          if (loopTotal(candidate) !== correctTotal && !unique.some((item) => loopBlocksEqual(item, candidate))) {
-            unique.push(candidate);
-          }
-          bump += 1;
-        }
-        return unique;
-      }
-
-      function generateLoopRound(plan, seed) {
-        const correct = generateLoopBlock(plan, seed);
-        const blocks = [correct, ...loopDistractors(correct)];
-        return {
-          target: loopTotal(correct),
-          blocks,
-          answer: 0,
-        };
+        return { target: repeat * step + extra, step };
       }
 
       const loopLevels = loopLevelPlans.map((plan, tierIndex) => {
@@ -12499,10 +12611,15 @@ const brStatesList = [
         bugAnimStep: 0,
         bugAnimTimer: null,
         bugShowCorrected: false,
+        bugFixPhase: null,
+        bugFixWrong: null,
+        bugFixCorrectIndex: null,
+        bugFixAttempt: 0,
         loopLevel: null,
-        loopWrong: null,
-        loopAttempt: 0,
-        loopCorrectIndex: null,
+        loopRepeat: 0,
+        loopExtra: 0,
+        loopWrong: false,
+        loopSolved: false,
         sortLevel: null,
         sortItems: [],
         sortSelectedIndex: -1,
@@ -12513,6 +12630,7 @@ const brStatesList = [
         varWrong: null,
         varAttempt: 0,
         varCorrectIndex: null,
+        varRevealCount: 0,
         decoderLevel: null,
         decoderGuessed: [],
         decoderWrong: 0,
@@ -15694,6 +15812,18 @@ const brStatesList = [
         return bugLevels[state.bugLevel].rounds;
       }
 
+      const bugFixDirectionOrder = ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"];
+
+      function bugFixOptions() {
+        const round = currentBugRounds()[state.round];
+        const seed = seedFromParts("bug-fix", state.missionSeed, state.bugLevel, state.round);
+        return orderAnswerOptions(bugFixDirectionOrder, {
+          seed,
+          attempt: state.bugFixAttempt,
+          isCorrect: (key) => key === round.correctMoves[round.answer],
+        });
+      }
+
       function bugTrailStepsAt(trail, x, y) {
         const steps = [];
         trail.forEach((cell, index) => {
@@ -15758,11 +15888,15 @@ const brStatesList = [
         const animStep = Math.min(state.bugAnimStep, activeTrail.length - 1);
         const robotCell = activeTrail[animStep];
 
-        setHeader("Caça ao Bug", `${level.title}: ache o comando errado.`);
+        const fixing = state.bugFixPhase === "choosing";
+
+        setHeader("Caça ao Bug", `${level.title}: ache e corrija o comando errado.`);
         setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
         status.textContent = showingCorrected
           ? "Assim é o caminho certo até a estrela!"
-          : "Veja o robô andar e clique no comando que está errado.";
+          : fixing
+            ? "Escolha a direção certa para consertar o comando."
+            : "Veja o robô andar e clique no comando que está errado.";
 
         const cells = [];
         for (let y = 0; y < level.rows; y += 1) {
@@ -15782,14 +15916,23 @@ const brStatesList = [
           ${showingCorrected
             ? `<div class="bug-corrected-banner">✅ Caminho corrigido!</div>`
             : `
-          <button type="button" class="bug-replay-button" ${state.answerLocked ? "disabled" : ""}>▶️ Ver de novo</button>
-          <div class="bug-chip-row ${state.answerLocked ? "locked" : ""}">
-            ${activeSequence.map((key, index) => `<div class="bug-chip ${index === state.selected ? "selected" : ""} ${state.bugWrong === index ? "wrong" : ""} ${state.bugCorrectIndex === index ? "correct" : ""} ${index === animStep - 1 ? "active" : ""}">
+          <button type="button" class="bug-replay-button" ${state.answerLocked || fixing ? "disabled" : ""}>▶️ Ver de novo</button>
+          <div class="bug-chip-row ${state.answerLocked || fixing ? "locked" : ""}">
+            ${activeSequence.map((key, index) => `<div class="bug-chip ${!fixing && index === state.selected ? "selected" : ""} ${state.bugWrong === index ? "wrong" : ""} ${state.bugCorrectIndex === index ? "correct" : ""} ${index === animStep - 1 ? "active" : ""}">
               <span class="bug-chip-step">${index + 1}</span>
               <span class="bug-chip-arrow">${arrowSymbols[key]}</span>
               ${state.bugCorrectIndex === index ? '<div class="fx-stamp">🐞</div>' : ""}
             </div>`).join("")}
-          </div>`}
+          </div>
+          ${fixing ? `<div class="bug-fix-panel">
+            <div class="bug-fix-label">🔧 Qual comando deveria estar aqui?</div>
+            <div class="bug-fix-options ${state.answerLocked ? "locked" : ""}">
+              ${bugFixOptions().map((key, index) => `<div class="bug-fix-option ${index === state.selected ? "selected" : ""} ${state.bugFixWrong === index ? "wrong" : ""} ${state.bugFixCorrectIndex === index ? "correct" : ""}">
+                <span class="bug-fix-arrow">${arrowSymbols[key]}</span>
+                ${state.bugFixCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
+              </div>`).join("")}
+            </div>
+          </div>` : ""}`}
         </div>`;
       }
 
@@ -15797,52 +15940,87 @@ const brStatesList = [
         return loopLevels[state.loopLevel].rounds;
       }
 
-      function loopOptions() {
-        const round = currentLoopRounds()[state.round];
-        return orderAnswerOptions(round.blocks, {
-          seed: seedFromParts("loop", state.missionSeed, state.loopLevel, state.round, round.target),
-          attempt: state.loopAttempt,
-          isCorrect: (block) => loopBlocksEqual(block, round.blocks[round.answer]),
-        });
+      function startLoopRound() {
+        state.loopRepeat = 0;
+        state.loopExtra = 0;
+        state.loopWrong = false;
+        state.loopSolved = false;
       }
 
-      function loopBlockLabel(block) {
-        const extraPart = block.extra ? ` + ${block.extra}` : "";
-        return `🔁 ${block.repeat}x: avançar ${block.step}${extraPart}`;
+      function loopMaxRepeat() {
+        return loopLevels[state.loopLevel].maxRepeat + 3;
+      }
+
+      function loopMaxExtra(round) {
+        return Math.max(0, round.step - 1);
+      }
+
+      function loopCurrentTotal(round) {
+        return state.loopRepeat * round.step + state.loopExtra;
+      }
+
+      function adjustLoopValue(kind, delta) {
+        if (state.answerLocked) return;
+        const round = currentLoopRounds()[state.round];
+        if (!round) return;
+        if (kind === "repeat") {
+          state.loopRepeat = Math.max(0, Math.min(loopMaxRepeat(), state.loopRepeat + delta));
+        } else if (kind === "extra" && loopLevels[state.loopLevel].extraStep) {
+          state.loopExtra = Math.max(0, Math.min(loopMaxExtra(round), state.loopExtra + delta));
+        }
       }
 
       function renderLoop() {
         const level = loopLevels[state.loopLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
-        const options = loopOptions();
-        const solved = state.loopCorrectIndex !== null;
-        const maxTotal = Math.max(round.target, ...round.blocks.map(loopTotal));
-        const percentFor = (value) => (value / maxTotal) * 100;
+        const currentTotal = loopCurrentTotal(round);
+        const maxTotal = Math.max(round.target, currentTotal, 1);
+        const percentFor = (value) => Math.min(100, (value / maxTotal) * 100);
         const targetPercent = percentFor(round.target);
+        const currentPercent = percentFor(currentTotal);
+        const segWidth = percentFor(round.step);
+        const extraWidth = percentFor(state.loopExtra);
+        const segments = Array.from({ length: state.loopRepeat }, () => `<span class="loop-bar-segment" style="width:${segWidth}%"></span>`).join("");
+        const extraSeg = state.loopExtra ? `<span class="loop-bar-segment extra" style="width:${extraWidth}%"></span>` : "";
+        const maxRepeat = loopMaxRepeat();
+        const maxExtra = loopMaxExtra(round);
+
         setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
         setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = `O robô precisa andar ${round.target} casas. Qual laço leva ele até a bandeira?`;
+        status.textContent = `O robô precisa andar ${round.target} casas. Cada repetição avança ${round.step}. Monte o laço certo!`;
         content.innerHTML = `<div class="loop-board">
           <div class="loop-track">
             <div class="loop-flag" style="left:${targetPercent}%">🏁<span class="loop-flag-label">${round.target}</span></div>
-            <div class="loop-robot ${solved ? "walking" : ""}" style="--loop-target-percent:${targetPercent}%">🤖</div>
+            <div class="loop-robot ${state.loopSolved ? "walking" : ""}" style="left:${currentPercent}%;">🤖</div>
+            ${state.loopSolved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
           </div>
-          <div class="loop-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((block, index) => {
-              const segWidth = percentFor(block.step);
-              const extraWidth = percentFor(block.extra);
-              const segments = Array.from({ length: block.repeat }, () => `<span class="loop-bar-segment" style="width:${segWidth}%"></span>`).join("");
-              const extraSeg = block.extra ? `<span class="loop-bar-segment extra" style="width:${extraWidth}%"></span>` : "";
-              return `<div class="loop-option ${index === state.selected ? "selected" : ""} ${state.loopWrong === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">
-                <span class="loop-option-label">${loopBlockLabel(block)}</span>
-                <div class="loop-option-bar-track">
-                  <span class="loop-option-target-line" style="left:${targetPercent}%"></span>
-                  <div class="loop-option-bar">${segments}${extraSeg}</div>
+          <div class="loop-builder ${state.answerLocked ? "locked" : ""}">
+            <div class="loop-builder-step">🔁 Cada repetição avança <strong>${round.step}</strong> ${round.step === 1 ? "casa" : "casas"}.</div>
+            <div class="loop-stepper-row">
+              <div class="loop-stepper">
+                <span class="loop-stepper-label">Repetições</span>
+                <div class="loop-stepper-controls">
+                  <button type="button" class="loop-stepper-btn" data-stepper="repeat" data-delta="-1" ${state.loopRepeat <= 0 ? "disabled" : ""}>−</button>
+                  <span class="loop-stepper-value">${state.loopRepeat}</span>
+                  <button type="button" class="loop-stepper-btn" data-stepper="repeat" data-delta="1" ${state.loopRepeat >= maxRepeat ? "disabled" : ""}>+</button>
                 </div>
-                ${state.loopCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
-              </div>`;
-            }).join("")}
+              </div>
+              ${level.extraStep ? `<div class="loop-stepper">
+                <span class="loop-stepper-label">Passo extra</span>
+                <div class="loop-stepper-controls">
+                  <button type="button" class="loop-stepper-btn" data-stepper="extra" data-delta="-1" ${state.loopExtra <= 0 ? "disabled" : ""}>−</button>
+                  <span class="loop-stepper-value">${state.loopExtra}</span>
+                  <button type="button" class="loop-stepper-btn" data-stepper="extra" data-delta="1" ${state.loopExtra >= maxExtra ? "disabled" : ""}>+</button>
+                </div>
+              </div>` : ""}
+            </div>
+            <div class="loop-option-bar-track">
+              <span class="loop-option-target-line" style="left:${targetPercent}%"></span>
+              <div class="loop-option-bar">${segments}${extraSeg}</div>
+            </div>
+            <div class="loop-total ${state.loopWrong ? "wrong" : ""} ${state.loopSolved ? "correct" : ""}">Total: ${currentTotal}</div>
+            <button type="button" class="loop-confirm-button" ${state.answerLocked ? "disabled" : ""}>▶️ Andar!</button>
           </div>
         </div>`;
       }
@@ -15882,6 +16060,25 @@ const brStatesList = [
 
       function currentVarRounds() {
         return varLevels[state.varLevel].rounds;
+      }
+
+      function startVarRound() {
+        state.varRevealCount = 0;
+        state.selected = -1;
+        state.varWrong = null;
+        state.varCorrectIndex = null;
+        state.varAttempt = 0;
+      }
+
+      function varRevealOrder(round) {
+        const order = [];
+        const maxLen = Math.max(...round.tracks.map((track) => track.commands.length));
+        for (let i = 0; i < maxLen; i += 1) {
+          round.tracks.forEach((track, trackIndex) => {
+            if (track.commands[i]) order.push({ trackIndex, cmdIndex: i });
+          });
+        }
+        return order;
       }
 
       function varOptions() {
@@ -15924,22 +16121,41 @@ const brStatesList = [
         const level = varLevels[state.varLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
-        const options = varOptions();
         const isPair = round.tracks.length > 1;
         const verbFor = (type) => (type === "set" ? "Guarde" : type === "change" ? "Troque para" : "Mantém");
+        const order = varRevealOrder(round);
+        const totalSteps = order.length;
+        const revealCount = Math.min(state.varRevealCount, totalSteps);
+        const fullyRevealed = revealCount >= totalSteps;
+        const revealedCmdCountByTrack = round.tracks.map((track, trackIndex) =>
+          order.slice(0, revealCount).filter((step) => step.trackIndex === trackIndex).length
+        );
+        const currentValueIndexByTrack = round.tracks.map((track, trackIndex) => {
+          const shown = revealedCmdCountByTrack[trackIndex];
+          return shown > 0 ? track.commands[shown - 1].valueIndex : null;
+        });
+        const options = fullyRevealed ? varOptions() : [];
+
         setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
         setCounters("Comando", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = isPair
-          ? "Siga os comandos de cada caixa e escolha os valores finais."
-          : "Siga os comandos e escolha o valor final da variável.";
+        status.textContent = fullyRevealed
+          ? (isPair ? "Todos os comandos apareceram. Escolha os valores finais." : "Todos os comandos apareceram. Escolha o valor final.")
+          : "Toque em ▶️ para ver o próximo comando e observe a caixa mudar.";
+
         content.innerHTML = `<div class="var-board">
           <div class="var-tracks ${isPair ? "pair" : ""}">
-            ${round.tracks.map((track) => {
+            ${round.tracks.map((track, trackIndex) => {
               const attribute = varAttributeSets[track.attrIndex];
+              const knownIndex = currentValueIndexByTrack[trackIndex];
+              const shown = revealedCmdCountByTrack[trackIndex];
               return `<div class="var-track">
                 <div class="var-track-header"><span class="var-track-icon">${attribute.icon}</span><span class="var-track-name">${attribute.name}</span></div>
+                <div class="var-box ${knownIndex === null ? "empty" : ""}">
+                  <span class="var-box-label">Caixa</span>
+                  <span class="var-box-value">${knownIndex === null ? "❓" : attribute.values[knownIndex].visual}</span>
+                </div>
                 <div class="var-commands">
-                  ${track.commands.map((cmd, index) => `<div class="var-command ${cmd.type === "noop" ? "noop" : ""}">
+                  ${track.commands.slice(0, shown).map((cmd, index) => `<div class="var-command ${cmd.type === "noop" ? "noop" : ""} ${index === shown - 1 ? "just-revealed" : ""}">
                     <span class="var-command-step">${index + 1}</span>
                     <span class="var-command-text">${verbFor(cmd.type)}</span>
                     <span class="var-command-value">${attribute.values[cmd.valueIndex].visual}</span>
@@ -15948,7 +16164,7 @@ const brStatesList = [
               </div>`;
             }).join("")}
           </div>
-          <div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
+          ${fullyRevealed ? `<div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
             ${options.map((option, index) => {
               const visuals = isPair
                 ? round.tracks.map((track, trackIndex) => varAttributeSets[track.attrIndex].values[trackIndex === 0 ? option.a : option.b].visual).join(" ")
@@ -15958,7 +16174,7 @@ const brStatesList = [
                 ${state.varCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
               </div>`;
             }).join("")}
-          </div>
+          </div>` : `<button type="button" class="var-next-button">▶️ Próximo comando</button>`}
         </div>`;
       }
 
@@ -17680,7 +17896,21 @@ const brStatesList = [
         if (mode === "bug") {
           state.bugLevel = state.ageBand;
           state.selected = -1;
+          state.bugFixPhase = null;
+          state.bugFixWrong = null;
+          state.bugFixCorrectIndex = null;
+          state.bugFixAttempt = 0;
           bugPlayAnimation();
+          return;
+        }
+        if (mode === "loop") {
+          state.loopLevel = state.ageBand;
+          startLoopRound();
+          return;
+        }
+        if (mode === "var") {
+          state.varLevel = state.ageBand;
+          startVarRound();
           return;
         }
         const stateKey = missionLevelStateKeys[mode];
@@ -17845,9 +18075,10 @@ const brStatesList = [
         state.bugWrong = null;
         state.bugCorrectIndex = null;
         state.loopLevel = null;
-        state.loopAttempt = 0;
-        state.loopWrong = null;
-        state.loopCorrectIndex = null;
+        state.loopRepeat = 0;
+        state.loopExtra = 0;
+        state.loopWrong = false;
+        state.loopSolved = false;
         state.sortLevel = null;
         state.sortItems = [];
         state.sortSelectedIndex = -1;
@@ -18777,6 +19008,10 @@ const brStatesList = [
         state.bugAttempt = 0;
         state.bugWrong = null;
         state.bugCorrectIndex = null;
+        state.bugFixPhase = null;
+        state.bugFixWrong = null;
+        state.bugFixCorrectIndex = null;
+        state.bugFixAttempt = 0;
         state.mode = "menu";
         render();
       }
@@ -18786,9 +19021,10 @@ const brStatesList = [
         state.answerLocked = false;
         state.loopLevel = null;
         resetRoundState(0);
-        state.loopAttempt = 0;
-        state.loopWrong = null;
-        state.loopCorrectIndex = null;
+        state.loopRepeat = 0;
+        state.loopExtra = 0;
+        state.loopWrong = false;
+        state.loopSolved = false;
         state.mode = "menu";
         render();
       }
@@ -18811,9 +19047,7 @@ const brStatesList = [
         state.answerLocked = false;
         state.varLevel = null;
         resetRoundState(0);
-        state.varAttempt = 0;
-        state.varWrong = null;
-        state.varCorrectIndex = null;
+        startVarRound();
         state.mode = "menu";
         render();
       }
@@ -18926,7 +19160,56 @@ const brStatesList = [
         });
       }
 
+      function handleBugFixEnter() {
+        if (!hasSelection()) return;
+        const rounds = currentBugRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const choice = bugFixOptions()[state.selected];
+        const isCorrect = choice === round.correctMoves[round.answer];
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1200,
+            messageText: "🤔 Tente outra direção!",
+            guard: () => state.mode === "bug",
+            onLock: () => { state.bugFixWrong = state.selected; },
+            onUnlock: () => { state.bugFixWrong = null; state.bugFixAttempt += 1; },
+          });
+          return;
+        }
+        state.bugFixWrong = null;
+        state.bugFixCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🔧 Corrigido!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "bug") return;
+          bugPlayCorrectedAnimation(() => {
+            if (state.mode !== "bug") return;
+            state.bugCorrectIndex = null;
+            state.bugFixPhase = null;
+            state.bugFixWrong = null;
+            state.bugFixCorrectIndex = null;
+            state.bugFixAttempt = 0;
+            state.answerLocked = false;
+            state.score += 1;
+            state.round += 1;
+            state.selected = -1;
+            state.bugAttempt = 0;
+            if (state.round >= rounds.length) {
+              complete("bug", "Bugs corrigidos!");
+              return;
+            }
+            bugPlayAnimation();
+          });
+        }, 600);
+      }
+
       function handleBugEnter() {
+        if (state.bugFixPhase === "choosing") {
+          handleBugFixEnter();
+          return;
+        }
         if (!hasSelection()) return;
         const rounds = currentBugRounds();
         const round = rounds[state.round];
@@ -18945,28 +19228,24 @@ const brStatesList = [
         state.bugWrong = null;
         state.bugCorrectIndex = state.selected;
         state.answerLocked = true;
-        showMessage("🐞 Encontrado!", 600);
+        showMessage("🐞 Encontrado!", 900);
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "bug") return;
-          bugPlayCorrectedAnimation(() => {
-            if (state.mode !== "bug") return;
-            state.bugCorrectIndex = null;
-            state.answerLocked = false;
-            state.score += 1;
-            state.round += 1;
-            state.selected = -1;
-            state.bugAttempt = 0;
-            if (state.round >= rounds.length) {
-              complete("bug", "Bugs corrigidos!");
-              return;
-            }
-            bugPlayAnimation();
-          });
-        }, 600);
+          state.answerLocked = false;
+          state.bugFixPhase = "choosing";
+          state.selected = -1;
+          render();
+        }, 900);
       }
 
       function handleBugClick(event) {
+        if (state.bugFixPhase === "choosing") {
+          return activateChoiceClick(event, ".bug-fix-option", {
+            clearWrong: () => { state.bugFixWrong = null; },
+            onConfirm: handleBugEnter,
+          });
+        }
         if (clickedElement(event, ".bug-replay-button")) {
           if (!state.answerLocked) bugPlayAnimation();
           return true;
@@ -18978,48 +19257,52 @@ const brStatesList = [
       }
 
       function handleLoopEnter() {
-        if (!hasSelection()) return;
+        if (state.answerLocked) return;
         const rounds = currentLoopRounds();
         const round = rounds[state.round];
         if (!round) return;
-        const choice = loopOptions()[state.selected];
-        const isCorrect = loopBlocksEqual(choice, round.blocks[round.answer]);
-        if (!isCorrect) {
-          lockAnswer({
-            delay: 1500,
-            messageText: "👀 Confira a conta!",
-            guard: () => state.mode === "loop",
-            onLock: () => { state.loopWrong = state.selected; },
-            onUnlock: () => { state.loopWrong = null; state.loopAttempt += 1; },
-          });
+        const total = loopCurrentTotal(round);
+        if (total !== round.target) {
+          state.loopWrong = true;
+          render();
+          window.setTimeout(() => {
+            if (state.mode !== "loop") return;
+            state.loopWrong = false;
+            render();
+          }, 500);
           return;
         }
-        state.loopWrong = null;
-        state.loopCorrectIndex = state.selected;
+        state.loopWrong = false;
+        state.loopSolved = true;
         state.answerLocked = true;
         showMessage("🔁 Certo!", 600);
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "loop") return;
-          state.loopCorrectIndex = null;
           state.answerLocked = false;
           state.score += 1;
           state.round += 1;
-          state.selected = -1;
-          state.loopAttempt = 0;
           if (state.round >= rounds.length) {
             complete("loop", "Laços concluídos!");
             return;
           }
+          startLoopRound();
           render();
-        }, 600);
+        }, 900);
       }
 
       function handleLoopClick(event) {
-        return activateChoiceClick(event, ".loop-option", {
-          clearWrong: () => { state.loopWrong = null; },
-          onConfirm: handleLoopEnter,
-        });
+        const stepperButton = clickedElement(event, ".loop-stepper-btn");
+        if (stepperButton) {
+          adjustLoopValue(stepperButton.dataset.stepper, Number(stepperButton.dataset.delta));
+          render();
+          return true;
+        }
+        if (clickedElement(event, ".loop-confirm-button")) {
+          handleLoopEnter();
+          return true;
+        }
+        return false;
       }
 
       function completeSortRound() {
@@ -19093,10 +19376,16 @@ const brStatesList = [
       }
 
       function handleVarEnter() {
-        if (!hasSelection()) return;
         const rounds = currentVarRounds();
         const round = rounds[state.round];
         if (!round) return;
+        const totalSteps = varRevealOrder(round).length;
+        if (state.varRevealCount < totalSteps) {
+          state.varRevealCount += 1;
+          render();
+          return;
+        }
+        if (!hasSelection()) return;
         const choice = varOptions()[state.selected];
         const isCorrect = isVarChoiceCorrect(choice, round);
         if (!isCorrect) {
@@ -19116,21 +19405,23 @@ const brStatesList = [
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "var") return;
-          state.varCorrectIndex = null;
           state.answerLocked = false;
           state.score += 1;
           state.round += 1;
-          state.selected = -1;
-          state.varAttempt = 0;
           if (state.round >= rounds.length) {
             complete("var", "Variáveis dominadas!");
             return;
           }
+          startVarRound();
           render();
         }, 600);
       }
 
       function handleVarClick(event) {
+        if (clickedElement(event, ".var-next-button")) {
+          handleVarEnter();
+          return true;
+        }
         return activateChoiceClick(event, ".var-option", {
           clearWrong: () => { state.varWrong = null; },
           onConfirm: handleVarEnter,
@@ -19862,6 +20153,15 @@ const brStatesList = [
               columns: chooseGridColumns(count, 3),
               allowUnselected: false,
             });
+          } else if (state.bugFixPhase === "choosing") {
+            const count = bugFixOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 4),
+              afterMove: () => { state.bugFixWrong = null; },
+            });
           } else {
             const count = currentBugRounds()[state.round].sequence.length;
             moveSelectionIndex({
@@ -19881,14 +20181,7 @@ const brStatesList = [
               allowUnselected: false,
             });
           } else {
-            const count = loopOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 2),
-              afterMove: () => { state.loopWrong = null; },
-            });
+            adjustLoopValue(vertical ? "extra" : "repeat", delta);
           }
         } else if (state.mode === "sort") {
           if (state.sortLevel === null) {
@@ -19915,6 +20208,9 @@ const brStatesList = [
               allowUnselected: false,
             });
           } else {
+            const round = currentVarRounds()[state.round];
+            const totalSteps = varRevealOrder(round).length;
+            if (state.varRevealCount < totalSteps) return;
             const count = varOptions().length;
             moveSelectionIndex({
               count,
@@ -20271,7 +20567,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .loop-option, .sort-item, .var-option, .decoder-letter")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .var-option, .decoder-letter")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
