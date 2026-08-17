@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.7.4">
+  <meta name="app-version" content="2.7.5">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -270,7 +270,7 @@
       min-height: 0;
       display: grid;
       place-items: center;
-      overflow: hidden;
+      overflow: auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
     }
@@ -8099,19 +8099,9 @@
       }
 
       .content {
-        place-items: center;
-        overflow: hidden;
+        place-items: start center;
+        overflow: auto;
         padding-bottom: 32px;
-      }
-
-      .content:has(.dengue-board) {
-        place-items: start center;
-        overflow: auto;
-      }
-
-      .content:has(.menu-filters) {
-        place-items: start center;
-        overflow: auto;
       }
 
       .content:has(.habitat-board) {
