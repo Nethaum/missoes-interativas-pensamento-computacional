@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.7.5
+Versão atual: 2.8.0
 
 ## Acesse
 
@@ -51,7 +51,7 @@ Missões pensadas também para apresentações, feiras e aulas especiais, reunid
 
 - **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
 - **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
-- **Bandeiras do Mundo** — reconhecimento das bandeiras de todos os países, em ritmo de jogo rápido.
+- **Bandeiras** — reconhecimento das bandeiras de todos os países ou dos estados brasileiros, em ritmo de jogo rápido.
 
 ## Manutenção
 
@@ -67,7 +67,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Caderneta de vacinação: organização e cuidado com a saúde.
 - Robô coletor: sequência de comandos e planejamento de caminho.
 - Matemática colorida: cálculo mental com dificuldade progressiva.
-- Bandeiras do Mundo: reconhecimento das bandeiras de todos os países.
+- Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha do modo no início da missão.
 - Setas e sequências: direção, sequência e leitura de instruções.
 - Detetive de Padrões: repetição, lógica visual e descoberta de regras.
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
@@ -113,4 +113,4 @@ O material é gratuito para uso educacional. A área "Sobre" reúne informaçõe
 
 Criado por Prof. Amilcar Notari Neto.
 
-As bandeiras em SVG usadas nas missões vêm do projeto [flag-icons](https://github.com/lipis/flag-icons) (licença MIT, Copyright (c) Panayiotis Lipiridis).
+As bandeiras de países usadas nas missões vêm do projeto [flag-icons](https://github.com/lipis/flag-icons) (licença MIT, Copyright (c) Panayiotis Lipiridis). As bandeiras dos estados brasileiros vêm do [Wikimedia Commons](https://commons.wikimedia.org/), como símbolos oficiais de domínio público.
