@@ -4872,6 +4872,80 @@
     .var-option.correct { border-color: #2f9e52; background: #e6f9ec; }
     .var-options.locked .var-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
+    .cond-board {
+      width: min(620px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .cond-rule {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 16px;
+      border: 4px dashed var(--line);
+      border-radius: 16px;
+      background: #fff8dc;
+    }
+
+    .cond-rule-icon { font-size: 26px; line-height: 1; }
+    .cond-rule-text { font-size: 14px; font-weight: 900; color: var(--card-ink); line-height: 1.35; }
+
+    .cond-gate {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cond-input {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      padding: 10px 18px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .cond-input-icon { font-size: 34px; line-height: 1; color: var(--card-ink); }
+    .cond-input-label { font-size: 12px; font-weight: 900; color: var(--card-muted); }
+
+    .cond-gate-icon { font-size: 36px; line-height: 1; }
+
+    .cond-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cond-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      padding: 12px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease;
+    }
+
+    .cond-option-icon { font-size: 26px; line-height: 1; }
+    .cond-option-label { font-size: 12px; font-weight: 900; color: var(--card-ink); text-align: center; }
+
+    .cond-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .cond-option.wrong { border-color: var(--red); background: #fff0f0; animation: fx-shake 0.5s ease; }
+    .cond-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .cond-options.locked .cond-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
+
     .decoder-board {
       width: min(680px, 100%);
       display: grid;
@@ -8734,29 +8808,30 @@
 
       const missions = [
         { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
-        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
-        { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania", ageRange: "6 a 10+ anos" },
-        { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
-        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
-        { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "cup", icon: "🌎", title: "Bandeiras", subject: "Bandeiras dos países e dos estados do Brasil", ageRange: "6 a 10+ anos", featured: true },
+        { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras", featured: true },
+        { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas", featured: true },
+        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
         { id: "arrows", icon: "🧭", title: "Setas e sequências", subject: "Direção e sequência", ageRange: "6 a 10+ anos" },
-        { id: "patterns", icon: "🔷", title: "Detetive de Padrões", subject: "Padrões" },
-        { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito", ageRange: "6 a 10+ anos" },
-        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
-        { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos", featured: true },
-        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
-        { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
-        { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
-        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
-        { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
-        { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
+        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
+        { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
+        { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
+        { id: "patterns", icon: "🔷", title: "Detetive de Padrões", subject: "Padrões" },
+        { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
+        { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
+        { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
+        { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania", ageRange: "6 a 10+ anos" },
+        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
+        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
+        { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos" },
+        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
+        { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito", ageRange: "6 a 10+ anos" },
+        { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "loop", icon: "🔁", title: "Fábrica de Laços", subject: "Repetição e laços" },
         { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
+        { id: "cond", icon: "🚦", title: "Portão Lógico", subject: "Lógica condicional (Se/Senão)" },
         { id: "var", icon: "🎁", title: "Tradutor de Sinais", subject: "Variáveis" },
-        { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras" },
-        { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas" },
       ];
 
       const missionCategories = [
@@ -8764,7 +8839,7 @@
           title: "Destaques",
           icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
-          missionIds: ["mathCup", "vertebrate", "cup"],
+          missionIds: ["mathCup", "cup", "decoder", "ttt"],
         },
         {
           title: "Sequência e algoritmos",
@@ -8793,8 +8868,8 @@
         {
           title: "Lógica de programação",
           icon: "🧑‍💻",
-          description: "Laços, ordenação e variáveis: os blocos que formam um programa.",
-          missionIds: ["loop", "sort", "var"],
+          description: "Laços, condicionais, ordenação e variáveis: os blocos que formam um programa.",
+          missionIds: ["loop", "sort", "cond", "var"],
         },
       ];
 
@@ -8980,7 +9055,7 @@
           competencies: ["2 — Pensamento científico, crítico e criativo", "7 — Argumentação"],
           sequence: [
             { step: "Abertura", time: "5 min", description: "Pergunte: \"duas soluções diferentes podem estar certas ao mesmo tempo?\"" },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e compare duas combinações que chegam ao mesmo total." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e monte, com a turma, mais de uma combinação de repetições e passo extra que chegue ao mesmo total." },
             { step: "Prática individual", time: "20 min", description: "Alunos jogam Fábrica de Laços e depois Caça ao Bug, em grades maiores." },
             { step: "Fechamento", time: "10 min", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
           ],
@@ -12001,6 +12076,711 @@ const brStatesList = [
         return { ...plan, preview: ["🔀", "↔️", "✅"], rounds };
       });
 
+      const condLevelPlans = [
+        {
+          title: "Primeira regra", icon: "🐶", age: "6-7 anos", theme: "Uma condição", meta: "SE...",
+          roundCount: 33,
+          scenarios: [
+            {
+              ruleText: "🐶 Só cachorros entram no parquinho de cães.", icon: "🐶",
+              inputs: [
+                { id: "dog", icon: "🐶", label: "Cachorro" },
+                { id: "cat", icon: "🐱", label: "Gato" },
+                { id: "rabbit", icon: "🐰", label: "Coelho" },
+                { id: "bird", icon: "🐦", label: "Pássaro" },
+                { id: "turtle", icon: "🐢", label: "Tartaruga" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "✅", label: "Entra" },
+                { id: "no", icon: "🚫", label: "Não entra" },
+              ],
+              evaluate: (input) => (input.id === "dog" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🍎 Só frutas vão para a cesta de frutas.", icon: "🍎",
+              inputs: [
+                { id: "apple", icon: "🍎", label: "Maçã" },
+                { id: "carrot", icon: "🥕", label: "Cenoura" },
+                { id: "cheese", icon: "🧀", label: "Queijo" },
+                { id: "bread", icon: "🍞", label: "Pão" },
+                { id: "milk", icon: "🥛", label: "Leite" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🧺", label: "Vai na cesta" },
+                { id: "no", icon: "🚫", label: "Não vai" },
+              ],
+              evaluate: (input) => (input.id === "apple" ? "yes" : "no"),
+            },
+            {
+              ruleText: "☔ Só quando está chovendo o guarda-chuva abre.", icon: "☔",
+              inputs: [
+                { id: "rain", icon: "🌧️", label: "Chuva" },
+                { id: "sun", icon: "☀️", label: "Sol" },
+                { id: "cloud", icon: "⛅", label: "Nublado" },
+                { id: "snow", icon: "❄️", label: "Neve" },
+                { id: "rainbow", icon: "🌈", label: "Arco-íris" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "☂️", label: "Abre o guarda-chuva" },
+                { id: "no", icon: "🙅", label: "Fica fechado" },
+              ],
+              evaluate: (input) => (input.id === "rain" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🔵 Só as formas azuis entram na caixa azul.", icon: "🔵",
+              inputs: [
+                { id: "blue", icon: "🔵", label: "Círculo azul" },
+                { id: "red", icon: "🔴", label: "Círculo vermelho" },
+                { id: "green", icon: "🟢", label: "Círculo verde" },
+                { id: "yellow", icon: "🟡", label: "Círculo amarelo" },
+                { id: "purple", icon: "🟣", label: "Círculo roxo" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "📦", label: "Entra na caixa" },
+                { id: "no", icon: "🚫", label: "Fica de fora" },
+              ],
+              evaluate: (input) => (input.id === "blue" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🐟 Só peixes entram no aquário.", icon: "🐟",
+              inputs: [
+                { id: "fish", icon: "🐟", label: "Peixe" },
+                { id: "dog", icon: "🐶", label: "Cachorro" },
+                { id: "cat", icon: "🐱", label: "Gato" },
+                { id: "butterfly", icon: "🦋", label: "Borboleta" },
+                { id: "turtle", icon: "🐢", label: "Tartaruga" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🫧", label: "Entra no aquário" },
+                { id: "no", icon: "🚫", label: "Não entra" },
+              ],
+              evaluate: (input) => (input.id === "fish" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🖍️ Só lápis de cor vai no estojo.", icon: "🖍️",
+              inputs: [
+                { id: "crayon", icon: "🖍️", label: "Lápis de cor" },
+                { id: "ball", icon: "⚽", label: "Bola" },
+                { id: "toycar", icon: "🚗", label: "Carrinho" },
+                { id: "cookie", icon: "🍪", label: "Biscoito" },
+                { id: "sock", icon: "🧦", label: "Meia" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🎒", label: "Vai no estojo" },
+                { id: "no", icon: "🚫", label: "Não vai" },
+              ],
+              evaluate: (input) => (input.id === "crayon" ? "yes" : "no"),
+            },
+            {
+              ruleText: "⚽ Só a bola pode entrar no campo de futebol.", icon: "⚽",
+              inputs: [
+                { id: "ball", icon: "⚽", label: "Bola" },
+                { id: "kite", icon: "🪁", label: "Pipa" },
+                { id: "umbrella", icon: "☂️", label: "Guarda-chuva" },
+                { id: "book", icon: "📖", label: "Livro" },
+                { id: "phone", icon: "📱", label: "Celular" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🥅", label: "Entra no campo" },
+                { id: "no", icon: "🚫", label: "Fica de fora" },
+              ],
+              evaluate: (input) => (input.id === "ball" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🦆 Só o brinquedo de banho entra na banheira.", icon: "🦆",
+              inputs: [
+                { id: "duck", icon: "🦆", label: "Patinho" },
+                { id: "teddy", icon: "🧸", label: "Ursinho" },
+                { id: "book", icon: "📖", label: "Livro" },
+                { id: "phone", icon: "📱", label: "Celular" },
+                { id: "crayon", icon: "🖍️", label: "Lápis de cor" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🛁", label: "Entra na banheira" },
+                { id: "no", icon: "🚫", label: "Fica de fora" },
+              ],
+              evaluate: (input) => (input.id === "duck" ? "yes" : "no"),
+            },
+            {
+              ruleText: "📚 Só livro entra na estante.", icon: "📚",
+              inputs: [
+                { id: "book", icon: "📚", label: "Livro" },
+                { id: "ball", icon: "⚽", label: "Bola" },
+                { id: "plate", icon: "🍽️", label: "Prato" },
+                { id: "shoe", icon: "👟", label: "Tênis" },
+                { id: "plant", icon: "🪴", label: "Planta" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "📚", label: "Entra na estante" },
+                { id: "no", icon: "🚫", label: "Fica de fora" },
+              ],
+              evaluate: (input) => (input.id === "book" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🐦 Só passarinho fica no ninho.", icon: "🐦",
+              inputs: [
+                { id: "bird", icon: "🐦", label: "Passarinho" },
+                { id: "dog", icon: "🐶", label: "Cachorro" },
+                { id: "cat", icon: "🐱", label: "Gato" },
+                { id: "fish", icon: "🐟", label: "Peixe" },
+                { id: "rabbit", icon: "🐰", label: "Coelho" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🪺", label: "Fica no ninho" },
+                { id: "no", icon: "🚫", label: "Não fica" },
+              ],
+              evaluate: (input) => (input.id === "bird" ? "yes" : "no"),
+            },
+            {
+              ruleText: "🧥 Só casaco de frio vai no guarda-roupa de inverno.", icon: "🧥",
+              inputs: [
+                { id: "coat", icon: "🧥", label: "Casaco" },
+                { id: "swimsuit", icon: "🩱", label: "Roupa de banho" },
+                { id: "sandals", icon: "🩴", label: "Chinelo" },
+                { id: "sunglasses", icon: "🕶️", label: "Óculos de sol" },
+                { id: "tshirt", icon: "👕", label: "Camiseta" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "🧥", label: "Vai no guarda-roupa" },
+                { id: "no", icon: "🚫", label: "Fica de fora" },
+              ],
+              evaluate: (input) => (input.id === "coat" ? "yes" : "no"),
+            },
+          ],
+        },
+        {
+          title: "Se e senão", icon: "🚲", age: "8-9 anos", theme: "Duas saídas", meta: "SE / SENÃO",
+          roundCount: 30,
+          scenarios: [
+            {
+              ruleText: "🚲 Bicicleta não paga pedágio. Os outros veículos pagam.", icon: "🚲",
+              inputs: [
+                { id: "bike", icon: "🚲", label: "Bicicleta" },
+                { id: "car", icon: "🚗", label: "Carro" },
+                { id: "moto", icon: "🏍️", label: "Moto" },
+                { id: "bus", icon: "🚌", label: "Ônibus" },
+                { id: "truck", icon: "🚚", label: "Caminhão" },
+              ],
+              outcomes: [
+                { id: "free", icon: "🆓", label: "Não paga" },
+                { id: "pay", icon: "💰", label: "Paga" },
+              ],
+              evaluate: (input) => (input.id === "bike" ? "free" : "pay"),
+            },
+            {
+              ruleText: "🦁 Animais selvagens ficam na jaula. Animais domésticos ficam soltos.", icon: "🦁",
+              inputs: [
+                { id: "lion", icon: "🦁", label: "Leão" },
+                { id: "elephant", icon: "🐘", label: "Elefante" },
+                { id: "dog", icon: "🐶", label: "Cachorro" },
+                { id: "cat", icon: "🐱", label: "Gato" },
+                { id: "rabbit", icon: "🐰", label: "Coelho" },
+              ],
+              outcomes: [
+                { id: "cage", icon: "🔒", label: "Fica na jaula" },
+                { id: "free", icon: "🏡", label: "Fica solto" },
+              ],
+              evaluate: (input) => (["lion", "elephant"].includes(input.id) ? "cage" : "free"),
+            },
+            {
+              ruleText: "♻️ Papel e plástico vão para a reciclagem. O resto vai para o lixo comum.", icon: "♻️",
+              inputs: [
+                { id: "paper", icon: "📄", label: "Papel" },
+                { id: "plastic", icon: "🧴", label: "Plástico" },
+                { id: "cardboard", icon: "📦", label: "Papelão" },
+                { id: "banana", icon: "🍌", label: "Casca de banana" },
+                { id: "meat", icon: "🥩", label: "Sobra de carne" },
+              ],
+              outcomes: [
+                { id: "recycle", icon: "♻️", label: "Reciclagem" },
+                { id: "trash", icon: "🗑️", label: "Lixo comum" },
+              ],
+              evaluate: (input) => (["paper", "plastic", "cardboard"].includes(input.id) ? "recycle" : "trash"),
+            },
+            {
+              ruleText: "🪙 Só moeda faz a máquina funcionar. Outros objetos travam a máquina.", icon: "🪙",
+              inputs: [
+                { id: "coin", icon: "🪙", label: "Moeda" },
+                { id: "leaf", icon: "🍂", label: "Folha" },
+                { id: "button", icon: "🔘", label: "Botão" },
+                { id: "rock", icon: "🪨", label: "Pedra" },
+                { id: "key", icon: "🔑", label: "Chave" },
+              ],
+              outcomes: [
+                { id: "works", icon: "✅", label: "Funciona" },
+                { id: "jam", icon: "🚫", label: "Trava" },
+              ],
+              evaluate: (input) => (input.id === "coin" ? "works" : "jam"),
+            },
+            {
+              ruleText: "🥦 Vegetais vão para o prato saudável. Doces vão para a sobremesa.", icon: "🥦",
+              inputs: [
+                { id: "broccoli", icon: "🥦", label: "Brócolis" },
+                { id: "carrot", icon: "🥕", label: "Cenoura" },
+                { id: "cake", icon: "🍰", label: "Bolo" },
+                { id: "chocolate", icon: "🍫", label: "Chocolate" },
+                { id: "lollipop", icon: "🍭", label: "Pirulito" },
+              ],
+              outcomes: [
+                { id: "healthy", icon: "🥗", label: "Prato saudável" },
+                { id: "dessert", icon: "🍰", label: "Sobremesa" },
+              ],
+              evaluate: (input) => (["broccoli", "carrot"].includes(input.id) ? "healthy" : "dessert"),
+            },
+            {
+              ruleText: "☀️ Roupas de verão vão na gaveta de cima. ❄️ Roupas de inverno vão na gaveta de baixo.", icon: "☀️",
+              inputs: [
+                { id: "swimsuit", icon: "🩱", label: "Roupa de banho" },
+                { id: "sandals", icon: "🩴", label: "Chinelo" },
+                { id: "coat", icon: "🧥", label: "Casaco" },
+                { id: "scarf", icon: "🧣", label: "Cachecol" },
+                { id: "boots", icon: "👢", label: "Bota" },
+              ],
+              outcomes: [
+                { id: "summer", icon: "☀️", label: "Gaveta de verão" },
+                { id: "winter", icon: "❄️", label: "Gaveta de inverno" },
+              ],
+              evaluate: (input) => (["swimsuit", "sandals"].includes(input.id) ? "summer" : "winter"),
+            },
+            {
+              ruleText: "🍳 Comida de café da manhã fica na mesa de manhã. 🍝 Comida de jantar fica na mesa à noite.", icon: "🍳",
+              inputs: [
+                { id: "egg", icon: "🍳", label: "Ovo frito" },
+                { id: "coffee", icon: "☕", label: "Café" },
+                { id: "cereal", icon: "🥣", label: "Cereal" },
+                { id: "pasta", icon: "🍝", label: "Macarrão" },
+                { id: "steak", icon: "🥩", label: "Bife" },
+              ],
+              outcomes: [
+                { id: "breakfast", icon: "🌅", label: "Café da manhã" },
+                { id: "dinner", icon: "🌙", label: "Jantar" },
+              ],
+              evaluate: (input) => (["egg", "coffee", "cereal"].includes(input.id) ? "breakfast" : "dinner"),
+            },
+            {
+              ruleText: "✏️ Material escolar vai na mochila. 🧸 Brinquedo fica em casa.", icon: "✏️",
+              inputs: [
+                { id: "pencil", icon: "✏️", label: "Lápis" },
+                { id: "notebook", icon: "📓", label: "Caderno" },
+                { id: "ruler", icon: "📏", label: "Régua" },
+                { id: "teddy", icon: "🧸", label: "Ursinho" },
+                { id: "toycar", icon: "🚗", label: "Carrinho" },
+              ],
+              outcomes: [
+                { id: "backpack", icon: "🎒", label: "Vai na mochila" },
+                { id: "home", icon: "🏠", label: "Fica em casa" },
+              ],
+              evaluate: (input) => (["pencil", "notebook", "ruler"].includes(input.id) ? "backpack" : "home"),
+            },
+            {
+              ruleText: "🐠 Animais aquáticos ficam no aquário. Os outros ficam na gaiola ou casinha.", icon: "🐠",
+              inputs: [
+                { id: "fish", icon: "🐠", label: "Peixe" },
+                { id: "seahorse", icon: "🦐", label: "Camarão" },
+                { id: "hamster", icon: "🐹", label: "Hamster" },
+                { id: "parrot", icon: "🦜", label: "Papagaio" },
+                { id: "dog", icon: "🐶", label: "Cachorro" },
+              ],
+              outcomes: [
+                { id: "aqua", icon: "🫧", label: "Aquário" },
+                { id: "land", icon: "🏠", label: "Gaiola ou casinha" },
+              ],
+              evaluate: (input) => (["fish", "seahorse"].includes(input.id) ? "aqua" : "land"),
+            },
+            {
+              ruleText: "🥛 Comida que precisa gelar vai na geladeira. 🍚 O resto vai no armário.", icon: "🥛",
+              inputs: [
+                { id: "milk", icon: "🥛", label: "Leite" },
+                { id: "cheese", icon: "🧀", label: "Queijo" },
+                { id: "rice", icon: "🍚", label: "Arroz" },
+                { id: "pasta", icon: "🍝", label: "Macarrão" },
+                { id: "bread", icon: "🍞", label: "Pão" },
+              ],
+              outcomes: [
+                { id: "fridge", icon: "🧊", label: "Geladeira" },
+                { id: "cupboard", icon: "🗄️", label: "Armário" },
+              ],
+              evaluate: (input) => (["milk", "cheese"].includes(input.id) ? "fridge" : "cupboard"),
+            },
+          ],
+        },
+        {
+          title: "Vários casos", icon: "🚦", age: "10-11 anos", theme: "Vários caminhos", meta: "SE / SENÃO SE",
+          roundCount: 28,
+          scenarios: [
+            {
+              ruleText: "🚑 Ambulância passa livre. 🚌 Ônibus paga meia. 🚗 Carro paga inteira. 🚲 Bicicleta não paga.", icon: "🚦",
+              inputs: [
+                { id: "ambulance", icon: "🚑", label: "Ambulância" },
+                { id: "bus", icon: "🚌", label: "Ônibus" },
+                { id: "car", icon: "🚗", label: "Carro" },
+                { id: "bike", icon: "🚲", label: "Bicicleta" },
+              ],
+              outcomes: [
+                { id: "free", icon: "🆓", label: "Passa livre" },
+                { id: "half", icon: "🎫", label: "Paga meia" },
+                { id: "full", icon: "💰", label: "Paga inteira" },
+                { id: "nopay", icon: "🚲", label: "Não paga" },
+              ],
+              evaluate: (input) => ({ ambulance: "free", bus: "half", car: "full", bike: "nopay" }[input.id]),
+            },
+            {
+              ruleText: "✉️ Carta chega em 5 dias. 📦 Pacote chega em 3 dias. 📮 Pacote grande chega em 7 dias. ⚡ Expresso chega em 1 dia.", icon: "✉️",
+              inputs: [
+                { id: "letter", icon: "✉️", label: "Carta" },
+                { id: "package", icon: "📦", label: "Pacote" },
+                { id: "bigpackage", icon: "📮", label: "Pacote grande" },
+                { id: "express", icon: "⚡", label: "Expresso" },
+              ],
+              outcomes: [
+                { id: "d5", icon: "📅", label: "5 dias" },
+                { id: "d3", icon: "📅", label: "3 dias" },
+                { id: "d7", icon: "📅", label: "7 dias" },
+                { id: "d1", icon: "⚡", label: "1 dia" },
+              ],
+              evaluate: (input) => ({ letter: "d5", package: "d3", bigpackage: "d7", express: "d1" }[input.id]),
+            },
+            {
+              ruleText: "🍕 Pizza vai para o forno. 🥤 Suco vai para a geladeira. 🍜 Macarrão vai para o fogão. 🥪 Sanduíche vai direto para o prato.", icon: "🍕",
+              inputs: [
+                { id: "pizza", icon: "🍕", label: "Pizza" },
+                { id: "juice", icon: "🥤", label: "Suco" },
+                { id: "noodles", icon: "🍜", label: "Macarrão" },
+                { id: "sandwich", icon: "🥪", label: "Sanduíche" },
+              ],
+              outcomes: [
+                { id: "oven", icon: "🔥", label: "Forno" },
+                { id: "fridge", icon: "🧊", label: "Geladeira" },
+                { id: "stove", icon: "🍳", label: "Fogão" },
+                { id: "plate", icon: "🍽️", label: "Direto pro prato" },
+              ],
+              evaluate: (input) => ({ pizza: "oven", juice: "fridge", noodles: "stove", sandwich: "plate" }[input.id]),
+            },
+            {
+              ruleText: "📝 Prova vai para a sala silenciosa. 🎨 Arte vai para a sala de artes. ⚽ Educação física vai para a quadra. 🎵 Música vai para a sala de música.", icon: "📝",
+              inputs: [
+                { id: "test", icon: "📝", label: "Prova" },
+                { id: "art", icon: "🎨", label: "Arte" },
+                { id: "pe", icon: "⚽", label: "Educação física" },
+                { id: "music", icon: "🎵", label: "Música" },
+              ],
+              outcomes: [
+                { id: "quiet", icon: "🤫", label: "Sala silenciosa" },
+                { id: "artroom", icon: "🎨", label: "Sala de artes" },
+                { id: "court", icon: "🏟️", label: "Quadra" },
+                { id: "musicroom", icon: "🎵", label: "Sala de música" },
+              ],
+              evaluate: (input) => ({ test: "quiet", art: "artroom", pe: "court", music: "musicroom" }[input.id]),
+            },
+            {
+              ruleText: "🍔 Hambúrguer vai para a fila vermelha. 🍣 Sushi vai para a fila azul. 🌮 Taco vai para a fila verde. 🍦 Sorvete vai para a fila amarela.", icon: "🍔",
+              inputs: [
+                { id: "burger", icon: "🍔", label: "Hambúrguer" },
+                { id: "sushi", icon: "🍣", label: "Sushi" },
+                { id: "taco", icon: "🌮", label: "Taco" },
+                { id: "icecream", icon: "🍦", label: "Sorvete" },
+              ],
+              outcomes: [
+                { id: "red", icon: "🟥", label: "Fila vermelha" },
+                { id: "blue", icon: "🟦", label: "Fila azul" },
+                { id: "green", icon: "🟩", label: "Fila verde" },
+                { id: "yellow", icon: "🟨", label: "Fila amarela" },
+              ],
+              evaluate: (input) => ({ burger: "red", sushi: "blue", taco: "green", icecream: "yellow" }[input.id]),
+            },
+            {
+              ruleText: "🌸 Primavera pede roupa leve. ☀️ Verão pede roupa de banho. 🍂 Outono pede casaco leve. ❄️ Inverno pede casaco pesado.", icon: "🌸",
+              inputs: [
+                { id: "spring", icon: "🌸", label: "Primavera" },
+                { id: "summer", icon: "☀️", label: "Verão" },
+                { id: "autumn", icon: "🍂", label: "Outono" },
+                { id: "winter", icon: "❄️", label: "Inverno" },
+              ],
+              outcomes: [
+                { id: "light", icon: "👕", label: "Roupa leve" },
+                { id: "swim", icon: "🩱", label: "Roupa de banho" },
+                { id: "jacket", icon: "🧥", label: "Casaco leve" },
+                { id: "heavy", icon: "🧣", label: "Casaco pesado" },
+              ],
+              evaluate: (input) => ({ spring: "light", summer: "swim", autumn: "jacket", winter: "heavy" }[input.id]),
+            },
+            {
+              ruleText: "📗 Aventura vai na estante verde. 📘 Ciências vai na estante azul. 📕 Mistério vai na estante vermelha. 📙 História vai na estante laranja.", icon: "📗",
+              inputs: [
+                { id: "adventure", icon: "📗", label: "Aventura" },
+                { id: "science", icon: "📘", label: "Ciências" },
+                { id: "mystery", icon: "📕", label: "Mistério" },
+                { id: "history", icon: "📙", label: "História" },
+              ],
+              outcomes: [
+                { id: "green", icon: "🟩", label: "Estante verde" },
+                { id: "blue", icon: "🟦", label: "Estante azul" },
+                { id: "red", icon: "🟥", label: "Estante vermelha" },
+                { id: "orange", icon: "🟧", label: "Estante laranja" },
+              ],
+              evaluate: (input) => ({ adventure: "green", science: "blue", mystery: "red", history: "orange" }[input.id]),
+            },
+          ],
+        },
+        {
+          title: "Duas condições (E)", icon: "🟢", age: "12-13 anos", theme: "Condição composta", meta: "SE ... E ...",
+          roundCount: 24,
+          scenarios: [
+            {
+              ruleText: "SE é 🚗 carro E leva mais de 2 passageiros → pista rápida. Senão, pista normal.", icon: "🟢",
+              outcomes: [
+                { id: "fast", icon: "🟢", label: "Pista rápida" },
+                { id: "normal", icon: "🟡", label: "Pista normal" },
+              ],
+              evaluate: (input) => (input.vehicle === "car" && input.passengers > 2 ? "fast" : "normal"),
+              generateInput: (random) => {
+                const isCar = random() < 0.5;
+                const passengers = 1 + Math.floor(random() * 4);
+                return {
+                  vehicle: isCar ? "car" : "moto",
+                  passengers,
+                  visual: `${isCar ? "🚗" : "🏍️"} × ${passengers}`,
+                  label: `${isCar ? "Carro" : "Moto"} com ${passengers} ${passengers === 1 ? "pessoa" : "pessoas"}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE é dia de aniversário 🎂 E a compra passa de R$50 → desconto de 20%. Senão, sem desconto.", icon: "🎂",
+              outcomes: [
+                { id: "discount", icon: "🏷️", label: "20% de desconto" },
+                { id: "nodiscount", icon: "💳", label: "Sem desconto" },
+              ],
+              evaluate: (input) => (input.isBirthday && input.amount > 50 ? "discount" : "nodiscount"),
+              generateInput: (random) => {
+                const isBirthday = random() < 0.5;
+                const amount = 10 + Math.floor(random() * 91);
+                return {
+                  isBirthday,
+                  amount,
+                  visual: `💳 R$${amount}${isBirthday ? " 🎂" : ""}`,
+                  label: `R$${amount}${isBirthday ? " no aniversário" : ""}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE está de tênis 👟 E o trajeto tem até 5 km → pode ir sozinho. Senão, precisa de um adulto.", icon: "👟",
+              outcomes: [
+                { id: "alone", icon: "🚶", label: "Vai sozinho" },
+                { id: "adult", icon: "🧑‍🤝‍🧑", label: "Precisa de um adulto" },
+              ],
+              evaluate: (input) => (input.hasShoes && input.distance <= 5 ? "alone" : "adult"),
+              generateInput: (random) => {
+                const hasShoes = random() < 0.5;
+                const distance = 1 + Math.floor(random() * 9);
+                return {
+                  hasShoes,
+                  distance,
+                  visual: `${hasShoes ? "👟" : "🩴"} ${distance} km`,
+                  label: `${hasShoes ? "Com tênis" : "Sem tênis"}, ${distance} km`,
+                };
+              },
+            },
+            {
+              ruleText: "SE é sócio da biblioteca 🎫 E o livro está disponível ✅ → pode levar para casa. Senão, não pode.", icon: "🎫",
+              outcomes: [
+                { id: "borrow", icon: "📚", label: "Pode levar" },
+                { id: "noborrow", icon: "🚫", label: "Não pode levar" },
+              ],
+              evaluate: (input) => (input.isMember && input.available ? "borrow" : "noborrow"),
+              generateInput: (random) => {
+                const isMember = random() < 0.5;
+                const available = random() < 0.5;
+                return {
+                  isMember,
+                  available,
+                  visual: `${isMember ? "🎫" : "🚫🎫"} ${available ? "✅" : "❌"}`,
+                  label: `${isMember ? "Sócio" : "Não sócio"}, livro ${available ? "disponível" : "emprestado"}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE são pelo menos 2 jogadores E há 30 minutos livres → pode começar o jogo. Senão, precisa esperar.", icon: "🎲",
+              outcomes: [
+                { id: "start", icon: "🎲", label: "Pode começar" },
+                { id: "wait", icon: "⏳", label: "Precisa esperar" },
+              ],
+              evaluate: (input) => (input.players >= 2 && input.time >= 30 ? "start" : "wait"),
+              generateInput: (random) => {
+                const players = 1 + Math.floor(random() * 4);
+                const time = 10 + Math.floor(random() * 41);
+                return {
+                  players,
+                  time,
+                  visual: `👥 ${players} 🕐 ${time}min`,
+                  label: `${players} ${players === 1 ? "jogador" : "jogadores"}, ${time} minutos livres`,
+                };
+              },
+            },
+            {
+              ruleText: "SE sabe nadar 🏊 E a piscina tem menos de 1,5 m de profundidade → pode entrar sozinho. Senão, precisa de um adulto.", icon: "🏊",
+              outcomes: [
+                { id: "alone", icon: "✅", label: "Pode entrar sozinho" },
+                { id: "adult", icon: "🧑‍🤝‍🧑", label: "Precisa de um adulto" },
+              ],
+              evaluate: (input) => (input.canSwim && input.depth < 1.5 ? "alone" : "adult"),
+              generateInput: (random) => {
+                const canSwim = random() < 0.5;
+                const depth = Math.round((0.5 + random() * 2) * 10) / 10;
+                return {
+                  canSwim,
+                  depth,
+                  visual: `${canSwim ? "🏊" : "🙅"} ${depth.toFixed(1)}m`,
+                  label: `${canSwim ? "Sabe nadar" : "Não sabe nadar"}, ${depth.toFixed(1)}m de profundidade`,
+                };
+              },
+            },
+          ],
+        },
+        {
+          title: "Duas condições (OU)", icon: "⚠️", age: "14 anos", theme: "Condição composta", meta: "SE ... OU ...",
+          roundCount: 24,
+          scenarios: [
+            {
+              ruleText: "SE a velocidade passa de 80 OU é feriado → aviso. Senão, segue normal.", icon: "⚠️",
+              outcomes: [
+                { id: "warn", icon: "⚠️", label: "Aviso" },
+                { id: "ok", icon: "✅", label: "Segue normal" },
+              ],
+              evaluate: (input) => (input.speed > 80 || input.holiday ? "warn" : "ok"),
+              generateInput: (random) => {
+                const speed = 40 + Math.floor(random() * 71);
+                const holiday = random() < 0.35;
+                return {
+                  speed,
+                  holiday,
+                  visual: `🚗 ${speed} km/h${holiday ? " 🎉" : ""}`,
+                  label: `${speed} km/h${holiday ? " em feriado" : ""}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE o vento passa de 60 km/h OU a chuva passa de 50 mm → alerta vermelho. Senão, tempo normal.", icon: "🌪️",
+              outcomes: [
+                { id: "red", icon: "🔴", label: "Alerta vermelho" },
+                { id: "normal", icon: "🟢", label: "Tempo normal" },
+              ],
+              evaluate: (input) => (input.wind > 60 || input.rain > 50 ? "red" : "normal"),
+              generateInput: (random) => {
+                const wind = 10 + Math.floor(random() * 81);
+                const rain = Math.floor(random() * 81);
+                return {
+                  wind,
+                  rain,
+                  visual: `💨 ${wind} km/h 🌧️ ${rain} mm`,
+                  label: `Vento ${wind} km/h, chuva ${rain} mm`,
+                };
+              },
+            },
+            {
+              ruleText: "SE é estudante 🎓 OU é domingo 📅 → entrada grátis. Senão, paga entrada.", icon: "🎓",
+              outcomes: [
+                { id: "free", icon: "🆓", label: "Entrada grátis" },
+                { id: "pay", icon: "🎟️", label: "Paga entrada" },
+              ],
+              evaluate: (input) => (input.isStudent || input.isSunday ? "free" : "pay"),
+              generateInput: (random) => {
+                const isStudent = random() < 0.5;
+                const isSunday = random() < 0.5;
+                return {
+                  isStudent,
+                  isSunday,
+                  visual: `${isStudent ? "🎓" : "🧑"}${isSunday ? " 📅" : ""}`,
+                  label: `${isStudent ? "Estudante" : "Não estudante"}${isSunday ? ", domingo" : ", outro dia"}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE o professor está doente 🤒 OU é feriado 🎉 → aula cancelada. Senão, aula normal.", icon: "🤒",
+              outcomes: [
+                { id: "cancel", icon: "🚫", label: "Aula cancelada" },
+                { id: "normal", icon: "✅", label: "Aula normal" },
+              ],
+              evaluate: (input) => (input.sick || input.holiday ? "cancel" : "normal"),
+              generateInput: (random) => {
+                const sick = random() < 0.4;
+                const holiday = random() < 0.3;
+                return {
+                  sick,
+                  holiday,
+                  visual: `${sick ? "🤒" : "😊"}${holiday ? " 🎉" : ""}`,
+                  label: `Professor ${sick ? "doente" : "bem"}${holiday ? ", feriado" : ", dia normal"}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE a bateria está abaixo de 20% OU o modo economia está ligado → aviso vermelho. Senão, ícone normal.", icon: "🔋",
+              outcomes: [
+                { id: "warn", icon: "🔴", label: "Aviso vermelho" },
+                { id: "normal", icon: "🟢", label: "Ícone normal" },
+              ],
+              evaluate: (input) => (input.battery < 20 || input.saver ? "warn" : "normal"),
+              generateInput: (random) => {
+                const battery = 1 + Math.floor(random() * 99);
+                const saver = random() < 0.3;
+                return {
+                  battery,
+                  saver,
+                  visual: `🔋 ${battery}%${saver ? " 🐢" : ""}`,
+                  label: `Bateria ${battery}%${saver ? ", economia ligada" : ""}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE tem mais de 1,40 m de altura OU está acompanhado de um adulto → pode entrar no brinquedo radical. Senão, não pode.", icon: "🎢",
+              outcomes: [
+                { id: "yes", icon: "🎢", label: "Pode entrar" },
+                { id: "no", icon: "🚫", label: "Não pode entrar" },
+              ],
+              evaluate: (input) => (input.height > 140 || input.withAdult ? "yes" : "no"),
+              generateInput: (random) => {
+                const height = 100 + Math.floor(random() * 70);
+                const withAdult = random() < 0.5;
+                return {
+                  height,
+                  withAdult,
+                  visual: `📏 ${height}cm${withAdult ? " 🧑‍🤝‍🧑" : ""}`,
+                  label: `${height}cm${withAdult ? ", com adulto" : ", sozinho"}`,
+                };
+              },
+            },
+          ],
+        },
+      ];
+
+      function condInputAt(scenario, poolSeed, index) {
+        const pool = scenario.inputs;
+        const cycle = Math.floor(index / pool.length);
+        const posInCycle = index % pool.length;
+        const shuffled = shuffle(pool, seedFromParts("cond-pool", poolSeed, cycle));
+        const base = shuffled[posInCycle];
+        return { ...base, visual: base.icon, label: base.label };
+      }
+
+      function generateCondRound(plan, tierIndex, index) {
+        const scenarios = plan.scenarios;
+        const scenarioIndex = index % scenarios.length;
+        const scenario = scenarios[scenarioIndex];
+        const scenarioRoundIndex = Math.floor(index / scenarios.length);
+        const input = scenario.generateInput
+          ? scenario.generateInput(seededRandom(seedFromParts("cond-round", tierIndex, index)))
+          : condInputAt(scenario, seedFromParts("cond-pool-seed", tierIndex, scenarioIndex), scenarioRoundIndex);
+        const outcomeId = scenario.evaluate(input);
+        const answerIndex = scenario.outcomes.findIndex((outcome) => outcome.id === outcomeId);
+        return { scenario, input, answerIndex };
+      }
+
+      const condLevels = condLevelPlans.map((plan, tierIndex) => {
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
+          generateCondRound(plan, tierIndex, index)
+        );
+        return { ...plan, preview: [plan.icon, "🚧", plan.scenarios[0].outcomes[0].icon], rounds };
+      });
+
       const varAttributeSets = [
         { name: "COR", icon: "🎨", values: [
           { label: "vermelho", visual: "🔴" },
@@ -12626,6 +13406,10 @@ const brStatesList = [
         sortMoves: 0,
         sortWrong: null,
         sortJustSwapped: null,
+        condLevel: null,
+        condWrong: null,
+        condAttempt: 0,
+        condCorrectIndex: null,
         varLevel: null,
         varWrong: null,
         varAttempt: 0,
@@ -13377,6 +14161,7 @@ const brStatesList = [
         bug: bugLevels.map((level) => level.rounds.map(cloneValue)),
         loop: loopLevels.map((level) => level.rounds.map(cloneValue)),
         sort: sortLevels.map((level) => level.rounds.map(cloneValue)),
+        cond: condLevels.map((level) => level.rounds.map(cloneValue)),
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
@@ -13439,6 +14224,13 @@ const brStatesList = [
         sortLevels.forEach((level, levelIndex) => {
           const source = roundPools.sort[levelIndex];
           resetRoundPool(level.rounds, source, seedFromParts(seed, "sort", levelIndex), { free: true });
+        });
+      }
+
+      function resetCondRoundPools(seed) {
+        condLevels.forEach((level, levelIndex) => {
+          const source = roundPools.cond[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "cond", levelIndex), { free: true });
         });
       }
 
@@ -13506,6 +14298,7 @@ const brStatesList = [
         if (mode === "bug") resetBugRoundPools(seedForMode);
         if (mode === "loop") resetLoopRoundPools(seedForMode);
         if (mode === "sort") resetSortRoundPools(seedForMode);
+        if (mode === "cond") resetCondRoundPools(seedForMode);
         if (mode === "var") resetVarRoundPools(seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "ttt") resetTttRoundPools(seedForMode);
@@ -14233,6 +15026,7 @@ const brStatesList = [
         bug: bugLevels,
         loop: loopLevels,
         sort: sortLevels,
+        cond: condLevels,
         var: varLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
@@ -16058,6 +16852,98 @@ const brStatesList = [
         </div>`;
       }
 
+      function currentCondRounds() {
+        return condLevels[state.condLevel].rounds;
+      }
+
+      function condOptions() {
+        const round = currentCondRounds()[state.round];
+        const seed = seedFromParts("cond", state.missionSeed, state.condLevel, state.round);
+        return orderAnswerOptions(round.scenario.outcomes.map((_, index) => index), {
+          seed,
+          attempt: state.condAttempt,
+          isCorrect: (index) => index === round.answerIndex,
+        });
+      }
+
+      function renderCond() {
+        const level = condLevels[state.condLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const options = condOptions();
+        setHeader("Portão Lógico", `${level.title}: aplique a regra.`);
+        setCounters("Portão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = "Leia a regra, veja quem chegou no portão e escolha o que acontece.";
+        content.innerHTML = `<div class="cond-board">
+          <div class="cond-rule">
+            <span class="cond-rule-icon">${round.scenario.icon}</span>
+            <span class="cond-rule-text">${round.scenario.ruleText}</span>
+          </div>
+          <div class="cond-gate">
+            <div class="cond-input">
+              <span class="cond-input-icon">${round.input.visual}</span>
+              <span class="cond-input-label">${round.input.label}</span>
+            </div>
+            <div class="cond-gate-icon">🚧</div>
+          </div>
+          <div class="cond-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((outcomeIndex, index) => {
+              const outcome = round.scenario.outcomes[outcomeIndex];
+              return `<div class="cond-option ${index === state.selected ? "selected" : ""} ${state.condWrong === index ? "wrong" : ""} ${state.condCorrectIndex === index ? "correct" : ""}">
+                <span class="cond-option-icon">${outcome.icon}</span>
+                <span class="cond-option-label">${outcome.label}</span>
+                ${state.condCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🚦</span><span>🎉</span><span>✨</span><span>🚦</span></div>' : ""}
+              </div>`;
+            }).join("")}
+          </div>
+        </div>`;
+      }
+
+      function handleCondEnter() {
+        if (!hasSelection()) return;
+        const rounds = currentCondRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const choice = condOptions()[state.selected];
+        const isCorrect = choice === round.answerIndex;
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Releia a regra!",
+            guard: () => state.mode === "cond",
+            onLock: () => { state.condWrong = state.selected; },
+            onUnlock: () => { state.condWrong = null; state.condAttempt += 1; },
+          });
+          return;
+        }
+        state.condWrong = null;
+        state.condCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🚦 Certo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "cond") return;
+          state.condCorrectIndex = null;
+          state.answerLocked = false;
+          state.score += 1;
+          state.round += 1;
+          state.selected = -1;
+          state.condAttempt = 0;
+          if (state.round >= rounds.length) {
+            complete("cond", "Regras aplicadas!");
+            return;
+          }
+          render();
+        }, 600);
+      }
+
+      function handleCondClick(event) {
+        return activateChoiceClick(event, ".cond-option", {
+          clearWrong: () => { state.condWrong = null; },
+          onConfirm: handleCondEnter,
+        });
+      }
+
       function currentVarRounds() {
         return varLevels[state.varLevel].rounds;
       }
@@ -17812,6 +18698,7 @@ const brStatesList = [
         bug: renderBug,
         loop: renderLoop,
         sort: renderSort,
+        cond: renderCond,
         var: renderVar,
         decoder: renderDecoder,
         devices: renderDevices,
@@ -17864,6 +18751,7 @@ const brStatesList = [
         bug: "bugLevel",
         loop: "loopLevel",
         sort: "sortLevel",
+        cond: "condLevel",
         var: "varLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
@@ -18085,6 +18973,10 @@ const brStatesList = [
         state.sortMoves = 0;
         state.sortWrong = null;
         state.sortJustSwapped = null;
+        state.condLevel = null;
+        state.condAttempt = 0;
+        state.condWrong = null;
+        state.condCorrectIndex = null;
         state.varLevel = null;
         state.varAttempt = 0;
         state.varWrong = null;
@@ -18992,6 +19884,18 @@ const brStatesList = [
         state.pixelAttempt = 0;
         state.pixelWrong = null;
         state.pixelCorrectIndex = null;
+        state.mode = "menu";
+        render();
+      }
+
+      function backToCondLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        state.condLevel = null;
+        resetRoundState(0);
+        state.condAttempt = 0;
+        state.condWrong = null;
+        state.condCorrectIndex = null;
         state.mode = "menu";
         render();
       }
@@ -19999,6 +20903,7 @@ const brStatesList = [
         bug: handleBugEnter,
         loop: handleLoopEnter,
         sort: handleSortEnter,
+        cond: handleCondEnter,
         var: handleVarEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
@@ -20196,6 +21101,26 @@ const brStatesList = [
           } else {
             const count = state.sortItems.length;
             moveSelectionIndex({ count, delta, allowUnselected: false });
+          }
+        } else if (state.mode === "cond") {
+          if (state.condLevel === null) {
+            const count = condLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const count = condOptions().length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 2),
+              afterMove: () => { state.condWrong = null; },
+            });
           }
         } else if (state.mode === "var") {
           if (state.varLevel === null) {
@@ -20538,6 +21463,7 @@ const brStatesList = [
         bug: handleBugClick,
         loop: handleLoopClick,
         sort: handleSortClick,
+        cond: handleCondClick,
         var: handleVarClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
@@ -20567,7 +21493,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .var-option, .decoder-letter")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -21077,6 +22003,10 @@ const brStatesList = [
         }
         if (state.mode === "sort" && state.sortLevel !== null) {
           backToSortLevels();
+          return;
+        }
+        if (state.mode === "cond" && state.condLevel !== null) {
+          backToCondLevels();
           return;
         }
         if (state.mode === "var" && state.varLevel !== null) {

@@ -5,6 +5,7 @@ Desktop.ini
 *.log
 .vscode/
 .idea/
+.claude/
 
 # Arquivos locais de referência
 \# Dossie curricular - Start by Alur*.txt

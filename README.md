@@ -50,8 +50,9 @@ O projeto foi pensado para desktop, notebook, painel interativo e celular. Em te
 Missões pensadas também para apresentações, feiras e aulas especiais, reunidas no filtro ⭐ Destaques do menu:
 
 - **Copa da Matemática** — campanha com seleções da Copa do Mundo, fases de grupo, classificação, prorrogação, pênaltis, cálculo mental e tomada de decisão.
-- **Vertebrados e invertebrados** — classificação de seres vivos com raio-x interativo, pensada para feiras de ciências.
 - **Bandeiras** — reconhecimento das bandeiras de todos os países ou dos estados brasileiros, em ritmo de jogo rápido.
+- **Robô Decifrador** — adivinhação de palavras com pistas e dicas progressivas, boa para jogar em grupo.
+- **Jogo da Velha dos Enigmas** — jogo da velha com enigmas de várias disciplinas e placar de revanches, ótimo para disputas em sala.
 
 ## Manutenção
 
@@ -62,29 +63,30 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
-- Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
-- Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
-- Caderneta de vacinação: organização e cuidado com a saúde.
-- Robô coletor: sequência de comandos e planejamento de caminho.
-- Matemática colorida: cálculo mental com dificuldade progressiva.
 - Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha do modo no início da missão.
+- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
+- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
+- Robô coletor: sequência de comandos e planejamento de caminho.
 - Setas e sequências: direção, sequência e leitura de instruções.
+- Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
+- Ciclos da natureza: ordenação de etapas de fenômenos naturais.
+- Caderneta de vacinação: organização e cuidado com a saúde.
+- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
 - Detetive de Padrões: repetição, lógica visual e descoberta de regras.
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
-- Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
-- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
-- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
-- Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
-- Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
-- Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
-- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa até descobrir o valor final.
-- Meu Caminho Seguro: decisões simples de segurança no trânsito.
+- Dados e gráficos: contagem, comparação e leitura de informações.
+- Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
+- Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
-- Ciclos da natureza: ordenação de etapas de fenômenos naturais.
-- Dados e gráficos: contagem, comparação e leitura de informações.
-- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
+- Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
+- Meu Caminho Seguro: decisões simples de segurança no trânsito.
+- Matemática colorida: cálculo mental com dificuldade progressiva.
+- Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
+- Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
+- Portão Lógico: lógica condicional (Se/Senão), aplicando a regra do portão a quem chega para descobrir o resultado certo.
+- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa até descobrir o valor final.
 
 ## Como usar em sala
 
