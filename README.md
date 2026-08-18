@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.8.0
+Versão atual: 2.9.0
 
 ## Acesse
 
@@ -81,11 +81,10 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
-- Meu Caminho Seguro: decisões simples de segurança no trânsito.
 - Matemática colorida: cálculo mental com dificuldade progressiva.
 - Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
-- Portão Lógico: lógica condicional (Se/Senão), aplicando a regra do portão a quem chega para descobrir o resultado certo.
+- Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa até descobrir o valor final.
 
 ## Como usar em sala

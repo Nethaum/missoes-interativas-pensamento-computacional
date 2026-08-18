@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.8.0">
+  <meta name="app-version" content="2.9.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -1769,7 +1769,6 @@
       display: none;
     }
 
-    .traffic-board,
     .math-board,
     .habitat-board,
     .cycle-board,
@@ -1779,10 +1778,6 @@
       display: grid;
       gap: 12px;
       justify-items: center;
-    }
-
-    .traffic-board {
-      position: relative;
     }
 
     .math-board {
@@ -1901,265 +1896,6 @@
       text-shadow: none;
     }
 
-    .traffic-scene {
-      position: relative;
-      width: min(900px, 100%);
-      height: 205px;
-      overflow: hidden;
-      border: 5px solid #bac4d3;
-      border-radius: 20px;
-      background: #cceeff;
-      box-shadow: 0 8px 0 rgba(83, 99, 123, 0.2);
-    }
-
-    .traffic-scene.night {
-      background: #273553;
-    }
-
-    .traffic-scene.night .traffic-sky {
-      background: #273553;
-    }
-
-    .traffic-sky {
-      position: absolute;
-      inset: 0 0 43%;
-      background: #cceeff;
-    }
-
-    .traffic-ground {
-      position: absolute;
-      inset: 56% 0 0;
-      background: #65ad58;
-    }
-
-    .traffic-road {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 43%;
-      background: #4a4f5d;
-    }
-
-    .traffic-road::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 51%;
-      height: 7px;
-      background: repeating-linear-gradient(90deg, #ffe15c 0 44px, transparent 44px 72px);
-    }
-
-    .scene-vehicle {
-      position: absolute;
-      left: 14%;
-      bottom: 16%;
-      z-index: 4;
-      color: var(--card-ink);
-      font-size: 62px;
-      line-height: 1;
-      text-shadow: none;
-    }
-
-    .scene-place {
-      position: absolute;
-      left: 8%;
-      top: 12px;
-      z-index: 3;
-      color: var(--card-ink);
-      font-size: 62px;
-      text-shadow: none;
-    }
-
-    .scene-light {
-      position: absolute;
-      right: 12%;
-      bottom: 32%;
-      z-index: 5;
-      display: grid;
-      gap: 5px;
-      width: 54px;
-      padding: 8px;
-      border: 5px solid #222936;
-      border-radius: 13px;
-      background: #3a4251;
-    }
-
-    .light-dot {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #151923;
-      opacity: 0.32;
-    }
-
-    .light-dot.red.on {
-      background: var(--red);
-      box-shadow: 0 0 12px var(--red);
-      opacity: 1;
-    }
-
-    .light-dot.yellow.on {
-      background: var(--yellow);
-      box-shadow: 0 0 12px var(--yellow);
-      opacity: 1;
-    }
-
-    .light-dot.green.on {
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green);
-      opacity: 1;
-    }
-
-    .light-post {
-      position: absolute;
-      right: calc(12% + 23px);
-      bottom: 8%;
-      width: 9px;
-      height: 60px;
-      background: #222936;
-    }
-
-    .crosswalk {
-      position: absolute;
-      right: 25%;
-      bottom: 0;
-      z-index: 2;
-      width: 150px;
-      height: 43%;
-      background: repeating-linear-gradient(90deg, #f6f7f8 0 16px, transparent 16px 29px);
-      transform: skewX(-7deg);
-      opacity: 0.92;
-    }
-
-    .bike-lane {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 2%;
-      z-index: 3;
-      height: 34%;
-      border-top: 4px solid #fff;
-      background: rgba(44, 155, 89, 0.9);
-    }
-
-    .bike-lane::after {
-      content: "🚲";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 45px;
-      opacity: 0.9;
-    }
-
-    .pedestrian {
-      position: absolute;
-      right: 34%;
-      bottom: 18%;
-      z-index: 6;
-      color: var(--card-ink);
-      font-size: 54px;
-      text-shadow: none;
-    }
-
-    .garage {
-      position: absolute;
-      right: 27%;
-      top: 16px;
-      z-index: 3;
-      color: var(--card-ink);
-      font-size: 72px;
-      text-shadow: none;
-    }
-
-    .exiting-vehicle {
-      position: absolute;
-      right: 21%;
-      bottom: 28%;
-      z-index: 6;
-      color: var(--card-ink);
-      font-size: 49px;
-      text-shadow: none;
-    }
-
-    .exit-alert {
-      position: absolute;
-      right: 42%;
-      top: 16px;
-      z-index: 7;
-      color: var(--card-ink);
-      font-size: 48px;
-      text-shadow: none;
-    }
-
-    .scene-extra {
-      position: absolute;
-      right: 36%;
-      bottom: 25%;
-      z-index: 7;
-      color: var(--card-ink);
-      font-size: 54px;
-      text-shadow: none;
-    }
-
-    .scene-clue.hint {
-      animation: clue-pulse 0.42s ease-in-out 3 alternate;
-    }
-
-    @keyframes clue-pulse {
-      from {
-        filter: drop-shadow(0 0 0 transparent);
-        transform: scale(1);
-      }
-      to {
-        filter: drop-shadow(0 0 12px #ffca28);
-        transform: scale(1.13);
-      }
-    }
-
-    .traffic-actions {
-      width: min(680px, 100%);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .traffic-actions.locked .traffic-action:not(.wrong) {
-      opacity: 0.42;
-      filter: grayscale(0.45);
-      transform: none;
-    }
-
-    .traffic-action {
-      min-height: 82px;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      place-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border: 4px solid var(--line);
-      border-radius: 17px;
-      background: var(--white);
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.55);
-      font-size: clamp(22px, 3vw, 31px);
-      font-weight: 950;
-      text-align: center;
-      transition: transform 0.12s ease;
-    }
-
-    .traffic-action-icon {
-      font-size: 38px;
-      line-height: 1;
-    }
-
-    .traffic-action.selected {
-      border-color: var(--blue);
-      transform: translateY(-7px);
-      box-shadow: 0 11px 0 rgba(52, 120, 229, 0.22);
-    }
-
     @keyframes fx-shake {
       10%, 90% { transform: translateX(-2px); }
       20%, 80% { transform: translateX(3px); }
@@ -2219,66 +1955,6 @@
     .fx-confetti span:nth-child(4) { --dx: -18px; animation-delay: 0.12s; }
     .fx-confetti span:nth-child(5) { --dx: 20px; animation-delay: 0.16s; }
     .fx-confetti span:nth-child(6) { --dx: -6px; animation-delay: 0.09s; }
-
-    .traffic-action.wrong {
-      border-color: var(--red);
-      background: #fff0f0;
-      animation: fx-shake 0.5s ease;
-    }
-
-    .traffic-focus {
-      width: min(760px, 100%);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px;
-      border: 4px solid var(--yellow);
-      border-radius: 16px;
-      background: #fff7d8;
-      box-shadow: 0 6px 0 rgba(160, 123, 39, 0.28);
-    }
-
-    .traffic-focus.hint {
-      animation: clue-pulse 0.42s ease-in-out 3 alternate;
-    }
-
-    .traffic-focus-card {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      align-items: center;
-      gap: 9px;
-      min-height: 70px;
-      padding: 8px 11px;
-      border: 3px solid rgba(214, 169, 67, 0.55);
-      border-radius: 12px;
-      background: #fffdf2;
-    }
-
-    .traffic-focus-title {
-      grid-column: 1 / -1;
-      color: var(--card-muted);
-      font-size: 12px;
-      font-weight: 950;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .traffic-focus-icon {
-      color: var(--card-ink);
-      font-size: 34px;
-      line-height: 1;
-      text-shadow: none;
-    }
-
-    .traffic-focus-label {
-      color: var(--card-ink);
-      font-size: clamp(18px, 2.2vw, 28px);
-      font-weight: 950;
-      line-height: 1;
-      text-transform: uppercase;
-    }
 
     .dengue-board {
       position: relative;
@@ -6775,7 +6451,6 @@
     .energy-meter,
     .info-box,
     .robot-stat,
-    .traffic-action,
     .dengue-action,
     .dengue-scene,
     .option,
@@ -6808,7 +6483,6 @@
     .level-card,
     .arrow-card,
     .direction-button,
-    .traffic-action,
     .dengue-action,
     .option,
     .habitat,
@@ -6826,7 +6500,6 @@
       cursor: pointer;
     }
 
-    .traffic-actions.locked .traffic-action,
     .dengue-actions.locked .dengue-action,
     .legacy-locked .arrow-card,
     .answer-options.locked .option,
@@ -6888,10 +6561,6 @@
 
       .habitats {
         grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-      }
-
-      .traffic-focus {
-        grid-template-columns: 1fr;
       }
 
       .dengue-board {
@@ -7054,7 +6723,6 @@
       .level-card,
       .arrow-card,
       .direction-button,
-      .traffic-action,
       .dengue-action,
       .option,
       .habitat,
@@ -7075,7 +6743,6 @@
 
       .menu-card,
       .level-card,
-      .traffic-action,
       .dengue-action,
       .option,
       .habitat,
@@ -7344,7 +7011,6 @@
       }
 
       .robot-layout,
-      .traffic-board,
       .dengue-board,
       .math-board,
       .habitat-board,
@@ -8225,10 +7891,6 @@
         font-size: 27px;
       }
 
-      .traffic-board {
-        gap: 6px;
-      }
-
       .level-select {
         gap: 9px;
       }
@@ -8268,19 +7930,6 @@
         padding: 2px 5px;
         border-width: 2px;
         font-size: 13px;
-      }
-
-      .traffic-scene {
-        height: 160px;
-      }
-
-      .traffic-action {
-        min-height: 62px;
-        padding: 5px 9px;
-      }
-
-      .traffic-action-icon {
-        font-size: 31px;
       }
 
       .cup-study,
@@ -8826,7 +8475,6 @@
         { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
         { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos" },
         { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
-        { id: "logic", icon: "🚲", title: "Meu caminho seguro", subject: "Segurança no trânsito", ageRange: "6 a 10+ anos" },
         { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "loop", icon: "🔁", title: "Fábrica de Laços", subject: "Repetição e laços" },
         { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
@@ -8863,7 +8511,7 @@
           title: "Lógica e decisão",
           icon: "💡",
           description: "Calcular, avaliar situações e escolher a melhor decisão.",
-          missionIds: ["dengue", "logic", "math", "mathCup", "ttt"],
+          missionIds: ["dengue", "math", "mathCup", "ttt"],
         },
         {
           title: "Lógica de programação",
@@ -9135,154 +8783,6 @@
         const extraLinks = Math.min(16, base[4] + Math.floor(index / 12));
         return createRobotLevel(width, height, seed, holes, extraLinks, Math.floor(index / 13) + 1);
       });
-
-      const safeActions = {
-        stop: { id: "stop", icon: "🛑", label: "PARE" },
-        wait: { id: "wait", icon: "⏳", label: "ESPERE" },
-        go: { id: "go", icon: "➡️", label: "SIGA" },
-        look: { id: "look", icon: "👀", label: "OLHE" },
-        dismount: { id: "dismount", icon: "👣", label: "DESÇA" },
-        helmet: { id: "helmet", icon: "⛑️", label: "CAPACETE" },
-        slow: { id: "slow", icon: "🐢", label: "DEVAGAR" },
-        play: { id: "play", icon: "🛝", label: "BRINQUE" },
-        light: { id: "light", icon: "🔦", label: "ACENDA" },
-        pedal: { id: "pedal", icon: "🚲", label: "PEDALE" },
-      };
-
-      const logicClues = {
-        alert: { icon: "⚠️", label: "ALERTA" },
-        ball: { icon: "⚽", label: "BOLA" },
-        bikepath: { icon: "🚲", label: "CICLOVIA" },
-        car: { icon: "🚗", label: "CARRO" },
-        corner: { icon: "↔️", label: "ESQUINA" },
-        crosswalk: { icon: "🚸", label: "FAIXA" },
-        garage: { icon: "🚙", label: "SAÍDA" },
-        green: { icon: "🟢", label: "VERDE" },
-        helmet: { icon: "⛑️", label: "CAPACETE" },
-        night: { icon: "🌙", label: "NOITE" },
-        park: { icon: "🛝", label: "PARQUE" },
-        person: { icon: "🚶", label: "PEDESTRE" },
-        rain: { icon: "🌧️", label: "CHUVA" },
-        red: { icon: "🔴", label: "VERMELHO" },
-        school: { icon: "🏫", label: "ESCOLA" },
-        yellow: { icon: "🟡", label: "AMARELO" },
-      };
-
-      const logicBaseRounds = [
-        {
-          place: "Saindo de casa", placeIcon: "🏠", player: "🚲", exit: true,
-          actions: [safeActions.go, safeActions.look], correct: "look", clue: "garage",
-        },
-        {
-          place: "Na esquina", placeIcon: "🏘️", player: "🚲", extra: "↔️", clueTarget: "extra",
-          actions: [safeActions.look, safeActions.go], correct: "look", clue: "corner",
-        },
-        {
-          place: "No semáforo", placeIcon: "🏙️", player: "🚲", light: "red",
-          actions: [safeActions.go, safeActions.stop], correct: "stop", clue: "red",
-        },
-        {
-          place: "No semáforo", placeIcon: "🏙️", player: "🚲", light: "yellow",
-          actions: [safeActions.wait, safeActions.go], correct: "wait", clue: "yellow",
-        },
-        {
-          place: "No semáforo", placeIcon: "🏙️", player: "🚲", light: "green",
-          actions: [safeActions.stop, safeActions.go], correct: "go", clue: "green",
-        },
-        {
-          place: "Na faixa", placeIcon: "🚸", player: "🚲", crosswalk: true,
-          actions: [safeActions.dismount, safeActions.go], correct: "dismount", clue: "crosswalk",
-        },
-        {
-          place: "Na faixa", placeIcon: "🚸", player: "🚲", light: "green", pedestrian: true, crosswalk: true,
-          actions: [safeActions.go, safeActions.stop], correct: "stop", clue: "person",
-        },
-        {
-          place: "Perto do parque", placeIcon: "🛝", player: "🚲", extra: "⚽", clueTarget: "extra",
-          actions: [safeActions.go, safeActions.stop], correct: "stop", clue: "ball",
-        },
-        {
-          place: "Na garagem", placeIcon: "🏠", player: "🚲", exit: true,
-          actions: [safeActions.go, safeActions.wait], correct: "wait", clue: "garage",
-        },
-        {
-          place: "No parquinho", placeIcon: "🛝", player: "🧒", extra: "🛝", clueTarget: "extra",
-          actions: [safeActions.play, safeActions.pedal], correct: "play", clue: "park",
-        },
-        {
-          place: "Antes do passeio", placeIcon: "🏠", player: "🧒", extra: "⛑️", clueTarget: "extra",
-          actions: [safeActions.go, safeActions.helmet], correct: "helmet", clue: "helmet",
-        },
-        {
-          place: "Na escola", placeIcon: "🏫", player: "🚲", crosswalk: true, extra: "🧑‍🏫", clueTarget: "place",
-          actions: [safeActions.wait, safeActions.go], correct: "wait", clue: "school",
-        },
-        {
-          place: "Rua molhada", placeIcon: "🌧️", player: "🚲", extra: "🌧️", clueTarget: "extra",
-          actions: [safeActions.go, safeActions.slow], correct: "slow", clue: "rain",
-        },
-        {
-          place: "Anoiteceu", placeIcon: "🌙", player: "🚲", extra: "🌙", clueTarget: "extra", night: true,
-          actions: [safeActions.light, safeActions.go], correct: "light", clue: "night",
-        },
-        {
-          place: "Na ciclovia", placeIcon: "🚲", player: "🚲", bikepath: true,
-          actions: [safeActions.play, safeActions.pedal], correct: "pedal", clue: "bikepath",
-        },
-        {
-          place: "Carro estacionado", placeIcon: "🚗", player: "🚲", extra: "🚗", clueTarget: "extra",
-          actions: [safeActions.slow, safeActions.go], correct: "slow", clue: "car",
-        },
-        {
-          place: "Rua com obra", placeIcon: "🚧", player: "🚲", extra: "🚧", clueTarget: "extra",
-          actions: [safeActions.go, safeActions.slow], correct: "slow", clue: "alert",
-        },
-        {
-          place: "Bola na rua", placeIcon: "⚽", player: "🚲", extra: "⚽", clueTarget: "extra",
-          actions: [safeActions.play, safeActions.stop], correct: "stop", clue: "ball",
-        },
-        {
-          place: "Saída de veículos", placeIcon: "⚠️", player: "🚲", exit: true,
-          actions: [safeActions.wait, safeActions.go], correct: "wait", clue: "alert",
-        },
-        {
-          place: "Chegando ao parque", placeIcon: "🛝", player: "🚲", crosswalk: true,
-          actions: [safeActions.go, safeActions.dismount], correct: "dismount", clue: "crosswalk",
-        },
-        {
-          place: "Calçada cheia", placeIcon: "🏘️", player: "🚲", extra: "🚶", clueTarget: "extra",
-          actions: [safeActions.go, safeActions.dismount], correct: "dismount", clue: "person",
-        },
-        {
-          place: "Pista molhada", placeIcon: "🌧️", player: "🚲", extra: "💧", clueTarget: "extra",
-          actions: [safeActions.slow, safeActions.pedal], correct: "slow", clue: "rain",
-        },
-        {
-          place: "Portão da escola", placeIcon: "🏫", player: "🚲", exit: true,
-          actions: [safeActions.go, safeActions.wait], correct: "wait", clue: "alert",
-        },
-        {
-          place: "Ciclovia livre", placeIcon: "🚲", player: "🚲", bikepath: true,
-          actions: [safeActions.pedal, safeActions.stop], correct: "pedal", clue: "bikepath",
-        },
-        {
-          place: "Antes de sair", placeIcon: "🏠", player: "🧒", extra: "⛑️", clueTarget: "extra",
-          actions: [safeActions.helmet, safeActions.go], correct: "helmet", clue: "helmet",
-        },
-      ];
-
-      const logicRouteLabels = ["", "Caminho 2"];
-
-      function createLogicRound(index) {
-        const base = cloneValue(logicBaseRounds[index % logicBaseRounds.length]);
-        const routeIndex = Math.floor(index / logicBaseRounds.length);
-        const routeLabel = logicRouteLabels[routeIndex] ?? `Caminho ${routeIndex + 1}`;
-        base.routeLabel = routeLabel;
-        base.actions = rotateList(base.actions, index);
-        return base;
-      }
-
-      const logicRounds = Array.from({ length: 50 }, (_, index) => createLogicRound(index));
 
       const dengueOptionCount = 4;
       const dengueMosquitoSteps = 8;
@@ -11567,31 +11067,31 @@ const brStatesList = [
             { word: "ROBO", theme: "tech" }, { word: "DADO", theme: "tech" }, { word: "REDE", theme: "tech" },
             { word: "TELA", theme: "tech" }, { word: "CHIP", theme: "tech" },
             { word: "PARE", theme: "traffic" }, { word: "FAIXA", theme: "traffic" }, { word: "MOTO", theme: "traffic" },
-            { word: "PISTA", theme: "traffic" },
-            { word: "SOMA", theme: "math" }, { word: "ZERO", theme: "math" }, { word: "PAR", theme: "math" }, { word: "CONTA", theme: "math" },
-            { word: "PAIS", theme: "flags" }, { word: "AZUL", theme: "flags" }, { word: "VERDE", theme: "flags" }, { word: "COR", theme: "flags" },
-            { word: "SONO", theme: "health" }, { word: "SUCO", theme: "health" }, { word: "OSSO", theme: "health" }, { word: "DENTE", theme: "health" },
-            { word: "LAPIS", theme: "arte" }, { word: "TINTA", theme: "arte" },
-            { word: "MAPA", theme: "geografia" }, { word: "MONTE", theme: "geografia" }, { word: "RIO", theme: "geografia" }, { word: "PONTE", theme: "geografia" },
-            { word: "REI", theme: "historia" }, { word: "INDIO", theme: "historia" },
-            { word: "LIVRO", theme: "portugues" }, { word: "LETRA", theme: "portugues" }, { word: "RIMA", theme: "portugues" },
+            { word: "PISTA", theme: "traffic" }, { word: "VIA", theme: "traffic" },
+            { word: "SOMA", theme: "math" }, { word: "ZERO", theme: "math" }, { word: "PAR", theme: "math" }, { word: "CONTA", theme: "math" }, { word: "MAIS", theme: "math" },
+            { word: "PAIS", theme: "flags" }, { word: "AZUL", theme: "flags" }, { word: "VERDE", theme: "flags" }, { word: "COR", theme: "flags" }, { word: "ROXO", theme: "flags" },
+            { word: "SONO", theme: "health" }, { word: "SUCO", theme: "health" }, { word: "OSSO", theme: "health" }, { word: "DENTE", theme: "health" }, { word: "BANHO", theme: "health" },
+            { word: "LAPIS", theme: "arte" }, { word: "TINTA", theme: "arte" }, { word: "ARTE", theme: "arte" }, { word: "CANTO", theme: "arte" }, { word: "DANCA", theme: "arte" },
+            { word: "MAPA", theme: "geografia" }, { word: "MONTE", theme: "geografia" }, { word: "RIO", theme: "geografia" }, { word: "PONTE", theme: "geografia" }, { word: "SERRA", theme: "geografia" },
+            { word: "REI", theme: "historia" }, { word: "INDIO", theme: "historia" }, { word: "ARMA", theme: "historia" }, { word: "OURO", theme: "historia" }, { word: "FORTE", theme: "historia" },
+            { word: "LIVRO", theme: "portugues" }, { word: "LETRA", theme: "portugues" }, { word: "RIMA", theme: "portugues" }, { word: "VERSO", theme: "portugues" }, { word: "TEXTO", theme: "portugues" },
             { word: "RODA", theme: "tech" },
           ],
         },
         {
           title: "Pistas espertas", icon: "🦾", age: "8-9 anos", theme: "Palavras médias", meta: "5 a 7 letras",
           words: [
-            { word: "CHUVA", theme: "nature" }, { word: "SEMENTE", theme: "nature" }, { word: "PLANETA", theme: "nature" }, { word: "NUVEM", theme: "nature" },
-            { word: "COELHO", theme: "animals" }, { word: "JACARE", theme: "animals" }, { word: "BALEIA", theme: "animals" }, { word: "TUCANO", theme: "animals" },
-            { word: "TECLADO", theme: "tech" }, { word: "SENSOR", theme: "tech" }, { word: "PIXEL", theme: "tech" }, { word: "BATERIA", theme: "tech" },
-            { word: "PLACA", theme: "traffic" }, { word: "FAROL", theme: "traffic" }, { word: "CALCADA", theme: "traffic" },
+            { word: "CHUVA", theme: "nature" }, { word: "SEMENTE", theme: "nature" }, { word: "PLANETA", theme: "nature" }, { word: "NUVEM", theme: "nature" }, { word: "FLORES", theme: "nature" },
+            { word: "COELHO", theme: "animals" }, { word: "JACARE", theme: "animals" }, { word: "BALEIA", theme: "animals" }, { word: "TUCANO", theme: "animals" }, { word: "GIRAFA", theme: "animals" },
+            { word: "TECLADO", theme: "tech" }, { word: "SENSOR", theme: "tech" }, { word: "PIXEL", theme: "tech" }, { word: "BATERIA", theme: "tech" }, { word: "MOUSE", theme: "tech" },
+            { word: "PLACA", theme: "traffic" }, { word: "FAROL", theme: "traffic" }, { word: "CALCADA", theme: "traffic" }, { word: "TUNEL", theme: "traffic" }, { word: "GARAGEM", theme: "traffic" },
             { word: "DOBRO", theme: "math" }, { word: "METADE", theme: "math" }, { word: "MEDIDA", theme: "math" }, { word: "NUMERO", theme: "math" }, { word: "DIVIDIR", theme: "math" },
-            { word: "SIMBOLO", theme: "flags" }, { word: "NACAO", theme: "flags" }, { word: "CORES", theme: "flags" },
+            { word: "SIMBOLO", theme: "flags" }, { word: "NACAO", theme: "flags" }, { word: "CORES", theme: "flags" }, { word: "ESCUDO", theme: "flags" }, { word: "LISTRA", theme: "flags" },
             { word: "VACINA", theme: "health" }, { word: "DENGUE", theme: "health" }, { word: "REMEDIO", theme: "health" }, { word: "HIGIENE", theme: "health" }, { word: "MUSCULO", theme: "health" }, { word: "PULMAO", theme: "health" },
-            { word: "SILABA", theme: "portugues" }, { word: "VERBO", theme: "portugues" }, { word: "FRASE", theme: "portugues" },
-            { word: "COLONIA", theme: "historia" }, { word: "CARAVELA", theme: "historia" },
-            { word: "PLANALTO", theme: "geografia" }, { word: "OCEANO", theme: "geografia" }, { word: "CLIMA", theme: "geografia" }, { word: "BUSSOLA", theme: "geografia" },
-            { word: "PINTURA", theme: "arte" }, { word: "MUSICA", theme: "arte" }, { word: "TEATRO", theme: "arte" },
+            { word: "SILABA", theme: "portugues" }, { word: "VERBO", theme: "portugues" }, { word: "FRASE", theme: "portugues" }, { word: "POESIA", theme: "portugues" }, { word: "LEITURA", theme: "portugues" },
+            { word: "COLONIA", theme: "historia" }, { word: "COLONO", theme: "historia" }, { word: "TRIBOS", theme: "historia" }, { word: "ESCRAVO", theme: "historia" },
+            { word: "OCEANO", theme: "geografia" }, { word: "CLIMA", theme: "geografia" }, { word: "BUSSOLA", theme: "geografia" }, { word: "REGIAO", theme: "geografia" }, { word: "CIDADE", theme: "geografia" },
+            { word: "PINTURA", theme: "arte" }, { word: "MUSICA", theme: "arte" }, { word: "TEATRO", theme: "arte" }, { word: "DESENHO", theme: "arte" }, { word: "RETRATO", theme: "arte" },
             { word: "FRACAO", theme: "math" },
           ],
         },
@@ -11599,16 +11099,16 @@ const brStatesList = [
           title: "Grandes descobertas", icon: "🦿", age: "10-11 anos", theme: "Palavras maiores", meta: "6 a 9 letras",
           words: [
             { word: "FLORESTA", theme: "nature" }, { word: "NASCENTE", theme: "nature" }, { word: "POLINIZAR", theme: "nature" },
-            { word: "GOLFINHO", theme: "animals" }, { word: "TARTARUGA", theme: "animals" }, { word: "BORBOLETA", theme: "animals" }, { word: "CACHORRO", theme: "animals" },
-            { word: "CIRCUITO", theme: "tech" }, { word: "ALGORITMO", theme: "tech" }, { word: "MONITOR", theme: "tech" }, { word: "SOFTWARE", theme: "tech" },
-            { word: "SEMAFORO", theme: "traffic" }, { word: "CICLISTA", theme: "traffic" }, { word: "CAPACETE", theme: "traffic" }, { word: "PEDESTRE", theme: "traffic" },
-            { word: "PERIMETRO", theme: "math" }, { word: "TRIANGULO", theme: "math" }, { word: "MULTIPLO", theme: "math" }, { word: "DIVISOR", theme: "math" },
-            { word: "BANDEIRA", theme: "flags" }, { word: "FRONTEIRA", theme: "flags" },
+            { word: "GOLFINHO", theme: "animals" }, { word: "TARTARUGA", theme: "animals" }, { word: "BORBOLETA", theme: "animals" }, { word: "CACHORRO", theme: "animals" }, { word: "MAMIFERO", theme: "animals" },
+            { word: "CIRCUITO", theme: "tech" }, { word: "ALGORITMO", theme: "tech" }, { word: "MONITOR", theme: "tech" }, { word: "SOFTWARE", theme: "tech" }, { word: "INTERNET", theme: "tech" },
+            { word: "SEMAFORO", theme: "traffic" }, { word: "CICLISTA", theme: "traffic" }, { word: "CAPACETE", theme: "traffic" }, { word: "PEDESTRE", theme: "traffic" }, { word: "MOTORISTA", theme: "traffic" },
+            { word: "PERIMETRO", theme: "math" }, { word: "TRIANGULO", theme: "math" }, { word: "MULTIPLO", theme: "math" }, { word: "DIVISOR", theme: "math" }, { word: "QUADRADO", theme: "math" },
+            { word: "BANDEIRA", theme: "flags" }, { word: "FRONTEIRA", theme: "flags" }, { word: "EMBLEMA", theme: "flags" }, { word: "NACIONAL", theme: "flags" }, { word: "PATRIOTA", theme: "flags" },
             { word: "EXERCICIO", theme: "health" }, { word: "HOSPITAL", theme: "health" }, { word: "CONTAGIO", theme: "health" }, { word: "IMUNIDADE", theme: "health" }, { word: "ESQUELETO", theme: "health" }, { word: "VITAMINA", theme: "health" }, { word: "NUTRIENTE", theme: "health" },
-            { word: "ADJETIVO", theme: "portugues" }, { word: "PARAGRAFO", theme: "portugues" },
-            { word: "PIRAMIDE", theme: "historia" }, { word: "IMPERIO", theme: "historia" },
-            { word: "RELEVO", theme: "geografia" }, { word: "VULCAO", theme: "geografia" }, { word: "PLANICIE", theme: "geografia" }, { word: "ANTARTIDA", theme: "geografia" },
-            { word: "ESCULTURA", theme: "arte" }, { word: "MELODIA", theme: "arte" },
+            { word: "ADJETIVO", theme: "portugues" }, { word: "PARAGRAFO", theme: "portugues" }, { word: "GRAMATICA", theme: "portugues" }, { word: "NARRATIVA", theme: "portugues" }, { word: "SINONIMO", theme: "portugues" },
+            { word: "PIRAMIDE", theme: "historia" }, { word: "IMPERIO", theme: "historia" }, { word: "REVOLTA", theme: "historia" }, { word: "MONARCA", theme: "historia" }, { word: "CARAVELA", theme: "historia" },
+            { word: "RELEVO", theme: "geografia" }, { word: "VULCAO", theme: "geografia" }, { word: "PLANICIE", theme: "geografia" }, { word: "ANTARTIDA", theme: "geografia" }, { word: "PLANALTO", theme: "geografia" }, { word: "VEGETACAO", theme: "geografia" },
+            { word: "ESCULTURA", theme: "arte" }, { word: "MELODIA", theme: "arte" }, { word: "ESCULTOR", theme: "arte" }, { word: "ARTESAO", theme: "arte" }, { word: "PAISAGEM", theme: "arte" },
             { word: "CELULA", theme: "nature" }, { word: "ENERGIA", theme: "nature" },
           ],
         },
@@ -11616,16 +11116,16 @@ const brStatesList = [
           title: "Vocabulário avançado", icon: "📡", age: "12-13 anos", theme: "Palavras longas", meta: "8 a 11 letras",
           words: [
             { word: "ECOSSISTEMA", theme: "nature" }, { word: "RECICLAGEM", theme: "nature" }, { word: "ATMOSFERA", theme: "nature" }, { word: "OXIGENIO", theme: "nature" },
-            { word: "MIGRATORIO", theme: "animals" }, { word: "CARNIVORO", theme: "animals" }, { word: "HERBIVORO", theme: "animals" }, { word: "PREDADOR", theme: "animals" },
+            { word: "MIGRATORIO", theme: "animals" }, { word: "CARNIVORO", theme: "animals" }, { word: "HERBIVORO", theme: "animals" }, { word: "PREDADOR", theme: "animals" }, { word: "ANFIBIOS", theme: "animals" },
             { word: "PROGRAMACAO", theme: "tech" }, { word: "COMPILADOR", theme: "tech" }, { word: "DEPURACAO", theme: "tech" }, { word: "INTERFACE", theme: "tech" }, { word: "VARIAVEL", theme: "tech" },
-            { word: "ROTATORIA", theme: "traffic" }, { word: "SINALIZACAO", theme: "traffic" }, { word: "COMBUSTIVEL", theme: "traffic" },
-            { word: "EQUIVALENTE", theme: "math" }, { word: "DENOMINADOR", theme: "math" }, { word: "NUMERADOR", theme: "math" },
-            { word: "HEMISFERIO", theme: "flags" },
+            { word: "ROTATORIA", theme: "traffic" }, { word: "SINALIZACAO", theme: "traffic" }, { word: "COMBUSTIVEL", theme: "traffic" }, { word: "VELOCIDADE", theme: "traffic" }, { word: "MOTOCICLETA", theme: "traffic" },
+            { word: "EQUIVALENTE", theme: "math" }, { word: "DENOMINADOR", theme: "math" }, { word: "NUMERADOR", theme: "math" }, { word: "GEOMETRIA", theme: "math" },
+            { word: "HEMISFERIO", theme: "flags" }, { word: "REPUBLICA", theme: "flags" }, { word: "TERRITORIO", theme: "flags" }, { word: "SOBERANIA", theme: "flags" }, { word: "CONTINENTE", theme: "flags" },
             { word: "VACINACAO", theme: "health" }, { word: "PREVENCAO", theme: "health" }, { word: "TRANSMISSAO", theme: "health" }, { word: "SANEAMENTO", theme: "health" }, { word: "RESPIRACAO", theme: "health" }, { word: "METABOLISMO", theme: "health" },
-            { word: "CONJUNCAO", theme: "portugues" }, { word: "PONTUACAO", theme: "portugues" },
-            { word: "ESCRAVIDAO", theme: "historia" }, { word: "MONARQUIA", theme: "historia" },
-            { word: "URBANIZACAO", theme: "geografia" }, { word: "LATITUDE", theme: "geografia" }, { word: "LONGITUDE", theme: "geografia" }, { word: "ARQUIPELAGO", theme: "geografia" },
-            { word: "MODERNISMO", theme: "arte" },
+            { word: "CONJUNCAO", theme: "portugues" }, { word: "PONTUACAO", theme: "portugues" }, { word: "SUBSTANTIVO", theme: "portugues" }, { word: "PREPOSICAO", theme: "portugues" }, { word: "LINGUAGEM", theme: "portugues" },
+            { word: "ESCRAVIDAO", theme: "historia" }, { word: "MONARQUIA", theme: "historia" }, { word: "ABSOLUTISMO", theme: "historia" }, { word: "COLONIZADOR", theme: "historia" }, { word: "BANDEIRANTE", theme: "historia" },
+            { word: "URBANIZACAO", theme: "geografia" }, { word: "LATITUDE", theme: "geografia" }, { word: "LONGITUDE", theme: "geografia" }, { word: "ARQUIPELAGO", theme: "geografia" }, { word: "HIDROGRAFIA", theme: "geografia" },
+            { word: "MODERNISMO", theme: "arte" }, { word: "RENASCENCA", theme: "arte" }, { word: "ARQUITETURA", theme: "arte" }, { word: "FOTOGRAFIA", theme: "arte" }, { word: "CARICATURA", theme: "arte" },
             { word: "PORCENTAGEM", theme: "math" },
             { word: "MOLECULA", theme: "nature" },
           ],
@@ -11634,16 +11134,16 @@ const brStatesList = [
           title: "Mestre decifrador", icon: "🎓", age: "14 anos", theme: "Vocabulário completo", meta: "9 ou mais letras",
           words: [
             { word: "BIODIVERSIDADE", theme: "nature" }, { word: "FOTOSSINTESE", theme: "nature" }, { word: "DESMATAMENTO", theme: "nature" }, { word: "SUSTENTABILIDADE", theme: "nature" }, { word: "AQUECIMENTO", theme: "nature" },
-            { word: "INVERTEBRADO", theme: "animals" }, { word: "VERTEBRADO", theme: "animals" }, { word: "METAMORFOSE", theme: "animals" },
+            { word: "INVERTEBRADO", theme: "animals" }, { word: "VERTEBRADO", theme: "animals" }, { word: "METAMORFOSE", theme: "animals" }, { word: "REPRODUCAO", theme: "animals" }, { word: "CAMUFLAGEM", theme: "animals" },
             { word: "INTELIGENCIA", theme: "tech" }, { word: "PROGRAMADOR", theme: "tech" }, { word: "CIBERSEGURANCA", theme: "tech" }, { word: "CRIPTOGRAFIA", theme: "tech" }, { word: "ALGORITMICO", theme: "tech" },
-            { word: "ENGARRAFAMENTO", theme: "traffic" }, { word: "FISCALIZACAO", theme: "traffic" }, { word: "INFRAESTRUTURA", theme: "traffic" },
-            { word: "PROBABILIDADE", theme: "math" }, { word: "TRIGONOMETRIA", theme: "math" }, { word: "EXPONENCIAL", theme: "math" },
-            { word: "INDEPENDENCIA", theme: "flags" }, { word: "NACIONALIDADE", theme: "flags" }, { word: "COLONIZACAO", theme: "flags" },
-            { word: "EPIDEMIOLOGIA", theme: "health" }, { word: "IMUNIZACAO", theme: "health" }, { word: "CONTAMINACAO", theme: "health" },
-            { word: "MORFOLOGIA", theme: "portugues" }, { word: "INTERPRETACAO", theme: "portugues" },
-            { word: "INCONFIDENCIA", theme: "historia" }, { word: "REVOLUCAO", theme: "historia" }, { word: "COLONIALISMO", theme: "historia" },
-            { word: "GLOBALIZACAO", theme: "geografia" }, { word: "DESERTIFICACAO", theme: "geografia" },
-            { word: "EXPRESSIONISMO", theme: "arte" },
+            { word: "ENGARRAFAMENTO", theme: "traffic" }, { word: "FISCALIZACAO", theme: "traffic" }, { word: "INFRAESTRUTURA", theme: "traffic" }, { word: "TRANSPORTE", theme: "traffic" }, { word: "PAVIMENTACAO", theme: "traffic" },
+            { word: "PROBABILIDADE", theme: "math" }, { word: "TRIGONOMETRIA", theme: "math" }, { word: "EXPONENCIAL", theme: "math" }, { word: "ESTATISTICA", theme: "math" },
+            { word: "INDEPENDENCIA", theme: "flags" }, { word: "NACIONALIDADE", theme: "flags" }, { word: "COLONIZACAO", theme: "flags" }, { word: "DIPLOMACIA", theme: "flags" }, { word: "GEOPOLITICA", theme: "flags" },
+            { word: "EPIDEMIOLOGIA", theme: "health" }, { word: "IMUNIZACAO", theme: "health" }, { word: "CONTAMINACAO", theme: "health" }, { word: "FISIOTERAPIA", theme: "health" }, { word: "NUTRICIONISTA", theme: "health" },
+            { word: "MORFOLOGIA", theme: "portugues" }, { word: "INTERPRETACAO", theme: "portugues" }, { word: "SEMANTICA", theme: "portugues" }, { word: "FONOLOGIA", theme: "portugues" }, { word: "LITERATURA", theme: "portugues" },
+            { word: "INCONFIDENCIA", theme: "historia" }, { word: "REVOLUCAO", theme: "historia" }, { word: "COLONIALISMO", theme: "historia" }, { word: "IMPERIALISMO", theme: "historia" }, { word: "INDUSTRIALIZACAO", theme: "historia" },
+            { word: "GLOBALIZACAO", theme: "geografia" }, { word: "DESERTIFICACAO", theme: "geografia" }, { word: "DEMOGRAFIA", theme: "geografia" }, { word: "CARTOGRAFIA", theme: "geografia" }, { word: "BIOGEOGRAFIA", theme: "geografia" },
+            { word: "EXPRESSIONISMO", theme: "arte" }, { word: "SURREALISMO", theme: "arte" }, { word: "CONTEMPORANEO", theme: "arte" }, { word: "NEOCLASSICISMO", theme: "arte" }, { word: "IMPRESSIONISMO", theme: "arte" },
             { word: "ELETRICIDADE", theme: "nature" }, { word: "RADIOATIVIDADE", theme: "nature" },
             { word: "POLINOMIO", theme: "math" },
             { word: "BIOTECNOLOGIA", theme: "tech" }, { word: "NANOTECNOLOGIA", theme: "tech" },
@@ -12079,7 +11579,7 @@ const brStatesList = [
       const condLevelPlans = [
         {
           title: "Primeira regra", icon: "🐶", age: "6-7 anos", theme: "Uma condição", meta: "SE...",
-          roundCount: 33,
+          roundCount: 36,
           scenarios: [
             {
               ruleText: "🐶 Só cachorros entram no parquinho de cães.", icon: "🐶",
@@ -12246,11 +11746,26 @@ const brStatesList = [
               ],
               evaluate: (input) => (input.id === "coat" ? "yes" : "no"),
             },
+            {
+              ruleText: "🚸 Só na faixa de pedestres a bike desce e vai a pé.", icon: "🚸",
+              inputs: [
+                { id: "crosswalk", icon: "🚸", label: "Faixa de pedestres" },
+                { id: "lane", icon: "🛣️", label: "Pista normal" },
+                { id: "redlight", icon: "🔴", label: "Sinal vermelho" },
+                { id: "rain", icon: "🌧️", label: "Chuva" },
+                { id: "night", icon: "🌙", label: "Noite" },
+              ],
+              outcomes: [
+                { id: "yes", icon: "👣", label: "Desce e empurra a bike" },
+                { id: "no", icon: "🚲", label: "Continua pedalando" },
+              ],
+              evaluate: (input) => (input.id === "crosswalk" ? "yes" : "no"),
+            },
           ],
         },
         {
           title: "Se e senão", icon: "🚲", age: "8-9 anos", theme: "Duas saídas", meta: "SE / SENÃO",
-          roundCount: 30,
+          roundCount: 33,
           scenarios: [
             {
               ruleText: "🚲 Bicicleta não paga pedágio. Os outros veículos pagam.", icon: "🚲",
@@ -12402,11 +11917,26 @@ const brStatesList = [
               ],
               evaluate: (input) => (["milk", "cheese"].includes(input.id) ? "fridge" : "cupboard"),
             },
+            {
+              ruleText: "🐢 Em situações de risco, a bike pedala devagar. Nas outras, pedala normal.", icon: "🐢",
+              inputs: [
+                { id: "rain", icon: "🌧️", label: "Chuva" },
+                { id: "construction", icon: "🚧", label: "Rua com obra" },
+                { id: "parkedcar", icon: "🚗", label: "Carro estacionado" },
+                { id: "clear", icon: "✅", label: "Rua livre" },
+                { id: "bikepath", icon: "🚲", label: "Ciclovia livre" },
+              ],
+              outcomes: [
+                { id: "slow", icon: "🐢", label: "Pedala devagar" },
+                { id: "normal", icon: "🚲", label: "Pedala normal" },
+              ],
+              evaluate: (input) => (["rain", "construction", "parkedcar"].includes(input.id) ? "slow" : "normal"),
+            },
           ],
         },
         {
           title: "Vários casos", icon: "🚦", age: "10-11 anos", theme: "Vários caminhos", meta: "SE / SENÃO SE",
-          roundCount: 28,
+          roundCount: 32,
           scenarios: [
             {
               ruleText: "🚑 Ambulância passa livre. 🚌 Ônibus paga meia. 🚗 Carro paga inteira. 🚲 Bicicleta não paga.", icon: "🚦",
@@ -12520,11 +12050,25 @@ const brStatesList = [
               ],
               evaluate: (input) => ({ adventure: "green", science: "blue", mystery: "red", history: "orange" }[input.id]),
             },
+            {
+              ruleText: "🔴 Sinal vermelho → pare. 🟡 Sinal amarelo → espere. 🟢 Sinal verde → siga.", icon: "🚦",
+              inputs: [
+                { id: "red", icon: "🔴", label: "Sinal vermelho" },
+                { id: "yellow", icon: "🟡", label: "Sinal amarelo" },
+                { id: "green", icon: "🟢", label: "Sinal verde" },
+              ],
+              outcomes: [
+                { id: "stop", icon: "🛑", label: "Pare" },
+                { id: "wait", icon: "⏳", label: "Espere" },
+                { id: "go", icon: "➡️", label: "Siga" },
+              ],
+              evaluate: (input) => ({ red: "stop", yellow: "wait", green: "go" }[input.id]),
+            },
           ],
         },
         {
           title: "Duas condições (E)", icon: "🟢", age: "12-13 anos", theme: "Condição composta", meta: "SE ... E ...",
-          roundCount: 24,
+          roundCount: 28,
           scenarios: [
             {
               ruleText: "SE é 🚗 carro E leva mais de 2 passageiros → pista rápida. Senão, pista normal.", icon: "🟢",
@@ -12634,11 +12178,29 @@ const brStatesList = [
                 };
               },
             },
+            {
+              ruleText: "SE está na ciclovia E não tem pedestre nela → pode pedalar rápido. Senão, pedala devagar.", icon: "🚲",
+              outcomes: [
+                { id: "fast", icon: "💨", label: "Pedala rápido" },
+                { id: "slow", icon: "🐢", label: "Pedala devagar" },
+              ],
+              evaluate: (input) => (input.onPath && !input.pedestrian ? "fast" : "slow"),
+              generateInput: (random) => {
+                const onPath = random() < 0.5;
+                const pedestrian = random() < 0.5;
+                return {
+                  onPath,
+                  pedestrian,
+                  visual: `${onPath ? "🚲" : "🛣️"}${pedestrian ? " 🚶" : ""}`,
+                  label: `${onPath ? "Na ciclovia" : "Fora da ciclovia"}${pedestrian ? ", com pedestre" : ", sem pedestre"}`,
+                };
+              },
+            },
           ],
         },
         {
           title: "Duas condições (OU)", icon: "⚠️", age: "14 anos", theme: "Condição composta", meta: "SE ... OU ...",
-          roundCount: 24,
+          roundCount: 28,
           scenarios: [
             {
               ruleText: "SE a velocidade passa de 80 OU é feriado → aviso. Senão, segue normal.", icon: "⚠️",
@@ -12745,6 +12307,24 @@ const brStatesList = [
                   withAdult,
                   visual: `📏 ${height}cm${withAdult ? " 🧑‍🤝‍🧑" : ""}`,
                   label: `${height}cm${withAdult ? ", com adulto" : ", sozinho"}`,
+                };
+              },
+            },
+            {
+              ruleText: "SE está escuro OU está chovendo → liga a luz e vai com cuidado extra. Senão, pedala normal.", icon: "🌙",
+              outcomes: [
+                { id: "careful", icon: "🔦", label: "Liga a luz, cuidado extra" },
+                { id: "normal", icon: "🚲", label: "Pedala normal" },
+              ],
+              evaluate: (input) => (input.night || input.rain ? "careful" : "normal"),
+              generateInput: (random) => {
+                const night = random() < 0.4;
+                const rain = random() < 0.4;
+                return {
+                  night,
+                  rain,
+                  visual: `${night ? "🌙" : "☀️"}${rain ? " 🌧️" : ""}`,
+                  label: `${night ? "Escuro" : "Dia claro"}${rain ? ", chovendo" : ", sem chuva"}`,
                 };
               },
             },
@@ -13338,10 +12918,6 @@ const brStatesList = [
         robotStunned: false,
         robotJustCollected: null,
         robotBump: false,
-        logicHint: false,
-        logicWrong: null,
-        logicCorrectId: null,
-        logicAttempt: 0,
         dengueWrong: null,
         dengueAttempt: 0,
         dengueFinished: false,
@@ -13511,7 +13087,7 @@ const brStatesList = [
         legacyCompleted: {},
       };
 
-      const START_UNSELECTED_MODES = new Set(["arrows", "logic", "dengue", "recycle", "vertebrate", "cup"]);
+      const START_UNSELECTED_MODES = new Set(["arrows", "dengue", "recycle", "vertebrate", "cup"]);
 
       function initialSelectionForMode(mode) {
         return START_UNSELECTED_MODES.has(mode) ? -1 : 0;
@@ -14147,7 +13723,6 @@ const brStatesList = [
       const roundPools = {
         arrows: legacyCommandRounds.map(cloneValue),
         robot: robotLevels.map(cloneValue),
-        logic: logicRounds.map(cloneValue),
         dengue: dengueRounds.map(cloneValue),
         recycle: recycleRounds.map(cloneValue),
         vertebrate: vertebrateRounds.map(cloneValue),
@@ -14281,7 +13856,6 @@ const brStatesList = [
         const seedForMode = seedFromParts(seed, mode);
         if (mode === "arrows") resetRoundPool(legacyCommandRounds, roundPools.arrows, seedForMode, { bandSize: 8 });
         if (mode === "robot") resetRoundPool(robotLevels, roundPools.robot, seedForMode, { bandSize: 8 });
-        if (mode === "logic") resetRoundPool(logicRounds, roundPools.logic, seedForMode, { bandSize: 10 });
         if (mode === "dengue") resetRoundPool(dengueRounds, roundPools.dengue, seedForMode, { bandSize: 8 });
         if (mode === "recycle") resetRoundPool(recycleRounds, roundPools.recycle, seedForMode, { bandSize: 8 });
         if (mode === "vertebrate") resetRoundPool(vertebrateRounds, roundPools.vertebrate, seedForMode, { bandSize: 8 });
@@ -14443,15 +14017,6 @@ const brStatesList = [
           seed: seedFromParts("legacy", state.missionSeed, state.mode, state.legacyGrade, state.legacyActivity, state.round),
           attempt: state.legacyAttempt,
           isCorrect: (option) => option === correctAnswer,
-        });
-      }
-
-      function logicOptions() {
-        const round = logicRounds[state.round];
-        return orderAnswerOptions(round.actions, {
-          seed: seedFromParts("logic", state.missionSeed, state.round, round.correct),
-          attempt: state.logicAttempt,
-          isCorrect: (action) => action.id === round.correct,
         });
       }
 
@@ -15274,56 +14839,6 @@ const brStatesList = [
           return;
         }
         render();
-      }
-
-      function renderLogic() {
-        const round = logicRounds[state.round];
-        const options = logicOptions();
-        const clue = logicClues[round.clue] || { icon: round.placeIcon, label: "PISTA" };
-        const clueClass = (clue) => state.logicHint && round.clue === clue ? " hint" : "";
-        const routeText = round.routeLabel ? `${round.routeLabel}: ${round.place}` : round.place;
-        setHeader("Meu caminho seguro", "Veja a pista. Escolha a ação.");
-        setCounters("Fase", `${state.round + 1} / ${logicRounds.length}`, "Escolha", "← →");
-        status.textContent = "Observe a situação e a pista.";
-        content.innerHTML = `<div class="traffic-board">
-          <div class="traffic-scene ${round.night ? "night" : ""} ${state.logicCorrectId !== null ? "fx-flash" : ""}">
-            <div class="traffic-sky"></div>
-            <div class="traffic-ground"></div>
-            <div class="traffic-road"></div>
-            ${round.bikepath ? `<div class="bike-lane scene-clue${clueClass("bikepath")}"></div>` : ""}
-            <div class="scene-place scene-clue${round.clueTarget === "place" ? clueClass(round.clue) : ""}">${round.placeIcon}</div>
-            <div class="scene-vehicle">${round.player}</div>
-            ${round.crosswalk ? `<div class="crosswalk scene-clue${clueClass("crosswalk")}"></div>` : ""}
-            ${round.pedestrian ? `<div class="pedestrian scene-clue${clueClass("person")}">🚶</div>` : ""}
-            ${round.exit ? `<div class="garage scene-clue${clueClass("garage")}">🏠</div><div class="exiting-vehicle">🚙</div><div class="exit-alert scene-clue${clueClass("alert")}">⚠️</div>` : ""}
-            ${round.extra ? `<div class="scene-extra scene-clue${round.clueTarget === "extra" ? clueClass(round.clue) : ""}">${round.extra}</div>` : ""}
-            ${round.light ? `<div class="light-post"></div>
-              <div class="scene-light scene-clue${clueClass(round.light)}">
-                <div class="light-dot red ${round.light === "red" ? "on" : ""}"></div>
-                <div class="light-dot yellow ${round.light === "yellow" ? "on" : ""}"></div>
-                <div class="light-dot green ${round.light === "green" ? "on" : ""}"></div>
-              </div>` : ""}
-          </div>
-          <div class="traffic-focus ${state.logicHint ? "hint" : ""}">
-            <div class="traffic-focus-card">
-              <div class="traffic-focus-title">Situação</div>
-              <div class="traffic-focus-icon">${round.placeIcon}</div>
-              <div class="traffic-focus-label" data-fit-text data-fit-min="12">${routeText}</div>
-            </div>
-            <div class="traffic-focus-card">
-              <div class="traffic-focus-title">Pista</div>
-              <div class="traffic-focus-icon">${clue.icon}</div>
-              <div class="traffic-focus-label" data-fit-text data-fit-min="12">${clue.label}</div>
-            </div>
-          </div>
-          <div class="traffic-actions ${state.answerLocked ? "locked" : ""}">
-            ${options.map((choice, index) => `<div class="traffic-action ${index === state.selected ? "selected" : ""} ${state.logicWrong === choice.id ? "wrong" : ""} ${state.logicCorrectId === choice.id ? "correct" : ""}">
-              <div class="traffic-action-icon">${choice.icon}</div>
-              <div>${choice.label}</div>
-            </div>`).join("")}
-          </div>
-          ${state.answerLocked && state.logicCorrectId === null ? pauseOverlay() : ""}
-        </div>`;
       }
 
       function currentDengueRouteIndex() {
@@ -18683,7 +18198,6 @@ const brStatesList = [
       const missionRenderers = {
         arrows: renderArrows,
         robot: renderRobot,
-        logic: renderLogic,
         dengue: renderDengue,
         recycle: renderRecycle,
         vertebrate: renderVertebrate,
@@ -18890,10 +18404,6 @@ const brStatesList = [
         state.missionSeed = createRunSeed(mode);
         resetMissionRoundPools(mode, state.missionSeed);
         resetRoundState(initialSelectionForMode(mode));
-        state.logicHint = false;
-        state.logicWrong = null;
-        state.logicCorrectId = null;
-        state.logicAttempt = 0;
         state.dengueWrong = null;
         state.dengueAttempt = 0;
         state.dengueStreak = 0;
@@ -19274,57 +18784,6 @@ const brStatesList = [
         }
         showMessage("✅ Acertou!");
         render();
-      }
-
-      function logicMistake(choiceId) {
-        const roundAtMistake = state.round;
-        lockAnswer({
-          delay: 2000,
-          messageText: "👀 Pista!",
-          guard: () => state.mode === "logic" && state.round === roundAtMistake,
-          onLock: () => {
-            state.logicWrong = choiceId;
-            state.logicHint = true;
-          },
-          onUnlock: () => {
-            state.logicAttempt += 1;
-            state.logicHint = false;
-            state.logicWrong = null;
-          },
-        });
-      }
-
-      function handleLogicEnter() {
-        if (state.selected < 0) {
-          showMessage("↔️ Escolha!", 650, "info");
-          return;
-        }
-        const round = logicRounds[state.round];
-        const choice = logicOptions()[state.selected];
-        if (choice.id !== round.correct) {
-          logicMistake(choice.id);
-          return;
-        }
-        state.logicWrong = null;
-        state.logicCorrectId = choice.id;
-        state.answerLocked = true;
-        showMessage("✅ Seguro!", 620);
-        render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "logic") return;
-          state.logicCorrectId = null;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          state.logicHint = false;
-          state.logicAttempt = 0;
-          if (state.round >= logicRounds.length) {
-            complete("logic", "Caminho concluído!");
-            return;
-          }
-          render();
-        }, 500);
       }
 
       function finishDengueMission() {
@@ -20888,7 +20347,6 @@ const brStatesList = [
       const modeEnterHandlers = {
         menu: chooseMenu,
         arrows: () => showMessage("↕️ Setas!", 650, "info"),
-        logic: handleLogicEnter,
         dengue: handleDengueEnter,
         recycle: handleRecycleEnter,
         vertebrate: handleVertebrateEnter,
@@ -20938,9 +20396,6 @@ const brStatesList = [
         } else if (isLevelMission(state.mode)) {
           moveLegacySelection(delta, vertical);
           return;
-        } else if (state.mode === "logic") {
-          const count = logicRounds[state.round].actions.length;
-          moveSelectionIndex({ count, delta, afterMove: () => { state.logicWrong = null; } });
         } else if (state.mode === "dengue" && !state.dengueFinished) {
           const count = dengueOptions().length;
           moveSelectionIndex({
@@ -21412,10 +20867,6 @@ const brStatesList = [
       const missionClickHandlers = {
         arrows: handleArrowsClick,
         robot: handleRobotClick,
-        logic: (event) => activateChoiceClick(event, ".traffic-action", {
-          clearWrong: () => { state.logicWrong = null; },
-          onConfirm: handleLogicEnter,
-        }),
         dengue: (event) => {
           if (state.dengueFinished) {
             return activateIndexedClick(event, ".dengue-finish-button", () => returnToMissionMenu("dengue"));
@@ -21493,7 +20944,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .traffic-action, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
