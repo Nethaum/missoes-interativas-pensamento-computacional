@@ -17055,11 +17055,11 @@ const brStatesList = [
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "mathCup") return;
+          state.mathCupShootout = null;
           finishMathCupMatch(
             playerWon ? "🏆 Classificou nos pênaltis!" : "🥅 Eliminado nos pênaltis!",
             playerWon ? "info" : "warn",
           );
-          state.mathCupShootout = null;
         }, 1400);
       }
 
