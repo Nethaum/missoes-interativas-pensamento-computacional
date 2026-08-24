@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.9.0">
+  <meta name="app-version" content="2.9.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -3707,6 +3707,92 @@
       aspect-ratio: 3 / 2;
     }
 
+    .cup-flag-big {
+      width: min(320px, 82%);
+      aspect-ratio: 3 / 2;
+      border: 6px solid var(--white);
+      border-radius: 10px;
+      box-shadow: 0 10px 0 rgba(139, 111, 71, 0.55);
+      margin-bottom: 14px;
+    }
+
+    .cup-name-options {
+      z-index: 2;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cup-name-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      min-height: 64px;
+      display: grid;
+      place-items: center;
+      padding: 10px 14px;
+      border: 6px solid var(--white);
+      border-radius: 12px;
+      background: #ecdfb8;
+      box-shadow: 0 7px 0 rgba(139, 111, 71, 0.55);
+      font-size: clamp(15px, 2.4vw, 22px);
+      font-weight: 950;
+      color: var(--card-ink);
+      text-transform: uppercase;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+      animation: cup-name-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+
+    @keyframes cup-name-pop {
+      from { transform: scale(0.75) translateY(10px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .cup-name-option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 9px 0 rgba(139, 111, 71, 0.55);
+    }
+
+    .cup-name-option:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 3px 0 rgba(139, 111, 71, 0.55);
+    }
+
+    .cup-name-option.selected {
+      border-color: var(--yellow);
+      transform: translateY(-5px);
+    }
+
+    .cup-name-option.wrong {
+      border-color: var(--red);
+      background-color: rgba(116, 28, 35, 0.65);
+      color: var(--white);
+      animation: fx-shake 0.5s ease;
+    }
+
+    .cup-name-option.correct {
+      border-color: #4cd97e;
+      background-color: rgba(47, 158, 82, 0.55);
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 0 0 4px rgba(76, 217, 126, 0.35);
+      animation: cup-name-correct-bounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes cup-name-correct-bounce {
+      0% { transform: translateY(-5px) scale(1); }
+      40% { transform: translateY(-9px) scale(1.14); }
+      100% { transform: translateY(-5px) scale(1.04); }
+    }
+
+    .cup-question.locked .cup-name-option:not(.correct) {
+      opacity: 0.35;
+      filter: grayscale(0.4);
+      transform: none;
+    }
+
     .code-board {
       width: min(720px, 100%);
       display: grid;
@@ -4333,6 +4419,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: auto;
+      height: auto;
       border: 4px solid var(--line);
       border-radius: 999px;
       background: var(--yellow);
@@ -4342,6 +4430,7 @@
       font-family: inherit;
       color: var(--card-ink);
       cursor: pointer;
+      white-space: nowrap;
       box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
     }
 
@@ -6515,6 +6604,87 @@
       cursor: default;
     }
 
+    .option,
+    .habitat,
+    .cycle-item,
+    .cup-goal,
+    .dengue-action,
+    .arrow-card,
+    .direction-button,
+    .option-card,
+    .answer-card,
+    .shape-card,
+    .code-option,
+    .device-option,
+    .pixel-option,
+    .bug-chip,
+    .bug-fix-option,
+    .sort-item,
+    .cond-option,
+    .var-option,
+    .decoder-letter,
+    .level-card,
+    .menu-card,
+    .age-picker-card {
+      animation: cup-name-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+
+    .option:hover:not(.selected):not(.correct):not(.wrong),
+    .habitat:hover:not(.selected):not(.correct):not(.wrong),
+    .cycle-item:hover:not(.selected):not(.correct):not(.wrong),
+    .cup-goal:hover:not(.selected):not(.correct):not(.wrong),
+    .dengue-action:hover:not(.selected):not(.correct):not(.wrong),
+    .arrow-card:hover:not(.selected):not(.correct):not(.wrong),
+    .direction-button:hover:not(.selected):not(.correct):not(.wrong),
+    .option-card:hover:not(.selected):not(.correct):not(.wrong),
+    .answer-card:hover:not(.selected):not(.correct):not(.wrong),
+    .shape-card:hover:not(.selected):not(.correct):not(.wrong),
+    .code-option:hover:not(.selected):not(.correct):not(.wrong),
+    .device-option:hover:not(.selected):not(.correct):not(.wrong),
+    .pixel-option:hover:not(.selected):not(.correct):not(.wrong),
+    .bug-chip:hover:not(.selected):not(.correct):not(.wrong),
+    .bug-fix-option:hover:not(.selected):not(.correct):not(.wrong),
+    .sort-item:hover:not(.selected):not(.correct):not(.wrong),
+    .cond-option:hover:not(.selected):not(.correct):not(.wrong),
+    .var-option:hover:not(.selected):not(.correct):not(.wrong),
+    .decoder-letter:hover:not(.selected):not(.correct):not(.wrong),
+    .level-card:hover:not(.selected),
+    .menu-card:hover:not(.selected),
+    .age-picker-card:hover:not(.selected),
+    .math-cup-answer:hover:not(.selected):not(.correct):not(.wrong),
+    .loop-stepper-btn:hover,
+    .loop-confirm-button:hover {
+      transform: translateY(-3px);
+    }
+
+    .option:active,
+    .habitat:active,
+    .cycle-item:active,
+    .cup-goal:active,
+    .dengue-action:active,
+    .arrow-card:active,
+    .direction-button:active,
+    .option-card:active,
+    .answer-card:active,
+    .shape-card:active,
+    .code-option:active,
+    .device-option:active,
+    .pixel-option:active,
+    .bug-chip:active,
+    .bug-fix-option:active,
+    .sort-item:active,
+    .cond-option:active,
+    .var-option:active,
+    .decoder-letter:active,
+    .level-card:active,
+    .menu-card:active,
+    .age-picker-card:active,
+    .math-cup-answer:active,
+    .loop-stepper-btn:active,
+    .loop-confirm-button:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
     .menu-title,
     .level-title {
       font-family: var(--read-font);
@@ -7965,6 +8135,15 @@
 
       .cup-flag {
         width: min(145px, 82%);
+      }
+
+      .cup-flag-big {
+        width: min(220px, 78%);
+      }
+
+      .cup-name-option {
+        min-height: 52px;
+        font-size: 14px;
       }
 
       .footer {
@@ -12991,6 +13170,7 @@ const brStatesList = [
         varAttempt: 0,
         varCorrectIndex: null,
         varRevealCount: 0,
+        varAnswering: false,
         decoderLevel: null,
         decoderGuessed: [],
         decoderWrong: 0,
@@ -13030,6 +13210,7 @@ const brStatesList = [
         mathWrong: null,
         mathCorrectIndex: null,
         cupMode: null,
+        cupQuizMode: null,
         cupPhase: "study",
         cupAttempt: 0,
         cupWrong: null,
@@ -15902,16 +16083,35 @@ const brStatesList = [
         return state.cupMode === "states" ? brStateFlagArt(code, className) : worldFlagArt(code, className);
       }
 
+      function cupNameForCode(code) {
+        const list = state.cupMode === "states" ? brStatesList : worldCountries;
+        const key = state.cupMode === "states" ? "code" : "flag";
+        const nameKey = state.cupMode === "states" ? "name" : "country";
+        const entry = list.find((item) => item[key] === code);
+        return entry ? entry[nameKey] : code;
+      }
+
       function startCupMode(mode) {
         state.cupMode = mode;
+        state.cupQuizMode = null;
         state.round = 0;
-        state.cupPhase = "study";
+        state.selected = -1;
+        render();
+      }
+
+      function startCupQuizMode(quizMode) {
+        state.cupQuizMode = quizMode;
+        const rounds = state.cupMode === "states" ? brStateRounds : cupRounds;
+        const pool = state.cupMode === "states" ? roundPools.cupStates : roundPools.cup;
+        resetRoundPool(rounds, pool, seedFromParts(state.missionSeed, "cup-quiz", quizMode), { free: true });
+        state.round = 0;
+        state.cupPhase = quizMode === "study" ? "study" : "choose";
         state.cupAttempt = 0;
         state.cupWrong = null;
         state.cupCorrectIndex = null;
         state.selected = -1;
         render();
-        scheduleCupChoices();
+        if (quizMode === "study") scheduleCupChoices();
       }
 
       function cupOptions() {
@@ -15983,6 +16183,12 @@ const brStatesList = [
         });
       }
 
+      const cupQuizModes = [
+        { id: "study", icon: "📖", title: "Estudar e reconhecer", kicker: "Veja a bandeira e o nome juntos, depois escolha a bandeira certa." },
+        { id: "flagToName", icon: "🏳️", title: "Bandeira → Nome", kicker: "Só a bandeira aparece. Escolha o nome certo." },
+        { id: "nameToFlag", icon: "🔤", title: "Nome → Bandeira", kicker: "Só o nome aparece. Escolha a bandeira certa." },
+      ];
+
       function renderCup() {
         if (state.cupMode === null) {
           setHeader("Bandeiras", "Escolha o que você vai jogar");
@@ -16001,15 +16207,28 @@ const brStatesList = [
           return;
         }
 
+        if (state.cupQuizMode === null) {
+          setHeader("Bandeiras", "Escolha como jogar");
+          setCounters("Modos", `${cupQuizModes.length}`, "Base", state.cupMode === "states" ? "Estados" : "Países");
+          status.textContent = "Escolha um jeito de jogar.";
+          content.innerHTML = levelSelectHtml(cupQuizModes, {
+            selectedIndex: state.selected,
+            cardFor: (option) => option,
+          });
+          return;
+        }
+
         const rounds = currentCupRounds();
         const round = rounds[state.round];
         const missionTitle = state.cupMode === "states" ? "Bandeiras dos Estados" : "Bandeiras do Mundo";
         const roundLabel = state.cupMode === "states" ? "Estado" : "País";
-        setHeader(missionTitle, state.cupPhase === "study" ? "Observe!" : "Qual é a bandeira?");
+        const isStudyQuiz = state.cupQuizMode === "study";
+        const isFlagToName = state.cupQuizMode === "flagToName";
+        setHeader(missionTitle, isStudyQuiz && state.cupPhase === "study" ? "Observe!" : isFlagToName ? "Qual é o nome?" : "Qual é a bandeira?");
         setCounters(roundLabel, `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = state.cupPhase === "study" ? "👀" : "🧭 Escolha a bandeira certa";
+        status.textContent = isStudyQuiz && state.cupPhase === "study" ? "👀" : isFlagToName ? "🧭 Escolha o nome certo" : "🧭 Escolha a bandeira certa";
 
-        if (state.cupPhase === "study") {
+        if (isStudyQuiz && state.cupPhase === "study") {
           content.innerHTML = `<div class="cup-board">
             <div class="cup-study">
               <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
@@ -16023,6 +16242,38 @@ const brStatesList = [
 
         const options = cupOptions();
         const solved = state.cupCorrectIndex !== null;
+
+        if (isFlagToName) {
+          content.innerHTML = `<div class="cup-board">
+            <div class="cup-question ${state.answerLocked ? "locked" : ""} ${solved ? "fx-flash" : ""}">
+              ${cupFlagArt(round.flag, "cup-flag-big")}
+              <div class="cup-name-options">
+                ${options.map((flag, index) => `<div class="cup-name-option ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""} ${state.cupCorrectIndex === index ? "correct" : ""}" style="animation-delay:${index * 70}ms" data-fit-text data-fit-min="12">
+                  ${cupNameForCode(flag)}
+                  ${state.cupCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>📍</span><span>🎉</span><span>✨</span><span>📍</span></div>' : ""}
+                </div>`).join("")}
+              </div>
+            </div>
+          </div>`;
+          return;
+        }
+
+        if (state.cupQuizMode === "nameToFlag") {
+          content.innerHTML = `<div class="cup-board">
+            <div class="cup-question ${state.answerLocked ? "locked" : ""} ${solved ? "fx-flash" : ""}">
+              <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
+              <div class="cup-goals">
+                ${options.map((flag, index) => `<div class="cup-goal ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""} ${state.cupCorrectIndex === index ? "correct" : ""}">
+                  ${cupFlagArt(flag, "cup-flag")}
+                  <div class="cup-ball">📍</div>
+                  ${state.cupCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>📍</span><span>🎉</span><span>✨</span><span>📍</span></div>' : ""}
+                </div>`).join("")}
+              </div>
+            </div>
+          </div>`;
+          return;
+        }
+
         content.innerHTML = `<div class="cup-board">
           <div class="cup-question ${state.answerLocked ? "locked" : ""} ${solved ? "fx-flash" : ""}">
             <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
@@ -16465,6 +16716,7 @@ const brStatesList = [
 
       function startVarRound() {
         state.varRevealCount = 0;
+        state.varAnswering = false;
         state.selected = -1;
         state.varWrong = null;
         state.varCorrectIndex = null;
@@ -16528,6 +16780,7 @@ const brStatesList = [
         const totalSteps = order.length;
         const revealCount = Math.min(state.varRevealCount, totalSteps);
         const fullyRevealed = revealCount >= totalSteps;
+        const answering = fullyRevealed && state.varAnswering;
         const revealedCmdCountByTrack = round.tracks.map((track, trackIndex) =>
           order.slice(0, revealCount).filter((step) => step.trackIndex === trackIndex).length
         );
@@ -16535,19 +16788,21 @@ const brStatesList = [
           const shown = revealedCmdCountByTrack[trackIndex];
           return shown > 0 ? track.commands[shown - 1].valueIndex : null;
         });
-        const options = fullyRevealed ? varOptions() : [];
+        const options = answering ? varOptions() : [];
 
         setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
         setCounters("Comando", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = fullyRevealed
-          ? (isPair ? "Todos os comandos apareceram. Escolha os valores finais." : "Todos os comandos apareceram. Escolha o valor final.")
-          : "Toque em ▶️ para ver o próximo comando e observe a caixa mudar.";
+        status.textContent = answering
+          ? (isPair ? "Do que você lembra: quais foram os valores finais?" : "Do que você lembra: qual foi o valor final?")
+          : fullyRevealed
+            ? "Reveja os comandos e toque em 🙈 quando estiver pronto para responder."
+            : "Toque em ▶️ para ver o próximo comando e observe a caixa mudar.";
 
         content.innerHTML = `<div class="var-board">
           <div class="var-tracks ${isPair ? "pair" : ""}">
             ${round.tracks.map((track, trackIndex) => {
               const attribute = varAttributeSets[track.attrIndex];
-              const knownIndex = currentValueIndexByTrack[trackIndex];
+              const knownIndex = answering ? null : currentValueIndexByTrack[trackIndex];
               const shown = revealedCmdCountByTrack[trackIndex];
               return `<div class="var-track">
                 <div class="var-track-header"><span class="var-track-icon">${attribute.icon}</span><span class="var-track-name">${attribute.name}</span></div>
@@ -16559,13 +16814,13 @@ const brStatesList = [
                   ${track.commands.slice(0, shown).map((cmd, index) => `<div class="var-command ${cmd.type === "noop" ? "noop" : ""} ${index === shown - 1 ? "just-revealed" : ""}">
                     <span class="var-command-step">${index + 1}</span>
                     <span class="var-command-text">${verbFor(cmd.type)}</span>
-                    <span class="var-command-value">${attribute.values[cmd.valueIndex].visual}</span>
+                    <span class="var-command-value">${answering ? "❓" : attribute.values[cmd.valueIndex].visual}</span>
                   </div>`).join("")}
                 </div>
               </div>`;
             }).join("")}
           </div>
-          ${fullyRevealed ? `<div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
+          ${answering ? `<div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
             ${options.map((option, index) => {
               const visuals = isPair
                 ? round.tracks.map((track, trackIndex) => varAttributeSets[track.attrIndex].values[trackIndex === 0 ? option.a : option.b].visual).join(" ")
@@ -16575,7 +16830,7 @@ const brStatesList = [
                 ${state.varCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
               </div>`;
             }).join("")}
-          </div>` : `<button type="button" class="var-next-button">▶️ Próximo comando</button>`}
+          </div>` : `<button type="button" class="var-next-button">${fullyRevealed ? "🙈 Esconder e responder" : "▶️ Próximo comando"}</button>`}
         </div>`;
       }
 
@@ -18450,6 +18705,7 @@ const brStatesList = [
         state.mathWrong = null;
         state.mathCorrectIndex = null;
         state.cupMode = null;
+        state.cupQuizMode = null;
         state.cupPhase = "study";
         state.cupAttempt = 0;
         state.cupWrong = null;
@@ -18633,12 +18889,28 @@ const brStatesList = [
         render();
       }
 
-      function backToCupMode() {
+      function backToCupQuizMode() {
+        stopTimer();
+        state.answerLocked = false;
+        window.clearTimeout(state.cupStudyTimer);
+        state.cupStudyTimer = null;
+        state.cupQuizMode = null;
+        state.cupPhase = "study";
+        state.round = 0;
+        state.cupAttempt = 0;
+        state.cupWrong = null;
+        state.cupCorrectIndex = null;
+        state.selected = -1;
+        render();
+      }
+
+      function backToCupDataset() {
         stopTimer();
         state.answerLocked = false;
         window.clearTimeout(state.cupStudyTimer);
         state.cupStudyTimer = null;
         state.cupMode = null;
+        state.cupQuizMode = null;
         state.cupPhase = "study";
         state.round = 0;
         state.cupAttempt = 0;
@@ -19274,6 +19546,11 @@ const brStatesList = [
           startCupMode(state.selected === 1 ? "states" : "countries");
           return;
         }
+        if (state.cupQuizMode === null) {
+          if (!hasSelection()) return;
+          startCupQuizMode(cupQuizModes[state.selected].id);
+          return;
+        }
         if (state.cupPhase !== "choose" || state.selected < 0) {
           if (state.cupPhase === "choose") showMessage("↔️ Escolha!", 650, "info");
           return;
@@ -19315,9 +19592,13 @@ const brStatesList = [
             complete("cup", state.cupMode === "states" ? "Todos os estados!" : "Todas as bandeiras!");
             return;
           }
-          state.cupPhase = "study";
-          render();
-          scheduleCupChoices();
+          if (state.cupQuizMode === "study") {
+            state.cupPhase = "study";
+            render();
+            scheduleCupChoices();
+          } else {
+            render();
+          }
         }, 600);
       }
 
@@ -19745,6 +20026,12 @@ const brStatesList = [
         const totalSteps = varRevealOrder(round).length;
         if (state.varRevealCount < totalSteps) {
           state.varRevealCount += 1;
+          render();
+          return;
+        }
+        if (!state.varAnswering) {
+          state.varAnswering = true;
+          state.selected = -1;
           render();
           return;
         }
@@ -20460,6 +20747,8 @@ const brStatesList = [
           moveSelectionIndex({ count: state.chefShuffled.length, delta, afterMove: () => { state.chefWrong = null; } });
         } else if (state.mode === "cup" && state.cupMode === null) {
           moveSelectionIndex({ count: 2, delta, vertical, columns: chooseGridColumns(2, 2), allowUnselected: false });
+        } else if (state.mode === "cup" && state.cupQuizMode === null) {
+          moveSelectionIndex({ count: cupQuizModes.length, delta, vertical, columns: chooseGridColumns(cupQuizModes.length, 3), allowUnselected: false });
         } else if (state.mode === "cup" && state.cupPhase === "choose") {
           const count = cupOptions().length;
           moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
@@ -20590,7 +20879,7 @@ const brStatesList = [
           } else {
             const round = currentVarRounds()[state.round];
             const totalSteps = varRevealOrder(round).length;
-            if (state.varRevealCount < totalSteps) return;
+            if (state.varRevealCount < totalSteps || !state.varAnswering) return;
             const count = varOptions().length;
             moveSelectionIndex({
               count,
@@ -20748,8 +21037,13 @@ const brStatesList = [
             startCupMode(index === 0 ? "countries" : "states");
           });
         }
+        if (state.cupQuizMode === null) {
+          return activateLevelCardClick(event, (index) => {
+            startCupQuizMode(cupQuizModes[index].id);
+          });
+        }
         if (state.cupPhase !== "choose") return false;
-        return activateChoiceClick(event, ".cup-goal", {
+        return activateChoiceClick(event, ".cup-goal, .cup-name-option", {
           clearWrong: () => { state.cupWrong = null; },
           onConfirm: handleCupEnter,
         });
@@ -20944,7 +21238,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -21472,8 +21766,12 @@ const brStatesList = [
           backToMathCupLevels();
           return;
         }
+        if (state.mode === "cup" && state.cupQuizMode !== null) {
+          backToCupQuizMode();
+          return;
+        }
         if (state.mode === "cup" && state.cupMode !== null) {
-          backToCupMode();
+          backToCupDataset();
           return;
         }
         stopTimer();
@@ -21516,7 +21814,7 @@ const brStatesList = [
             return;
           }
           reset(state.mode);
-        } else if (state.answerLocked || (state.mode === "cup" && state.cupPhase === "study")) {
+        } else if (state.answerLocked || (state.mode === "cup" && state.cupQuizMode === "study" && state.cupPhase === "study")) {
           return;
         } else if (state.mode === "arrows" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           handleArrowsKey(event.key);

@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.9.0
+Versão atual: 2.9.1
 
 ## Acesse
 
@@ -63,7 +63,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
-- Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha do modo no início da missão.
+- Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha da base (países ou estados) e do jeito de jogar — estudar e reconhecer, bandeira→nome ou nome→bandeira.
 - Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
 - Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
 - Robô coletor: sequência de comandos e planejamento de caminho.
@@ -85,7 +85,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
-- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa até descobrir o valor final.
+- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
 
 ## Como usar em sala
 
