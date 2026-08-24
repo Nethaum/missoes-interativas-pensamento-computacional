@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.9.1
+Versão atual: 2.10.0
 
 ## Acesse
 
@@ -53,6 +53,7 @@ Missões pensadas também para apresentações, feiras e aulas especiais, reunid
 - **Bandeiras** — reconhecimento das bandeiras de todos os países ou dos estados brasileiros, em ritmo de jogo rápido.
 - **Robô Decifrador** — adivinhação de palavras com pistas e dicas progressivas, boa para jogar em grupo.
 - **Jogo da Velha dos Enigmas** — jogo da velha com enigmas de várias disciplinas e placar de revanches, ótimo para disputas em sala.
+- **Robô Programador** — sandbox de programação em blocos, sem resposta certa ou errada, boa para exploração livre e apresentações.
 
 ## Manutenção
 
@@ -86,7 +87,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
-- Robô Programador: sandbox de programação em blocos (andar, virar e repetir) onde o aluno monta um programa livre e observa o robô desenhar num grid, sem resposta certa ou errada.
+- Robô Programador: sandbox de programação em blocos (andar, virar e repetir) onde o aluno monta um programa livre e observa o robô desenhar num grid, com objetivos opcionais (energias) e buracos de minhoca que testam se o aluno sabe recalcular a rota, sem resposta certa ou errada.
 
 ## Como usar em sala
 
