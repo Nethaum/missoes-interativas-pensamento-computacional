@@ -86,6 +86,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
+- Robô Programador: sandbox de programação em blocos (andar, virar e repetir) onde o aluno monta um programa livre e observa o robô desenhar num grid, sem resposta certa ou errada.
 
 ## Como usar em sala
 

@@ -4637,6 +4637,223 @@
     .var-option.correct { border-color: #2f9e52; background: #e6f9ec; }
     .var-options.locked .var-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
+    .builder-board {
+      width: min(700px, 100%);
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .builder-cell.painted::after {
+      content: "";
+      position: absolute;
+      inset: 38%;
+      border-radius: 50%;
+      background: rgba(77, 224, 182, 0.35);
+    }
+
+    .builder-cell.goal {
+      box-shadow: inset 0 0 0 3px #ffd23f;
+    }
+
+    .builder-robot-badge {
+      position: absolute;
+      right: -3px;
+      bottom: -3px;
+      font-size: 12px;
+      line-height: 1;
+      filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+    }
+
+    .builder-program {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 10px;
+      border: 3px dashed var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .builder-program-empty {
+      font-size: 13px;
+      color: var(--ink);
+      opacity: 0.75;
+    }
+
+    .builder-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--white);
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: 0 3px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .builder-chip.executed,
+    .builder-repeat-chip.executed {
+      opacity: 0.5;
+      filter: grayscale(0.4);
+    }
+
+    .builder-repeat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px 6px 6px;
+      border-radius: 14px;
+      background: #fff2cf;
+      border: 2px solid var(--yellow);
+    }
+
+    .builder-repeat-chip.editing {
+      box-shadow: 0 0 0 3px rgba(255, 227, 106, 0.6);
+    }
+
+    .builder-repeat-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .builder-repeat-stepper-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      cursor: pointer;
+      font-weight: 950;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .builder-repeat-stepper-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .builder-repeat-body {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.6);
+      min-width: 24px;
+    }
+
+    .builder-repeat-body-empty {
+      font-size: 11px;
+      color: var(--card-ink);
+      opacity: 0.6;
+    }
+
+    .builder-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .builder-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-weight: 950;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
+      transition: transform 0.12s ease;
+    }
+
+    .builder-block-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .builder-block.repeat {
+      background: #fff2cf;
+      border-color: var(--yellow);
+    }
+
+    .builder-block.close-loop {
+      background: #e6f9ec;
+      border-color: #2f9e52;
+    }
+
+    .builder-block.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 9px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .builder-block.disabled {
+      opacity: 0.4;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .builder-block:not(.disabled):hover { transform: translateY(-3px); }
+    .builder-block:not(.disabled):active { transform: translateY(1px) scale(0.97); }
+
+    .builder-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .builder-action-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      width: auto;
+      height: auto;
+      padding: 7px 14px;
+      border: 3px solid rgba(255, 247, 214, 0.55);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .builder-run-button { background: rgba(134, 226, 141, 0.4); border-color: var(--green); }
+    .builder-stop-button { background: rgba(255, 122, 122, 0.4); border-color: var(--red); }
+
+    .builder-action-button:disabled {
+      opacity: 0.4;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .builder-action-button:not(:disabled):hover { transform: translateY(-3px); }
+    .builder-action-button:not(:disabled):active { transform: translateY(1px) scale(0.97); }
+
     .cond-board {
       width: min(620px, 100%);
       display: grid;
@@ -8639,6 +8856,7 @@
         { id: "cup", icon: "🌎", title: "Bandeiras", subject: "Bandeiras dos países e dos estados do Brasil", ageRange: "6 a 10+ anos", featured: true },
         { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras", featured: true },
         { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas", featured: true },
+        { id: "builder", icon: "🤖", title: "Robô Programador", subject: "Sequência, laços e criação livre", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
         { id: "arrows", icon: "🧭", title: "Setas e sequências", subject: "Direção e sequência", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
@@ -8666,13 +8884,13 @@
           title: "Destaques",
           icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
-          missionIds: ["mathCup", "cup", "decoder", "ttt"],
+          missionIds: ["mathCup", "cup", "decoder", "ttt", "builder"],
         },
         {
           title: "Sequência e algoritmos",
           icon: "🔁",
           description: "Planejar, ordenar e corrigir passos: a base de todo algoritmo.",
-          missionIds: ["robot", "arrows", "chef", "cycle", "vaccine", "bug"],
+          missionIds: ["robot", "arrows", "chef", "cycle", "vaccine", "bug", "builder"],
         },
         {
           title: "Padrões, códigos e dados",
@@ -8696,7 +8914,7 @@
           title: "Lógica de programação",
           icon: "🧑‍💻",
           description: "Laços, condicionais, ordenação e variáveis: os blocos que formam um programa.",
-          missionIds: ["loop", "sort", "cond", "var"],
+          missionIds: ["loop", "sort", "cond", "var", "builder"],
         },
       ];
 
@@ -11721,6 +11939,229 @@ const brStatesList = [
         return { ...plan, preview: ["🔁", "➡️", "🎯"], rounds };
       });
 
+      const builderLevelPlans = [
+        { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft"], goalCount: 1, wormholeCount: 4 },
+        { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 2, wormholeCount: 7 },
+      ];
+
+      const builderLevels = builderLevelPlans.map((plan) => ({ ...plan, preview: ["🧱", "🔁", "🗺️"] }));
+
+      const builderDirArrows = ["⬆️", "➡️", "⬇️", "⬅️"];
+      const builderMoveDeltas = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+      const builderStepIcons = { move: "🔼", turnRight: "↪️", turnLeft: "↩️" };
+
+      function builderGridSize() {
+        return builderLevels[state.builderLevel].gridSize;
+      }
+
+      function shuffleInPlace(list) {
+        for (let i = list.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [list[i], list[j]] = [list[j], list[i]];
+        }
+        return list;
+      }
+
+      function generateBuilderLayout() {
+        const level = builderLevels[state.builderLevel];
+        const size = level.gridSize;
+        const startIndex = Math.floor(size / 2) * size + Math.floor(size / 2);
+
+        const wormholePool = shuffleInPlace(
+          Array.from({ length: size * size }, (_, i) => i).filter((i) => i !== startIndex)
+        );
+        state.builderWormholes = wormholePool.slice(0, level.wormholeCount);
+
+        const excluded = new Set([startIndex, ...state.builderWormholes]);
+        const goalPool = shuffleInPlace(
+          Array.from({ length: size * size }, (_, i) => i).filter((i) => !excluded.has(i))
+        );
+        state.builderGoals = goalPool.slice(0, level.goalCount);
+      }
+
+      function builderGoalsComplete() {
+        return state.builderGoals.length > 0 && state.builderGoals.every((cell) => state.builderCells[cell]);
+      }
+
+      function resetBuilderRound() {
+        const size = builderGridSize();
+        window.clearTimeout(state.builderRunTimer);
+        state.builderRunTimer = null;
+        window.clearTimeout(state.builderAutoAdvanceTimer);
+        state.builderAutoAdvanceTimer = null;
+        state.builderRunning = false;
+        state.builderRunQueue = [];
+        state.builderRunIndex = 0;
+        state.builderCells = Array(size * size).fill(false);
+        state.builderRobot = { row: Math.floor(size / 2), col: Math.floor(size / 2), dir: 0 };
+        state.builderCells[state.builderRobot.row * size + state.builderRobot.col] = true;
+        state.builderProgram = [];
+        state.builderExecutedCount = 0;
+        state.builderEditingLoopIndex = null;
+        state.selected = -1;
+      }
+
+      function startBuilderCanvas() {
+        resetBuilderRound();
+        generateBuilderLayout();
+      }
+
+      function currentBuilderPaletteBlocks() {
+        const level = builderLevels[state.builderLevel];
+        const blocks = [
+          { id: "move", icon: "🔼", label: "Andar" },
+          { id: "turnLeft", icon: "↩️", label: "Esquerda" },
+          { id: "turnRight", icon: "↪️", label: "Direita" },
+        ];
+        if (level.blocks.includes("repeat")) {
+          blocks.push(state.builderEditingLoopIndex === null
+            ? { id: "repeat", icon: "🔁", label: "Repetir" }
+            : { id: "closeLoop", icon: "✅", label: "Fechar laço" });
+        }
+        return blocks;
+      }
+
+      function flattenBuilderProgram(program) {
+        const steps = [];
+        program.forEach((item) => {
+          if (item.type === "repeat") {
+            for (let i = 0; i < item.count; i += 1) {
+              item.body.forEach((sub) => steps.push(sub));
+            }
+          } else {
+            steps.push(item);
+          }
+        });
+        return steps;
+      }
+
+      function activateBuilderBlock(id) {
+        if (state.builderRunning) return;
+        if (id === "move" || id === "turnRight" || id === "turnLeft") {
+          const item = { type: id };
+          if (state.builderEditingLoopIndex !== null) {
+            state.builderProgram[state.builderEditingLoopIndex].body.push(item);
+          } else {
+            state.builderProgram.push(item);
+          }
+          return;
+        }
+        if (id === "repeat") {
+          state.builderProgram.push({ type: "repeat", count: 2, body: [] });
+          state.builderEditingLoopIndex = state.builderProgram.length - 1;
+          return;
+        }
+        if (id === "closeLoop") {
+          state.builderEditingLoopIndex = null;
+        }
+      }
+
+      function adjustBuilderRepeatCount(index, delta) {
+        if (state.builderRunning) return;
+        const item = state.builderProgram[index];
+        if (!item || item.type !== "repeat") return;
+        item.count = Math.max(1, Math.min(8, item.count + delta));
+      }
+
+      function clearBuilderProgram() {
+        if (state.builderRunning) return;
+        if (state.builderEditingLoopIndex !== null) {
+          const loopItem = state.builderProgram[state.builderEditingLoopIndex];
+          if (loopItem.body.length) {
+            loopItem.body.pop();
+          } else {
+            state.builderProgram.pop();
+            state.builderEditingLoopIndex = null;
+          }
+          return;
+        }
+        if (state.builderProgram.length <= state.builderExecutedCount) return;
+        state.builderProgram.pop();
+      }
+
+      function applyBuilderStep(step) {
+        if (step.type === "turnRight") {
+          state.builderRobot.dir = (state.builderRobot.dir + 1) % 4;
+          return;
+        }
+        if (step.type === "turnLeft") {
+          state.builderRobot.dir = (state.builderRobot.dir + 3) % 4;
+          return;
+        }
+        if (step.type === "move") {
+          const [deltaRow, deltaCol] = builderMoveDeltas[state.builderRobot.dir];
+          const size = builderGridSize();
+          const nextRow = state.builderRobot.row + deltaRow;
+          const nextCol = state.builderRobot.col + deltaCol;
+          if (nextRow < 0 || nextCol < 0 || nextRow >= size || nextCol >= size) return;
+          const nextIndex = nextRow * size + nextCol;
+          state.builderRobot.row = nextRow;
+          state.builderRobot.col = nextCol;
+          state.builderCells[nextIndex] = true;
+          if (state.builderWormholes.includes(nextIndex)) {
+            showMessage("🌀 Buraco de minhoca!", 900, "bad");
+            state.builderRobot.row = Math.floor(size / 2);
+            state.builderRobot.col = Math.floor(size / 2);
+            state.builderRobot.dir = 0;
+          }
+        }
+      }
+
+      function builderPendingSteps() {
+        return flattenBuilderProgram(state.builderProgram.slice(state.builderExecutedCount));
+      }
+
+      function runBuilderProgram() {
+        if (state.builderRunning) return;
+        const steps = builderPendingSteps();
+        if (!steps.length) return;
+        window.clearTimeout(state.builderAutoAdvanceTimer);
+        state.builderAutoAdvanceTimer = null;
+        state.builderRunning = true;
+        state.builderRunQueue = steps;
+        state.builderRunIndex = 0;
+        render();
+        const tick = () => {
+          if (state.mode !== "builder") return;
+          const wasComplete = builderGoalsComplete();
+          applyBuilderStep(state.builderRunQueue[state.builderRunIndex]);
+          state.builderRunIndex += 1;
+          const nowComplete = builderGoalsComplete();
+          if (!wasComplete && nowComplete) {
+            showMessage("🎉 Todos os objetivos alcançados!", 1200, "good");
+          }
+          render();
+          if (state.builderRunIndex < state.builderRunQueue.length) {
+            state.builderRunTimer = window.setTimeout(tick, 380);
+          } else {
+            state.builderRunning = false;
+            state.builderRunQueue = [];
+            state.builderRunIndex = 0;
+            state.builderRunTimer = null;
+            state.builderExecutedCount = state.builderProgram.length;
+            if (nowComplete) {
+              state.builderAutoAdvanceTimer = window.setTimeout(() => {
+                if (state.mode !== "builder") return;
+                startBuilderCanvas();
+                render();
+              }, 1400);
+            }
+            render();
+          }
+        };
+        state.builderRunTimer = window.setTimeout(tick, 380);
+      }
+
+      function stopBuilderProgram() {
+        window.clearTimeout(state.builderRunTimer);
+        state.builderRunTimer = null;
+        state.builderRunning = false;
+        state.builderRunQueue = [];
+        state.builderRunIndex = 0;
+        state.builderExecutedCount = state.builderProgram.length;
+        render();
+      }
+
       const sortLevelPlans = [
         { title: "Três na fila", icon: "📚", age: "6-7 anos", theme: "Coloque em ordem", meta: "3 itens", itemCount: 3, roundCount: 14 },
         { title: "Quatro na fila", icon: "🗂️", age: "8-9 anos", theme: "Troque os vizinhos", meta: "4 itens", itemCount: 4, roundCount: 16 },
@@ -13171,6 +13612,19 @@ const brStatesList = [
         varCorrectIndex: null,
         varRevealCount: 0,
         varAnswering: false,
+        builderLevel: null,
+        builderCells: [],
+        builderRobot: { row: 0, col: 0, dir: 0 },
+        builderProgram: [],
+        builderExecutedCount: 0,
+        builderEditingLoopIndex: null,
+        builderRunning: false,
+        builderRunQueue: [],
+        builderRunIndex: 0,
+        builderRunTimer: null,
+        builderAutoAdvanceTimer: null,
+        builderGoals: [],
+        builderWormholes: [],
         decoderLevel: null,
         decoderGuessed: [],
         decoderWrong: 0,
@@ -14774,6 +15228,7 @@ const brStatesList = [
         sort: sortLevels,
         cond: condLevels,
         var: varLevels,
+        builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
       };
@@ -14782,8 +15237,9 @@ const brStatesList = [
         const levels = missionAgeLevelSources[missionId] || levelMissions[missionId]?.levels;
         if (levels && levels.length) {
           const firstNumber = levels[0].age.match(/\d+/)?.[0] || levels[0].age;
-          const lastAge = levels[levels.length - 1].age;
-          return `${firstNumber} a ${lastAge}`;
+          const lastMatches = levels[levels.length - 1].age.match(/\d+/g);
+          const lastNumber = lastMatches ? lastMatches[lastMatches.length - 1] : levels[levels.length - 1].age;
+          return `${firstNumber} a ${lastNumber} anos`;
         }
         return missions[missionIndexById.get(missionId)]?.ageRange || null;
       }
@@ -18469,6 +18925,7 @@ const brStatesList = [
         sort: renderSort,
         cond: renderCond,
         var: renderVar,
+        builder: renderBuilder,
         decoder: renderDecoder,
         devices: renderDevices,
         mathCup: renderMathCup,
@@ -18522,6 +18979,7 @@ const brStatesList = [
         sort: "sortLevel",
         cond: "condLevel",
         var: "varLevel",
+        builder: "builderLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
         ttt: "tttLevel",
@@ -18568,6 +19026,12 @@ const brStatesList = [
         if (mode === "var") {
           state.varLevel = state.ageBand;
           startVarRound();
+          return;
+        }
+        if (mode === "builder") {
+          // só os 2 primeiros tiers existem por enquanto; faixas mais velhas ficam no último tier disponível
+          state.builderLevel = Math.min(state.ageBand, builderLevels.length - 1);
+          startBuilderCanvas();
           return;
         }
         const stateKey = missionLevelStateKeys[mode];
@@ -18747,6 +19211,12 @@ const brStatesList = [
         state.varAttempt = 0;
         state.varWrong = null;
         state.varCorrectIndex = null;
+        window.clearTimeout(state.builderRunTimer);
+        state.builderRunTimer = null;
+        window.clearTimeout(state.builderAutoAdvanceTimer);
+        state.builderAutoAdvanceTimer = null;
+        state.builderRunning = false;
+        state.builderLevel = null;
         state.decoderLevel = null;
         state.decoderGuessed = [];
         state.decoderWrong = 0;
@@ -20078,6 +20548,136 @@ const brStatesList = [
         });
       }
 
+      function renderBuilder() {
+        const level = builderLevels[state.builderLevel];
+        const size = level.gridSize;
+        const palette = currentBuilderPaletteBlocks();
+        const canRun = builderPendingSteps().length > 0 && !state.builderRunning;
+        const canClearProgram = !state.builderRunning
+          && (state.builderEditingLoopIndex !== null || state.builderProgram.length > state.builderExecutedCount);
+
+        const goalsReached = state.builderGoals.filter((cell) => state.builderCells[cell]).length;
+        const allGoalsReached = builderGoalsComplete();
+        const nothingPending = state.builderProgram.length > 0 && state.builderProgram.length === state.builderExecutedCount;
+
+        setHeader("Robô Programador", `${level.title}: monte seu programa.`);
+        setCounters("Blocos", `${state.builderProgram.length}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
+        status.textContent = state.builderRunning
+          ? "🤖 Executando..."
+          : state.builderEditingLoopIndex !== null
+            ? "Adicione blocos dentro da repetição e toque em ✅ para fechar."
+            : allGoalsReached
+              ? "🎉 Você alcançou todos os objetivos! Preparando um novo desafio..."
+              : nothingPending
+                ? "Adicione mais blocos pra continuar de onde o robô parou."
+                : "Leve o robô 🤖 até as energias ou monte o programa que quiser.";
+
+        const cells = [];
+        for (let row = 0; row < size; row += 1) {
+          for (let col = 0; col < size; col += 1) {
+            const index = row * size + col;
+            const isRobot = state.builderRobot.row === row && state.builderRobot.col === col;
+            const isWormhole = state.builderWormholes.includes(index);
+            const painted = state.builderCells[index];
+            const isGoal = state.builderGoals.includes(index);
+            const goalMark = !isRobot && isGoal && !painted ? `<div class="energy"></div>` : "";
+            const wormholeMark = !isRobot && isWormhole ? `<div class="hole"></div>` : "";
+            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}<span class="builder-robot-badge">🤖</span></div>` : wormholeMark || goalMark}</div>`);
+          }
+        }
+
+        const programHtml = state.builderProgram.length
+          ? state.builderProgram.map((item, index) => {
+              const executed = index < state.builderExecutedCount;
+              if (item.type === "repeat") {
+                const editing = state.builderEditingLoopIndex === index;
+                const bodyHtml = item.body.length
+                  ? item.body.map((sub) => `<span class="builder-chip">${builderStepIcons[sub.type]}</span>`).join("")
+                  : `<span class="builder-repeat-body-empty">vazio</span>`;
+                return `<div class="builder-repeat-chip ${editing ? "editing" : ""} ${executed ? "executed" : ""}">
+                  <div class="builder-repeat-stepper">
+                    <button type="button" class="builder-repeat-stepper-btn" data-index="${index}" data-delta="-1" ${item.count <= 1 || state.builderRunning || executed ? "disabled" : ""}>−</button>
+                    <span>🔁 ${item.count}x</span>
+                    <button type="button" class="builder-repeat-stepper-btn" data-index="${index}" data-delta="1" ${item.count >= 8 || state.builderRunning || executed ? "disabled" : ""}>+</button>
+                  </div>
+                  <div class="builder-repeat-body">${bodyHtml}</div>
+                </div>`;
+              }
+              return `<span class="builder-chip ${executed ? "executed" : ""}">${builderStepIcons[item.type]}</span>`;
+            }).join("")
+          : `<span class="builder-program-empty">Toque nos blocos abaixo pra montar seu programa.</span>`;
+
+        const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" ? "close-loop" : ""} ${state.builderRunning ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
+          <span class="builder-block-icon">${block.icon}</span>${block.label}
+        </div>`).join("");
+
+        content.innerHTML = `<div class="builder-board">
+          <div class="grid" style="--cell-size:${size >= 8 ? 44 : 50}px; grid-template-columns: repeat(${size}, minmax(var(--grid-cell-min, 24px), min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
+          <div class="builder-program">${programHtml}</div>
+          <div class="builder-palette">${paletteHtml}</div>
+          <div class="builder-actions">
+            <button type="button" class="builder-action-button builder-run-button" ${canRun ? "" : "disabled"}>▶️ Executar</button>
+            ${state.builderRunning ? `<button type="button" class="builder-action-button builder-stop-button">⏹️ Parar</button>` : ""}
+            <button type="button" class="builder-action-button builder-clear-button" ${canClearProgram ? "" : "disabled"}>🧽 Apagar</button>
+            <button type="button" class="builder-action-button builder-restart-button" ${state.builderRunning ? "disabled" : ""}>🔄 Reiniciar</button>
+          </div>
+        </div>`;
+      }
+
+      function handleBuilderEnter() {
+        if (state.builderRunning || state.selected < 0) return;
+        const block = currentBuilderPaletteBlocks()[state.selected];
+        if (!block) return;
+        activateBuilderBlock(block.id);
+        render();
+      }
+
+      function handleBuilderClick(event) {
+        const stepBtn = clickedElement(event, ".builder-repeat-stepper-btn");
+        if (stepBtn) {
+          adjustBuilderRepeatCount(Number(stepBtn.dataset.index), Number(stepBtn.dataset.delta));
+          render();
+          return true;
+        }
+        if (clickedElement(event, ".builder-run-button")) {
+          runBuilderProgram();
+          return true;
+        }
+        if (clickedElement(event, ".builder-stop-button")) {
+          stopBuilderProgram();
+          return true;
+        }
+        if (clickedElement(event, ".builder-clear-button")) {
+          clearBuilderProgram();
+          render();
+          return true;
+        }
+        if (clickedElement(event, ".builder-restart-button")) {
+          resetBuilderRound();
+          render();
+          return true;
+        }
+        const blockEl = clickedElement(event, ".builder-block:not(.disabled)");
+        if (blockEl) {
+          state.selected = Array.from(content.querySelectorAll(".builder-block")).indexOf(blockEl);
+          activateBuilderBlock(blockEl.dataset.block);
+          render();
+          return true;
+        }
+        return false;
+      }
+
+      function backToBuilderLevels() {
+        window.clearTimeout(state.builderRunTimer);
+        state.builderRunTimer = null;
+        window.clearTimeout(state.builderAutoAdvanceTimer);
+        state.builderAutoAdvanceTimer = null;
+        state.builderRunning = false;
+        state.builderLevel = null;
+        state.mode = "menu";
+        render();
+      }
+
       function completeDecoderRound(success) {
         state.answerLocked = true;
         const rounds = currentDecoderRounds();
@@ -20650,6 +21250,7 @@ const brStatesList = [
         sort: handleSortEnter,
         cond: handleCondEnter,
         var: handleVarEnter,
+        builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
@@ -20889,6 +21490,9 @@ const brStatesList = [
               afterMove: () => { state.varWrong = null; },
             });
           }
+        } else if (state.mode === "builder") {
+          const count = currentBuilderPaletteBlocks().length;
+          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, count) });
         } else if (state.mode === "decoder") {
           if (state.decoderLevel === null) {
             const count = decoderLevels.length;
@@ -21210,6 +21814,7 @@ const brStatesList = [
         sort: handleSortClick,
         cond: handleCondClick,
         var: handleVarClick,
+        builder: handleBuilderClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
@@ -21756,6 +22361,10 @@ const brStatesList = [
         }
         if (state.mode === "var" && state.varLevel !== null) {
           backToVarLevels();
+          return;
+        }
+        if (state.mode === "builder" && state.builderLevel !== null) {
+          backToBuilderLevels();
           return;
         }
         if (state.mode === "decoder" && state.decoderLevel !== null) {
