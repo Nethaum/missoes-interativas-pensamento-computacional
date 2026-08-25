@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.10.0
+Versão atual: 2.10.1
 
 ## Acesse
 
