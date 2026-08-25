@@ -3707,6 +3707,10 @@
       aspect-ratio: 3 / 2;
     }
 
+    .cup-reminder.text-only {
+      grid-template-columns: 1fr;
+    }
+
     .cup-flag-big {
       width: min(320px, 82%);
       aspect-ratio: 3 / 2;
@@ -7115,6 +7119,7 @@
       .habitat,
       .cycle-item,
       .cup-goal,
+      .cup-name-option,
       .shape-card,
       .option-card,
       .answer-card,
@@ -7135,6 +7140,7 @@
       .habitat,
       .cycle-item,
       .cup-goal,
+      .cup-name-option,
       .answer-card,
       .math-cup-answer {
         min-height: 56px;
@@ -12107,12 +12113,28 @@ const brStatesList = [
         }
       }
 
+      function builderPendingItems() {
+        return state.builderProgram.slice(state.builderExecutedCount);
+      }
+
       function builderPendingSteps() {
-        return flattenBuilderProgram(state.builderProgram.slice(state.builderExecutedCount));
+        return flattenBuilderProgram(builderPendingItems());
+      }
+
+      function builderCompletedItemCount(pendingItems, completedStepCount) {
+        let remaining = completedStepCount;
+        let count = 0;
+        for (const item of pendingItems) {
+          const itemSteps = flattenBuilderProgram([item]).length;
+          if (remaining < itemSteps) break;
+          remaining -= itemSteps;
+          count += 1;
+        }
+        return count;
       }
 
       function runBuilderProgram() {
-        if (state.builderRunning) return;
+        if (state.builderRunning || state.builderEditingLoopIndex !== null) return;
         const steps = builderPendingSteps();
         if (!steps.length) return;
         window.clearTimeout(state.builderAutoAdvanceTimer);
@@ -12129,6 +12151,7 @@ const brStatesList = [
           const nowComplete = builderGoalsComplete();
           if (!wasComplete && nowComplete) {
             showMessage("🎉 Todos os objetivos alcançados!", 1200, "good");
+            state.completed.builder = true;
           }
           render();
           if (state.builderRunIndex < state.builderRunQueue.length) {
@@ -12155,10 +12178,11 @@ const brStatesList = [
       function stopBuilderProgram() {
         window.clearTimeout(state.builderRunTimer);
         state.builderRunTimer = null;
+        const pendingItems = builderPendingItems();
+        state.builderExecutedCount += builderCompletedItemCount(pendingItems, state.builderRunIndex);
         state.builderRunning = false;
         state.builderRunQueue = [];
         state.builderRunIndex = 0;
-        state.builderExecutedCount = state.builderProgram.length;
         render();
       }
 
@@ -16709,22 +16733,7 @@ const brStatesList = [
                   ${state.cupCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>📍</span><span>🎉</span><span>✨</span><span>📍</span></div>' : ""}
                 </div>`).join("")}
               </div>
-            </div>
-          </div>`;
-          return;
-        }
-
-        if (state.cupQuizMode === "nameToFlag") {
-          content.innerHTML = `<div class="cup-board">
-            <div class="cup-question ${state.answerLocked ? "locked" : ""} ${solved ? "fx-flash" : ""}">
-              <div class="cup-country" data-fit-text data-fit-min="18">${round.country}</div>
-              <div class="cup-goals">
-                ${options.map((flag, index) => `<div class="cup-goal ${index === state.selected ? "selected" : ""} ${state.cupWrong === index ? "wrong" : ""} ${state.cupCorrectIndex === index ? "correct" : ""}">
-                  ${cupFlagArt(flag, "cup-flag")}
-                  <div class="cup-ball">📍</div>
-                  ${state.cupCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>📍</span><span>🎉</span><span>✨</span><span>📍</span></div>' : ""}
-                </div>`).join("")}
-              </div>
+              ${state.answerLocked && !solved ? `<div class="cup-reminder text-only"><div data-fit-text data-fit-min="10">${cupNameForCode(round.flag)}</div></div>` : ""}
             </div>
           </div>`;
           return;
@@ -17766,7 +17775,6 @@ const brStatesList = [
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "mathCup") return;
-          state.mathCupShootout = null;
           finishMathCupMatch(
             playerWon ? "🏆 Classificou nos pênaltis!" : "🥅 Eliminado nos pênaltis!",
             playerWon ? "info" : "warn",
@@ -18000,6 +18008,7 @@ const brStatesList = [
         stopMathCupDecisionClock();
         recordMathCupFixtureResult(finishedLevel, state.score, state.mathCupOpponentScore);
         breakData.result = recordMathCupResult();
+        state.mathCupShootout = null;
         extendMathCupCampaignIfNeeded(finishedLevel, breakData.result);
         state.round += 1;
         clearMathCupPassTargets();
@@ -20552,7 +20561,7 @@ const brStatesList = [
         const level = builderLevels[state.builderLevel];
         const size = level.gridSize;
         const palette = currentBuilderPaletteBlocks();
-        const canRun = builderPendingSteps().length > 0 && !state.builderRunning;
+        const canRun = state.builderEditingLoopIndex === null && builderPendingSteps().length > 0 && !state.builderRunning;
         const canClearProgram = !state.builderRunning
           && (state.builderEditingLoopIndex !== null || state.builderProgram.length > state.builderExecutedCount);
 
@@ -21492,7 +21501,7 @@ const brStatesList = [
           }
         } else if (state.mode === "builder") {
           const count = currentBuilderPaletteBlocks().length;
-          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, count) });
+          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 2) });
         } else if (state.mode === "decoder") {
           if (state.decoderLevel === null) {
             const count = decoderLevels.length;
@@ -22124,6 +22133,8 @@ const brStatesList = [
         window.clearInterval(state.mathCupTimerId);
         window.clearInterval(state.mathCupChallengeTimerId);
         window.clearInterval(state.mathCupDecisionTimerId);
+        window.clearTimeout(state.builderRunTimer);
+        window.clearTimeout(state.builderAutoAdvanceTimer);
         state.answerLockTimer = null;
         state.cupStudyTimer = null;
         state.mathCupInputGuardTimer = null;
@@ -22131,6 +22142,8 @@ const brStatesList = [
         state.mathCupTimerId = null;
         state.mathCupChallengeTimerId = null;
         state.mathCupDecisionTimerId = null;
+        state.builderRunTimer = null;
+        state.builderAutoAdvanceTimer = null;
       }
 
       function scheduleCupChoices() {
