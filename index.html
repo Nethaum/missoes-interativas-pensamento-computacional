@@ -20600,7 +20600,7 @@ const brStatesList = [
             const isGoal = state.builderGoals.includes(index);
             const goalMark = !isRobot && isGoal && !painted ? `<div class="energy"></div>` : "";
             const wormholeMark = !isRobot && isWormhole ? `<div class="hole"></div>` : "";
-            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}<span class="builder-robot-badge">🤖</span></div>` : wormholeMark || goalMark}</div>`);
+            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}</div><span class="builder-robot-badge">🤖</span>` : wormholeMark || goalMark}</div>`);
           }
         }
 
