@@ -4861,6 +4861,12 @@
       filter: grayscale(0.4);
     }
 
+    .builder-chip.active,
+    .builder-repeat-chip.active {
+      box-shadow: 0 0 0 3px rgba(120, 183, 255, 0.85);
+      animation: bug-chip-pulse 0.45s ease;
+    }
+
     .builder-repeat-chip {
       display: inline-flex;
       align-items: center;
@@ -12032,6 +12038,25 @@ const brStatesList = [
 
       function builderPendingItems() {
         return state.builderProgram.slice(state.builderExecutedCount);
+      }
+
+      function builderActiveStepLocation() {
+        if (!state.builderRunning || state.builderRunIndex <= 0) return null;
+        let remaining = state.builderRunIndex - 1;
+        const pendingItems = builderPendingItems();
+        for (let i = 0; i < pendingItems.length; i += 1) {
+          const item = pendingItems[i];
+          const itemSteps = flattenBuilderProgram([item]).length;
+          if (remaining < itemSteps) {
+            const itemIndex = state.builderExecutedCount + i;
+            if (item.type === "repeat") {
+              return { itemIndex, subIndex: remaining % item.body.length };
+            }
+            return { itemIndex, subIndex: null };
+          }
+          remaining -= itemSteps;
+        }
+        return null;
       }
 
       function builderPendingSteps() {
@@ -20479,15 +20504,17 @@ const brStatesList = [
           }
         }
 
+        const activeStep = builderActiveStepLocation();
         const programHtml = state.builderProgram.length
           ? state.builderProgram.map((item, index) => {
               const executed = index < state.builderExecutedCount;
+              const isActiveItem = activeStep?.itemIndex === index;
               if (item.type === "repeat") {
                 const editing = state.builderEditingLoopIndex === index;
                 const bodyHtml = item.body.length
-                  ? item.body.map((sub) => `<span class="builder-chip">${builderStepIcons[sub.type]}</span>`).join("")
+                  ? item.body.map((sub, subIndex) => `<span class="builder-chip ${isActiveItem && activeStep.subIndex === subIndex ? "active" : ""}">${builderStepIcons[sub.type]}</span>`).join("")
                   : `<span class="builder-repeat-body-empty">vazio</span>`;
-                return `<div class="builder-repeat-chip ${editing ? "editing" : ""} ${executed ? "executed" : ""}">
+                return `<div class="builder-repeat-chip ${editing ? "editing" : ""} ${executed ? "executed" : ""} ${isActiveItem ? "active" : ""}">
                   <div class="builder-repeat-stepper">
                     <button type="button" class="builder-repeat-stepper-btn" data-index="${index}" data-delta="-1" ${item.count <= 1 || state.builderRunning || executed ? "disabled" : ""}>−</button>
                     <span>🔁 ${item.count}x</span>
@@ -20496,7 +20523,7 @@ const brStatesList = [
                   <div class="builder-repeat-body">${bodyHtml}</div>
                 </div>`;
               }
-              return `<span class="builder-chip ${executed ? "executed" : ""}">${builderStepIcons[item.type]}</span>`;
+              return `<span class="builder-chip ${executed ? "executed" : ""} ${isActiveItem ? "active" : ""}">${builderStepIcons[item.type]}</span>`;
             }).join("")
           : `<span class="builder-program-empty">Toque nos blocos abaixo pra montar seu programa.</span>`;
 
