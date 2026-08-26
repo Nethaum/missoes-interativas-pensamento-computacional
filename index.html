@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.10.1">
+  <meta name="app-version" content="2.10.2">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -1621,6 +1621,27 @@
       }
     }
 
+    .builder-goal-hole {
+      position: relative;
+      z-index: 2;
+      width: 68%;
+      height: 68%;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #ffffff, #cfe8ff, #ffffff, #fff6d8, #ffffff);
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.65), inset 0 0 10px rgba(255, 255, 255, 0.4);
+      animation: wormhole-spin 1.6s linear infinite;
+    }
+
+    .builder-goal-hole::after {
+      content: "";
+      position: absolute;
+      inset: 32%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 40%, transparent 75%);
+    }
+
     .trail::after {
       content: "";
       position: absolute;
@@ -1804,10 +1825,6 @@
 
     .habitat-board,
     .cycle-board,
-    .direction-board,
-    .echo-board,
-    .pattern-board,
-    .intruder-board,
     .data-quiz-board {
       position: relative;
     }
@@ -4644,6 +4661,126 @@
     .var-option.correct { border-color: #2f9e52; background: #e6f9ec; }
     .var-options.locked .var-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
+    .pattern-board {
+      width: min(680px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .pattern-model {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .pattern-tile {
+      display: grid;
+      place-items: center;
+      min-width: 56px;
+      height: 56px;
+      padding: 0 8px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      font-size: 26px;
+      line-height: 1;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .pattern-tile.placeholder { background: #f2f2f2; color: var(--card-muted); }
+
+    .pattern-answer-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .pattern-answer-slot {
+      display: grid;
+      place-items: center;
+      min-width: 56px;
+      height: 56px;
+      padding: 0 8px;
+      border: 3px dashed var(--line);
+      border-radius: 14px;
+      background: #fff8dc;
+      font-size: 26px;
+      line-height: 1;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .pattern-answer-slot.empty { opacity: 0.55; }
+    .pattern-answer-slot.filled { border-style: solid; border-color: var(--blue); background: var(--white); }
+
+    .pattern-palette {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .pattern-palette-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      min-width: 64px;
+      padding: 10px 14px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 26px;
+      font-family: inherit;
+      line-height: 1;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .pattern-palette-button.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .pattern-palette-button.miss { border-color: var(--red); background: #fff0f0; }
+    .pattern-palette.locked .pattern-palette-button { cursor: default; }
+
+    .pattern-options {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pattern-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      width: auto;
+      height: auto;
+      padding: 12px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .pattern-option-visual { font-size: 30px; line-height: 1; letter-spacing: 6px; }
+
+    .pattern-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .pattern-option.wrong { border-color: var(--red); background: #fff0f0; }
+    .pattern-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .pattern-options.locked .pattern-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
+
     .builder-board {
       width: min(620px, 100%);
       display: grid;
@@ -4657,6 +4794,14 @@
       inset: 38%;
       border-radius: 50%;
       background: rgba(77, 224, 182, 0.35);
+    }
+
+    .builder-cell.revisited::before {
+      content: "";
+      position: absolute;
+      inset: 22%;
+      border-radius: 50%;
+      border: 3px solid rgba(245, 166, 35, 0.55);
     }
 
     .builder-cell.goal {
@@ -6222,31 +6367,14 @@
         0 0 30px rgba(255, 207, 66, 0.55);
     }
 
-    .pattern-board,
-    .intruder-board,
-    .data-quiz-board,
-    .direction-board,
-    .echo-board {
+    .data-quiz-board {
       width: min(1080px, 100%);
       display: grid;
       gap: 18px;
       justify-items: center;
     }
 
-    .sequence-row,
-    .options-row,
-    .intruder-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .shape-card,
-    .option-card,
-    .answer-card,
-    .arrow-card {
+    .answer-card {
       display: grid;
       place-items: center;
       border: 4px solid var(--line);
@@ -6259,78 +6387,27 @@
       transition: transform 0.12s ease, border-color 0.12s ease, opacity 0.12s ease;
     }
 
-    .arrow-card {
-      border-color: var(--line);
-      background: linear-gradient(160deg, #a9d4ff, var(--blue));
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.55);
-      color: var(--card-ink);
-      font-size: clamp(54px, 7vw, 76px);
-      line-height: 1;
-      text-shadow: 0 2px 0 rgba(255, 255, 255, 0.45);
-    }
-
-    .arrow-card:nth-child(2) {
-      background: linear-gradient(160deg, #d8c2ff, var(--purple));
-    }
-
-    .arrow-card:nth-child(3) {
-      background: linear-gradient(160deg, #a9f0e2, var(--teal));
-    }
-
-    .arrow-card:nth-child(4) {
-      background: linear-gradient(160deg, #ffc2e2, var(--pink));
-    }
-
-    .shape-card,
-    .option-card {
-      min-width: 118px;
-      min-height: 106px;
-      padding: 12px;
-    }
-
-    .option-card {
-      min-width: 178px;
-      min-height: 126px;
-    }
-
-    .shape-card.question {
-      color: #087a73;
-      font-size: 58px;
-    }
-
-    .option-card.selected,
-    .answer-card.selected,
-    .shape-card.selected,
-    .arrow-card.selected {
+    .answer-card.selected {
       border-color: #80d7ff;
       transform: translateY(-7px);
       box-shadow: 0 11px 0 rgba(18, 82, 115, 0.55);
     }
 
-    .option-card.wrong,
-    .answer-card.wrong,
-    .shape-card.wrong,
-    .arrow-card.wrong {
+    .answer-card.wrong {
       border-color: var(--red);
       background: #fff0f0;
       color: #a91f2a;
       animation: fx-shake 0.5s ease;
     }
 
-    .option-card.correct,
-    .answer-card.correct,
-    .shape-card.correct,
-    .arrow-card.correct {
+    .answer-card.correct {
       border-color: #2f9e52;
       background: #e6f9ec;
       transform: translateY(-7px) scale(1.04);
       box-shadow: 0 11px 0 rgba(47, 158, 82, 0.28), 0 0 0 4px rgba(47, 158, 82, 0.22);
     }
 
-    .legacy-locked .option-card:not(.wrong):not(.correct),
-    .legacy-locked .answer-card:not(.wrong):not(.correct),
-    .legacy-locked .shape-card:not(.wrong):not(.correct),
-    .legacy-locked .arrow-card:not(.wrong):not(.correct) {
+    .legacy-locked .answer-card:not(.wrong):not(.correct) {
       opacity: 0.45;
       transform: none;
     }
@@ -6599,172 +6676,6 @@
       text-shadow: none;
     }
 
-    .direction-grid {
-      display: grid;
-      gap: 8px;
-      justify-content: center;
-      align-content: center;
-    }
-
-    .legacy-robot-cell {
-      position: relative;
-      display: grid;
-      place-items: center;
-      width: min(68px, var(--legacy-cell-fluid));
-      aspect-ratio: 1;
-      border: 4px solid var(--line);
-      border-radius: 16px;
-      background: linear-gradient(160deg, #fff9e8, #eaf6ff 65%);
-      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.55);
-      overflow: hidden;
-    }
-
-    .legacy-robot-cell.wall {
-      border-color: #20293b;
-      background: #39465f;
-      box-shadow: none;
-    }
-
-    .legacy-robot-cell.trail:not(.wall)::after {
-      content: "";
-      position: absolute;
-      inset: 28%;
-      border-radius: 50%;
-      background: rgba(133, 84, 216, 0.3);
-    }
-
-    @keyframes legacy-token-bounce {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-6px) rotate(2deg); }
-    }
-
-    @keyframes legacy-star-twinkle {
-      0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 0 transparent); }
-      50% { transform: scale(1.16) rotate(-6deg); filter: drop-shadow(0 0 10px rgba(255, 210, 63, 0.75)); }
-    }
-
-    .legacy-robot-token {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      width: 68%;
-      height: 68%;
-      border: 4px solid #d8ecff;
-      border-radius: 16px;
-      background: linear-gradient(160deg, #4f95ff, #2767d8);
-      color: var(--white);
-      box-shadow: 0 4px 0 #143c88;
-      font-size: clamp(22px, 3vw, 32px);
-      font-weight: 950;
-      line-height: 1;
-      animation: legacy-token-bounce 1.1s ease-in-out infinite;
-    }
-
-    .star-token {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      place-items: center;
-      width: clamp(48px, 6vw, 70px);
-      height: clamp(48px, 6vw, 70px);
-      border-radius: 50%;
-      font-size: clamp(34px, 5vw, 60px);
-      animation: legacy-star-twinkle 1.3s ease-in-out infinite;
-    }
-
-    .analysis {
-      padding: 13px;
-      border: 4px solid var(--line);
-      border-radius: 16px;
-      background: var(--white);
-      color: var(--ink);
-      font-size: clamp(17px, 2vw, 22px);
-      font-weight: 850;
-      line-height: 1.18;
-      text-align: center;
-    }
-
-    .command-display {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .sequence-chip {
-      display: grid;
-      place-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 11px;
-      background: var(--purple);
-      color: var(--white);
-      font-size: 24px;
-      font-weight: 950;
-    }
-
-    .direction-board {
-      grid-template-columns: auto auto;
-      align-items: center;
-      justify-content: center;
-      column-gap: 36px;
-    }
-
-    .direction-grid {
-      grid-template-columns: repeat(3, 82px);
-    }
-
-    .direction-grid .legacy-robot-cell {
-      width: 82px;
-    }
-
-    .arrow-options {
-      display: grid;
-      grid-template-columns: repeat(2, 118px);
-      gap: 13px;
-    }
-
-    .arrow-card {
-      width: 118px;
-      height: 96px;
-      color: #ffe15d;
-      font-size: clamp(54px, 7vw, 76px);
-    }
-
-    .echo-robot {
-      display: grid;
-      place-items: center;
-      width: 118px;
-      height: 118px;
-      border: 5px solid #d8ecff;
-      border-radius: 24px;
-      background: #2767d8;
-      color: var(--white);
-      box-shadow: 0 8px 0 #143c88;
-      font-size: 64px;
-      font-weight: 950;
-      text-shadow: 0 3px 0 rgba(0, 0, 0, 0.32);
-    }
-
-    .command-display .sequence-chip {
-      width: 72px;
-      height: 72px;
-      border: 4px solid transparent;
-      border-radius: 18px;
-      font-size: 42px;
-    }
-
-    .command-display .sequence-chip.done {
-      background: var(--green);
-    }
-
-    .command-display .sequence-chip.current {
-      border-color: var(--ink);
-      transform: translateY(-6px);
-      box-shadow: 0 9px 0 rgba(36, 50, 74, 0.2);
-    }
-
     .menu-card,
     .counter,
     .message,
@@ -6781,8 +6692,6 @@
     .cup-country,
     .cup-reminder,
     .level-card,
-    .shape-card,
-    .option-card,
     .answer-card,
     .cup-goal,
     .math-cup-answer,
@@ -6793,23 +6702,19 @@
     .math-cup-player.pass-target,
     .math-cup-player-badge,
     .quiz-question,
-    .data-chip,
-    .analysis {
+    .data-chip {
       color: var(--card-ink);
       text-shadow: none;
     }
 
     .menu-card,
     .level-card,
-    .arrow-card,
     .direction-button,
     .dengue-action,
     .option,
     .habitat,
     .cycle-item,
     .cup-goal,
-    .intruder-row .shape-card,
-    .option-card,
     .answer-card,
     .math-cup-answer,
     .math-cup-break-card,
@@ -6821,13 +6726,10 @@
     }
 
     .dengue-actions.locked .dengue-action,
-    .legacy-locked .arrow-card,
     .answer-options.locked .option,
     .habitats.locked .habitat,
     .cycle-items.locked .cycle-item,
     .cup-question.locked .cup-goal,
-    .legacy-locked .shape-card,
-    .legacy-locked .option-card,
     .legacy-locked .answer-card,
     .math-cup-challenge.locked .math-cup-answer,
     .code-options.locked .code-option,
@@ -6840,11 +6742,8 @@
     .cycle-item,
     .cup-goal,
     .dengue-action,
-    .arrow-card,
     .direction-button,
-    .option-card,
     .answer-card,
-    .shape-card,
     .code-option,
     .device-option,
     .pixel-option,
@@ -6854,6 +6753,8 @@
     .cond-option,
     .var-option,
     .decoder-letter,
+    .pattern-option,
+    .pattern-palette-button,
     .level-card,
     .menu-card,
     .age-picker-card {
@@ -6865,11 +6766,8 @@
     .cycle-item:hover:not(.selected):not(.correct):not(.wrong),
     .cup-goal:hover:not(.selected):not(.correct):not(.wrong),
     .dengue-action:hover:not(.selected):not(.correct):not(.wrong),
-    .arrow-card:hover:not(.selected):not(.correct):not(.wrong),
     .direction-button:hover:not(.selected):not(.correct):not(.wrong),
-    .option-card:hover:not(.selected):not(.correct):not(.wrong),
     .answer-card:hover:not(.selected):not(.correct):not(.wrong),
-    .shape-card:hover:not(.selected):not(.correct):not(.wrong),
     .code-option:hover:not(.selected):not(.correct):not(.wrong),
     .device-option:hover:not(.selected):not(.correct):not(.wrong),
     .pixel-option:hover:not(.selected):not(.correct):not(.wrong),
@@ -6879,6 +6777,8 @@
     .cond-option:hover:not(.selected):not(.correct):not(.wrong),
     .var-option:hover:not(.selected):not(.correct):not(.wrong),
     .decoder-letter:hover:not(.selected):not(.correct):not(.wrong),
+    .pattern-option:hover:not(.selected):not(.correct):not(.wrong),
+    .pattern-palette-button:hover:not(.selected),
     .level-card:hover:not(.selected),
     .menu-card:hover:not(.selected),
     .age-picker-card:hover:not(.selected),
@@ -6893,11 +6793,8 @@
     .cycle-item:active,
     .cup-goal:active,
     .dengue-action:active,
-    .arrow-card:active,
     .direction-button:active,
-    .option-card:active,
     .answer-card:active,
-    .shape-card:active,
     .code-option:active,
     .device-option:active,
     .pixel-option:active,
@@ -6907,6 +6804,8 @@
     .cond-option:active,
     .var-option:active,
     .decoder-letter:active,
+    .pattern-option:active,
+    .pattern-palette-button:active,
     .level-card:active,
     .menu-card:active,
     .age-picker-card:active,
@@ -6951,7 +6850,6 @@
       }
 
       .robot-layout,
-      .direction-board,
       .habitat-main {
         grid-template-columns: 1fr;
       }
@@ -7122,7 +7020,6 @@
       button,
       .menu-card,
       .level-card,
-      .arrow-card,
       .direction-button,
       .dengue-action,
       .option,
@@ -7130,8 +7027,6 @@
       .cycle-item,
       .cup-goal,
       .cup-name-option,
-      .shape-card,
-      .option-card,
       .answer-card,
       .math-cup-answer,
       .math-cup-break-action,
@@ -7419,10 +7314,6 @@
       .habitat-board,
       .cycle-board,
       .cup-board,
-      .direction-board,
-      .echo-board,
-      .pattern-board,
-      .intruder-board,
       .data-quiz-board {
         width: 100%;
       }
@@ -8021,6 +7912,10 @@
       }
 
       .hole {
+        border-width: 2px;
+      }
+
+      .builder-goal-hole {
         border-width: 2px;
       }
 
@@ -8874,12 +8769,11 @@
         { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas", featured: true },
         { id: "builder", icon: "🤖", title: "Robô Programador", subject: "Sequência, laços e criação livre", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
-        { id: "arrows", icon: "🧭", title: "Setas e sequências", subject: "Direção e sequência", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
         { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
         { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
-        { id: "patterns", icon: "🔷", title: "Detetive de Padrões", subject: "Padrões" },
+        { id: "pattern", icon: "🔷", title: "Padrão Perfeito", subject: "Sequências e padrões" },
         { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
         { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
@@ -8906,13 +8800,13 @@
           title: "Sequência e algoritmos",
           icon: "🔁",
           description: "Planejar, ordenar e corrigir passos: a base de todo algoritmo.",
-          missionIds: ["robot", "arrows", "chef", "cycle", "vaccine", "bug", "builder"],
+          missionIds: ["robot", "chef", "cycle", "vaccine", "bug", "pattern", "builder"],
         },
         {
           title: "Padrões, códigos e dados",
           icon: "🧠",
           description: "Reconhecer padrões, decodificar símbolos e ler dados e imagens.",
-          missionIds: ["patterns", "code", "pixels", "data", "decoder", "cup"],
+          missionIds: ["pattern", "code", "pixels", "data", "decoder", "cup"],
         },
         {
           title: "Classificação e organização",
@@ -8948,11 +8842,11 @@
           competencies: ["2 — Pensamento científico, crítico e criativo", "5 — Cultura digital"],
           sequence: [
             { step: "Abertura", time: "5 min", description: "Roda de conversa: \"o que é dar um comando?\" Peça exemplos do dia a dia, como uma receita." },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Setas e Sequências e resolva as primeiras fases junto com a turma, pensando em voz alta." },
-            { step: "Prática em duplas", time: "15 min", description: "Alunos jogam Robô Coletor em duplas, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Robô Programador, testando comandos livremente." },
+            { step: "Exploração guiada", time: "15 min", description: "Projete Robô Coletor e resolva as primeiras fases junto com a turma, pensando em voz alta sobre a ordem dos comandos." },
+            { step: "Prática em duplas", time: "15 min", description: "Alunos jogam Robô Coletor em duplas, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Robô Programador, testando comandos livremente, ou o Padrão Perfeito, repetindo sequências simples." },
             { step: "Fechamento", time: "10 min", description: "Cada dupla conta uma fase que resolveu e como decidiu a ordem dos comandos." },
           ],
-          missions: ["arrows", "robot", "recycle", "builder"],
+          missions: ["robot", "recycle", "pattern", "builder"],
           assessment: [
             "A criança segue a ordem correta de comandos na maior parte das tentativas?",
             "Consegue apontar quando um comando está fora de ordem?",
@@ -8973,10 +8867,10 @@
           sequence: [
             { step: "Abertura", time: "5 min", description: "Retome o conceito de comando e pergunte: \"dá pra planejar antes de agir?\"" },
             { step: "Prática individual", time: "15 min", description: "Alunos jogam Robô Coletor sozinhos, tentando planejar o caminho antes de clicar." },
-            { step: "Novo desafio", time: "15 min", description: "Introduza Chef Cozinheiro: ordenar os passos de uma receita." },
+            { step: "Novo desafio", time: "15 min", description: "Introduza Chef Cozinheiro: ordenar os passos de uma receita. Em seguida, explore o Padrão Perfeito para reconhecer e continuar sequências de símbolos." },
             { step: "Fechamento", time: "10 min", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada?" },
           ],
-          missions: ["robot", "chef", "patterns"],
+          missions: ["robot", "chef", "pattern"],
           assessment: [
             "Planeja ao menos parte do caminho antes de executar?",
             "Identifica o passo certo para continuar uma receita?",
@@ -12009,8 +11903,11 @@ const brStatesList = [
         state.builderRunQueue = [];
         state.builderRunIndex = 0;
         state.builderCells = Array(size * size).fill(false);
+        state.builderVisitCounts = Array(size * size).fill(0);
+        state.builderRevisitWarned = false;
         state.builderRobot = { row: Math.floor(size / 2), col: Math.floor(size / 2), dir: 0 };
         state.builderCells[state.builderRobot.row * size + state.builderRobot.col] = true;
+        state.builderVisitCounts[state.builderRobot.row * size + state.builderRobot.col] = 1;
         state.builderProgram = [];
         state.builderExecutedCount = 0;
         state.builderEditingLoopIndex = null;
@@ -12113,12 +12010,22 @@ const brStatesList = [
           const nextIndex = nextRow * size + nextCol;
           state.builderRobot.row = nextRow;
           state.builderRobot.col = nextCol;
+          const alreadyVisited = state.builderCells[nextIndex];
           state.builderCells[nextIndex] = true;
+          state.builderVisitCounts[nextIndex] = (state.builderVisitCounts[nextIndex] || 0) + 1;
           if (state.builderWormholes.includes(nextIndex)) {
             showMessage("🌀 Buraco de minhoca!", 900, "bad");
-            state.builderRobot.row = Math.floor(size / 2);
-            state.builderRobot.col = Math.floor(size / 2);
+            const centerRow = Math.floor(size / 2);
+            const centerCol = Math.floor(size / 2);
+            const centerIndex = centerRow * size + centerCol;
+            state.builderRobot.row = centerRow;
+            state.builderRobot.col = centerCol;
             state.builderRobot.dir = 0;
+            state.builderCells[centerIndex] = true;
+            state.builderVisitCounts[centerIndex] = (state.builderVisitCounts[centerIndex] || 0) + 1;
+          } else if (alreadyVisited && !state.builderRevisitWarned) {
+            state.builderRevisitWarned = true;
+            showMessage("🔁 Você passou duas vezes por aqui!", 900, "info");
           }
         }
       }
@@ -12135,8 +12042,8 @@ const brStatesList = [
         let remaining = completedStepCount;
         let count = 0;
         for (const item of pendingItems) {
+          if (remaining <= 0) break;
           const itemSteps = flattenBuilderProgram([item]).length;
-          if (remaining < itemSteps) break;
           remaining -= itemSteps;
           count += 1;
         }
@@ -13111,6 +13018,147 @@ const brStatesList = [
         return choice.a === round.tracks[0].finalValueIndex && choice.b === round.tracks[1].finalValueIndex;
       }
 
+      const patternColorSymbols = ["🔴", "🔵", "🟡", "🟢", "🟣"];
+      const patternShapeSymbols = ["▲", "■", "●", "★", "◆"];
+
+      function patternPick(pool, seed, slot) {
+        const offsets = [0, 2, 4, 1, 3];
+        return pool[(seed + offsets[slot]) % pool.length];
+      }
+
+      function finishPatternRound(fullSequence, kind, distractors) {
+        if (kind === "copy") return { kind: "copy", sequence: fullSequence };
+        const answer = fullSequence[fullSequence.length - 1];
+        const shown = fullSequence.slice(0, -1);
+        const options = shuffle([answer, ...distractors]);
+        return { kind: "complete", sequence: shown, options, answerIndex: options.indexOf(answer) };
+      }
+
+      function patternRuleTier0(seed, kind) {
+        const pool = patternColorSymbols;
+        const n = pool.length;
+        const pairIndex = seed % (n * (n - 1));
+        const aIndex = Math.floor(pairIndex / (n - 1));
+        const bRaw = pairIndex % (n - 1);
+        const bIndex = bRaw >= aIndex ? bRaw + 1 : bRaw;
+        let cIndex = (bIndex + 1) % n;
+        if (cIndex === aIndex) cIndex = (cIndex + 1) % n;
+        const a = pool[aIndex];
+        const b = pool[bIndex];
+        const c = pool[cIndex];
+        const full = [a, b, a, b];
+        return finishPatternRound(full, kind, [a, c]);
+      }
+
+      const patternTier1Rules = [
+        (seed, kind) => {
+          const a = patternPick(patternShapeSymbols, seed, 0);
+          const b = patternPick(patternShapeSymbols, seed, 1);
+          const c = patternPick(patternShapeSymbols, seed, 2);
+          const full = [a, b, c, a, b, c];
+          return finishPatternRound(full, kind, [a, b]);
+        },
+        (seed, kind) => {
+          const a = patternPick(patternColorSymbols, seed, 0);
+          const b = patternPick(patternColorSymbols, seed, 1);
+          const c = patternPick(patternColorSymbols, seed, 2);
+          const full = [a, a, b, a, a, b];
+          return finishPatternRound(full, kind, [a, c]);
+        },
+      ];
+
+      const patternTier2Rules = [
+        (seed, kind) => {
+          const a = patternPick(patternShapeSymbols, seed, 0);
+          const b = patternPick(patternShapeSymbols, seed, 1);
+          const c = patternPick(patternShapeSymbols, seed, 2);
+          const full = [a, a, b, b, a, a, b, b];
+          return finishPatternRound(full, kind, [a, c]);
+        },
+        (seed, kind) => {
+          const a = patternPick(patternColorSymbols, seed, 0);
+          const b = patternPick(patternColorSymbols, seed, 1);
+          const c = patternPick(patternColorSymbols, seed, 2);
+          const full = [a, b, b, a, a, a];
+          return finishPatternRound(full, kind, [b, c]);
+        },
+        (seed, kind) => {
+          const a = patternPick(patternShapeSymbols, seed, 0);
+          const b = patternPick(patternShapeSymbols, seed, 1);
+          const c = patternPick(patternShapeSymbols, seed, 2);
+          const full = [a, b, c, b, a];
+          return finishPatternRound(full, kind, [c, b]);
+        },
+      ];
+
+      const patternTier3Rules = [
+        (seed, kind) => {
+          const colors = ["🔴", "🔵"];
+          const shapes = ["▲", "■", "●"];
+          const full = [0, 1, 2, 3, 4, 5].map((i) => colors[(i + seed) % 2] + shapes[(i + seed) % 3]);
+          const i = 5;
+          const wrongColor = colors[(i + seed + 1) % 2] + shapes[(i + seed) % 3];
+          const wrongShape = colors[(i + seed) % 2] + shapes[(i + seed + 1) % 3];
+          return finishPatternRound(full, kind, [wrongColor, wrongShape]);
+        },
+        (seed, kind) => {
+          const n0 = 2 + (seed % 6);
+          const d = 2 + (seed % 3);
+          const full = [n0, n0 + d, n0 + 2 * d, n0 + 3 * d, n0 + 4 * d];
+          return finishPatternRound(full, kind, [n0 + 3 * d + (d - 1), n0 + 3 * d + (d + 1)]);
+        },
+      ];
+
+      const patternTier4Rules = [
+        (seed, kind) => {
+          const n0 = 1 + (seed % 4);
+          const full = [n0, n0 * 2, n0 * 4, n0 * 8, n0 * 16];
+          return finishPatternRound(full, kind, [n0 * 16 + n0, n0 * 8 * 3]);
+        },
+        (seed, kind) => {
+          const a = 1 + (seed % 3);
+          const b = 1 + ((seed + 1) % 3);
+          const full = [a, b, a + b, a + 2 * b, 2 * a + 3 * b];
+          return finishPatternRound(full, kind, [2 * a + 3 * b - 1, 2 * (a + 2 * b)]);
+        },
+        (seed, kind) => {
+          const n0 = 3 + (seed % 4);
+          const s1 = n0 + 1, s2 = s1 + 2, s3 = s2 + 1, s4 = s3 + 2;
+          const full = [n0, s1, s2, s3, s4];
+          return finishPatternRound(full, kind, [s3 + 1, s3 + 3]);
+        },
+      ];
+
+      function buildPatternRounds(ruleSet) {
+        const rounds = [];
+        for (let i = 0; i < 16; i += 1) {
+          const kind = i % 2 === 0 ? "copy" : "complete";
+          const variantIndex = Math.floor(i / 2);
+          const rule = ruleSet[variantIndex % ruleSet.length];
+          const occurrence = Math.floor(variantIndex / ruleSet.length);
+          rounds.push(rule(occurrence, kind));
+        }
+        return rounds;
+      }
+
+      const patternLevelPlans = [
+        { title: "Primeiros padrões", icon: "🔴", age: "6-7 anos", theme: "AB, AB: o que vem agora?", meta: "Padrão simples", ruleSet: [patternRuleTier0] },
+        { title: "Padrões em grupo", icon: "▲", age: "8-9 anos", theme: "Grupos que se repetem", meta: "Padrão em grupo", ruleSet: patternTier1Rules },
+        { title: "Padrões que crescem", icon: "✨", age: "10-11 anos", theme: "Padrões que crescem e espelham", meta: "Padrão avançado", ruleSet: patternTier2Rules },
+        { title: "Duas pistas ao mesmo tempo", icon: "🧭", age: "12-13 anos", theme: "Duas pistas ao mesmo tempo", meta: "Duplo padrão", ruleSet: patternTier3Rules },
+        { title: "Padrões avançados", icon: "🧠", age: "14 anos", theme: "Sequências numéricas espertas", meta: "Padrão numérico", ruleSet: patternTier4Rules },
+      ];
+
+      const patternLevels = patternLevelPlans.map((plan) => ({ ...plan, rounds: buildPatternRounds(plan.ruleSet) }));
+
+      function currentPatternRounds() {
+        return patternLevels[state.patternLevel].rounds;
+      }
+
+      function patternPaletteFor(round) {
+        return [...new Set(round.sequence)];
+      }
+
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
         { icon: "⌨️", name: "Teclado", type: "entrada" },
@@ -13131,17 +13179,6 @@ const brStatesList = [
       const chartPalette = ["blue", "orange", "green", "purple"];
 
       const levelMissions = {
-        patterns: {
-          icon: "🔷",
-          title: "Detetive de Padrões",
-          levels: [
-            { id: "patterns-1", activity: "complete", icon: "🔁", title: "Trilha curta", age: "6-7 anos", description: "Continue o padrão.", preview: ["🔴", "🔵", "?"] },
-            { id: "patterns-2", activity: "complete", icon: "🧱", title: "Trilha esperta", age: "8-9 anos", description: "Observe e complete.", preview: ["▲", "■", "?"] },
-            { id: "patterns-3", activity: "intruder", icon: "🔎", title: "Detetive visual", age: "10-11 anos", description: "Ache o intruso.", preview: ["▲", "▲", "●"] },
-            { id: "patterns-4", activity: "rule", icon: "🧩", title: "Regra escondida", age: "12-13 anos", description: "Descubra a regra.", preview: ["+2", "+2", "?"] },
-            { id: "patterns-5", activity: "rule", icon: "🧠", title: "Desafio de regras", age: "14 anos", description: "Compare padrões complexos.", preview: ["2", "4", "8"] },
-          ],
-        },
         data: {
           icon: "📊",
           title: "Dados e gráficos",
@@ -13154,154 +13191,6 @@ const brStatesList = [
           ],
         },
       };
-
-      const legacyDirectionRounds = [
-        { robot: [1, 1], goal: [2, 1], answer: "→" },
-        { robot: [1, 1], goal: [1, 0], answer: "↑" },
-        { robot: [1, 1], goal: [0, 1], answer: "←" },
-        { robot: [1, 1], goal: [1, 2], answer: "↓" },
-        { robot: [0, 1], goal: [1, 1], answer: "→" },
-        { robot: [2, 1], goal: [1, 1], answer: "←" },
-        { robot: [1, 2], goal: [1, 1], answer: "↑" },
-        { robot: [1, 0], goal: [1, 1], answer: "↓" },
-      ];
-
-      const legacyEchoBaseRounds = [
-        ["ArrowRight", "ArrowRight"],
-        ["ArrowUp", "ArrowRight"],
-        ["ArrowLeft", "ArrowDown", "ArrowRight"],
-        ["ArrowUp", "ArrowUp", "ArrowLeft"],
-        ["ArrowRight", "ArrowDown", "ArrowDown", "ArrowLeft"],
-        ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"],
-      ];
-
-      const legacyEchoRounds = Array.from({ length: 50 }, (_, index) => {
-        const base = legacyEchoBaseRounds[index % legacyEchoBaseRounds.length];
-        const extras = [
-          ["ArrowUp"],
-          ["ArrowRight"],
-          ["ArrowDown"],
-          ["ArrowLeft"],
-          ["ArrowUp", "ArrowRight"],
-        ][Math.floor(index / legacyEchoBaseRounds.length) % 5];
-        return index < 12 ? [...base] : [...base, ...extras];
-      });
-
-      const legacyCommandRounds = Array.from({ length: 50 }, (_, index) => {
-        if (index % 3 === 2) {
-          const baseSequence = legacyEchoRounds[Math.floor(index / 3) % legacyEchoRounds.length];
-          const extraCommand = index >= 18 ? ["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"][index % 4] : null;
-          return {
-            type: "echo",
-            sequence: extraCommand ? [...baseSequence, extraCommand] : [...baseSequence],
-          };
-        }
-        return {
-          type: "direction",
-          ...cloneValue(legacyDirectionRounds[index % legacyDirectionRounds.length]),
-        };
-      });
-
-      const legacyPatternBaseTier0 = [
-        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟢", color: "green" }, { label: "▲", color: "purple" }], answer: 0, text: "Vermelho, azul, vermelho, azul..." },
-        { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }], options: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "orange", size: "large" }, { kind: "circle", color: "purple" }, { label: "★", color: "yellow" }], answer: 0, text: "Pequeno, grande, pequeno, grande..." },
-        { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], options: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "●", color: "orange" }, { label: "★", color: "yellow" }], answer: 0, text: "Triângulo, quadrado, triângulo, quadrado..." },
-        { sequence: [{ label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }], options: [{ label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "▲", color: "green" }, { label: "■", color: "purple" }], answer: 0, text: "Estrela, bola, estrela, bola, estrela..." },
-        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐸", color: "green" }], answer: 0, text: "Cachorro late, gato mia, cachorro late, gato mia..." },
-        { sequence: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "blue" }, { label: "☁️", color: "teal" }], answer: 0, text: "Sol, lua, sol, lua..." },
-        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }], options: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }, { label: "🍊", color: "orange" }], answer: 0, text: "Maçã, banana, maçã, banana..." },
-        { sequence: [{ label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }, { label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }], options: [{ label: "⬆️", color: "blue" }, { label: "⬇️", color: "teal" }, { label: "➡️", color: "green" }, { label: "⬅️", color: "orange" }], answer: 0, text: "Para cima, para baixo, para cima, para baixo..." },
-        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }], options: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚌", color: "orange" }, { label: "✈️", color: "blue" }], answer: 0, text: "Carro, bicicleta, carro, bicicleta..." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }], options: [{ label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "3", color: "purple" }, { label: "4", color: "orange" }], answer: 0, text: "1, 2, 1, 2, 1..." },
-        { sequence: [{ label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }], options: [{ label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "C", color: "teal" }, { label: "D", color: "blue" }], answer: 0, text: "A, B, A, B, A..." },
-        { sequence: [{ label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }, { label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }], options: [{ label: "🟨", color: "yellow" }, { label: "🟩", color: "green" }, { label: "🟦", color: "blue" }, { label: "🟥", color: "red" }], answer: 0, text: "Amarelo, verde, amarelo, verde..." },
-        { sequence: [{ label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }, { label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }], options: [{ label: "🐸", color: "green" }, { label: "🦆", color: "yellow" }, { label: "🐟", color: "blue" }, { label: "🐢", color: "teal" }], answer: 0, text: "Sapo, pato, sapo, pato..." },
-        { sequence: [{ label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "❄️", color: "teal" }, { label: "🌈", color: "purple" }], answer: 0, text: "Sol, chuva, sol, chuva..." },
-        { sequence: [{ label: "🔺", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔺", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🔺", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟪", color: "purple" }, { label: "⬛", color: "teal" }], answer: 0, text: "Triângulo, bola, triângulo, bola..." },
-        { sequence: [{ label: "🧦", color: "orange" }, { label: "👟", color: "teal" }, { label: "🧦", color: "orange" }, { label: "👟", color: "teal" }], options: [{ label: "🧦", color: "orange" }, { label: "👟", color: "teal" }, { label: "🧢", color: "blue" }, { label: "🎒", color: "purple" }], answer: 0, text: "Meia, tênis, meia, tênis..." },
-      ];
-
-      const legacyPatternBaseTier1 = [
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }], options: [{ label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "4", color: "purple" }], answer: 0, text: "1, 2, 3, 1, 2..." },
-        { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }], options: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "C", color: "purple" }, { label: "D", color: "teal" }], answer: 0, text: "A, B, B, A, B, B..." },
-        { sequence: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }, { label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐮", color: "teal" }], options: [{ label: "🐓", color: "red" }, { label: "🐮", color: "teal" }, { label: "🐷", color: "pink" }, { label: "🐑", color: "purple" }], answer: 0, text: "Galo canta, vaca muge, vaca muge, galo canta..." },
-        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🟢", color: "green" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: [{ label: "🟢", color: "green" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "⚪", color: "teal" }], answer: 0, text: "Vermelho, azul, verde, vermelho, azul..." },
-        { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: [{ label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "▲", color: "green" }, { label: "■", color: "purple" }], answer: 0, text: "Bola, bola, estrela se repete." },
-        { sequence: [{ label: "🍎", color: "red" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍎", color: "red" }], options: [{ label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍇", color: "purple" }, { label: "🍊", color: "orange" }], answer: 0, text: "Maçã, maçã, banana se repete." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "1", color: "blue" }], options: [{ label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "3", color: "purple" }, { label: "0", color: "orange" }], answer: 0, text: "Um, um, dois se repete." },
-        { sequence: [{ label: "🐱", color: "orange" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐱", color: "orange" }], options: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐦", color: "purple" }, { label: "🐹", color: "teal" }], answer: 0, text: "Gato, gato, cachorro se repete." },
-        { sequence: [{ label: "X", color: "purple" }, { label: "Y", color: "teal" }, { label: "Z", color: "orange" }, { label: "X", color: "purple" }, { label: "Y", color: "teal" }], options: [{ label: "Z", color: "orange" }, { label: "X", color: "purple" }, { label: "Y", color: "teal" }, { label: "W", color: "blue" }], answer: 0, text: "X, Y, Z, X, Y..." },
-        { sequence: [{ label: "🟥", color: "red" }, { label: "🟦", color: "blue" }, { label: "🟨", color: "yellow" }, { label: "🟥", color: "red" }, { label: "🟦", color: "blue" }], options: [{ label: "🟨", color: "yellow" }, { label: "🟥", color: "red" }, { label: "🟦", color: "blue" }, { label: "🟩", color: "green" }], answer: 0, text: "Vermelho, azul, amarelo, vermelho, azul..." },
-        { sequence: [{ kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "large" }, { kind: "square", color: "blue", size: "small" }, { kind: "square", color: "blue", size: "small" }], options: [{ kind: "square", color: "blue", size: "large" }, { kind: "square", color: "blue", size: "small" }, { kind: "circle", color: "green" }, { label: "▲", color: "orange" }], answer: 0, text: "Pequeno, pequeno, grande se repete." },
-        { sequence: [{ label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }], options: [{ label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "blue" }, { label: "☁️", color: "teal" }], answer: 0, text: "Lua, lua, sol se repete." },
-        { sequence: [{ label: "3", color: "teal" }, { label: "3", color: "teal" }, { label: "5", color: "orange" }, { label: "3", color: "teal" }, { label: "3", color: "teal" }], options: [{ label: "5", color: "orange" }, { label: "3", color: "teal" }, { label: "1", color: "blue" }, { label: "7", color: "purple" }], answer: 0, text: "3, 3, 5 se repete." },
-        { sequence: [{ label: "🐦", color: "blue" }, { label: "🐦", color: "blue" }, { label: "🐟", color: "teal" }, { label: "🐦", color: "blue" }, { label: "🐦", color: "blue" }], options: [{ label: "🐟", color: "teal" }, { label: "🐦", color: "blue" }, { label: "🐝", color: "yellow" }, { label: "🦋", color: "purple" }], answer: 0, text: "Passarinho, passarinho, peixe se repete." },
-        { sequence: [{ label: "▲", color: "green" }, { label: "▲", color: "green" }, { label: "■", color: "orange" }, { label: "▲", color: "green" }, { label: "▲", color: "green" }], options: [{ label: "■", color: "orange" }, { label: "▲", color: "green" }, { label: "●", color: "blue" }, { label: "★", color: "purple" }], answer: 0, text: "Triângulo, triângulo, quadrado se repete." },
-        { sequence: [{ label: "🚌", color: "orange" }, { label: "🚌", color: "orange" }, { label: "🚗", color: "red" }, { label: "🚌", color: "orange" }, { label: "🚌", color: "orange" }], options: [{ label: "🚗", color: "red" }, { label: "🚌", color: "orange" }, { label: "🚲", color: "green" }, { label: "✈️", color: "blue" }], answer: 0, text: "Ônibus, ônibus, carro se repete." },
-      ];
-
-      const legacyIntruderBase = [
-        { sequence: [{ kind: "circle", color: "blue" }, { kind: "circle", color: "red" }, { kind: "circle", color: "blue" }, { kind: "circle", color: "green" }, { kind: "circle", color: "blue" }, { kind: "circle", color: "red" }], answer: 3, why: "O verde entrou no lugar do vermelho." },
-        { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "●", color: "orange" }, { label: "■", color: "teal" }], answer: 4, why: "A bola interrompe a repetição." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "3", color: "orange" }, { label: "3", color: "orange" }], answer: 4, why: "Depois do 1 deveria aparecer o 2." },
-        { sequence: [{ kind: "square", color: "pink", size: "small" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "small" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "large" }, { kind: "square", color: "pink", size: "large" }], answer: 4, why: "O padrão alterna pequeno e grande." },
-        { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }], answer: 5, why: "O grupo correto é A, B, B." },
-        { sequence: [{ label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "▲", color: "green" }, { label: "●", color: "blue" }], answer: 4, why: "A regra repete duas estrelas e uma bola." },
-        { sequence: [{ label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🟢", color: "green" }, { label: "🔵", color: "blue" }], answer: 4, why: "O padrão é vermelho, vermelho, azul; o verde não pertence." },
-        { sequence: [{ label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "●", color: "orange" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], answer: 3, why: "O padrão alterna triângulo e quadrado; a bola não pertence." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "3", color: "orange" }, { label: "5", color: "purple" }, { label: "5", color: "purple" }, { label: "6", color: "green" }], answer: 3, why: "Os números sobem de 1 em 1; faltou o 4." },
-        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐦", color: "purple" }, { label: "🐱", color: "orange" }], answer: 4, why: "O padrão é cachorro, cachorro, gato; o passarinho não pertence." },
-        { sequence: [{ kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "large" }], answer: 5, why: "O grupo é grande, grande, pequeno; o último devia ser pequeno." },
-        { sequence: [{ label: "A", color: "purple" }, { label: "A", color: "purple" }, { label: "B", color: "orange" }, { label: "A", color: "purple" }, { label: "C", color: "teal" }, { label: "B", color: "orange" }], answer: 4, why: "O padrão é A, A, B; o C não pertence." },
-        { sequence: [{ label: "☀️", color: "yellow" }, { label: "☀️", color: "yellow" }, { label: "🌧️", color: "blue" }, { label: "☀️", color: "yellow" }, { label: "❄️", color: "teal" }, { label: "🌧️", color: "blue" }], answer: 4, why: "O padrão é sol, sol, chuva; a neve não pertence." },
-        { sequence: [{ label: "🔺", color: "purple" }, { label: "🟠", color: "orange" }, { label: "🔷", color: "teal" }, { label: "🔺", color: "purple" }, { label: "🔺", color: "purple" }, { label: "🔷", color: "teal" }], answer: 4, why: "O padrão é triângulo, laranja, losango; o triângulo extra não pertence." },
-        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍎", color: "red" }, { label: "🍇", color: "purple" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }], answer: 3, why: "O padrão alterna maçã e banana; a uva não pertence." },
-        { sequence: [{ label: "2", color: "blue" }, { label: "4", color: "teal" }, { label: "2", color: "blue" }, { label: "5", color: "orange" }, { label: "2", color: "blue" }, { label: "4", color: "teal" }], answer: 3, why: "O padrão é 2, 4, 2, 4; o 5 não pertence." },
-        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚌", color: "orange" }, { label: "🚲", color: "green" }], answer: 4, why: "O padrão alterna carro e bicicleta; o ônibus não pertence." },
-        { sequence: [{ label: "⭐", color: "yellow" }, { label: "☁️", color: "teal" }, { label: "🌙", color: "purple" }, { label: "⭐", color: "yellow" }, { label: "⭐", color: "yellow" }, { label: "🌙", color: "purple" }], answer: 1, why: "O padrão é estrela, estrela, lua; a nuvem não pertence." },
-      ];
-
-      const legacyRuleBaseTier3 = [
-        { sequence: [{ label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: ["Azul e vermelho", "Duas azuis", "Só vermelho", "Muda tamanho"], answer: 0, why: "A regra é azul, vermelho e repetir." },
-        { sequence: [{ label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }, { label: "▲", color: "purple" }, { label: "▲", color: "purple" }, { label: "■", color: "teal" }], options: ["Dois triângulos e um quadrado", "Um triângulo", "Três quadrados", "Só muda cor"], answer: 0, why: "O grupo tem dois triângulos e um quadrado." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "1", color: "blue" }, { label: "2", color: "green" }, { label: "3", color: "orange" }], options: ["1, 2, 3 e repete", "Só o 1", "3, 2, 1", "Pula o 2"], answer: 0, why: "Os números 1, 2 e 3 formam o grupo." },
-        { sequence: [{ kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }, { kind: "square", color: "green", size: "small" }, { kind: "square", color: "green", size: "large" }], options: ["Pequeno e grande alternam", "Muda cor", "Sempre grande", "Sempre pequeno"], answer: 0, why: "A cor não muda; o tamanho alterna." },
-        { sequence: [{ label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }, { label: "A", color: "red" }, { label: "B", color: "yellow" }, { label: "B", color: "yellow" }], options: ["A, B, B", "A, A, B", "Só B", "A, B, C"], answer: 0, why: "O grupo repetido é A, B, B." },
-        { sequence: [{ label: "●", color: "blue" }, { label: "●", color: "blue" }, { label: "★", color: "orange" }, { label: "★", color: "orange" }, { label: "●", color: "blue" }, { label: "●", color: "blue" }], options: ["Duas bolas e duas estrelas", "Uma bola", "Duas estrelas e uma bola", "Só estrelas"], answer: 0, why: "A regra forma pares." },
-        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: ["Cachorro e gato", "Só gato", "Dois cachorros", "Muda todo dia"], answer: 0, why: "A regra é cachorro, gato e repetir." },
-        { sequence: [{ label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }, { label: "🔴", color: "red" }, { label: "🔴", color: "red" }, { label: "🔵", color: "blue" }], options: ["Duas vermelhas e uma azul", "Só azul", "Uma vermelha e duas azuis", "Sempre alterna"], answer: 0, why: "O grupo repetido é vermelho, vermelho, azul." },
-        { sequence: [{ label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }, { label: "🐶", color: "blue" }, { label: "🐶", color: "blue" }, { label: "🐱", color: "orange" }], options: ["Dois cachorros e um gato", "Só gatos", "Um cachorro e dois gatos", "Muda toda vez"], answer: 0, why: "O grupo repetido é cachorro, cachorro, gato." },
-        { sequence: [{ label: "2", color: "teal" }, { label: "4", color: "orange" }, { label: "2", color: "teal" }, { label: "4", color: "orange" }, { label: "2", color: "teal" }, { label: "4", color: "orange" }], options: ["Alterna 2 e 4", "Sempre soma 1", "Só números pares diferentes", "Sempre 2"], answer: 0, why: "Os números alternam entre 2 e 4." },
-        { sequence: [{ kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }, { kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }, { kind: "square", color: "purple", size: "large" }, { kind: "square", color: "purple", size: "small" }], options: ["Grande e pequeno alternam", "Sempre grande", "Sempre pequeno", "Muda de cor"], answer: 0, why: "O tamanho alterna entre grande e pequeno." },
-        { sequence: [{ label: "A", color: "teal" }, { label: "B", color: "orange" }, { label: "C", color: "purple" }, { label: "A", color: "teal" }, { label: "B", color: "orange" }, { label: "C", color: "purple" }], options: ["A, B, C e repete", "Só A e B", "C, B, A", "Pula letras"], answer: 0, why: "As letras A, B e C formam o grupo que se repete." },
-        { sequence: [{ label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }, { label: "🌙", color: "purple" }, { label: "🌙", color: "purple" }, { label: "☀️", color: "yellow" }], options: ["Duas luas e um sol", "Só sol", "Uma lua e dois sóis", "Sempre sol"], answer: 0, why: "O grupo repetido é lua, lua, sol." },
-        { sequence: [{ label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }, { label: "🚗", color: "red" }, { label: "🚲", color: "green" }], options: ["Carro e bicicleta alternam", "Só carros", "Três veículos diferentes", "Sempre o mesmo"], answer: 0, why: "Carro e bicicleta se alternam sem parar." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "1", color: "blue" }, { label: "1", color: "blue" }, { label: "2", color: "teal" }], options: ["Dois uns e um dois", "Só uns", "Um um e dois", "Sempre cresce"], answer: 0, why: "O grupo repetido é um, um, dois." },
-        { sequence: [{ label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }, { label: "🍎", color: "red" }, { label: "🍌", color: "yellow" }, { label: "🍇", color: "purple" }], options: ["Maçã, banana, uva e repete", "Só maçã", "Ordem muda toda vez", "Duas frutas só"], answer: 0, why: "Maçã, banana e uva formam o grupo que se repete." },
-      ];
-
-      const legacyRuleBaseTier4 = [
-        { sequence: [{ label: "2", color: "blue" }, { label: "4", color: "teal" }, { label: "6", color: "green" }, { label: "8", color: "orange" }, { label: "10", color: "purple" }], options: ["Soma 2 a cada passo", "Dobra a cada passo", "Soma 1 a cada passo", "Sempre par ao acaso"], answer: 0, why: "Cada número aumenta 2 em relação ao anterior." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "2", color: "teal" }, { label: "4", color: "green" }, { label: "8", color: "orange" }, { label: "16", color: "purple" }], options: ["Dobra a cada passo", "Soma 2 a cada passo", "Soma 1 a cada passo", "Alterna par e ímpar"], answer: 0, why: "Cada número é o dobro do anterior." },
-        { sequence: [{ label: "3", color: "blue" }, { label: "6", color: "teal" }, { label: "9", color: "green" }, { label: "12", color: "orange" }], options: ["Soma 3 a cada passo", "Dobra a cada passo", "Soma 1 a cada passo", "Divide por 2"], answer: 0, why: "Cada número aumenta 3 em relação ao anterior." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "1", color: "teal" }, { label: "2", color: "green" }, { label: "3", color: "orange" }, { label: "5", color: "purple" }], options: ["Cada número é a soma dos dois anteriores", "Soma 1 sempre", "Dobra sempre", "Alterna 1 e 5"], answer: 0, why: "1+1=2, 1+2=3, 2+3=5: cada número soma os dois de trás." },
-        { sequence: [{ label: "20", color: "blue" }, { label: "18", color: "teal" }, { label: "16", color: "green" }, { label: "14", color: "orange" }], options: ["Diminui 2 a cada passo", "Aumenta 2 a cada passo", "Dobra a cada passo", "Divide por 2"], answer: 0, why: "Cada número diminui 2 em relação ao anterior." },
-        { sequence: [{ label: "●", color: "red", size: "small" }, { label: "●", color: "blue", size: "large" }, { label: "●", color: "red", size: "small" }, { label: "●", color: "blue", size: "large" }], options: ["Cor e tamanho mudam juntos", "Só a cor muda", "Só o tamanho muda", "Nada muda"], answer: 0, why: "Vermelho pequeno e azul grande alternam sempre juntos." },
-        { sequence: [{ label: "40", color: "blue" }, { label: "20", color: "teal" }, { label: "10", color: "green" }, { label: "5", color: "orange" }], options: ["Divide por 2 a cada passo", "Soma 5 a cada passo", "Subtrai 10 a cada passo", "Dobra a cada passo"], answer: 0, why: "Cada número é a metade do anterior." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "4", color: "teal" }, { label: "9", color: "green" }, { label: "16", color: "orange" }], options: ["São quadrados: 1, 4, 9, 16", "Soma 3 a cada passo", "Dobra a cada passo", "Soma números pares"], answer: 0, why: "1×1, 2×2, 3×3, 4×4: são os números ao quadrado." },
-        { sequence: [{ label: "5", color: "blue" }, { label: "10", color: "teal" }, { label: "20", color: "green" }, { label: "40", color: "orange" }], options: ["Dobra a cada passo", "Soma 5 a cada passo", "Soma 10 a cada passo", "Divide por 2"], answer: 0, why: "Cada número é o dobro do anterior." },
-        { sequence: [{ label: "A", color: "blue" }, { label: "C", color: "teal" }, { label: "E", color: "green" }, { label: "G", color: "orange" }], options: ["Pula uma letra a cada passo", "Ordem normal do alfabeto", "Só vogais", "Anda de trás para frente"], answer: 0, why: "Pula B, D e F: A, C, E, G." },
-        { sequence: [{ label: "9", color: "blue" }, { label: "7", color: "teal" }, { label: "5", color: "green" }, { label: "3", color: "orange" }], options: ["Diminui 2 a cada passo", "Aumenta 2 a cada passo", "Dobra a cada passo", "Divide por 3"], answer: 0, why: "Cada número diminui 2 em relação ao anterior." },
-        { sequence: [{ label: "2", color: "blue" }, { label: "3", color: "teal" }, { label: "5", color: "green" }, { label: "8", color: "orange" }, { label: "13", color: "purple" }], options: ["Cada número é a soma dos dois anteriores", "Soma 1 sempre", "Dobra sempre", "São números primos"], answer: 0, why: "2+3=5, 3+5=8, 5+8=13: cada número soma os dois de trás." },
-        { sequence: [{ label: "▲", color: "red" }, { label: "■", color: "blue" }, { label: "▲", color: "red" }, { label: "■", color: "blue" }], options: ["Forma e cor mudam juntas", "Só a forma muda", "Só a cor muda", "É aleatório"], answer: 0, why: "Triângulo vermelho e quadrado azul sempre alternam juntos." },
-        { sequence: [{ label: "1", color: "blue" }, { label: "3", color: "teal" }, { label: "9", color: "green" }, { label: "27", color: "orange" }], options: ["Multiplica por 3 a cada passo", "Soma 3 a cada passo", "Soma 9 a cada passo", "Dobra a cada passo"], answer: 0, why: "Cada número é o triplo do anterior." },
-        { sequence: [{ label: "100", color: "blue" }, { label: "90", color: "teal" }, { label: "80", color: "green" }, { label: "70", color: "orange" }], options: ["Diminui 10 a cada passo", "Divide por 10", "Aumenta 10 a cada passo", "Divide por 2"], answer: 0, why: "Cada número diminui 10 em relação ao anterior." },
-        { sequence: [{ label: "4", color: "blue" }, { label: "4", color: "blue" }, { label: "8", color: "teal" }, { label: "8", color: "teal" }, { label: "16", color: "green" }, { label: "16", color: "green" }], options: ["Repete e dobra: 4, 4, 8, 8, 16, 16", "Só soma 4", "Só dobra sem repetir", "Números aleatórios"], answer: 0, why: "Cada número aparece duas vezes antes de dobrar." },
-      ];
-
-      let legacyPatternRounds = [];
-      let legacyIntruderRounds = [];
-      let legacyRuleRounds = [];
 
       const dataChartThemes = [
         ["Maçã", "Banana", "Uva", "Pera"],
@@ -13544,12 +13433,6 @@ const brStatesList = [
 
       legacyOrganizeRounds = Array.from({ length: 50 }, (_, index) => createOrganizeRound(index));
 
-      const legacyPatternPoolTier0 = expandOptionRounds(legacyPatternBaseTier0);
-      const legacyPatternPoolTier1 = expandOptionRounds(legacyPatternBaseTier1);
-      const legacyIntruderPool = expandIntruderRounds(legacyIntruderBase);
-      const legacyRulePoolTier3 = expandOptionRounds(legacyRuleBaseTier3);
-      const legacyRulePoolTier4 = expandOptionRounds(legacyRuleBaseTier4);
-      legacyIntruderRounds = legacyIntruderPool.map(cloneValue);
       legacyDataQuizRounds = expandOptionRounds(legacyDataQuizRounds);
       legacyOrganizeRounds = expandOptionRounds(legacyOrganizeRounds);
 
@@ -13646,8 +13529,16 @@ const brStatesList = [
         varCorrectIndex: null,
         varRevealCount: 0,
         varAnswering: false,
+        patternLevel: null,
+        patternBuilt: [],
+        patternMiss: null,
+        patternMissTimer: null,
+        patternWrong: null,
+        patternCorrectIndex: null,
         builderLevel: null,
         builderCells: [],
+        builderVisitCounts: [],
+        builderRevisitWarned: false,
         builderRobot: { row: 0, col: 0, dir: 0 },
         builderProgram: [],
         builderExecutedCount: 0,
@@ -13756,7 +13647,7 @@ const brStatesList = [
         legacyCompleted: {},
       };
 
-      const START_UNSELECTED_MODES = new Set(["arrows", "dengue", "recycle", "vertebrate", "cup"]);
+      const START_UNSELECTED_MODES = new Set(["dengue", "recycle", "vertebrate", "cup"]);
 
       function initialSelectionForMode(mode) {
         return START_UNSELECTED_MODES.has(mode) ? -1 : 0;
@@ -14328,6 +14219,7 @@ const brStatesList = [
       }
 
       function lockAnswer({ delay = 1600, messageText = "👀 Olhe!", messageType = "warn", guard = null, onLock = null, onUnlock = null } = {}) {
+        window.clearTimeout(state.answerLockTimer);
         if (onLock) onLock();
         state.answerLocked = true;
         showMessage(messageText, Math.min(delay, 900), messageType);
@@ -14390,7 +14282,6 @@ const brStatesList = [
       }
 
       const roundPools = {
-        arrows: legacyCommandRounds.map(cloneValue),
         robot: robotLevels.map(cloneValue),
         dengue: dengueRounds.map(cloneValue),
         recycle: recycleRounds.map(cloneValue),
@@ -14407,15 +14298,13 @@ const brStatesList = [
         sort: sortLevels.map((level) => level.rounds.map(cloneValue)),
         cond: condLevels.map((level) => level.rounds.map(cloneValue)),
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
+        pattern: patternLevels.map((level) => level.rounds.map(cloneValue)),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
         devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
-          complete: [legacyPatternPoolTier0.map(cloneValue), legacyPatternPoolTier1.map(cloneValue)],
-          intruder: legacyIntruderPool.map(cloneValue),
-          rule: [legacyRulePoolTier3.map(cloneValue), legacyRulePoolTier4.map(cloneValue)],
           detective: legacyDataQuizRounds.map(cloneValue),
           organize: legacyOrganizeRounds.map(cloneValue),
         },
@@ -14485,6 +14374,13 @@ const brStatesList = [
         });
       }
 
+      function resetPatternRoundPools(seed) {
+        patternLevels.forEach((level, levelIndex) => {
+          const source = roundPools.pattern[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "pattern", levelIndex), { free: true });
+        });
+      }
+
       function resetDecoderRoundPools(seed) {
         decoderLevels.forEach((level, levelIndex) => {
           const source = roundPools.decoder[levelIndex];
@@ -14501,20 +14397,12 @@ const brStatesList = [
 
       function resetLegacyRoundPool(activity, seed) {
         const targetByActivity = {
-          complete: legacyPatternRounds,
-          intruder: legacyIntruderRounds,
-          rule: legacyRuleRounds,
           detective: legacyDataQuizRounds,
           organize: legacyOrganizeRounds,
         };
         const target = targetByActivity[activity];
         if (!target) return;
         let source = roundPools.legacy[activity];
-        if (activity === "complete") {
-          source = roundPools.legacy.complete[state.legacyGradeIndex] || roundPools.legacy.complete[0];
-        } else if (activity === "rule") {
-          source = roundPools.legacy.rule[state.legacyGradeIndex - 3] || roundPools.legacy.rule[0];
-        }
         if (!source) return;
         resetRoundPool(target, source, seedFromParts(seed, "legacy", activity, state.legacyGradeIndex), {
           bandSize: activity === "detective" || activity === "organize" ? 8 : 10,
@@ -14523,7 +14411,6 @@ const brStatesList = [
 
       function resetMissionRoundPools(mode, seed) {
         const seedForMode = seedFromParts(seed, mode);
-        if (mode === "arrows") resetRoundPool(legacyCommandRounds, roundPools.arrows, seedForMode, { bandSize: 8 });
         if (mode === "robot") resetRoundPool(robotLevels, roundPools.robot, seedForMode, { bandSize: 8 });
         if (mode === "dengue") resetRoundPool(dengueRounds, roundPools.dengue, seedForMode, { bandSize: 8 });
         if (mode === "recycle") resetRoundPool(recycleRounds, roundPools.recycle, seedForMode, { bandSize: 8 });
@@ -14543,6 +14430,7 @@ const brStatesList = [
         if (mode === "sort") resetSortRoundPools(seedForMode);
         if (mode === "cond") resetCondRoundPools(seedForMode);
         if (mode === "var") resetVarRoundPools(seedForMode);
+        if (mode === "pattern") resetPatternRoundPools(seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "ttt") resetTttRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
@@ -14557,16 +14445,6 @@ const brStatesList = [
           const shift = index % optionCount;
           round.options = rotateList(round.options, shift);
           round.answer = (round.answer - shift + optionCount) % optionCount;
-          return round;
-        });
-      }
-
-      function expandIntruderRounds(rounds, size = 50) {
-        return Array.from({ length: size }, (_, index) => {
-          const round = cloneValue(rounds[index % rounds.length]);
-          const shift = index % round.sequence.length;
-          round.sequence = rotateList(round.sequence, shift);
-          round.answer = (round.answer - shift + round.sequence.length) % round.sequence.length;
           return round;
         });
       }
@@ -14589,16 +14467,6 @@ const brStatesList = [
 
       function updateLegacyCompletionBadge() {
         if (legacyCompletedCount() >= legacyActivityTotal()) state.completed[state.mode] = true;
-      }
-
-      function legacyItemHtml(item) {
-        const lightSymbolColors = ["green", "yellow", "orange", "purple", "teal", "pink"];
-        const textColor = lightSymbolColors.includes(item.color) ? "var(--card-ink)" : "var(--white)";
-        const style = `background:${colorMap[item.color] || "var(--blue)"}; color:${textColor}`;
-        const classes = ["symbol"];
-        if (item.kind === "circle") classes.push("circle");
-        if (item.size) classes.push(item.size);
-        return `<div class="${classes.join(" ")}" style="${style}">${item.label || ""}</div>`;
       }
 
       function colorNamesInText(text) {
@@ -14985,161 +14853,10 @@ const brStatesList = [
         { key: "ArrowDown", area: "down", label: "Descer" },
       ];
 
-      const arrowChoiceKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-
       function directionPadHtml(extraClass = "") {
         return `<div class="direction-pad ${extraClass}" aria-label="Controles de direção">
           ${directionControls.map((control) => `<button class="direction-button ${control.area}" type="button" data-key="${control.key}" aria-label="${control.label}">${arrowSymbols[control.key]}</button>`).join("")}
           <div class="direction-pad-center">•</div>
-        </div>`;
-      }
-
-      function arrowOptionsHtml() {
-        return `<div class="arrow-options">
-          ${arrowChoiceKeys.map((key) => `<div class="arrow-card" role="button" data-key="${key}" aria-label="${arrowSymbols[key]}">${arrowSymbols[key]}</div>`).join("")}
-        </div>`;
-      }
-
-      function currentArrowsRound() {
-        return legacyCommandRounds[state.round];
-      }
-
-      function advanceArrowsRound(messageText = "✅ Certo!") {
-        state.legacyWrong = null;
-        state.legacyCorrect = true;
-        state.answerLocked = true;
-        showMessage(messageText, 550);
-        render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "arrows") return;
-          state.legacyCorrect = false;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.legacyEchoProgress = 0;
-          state.selected = -1;
-          if (state.round >= legacyCommandRounds.length) {
-            complete("arrows", "Comandos concluídos!");
-            return;
-          }
-          render();
-        }, 480);
-      }
-
-      function lockArrowsMistake(messageText = "👀 Olhe!") {
-        lockAnswer({
-          delay: 1100,
-          messageText,
-          guard: () => state.mode === "arrows",
-          onLock: () => {
-            state.legacyEchoProgress = 0;
-          },
-        });
-      }
-
-      function renderArrows() {
-        const round = currentArrowsRound();
-        setHeader("Setas e sequências", round.type === "echo" ? "Repita a sequência." : "Escolha a seta certa.");
-        setCounters("Fase", `${state.round + 1} / ${legacyCommandRounds.length}`, round.type === "echo" ? "Passos" : "Acertos", round.type === "echo" ? `${state.legacyEchoProgress} / ${round.sequence.length}` : state.score);
-        status.textContent = round.type === "echo" ? "Siga a ordem mostrada." : "Olhe a posição da estrela.";
-
-        if (round.type === "echo") {
-          content.innerHTML = `<div class="echo-board ${state.legacyCorrect ? "fx-flash" : ""}">
-            <div class="echo-robot">🤖</div>
-            <div class="command-display">
-              ${round.sequence.map((key, index) => `<div class="sequence-chip ${index < state.legacyEchoProgress || state.legacyCorrect ? "done" : ""} ${index === state.legacyEchoProgress && !state.legacyCorrect ? "current" : ""}">${arrowSymbols[key]}</div>`).join("")}
-            </div>
-            <div class="analysis">Siga uma seta de cada vez.</div>
-            ${arrowOptionsHtml()}
-            ${state.answerLocked && !state.legacyCorrect ? pauseOverlay() : ""}
-          </div>`;
-          return;
-        }
-
-        const cells = [];
-        for (let y = 0; y < 3; y += 1) {
-          for (let x = 0; x < 3; x += 1) {
-            const isRobot = round.robot[0] === x && round.robot[1] === y;
-            const isGoal = round.goal[0] === x && round.goal[1] === y;
-            cells.push(`<div class="legacy-robot-cell">
-              ${isGoal ? '<div class="star-token">⭐</div>' : ""}
-              ${isRobot ? '<div class="legacy-robot-token">🤖</div>' : ""}
-            </div>`);
-          }
-        }
-        content.innerHTML = `<div class="direction-board ${state.legacyCorrect ? "fx-flash" : ""}">
-          <div class="direction-grid">${cells.join("")}</div>
-          ${arrowOptionsHtml()}
-          ${state.answerLocked && !state.legacyCorrect ? pauseOverlay() : ""}
-        </div>`;
-      }
-
-      function handleArrowsKey(key) {
-        const round = currentArrowsRound();
-        if (round.type === "echo") {
-          if (key !== round.sequence[state.legacyEchoProgress]) {
-            lockArrowsMistake("👀 Ordem!");
-            return true;
-          }
-          state.legacyEchoProgress += 1;
-          if (state.legacyEchoProgress >= round.sequence.length) {
-            advanceArrowsRound("✅ Sequência!");
-            return true;
-          }
-          render();
-          return true;
-        }
-
-        if (arrowSymbols[key] !== round.answer) {
-          lockArrowsMistake();
-          return true;
-        }
-        advanceArrowsRound("✅ Seta!");
-        return true;
-      }
-
-      function renderLegacyPatterns() {
-        const round = legacyPatternRounds[state.round];
-        const options = legacyOptions(round);
-        setHeader("Complete o padrão", "Escolha o próximo.");
-        setCounters("Fase", `${state.round + 1} / ${legacyPatternRounds.length}`, "Acertos", state.score);
-        status.textContent = round.text;
-        content.innerHTML = `<div class="pattern-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
-          <div class="sequence-row">
-            ${round.sequence.map((item) => `<div class="shape-card">${legacyItemHtml(item)}</div>`).join("")}
-            <div class="shape-card question">?</div>
-          </div>
-          <div class="options-row">
-            ${options.map((item, index) => `<div class="${legacyOptionClass("option-card", index)}">${legacyItemHtml(item)}</div>`).join("")}
-          </div>
-          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
-        </div>`;
-      }
-
-      function renderLegacyIntruder() {
-        const round = legacyIntruderRounds[state.round];
-        setHeader("Ache o intruso", "Qual figura quebrou o padrão?");
-        setCounters("Desafio", `${state.round + 1} / ${legacyIntruderRounds.length}`, "Acertos", state.score);
-        status.textContent = state.legacyFeedback || "Procure a mudança.";
-        content.innerHTML = `<div class="intruder-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
-          <div class="intruder-row">
-            ${round.sequence.map((item, index) => `<div class="${legacyOptionClass("shape-card", index)}">${legacyItemHtml(item)}</div>`).join("")}
-          </div>
-          <div class="analysis">Qual item não combina?</div>
-          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
-        </div>`;
-      }
-
-      function renderLegacyRule() {
-        const round = legacyRuleRounds[state.round];
-        const options = legacyOptions(round);
-        setHeader("Descubra a regra", "Escolha a regra.");
-        setCounters("Regra", `${state.round + 1} / ${legacyRuleRounds.length}`, "Acertos", state.score);
-        status.textContent = state.legacyFeedback || "Observe o grupo que repete.";
-        content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
-          <div class="sequence-row">${round.sequence.map((item) => `<div class="shape-card">${legacyItemHtml(item)}</div>`).join("")}</div>
-          <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${option}</div>`).join("")}</div>
-          ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
 
@@ -15179,9 +14896,6 @@ const brStatesList = [
       }
 
       const legacyRenderers = {
-        complete: renderLegacyPatterns,
-        intruder: renderLegacyIntruder,
-        rule: renderLegacyRule,
         detective: renderLegacyDataDetective,
         organize: renderLegacyOrganize,
       };
@@ -15262,6 +14976,7 @@ const brStatesList = [
         sort: sortLevels,
         cond: condLevels,
         var: varLevels,
+        pattern: patternLevels,
         builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
@@ -17309,6 +17024,183 @@ const brStatesList = [
         </div>`;
       }
 
+      function startPatternRound() {
+        window.clearTimeout(state.patternMissTimer);
+        state.patternMissTimer = null;
+        state.patternBuilt = [];
+        state.patternMiss = null;
+        state.selected = -1;
+        state.patternWrong = null;
+        state.patternCorrectIndex = null;
+      }
+
+      function renderPattern() {
+        const level = patternLevels[state.patternLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        setHeader("Padrão Perfeito", `${level.title}: observe o padrão.`);
+        setCounters("Padrão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+
+        if (round.kind === "copy") {
+          const palette = patternPaletteFor(round);
+          const builtCount = state.patternBuilt.length;
+          status.textContent = builtCount >= round.sequence.length
+            ? "Padrão completo!"
+            : builtCount === 0
+              ? "Toque nos itens, na ordem certa, para repetir o padrão."
+              : "Continue repetindo o padrão.";
+          content.innerHTML = `<div class="pattern-board">
+            <div class="pattern-model">
+              ${round.sequence.map((item) => `<div class="pattern-tile"><span>${String(item)}</span></div>`).join("")}
+            </div>
+            <div class="pattern-answer-row">
+              ${round.sequence.map((item, index) => {
+                const filled = index < builtCount;
+                return `<div class="pattern-answer-slot ${filled ? "filled" : "empty"}"><span>${filled ? String(state.patternBuilt[index]) : ""}</span></div>`;
+              }).join("")}
+            </div>
+            <div class="pattern-palette ${state.answerLocked ? "locked" : ""}">
+              ${palette.map((item, index) => `<button type="button" class="pattern-palette-button ${index === state.selected ? "selected" : ""} ${state.patternMiss === item ? "miss" : ""}"><span>${String(item)}</span></button>`).join("")}
+            </div>
+          </div>`;
+          return;
+        }
+
+        const options = round.options;
+        status.textContent = "Qual item continua o padrão?";
+        content.innerHTML = `<div class="pattern-board">
+          <div class="pattern-model">
+            ${round.sequence.map((item) => `<div class="pattern-tile"><span>${String(item)}</span></div>`).join("")}
+            <div class="pattern-tile placeholder"><span>❓</span></div>
+          </div>
+          <div class="pattern-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((item, index) => `<button type="button" class="pattern-option ${index === state.selected ? "selected" : ""} ${state.patternWrong === index ? "wrong" : ""} ${state.patternCorrectIndex === index ? "correct" : ""}">
+              <span class="pattern-option-visual">${String(item)}</span>
+              ${state.patternCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
+            </button>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function advancePatternRound() {
+        const rounds = currentPatternRounds();
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete("pattern", "Padrões dominados!");
+          return;
+        }
+        startPatternRound();
+        render();
+      }
+
+      function completePatternCopyRound() {
+        state.answerLocked = true;
+        showMessage("✅ Padrão completo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "pattern") return;
+          state.answerLocked = false;
+          advancePatternRound();
+        }, 600);
+      }
+
+      function handlePatternPaletteChoice(item) {
+        const rounds = currentPatternRounds();
+        const round = rounds[state.round];
+        if (!round || round.kind !== "copy" || state.answerLocked) return;
+        const expected = round.sequence[state.patternBuilt.length];
+        if (item !== expected) {
+          window.clearTimeout(state.patternMissTimer);
+          state.patternMiss = item;
+          render();
+          state.patternMissTimer = window.setTimeout(() => {
+            if (state.mode !== "pattern") return;
+            state.patternMiss = null;
+            render();
+          }, 600);
+          return;
+        }
+        window.clearTimeout(state.patternMissTimer);
+        state.patternMissTimer = null;
+        state.patternMiss = null;
+        state.patternBuilt.push(item);
+        if (state.patternBuilt.length >= round.sequence.length) {
+          completePatternCopyRound();
+          return;
+        }
+        render();
+      }
+
+      function handlePatternCompleteSubmit() {
+        const rounds = currentPatternRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const isCorrect = state.selected === round.answerIndex;
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1200,
+            messageText: "Quase! tente de novo.",
+            messageType: "info",
+            guard: () => state.mode === "pattern",
+            onLock: () => { state.patternWrong = state.selected; },
+            onUnlock: () => { state.patternWrong = null; },
+          });
+          return;
+        }
+        state.patternWrong = null;
+        state.patternCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✨ Isso mesmo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "pattern") return;
+          state.patternCorrectIndex = null;
+          state.answerLocked = false;
+          advancePatternRound();
+        }, 600);
+      }
+
+      function handlePatternEnter() {
+        const rounds = currentPatternRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        if (round.kind === "copy") {
+          if (!hasSelection()) return;
+          const palette = patternPaletteFor(round);
+          handlePatternPaletteChoice(palette[state.selected]);
+          return;
+        }
+        if (!hasSelection()) return;
+        handlePatternCompleteSubmit();
+      }
+
+      function handlePatternClick(event) {
+        const rounds = currentPatternRounds();
+        const round = rounds[state.round];
+        if (!round) return false;
+        if (round.kind === "copy") {
+          const palette = patternPaletteFor(round);
+          return activateIndexedClick(event, ".pattern-palette-button", (index) => handlePatternPaletteChoice(palette[index]));
+        }
+        return activateChoiceClick(event, ".pattern-option", {
+          clearWrong: () => { state.patternWrong = null; },
+          onConfirm: handlePatternCompleteSubmit,
+        });
+      }
+
+      function backToPatternLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        window.clearTimeout(state.patternMissTimer);
+        state.patternMissTimer = null;
+        state.patternLevel = null;
+        resetRoundState(0);
+        startPatternRound();
+        state.mode = "menu";
+        render();
+      }
+
       function currentDecoderRounds() {
         return decoderLevels[state.decoderLevel].rounds;
       }
@@ -17721,6 +17613,7 @@ const brStatesList = [
         state.mathCupShootout = { homeKicks: [], awayKicks: [], turn: "home" };
         showMessage("🥅 Pênaltis!", 900, "warn");
         render();
+        window.clearTimeout(state.answerLockTimer);
         state.answerLockTimer = window.setTimeout(() => advanceMathCupPenaltyTurn(), 1000);
       }
 
@@ -17735,6 +17628,7 @@ const brStatesList = [
 
       function resolveMathCupOpponentPenaltyKick() {
         render();
+        window.clearTimeout(state.answerLockTimer);
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "mathCup" || !state.mathCupShootout) return;
           const level = currentMathCupLevel();
@@ -17774,6 +17668,7 @@ const brStatesList = [
 
         shootout.turn = kickingSide === "home" ? "away" : "home";
         render();
+        window.clearTimeout(state.answerLockTimer);
         state.answerLockTimer = window.setTimeout(() => advanceMathCupPenaltyTurn(), 900);
       }
 
@@ -17783,6 +17678,7 @@ const brStatesList = [
         const playerWon = winnerSide === "home";
         showMessage(playerWon ? "🏆 Venceu nos pênaltis!" : "🥅 Perdeu nos pênaltis!", 900, playerWon ? "good" : "bad");
         render();
+        window.clearTimeout(state.answerLockTimer);
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "mathCup") return;
           finishMathCupMatch(
@@ -17905,7 +17801,16 @@ const brStatesList = [
         if (remainingSeconds === 0) {
           stopMathCupChallengeClock();
           if (state.mathCupShootout) {
-            recordMathCupPenaltyKick(false);
+            lockAnswer({
+              delay: 900,
+              messageText: "⏱️ Tempo!",
+              messageType: "warn",
+              guard: () => state.mode === "mathCup" && Boolean(state.mathCupShootout),
+              onUnlock: () => {
+                resetMathCupChallengeState();
+                recordMathCupPenaltyKick(false);
+              },
+            });
             return;
           }
           mathCupMistake({ timedOut: true });
@@ -18926,7 +18831,6 @@ const brStatesList = [
       }
 
       const missionRenderers = {
-        arrows: renderArrows,
         robot: renderRobot,
         dengue: renderDengue,
         recycle: renderRecycle,
@@ -18944,6 +18848,7 @@ const brStatesList = [
         sort: renderSort,
         cond: renderCond,
         var: renderVar,
+        pattern: renderPattern,
         builder: renderBuilder,
         decoder: renderDecoder,
         devices: renderDevices,
@@ -18998,6 +18903,7 @@ const brStatesList = [
         sort: "sortLevel",
         cond: "condLevel",
         var: "varLevel",
+        pattern: "patternLevel",
         builder: "builderLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
@@ -19045,6 +18951,11 @@ const brStatesList = [
         if (mode === "var") {
           state.varLevel = state.ageBand;
           startVarRound();
+          return;
+        }
+        if (mode === "pattern") {
+          state.patternLevel = state.ageBand;
+          startPatternRound();
           return;
         }
         if (mode === "builder") {
@@ -19230,6 +19141,13 @@ const brStatesList = [
         state.varAttempt = 0;
         state.varWrong = null;
         state.varCorrectIndex = null;
+        window.clearTimeout(state.patternMissTimer);
+        state.patternMissTimer = null;
+        state.patternLevel = null;
+        state.patternBuilt = [];
+        state.patternMiss = null;
+        state.patternWrong = null;
+        state.patternCorrectIndex = null;
         window.clearTimeout(state.builderRunTimer);
         state.builderRunTimer = null;
         window.clearTimeout(state.builderAutoAdvanceTimer);
@@ -19425,45 +19343,6 @@ const brStatesList = [
         return legacyOptions(round)[state.selected];
       }
 
-      function handleLegacyPatternEnter() {
-        if (state.selected < 0) {
-          showMessage("↔️ Escolha!", 650, "info");
-          return;
-        }
-        const round = legacyPatternRounds[state.round];
-        if (selectedLegacyAnswer(round) !== round.options[round.answer]) {
-          lockLegacyMistake(state.selected);
-          return;
-        }
-        advanceLegacyRound(legacyPatternRounds, "Padrões completos!");
-      }
-
-      function handleLegacyIntruderEnter() {
-        if (state.selected < 0) {
-          showMessage("↔️ Escolha!", 650, "info");
-          return;
-        }
-        const round = legacyIntruderRounds[state.round];
-        if (state.selected !== round.answer) {
-          lockLegacyMistake(state.selected, { rotate: false, delay: 1500 });
-          return;
-        }
-        advanceLegacyQuiz(legacyIntruderRounds, "Intrusos encontrados!", round.why);
-      }
-
-      function handleLegacyRuleEnter() {
-        if (state.selected < 0) {
-          showMessage("↔️ Escolha!", 650, "info");
-          return;
-        }
-        const round = legacyRuleRounds[state.round];
-        if (selectedLegacyAnswer(round) !== round.options[round.answer]) {
-          lockLegacyMistake(state.selected);
-          return;
-        }
-        advanceLegacyQuiz(legacyRuleRounds, "Regras descobertas!", round.why);
-      }
-
       function handleLegacyDataEnter() {
         if (state.selected < 0) {
           showMessage("↔️ Escolha!", 650, "info");
@@ -19491,9 +19370,6 @@ const brStatesList = [
       }
 
       const legacyEnterHandlers = {
-        complete: handleLegacyPatternEnter,
-        intruder: handleLegacyIntruderEnter,
-        rule: handleLegacyRuleEnter,
         detective: handleLegacyDataEnter,
         organize: handleLegacyOrganizeEnter,
       };
@@ -19521,9 +19397,6 @@ const brStatesList = [
 
         const activity = state.legacyActivity;
         const activityCounts = {
-          complete: legacyOptions(legacyPatternRounds[state.round]).length,
-          intruder: legacyIntruderRounds[state.round]?.sequence.length || 0,
-          rule: legacyOptions(legacyRuleRounds[state.round]).length,
           detective: legacyOptions(legacyDataQuizRounds[state.round]).length,
           organize: legacyOptions(legacyOrganizeRounds[state.round]).length,
         };
@@ -20598,10 +20471,11 @@ const brStatesList = [
             const isRobot = state.builderRobot.row === row && state.builderRobot.col === col;
             const isWormhole = state.builderWormholes.includes(index);
             const painted = state.builderCells[index];
+            const revisited = (state.builderVisitCounts[index] || 0) > 1;
             const isGoal = state.builderGoals.includes(index);
-            const goalMark = !isRobot && isGoal && !painted ? `<div class="energy"></div>` : "";
+            const goalMark = !isRobot && isGoal && !painted ? `<div class="builder-goal-hole"></div>` : "";
             const wormholeMark = !isRobot && isWormhole ? `<div class="hole"></div>` : "";
-            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}</div><span class="builder-robot-badge">🤖</span>` : wormholeMark || goalMark}</div>`);
+            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${revisited ? "revisited" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}</div><span class="builder-robot-badge">🤖</span>` : wormholeMark || goalMark}</div>`);
           }
         }
 
@@ -21252,7 +21126,6 @@ const brStatesList = [
 
       const modeEnterHandlers = {
         menu: chooseMenu,
-        arrows: () => showMessage("↕️ Setas!", 650, "info"),
         dengue: handleDengueEnter,
         recycle: handleRecycleEnter,
         vertebrate: handleVertebrateEnter,
@@ -21269,6 +21142,7 @@ const brStatesList = [
         sort: handleSortEnter,
         cond: handleCondEnter,
         var: handleVarEnter,
+        pattern: handlePatternEnter,
         builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
@@ -21509,6 +21383,33 @@ const brStatesList = [
               afterMove: () => { state.varWrong = null; },
             });
           }
+        } else if (state.mode === "pattern") {
+          if (state.patternLevel === null) {
+            const count = patternLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const round = currentPatternRounds()[state.round];
+            if (!round) return;
+            if (round.kind === "copy") {
+              const count = patternPaletteFor(round).length;
+              moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
+            } else {
+              const count = round.options.length;
+              moveSelectionIndex({
+                count,
+                delta,
+                vertical,
+                columns: chooseGridColumns(count, 3),
+                afterMove: () => { state.patternWrong = null; },
+              });
+            }
+          }
         } else if (state.mode === "builder") {
           const count = currentBuilderPaletteBlocks().length;
           moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 2) });
@@ -21632,9 +21533,6 @@ const brStatesList = [
         }
 
         const selectors = {
-          complete: ".options-row .option-card",
-          intruder: ".intruder-row .shape-card",
-          rule: ".answer-row .answer-card",
           detective: ".answer-row .answer-card",
           organize: ".answer-row .answer-card",
         };
@@ -21767,13 +21665,6 @@ const brStatesList = [
           || handleMathCupPassClick(event);
       }
 
-      function handleArrowsClick(event) {
-        const key = clickedDirectionKey(event, ".arrow-card");
-        if (!key) return false;
-        handleArrowsKey(key);
-        return true;
-      }
-
       function handleRobotClick(event) {
         const key = clickedDirectionKey(event, ".direction-button");
         if (!key) return false;
@@ -21782,7 +21673,6 @@ const brStatesList = [
       }
 
       const missionClickHandlers = {
-        arrows: handleArrowsClick,
         robot: handleRobotClick,
         dengue: (event) => {
           if (state.dengueFinished) {
@@ -21833,6 +21723,7 @@ const brStatesList = [
         sort: handleSortClick,
         cond: handleCondClick,
         var: handleVarClick,
+        pattern: handlePatternClick,
         builder: handleBuilderClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
@@ -21862,7 +21753,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .arrow-card, .direction-button, .option-card, .answer-card, .shape-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -22386,6 +22277,10 @@ const brStatesList = [
           backToVarLevels();
           return;
         }
+        if (state.mode === "pattern" && state.patternLevel !== null) {
+          backToPatternLevels();
+          return;
+        }
         if (state.mode === "builder" && state.builderLevel !== null) {
           backToBuilderLevels();
           return;
@@ -22447,9 +22342,6 @@ const brStatesList = [
           }
           reset(state.mode);
         } else if (state.answerLocked || (state.mode === "cup" && state.cupQuizMode === "study" && state.cupPhase === "study")) {
-          return;
-        } else if (state.mode === "arrows" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
-          handleArrowsKey(event.key);
           return;
         } else if (state.mode === "robot" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
           moveRobot(event.key);

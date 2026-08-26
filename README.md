@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.10.1
+Versão atual: 2.10.2
 
 ## Acesse
 
@@ -68,12 +68,11 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
 - Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
 - Robô coletor: sequência de comandos e planejamento de caminho.
-- Setas e sequências: direção, sequência e leitura de instruções.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Ciclos da natureza: ordenação de etapas de fenômenos naturais.
 - Caderneta de vacinação: organização e cuidado com a saúde.
 - Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
-- Detetive de Padrões: repetição, lógica visual e descoberta de regras.
+- Padrão Perfeito: reconhecimento e continuação de sequências e padrões, em ritmo tranquilo, sem cronômetro.
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
 - Dados e gráficos: contagem, comparação e leitura de informações.
