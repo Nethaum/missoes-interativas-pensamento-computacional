@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.10.2">
+  <meta name="app-version" content="2.10.3">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -4808,20 +4808,8 @@
       box-shadow: inset 0 0 0 3px #ffd23f;
     }
 
-    .builder-robot-badge {
-      position: absolute;
-      z-index: 5;
-      right: 0;
-      bottom: 0;
-      width: 14px;
-      height: 14px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-      font-size: 10px;
-      line-height: 1;
+    .builder-cell .robot {
+      font-size: calc(min(var(--cell-size, 42px), var(--grid-cell-fluid, 4.5vw)) * 0.62);
     }
 
     .builder-program {
@@ -11856,8 +11844,8 @@ const brStatesList = [
       });
 
       const builderLevelPlans = [
-        { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft"], goalCount: 1, wormholeCount: 4 },
-        { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 2, wormholeCount: 7 },
+        { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft"], goalCount: 1, wormholeCount: 4, commandLimit: 6 },
+        { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 2, wormholeCount: 7, commandLimit: 8 },
       ];
 
       const builderLevels = builderLevelPlans.map((plan) => ({ ...plan, preview: ["🧱", "🔁", "🗺️"] }));
@@ -11868,6 +11856,10 @@ const brStatesList = [
 
       function builderGridSize() {
         return builderLevels[state.builderLevel].gridSize;
+      }
+
+      function builderCommandLimit() {
+        return builderLevels[state.builderLevel]?.commandLimit ?? Infinity;
       }
 
       function shuffleInPlace(list) {
@@ -11911,6 +11903,7 @@ const brStatesList = [
         state.builderCells = Array(size * size).fill(false);
         state.builderVisitCounts = Array(size * size).fill(0);
         state.builderRevisitWarned = false;
+        state.builderBump = false;
         state.builderRobot = { row: Math.floor(size / 2), col: Math.floor(size / 2), dir: 0 };
         state.builderCells[state.builderRobot.row * size + state.builderRobot.col] = true;
         state.builderVisitCounts[state.builderRobot.row * size + state.builderRobot.col] = 1;
@@ -11961,11 +11954,13 @@ const brStatesList = [
           if (state.builderEditingLoopIndex !== null) {
             state.builderProgram[state.builderEditingLoopIndex].body.push(item);
           } else {
+            if (state.builderProgram.length >= builderCommandLimit()) return;
             state.builderProgram.push(item);
           }
           return;
         }
         if (id === "repeat") {
+          if (state.builderProgram.length >= builderCommandLimit()) return;
           state.builderProgram.push({ type: "repeat", count: 2, body: [] });
           state.builderEditingLoopIndex = state.builderProgram.length - 1;
           return;
@@ -11999,6 +11994,7 @@ const brStatesList = [
       }
 
       function applyBuilderStep(step) {
+        state.builderBump = false;
         if (step.type === "turnRight") {
           state.builderRobot.dir = (state.builderRobot.dir + 1) % 4;
           return;
@@ -12012,7 +12008,12 @@ const brStatesList = [
           const size = builderGridSize();
           const nextRow = state.builderRobot.row + deltaRow;
           const nextCol = state.builderRobot.col + deltaCol;
-          if (nextRow < 0 || nextCol < 0 || nextRow >= size || nextCol >= size) return;
+          if (nextRow < 0 || nextCol < 0 || nextRow >= size || nextCol >= size) {
+            state.builderBump = true;
+            state.builderRobot.dir = Math.floor(Math.random() * 4);
+            showMessage("💫 Tonto!", 600, "warn");
+            return;
+          }
           const nextIndex = nextRow * size + nextCol;
           state.builderRobot.row = nextRow;
           state.builderRobot.col = nextCol;
@@ -12110,6 +12111,10 @@ const brStatesList = [
                 startBuilderCanvas();
                 render();
               }, 1400);
+            } else {
+              state.builderProgram = [];
+              state.builderExecutedCount = 0;
+              state.builderRevisitWarned = false;
             }
             render();
           }
@@ -13564,6 +13569,7 @@ const brStatesList = [
         builderCells: [],
         builderVisitCounts: [],
         builderRevisitWarned: false,
+        builderBump: false,
         builderRobot: { row: 0, col: 0, dir: 0 },
         builderProgram: [],
         builderExecutedCount: 0,
@@ -15192,7 +15198,7 @@ const brStatesList = [
         if (nx < 0 || ny < 0 || nx >= level.size[0] || ny >= level.size[1] || blocked) {
           state.robotBump = true;
           state.robotStunned = true;
-          showMessage("🧱 Tonto!", 600, "warn");
+          showMessage("💫 Tonto!", 600, "warn");
           render();
           state.answerLockTimer = window.setTimeout(() => {
             if (state.mode !== "robot") return;
@@ -20469,6 +20475,8 @@ const brStatesList = [
         const level = builderLevels[state.builderLevel];
         const size = level.gridSize;
         const palette = currentBuilderPaletteBlocks();
+        const commandLimit = builderCommandLimit();
+        const atCommandLimit = state.builderEditingLoopIndex === null && state.builderProgram.length >= commandLimit;
         const canRun = state.builderEditingLoopIndex === null && builderPendingSteps().length > 0 && !state.builderRunning;
         const canClearProgram = !state.builderRunning
           && (state.builderEditingLoopIndex !== null || state.builderProgram.length > state.builderExecutedCount);
@@ -20478,16 +20486,18 @@ const brStatesList = [
         const nothingPending = state.builderProgram.length > 0 && state.builderProgram.length === state.builderExecutedCount;
 
         setHeader("Robô Programador", `${level.title}: monte seu programa.`);
-        setCounters("Blocos", `${state.builderProgram.length}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
+        setCounters("Blocos", `${state.builderProgram.length}${commandLimit === Infinity ? "" : `/${commandLimit}`}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
         status.textContent = state.builderRunning
           ? "🤖 Executando..."
           : state.builderEditingLoopIndex !== null
             ? "Adicione blocos dentro da repetição e toque em ✅ para fechar."
             : allGoalsReached
               ? "🎉 Você alcançou todos os objetivos! Preparando um novo desafio..."
-              : nothingPending
-                ? "Adicione mais blocos pra continuar de onde o robô parou."
-                : "Leve o robô 🤖 até as energias ou monte o programa que quiser.";
+              : atCommandLimit
+                ? "Chegou no limite de comandos — toque em ▶️ Executar para ver o robô andar."
+                : nothingPending
+                  ? "Adicione mais blocos pra continuar de onde o robô parou."
+                  : "Leve o robô 🤖 até as energias ou monte o programa que quiser.";
 
         const cells = [];
         for (let row = 0; row < size; row += 1) {
@@ -20500,7 +20510,7 @@ const brStatesList = [
             const isGoal = state.builderGoals.includes(index);
             const goalMark = !isRobot && isGoal && !painted ? `<div class="builder-goal-hole"></div>` : "";
             const wormholeMark = !isRobot && isWormhole ? `<div class="hole"></div>` : "";
-            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${revisited ? "revisited" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot">${builderDirArrows[state.builderRobot.dir]}</div><span class="builder-robot-badge">🤖</span>` : wormholeMark || goalMark}</div>`);
+            cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${revisited ? "revisited" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot ${state.builderBump ? "bump stunned" : ""}">${builderDirArrows[state.builderRobot.dir]}</div>` : wormholeMark || goalMark}</div>`);
           }
         }
 
@@ -20527,7 +20537,7 @@ const brStatesList = [
             }).join("")
           : `<span class="builder-program-empty">Toque nos blocos abaixo pra montar seu programa.</span>`;
 
-        const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" ? "close-loop" : ""} ${state.builderRunning ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
+        const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" ? "close-loop" : ""} ${state.builderRunning || (atCommandLimit && block.id !== "closeLoop") ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
           <span class="builder-block-icon">${block.icon}</span>${block.label}
         </div>`).join("");
 
