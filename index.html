@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.10.3">
+  <meta name="app-version" content="2.11.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -1640,6 +1640,12 @@
       inset: 32%;
       border-radius: 50%;
       background: radial-gradient(circle, #ffffff 40%, transparent 75%);
+    }
+
+    .builder-goal-hole.pending {
+      opacity: 0.4;
+      filter: grayscale(0.6);
+      animation: none;
     }
 
     .trail::after {
@@ -4781,6 +4787,119 @@
     .pattern-option.correct { border-color: #2f9e52; background: #e6f9ec; }
     .pattern-options.locked .pattern-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
 
+    .decompose-board {
+      width: min(680px, 100%);
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .decompose-task-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .decompose-task-icon { font-size: 34px; line-height: 1; }
+    .decompose-task-title { font-size: 20px; font-weight: 700; color: var(--card-ink); }
+
+    .decompose-answer-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .decompose-answer-slot {
+      display: grid;
+      place-items: center;
+      min-width: 120px;
+      min-height: 52px;
+      padding: 8px 14px;
+      border: 3px dashed var(--line);
+      border-radius: 14px;
+      background: #fff8dc;
+      font-size: 15px;
+      line-height: 1.3;
+      text-align: center;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .decompose-answer-slot.empty { opacity: 0.55; }
+    .decompose-answer-slot.filled { border-style: solid; border-color: var(--blue); background: var(--white); }
+
+    .decompose-palette {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .decompose-palette-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      min-width: 64px;
+      padding: 10px 16px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 15px;
+      font-family: inherit;
+      line-height: 1.3;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .decompose-palette-button.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .decompose-palette-button.miss { border-color: var(--red); background: #fff0f0; }
+    .decompose-palette.locked .decompose-palette-button { cursor: default; }
+
+    .decompose-options {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .decompose-option {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: block;
+      width: auto;
+      height: auto;
+      padding: 14px 18px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .decompose-option-steps { display: grid; gap: 4px; }
+    .decompose-option-step { display: block; font-size: 15px; line-height: 1.35; color: var(--card-ink); }
+
+    .decompose-option.selected { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22); }
+    .decompose-option.wrong { border-color: var(--red); background: #fff0f0; }
+    .decompose-option.correct { border-color: #2f9e52; background: #e6f9ec; }
+    .decompose-options.locked .decompose-option:not(.wrong):not(.correct) { opacity: 0.42; filter: grayscale(0.35); transform: none; }
+
     .builder-board {
       width: min(620px, 100%);
       display: grid;
@@ -4913,6 +5032,39 @@
       opacity: 0.6;
     }
 
+    .builder-functions {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      min-height: 30px;
+      padding: 7px;
+      border: 3px dashed var(--purple);
+      border-radius: 10px;
+      background: rgba(195, 160, 255, 0.1);
+    }
+
+    .builder-function-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      background: #f2ebff;
+      border: 2px solid var(--purple);
+    }
+
+    .builder-function-chip.editing {
+      box-shadow: 0 0 0 3px rgba(195, 160, 255, 0.6);
+    }
+
+    .builder-function-name {
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
     .builder-palette {
       display: flex;
       flex-wrap: wrap;
@@ -4949,6 +5101,11 @@
     .builder-block.close-loop {
       background: #e6f9ec;
       border-color: #2f9e52;
+    }
+
+    .builder-block.function {
+      background: #f2ebff;
+      border-color: var(--purple);
     }
 
     .builder-block.selected {
@@ -6696,7 +6853,22 @@
     .math-cup-player.pass-target,
     .math-cup-player-badge,
     .quiz-question,
-    .data-chip {
+    .data-chip,
+    .var-option,
+    .pattern-option,
+    .pattern-palette-button,
+    .decompose-option,
+    .decompose-palette-button,
+    .cond-option,
+    .sort-item,
+    .pixel-option,
+    .bug-chip,
+    .bug-fix-option,
+    .pattern-answer-slot,
+    .decompose-answer-slot,
+    .pattern-tile,
+    .builder-chip,
+    .builder-function-name {
       color: var(--card-ink);
       text-shadow: none;
     }
@@ -6715,7 +6887,9 @@
     .math-cup-break-action,
     .math-cup-stop-overlay,
     .math-cup-goal-pause,
-    .math-cup-player.pass-target {
+    .math-cup-player.pass-target,
+    .decompose-palette-button,
+    .decompose-option {
       cursor: pointer;
     }
 
@@ -6727,7 +6901,9 @@
     .legacy-locked .answer-card,
     .math-cup-challenge.locked .math-cup-answer,
     .code-options.locked .code-option,
-    .device-options.locked .device-option {
+    .device-options.locked .device-option,
+    .decompose-palette.locked .decompose-palette-button,
+    .decompose-options.locked .decompose-option {
       cursor: default;
     }
 
@@ -6749,6 +6925,8 @@
     .decoder-letter,
     .pattern-option,
     .pattern-palette-button,
+    .decompose-option,
+    .decompose-palette-button,
     .level-card,
     .menu-card,
     .age-picker-card {
@@ -6773,6 +6951,8 @@
     .decoder-letter:hover:not(.selected):not(.correct):not(.wrong),
     .pattern-option:hover:not(.selected):not(.correct):not(.wrong),
     .pattern-palette-button:hover:not(.selected),
+    .decompose-option:hover:not(.selected):not(.correct):not(.wrong),
+    .decompose-palette-button:hover:not(.selected),
     .level-card:hover:not(.selected),
     .menu-card:hover:not(.selected),
     .age-picker-card:hover:not(.selected),
@@ -6800,6 +6980,8 @@
     .decoder-letter:active,
     .pattern-option:active,
     .pattern-palette-button:active,
+    .decompose-option:active,
+    .decompose-palette-button:active,
     .level-card:active,
     .menu-card:active,
     .age-picker-card:active,
@@ -8768,6 +8950,7 @@
         { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
         { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
         { id: "pattern", icon: "🔷", title: "Padrão Perfeito", subject: "Sequências e padrões" },
+        { id: "decompose", icon: "🗂️", title: "Divida a Tarefa", subject: "Decomposição" },
         { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
         { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
@@ -8794,7 +8977,7 @@
           title: "Sequência e algoritmos",
           icon: "🔁",
           description: "Planejar, ordenar e corrigir passos: a base de todo algoritmo.",
-          missionIds: ["robot", "chef", "cycle", "vaccine", "bug", "pattern", "builder"],
+          missionIds: ["robot", "chef", "cycle", "vaccine", "bug", "pattern", "decompose", "builder"],
         },
         {
           title: "Padrões, códigos e dados",
@@ -8812,7 +8995,7 @@
           title: "Lógica e decisão",
           icon: "💡",
           description: "Calcular, avaliar situações e escolher a melhor decisão.",
-          missionIds: ["dengue", "math", "mathCup", "ttt"],
+          missionIds: ["dengue", "math", "mathCup", "ttt", "decompose"],
         },
         {
           title: "Lógica de programação",
@@ -11846,6 +12029,9 @@ const brStatesList = [
       const builderLevelPlans = [
         { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft"], goalCount: 1, wormholeCount: 4, commandLimit: 6 },
         { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 2, wormholeCount: 7, commandLimit: 8 },
+        { title: "Ordem certa", icon: "🎯", age: "10-11 anos", theme: "Visite os objetivos na ordem certa", meta: "ordem importa", gridSize: 9, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 3, wormholeCount: 8, commandLimit: 10, orderedGoals: true },
+        { title: "Crie suas funções", icon: "🧩", age: "12-13 anos", theme: "Crie uma função e reaproveite ela no programa", meta: "com funções", gridSize: 9, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 3, wormholeCount: 9, commandLimit: 8, orderedGoals: true },
+        { title: "Programador completo", icon: "🏆", age: "14 anos", theme: "Combine laços, funções e ordem certa", meta: "desafio completo", gridSize: 10, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 4, wormholeCount: 10, commandLimit: 8, orderedGoals: true },
       ];
 
       const builderLevels = builderLevelPlans.map((plan) => ({ ...plan, preview: ["🧱", "🔁", "🗺️"] }));
@@ -11888,7 +12074,10 @@ const brStatesList = [
       }
 
       function builderGoalsComplete() {
-        return state.builderGoals.length > 0 && state.builderGoals.every((cell) => state.builderCells[cell]);
+        if (!state.builderGoals.length) return false;
+        const level = builderLevels[state.builderLevel];
+        if (level.orderedGoals) return state.builderNextGoalIndex >= state.builderGoals.length;
+        return state.builderGoals.every((cell) => state.builderCells[cell]);
       }
 
       function resetBuilderRound() {
@@ -11910,6 +12099,9 @@ const brStatesList = [
         state.builderProgram = [];
         state.builderExecutedCount = 0;
         state.builderEditingLoopIndex = null;
+        state.builderFunctions = [];
+        state.builderEditingFunctionIndex = null;
+        state.builderNextGoalIndex = 0;
         state.selected = -1;
       }
 
@@ -11918,17 +12110,39 @@ const brStatesList = [
         generateBuilderLayout();
       }
 
+      const BUILDER_MAX_FUNCTIONS = 2;
+
       function currentBuilderPaletteBlocks() {
         const level = builderLevels[state.builderLevel];
-        const blocks = [
+        const moveTurnBlocks = [
           { id: "move", icon: "🔼", label: "Andar" },
           { id: "turnLeft", icon: "↩️", label: "Esquerda" },
           { id: "turnRight", icon: "↪️", label: "Direita" },
         ];
+
+        if (state.builderEditingFunctionIndex !== null) {
+          return [...moveTurnBlocks, { id: "closeFunction", icon: "✅", label: "Fechar função" }];
+        }
+
+        const blocks = [...moveTurnBlocks];
+        const supportsFunction = level.blocks.includes("function");
+
+        if (state.builderEditingLoopIndex !== null) {
+          if (supportsFunction) {
+            state.builderFunctions.forEach((fn, index) => blocks.push({ id: `call:${index}`, icon: "▶️", label: fn.name }));
+          }
+          blocks.push({ id: "closeLoop", icon: "✅", label: "Fechar laço" });
+          return blocks;
+        }
+
         if (level.blocks.includes("repeat")) {
-          blocks.push(state.builderEditingLoopIndex === null
-            ? { id: "repeat", icon: "🔁", label: "Repetir" }
-            : { id: "closeLoop", icon: "✅", label: "Fechar laço" });
+          blocks.push({ id: "repeat", icon: "🔁", label: "Repetir" });
+        }
+        if (supportsFunction) {
+          state.builderFunctions.forEach((fn, index) => blocks.push({ id: `call:${index}`, icon: "▶️", label: fn.name }));
+          if (state.builderFunctions.length < BUILDER_MAX_FUNCTIONS) {
+            blocks.push({ id: "newFunction", icon: "🧩", label: "Nova função" });
+          }
         }
         return blocks;
       }
@@ -11938,8 +12152,11 @@ const brStatesList = [
         program.forEach((item) => {
           if (item.type === "repeat") {
             for (let i = 0; i < item.count; i += 1) {
-              item.body.forEach((sub) => steps.push(sub));
+              steps.push(...flattenBuilderProgram(item.body));
             }
+          } else if (item.type === "call") {
+            const fn = state.builderFunctions[item.functionIndex];
+            if (fn) steps.push(...flattenBuilderProgram(fn.body));
           } else {
             steps.push(item);
           }
@@ -11951,7 +12168,9 @@ const brStatesList = [
         if (state.builderRunning) return;
         if (id === "move" || id === "turnRight" || id === "turnLeft") {
           const item = { type: id };
-          if (state.builderEditingLoopIndex !== null) {
+          if (state.builderEditingFunctionIndex !== null) {
+            state.builderFunctions[state.builderEditingFunctionIndex].body.push(item);
+          } else if (state.builderEditingLoopIndex !== null) {
             state.builderProgram[state.builderEditingLoopIndex].body.push(item);
           } else {
             if (state.builderProgram.length >= builderCommandLimit()) return;
@@ -11960,6 +12179,7 @@ const brStatesList = [
           return;
         }
         if (id === "repeat") {
+          if (state.builderEditingFunctionIndex !== null || state.builderEditingLoopIndex !== null) return;
           if (state.builderProgram.length >= builderCommandLimit()) return;
           state.builderProgram.push({ type: "repeat", count: 2, body: [] });
           state.builderEditingLoopIndex = state.builderProgram.length - 1;
@@ -11967,6 +12187,29 @@ const brStatesList = [
         }
         if (id === "closeLoop") {
           state.builderEditingLoopIndex = null;
+          return;
+        }
+        if (id === "newFunction") {
+          if (state.builderEditingFunctionIndex !== null || state.builderEditingLoopIndex !== null) return;
+          if (state.builderFunctions.length >= BUILDER_MAX_FUNCTIONS) return;
+          state.builderFunctions.push({ name: `F${state.builderFunctions.length + 1}`, body: [] });
+          state.builderEditingFunctionIndex = state.builderFunctions.length - 1;
+          return;
+        }
+        if (id === "closeFunction") {
+          state.builderEditingFunctionIndex = null;
+          return;
+        }
+        if (id.startsWith("call:")) {
+          if (state.builderEditingFunctionIndex !== null) return;
+          const functionIndex = Number(id.slice(5));
+          const item = { type: "call", functionIndex };
+          if (state.builderEditingLoopIndex !== null) {
+            state.builderProgram[state.builderEditingLoopIndex].body.push(item);
+          } else {
+            if (state.builderProgram.length >= builderCommandLimit()) return;
+            state.builderProgram.push(item);
+          }
         }
       }
 
@@ -11979,6 +12222,11 @@ const brStatesList = [
 
       function clearBuilderProgram() {
         if (state.builderRunning) return;
+        if (state.builderEditingFunctionIndex !== null) {
+          const fn = state.builderFunctions[state.builderEditingFunctionIndex];
+          if (fn.body.length) fn.body.pop();
+          return;
+        }
         if (state.builderEditingLoopIndex !== null) {
           const loopItem = state.builderProgram[state.builderEditingLoopIndex];
           if (loopItem.body.length) {
@@ -12020,6 +12268,10 @@ const brStatesList = [
           const alreadyVisited = state.builderCells[nextIndex];
           state.builderCells[nextIndex] = true;
           state.builderVisitCounts[nextIndex] = (state.builderVisitCounts[nextIndex] || 0) + 1;
+          const level = builderLevels[state.builderLevel];
+          if (level.orderedGoals && state.builderGoals[state.builderNextGoalIndex] === nextIndex) {
+            state.builderNextGoalIndex += 1;
+          }
           if (state.builderWormholes.includes(nextIndex)) {
             showMessage("🌀 Buraco de minhoca!", 900, "bad");
             const centerRow = Math.floor(size / 2);
@@ -13189,6 +13441,135 @@ const brStatesList = [
         return [...new Set(round.sequence)];
       }
 
+      const decomposeTier0Tasks = [
+        { icon: "🦷", title: "Escovar os dentes", steps: ["Pegar a escova", "Passar a pasta", "Escovar os dentes"] },
+        { icon: "🎒", title: "Arrumar a mochila", steps: ["Separar os cadernos", "Guardar o lanche", "Fechar a mochila"] },
+        { icon: "👕", title: "Se vestir de manhã", steps: ["Tirar o pijama", "Vestir a roupa", "Calçar o sapato"] },
+        { icon: "🛏️", title: "Arrumar a cama", steps: ["Puxar o lençol", "Ajeitar o travesseiro", "Colocar a coberta"] },
+        { icon: "🍽️", title: "Pôr a mesa", steps: ["Colocar o prato", "Colocar o talher", "Colocar o copo"] },
+        { icon: "🧴", title: "Lavar as mãos", steps: ["Molhar as mãos", "Passar sabonete", "Enxaguar e secar"] },
+      ];
+
+      const decomposeTier1Tasks = [
+        { icon: "🌱", title: "Plantar uma sementinha", steps: ["Encher o vaso com terra", "Fazer um buraquinho", "Colocar a semente", "Regar a terra"] },
+        { icon: "🥪", title: "Fazer um lanche", steps: ["Pegar o pão", "Passar a manteiga", "Colocar o recheio", "Fechar o sanduíche"] },
+        { icon: "🎨", title: "Pintar um desenho", steps: ["Escolher o desenho", "Escolher as cores", "Pintar dentro das linhas", "Deixar secar"] },
+        { icon: "🚲", title: "Sair de bicicleta com segurança", steps: ["Colocar o capacete", "Checar os freios", "Olhar para os dois lados", "Pedalar com cuidado"] },
+        { icon: "📚", title: "Organizar a estante de livros", steps: ["Tirar todos os livros", "Separar por tamanho", "Guardar em ordem", "Conferir se sobrou algum"] },
+        { icon: "🧼", title: "Lavar a louça", steps: ["Tirar os restos de comida", "Ensaboar a louça", "Enxaguar", "Colocar para secar"] },
+      ];
+
+      const decomposeTier2Tasks = [
+        { icon: "🎉", title: "Organizar uma festa de aniversário simples", steps: ["Escolher a data e convidar os amigos", "Decidir o cardápio", "Decorar o local", "Preparar a comida e bebida", "Receber os convidados"] },
+        { icon: "🏕️", title: "Preparar uma mochila de acampamento", steps: ["Fazer uma lista do que precisa", "Separar roupas e agasalho", "Guardar comida e água", "Guardar itens de higiene", "Conferir a lista antes de sair"] },
+        { icon: "🧹", title: "Arrumar o quarto todo", steps: ["Recolher as roupas do chão", "Guardar os brinquedos", "Arrumar a cama", "Organizar a mesa de estudos", "Passar um pano no chão"] },
+        { icon: "🐶", title: "Cuidar de um cachorro por um dia", steps: ["Dar comida e água pela manhã", "Levar para passear", "Brincar um pouco", "Dar comida à noite", "Verificar se ele está bem antes de dormir"] },
+        { icon: "🥗", title: "Preparar uma salada de frutas", steps: ["Escolher as frutas", "Lavar as frutas", "Cortar em pedaços", "Misturar numa tigela", "Guardar na geladeira"] },
+        { icon: "📦", title: "Organizar uma mudança de quarto pequena", steps: ["Separar o que vai ficar e o que vai sair", "Colocar em caixas por categoria", "Etiquetar as caixas", "Levar as caixas pro novo lugar", "Desempacotar e organizar"] },
+      ];
+
+      const decomposeTier3Tasks = [
+        { icon: "🎉", title: "Organizar uma festa de aniversário",
+          options: [
+            ["Definir data e convidados", "Planejar cardápio e decoração", "Comprar o necessário", "Preparar tudo no dia", "Receber os convidados"],
+            ["Receber os convidados", "Definir data e convidados", "Planejar cardápio", "Comprar o necessário", "Preparar tudo"],
+            ["Fazer a festa toda", "Comprar bolo", "Convidar os amigos", "Decorar de qualquer jeito", "Torcer para dar certo"],
+          ], answerIndex: 0 },
+        { icon: "🏫", title: "Preparar um trabalho escolar em grupo",
+          options: [
+            ["Escolher o tema com o grupo", "Dividir as partes entre os integrantes", "Cada um pesquisar sua parte", "Juntar tudo e revisar", "Ensaiar a apresentação"],
+            ["Ensaiar a apresentação", "Escolher o tema", "Pesquisar", "Juntar tudo", "Dividir as partes"],
+            ["Escolher o tema", "Pesquisar tudo sozinho", "Apresentar sem ensaiar", "Torcer para dar certo", "Entregar o trabalho"],
+          ], answerIndex: 0 },
+        { icon: "🍰", title: "Fazer um bolo do zero",
+          options: [
+            ["Separar os ingredientes e utensílios", "Misturar a massa", "Colocar na forma e assar", "Esperar esfriar", "Decorar o bolo"],
+            ["Decorar o bolo", "Separar os ingredientes", "Assar", "Misturar a massa", "Esperar esfriar"],
+            ["Fazer o bolo", "Comer o bolo", "Sujar a cozinha", "Torcer para ficar bom", "Guardar o que sobrou"],
+          ], answerIndex: 0 },
+        { icon: "🚴", title: "Planejar um passeio de bicicleta em grupo",
+          options: [
+            ["Combinar rota e horário com o grupo", "Checar o estado das bicicletas", "Separar água e itens de segurança", "Fazer o passeio seguindo a rota", "Avaliar como foi ao final"],
+            ["Combinar rota e horário", "Assistir televisão", "Checar as bicicletas", "Fazer o passeio", "Voltar para casa"],
+            ["Fazer o passeio", "Combinar rota", "Checar as bicicletas", "Voltar para casa", "Guardar as bicicletas"],
+          ], answerIndex: 0 },
+        { icon: "🌳", title: "Cuidar de uma horta na escola",
+          options: [
+            ["Preparar a terra do canteiro", "Plantar as sementes ou mudas", "Regar e cuidar todo dia", "Tirar as ervas daninhas", "Colher quando estiver pronto"],
+            ["Colher", "Preparar a terra", "Plantar", "Regar todo dia", "Ver como ficou"],
+            ["Fazer a horta", "Esperar crescer", "Colher", "Cuidar de vez em quando", "Torcer para dar certo"],
+          ], answerIndex: 0 },
+        { icon: "🎬", title: "Produzir um pequeno vídeo para uma apresentação",
+          options: [
+            ["Escrever um roteiro simples", "Gravar as cenas", "Escolher as melhores partes", "Editar juntando tudo", "Assistir e corrigir antes de entregar"],
+            ["Editar", "Escrever roteiro", "Gravar", "Assistir e corrigir", "Publicar"],
+            ["Gravar sem roteiro", "Editar", "Entregar", "Torcer para ficar bom", "Não assistir de novo"],
+          ], answerIndex: 0 },
+      ];
+
+      const decomposeTier4Tasks = [
+        { icon: "🔬", title: "Organizar um projeto de feira de ciências",
+          options: [
+            ["Definir a pergunta de pesquisa", "Planejar o experimento", "Executar e coletar dados", "Analisar os resultados", "Preparar a apresentação"],
+            ["Preparar a apresentação", "Definir a pergunta", "Executar o experimento", "Analisar os dados", "Entregar o projeto"],
+            ["Pesquisar sobre o tema", "Fazer a feira", "Torcer para ganhar", "Levar o cartaz", "Apresentar de improviso"],
+          ], answerIndex: 0 },
+        { icon: "📅", title: "Organizar a rotina de estudos para uma prova",
+          options: [
+            ["Listar os assuntos que caem na prova", "Dividir os assuntos pelos dias disponíveis", "Estudar um pouco de cada dia", "Fazer exercícios pra treinar", "Revisar tudo no último dia"],
+            ["Revisar tudo", "Listar os assuntos", "Estudar", "Dividir pelos dias", "Fazer a prova"],
+            ["Estudar tudo de uma vez na véspera", "Tomar café forte", "Não dormir direito", "Torcer para lembrar tudo", "Fazer a prova cansado"],
+          ], answerIndex: 0 },
+        { icon: "💰", title: "Planejar economizar para comprar algo caro",
+          options: [
+            ["Definir quanto custa e a meta de tempo", "Ver quanto dá pra guardar por mês", "Guardar uma parte da mesada/renda cada mês", "Acompanhar quanto já juntou", "Comprar quando atingir a meta"],
+            ["Comprar", "Definir a meta", "Guardar todo mês", "Acompanhar", "Usar o troco"],
+            ["Guardar dinheiro", "Comprar a coisa", "Torcer para sobrar", "Não fazer conta nenhuma", "Esperar dar certo"],
+          ], answerIndex: 0 },
+        { icon: "✈️", title: "Planejar uma viagem curta em família",
+          options: [
+            ["Escolher o destino e as datas", "Pesquisar hospedagem e transporte", "Fazer um orçamento", "Preparar as malas", "Conferir os documentos antes de sair"],
+            ["Preparar as malas", "Escolher o destino", "Pesquisar hospedagem", "Fazer orçamento", "Viajar"],
+            ["Escolher destino", "Fazer as malas", "Viajar", "Torcer para dar tudo certo", "Resolver problemas na hora"],
+          ], answerIndex: 0 },
+        { icon: "🖥️", title: "Criar um aplicativo simples (projeto de tecnologia)",
+          options: [
+            ["Definir o que o app vai resolver", "Planejar as telas principais", "Construir uma versão simples", "Testar com outras pessoas", "Corrigir os problemas encontrados"],
+            ["Testar", "Definir o problema", "Construir", "Planejar as telas", "Lançar"],
+            ["Programar o app inteiro", "Lançar", "Torcer para funcionar", "Não testar com ninguém", "Corrigir depois que reclamarem"],
+          ], answerIndex: 0 },
+        { icon: "🏋️", title: "Montar um plano de treino/exercício simples",
+          options: [
+            ["Definir o objetivo (força, saúde, etc.)", "Escolher os dias da semana disponíveis", "Montar exercícios simples pra cada dia", "Treinar seguindo o plano", "Ajustar o plano depois de um tempo"],
+            ["Ajustar o plano", "Definir o objetivo", "Escolher os dias", "Montar os exercícios", "Treinar"],
+            ["Treinar sem plano nenhum dia", "Fazer exercícios aleatórios", "Não anotar nada", "Torcer para evoluir", "Desistir depois de um tempo"],
+          ], answerIndex: 0 },
+      ];
+
+      function buildDecomposeOrderRound(task) {
+        return { kind: "order", taskIcon: task.icon, taskTitle: task.title, steps: task.steps, palette: shuffle(task.steps) };
+      }
+
+      function buildDecomposeChooseRound(task) {
+        const correctOption = task.options[task.answerIndex];
+        const shuffledOptions = shuffle(task.options);
+        return { kind: "choose", taskIcon: task.icon, taskTitle: task.title, options: shuffledOptions, answerIndex: shuffledOptions.indexOf(correctOption) };
+      }
+
+      const decomposeLevelPlans = [
+        { title: "Primeiros passos", icon: "🧩", age: "6-7 anos", theme: "Divida uma tarefa simples em 3 partes", meta: "3 passos", rounds: decomposeTier0Tasks.map(buildDecomposeOrderRound) },
+        { title: "Passo a passo", icon: "📋", age: "8-9 anos", theme: "Divida uma tarefa em 4 partes", meta: "4 passos", rounds: decomposeTier1Tasks.map(buildDecomposeOrderRound) },
+        { title: "Tarefas maiores", icon: "🗺️", age: "10-11 anos", theme: "Divida uma tarefa maior em partes", meta: "5 passos", rounds: decomposeTier2Tasks.map(buildDecomposeOrderRound) },
+        { title: "Qual divisão faz sentido?", icon: "🧭", age: "12-13 anos", theme: "Escolha a melhor forma de dividir a tarefa", meta: "Escolha certa", rounds: decomposeTier3Tasks.map(buildDecomposeChooseRound) },
+        { title: "Divisões mais espertas", icon: "🧠", age: "14 anos", theme: "Compare divisões parecidas e escolha a melhor", meta: "Compare e escolha", rounds: decomposeTier4Tasks.map(buildDecomposeChooseRound) },
+      ];
+
+      const decomposeLevels = decomposeLevelPlans;
+
+      function currentDecomposeRounds() {
+        return decomposeLevels[state.decomposeLevel].rounds;
+      }
+
       const deviceItems = [
         { icon: "🖱️", name: "Mouse", type: "entrada" },
         { icon: "⌨️", name: "Teclado", type: "entrada" },
@@ -13565,6 +13946,12 @@ const brStatesList = [
         patternMissTimer: null,
         patternWrong: null,
         patternCorrectIndex: null,
+        decomposeLevel: null,
+        decomposeBuilt: [],
+        decomposeMiss: null,
+        decomposeMissTimer: null,
+        decomposeWrong: null,
+        decomposeCorrectIndex: null,
         builderLevel: null,
         builderCells: [],
         builderVisitCounts: [],
@@ -13574,6 +13961,9 @@ const brStatesList = [
         builderProgram: [],
         builderExecutedCount: 0,
         builderEditingLoopIndex: null,
+        builderFunctions: [],
+        builderEditingFunctionIndex: null,
+        builderNextGoalIndex: 0,
         builderRunning: false,
         builderRunQueue: [],
         builderRunIndex: 0,
@@ -14330,6 +14720,7 @@ const brStatesList = [
         cond: condLevels.map((level) => level.rounds.map(cloneValue)),
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
         pattern: patternLevels.map((level) => level.rounds.map(cloneValue)),
+        decompose: decomposeLevels.map((level) => level.rounds.map(cloneValue)),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
@@ -14412,6 +14803,13 @@ const brStatesList = [
         });
       }
 
+      function resetDecomposeRoundPools(seed) {
+        decomposeLevels.forEach((level, levelIndex) => {
+          const source = roundPools.decompose[levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, "decompose", levelIndex), { free: true });
+        });
+      }
+
       function resetDecoderRoundPools(seed) {
         decoderLevels.forEach((level, levelIndex) => {
           const source = roundPools.decoder[levelIndex];
@@ -14462,6 +14860,7 @@ const brStatesList = [
         if (mode === "cond") resetCondRoundPools(seedForMode);
         if (mode === "var") resetVarRoundPools(seedForMode);
         if (mode === "pattern") resetPatternRoundPools(seedForMode);
+        if (mode === "decompose") resetDecomposeRoundPools(seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "ttt") resetTttRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
@@ -15008,6 +15407,7 @@ const brStatesList = [
         cond: condLevels,
         var: varLevels,
         pattern: patternLevels,
+        decompose: decomposeLevels,
         builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
@@ -17232,6 +17632,180 @@ const brStatesList = [
         render();
       }
 
+      function startDecomposeRound() {
+        window.clearTimeout(state.decomposeMissTimer);
+        state.decomposeMissTimer = null;
+        state.decomposeBuilt = [];
+        state.decomposeMiss = null;
+        state.selected = -1;
+        state.decomposeWrong = null;
+        state.decomposeCorrectIndex = null;
+      }
+
+      function renderDecompose() {
+        const level = decomposeLevels[state.decomposeLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        setHeader("Divida a Tarefa", `${level.title}: divida a tarefa em partes menores.`);
+        setCounters("Tarefa", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+
+        if (round.kind === "order") {
+          const builtCount = state.decomposeBuilt.length;
+          status.textContent = builtCount >= round.steps.length
+            ? "Tarefa dividida!"
+            : builtCount === 0
+              ? "Toque nos passos, na ordem certa, para dividir a tarefa."
+              : "Continue escolhendo os próximos passos.";
+          content.innerHTML = `<div class="decompose-board">
+            <div class="decompose-task-header">
+              <span class="decompose-task-icon">${round.taskIcon}</span>
+              <span class="decompose-task-title">${round.taskTitle}</span>
+            </div>
+            <div class="decompose-answer-row">
+              ${round.steps.map((step, index) => {
+                const filled = index < builtCount;
+                return `<div class="decompose-answer-slot ${filled ? "filled" : "empty"}"><span>${filled ? String(state.decomposeBuilt[index]) : ""}</span></div>`;
+              }).join("")}
+            </div>
+            <div class="decompose-palette ${state.answerLocked ? "locked" : ""}">
+              ${round.palette.map((step, index) => `<button type="button" class="decompose-palette-button ${index === state.selected ? "selected" : ""} ${state.decomposeMiss === step ? "miss" : ""}"><span>${step}</span></button>`).join("")}
+            </div>
+          </div>`;
+          return;
+        }
+
+        status.textContent = "Qual dessas divisões faz mais sentido?";
+        content.innerHTML = `<div class="decompose-board">
+          <div class="decompose-task-header">
+            <span class="decompose-task-icon">${round.taskIcon}</span>
+            <span class="decompose-task-title">${round.taskTitle}</span>
+          </div>
+          <div class="decompose-options ${state.answerLocked ? "locked" : ""}">
+            ${round.options.map((steps, index) => `<button type="button" class="decompose-option ${index === state.selected ? "selected" : ""} ${state.decomposeWrong === index ? "wrong" : ""} ${state.decomposeCorrectIndex === index ? "correct" : ""}">
+              <span class="decompose-option-steps">${steps.map((step, stepIndex) => `<span class="decompose-option-step">${stepIndex + 1}. ${step}</span>`).join("")}</span>
+              ${state.decomposeCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
+            </button>`).join("")}
+          </div>
+        </div>`;
+      }
+
+      function advanceDecomposeRound() {
+        const rounds = currentDecomposeRounds();
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete("decompose", "Tarefas divididas!");
+          return;
+        }
+        startDecomposeRound();
+        render();
+      }
+
+      function completeDecomposeOrderRound() {
+        state.answerLocked = true;
+        showMessage("✅ Tarefa dividida!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "decompose") return;
+          state.answerLocked = false;
+          advanceDecomposeRound();
+        }, 600);
+      }
+
+      function handleDecomposePaletteChoice(step) {
+        const rounds = currentDecomposeRounds();
+        const round = rounds[state.round];
+        if (!round || round.kind !== "order" || state.answerLocked) return;
+        const expected = round.steps[state.decomposeBuilt.length];
+        if (step !== expected) {
+          window.clearTimeout(state.decomposeMissTimer);
+          state.decomposeMiss = step;
+          render();
+          state.decomposeMissTimer = window.setTimeout(() => {
+            if (state.mode !== "decompose") return;
+            state.decomposeMiss = null;
+            render();
+          }, 600);
+          return;
+        }
+        window.clearTimeout(state.decomposeMissTimer);
+        state.decomposeMissTimer = null;
+        state.decomposeMiss = null;
+        state.decomposeBuilt.push(step);
+        if (state.decomposeBuilt.length >= round.steps.length) {
+          completeDecomposeOrderRound();
+          return;
+        }
+        render();
+      }
+
+      function handleDecomposeChooseSubmit() {
+        const rounds = currentDecomposeRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        const isCorrect = state.selected === round.answerIndex;
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1200,
+            messageText: "Quase! tente de novo.",
+            messageType: "info",
+            guard: () => state.mode === "decompose",
+            onLock: () => { state.decomposeWrong = state.selected; },
+            onUnlock: () => { state.decomposeWrong = null; },
+          });
+          return;
+        }
+        state.decomposeWrong = null;
+        state.decomposeCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✨ Isso mesmo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "decompose") return;
+          state.decomposeCorrectIndex = null;
+          state.answerLocked = false;
+          advanceDecomposeRound();
+        }, 600);
+      }
+
+      function handleDecomposeEnter() {
+        const rounds = currentDecomposeRounds();
+        const round = rounds[state.round];
+        if (!round) return;
+        if (round.kind === "order") {
+          if (!hasSelection()) return;
+          handleDecomposePaletteChoice(round.palette[state.selected]);
+          return;
+        }
+        if (!hasSelection()) return;
+        handleDecomposeChooseSubmit();
+      }
+
+      function handleDecomposeClick(event) {
+        const rounds = currentDecomposeRounds();
+        const round = rounds[state.round];
+        if (!round) return false;
+        if (round.kind === "order") {
+          return activateIndexedClick(event, ".decompose-palette-button", (index) => handleDecomposePaletteChoice(round.palette[index]));
+        }
+        return activateChoiceClick(event, ".decompose-option", {
+          clearWrong: () => { state.decomposeWrong = null; },
+          onConfirm: handleDecomposeChooseSubmit,
+        });
+      }
+
+      function backToDecomposeLevels() {
+        stopTimer();
+        state.answerLocked = false;
+        window.clearTimeout(state.decomposeMissTimer);
+        state.decomposeMissTimer = null;
+        state.decomposeLevel = null;
+        resetRoundState(0);
+        startDecomposeRound();
+        state.mode = "menu";
+        render();
+      }
+
       function currentDecoderRounds() {
         return decoderLevels[state.decoderLevel].rounds;
       }
@@ -18880,6 +19454,7 @@ const brStatesList = [
         cond: renderCond,
         var: renderVar,
         pattern: renderPattern,
+        decompose: renderDecompose,
         builder: renderBuilder,
         decoder: renderDecoder,
         devices: renderDevices,
@@ -18935,6 +19510,7 @@ const brStatesList = [
         cond: "condLevel",
         var: "varLevel",
         pattern: "patternLevel",
+        decompose: "decomposeLevel",
         builder: "builderLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
@@ -18987,6 +19563,11 @@ const brStatesList = [
         if (mode === "pattern") {
           state.patternLevel = state.ageBand;
           startPatternRound();
+          return;
+        }
+        if (mode === "decompose") {
+          state.decomposeLevel = state.ageBand;
+          startDecomposeRound();
           return;
         }
         if (mode === "builder") {
@@ -19179,6 +19760,13 @@ const brStatesList = [
         state.patternMiss = null;
         state.patternWrong = null;
         state.patternCorrectIndex = null;
+        window.clearTimeout(state.decomposeMissTimer);
+        state.decomposeMissTimer = null;
+        state.decomposeLevel = null;
+        state.decomposeBuilt = [];
+        state.decomposeMiss = null;
+        state.decomposeWrong = null;
+        state.decomposeCorrectIndex = null;
         window.clearTimeout(state.builderRunTimer);
         state.builderRunTimer = null;
         window.clearTimeout(state.builderAutoAdvanceTimer);
@@ -20471,17 +21059,25 @@ const brStatesList = [
         });
       }
 
+      function builderChipLabel(item) {
+        if (item.type === "call") return `▶️${state.builderFunctions[item.functionIndex]?.name || "?"}`;
+        return builderStepIcons[item.type];
+      }
+
       function renderBuilder() {
         const level = builderLevels[state.builderLevel];
         const size = level.gridSize;
         const palette = currentBuilderPaletteBlocks();
         const commandLimit = builderCommandLimit();
-        const atCommandLimit = state.builderEditingLoopIndex === null && state.builderProgram.length >= commandLimit;
-        const canRun = state.builderEditingLoopIndex === null && builderPendingSteps().length > 0 && !state.builderRunning;
+        const editingSomething = state.builderEditingLoopIndex !== null || state.builderEditingFunctionIndex !== null;
+        const atCommandLimit = !editingSomething && state.builderProgram.length >= commandLimit;
+        const canRun = !editingSomething && builderPendingSteps().length > 0 && !state.builderRunning;
         const canClearProgram = !state.builderRunning
-          && (state.builderEditingLoopIndex !== null || state.builderProgram.length > state.builderExecutedCount);
+          && (editingSomething || state.builderProgram.length > state.builderExecutedCount);
 
-        const goalsReached = state.builderGoals.filter((cell) => state.builderCells[cell]).length;
+        const goalsReached = level.orderedGoals
+          ? state.builderNextGoalIndex
+          : state.builderGoals.filter((cell) => state.builderCells[cell]).length;
         const allGoalsReached = builderGoalsComplete();
         const nothingPending = state.builderProgram.length > 0 && state.builderProgram.length === state.builderExecutedCount;
 
@@ -20489,15 +21085,19 @@ const brStatesList = [
         setCounters("Blocos", `${state.builderProgram.length}${commandLimit === Infinity ? "" : `/${commandLimit}`}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
         status.textContent = state.builderRunning
           ? "🤖 Executando..."
-          : state.builderEditingLoopIndex !== null
-            ? "Adicione blocos dentro da repetição e toque em ✅ para fechar."
-            : allGoalsReached
-              ? "🎉 Você alcançou todos os objetivos! Preparando um novo desafio..."
-              : atCommandLimit
-                ? "Chegou no limite de comandos — toque em ▶️ Executar para ver o robô andar."
-                : nothingPending
-                  ? "Adicione mais blocos pra continuar de onde o robô parou."
-                  : "Leve o robô 🤖 até as energias ou monte o programa que quiser.";
+          : state.builderEditingFunctionIndex !== null
+            ? "Adicione blocos na função e toque em ✅ para fechar."
+            : state.builderEditingLoopIndex !== null
+              ? "Adicione blocos dentro da repetição e toque em ✅ para fechar."
+              : allGoalsReached
+                ? "🎉 Você alcançou todos os objetivos! Preparando um novo desafio..."
+                : atCommandLimit
+                  ? "Chegou no limite de comandos — toque em ▶️ Executar para ver o robô andar."
+                  : nothingPending
+                    ? "Adicione mais blocos pra continuar de onde o robô parou."
+                    : level.orderedGoals
+                      ? "Leve o robô 🤖 até as energias, na ordem certa."
+                      : "Leve o robô 🤖 até as energias ou monte o programa que quiser.";
 
         const cells = [];
         for (let row = 0; row < size; row += 1) {
@@ -20507,8 +21107,11 @@ const brStatesList = [
             const isWormhole = state.builderWormholes.includes(index);
             const painted = state.builderCells[index];
             const revisited = (state.builderVisitCounts[index] || 0) > 1;
-            const isGoal = state.builderGoals.includes(index);
-            const goalMark = !isRobot && isGoal && !painted ? `<div class="builder-goal-hole"></div>` : "";
+            const goalOrderIndex = state.builderGoals.indexOf(index);
+            const isGoal = goalOrderIndex !== -1;
+            const goalCollected = isGoal && (level.orderedGoals ? goalOrderIndex < state.builderNextGoalIndex : painted);
+            const goalPending = isGoal && level.orderedGoals && goalOrderIndex > state.builderNextGoalIndex;
+            const goalMark = !isRobot && isGoal && !goalCollected ? `<div class="builder-goal-hole ${goalPending ? "pending" : ""}"></div>` : "";
             const wormholeMark = !isRobot && isWormhole ? `<div class="hole"></div>` : "";
             cells.push(`<div class="cell builder-cell ${painted ? "painted" : ""} ${revisited ? "revisited" : ""} ${isGoal ? "goal" : ""}">${isRobot ? `<div class="robot ${state.builderBump ? "bump stunned" : ""}">${builderDirArrows[state.builderRobot.dir]}</div>` : wormholeMark || goalMark}</div>`);
           }
@@ -20522,7 +21125,7 @@ const brStatesList = [
               if (item.type === "repeat") {
                 const editing = state.builderEditingLoopIndex === index;
                 const bodyHtml = item.body.length
-                  ? item.body.map((sub, subIndex) => `<span class="builder-chip ${isActiveItem && activeStep.subIndex === subIndex ? "active" : ""}">${builderStepIcons[sub.type]}</span>`).join("")
+                  ? item.body.map((sub, subIndex) => `<span class="builder-chip ${isActiveItem && activeStep.subIndex === subIndex ? "active" : ""}">${builderChipLabel(sub)}</span>`).join("")
                   : `<span class="builder-repeat-body-empty">vazio</span>`;
                 return `<div class="builder-repeat-chip ${editing ? "editing" : ""} ${executed ? "executed" : ""} ${isActiveItem ? "active" : ""}">
                   <div class="builder-repeat-stepper">
@@ -20533,17 +21136,35 @@ const brStatesList = [
                   <div class="builder-repeat-body">${bodyHtml}</div>
                 </div>`;
               }
-              return `<span class="builder-chip ${executed ? "executed" : ""} ${isActiveItem ? "active" : ""}">${builderStepIcons[item.type]}</span>`;
+              return `<span class="builder-chip ${executed ? "executed" : ""} ${isActiveItem ? "active" : ""}">${builderChipLabel(item)}</span>`;
             }).join("")
           : `<span class="builder-program-empty">Toque nos blocos abaixo pra montar seu programa.</span>`;
 
-        const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" ? "close-loop" : ""} ${state.builderRunning || (atCommandLimit && block.id !== "closeLoop") ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
+        const functionsHtml = level.blocks.includes("function")
+          ? `<div class="builder-functions">${
+              state.builderFunctions.length
+                ? state.builderFunctions.map((fn, index) => {
+                    const editing = state.builderEditingFunctionIndex === index;
+                    const bodyHtml = fn.body.length
+                      ? fn.body.map((sub) => `<span class="builder-chip">${builderChipLabel(sub)}</span>`).join("")
+                      : `<span class="builder-repeat-body-empty">vazia</span>`;
+                    return `<div class="builder-function-chip ${editing ? "editing" : ""}">
+                      <span class="builder-function-name">🧩 ${fn.name}</span>
+                      <div class="builder-repeat-body">${bodyHtml}</div>
+                    </div>`;
+                  }).join("")
+                : `<span class="builder-program-empty">Toque em 🧩 Nova função pra criar uma função reutilizável.</span>`
+            }</div>`
+          : "";
+
+        const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" || block.id === "closeFunction" ? "close-loop" : ""} ${block.id === "newFunction" || block.id.startsWith("call:") ? "function" : ""} ${state.builderRunning || (atCommandLimit && block.id !== "closeLoop" && block.id !== "closeFunction") ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
           <span class="builder-block-icon">${block.icon}</span>${block.label}
         </div>`).join("");
 
         content.innerHTML = `<div class="builder-board">
           <div class="grid" style="--cell-size:${size >= 8 ? 36 : 42}px; grid-template-columns: repeat(${size}, minmax(var(--grid-cell-min, 20px), min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
           <div class="builder-program">${programHtml}</div>
+          ${functionsHtml}
           <div class="builder-palette">${paletteHtml}</div>
           <div class="builder-actions">
             <button type="button" class="builder-action-button builder-run-button" ${canRun ? "" : "disabled"}>▶️ Executar</button>
@@ -21180,6 +21801,7 @@ const brStatesList = [
         cond: handleCondEnter,
         var: handleVarEnter,
         pattern: handlePatternEnter,
+        decompose: handleDecomposeEnter,
         builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
@@ -21444,6 +22066,31 @@ const brStatesList = [
                 vertical,
                 columns: chooseGridColumns(count, 3),
                 afterMove: () => { state.patternWrong = null; },
+              });
+            }
+          }
+        } else if (state.mode === "decompose") {
+          if (state.decomposeLevel === null) {
+            const count = decomposeLevels.length;
+            moveSelectionIndex({
+              count,
+              delta,
+              vertical,
+              columns: chooseGridColumns(count, 3),
+              allowUnselected: false,
+            });
+          } else {
+            const round = currentDecomposeRounds()[state.round];
+            if (!round) return;
+            if (round.kind === "order") {
+              const count = round.palette.length;
+              moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
+            } else {
+              const count = round.options.length;
+              moveSelectionIndex({
+                count,
+                delta,
+                afterMove: () => { state.decomposeWrong = null; },
               });
             }
           }
@@ -21761,6 +22408,7 @@ const brStatesList = [
         cond: handleCondClick,
         var: handleVarClick,
         pattern: handlePatternClick,
+        decompose: handleDecomposeClick,
         builder: handleBuilderClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
@@ -21790,7 +22438,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button, .decompose-option, .decompose-palette-button")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -22316,6 +22964,10 @@ const brStatesList = [
         }
         if (state.mode === "pattern" && state.patternLevel !== null) {
           backToPatternLevels();
+          return;
+        }
+        if (state.mode === "decompose" && state.decomposeLevel !== null) {
+          backToDecomposeLevels();
           return;
         }
         if (state.mode === "builder" && state.builderLevel !== null) {

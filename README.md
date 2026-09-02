@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.10.3
+Versão atual: 2.11.0
 
 ## Acesse
 
@@ -73,6 +73,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Caderneta de vacinação: organização e cuidado com a saúde.
 - Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
 - Padrão Perfeito: reconhecimento e continuação de sequências e padrões, em ritmo tranquilo, sem cronômetro.
+- Divida a Tarefa: quebrar uma tarefa grande do dia a dia em passos menores, ordenando os passos certos ou escolhendo a melhor forma de dividir.
 - Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
 - Dados e gráficos: contagem, comparação e leitura de informações.
@@ -86,7 +87,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
-- Robô Programador: sandbox de programação em blocos (andar, virar e repetir) onde o aluno monta um programa livre e observa o robô desenhar num grid, com objetivos opcionais (energias) e buracos de minhoca que testam se o aluno sabe recalcular a rota, sem resposta certa ou errada.
+- Robô Programador: sandbox de programação em blocos (andar, virar, repetir e, nas faixas mais avançadas, criar funções reutilizáveis) onde o aluno monta um programa e observa o robô desenhar num grid, com objetivos (energias, às vezes em ordem obrigatória) e buracos de minhoca que testam se o aluno sabe recalcular a rota, sem resposta certa ou errada.
 
 ## Como usar em sala
 
