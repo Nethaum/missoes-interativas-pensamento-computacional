@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.11.0">
+  <meta name="app-version" content="2.12.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -6305,6 +6305,61 @@
       line-height: 1;
     }
 
+    .math-cup-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .math-cup-visual-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      max-width: 110px;
+      justify-content: center;
+    }
+
+    .math-cup-visual-group span {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .math-cup-visual-op {
+      font-size: 22px;
+      font-weight: 950;
+      flex-shrink: 0;
+    }
+
+    .math-cup-visual-number {
+      color: #2468d8;
+      font-size: 22px;
+      font-weight: 950;
+      margin-right: 2px;
+    }
+
+    .math-cup-visual-groups {
+      gap: 4px;
+    }
+
+    .math-cup-visual-cluster {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      max-width: 70px;
+      justify-content: center;
+      padding: 3px 4px;
+      border: 2px dashed rgba(36, 104, 216, 0.45);
+      border-radius: 10px;
+    }
+
+    .math-cup-visual-cluster span {
+      font-size: 14px;
+      line-height: 1;
+    }
+
     .math-cup-challenge-timer {
       grid-column: 2;
       grid-row: 1;
@@ -8738,6 +8793,7 @@
     <div class="actions">
       <button id="homeButton" type="button" title="Início" aria-label="Início">🏠</button>
       <button id="resetButton" type="button" title="Recomeçar" aria-label="Recomeçar">🔄</button>
+      <button id="speakButton" type="button" title="Ouvir" aria-label="Ouvir o enunciado em voz alta" hidden>🔊</button>
       <button id="fullscreenButton" type="button" title="Tela cheia" aria-label="Tela cheia">⛶</button>
     </div>
   </header>
@@ -8886,6 +8942,7 @@
       const backButton = document.getElementById("backButton");
       const homeButton = document.getElementById("homeButton");
       const resetButton = document.getElementById("resetButton");
+      const speakButton = document.getElementById("speakButton");
       const fullscreenButton = document.getElementById("fullscreenButton");
       const aboutButton = document.getElementById("aboutButton");
       const teacherButton = document.getElementById("teacherButton");
@@ -11248,6 +11305,7 @@ const brStatesList = [
         const kind = (seed + kindOffset + phase + lineIndex) % 6;
         let question;
         let answer;
+        let visual = null;
 
         if (difficulty === 0) {
           const total = 4 + ((seed + phase) % 7);
@@ -11255,9 +11313,11 @@ const brStatesList = [
           if (kind % 3 === 0) {
             question = `${total} - ${part} = ?`;
             answer = total - part;
+            visual = { a: total, op: "-", b: part };
           } else {
             question = `${part} + ${total - part} = ?`;
             answer = total;
+            visual = { a: part, op: "+", b: total - part };
           }
         } else if (difficulty === 1) {
           const total = 9 + ((seed + phase * 2) % 12);
@@ -11266,12 +11326,15 @@ const brStatesList = [
             const value = 2 + ((seed + kindOffset) % 9);
             question = `Dobro de ${value} = ?`;
             answer = value * 2;
+            visual = { a: value, op: "+", b: value };
           } else if (kind % 2 === 0) {
             question = `${total} - ${part} = ?`;
             answer = total - part;
+            visual = { a: total, op: "-", b: part };
           } else {
             question = `${part} + ${total - part} = ?`;
             answer = total;
+            visual = { a: part, op: "+", b: total - part };
           }
         } else if (difficulty === 2) {
           const a = 12 + ((seed * 7 + phase) % 24);
@@ -11285,6 +11348,7 @@ const brStatesList = [
             const groups = 2 + ((seed + kindOffset) % 4);
             question = `${groups} grupos de ${factor} = ?`;
             answer = groups * factor;
+            visual = { kind: "groups", groups, factor };
           } else if (kind === 3) {
             question = `${a + b} - ${b} = ?`;
             answer = a;
@@ -11378,6 +11442,7 @@ const brStatesList = [
         return {
           question,
           answer,
+          visual,
           options: createMathCupOptions(answer, seed + kindOffset, difficulty),
         };
       }
@@ -14551,6 +14616,21 @@ const brStatesList = [
         mission.textContent = missionText;
       }
 
+      function speakCurrentPrompt() {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const extra = Array.from(content.querySelectorAll("[data-speak]")).map((el) => el.textContent);
+        const parts = [mission.textContent, status.textContent, ...extra]
+          .map((text) => (text || "").trim().replace(/[.!?]+$/, ""))
+          .filter(Boolean);
+        const text = parts.join(". ");
+        if (!text) return;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "pt-BR";
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+
       function setCounter(counter, labelNode, valueNode, label, value) {
         const visible = Boolean(label || value);
         if (counter) {
@@ -14852,6 +14932,13 @@ const brStatesList = [
         if (!target) return;
         let source = roundPools.legacy[activity];
         if (!source) return;
+        if (activity === "organize" && state.legacyGradeIndex === 0) {
+          const simplerRounds = source.filter((round) => (round.items?.length || 0) <= 10);
+          if (simplerRounds.length) source = simplerRounds;
+        } else if (activity === "organize" && state.legacyGradeIndex === 1) {
+          const simplerRounds = source.filter((round) => (round.items?.length || 0) <= 18);
+          if (simplerRounds.length) source = simplerRounds;
+        }
         resetRoundPool(target, source, seedFromParts(seed, "legacy", activity, state.legacyGradeIndex), {
           bandSize: activity === "detective" || activity === "organize" ? 8 : 10,
         });
@@ -17283,12 +17370,12 @@ const brStatesList = [
         content.innerHTML = `<div class="cond-board">
           <div class="cond-rule">
             <span class="cond-rule-icon">${round.scenario.icon}</span>
-            <span class="cond-rule-text">${round.scenario.ruleText}</span>
+            <span class="cond-rule-text" data-speak>${round.scenario.ruleText}</span>
           </div>
           <div class="cond-gate">
             <div class="cond-input">
               <span class="cond-input-icon">${round.input.visual}</span>
-              <span class="cond-input-label">${round.input.label}</span>
+              <span class="cond-input-label" data-speak>${round.input.label}</span>
             </div>
             <div class="cond-gate-icon">🚧</div>
           </div>
@@ -17297,7 +17384,7 @@ const brStatesList = [
               const outcome = round.scenario.outcomes[outcomeIndex];
               return `<div class="cond-option ${index === state.selected ? "selected" : ""} ${state.condWrong === index ? "wrong" : ""} ${state.condCorrectIndex === index ? "correct" : ""}">
                 <span class="cond-option-icon">${outcome.icon}</span>
-                <span class="cond-option-label">${outcome.label}</span>
+                <span class="cond-option-label" data-speak>${outcome.label}</span>
                 ${state.condCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🚦</span><span>🎉</span><span>✨</span><span>🚦</span></div>' : ""}
               </div>`;
             }).join("")}
@@ -17678,7 +17765,7 @@ const brStatesList = [
           content.innerHTML = `<div class="decompose-board">
             <div class="decompose-task-header">
               <span class="decompose-task-icon">${round.taskIcon}</span>
-              <span class="decompose-task-title">${round.taskTitle}</span>
+              <span class="decompose-task-title" data-speak>${round.taskTitle}</span>
             </div>
             <div class="decompose-answer-row">
               ${round.steps.map((step, index) => {
@@ -17687,7 +17774,7 @@ const brStatesList = [
               }).join("")}
             </div>
             <div class="decompose-palette ${state.answerLocked ? "locked" : ""}">
-              ${round.palette.map((step, index) => `<button type="button" class="decompose-palette-button ${index === state.selected ? "selected" : ""} ${state.decomposeMiss === step ? "miss" : ""}"><span>${step}</span></button>`).join("")}
+              ${round.palette.map((step, index) => `<button type="button" class="decompose-palette-button ${index === state.selected ? "selected" : ""} ${state.decomposeMiss === step ? "miss" : ""}"><span data-speak>${step}</span></button>`).join("")}
             </div>
           </div>`;
           return;
@@ -17697,11 +17784,11 @@ const brStatesList = [
         content.innerHTML = `<div class="decompose-board">
           <div class="decompose-task-header">
             <span class="decompose-task-icon">${round.taskIcon}</span>
-            <span class="decompose-task-title">${round.taskTitle}</span>
+            <span class="decompose-task-title" data-speak>${round.taskTitle}</span>
           </div>
           <div class="decompose-options ${state.answerLocked ? "locked" : ""}">
             ${round.options.map((steps, index) => `<button type="button" class="decompose-option ${index === state.selected ? "selected" : ""} ${state.decomposeWrong === index ? "wrong" : ""} ${state.decomposeCorrectIndex === index ? "correct" : ""}">
-              <span class="decompose-option-steps">${steps.map((step, stepIndex) => `<span class="decompose-option-step">${stepIndex + 1}. ${step}</span>`).join("")}</span>
+              <span class="decompose-option-steps">${steps.map((step, stepIndex) => `<span class="decompose-option-step" data-speak>${stepIndex + 1}. ${step}</span>`).join("")}</span>
               ${state.decomposeCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
             </button>`).join("")}
           </div>
@@ -18753,14 +18840,39 @@ const brStatesList = [
         );
       }
 
+      function mathCupVisualGroupHtml(amount) {
+        if (amount <= 10) return Array(amount).fill("<span>⚽</span>").join("");
+        return `<span class="math-cup-visual-number">${amount}</span><span>⚽</span>`;
+      }
+
+      function mathCupVisualGroupsHtml(groups, factor) {
+        const cluster = Array(factor).fill("<span>⚽</span>").join("");
+        return Array(groups)
+          .fill(`<span class="math-cup-visual-cluster">${cluster}</span>`)
+          .join('<span class="math-cup-visual-op">+</span>');
+      }
+
       function mathCupChallengeHtml() {
         const challenge = state.mathCupChallenge;
         const options = mathCupOptions();
         const timerPercent = Math.max(0, Math.min(100, Math.round((state.mathCupChallengeTimeLeft / mathCupChallengeSeconds()) * 100)));
         const solved = state.mathCupCorrectIndex !== null;
+        const questionBody = challenge.visual
+          ? challenge.visual.kind === "groups"
+            ? `<div class="math-cup-visual math-cup-visual-groups">
+                ${mathCupVisualGroupsHtml(challenge.visual.groups, challenge.visual.factor)}
+                <span class="math-cup-visual-op">= ?</span>
+              </div>`
+            : `<div class="math-cup-visual">
+                <span class="math-cup-visual-group">${mathCupVisualGroupHtml(challenge.visual.a)}</span>
+                <span class="math-cup-visual-op">${challenge.visual.op}</span>
+                <span class="math-cup-visual-group">${mathCupVisualGroupHtml(challenge.visual.b)}</span>
+                <span class="math-cup-visual-op">= ?</span>
+              </div>`
+          : challenge.question;
         return `<div class="math-cup-challenge ${challenge.type} ${state.answerLocked ? "locked" : ""} ${solved ? "success" : ""}">
           <div class="math-cup-challenge-title" data-fit-text data-fit-min="14">${mathCupChallengeTitle(challenge)} ${mathCupChallengeRiskNote(challenge)}</div>
-          <div class="math-cup-question" data-fit-text data-fit-min="18">${challenge.question}${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>⚽</span><span>🎉</span><span>✨</span><span>⚽</span></div>' : ""}</div>
+          <div class="math-cup-question" ${challenge.visual ? "" : 'data-fit-text data-fit-min="18"'}>${questionBody}${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>⚽</span><span>🎉</span><span>✨</span><span>⚽</span></div>' : ""}</div>
           <div class="math-cup-challenge-timer">
             <span>⏳</span>
             <div class="math-cup-timer-track"><div class="math-cup-timer-fill" style="width:${timerPercent}%"></div></div>
@@ -23148,6 +23260,14 @@ const brStatesList = [
         event.stopPropagation();
       });
       fullscreenButton.addEventListener("click", toggleFullscreen);
+      if (window.speechSynthesis) {
+        speakButton.hidden = false;
+        speakButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          speakCurrentPrompt();
+        });
+      }
       appVersion.textContent = `v${APP_VERSION}`;
 
       let updateCheckInFlight = false;
