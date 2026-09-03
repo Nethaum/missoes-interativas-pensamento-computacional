@@ -4931,6 +4931,23 @@
       font-size: calc(min(var(--cell-size, 42px), var(--grid-cell-fluid, 4.5vw)) * 0.62);
     }
 
+    .builder-program-row {
+      width: 100%;
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .builder-program-row .builder-program,
+    .builder-program-row .builder-functions {
+      width: auto;
+      min-width: 0;
+      flex: 1 1 0;
+    }
+
+    .builder-program-row .builder-program { flex-grow: 3; }
+    .builder-program-row .builder-functions { flex-grow: 2; }
+
     .builder-program {
       width: 100%;
       display: flex;
@@ -12029,9 +12046,9 @@ const brStatesList = [
       });
 
       const builderLevelPlans = [
-        { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft"], goalCount: 1, wormholeCount: 4, commandLimit: 6 },
-        { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 2, wormholeCount: 7, commandLimit: 8 },
-        { title: "Ordem certa", icon: "🎯", age: "10-11 anos", theme: "Visite os objetivos na ordem certa", meta: "ordem importa", gridSize: 9, blocks: ["move", "turnRight", "turnLeft", "repeat"], goalCount: 3, wormholeCount: 8, commandLimit: 10, orderedGoals: true },
+        { title: "Primeiros passos", icon: "🔼", age: "6-7 anos", theme: "Ande e vire pelo grid", meta: "andar e virar", gridSize: 7, blocks: ["move", "turnRight", "turnLeft", "function"], goalCount: 1, wormholeCount: 4, commandLimit: 6 },
+        { title: "Repita o desenho", icon: "🔁", age: "8-9 anos", theme: "Use repetições pra desenhar mais rápido", meta: "com repetição", gridSize: 8, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 2, wormholeCount: 7, commandLimit: 8 },
+        { title: "Ordem certa", icon: "🎯", age: "10-11 anos", theme: "Visite os objetivos na ordem certa", meta: "ordem importa", gridSize: 9, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 3, wormholeCount: 8, commandLimit: 10, orderedGoals: true },
         { title: "Crie suas funções", icon: "🧩", age: "12-13 anos", theme: "Crie uma função e reaproveite ela no programa", meta: "com funções", gridSize: 9, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 3, wormholeCount: 9, commandLimit: 8, orderedGoals: true },
         { title: "Programador completo", icon: "🏆", age: "14 anos", theme: "Combine laços, funções e ordem certa", meta: "desafio completo", gridSize: 10, blocks: ["move", "turnRight", "turnLeft", "repeat", "function"], goalCount: 4, wormholeCount: 10, commandLimit: 8, orderedGoals: true },
       ];
@@ -12112,7 +12129,7 @@ const brStatesList = [
         generateBuilderLayout();
       }
 
-      const BUILDER_MAX_FUNCTIONS = 2;
+      const BUILDER_MAX_FUNCTIONS = 3;
 
       function currentBuilderPaletteBlocks() {
         const level = builderLevels[state.builderLevel];
@@ -21142,22 +21159,29 @@ const brStatesList = [
             }).join("")
           : `<span class="builder-program-empty">Toque nos blocos abaixo pra montar seu programa.</span>`;
 
-        const functionsHtml = level.blocks.includes("function")
-          ? `<div class="builder-functions">${
-              state.builderFunctions.length
-                ? state.builderFunctions.map((fn, index) => {
-                    const editing = state.builderEditingFunctionIndex === index;
-                    const bodyHtml = fn.body.length
-                      ? fn.body.map((sub) => `<span class="builder-chip">${builderChipLabel(sub)}</span>`).join("")
-                      : `<span class="builder-repeat-body-empty">vazia</span>`;
-                    return `<div class="builder-function-chip ${editing ? "editing" : ""}">
-                      <span class="builder-function-name">🧩 ${fn.name}</span>
-                      <div class="builder-repeat-body">${bodyHtml}</div>
-                    </div>`;
-                  }).join("")
-                : `<span class="builder-program-empty">Toque em 🧩 Nova função pra criar uma função reutilizável.</span>`
-            }</div>`
-          : "";
+        const supportsFunction = level.blocks.includes("function");
+        const programMinHeight = 16 + Math.ceil(commandLimit / 5) * 30;
+        const functionsMinHeight = 16 + Math.ceil(BUILDER_MAX_FUNCTIONS / 2) * 40;
+
+        const functionsInnerHtml = state.builderFunctions.length
+          ? state.builderFunctions.map((fn, index) => {
+              const editing = state.builderEditingFunctionIndex === index;
+              const bodyHtml = fn.body.length
+                ? fn.body.map((sub) => `<span class="builder-chip">${builderChipLabel(sub)}</span>`).join("")
+                : `<span class="builder-repeat-body-empty">vazia</span>`;
+              return `<div class="builder-function-chip ${editing ? "editing" : ""}">
+                <span class="builder-function-name">🧩 ${fn.name}</span>
+                <div class="builder-repeat-body">${bodyHtml}</div>
+              </div>`;
+            }).join("")
+          : `<span class="builder-program-empty">Toque em 🧩 Nova função pra criar uma função reutilizável.</span>`;
+
+        const programSectionHtml = supportsFunction
+          ? `<div class="builder-program-row">
+              <div class="builder-program" style="min-height:${programMinHeight}px;">${programHtml}</div>
+              <div class="builder-functions" style="min-height:${functionsMinHeight}px;">${functionsInnerHtml}</div>
+            </div>`
+          : `<div class="builder-program" style="min-height:${programMinHeight}px;">${programHtml}</div>`;
 
         const paletteHtml = palette.map((block, index) => `<div class="builder-block ${block.id === "repeat" ? "repeat" : ""} ${block.id === "closeLoop" || block.id === "closeFunction" ? "close-loop" : ""} ${block.id === "newFunction" || block.id.startsWith("call:") ? "function" : ""} ${state.builderRunning || (atCommandLimit && block.id !== "closeLoop" && block.id !== "closeFunction") ? "disabled" : ""} ${index === state.selected ? "selected" : ""}" data-block="${block.id}">
           <span class="builder-block-icon">${block.icon}</span>${block.label}
@@ -21165,8 +21189,7 @@ const brStatesList = [
 
         content.innerHTML = `<div class="builder-board">
           <div class="grid" style="--cell-size:${size >= 8 ? 36 : 42}px; grid-template-columns: repeat(${size}, minmax(var(--grid-cell-min, 20px), min(var(--cell-size), var(--grid-cell-fluid))));">${cells.join("")}</div>
-          <div class="builder-program">${programHtml}</div>
-          ${functionsHtml}
+          ${programSectionHtml}
           <div class="builder-palette">${paletteHtml}</div>
           <div class="builder-actions">
             <button type="button" class="builder-action-button builder-run-button" ${canRun ? "" : "disabled"}>▶️ Executar</button>
