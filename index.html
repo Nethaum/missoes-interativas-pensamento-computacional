@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.12.0">
+  <meta name="app-version" content="2.12.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -6680,6 +6680,10 @@
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 13px;
+    }
+
+    .answer-row-count-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .answer-card {
@@ -13733,12 +13737,14 @@ const brStatesList = [
         distractors.map(String).forEach((choice) => {
           if (choice !== answerText && !choices.includes(choice)) choices.push(choice);
         });
-        let filler = 1;
-        while (choices.length < 4) {
-          const numericAnswer = Number(answerText);
-          const extra = Number.isFinite(numericAnswer) ? String(numericAnswer + filler) : `${answerText} ${filler}`;
-          if (!choices.includes(extra)) choices.push(extra);
-          filler += 1;
+        const numericAnswer = Number(answerText);
+        if (Number.isFinite(numericAnswer) && answerText.trim() !== "") {
+          let filler = 1;
+          while (choices.length < 4) {
+            const extra = String(numericAnswer + filler);
+            if (!choices.includes(extra)) choices.push(extra);
+            filler += 1;
+          }
         }
         const options = rotateDataChoices(choices.slice(0, 4), (seed * 3 + 1) % 4);
         return { options, answer: options.indexOf(answerText) };
@@ -15412,7 +15418,7 @@ const brStatesList = [
               <div class="chart-label">${colorLabelHtml(label)}</div>
             </div>`).join("")}
           </div>
-          <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
+          <div class="answer-row answer-row-count-${options.length}">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
           ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
@@ -15426,7 +15432,7 @@ const brStatesList = [
         content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="quiz-question">${round.question}</div>
           <div class="dataset">${round.items.map((item) => `<div class="data-chip">${colorLabelHtml(item)}</div>`).join("")}</div>
-          <div class="answer-row">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
+          <div class="answer-row answer-row-count-${options.length}">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
           ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
       }
