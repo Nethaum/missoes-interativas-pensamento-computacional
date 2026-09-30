@@ -3379,6 +3379,10 @@
       gap: clamp(9px, 1.2vw, 13px);
     }
 
+    .habitats-count-4 {
+      grid-template-columns: repeat(2, minmax(132px, 1fr));
+    }
+
     .habitat {
       display: grid;
       grid-template-rows: auto auto;
@@ -8621,6 +8625,10 @@
         gap: 5px;
       }
 
+      .habitats-count-4 {
+        grid-template-columns: repeat(2, minmax(66px, 1fr));
+      }
+
       .habitat {
         min-height: 58px;
         gap: 2px;
@@ -9022,6 +9030,8 @@
         { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras", featured: true },
         { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas", featured: true },
         { id: "builder", icon: "🤖", title: "Robô Programador", subject: "Sequência, laços e criação livre", featured: true },
+        { id: "phonics", icon: "👂", title: "Som Inicial", subject: "Consciência fonológica", featured: true },
+        { id: "syllables", icon: "🔤", title: "Monte a Palavra", subject: "Sílabas e leitura", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
@@ -9050,6 +9060,12 @@
           icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
           missionIds: ["mathCup", "cup", "decoder", "ttt", "builder"],
+        },
+        {
+          title: "Alfabetização",
+          icon: "🔤",
+          description: "Reconhecer sons, letras e sílabas para dar os primeiros passos na leitura, em qualquer idade.",
+          missionIds: ["phonics", "syllables"],
         },
         {
           title: "Sequência e algoritmos",
@@ -9776,6 +9792,419 @@
           answers: uniqueHabitatAnswers(icon, answer),
         };
       });
+
+      const phonicsRounds = [
+        { icon: "⚽", word: "BOLA", options: [{ icon: "🧢", word: "BONÉ", correct: true }, { icon: "🐱", word: "GATO" }, { icon: "🌙", word: "LUA" }, { icon: "🦆", word: "PATO" }] },
+        { icon: "🎂", word: "BOLO", options: [{ icon: "🍌", word: "BANANA", correct: true }, { icon: "🏠", word: "CASA" }, { icon: "☀️", word: "SOL" }, { icon: "🐯", word: "TIGRE" }] },
+        { icon: "🏠", word: "CASA", options: [{ icon: "🚗", word: "CARRO", correct: true }, { icon: "⚽", word: "BOLA" }, { icon: "🎲", word: "DADO" }, { icon: "🐄", word: "VACA" }] },
+        { icon: "🥤", word: "COPO", options: [{ icon: "🐰", word: "COELHO", correct: true }, { icon: "🔪", word: "FACA" }, { icon: "👃", word: "NARIZ" }, { icon: "🐭", word: "RATO" }] },
+        { icon: "🎲", word: "DADO", options: [{ icon: "🦷", word: "DENTE", correct: true }, { icon: "🍎", word: "MAÇÃ" }, { icon: "🐸", word: "SAPO" }, { icon: "🪟", word: "JANELA" }] },
+        { icon: "👆", word: "DEDO", options: [{ icon: "🍬", word: "DOCE", correct: true }, { icon: "📖", word: "LIVRO" }, { icon: "🌹", word: "ROSA" }, { icon: "🕯️", word: "VELA" }] },
+        { icon: "🔪", word: "FACA", options: [{ icon: "🦭", word: "FOCA", correct: true }, { icon: "🐱", word: "GATO" }, { icon: "🍞", word: "PÃO" }, { icon: "🐯", word: "TIGRE" }] },
+        { icon: "🔥", word: "FOGO", options: [{ icon: "🌸", word: "FLOR", correct: true }, { icon: "👢", word: "BOTA" }, { icon: "☁️", word: "NUVEM" }, { icon: "🔔", word: "SINO" }] },
+        { icon: "🐱", word: "GATO", options: [{ icon: "🐓", word: "GALO", correct: true }, { icon: "🎲", word: "DADO" }, { icon: "🦁", word: "LEÃO" }, { icon: "🏺", word: "VASO" }] },
+        { icon: "🧴", word: "GARRAFA", options: [{ icon: "🐔", word: "GALINHA", correct: true }, { icon: "🪑", word: "MESA" }, { icon: "👟", word: "SAPATO" }, { icon: "🔑", word: "CHAVE" }] },
+        { icon: "🐊", word: "JACARÉ", options: [{ icon: "🪟", word: "JANELA", correct: true }, { icon: "⚽", word: "BOLA" }, { icon: "🌹", word: "ROSA" }, { icon: "🍅", word: "TOMATE" }] },
+        { icon: "🦵", word: "JOELHO", options: [{ icon: "🐊", word: "JACARÉ", correct: true }, { icon: "🦆", word: "PATO" }, { icon: "🎸", word: "VIOLÃO" }, { icon: "🌧️", word: "CHUVA" }] },
+        { icon: "🌙", word: "LUA", options: [{ icon: "📖", word: "LIVRO", correct: true }, { icon: "🏠", word: "CASA" }, { icon: "🦭", word: "FOCA" }, { icon: "📏", word: "RÉGUA" }] },
+        { icon: "🦁", word: "LEÃO", options: [{ icon: "✏️", word: "LÁPIS", correct: true }, { icon: "🧢", word: "BONÉ" }, { icon: "🪺", word: "NINHO" }, { icon: "🍦", word: "SORVETE" }] },
+        { icon: "🍎", word: "MAÇÃ", options: [{ icon: "✋", word: "MÃO", correct: true }, { icon: "🦷", word: "DENTE" }, { icon: "🐓", word: "GALO" }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "🪑", word: "MESA", options: [{ icon: "🐒", word: "MACACO", correct: true }, { icon: "✂️", word: "TESOURA" }, { icon: "🐄", word: "VACA" }, { icon: "🪟", word: "JANELA" }] },
+        { icon: "👃", word: "NARIZ", options: [{ icon: "☁️", word: "NUVEM", correct: true }, { icon: "🎂", word: "BOLO" }, { icon: "🔔", word: "SINO" }, { icon: "🛞", word: "RODA" }] },
+        { icon: "🪺", word: "NINHO", options: [{ icon: "🚢", word: "NAVIO", correct: true }, { icon: "🍞", word: "PÃO" }, { icon: "🍅", word: "TOMATE" }, { icon: "🍫", word: "CHOCOLATE" }] },
+        { icon: "🦆", word: "PATO", options: [{ icon: "🍞", word: "PÃO", correct: true }, { icon: "🏠", word: "CASA" }, { icon: "🌙", word: "LUA" }, { icon: "🍦", word: "SORVETE" }] },
+        { icon: "🚪", word: "PORTA", options: [{ icon: "🐟", word: "PEIXE", correct: true }, { icon: "🎲", word: "DADO" }, { icon: "🐱", word: "GATO" }, { icon: "🕯️", word: "VELA" }] },
+        { icon: "🐭", word: "RATO", options: [{ icon: "🛞", word: "RODA", correct: true }, { icon: "🌸", word: "FLOR" }, { icon: "🍎", word: "MAÇÃ" }, { icon: "🔑", word: "CHAVE" }] },
+        { icon: "📏", word: "RÉGUA", options: [{ icon: "🌹", word: "ROSA", correct: true }, { icon: "👢", word: "BOTA" }, { icon: "🦵", word: "JOELHO" }, { icon: "🐯", word: "TIGRE" }] },
+        { icon: "☀️", word: "SOL", options: [{ icon: "🐸", word: "SAPO", correct: true }, { icon: "🚗", word: "CARRO" }, { icon: "👃", word: "NARIZ" }, { icon: "🎸", word: "VIOLÃO" }] },
+        { icon: "👟", word: "SAPATO", options: [{ icon: "🔔", word: "SINO", correct: true }, { icon: "🦁", word: "LEÃO" }, { icon: "🐒", word: "MACACO" }, { icon: "🦷", word: "DENTE" }] },
+        { icon: "🐯", word: "TIGRE", options: [{ icon: "🐢", word: "TARTARUGA", correct: true }, { icon: "🎈", word: "BALÃO" }, { icon: "🦭", word: "FOCA" }, { icon: "🌹", word: "ROSA" }] },
+        { icon: "✂️", word: "TESOURA", options: [{ icon: "🍅", word: "TOMATE", correct: true }, { icon: "🐔", word: "GALINHA" }, { icon: "🚢", word: "NAVIO" }, { icon: "🏺", word: "VASO" }] },
+        { icon: "🐄", word: "VACA", options: [{ icon: "🕯️", word: "VELA", correct: true }, { icon: "🐶", word: "CACHORRO" }, { icon: "🍿", word: "PIPOCA" }, { icon: "🍦", word: "SORVETE" }] },
+        { icon: "🏺", word: "VASO", options: [{ icon: "🎸", word: "VIOLÃO", correct: true }, { icon: "🐍", word: "COBRA" }, { icon: "🍓", word: "MORANGO" }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "🔑", word: "CHAVE", options: [{ icon: "🎩", word: "CHAPÉU", correct: true }, { icon: "🍌", word: "BANANA" }, { icon: "🧴", word: "GARRAFA" }, { icon: "🐭", word: "RATO" }] },
+        { icon: "🌧️", word: "CHUVA", options: [{ icon: "🍫", word: "CHOCOLATE", correct: true }, { icon: "✏️", word: "LÁPIS" }, { icon: "🚪", word: "PORTA" }, { icon: "🐸", word: "SAPO" }] },
+        { icon: "👛", word: "BOLSA", options: [{ icon: "🧣", word: "CACHECOL" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "⛵", word: "BARCO", correct: true }, { icon: "🌰", word: "NOZ" }] },
+        { icon: "⛵", word: "BARCO", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🔔", word: "SINO" }, { icon: "💡", word: "LUZ" }, { icon: "🍌", word: "BANANA", correct: true }] },
+        { icon: "🍌", word: "BANANA", options: [{ icon: "👦", word: "GAROTO" }, { icon: "🌉", word: "PONTE" }, { icon: "🙂", word: "ROSTO" }, { icon: "👢", word: "BOTA", correct: true }] },
+        { icon: "👢", word: "BOTA", options: [{ icon: "🌰", word: "NOZ" }, { icon: "💡", word: "LUZ" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🦋", word: "BORBOLETA", correct: true }] },
+        { icon: "🦋", word: "BORBOLETA", options: [{ icon: "🐍", word: "COBRA" }, { icon: "🐐", word: "BODE", correct: true }, { icon: "🦦", word: "LONTRA" }, { icon: "☂️", word: "GUARDA-CHUVA" }] },
+        { icon: "🐐", word: "BODE", options: [{ icon: "🍄", word: "COGUMELO" }, { icon: "🦊", word: "RAPOSA" }, { icon: "🧝", word: "DUENDE" }, { icon: "🐂", word: "BOI", correct: true }] },
+        { icon: "🐂", word: "BOI", options: [{ icon: "✋", word: "MÃO" }, { icon: "👶", word: "BEBÊ", correct: true }, { icon: "👑", word: "COROA" }, { icon: "🚙", word: "JIPE" }] },
+        { icon: "👶", word: "BEBÊ", options: [{ icon: "✏️", word: "LÁPIS" }, { icon: "💵", word: "DINHEIRO" }, { icon: "🪣", word: "BALDE", correct: true }, { icon: "🧦", word: "MEIA" }] },
+        { icon: "🪣", word: "BALDE", options: [{ icon: "🥷", word: "NINJA" }, { icon: "📻", word: "RÁDIO" }, { icon: "🛁", word: "BANHEIRA", correct: true }, { icon: "🧹", word: "VASSOURA" }] },
+        { icon: "🛁", word: "BANHEIRA", options: [{ icon: "🦌", word: "RENA" }, { icon: "🐉", word: "DRAGÃO" }, { icon: "🔘", word: "BOTÃO", correct: true }, { icon: "🎉", word: "FESTA" }] },
+        { icon: "🔘", word: "BOTÃO", options: [{ icon: "🫖", word: "BULE", correct: true }, { icon: "🥫", word: "LATA" }, { icon: "🌽", word: "MILHO" }, { icon: "🎹", word: "PIANO" }] },
+        { icon: "🫖", word: "BULE", options: [{ icon: "🦕", word: "DINOSSAURO" }, { icon: "🍪", word: "BOLACHA", correct: true }, { icon: "🪙", word: "MOEDA" }, { icon: "🍵", word: "CHÁ" }] },
+        { icon: "🍪", word: "BOLACHA", options: [{ icon: "🚲", word: "BICICLETA", correct: true }, { icon: "🎵", word: "MÚSICA" }, { icon: "🌹", word: "ROSA" }, { icon: "😀", word: "SORRISO" }] },
+        { icon: "🚲", word: "BICICLETA", options: [{ icon: "🍅", word: "TOMATE" }, { icon: "🐔", word: "GALINHA" }, { icon: "🛢️", word: "BARRIL", correct: true }, { icon: "🍬", word: "DOCE" }] },
+        { icon: "🛢️", word: "BARRIL", options: [{ icon: "🚩", word: "BANDEIRA", correct: true }, { icon: "🧵", word: "FIO" }, { icon: "⌚", word: "RELÓGIO" }, { icon: "🍶", word: "JARRA" }] },
+        { icon: "🚩", word: "BANDEIRA", options: [{ icon: "🦈", word: "TUBARÃO" }, { icon: "🌱", word: "PLANTA" }, { icon: "🤖", word: "ROBÔ" }, { icon: "🐋", word: "BALEIA", correct: true }] },
+        { icon: "🐋", word: "BALEIA", options: [{ icon: "🎺", word: "TROMBETA" }, { icon: "🌻", word: "JARDIM" }, { icon: "🧁", word: "BOLINHO", correct: true }, { icon: "🦝", word: "GUAXINIM" }] },
+        { icon: "🧁", word: "BOLINHO", options: [{ icon: "🪑", word: "CADEIRA" }, { icon: "🚙", word: "JIPE" }, { icon: "🪆", word: "BONECA", correct: true }, { icon: "🧚", word: "FADA" }] },
+        { icon: "🪆", word: "BONECA", options: [{ icon: "🚙", word: "JIPE" }, { icon: "🍅", word: "TOMATE" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "👛", word: "BOLSA", correct: true }] },
+        { icon: "🚗", word: "CARRO", options: [{ icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "🐴", word: "CAVALO", correct: true }, { icon: "🐜", word: "FORMIGA" }, { icon: "👗", word: "VESTIDO" }] },
+        { icon: "🐴", word: "CAVALO", options: [{ icon: "🥭", word: "MANGA" }, { icon: "🐶", word: "CACHORRO", correct: true }, { icon: "🎮", word: "JOGO" }, { icon: "🗼", word: "TORRE" }] },
+        { icon: "🐶", word: "CACHORRO", options: [{ icon: "🥪", word: "SANDUÍCHE" }, { icon: "🐫", word: "CAMELO", correct: true }, { icon: "🎸", word: "VIOLÃO" }, { icon: "🧚", word: "FADA" }] },
+        { icon: "🐫", word: "CAMELO", options: [{ icon: "💨", word: "FUMAÇA" }, { icon: "🧁", word: "BOLINHO" }, { icon: "🛞", word: "RODA" }, { icon: "🛏️", word: "CAMA", correct: true }] },
+        { icon: "🛏️", word: "CAMA", options: [{ icon: "🦷", word: "DENTE" }, { icon: "🐍", word: "COBRA", correct: true }, { icon: "🥪", word: "SANDUÍCHE" }, { icon: "🎮", word: "JOGO" }] },
+        { icon: "🐍", word: "COBRA", options: [{ icon: "🥁", word: "TAMBOR" }, { icon: "🧵", word: "FIO" }, { icon: "👶", word: "BEBÊ" }, { icon: "🐰", word: "COELHO", correct: true }] },
+        { icon: "🐰", word: "COELHO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "👑", word: "COROA", correct: true }, { icon: "👹", word: "MONSTRO" }, { icon: "🌻", word: "JARDIM" }] },
+        { icon: "👑", word: "COROA", options: [{ icon: "🍵", word: "CHÁ" }, { icon: "🎉", word: "FESTA" }, { icon: "🥥", word: "COCO", correct: true }, { icon: "🎻", word: "VIOLINO" }] },
+        { icon: "🥥", word: "COCO", options: [{ icon: "🪁", word: "PIPA" }, { icon: "🎸", word: "VIOLÃO" }, { icon: "🦘", word: "CANGURU", correct: true }, { icon: "⛵", word: "BARCO" }] },
+        { icon: "🦘", word: "CANGURU", options: [{ icon: "🐢", word: "TARTARUGA" }, { icon: "🐓", word: "GALO" }, { icon: "🐉", word: "DRAGÃO" }, { icon: "👕", word: "CAMISA", correct: true }] },
+        { icon: "👕", word: "CAMISA", options: [{ icon: "🚚", word: "CAMINHÃO", correct: true }, { icon: "🐜", word: "FORMIGA" }, { icon: "😀", word: "SORRISO" }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🚚", word: "CAMINHÃO", options: [{ icon: "📞", word: "TELEFONE" }, { icon: "🥄", word: "COLHER", correct: true }, { icon: "🧹", word: "VASSOURA" }, { icon: "🐞", word: "JOANINHA" }] },
+        { icon: "🥄", word: "COLHER", options: [{ icon: "🍬", word: "DOCE" }, { icon: "🌰", word: "NOZ" }, { icon: "🦉", word: "CORUJA", correct: true }, { icon: "🩴", word: "CHINELO" }] },
+        { icon: "🦉", word: "CORUJA", options: [{ icon: "🚲", word: "BICICLETA" }, { icon: "⌚", word: "RELÓGIO" }, { icon: "🐓", word: "GALO" }, { icon: "🌵", word: "CACTO", correct: true }] },
+        { icon: "🌵", word: "CACTO", options: [{ icon: "🦝", word: "GUAXINIM" }, { icon: "🚩", word: "BANDEIRA" }, { icon: "🎁", word: "PRESENTE" }, { icon: "🦐", word: "CAMARÃO", correct: true }] },
+        { icon: "🦐", word: "CAMARÃO", options: [{ icon: "👢", word: "BOTA" }, { icon: "🍄", word: "COGUMELO", correct: true }, { icon: "🥁", word: "TAMBOR" }, { icon: "🌬️", word: "VENTO" }] },
+        { icon: "🍄", word: "COGUMELO", options: [{ icon: "🧣", word: "CACHECOL", correct: true }, { icon: "🎺", word: "TROMBETA" }, { icon: "🪣", word: "BALDE" }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "🧣", word: "CACHECOL", options: [{ icon: "🪟", word: "JANELA" }, { icon: "🌃", word: "NOITE" }, { icon: "🔒", word: "CADEADO", correct: true }, { icon: "🍳", word: "PANELA" }] },
+        { icon: "🔒", word: "CADEADO", options: [{ icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "🪑", word: "CADEIRA", correct: true }, { icon: "💿", word: "DISCO" }, { icon: "🌋", word: "VULCÃO" }] },
+        { icon: "🪑", word: "CADEIRA", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍅", word: "TOMATE" }, { icon: "✋", word: "MÃO" }, { icon: "🚗", word: "CARRO", correct: true }] },
+        { icon: "🦷", word: "DENTE", options: [{ icon: "🛞", word: "RODA" }, { icon: "🦭", word: "FOCA" }, { icon: "🍬", word: "DOCE", correct: true }, { icon: "🐬", word: "GOLFINHO" }] },
+        { icon: "🍬", word: "DOCE", options: [{ icon: "🌻", word: "JARDIM" }, { icon: "🧦", word: "MEIA" }, { icon: "🐦", word: "PASSARINHO" }, { icon: "🐉", word: "DRAGÃO", correct: true }] },
+        { icon: "🐉", word: "DRAGÃO", options: [{ icon: "☁️", word: "NUVEM" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🦕", word: "DINOSSAURO", correct: true }, { icon: "👢", word: "BOTA" }] },
+        { icon: "🦕", word: "DINOSSAURO", options: [{ icon: "🏍️", word: "MOTO" }, { icon: "🧤", word: "LUVA" }, { icon: "💿", word: "DISCO", correct: true }, { icon: "🌰", word: "NOZ" }] },
+        { icon: "💿", word: "DISCO", options: [{ icon: "🚿", word: "DUCHA", correct: true }, { icon: "🚙", word: "JIPE" }, { icon: "🤡", word: "PALHAÇO" }, { icon: "🌹", word: "ROSA" }] },
+        { icon: "🚿", word: "DUCHA", options: [{ icon: "🧵", word: "FIO" }, { icon: "💵", word: "DINHEIRO", correct: true }, { icon: "🎺", word: "TROMBETA" }, { icon: "🪣", word: "BALDE" }] },
+        { icon: "💵", word: "DINHEIRO", options: [{ icon: "🐬", word: "DELFIM", correct: true }, { icon: "🏍️", word: "MOTO" }, { icon: "🦊", word: "RAPOSA" }, { icon: "🧼", word: "SABÃO" }] },
+        { icon: "🐬", word: "DELFIM", options: [{ icon: "🐦", word: "PASSARINHO" }, { icon: "🏜️", word: "DESERTO", correct: true }, { icon: "🛞", word: "RODA" }, { icon: "🧃", word: "SUCO" }] },
+        { icon: "🏜️", word: "DESERTO", options: [{ icon: "👦", word: "GAROTO" }, { icon: "🏍️", word: "MOTO" }, { icon: "💎", word: "DIAMANTE", correct: true }, { icon: "🪁", word: "PIPA" }] },
+        { icon: "💎", word: "DIAMANTE", options: [{ icon: "🍫", word: "CHOCOLATE" }, { icon: "🐞", word: "JOANINHA" }, { icon: "🧤", word: "LUVA" }, { icon: "🧝", word: "DUENDE", correct: true }] },
+        { icon: "🧝", word: "DUENDE", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍖", word: "CHURRASCO" }, { icon: "🍦", word: "SORVETE" }, { icon: "🎨", word: "DESENHO", correct: true }] },
+        { icon: "🎨", word: "DESENHO", options: [{ icon: "🦷", word: "DENTE", correct: true }, { icon: "🧃", word: "SUCO" }, { icon: "🦎", word: "LAGARTIXA" }, { icon: "📞", word: "TELEFONE" }] },
+        { icon: "🧚", word: "FADA", options: [{ icon: "🦭", word: "FOCA", correct: true }, { icon: "🧦", word: "MEIA" }, { icon: "🚣", word: "REMO" }, { icon: "🛏️", word: "CAMA" }] },
+        { icon: "🦭", word: "FOCA", options: [{ icon: "🐸", word: "SAPO" }, { icon: "🐒", word: "MACACO" }, { icon: "🕯️", word: "VELA" }, { icon: "🍃", word: "FOLHA", correct: true }] },
+        { icon: "🍃", word: "FOLHA", options: [{ icon: "🐬", word: "GOLFINHO" }, { icon: "💵", word: "DINHEIRO" }, { icon: "👻", word: "FANTASMA", correct: true }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "👻", word: "FANTASMA", options: [{ icon: "🍿", word: "PIPOCA" }, { icon: "🎀", word: "FITA", correct: true }, { icon: "🛋️", word: "SOFÁ" }, { icon: "🥫", word: "LATA" }] },
+        { icon: "🎀", word: "FITA", options: [{ icon: "🧵", word: "FIO", correct: true }, { icon: "👑", word: "COROA" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "🧜", word: "SEREIA" }] },
+        { icon: "🧵", word: "FIO", options: [{ icon: "🚀", word: "FOGUETE", correct: true }, { icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "⌚", word: "RELÓGIO" }, { icon: "🤡", word: "PALHAÇO" }] },
+        { icon: "🚀", word: "FOGUETE", options: [{ icon: "🐜", word: "FORMIGA", correct: true }, { icon: "🎨", word: "DESENHO" }, { icon: "🎵", word: "MÚSICA" }, { icon: "💰", word: "TESOURO" }] },
+        { icon: "🐜", word: "FORMIGA", options: [{ icon: "🍅", word: "TOMATE" }, { icon: "🎹", word: "PIANO" }, { icon: "🎉", word: "FESTA", correct: true }, { icon: "🧜", word: "SEREIA" }] },
+        { icon: "🎉", word: "FESTA", options: [{ icon: "🤖", word: "ROBÔ" }, { icon: "🦅", word: "FALCÃO", correct: true }, { icon: "🥄", word: "COLHER" }, { icon: "📖", word: "LIVRO" }] },
+        { icon: "🦅", word: "FALCÃO", options: [{ icon: "💨", word: "FUMAÇA", correct: true }, { icon: "🦇", word: "MORCEGO" }, { icon: "🚣", word: "REMO" }, { icon: "🧁", word: "BOLINHO" }] },
+        { icon: "💨", word: "FUMAÇA", options: [{ icon: "🦦", word: "LONTRA" }, { icon: "🌀", word: "FURACÃO", correct: true }, { icon: "💵", word: "DINHEIRO" }, { icon: "🍖", word: "CHURRASCO" }] },
+        { icon: "🌀", word: "FURACÃO", options: [{ icon: "🐂", word: "BOI" }, { icon: "🧚", word: "FADA", correct: true }, { icon: "🧝", word: "DUENDE" }, { icon: "🥤", word: "GUARANÁ" }] },
+        { icon: "🐓", word: "GALO", options: [{ icon: "🤡", word: "PALHAÇO" }, { icon: "🧛", word: "VAMPIRO" }, { icon: "🥁", word: "TAMBOR" }, { icon: "🐔", word: "GALINHA", correct: true }] },
+        { icon: "🐔", word: "GALINHA", options: [{ icon: "☂️", word: "GUARDA-CHUVA", correct: true }, { icon: "🥁", word: "TAMBOR" }, { icon: "🪆", word: "BONECA" }, { icon: "🙂", word: "ROSTO" }] },
+        { icon: "☂️", word: "GUARDA-CHUVA", options: [{ icon: "🥤", word: "GUARANÁ", correct: true }, { icon: "🌱", word: "PLANTA" }, { icon: "👗", word: "VESTIDO" }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🥤", word: "GUARANÁ", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🦝", word: "GUAXINIM", correct: true }, { icon: "🧣", word: "CACHECOL" }, { icon: "💿", word: "DISCO" }] },
+        { icon: "🦝", word: "GUAXINIM", options: [{ icon: "👦", word: "GAROTO", correct: true }, { icon: "🌉", word: "PONTE" }, { icon: "🪟", word: "JANELA" }, { icon: "🦌", word: "RENA" }] },
+        { icon: "👦", word: "GAROTO", options: [{ icon: "🚂", word: "TREM" }, { icon: "🛋️", word: "SOFÁ" }, { icon: "🐬", word: "GOLFINHO", correct: true }, { icon: "🚙", word: "JIPE" }] },
+        { icon: "🐬", word: "GOLFINHO", options: [{ icon: "🩴", word: "CHINELO" }, { icon: "🔨", word: "MARTELO" }, { icon: "🌀", word: "FURACÃO" }, { icon: "💧", word: "GOTA", correct: true }] },
+        { icon: "💧", word: "GOTA", options: [{ icon: "🚿", word: "DUCHA" }, { icon: "🧳", word: "MALA" }, { icon: "❄️", word: "NEVE" }, { icon: "🐓", word: "GALO", correct: true }] },
+        { icon: "🪟", word: "JANELA", options: [{ icon: "🧵", word: "FIO" }, { icon: "🚚", word: "CAMINHÃO" }, { icon: "📻", word: "RÁDIO" }, { icon: "🐞", word: "JOANINHA", correct: true }] },
+        { icon: "🐞", word: "JOANINHA", options: [{ icon: "🚙", word: "JIPE", correct: true }, { icon: "🌵", word: "CACTO" }, { icon: "🩴", word: "CHINELO" }, { icon: "🚂", word: "TREM" }] },
+        { icon: "🚙", word: "JIPE", options: [{ icon: "🔔", word: "SINO" }, { icon: "🐜", word: "FORMIGA" }, { icon: "🧣", word: "CACHECOL" }, { icon: "🌻", word: "JARDIM", correct: true }] },
+        { icon: "🌻", word: "JARDIM", options: [{ icon: "🚿", word: "DUCHA" }, { icon: "🌃", word: "NOITE" }, { icon: "🫖", word: "CHALEIRA" }, { icon: "🎮", word: "JOGO", correct: true }] },
+        { icon: "🎮", word: "JOGO", options: [{ icon: "🍶", word: "JARRA", correct: true }, { icon: "🛢️", word: "BARRIL" }, { icon: "📞", word: "TELEFONE" }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🍶", word: "JARRA", options: [{ icon: "🪟", word: "JANELA", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "🐒", word: "MACACO" }, { icon: "🍫", word: "CHOCOLATE" }] },
+        { icon: "📖", word: "LIVRO", options: [{ icon: "💎", word: "DIAMANTE" }, { icon: "✏️", word: "LÁPIS", correct: true }, { icon: "🍵", word: "CHÁ" }, { icon: "🪙", word: "MOEDA" }] },
+        { icon: "✏️", word: "LÁPIS", options: [{ icon: "🌃", word: "NOITE" }, { icon: "🍊", word: "LARANJA", correct: true }, { icon: "🍃", word: "FOLHA" }, { icon: "🚿", word: "DUCHA" }] },
+        { icon: "🍊", word: "LARANJA", options: [{ icon: "🌃", word: "NOITE" }, { icon: "🎺", word: "TROMBETA" }, { icon: "🦎", word: "LAGARTIXA", correct: true }, { icon: "🐍", word: "COBRA" }] },
+        { icon: "🦎", word: "LAGARTIXA", options: [{ icon: "🎩", word: "CHAPÉU" }, { icon: "🐋", word: "BALEIA" }, { icon: "📞", word: "TELEFONE" }, { icon: "🥫", word: "LATA", correct: true }] },
+        { icon: "🥫", word: "LATA", options: [{ icon: "🩴", word: "CHINELO" }, { icon: "🌵", word: "CACTO" }, { icon: "🚣", word: "REMO" }, { icon: "🐺", word: "LOBO", correct: true }] },
+        { icon: "🐺", word: "LOBO", options: [{ icon: "🎻", word: "VIOLINO" }, { icon: "🍅", word: "TOMATE" }, { icon: "💨", word: "FUMAÇA" }, { icon: "🧤", word: "LUVA", correct: true }] },
+        { icon: "🧤", word: "LUVA", options: [{ icon: "🍋", word: "LIMÃO", correct: true }, { icon: "🥄", word: "COLHER" }, { icon: "🌻", word: "JARDIM" }, { icon: "🦊", word: "RAPOSA" }] },
+        { icon: "🍋", word: "LIMÃO", options: [{ icon: "🍅", word: "TOMATE" }, { icon: "🦝", word: "GUAXINIM" }, { icon: "📻", word: "RÁDIO" }, { icon: "🥛", word: "LEITE", correct: true }] },
+        { icon: "🥛", word: "LEITE", options: [{ icon: "💡", word: "LUZ", correct: true }, { icon: "🐓", word: "GALO" }, { icon: "☁️", word: "NUVEM" }, { icon: "🌭", word: "SALSICHA" }] },
+        { icon: "💡", word: "LUZ", options: [{ icon: "🦦", word: "LONTRA", correct: true }, { icon: "🎁", word: "PRESENTE" }, { icon: "🐂", word: "BOI" }, { icon: "🐞", word: "JOANINHA" }] },
+        { icon: "🦦", word: "LONTRA", options: [{ icon: "🎉", word: "FESTA" }, { icon: "🐬", word: "DELFIM" }, { icon: "🧃", word: "SUCO" }, { icon: "🍋", word: "LIMAO", correct: true }] },
+        { icon: "🍋", word: "LIMAO", options: [{ icon: "📖", word: "LIVRO", correct: true }, { icon: "🍿", word: "PIPOCA" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🍫", word: "CHOCOLATE" }] },
+        { icon: "✋", word: "MÃO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🙂", word: "ROSTO" }, { icon: "🐒", word: "MACACO", correct: true }, { icon: "🚂", word: "TREM" }] },
+        { icon: "🐒", word: "MACACO", options: [{ icon: "🧁", word: "BOLINHO" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🧚", word: "FADA" }, { icon: "🍓", word: "MORANGO", correct: true }] },
+        { icon: "🍓", word: "MORANGO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🥗", word: "SALADA" }, { icon: "🎒", word: "MOCHILA", correct: true }, { icon: "🧁", word: "BOLINHO" }] },
+        { icon: "🎒", word: "MOCHILA", options: [{ icon: "🔨", word: "MARTELO", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "🍳", word: "PANELA" }, { icon: "🥫", word: "LATA" }] },
+        { icon: "🔨", word: "MARTELO", options: [{ icon: "🧛", word: "VAMPIRO" }, { icon: "🎵", word: "MÚSICA", correct: true }, { icon: "🎀", word: "FITA" }, { icon: "🍬", word: "DOCE" }] },
+        { icon: "🎵", word: "MÚSICA", options: [{ icon: "🐺", word: "LOBO" }, { icon: "🌊", word: "MAR", correct: true }, { icon: "🪁", word: "PIPA" }, { icon: "🐜", word: "FORMIGA" }] },
+        { icon: "🌊", word: "MAR", options: [{ icon: "🪣", word: "BALDE" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "🐶", word: "CACHORRO" }, { icon: "🧳", word: "MALA", correct: true }] },
+        { icon: "🧳", word: "MALA", options: [{ icon: "🌉", word: "PONTE" }, { icon: "✏️", word: "LÁPIS" }, { icon: "🩴", word: "CHINELO" }, { icon: "🪙", word: "MOEDA", correct: true }] },
+        { icon: "🪙", word: "MOEDA", options: [{ icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "👹", word: "MONSTRO", correct: true }, { icon: "🔒", word: "CADEADO" }, { icon: "🚣", word: "REMO" }] },
+        { icon: "👹", word: "MONSTRO", options: [{ icon: "🦊", word: "RAPOSA" }, { icon: "🍶", word: "JARRA" }, { icon: "🚢", word: "NAVIO" }, { icon: "🦇", word: "MORCEGO", correct: true }] },
+        { icon: "🦇", word: "MORCEGO", options: [{ icon: "🦦", word: "LONTRA" }, { icon: "🚚", word: "CAMINHÃO" }, { icon: "🏍️", word: "MOTO", correct: true }, { icon: "👻", word: "FANTASMA" }] },
+        { icon: "🏍️", word: "MOTO", options: [{ icon: "📞", word: "TELEFONE" }, { icon: "🧦", word: "MEIA", correct: true }, { icon: "❄️", word: "NEVE" }, { icon: "🐬", word: "DELFIM" }] },
+        { icon: "🧦", word: "MEIA", options: [{ icon: "🍶", word: "JARRA" }, { icon: "🛞", word: "RODA" }, { icon: "🏴‍☠️", word: "PIRATA" }, { icon: "🌽", word: "MILHO", correct: true }] },
+        { icon: "🌽", word: "MILHO", options: [{ icon: "🌻", word: "JARDIM" }, { icon: "🥭", word: "MANGA", correct: true }, { icon: "🌹", word: "ROSA" }, { icon: "💨", word: "FUMAÇA" }] },
+        { icon: "🥭", word: "MANGA", options: [{ icon: "🐺", word: "LOBO" }, { icon: "🦌", word: "RENA" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "✋", word: "MÃO", correct: true }] },
+        { icon: "☁️", word: "NUVEM", options: [{ icon: "🚢", word: "NAVIO", correct: true }, { icon: "🎀", word: "FITA" }, { icon: "🚂", word: "TREM" }, { icon: "🌊", word: "MAR" }] },
+        { icon: "🚢", word: "NAVIO", options: [{ icon: "🧚", word: "FADA" }, { icon: "🌉", word: "PONTE" }, { icon: "🌰", word: "NOZ", correct: true }, { icon: "🍵", word: "CHÁ" }] },
+        { icon: "🌰", word: "NOZ", options: [{ icon: "😀", word: "SORRISO" }, { icon: "🏍️", word: "MOTO" }, { icon: "🥷", word: "NINJA", correct: true }, { icon: "🦎", word: "LAGARTIXA" }] },
+        { icon: "🥷", word: "NINJA", options: [{ icon: "🦊", word: "RAPOSA" }, { icon: "❄️", word: "NEVE", correct: true }, { icon: "😀", word: "SORRISO" }, { icon: "🧹", word: "VASSOURA" }] },
+        { icon: "❄️", word: "NEVE", options: [{ icon: "💧", word: "GOTA" }, { icon: "🌃", word: "NOITE", correct: true }, { icon: "🎒", word: "MOCHILA" }, { icon: "👑", word: "COROA" }] },
+        { icon: "🌃", word: "NOITE", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "☁️", word: "NUVEM", correct: true }, { icon: "🔨", word: "MARTELO" }, { icon: "👗", word: "VESTIDO" }] },
+        { icon: "🍞", word: "PÃO", options: [{ icon: "🫖", word: "CHALEIRA" }, { icon: "🧵", word: "FIO" }, { icon: "❄️", word: "NEVE" }, { icon: "🐟", word: "PEIXE", correct: true }] },
+        { icon: "🐟", word: "PEIXE", options: [{ icon: "🍿", word: "PIPOCA", correct: true }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "🐺", word: "LOBO" }, { icon: "🍪", word: "BOLACHA" }] },
+        { icon: "🍿", word: "PIPOCA", options: [{ icon: "🌽", word: "MILHO" }, { icon: "🐔", word: "GALINHA" }, { icon: "🍭", word: "PIRULITO", correct: true }, { icon: "🥷", word: "NINJA" }] },
+        { icon: "🍭", word: "PIRULITO", options: [{ icon: "🪁", word: "PIPA", correct: true }, { icon: "🚚", word: "CAMINHÃO" }, { icon: "🪟", word: "JANELA" }, { icon: "🫖", word: "BULE" }] },
+        { icon: "🪁", word: "PIPA", options: [{ icon: "🐬", word: "GOLFINHO" }, { icon: "🍳", word: "PANELA", correct: true }, { icon: "🍓", word: "MORANGO" }, { icon: "🧹", word: "VASSOURA" }] },
+        { icon: "🍳", word: "PANELA", options: [{ icon: "🌽", word: "MILHO" }, { icon: "🤡", word: "PALHAÇO", correct: true }, { icon: "⛵", word: "BARCO" }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "🤡", word: "PALHAÇO", options: [{ icon: "👦", word: "GAROTO" }, { icon: "🌱", word: "PLANTA", correct: true }, { icon: "🧝", word: "DUENDE" }, { icon: "📖", word: "LIVRO" }] },
+        { icon: "🌱", word: "PLANTA", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🎹", word: "PIANO", correct: true }, { icon: "🌋", word: "VULCÃO" }, { icon: "✏️", word: "LÁPIS" }] },
+        { icon: "🎹", word: "PIANO", options: [{ icon: "🏴‍☠️", word: "PIRATA", correct: true }, { icon: "🏍️", word: "MOTO" }, { icon: "🦌", word: "RENA" }, { icon: "🧛", word: "VAMPIRO" }] },
+        { icon: "🏴‍☠️", word: "PIRATA", options: [{ icon: "🌃", word: "NOITE" }, { icon: "🎨", word: "DESENHO" }, { icon: "🌉", word: "PONTE", correct: true }, { icon: "👹", word: "MONSTRO" }] },
+        { icon: "🌉", word: "PONTE", options: [{ icon: "🐷", word: "PORCO", correct: true }, { icon: "🍶", word: "JARRA" }, { icon: "🧚", word: "FADA" }, { icon: "👢", word: "BOTA" }] },
+        { icon: "🐷", word: "PORCO", options: [{ icon: "🐦", word: "PASSARINHO", correct: true }, { icon: "🙂", word: "ROSTO" }, { icon: "🥷", word: "NINJA" }, { icon: "🫖", word: "CHALEIRA" }] },
+        { icon: "🐦", word: "PASSARINHO", options: [{ icon: "🐞", word: "JOANINHA" }, { icon: "🔘", word: "BOTÃO" }, { icon: "🎁", word: "PRESENTE", correct: true }, { icon: "🪙", word: "MOEDA" }] },
+        { icon: "🎁", word: "PRESENTE", options: [{ icon: "🌹", word: "ROSA" }, { icon: "🪨", word: "PEDRA", correct: true }, { icon: "🐬", word: "GOLFINHO" }, { icon: "💎", word: "DIAMANTE" }] },
+        { icon: "🪨", word: "PEDRA", options: [{ icon: "🧹", word: "VASSOURA" }, { icon: "🍞", word: "PÃO", correct: true }, { icon: "🐔", word: "GALINHA" }, { icon: "🐒", word: "MACACO" }] },
+        { icon: "🛞", word: "RODA", options: [{ icon: "💧", word: "GOTA" }, { icon: "🌹", word: "ROSA", correct: true }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🌹", word: "ROSA", options: [{ icon: "🧼", word: "SABÃO" }, { icon: "🎻", word: "VIOLINO" }, { icon: "🦊", word: "RAPOSA", correct: true }, { icon: "🏜️", word: "DESERTO" }] },
+        { icon: "🦊", word: "RAPOSA", options: [{ icon: "⌚", word: "RELÓGIO", correct: true }, { icon: "🚂", word: "TREM" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🎨", word: "DESENHO" }] },
+        { icon: "⌚", word: "RELÓGIO", options: [{ icon: "🍿", word: "PIPOCA" }, { icon: "👶", word: "BEBÊ" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "🦌", word: "RENA", correct: true }] },
+        { icon: "🦌", word: "RENA", options: [{ icon: "🧼", word: "SABÃO" }, { icon: "🌀", word: "FURACÃO" }, { icon: "💵", word: "DINHEIRO" }, { icon: "🤖", word: "ROBÔ", correct: true }] },
+        { icon: "🤖", word: "ROBÔ", options: [{ icon: "🥗", word: "SALADA" }, { icon: "🚢", word: "NAVIO" }, { icon: "🚣", word: "REMO", correct: true }, { icon: "🥁", word: "TAMBOR" }] },
+        { icon: "🚣", word: "REMO", options: [{ icon: "🥤", word: "GUARANÁ" }, { icon: "🙂", word: "ROSTO", correct: true }, { icon: "🦷", word: "DENTE" }, { icon: "🐟", word: "PEIXE" }] },
+        { icon: "🙂", word: "ROSTO", options: [{ icon: "👗", word: "VESTIDO" }, { icon: "🍭", word: "PIRULITO" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "📻", word: "RÁDIO", correct: true }] },
+        { icon: "📻", word: "RÁDIO", options: [{ icon: "🛞", word: "RODA", correct: true }, { icon: "🎉", word: "FESTA" }, { icon: "🌋", word: "VULCÃO" }, { icon: "🩴", word: "CHINELO" }] },
+        { icon: "🐸", word: "SAPO", options: [{ icon: "🔔", word: "SINO", correct: true }, { icon: "🍋", word: "LIMAO" }, { icon: "🍖", word: "CHURRASCO" }, { icon: "🛁", word: "BANHEIRA" }] },
+        { icon: "🔔", word: "SINO", options: [{ icon: "🍦", word: "SORVETE", correct: true }, { icon: "🚗", word: "CARRO" }, { icon: "🍞", word: "PÃO" }, { icon: "🚣", word: "REMO" }] },
+        { icon: "🍦", word: "SORVETE", options: [{ icon: "🎀", word: "FITA" }, { icon: "👛", word: "BOLSA" }, { icon: "🥷", word: "NINJA" }, { icon: "🥗", word: "SALADA", correct: true }] },
+        { icon: "🥗", word: "SALADA", options: [{ icon: "🧼", word: "SABÃO", correct: true }, { icon: "🌬️", word: "VENTO" }, { icon: "🛢️", word: "BARRIL" }, { icon: "🌊", word: "MAR" }] },
+        { icon: "🧼", word: "SABÃO", options: [{ icon: "🌹", word: "ROSA" }, { icon: "🛍️", word: "SACOLA", correct: true }, { icon: "🍳", word: "PANELA" }, { icon: "🌋", word: "VULCÃO" }] },
+        { icon: "🛍️", word: "SACOLA", options: [{ icon: "🛋️", word: "SOFÁ", correct: true }, { icon: "✋", word: "MÃO" }, { icon: "🥷", word: "NINJA" }, { icon: "🍭", word: "PIRULITO" }] },
+        { icon: "🛋️", word: "SOFÁ", options: [{ icon: "🥁", word: "TAMBOR" }, { icon: "👦", word: "GAROTO" }, { icon: "🐒", word: "MACACO" }, { icon: "🧃", word: "SUCO", correct: true }] },
+        { icon: "🧃", word: "SUCO", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍋", word: "LIMAO" }, { icon: "🧜", word: "SEREIA", correct: true }, { icon: "🎺", word: "TROMBETA" }] },
+        { icon: "🧜", word: "SEREIA", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🌭", word: "SALSICHA", correct: true }, { icon: "👹", word: "MONSTRO" }, { icon: "🥤", word: "GUARANÁ" }] },
+        { icon: "🌭", word: "SALSICHA", options: [{ icon: "🗼", word: "TORRE" }, { icon: "🫖", word: "CHALEIRA" }, { icon: "👕", word: "CAMISA" }, { icon: "🥪", word: "SANDUÍCHE", correct: true }] },
+        { icon: "🥪", word: "SANDUÍCHE", options: [{ icon: "🍬", word: "DOCE" }, { icon: "🧚", word: "FADA" }, { icon: "🦌", word: "RENA" }, { icon: "😀", word: "SORRISO", correct: true }] },
+        { icon: "😀", word: "SORRISO", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🐸", word: "SAPO", correct: true }, { icon: "📖", word: "LIVRO" }, { icon: "🚣", word: "REMO" }] },
+        { icon: "🍅", word: "TOMATE", options: [{ icon: "🐢", word: "TARTARUGA", correct: true }, { icon: "⌚", word: "RELÓGIO" }, { icon: "⛵", word: "BARCO" }, { icon: "👦", word: "GAROTO" }] },
+        { icon: "🐢", word: "TARTARUGA", options: [{ icon: "🎮", word: "JOGO" }, { icon: "🚂", word: "TREM", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "📻", word: "RÁDIO" }] },
+        { icon: "🚂", word: "TREM", options: [{ icon: "🐰", word: "COELHO" }, { icon: "🥁", word: "TAMBOR", correct: true }, { icon: "🌃", word: "NOITE" }, { icon: "🦌", word: "RENA" }] },
+        { icon: "🥁", word: "TAMBOR", options: [{ icon: "🌀", word: "FURACÃO" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "📞", word: "TELEFONE", correct: true }, { icon: "🦕", word: "DINOSSAURO" }] },
+        { icon: "📞", word: "TELEFONE", options: [{ icon: "🍓", word: "MORANGO" }, { icon: "🐉", word: "DRAGÃO" }, { icon: "🌭", word: "SALSICHA" }, { icon: "💰", word: "TESOURO", correct: true }] },
+        { icon: "💰", word: "TESOURO", options: [{ icon: "🌀", word: "FURACÃO" }, { icon: "🌰", word: "NOZ" }, { icon: "🦈", word: "TUBARÃO", correct: true }, { icon: "🍬", word: "DOCE" }] },
+        { icon: "🦈", word: "TUBARÃO", options: [{ icon: "🌀", word: "FURACÃO" }, { icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "🍀", word: "TREVO", correct: true }, { icon: "🍵", word: "CHÁ" }] },
+        { icon: "🍀", word: "TREVO", options: [{ icon: "🦇", word: "MORCEGO" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "🎺", word: "TROMBETA", correct: true }, { icon: "🌋", word: "VULCÃO" }] },
+        { icon: "🎺", word: "TROMBETA", options: [{ icon: "🗼", word: "TORRE", correct: true }, { icon: "🦝", word: "GUAXINIM" }, { icon: "🧁", word: "BOLINHO" }, { icon: "🎮", word: "JOGO" }] },
+        { icon: "🗼", word: "TORRE", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🕯️", word: "VELA" }, { icon: "🧤", word: "LUVA" }, { icon: "🍅", word: "TOMATE", correct: true }] },
+        { icon: "🕯️", word: "VELA", options: [{ icon: "🥛", word: "LEITE" }, { icon: "🍄", word: "COGUMELO" }, { icon: "🎸", word: "VIOLÃO", correct: true }, { icon: "✋", word: "MÃO" }] },
+        { icon: "🎸", word: "VIOLÃO", options: [{ icon: "🌭", word: "SALSICHA" }, { icon: "🧹", word: "VASSOURA", correct: true }, { icon: "🪟", word: "JANELA" }, { icon: "🩴", word: "CHINELO" }] },
+        { icon: "🧹", word: "VASSOURA", options: [{ icon: "🐍", word: "COBRA" }, { icon: "🌋", word: "VULCÃO", correct: true }, { icon: "🥭", word: "MANGA" }, { icon: "🐦", word: "PASSARINHO" }] },
+        { icon: "🌋", word: "VULCÃO", options: [{ icon: "🎮", word: "JOGO" }, { icon: "🐺", word: "LOBO" }, { icon: "☁️", word: "NUVEM" }, { icon: "🧛", word: "VAMPIRO", correct: true }] },
+        { icon: "🧛", word: "VAMPIRO", options: [{ icon: "👗", word: "VESTIDO", correct: true }, { icon: "🚀", word: "FOGUETE" }, { icon: "🥤", word: "GUARANÁ" }, { icon: "🦊", word: "RAPOSA" }] },
+        { icon: "👗", word: "VESTIDO", options: [{ icon: "🦘", word: "CANGURU" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🌬️", word: "VENTO", correct: true }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🌬️", word: "VENTO", options: [{ icon: "☁️", word: "NUVEM" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "💡", word: "LUZ" }, { icon: "🎻", word: "VIOLINO", correct: true }] },
+        { icon: "🎻", word: "VIOLINO", options: [{ icon: "🐬", word: "DELFIM" }, { icon: "🕯️", word: "VELA", correct: true }, { icon: "🥤", word: "GUARANÁ" }, { icon: "🦈", word: "TUBARÃO" }] },
+        { icon: "🎩", word: "CHAPÉU", options: [{ icon: "🦌", word: "RENA" }, { icon: "🏜️", word: "DESERTO" }, { icon: "🍫", word: "CHOCOLATE", correct: true }, { icon: "🧳", word: "MALA" }] },
+        { icon: "🍫", word: "CHOCOLATE", options: [{ icon: "🦎", word: "LAGARTIXA" }, { icon: "🩴", word: "CHINELO", correct: true }, { icon: "🎉", word: "FESTA" }, { icon: "🦷", word: "DENTE" }] },
+        { icon: "🩴", word: "CHINELO", options: [{ icon: "🍵", word: "CHÁ", correct: true }, { icon: "🦊", word: "RAPOSA" }, { icon: "🗼", word: "TORRE" }, { icon: "🔘", word: "BOTÃO" }] },
+        { icon: "🍵", word: "CHÁ", options: [{ icon: "🍭", word: "PIRULITO" }, { icon: "💰", word: "TESOURO" }, { icon: "🍖", word: "CHURRASCO", correct: true }, { icon: "🐔", word: "GALINHA" }] },
+        { icon: "🍖", word: "CHURRASCO", options: [{ icon: "🫖", word: "CHALEIRA", correct: true }, { icon: "🦊", word: "RAPOSA" }, { icon: "🍌", word: "BANANA" }, { icon: "🎸", word: "VIOLÃO" }] },
+        { icon: "🫖", word: "CHALEIRA", options: [{ icon: "🚩", word: "BANDEIRA" }, { icon: "🎮", word: "JOGO" }, { icon: "🍓", word: "MORANGO" }, { icon: "🎩", word: "CHAPÉU", correct: true }] },
+      ];
+
+      const syllableWords = [
+        { icon: "🏠", word: "CASA", syllables: ["CA","SA"], distractors: ["RE","MI"] },
+        { icon: "⚽", word: "BOLA", syllables: ["BO","LA"], distractors: ["VO","TI"] },
+        { icon: "🐸", word: "SAPO", syllables: ["SA","PO"], distractors: ["NU","GO"] },
+        { icon: "🧚", word: "FADA", syllables: ["FA","DA"], distractors: ["XE","BI"] },
+        { icon: "🧳", word: "MALA", syllables: ["MA","LA"], distractors: ["RE","VO"] },
+        { icon: "🦆", word: "PATO", syllables: ["PA","TO"], distractors: ["MI","NU"] },
+        { icon: "🎲", word: "DADO", syllables: ["DA","DO"], distractors: ["GO","XE"] },
+        { icon: "🧃", word: "SUCO", syllables: ["SU","CO"], distractors: ["BI","RE"] },
+        { icon: "👢", word: "BOTA", syllables: ["BO","TA"], distractors: ["VO","MI"] },
+        { icon: "🧤", word: "LUVA", syllables: ["LU","VA"], distractors: ["NU","GO"] },
+        { icon: "🐄", word: "VACA", syllables: ["VA","CA"], distractors: ["XE","BI"] },
+        { icon: "🦭", word: "FOCA", syllables: ["FO","CA"], distractors: ["RE","TI"] },
+        { icon: "🏍️", word: "MOTO", syllables: ["MO","TO"], distractors: ["VO","NU"] },
+        { icon: "🐭", word: "RATO", syllables: ["RA","TO"], distractors: ["GO","XE"] },
+        { icon: "🪁", word: "PIPA", syllables: ["PI","PA"], distractors: ["BI","MI"] },
+        { icon: "🪶", word: "PENA", syllables: ["PE","NA"], distractors: ["RE","VO"] },
+        { icon: "🐱", word: "GATO", syllables: ["GA","TO"], distractors: ["TI","NU"] },
+        { icon: "👆", word: "DEDO", syllables: ["DE","DO"], distractors: ["GO","XE"] },
+        { icon: "🚀", word: "NAVE", syllables: ["NA","VE"], distractors: ["BI","RE"] },
+        { icon: "🕯️", word: "VELA", syllables: ["VE","LA"], distractors: ["MI","VO"] },
+        { icon: "🔔", word: "SINO", syllables: ["SI","NO"], distractors: ["TI","GO"] },
+        { icon: "🌹", word: "ROSA", syllables: ["RO","SA"], distractors: ["XE","BI"] },
+        { icon: "🐐", word: "BODE", syllables: ["BO","DE"], distractors: ["RE","MI"] },
+        { icon: "🍬", word: "DOCE", syllables: ["DO","CE"], distractors: ["VO","TI"] },
+        { icon: "🐺", word: "LOBO", syllables: ["LO","BO"], distractors: ["NU","XE"] },
+        { icon: "🕳️", word: "TOCA", syllables: ["TO","CA"], distractors: ["BI","RE"] },
+        { icon: "🔪", word: "FACA", syllables: ["FA","CA"], distractors: ["GO","MI"] },
+        { icon: "🥤", word: "COPO", syllables: ["CO","PO"], distractors: ["VO","TI"] },
+        { icon: "🐷", word: "PORCO", syllables: ["POR","CO"], distractors: ["JO","GI"] },
+        { icon: "🐓", word: "GALO", syllables: ["GA","LO"], distractors: ["KI","RI"] },
+        { icon: "🦁", word: "LEAO", syllables: ["LE","AO"], distractors: ["BLO","ZE"] },
+        { icon: "🐯", word: "TIGRE", syllables: ["TI","GRE"], distractors: ["FE","GO"] },
+        { icon: "🐻", word: "URSO", syllables: ["UR","SO"], distractors: ["VO","RU"] },
+        { icon: "🐍", word: "COBRA", syllables: ["CO","BRA"], distractors: ["JE","SU"] },
+        { icon: "🦓", word: "ZEBRA", syllables: ["ZE","BRA"], distractors: ["FRA","ZI"] },
+        { icon: "🐼", word: "PANDA", syllables: ["PAN","DA"], distractors: ["DI","CA"] },
+        { icon: "🐧", word: "PINGUIM", syllables: ["PIN","GUIM"], distractors: ["XE","LO"] },
+        { icon: "🐙", word: "POLVO", syllables: ["POL","VO"], distractors: ["FA","BI"] },
+        { icon: "🦃", word: "PERU", syllables: ["PE","RU"], distractors: ["NI","NE"] },
+        { icon: "🦢", word: "CISNE", syllables: ["CIS","NE"], distractors: ["GRA","SE"] },
+        { icon: "🕊️", word: "POMBA", syllables: ["POM","BA"], distractors: ["DO","RI"] },
+        { icon: "🧺", word: "CESTA", syllables: ["CES","TA"], distractors: ["RO","VI"] },
+        { icon: "🦗", word: "GRILO", syllables: ["GRI","LO"], distractors: ["SU","GO"] },
+        { icon: "🦦", word: "LONTRA", syllables: ["LON","TRA"], distractors: ["JO","LI"] },
+        { icon: "🐹", word: "HAMSTER", syllables: ["HAMS","TER"], distractors: ["LE","GI"] },
+        { icon: "🍎", word: "MACA", syllables: ["MA","CA"], distractors: ["LI","FA"] },
+        { icon: "🍇", word: "UVA", syllables: ["U","VA"], distractors: ["JU","SU"] },
+        { icon: "🍋", word: "LIMAO", syllables: ["LI","MAO"], distractors: ["GRA","SE"] },
+        { icon: "🍈", word: "MELAO", syllables: ["ME","LAO"], distractors: ["JU","TI"] },
+        { icon: "🥭", word: "MANGA", syllables: ["MAN","GA"], distractors: ["GRA","JU"] },
+        { icon: "🌽", word: "MILHO", syllables: ["MI","LHO"], distractors: ["DA","PA"] },
+        { icon: "🧀", word: "QUEIJO", syllables: ["QUEI","JO"], distractors: ["VE","FA"] },
+        { icon: "🥚", word: "OVO", syllables: ["O","VO"], distractors: ["ME","GO"] },
+        { icon: "🥛", word: "LEITE", syllables: ["LEI","TE"], distractors: ["ME","TRA"] },
+        { icon: "🍰", word: "BOLO", syllables: ["BO","LO"], distractors: ["JU","FA"] },
+        { icon: "🍕", word: "PIZZA", syllables: ["PIZ","ZA"], distractors: ["ZE","SU"] },
+        { icon: "☕", word: "CAFE", syllables: ["CA","FE"], distractors: ["LU","TE"] },
+        { icon: "🍚", word: "ARROZ", syllables: ["AR","ROZ"], distractors: ["ZE","SU"] },
+        { icon: "🧊", word: "GELO", syllables: ["GE","LO"], distractors: ["LI","PLA"] },
+        { icon: "🛏️", word: "CAMA", syllables: ["CA","MA"], distractors: ["LI","FA"] },
+        { icon: "🚪", word: "PORTA", syllables: ["POR","TA"], distractors: ["SO","LE"] },
+        { icon: "🛋️", word: "SOFA", syllables: ["SO","FA"], distractors: ["CE","PI"] },
+        { icon: "🍽️", word: "PRATO", syllables: ["PRA","TO"], distractors: ["VA","CO"] },
+        { icon: "🍴", word: "GARFO", syllables: ["GAR","FO"], distractors: ["DO","RI"] },
+        { icon: "🥄", word: "COLHER", syllables: ["CO","LHER"], distractors: ["VO","FA"] },
+        { icon: "🔑", word: "CHAVE", syllables: ["CHA","VE"], distractors: ["LU","DI"] },
+        { icon: "🧼", word: "SABAO", syllables: ["SA","BAO"], distractors: ["TI","DI"] },
+        { icon: "🪣", word: "BALDE", syllables: ["BAL","DE"], distractors: ["JI","LO"] },
+        { icon: "✏️", word: "LAPIS", syllables: ["LA","PIS"], distractors: ["JE","ZE"] },
+        { icon: "📚", word: "LIVRO", syllables: ["LI","VRO"], distractors: ["BE","VU"] },
+        { icon: "🧺", word: "CESTO", syllables: ["CES","TO"], distractors: ["RE","NO"] },
+        { icon: "🎈", word: "BALAO", syllables: ["BA","LAO"], distractors: ["GI","BO"] },
+        { icon: "🎯", word: "ALVO", syllables: ["AL","VO"], distractors: ["LU","ZE"] },
+        { icon: "🥁", word: "TAMBOR", syllables: ["TAM","BOR"], distractors: ["SI","SE"] },
+        { icon: "🚗", word: "CARRO", syllables: ["CAR","RO"], distractors: ["LI","KE"] },
+        { icon: "🚤", word: "BARCO", syllables: ["BAR","CO"], distractors: ["RU","FI"] },
+        { icon: "🚜", word: "TRATOR", syllables: ["TRA","TOR"], distractors: ["GE","GI"] },
+        { icon: "🚕", word: "TAXI", syllables: ["TA","XI"], distractors: ["NU","GE"] },
+        { icon: "🧻", word: "PAPEL", syllables: ["PA","PEL"], distractors: ["GRA","SE"] },
+        { icon: "🗑️", word: "LIXO", syllables: ["LI","XO"], distractors: ["SI","PRA"] },
+        { icon: "🌉", word: "PONTE", syllables: ["PON","TE"], distractors: ["NO","KE"] },
+        { icon: "🎪", word: "CIRCO", syllables: ["CIR","CO"], distractors: ["SU","ZE"] },
+        { icon: "🎨", word: "TINTA", syllables: ["TIN","TA"], distractors: ["GLO","DRA"] },
+        { icon: "🖌️", word: "PINCEL", syllables: ["PIN","CEL"], distractors: ["ZI","KI"] },
+        { icon: "📐", word: "REGUA", syllables: ["RE","GUA"], distractors: ["PA","TO"] },
+        { icon: "🧵", word: "LINHA", syllables: ["LI","NHA"], distractors: ["PE","CE"] },
+        { icon: "🔋", word: "PILHA", syllables: ["PI","LHA"], distractors: ["ZO","TI"] },
+        { icon: "🧲", word: "IMA", syllables: ["I","MA"], distractors: ["BI","FI"] },
+        { icon: "💍", word: "ANEL", syllables: ["A","NEL"], distractors: ["GI","TI"] },
+        { icon: "👖", word: "CALCA", syllables: ["CAL","CA"], distractors: ["CHO","GLO"] },
+        { icon: "🧦", word: "MEIA", syllables: ["MEI","A"], distractors: ["NU","GE"] },
+        { icon: "👟", word: "TENIS", syllables: ["TE","NIS"], distractors: ["JO","FI"] },
+        { icon: "👒", word: "CHAPEU", syllables: ["CHA","PEU"], distractors: ["HE","KI"] },
+        { icon: "👜", word: "BOLSA", syllables: ["BOL","SA"], distractors: ["PLA","ME"] },
+        { icon: "🎀", word: "LACO", syllables: ["LA","CO"], distractors: ["HE","LE"] },
+        { icon: "🍂", word: "FOLHA", syllables: ["FO","LHA"], distractors: ["BLO","NO"] },
+        { icon: "🌧️", word: "CHUVA", syllables: ["CHU","VA"], distractors: ["VI","JI"] },
+        { icon: "☁️", word: "NUVEM", syllables: ["NU","VEM"], distractors: ["DI","ZE"] },
+        { icon: "🔥", word: "FOGO", syllables: ["FO","GO"], distractors: ["NE","MI"] },
+        { icon: "💧", word: "GOTA", syllables: ["GO","TA"], distractors: ["MI","SO"] },
+        { icon: "🌊", word: "ONDA", syllables: ["ON","DA"], distractors: ["GI","VA"] },
+        { icon: "🏖️", word: "PRAIA", syllables: ["PRAI","A"], distractors: ["DE","BE"] },
+        { icon: "🌙", word: "LUA", syllables: ["LU","A"], distractors: ["CO","ZE"] },
+        { icon: "🌵", word: "CACTO", syllables: ["CAC","TO"], distractors: ["BO","JU"] },
+        { icon: "🕸️", word: "TEIA", syllables: ["TEI","A"], distractors: ["RI","BLO"] },
+        { icon: "👁️", word: "OLHO", syllables: ["O","LHO"], distractors: ["CE","LU"] },
+        { icon: "👃", word: "NARIZ", syllables: ["NA","RIZ"], distractors: ["ME","ZI"] },
+        { icon: "👄", word: "BOCA", syllables: ["BO","CA"], distractors: ["MI","VO"] },
+        { icon: "🦷", word: "DENTE", syllables: ["DEN","TE"], distractors: ["RU","ZE"] },
+        { icon: "🦵", word: "PERNA", syllables: ["PER","NA"], distractors: ["RE","CE"] },
+        { icon: "💪", word: "BRACO", syllables: ["BRA","CO"], distractors: ["JE","SU"] },
+        { icon: "🛹", word: "SKATE", syllables: ["SKA","TE"], distractors: ["KI","SE"] },
+        { icon: "👴", word: "AVO", syllables: ["A","VO"], distractors: ["RA","CE"] },
+        { icon: "📼", word: "FITA", syllables: ["FI","TA"], distractors: ["RU","SO"] },
+        { icon: "🏹", word: "ARCO", syllables: ["AR","CO"], distractors: ["PO","BLO"] },
+        { icon: "🪹", word: "NINHO", syllables: ["NI","NHO"], distractors: ["TO","NO"] },
+        { icon: "🐾", word: "PATA", syllables: ["PA","TA"], distractors: ["SI","RA"] },
+        { icon: "🪑", word: "MESA", syllables: ["ME","SA"], distractors: ["PU","LO"] },
+        { icon: "🏝️", word: "ILHA", syllables: ["I","LHA"], distractors: ["FLO","FE"] },
+        { icon: "🗼", word: "TORRE", syllables: ["TOR","RE"], distractors: ["BE","VU"] },
+        { icon: "🪴", word: "JARDIM", syllables: ["JAR","DIM"], distractors: ["SI","NE"] },
+        { icon: "🏞️", word: "PARQUE", syllables: ["PAR","QUE"], distractors: ["DRA","BO"] },
+        { icon: "📦", word: "CAIXA", syllables: ["CAI","XA"], distractors: ["VE","JE"] },
+        { icon: "🏺", word: "VASO", syllables: ["VA","SO"], distractors: ["DI","KE"] },
+        { icon: "🌿", word: "ERVA", syllables: ["ER","VA"], distractors: ["GE","PO"] },
+        { icon: "🌱", word: "GRAMA", syllables: ["GRA","MA"], distractors: ["BO","CHO"] },
+        { icon: "🌍", word: "TERRA", syllables: ["TER","RA"], distractors: ["RE","NO"] },
+        { icon: "❄️", word: "NEVE", syllables: ["NE","VE"], distractors: ["TA","BI"] },
+        { icon: "💨", word: "VENTO", syllables: ["VEN","TO"], distractors: ["BE","VU"] },
+        { icon: "⚡", word: "RAIO", syllables: ["RAI","O"], distractors: ["JU","CE"] },
+        { icon: "🪨", word: "PEDRA", syllables: ["PE","DRA"], distractors: ["FA","SI"] },
+        { icon: "🦴", word: "OSSO", syllables: ["OS","SO"], distractors: ["VE","DA"] },
+        { icon: "🪢", word: "CORDA", syllables: ["COR","DA"], distractors: ["LU","PRA"] },
+        { icon: "🥅", word: "REDE", syllables: ["RE","DE"], distractors: ["DA","MI"] },
+        { icon: "🍎", word: "FRUTA", syllables: ["FRU","TA"], distractors: ["BI","NE"] },
+        { icon: "➡️", word: "SETA", syllables: ["SE","TA"], distractors: ["CHO","SO"] },
+        { icon: "✉️", word: "CARTA", syllables: ["CAR","TA"], distractors: ["GLO","VU"] },
+        { icon: "🗺️", word: "MAPA", syllables: ["MA","PA"], distractors: ["HE","LE"] },
+        { icon: "🌐", word: "GLOBO", syllables: ["GLO","BO"], distractors: ["LI","PE"] },
+        { icon: "🥇", word: "OURO", syllables: ["OU","RO"], distractors: ["ZU","SO"] },
+        { icon: "🥈", word: "PRATA", syllables: ["PRA","TA"], distractors: ["BI","VU"] },
+        { icon: "🥉", word: "BRONZE", syllables: ["BRON","ZE"], distractors: ["JO","LI"] },
+        { icon: "🏆", word: "TROFEU", syllables: ["TRO","FEU"], distractors: ["NE","HE"] },
+        { icon: "🦸", word: "CAPA", syllables: ["CA","PA"], distractors: ["MI","VO"] },
+        { icon: "🔍", word: "LUPA", syllables: ["LU","PA"], distractors: ["TU","GLO"] },
+        { icon: "🪧", word: "PLACA", syllables: ["PLA","CA"], distractors: ["MO","TA"] },
+        { icon: "🖼️", word: "QUADRO", syllables: ["QUA","DRO"], distractors: ["BO","SE"] },
+        { icon: "🎧", word: "FONE", syllables: ["FO","NE"], distractors: ["DO","VU"] },
+        { icon: "🤖", word: "ROBO", syllables: ["RO","BO"], distractors: ["LU","ZE"] },
+        { icon: "🐉", word: "DRAGAO", syllables: ["DRA","GAO"], distractors: ["KI","FRA"] },
+        { icon: "🐟", word: "PEIXE", syllables: ["PEI","XE"], distractors: ["CA","MO"] },
+        { icon: "🐦‍⬛", word: "CORVO", syllables: ["COR","VO"], distractors: ["BE","ZO"] },
+        { icon: "🦚", word: "PAVAO", syllables: ["PA","VAO"], distractors: ["VI","JI"] },
+        { icon: "🦙", word: "LHAMA", syllables: ["LHA","MA"], distractors: ["GE","GI"] },
+        { icon: "🍳", word: "PANELA", syllables: ["PA","NE","LA"], distractors: ["DU","SI"] },
+        { icon: "🐂", word: "TOURO", syllables: ["TOU","RO"], distractors: ["NU","JU"] },
+        { icon: "🦑", word: "LULA", syllables: ["LU","LA"], distractors: ["GE","FLO"] },
+        { icon: "🦀", word: "SIRI", syllables: ["SI","RI"], distractors: ["BLO","TA"] },
+        { icon: "🦪", word: "OSTRA", syllables: ["OS","TRA"], distractors: ["BE","ZO"] },
+        { icon: "🍐", word: "PERA", syllables: ["PE","RA"], distractors: ["TU","PI"] },
+        { icon: "🧄", word: "ALHO", syllables: ["AL","HO"], distractors: ["RE","GE"] },
+        { icon: "🧴", word: "GARRAFA", syllables: ["GAR","RA","FA"], distractors: ["TE","VO"] },
+        { icon: "🌾", word: "TRIGO", syllables: ["TRI","GO"], distractors: ["KE","RU"] },
+        { icon: "🍲", word: "SOPA", syllables: ["SO","PA"], distractors: ["TU","LI"] },
+        { icon: "🥧", word: "TORTA", syllables: ["TOR","TA"], distractors: ["NO","GI"] },
+        { icon: "🍮", word: "PUDIM", syllables: ["PU","DIM"], distractors: ["JO","GRA"] },
+        { icon: "🐶", word: "CACHORRO", syllables: ["CA","CHOR","RO"], distractors: ["TU","VE"] },
+        { icon: "🐴", word: "CAVALO", syllables: ["CA","VA","LO"], distractors: ["ZO","HE"] },
+        { icon: "🐔", word: "GALINHA", syllables: ["GA","LI","NHA"], distractors: ["BRA","FA"] },
+        { icon: "🐰", word: "COELHO", syllables: ["CO","E","LHO"], distractors: ["DE","PO"] },
+        { icon: "🐵", word: "MACACO", syllables: ["MA","CA","CO"], distractors: ["FLO","BE"] },
+        { icon: "🦉", word: "CORUJA", syllables: ["CO","RU","JA"], distractors: ["SI","SU"] },
+        { icon: "🦊", word: "RAPOSA", syllables: ["RA","PO","SA"], distractors: ["VI","TI"] },
+        { icon: "🦒", word: "GIRAFA", syllables: ["GI","RA","FA"], distractors: ["DO","SI"] },
+        { icon: "🐝", word: "ABELHA", syllables: ["A","BE","LHA"], distractors: ["ZU","RE"] },
+        { icon: "🐬", word: "GOLFINHO", syllables: ["GOL","FI","NHO"], distractors: ["FLO","NI"] },
+        { icon: "🐳", word: "BALEIA", syllables: ["BA","LEI","A"], distractors: ["PI","TRA"] },
+        { icon: "🐊", word: "JACARE", syllables: ["JA","CA","RE"], distractors: ["XE","JU"] },
+        { icon: "🐫", word: "CAMELO", syllables: ["CA","ME","LO"], distractors: ["VA","DA"] },
+        { icon: "🍊", word: "LARANJA", syllables: ["LA","RAN","JA"], distractors: ["CHO","LO"] },
+        { icon: "🍓", word: "MORANGO", syllables: ["MO","RAN","GO"], distractors: ["BLO","TO"] },
+        { icon: "🍅", word: "TOMATE", syllables: ["TO","MA","TE"], distractors: ["ZO","ZI"] },
+        { icon: "🥕", word: "CENOURA", syllables: ["CE","NOU","RA"], distractors: ["TA","BO"] },
+        { icon: "🧅", word: "CEBOLA", syllables: ["CE","BO","LA"], distractors: ["GO","ZO"] },
+        { icon: "🍪", word: "BISCOITO", syllables: ["BIS","COI","TO"], distractors: ["FRA","ZU"] },
+        { icon: "🍦", word: "SORVETE", syllables: ["SOR","VE","TE"], distractors: ["BLO","TI"] },
+        { icon: "🍿", word: "PIPOCA", syllables: ["PI","PO","CA"], distractors: ["DE","GO"] },
+        { icon: "🪑", word: "CADEIRA", syllables: ["CA","DEI","RA"], distractors: ["KI","SO"] },
+        { icon: "🪟", word: "JANELA", syllables: ["JA","NE","LA"], distractors: ["LE","GRA"] },
+        { icon: "🪞", word: "ESPELHO", syllables: ["ES","PE","LHO"], distractors: ["ME","SO"] },
+        { icon: "🖊️", word: "CANETA", syllables: ["CA","NE","TA"], distractors: ["VI","PO"] },
+        { icon: "🎒", word: "MOCHILA", syllables: ["MO","CHI","LA"], distractors: ["RE","LE"] },
+        { icon: "⏰", word: "RELOGIO", syllables: ["RE","LO","GIO"], distractors: ["JO","SI"] },
+        { icon: "✈️", word: "AVIAO", syllables: ["A","VI","AO"], distractors: ["RU","ZE"] },
+        { icon: "👕", word: "CAMISA", syllables: ["CA","MI","SA"], distractors: ["CHO","FLO"] },
+        { icon: "👗", word: "VESTIDO", syllables: ["VES","TI","DO"], distractors: ["TU","SI"] },
+        { icon: "🌳", word: "ARVORE", syllables: ["AR","VO","RE"], distractors: ["SU","CO"] },
+        { icon: "⭐", word: "ESTRELA", syllables: ["ES","TRE","LA"], distractors: ["ZI","SI"] },
+        { icon: "🏰", word: "CASTELO", syllables: ["CAS","TE","LO"], distractors: ["CHO","BE"] },
+        { icon: "🎁", word: "PRESENTE", syllables: ["PRE","SEN","TE"], distractors: ["TI","PO"] },
+      ];
+
+      const syllableRounds = syllableWords.map((entry) => ({
+        icon: entry.icon,
+        word: entry.word,
+        steps: entry.syllables,
+        distractors: entry.distractors,
+      }));
 
       const cycleBaseRounds = [
         { name: "Borboleta", steps: [{ icon: "🥚", label: "ovinhos" }, { icon: "🐛", label: "lagarta" }, { icon: "🟤", label: "casulo" }, { icon: "🦋", label: "borboleta" }] },
@@ -14658,6 +15087,12 @@ const brStatesList = [
         habitatAttempt: 0,
         habitatChosenIndexes: [],
         habitatCorrect: false,
+        phonicsWrong: null,
+        phonicsAttempt: 0,
+        phonicsCorrectIndex: null,
+        syllablesBuilt: [],
+        syllablesMiss: null,
+        syllablesMissTimer: null,
         codeLevel: null,
         codeWrong: null,
         codeAttempt: 0,
@@ -15483,6 +15918,8 @@ const brStatesList = [
         recycle: recycleRounds.map(cloneValue),
         vertebrate: vertebrateRounds.map(cloneValue),
         habitat: habitatItems.map(cloneValue),
+        phonics: phonicsRounds.map(cloneValue),
+        syllables: syllableRounds.map(cloneValue),
         cycle: cycles.map(cloneValue),
         vaccine: vaccineRounds.map(cloneValue),
         cup: cupRounds.map(cloneValue),
@@ -15627,6 +16064,8 @@ const brStatesList = [
         if (mode === "recycle") resetRoundPool(recycleRounds, roundPools.recycle, seedForMode, { bandSize: 8 });
         if (mode === "vertebrate") resetRoundPool(vertebrateRounds, roundPools.vertebrate, seedForMode, { bandSize: 8 });
         if (mode === "habitat") resetRoundPool(habitatItems, roundPools.habitat, seedForMode, { bandSize: 8 });
+        if (mode === "phonics") resetRoundPool(phonicsRounds, roundPools.phonics, seedForMode, { free: true });
+        if (mode === "syllables") resetRoundPool(syllableRounds, roundPools.syllables, seedForMode, { free: true });
         if (mode === "cycle") resetRoundPool(cycles, roundPools.cycle, seedForMode, { bandSize: 8 });
         if (mode === "vaccine") resetRoundPool(vaccineRounds, roundPools.vaccine, seedForMode, { bandSize: 8 });
         if (mode === "chef") resetRoundPool(chefRecipes, roundPools.chef, seedForMode, { bandSize: 8 });
@@ -15915,6 +16354,30 @@ const brStatesList = [
           attempt: state.habitatAttempt,
           isCorrect: (category) => answers.includes(category.originalIndex),
         });
+      }
+
+      function phonicsOptions() {
+        const round = phonicsRounds[state.round];
+        return orderAnswerOptions(round.options, {
+          seed: seedFromParts("phonics", state.missionSeed, state.round),
+          attempt: state.phonicsAttempt,
+          isCorrect: (option) => option.correct === true,
+        });
+      }
+
+      function phonicsOptionClasses(index) {
+        return [
+          "habitat",
+          index === state.selected ? "selected" : "",
+          state.phonicsWrong === index ? "wrong" : "",
+          state.phonicsCorrectIndex === index ? "correct" : "",
+        ].filter(Boolean).join(" ");
+      }
+
+      function syllablesPalette() {
+        const round = syllableRounds[state.round];
+        const items = [...round.steps, ...round.distractors];
+        return shuffle(items, seedFromParts("syllables", state.missionSeed, state.round));
       }
 
       function legacyOptionClass(baseClass, index) {
@@ -16855,6 +17318,48 @@ const brStatesList = [
             </div>
           </div>
           ${state.answerLocked && !state.habitatCorrect ? pauseOverlay() : ""}
+        </div>`;
+      }
+
+      function renderPhonics() {
+        const round = phonicsRounds[state.round];
+        const options = phonicsOptions();
+        const solved = state.phonicsCorrectIndex !== null;
+        setHeader("Som Inicial", "Qual começa com o mesmo som?");
+        setCounters("Rodada", `${state.round + 1} / ${phonicsRounds.length}`, "Acertos", state.score);
+        status.textContent = `Toque na imagem que começa com o mesmo som de ${round.word}.`;
+        content.innerHTML = `<div class="habitat-board">
+          <div class="habitat-main">
+            <div class="animal-card ${solved ? "fx-flash" : ""}" style="position:relative;">${round.icon}${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>👂</span><span>🎉</span><span>✨</span><span>👂</span></div>' : ""}</div>
+            <div class="habitats habitats-count-${options.length} ${state.answerLocked ? "locked" : ""}">
+              ${options.map((option, index) => `<div class="${phonicsOptionClasses(index)}">
+                <div class="habitat-icon">${option.icon}</div>
+                <div data-fit-text data-fit-min="9" data-speak>${option.word}</div>
+              </div>`).join("")}
+            </div>
+          </div>
+          ${state.answerLocked && !solved ? pauseOverlay() : ""}
+        </div>`;
+      }
+
+      function renderSyllables() {
+        const round = syllableRounds[state.round];
+        const builtCount = state.syllablesBuilt.length;
+        const palette = syllablesPalette();
+        setHeader("Monte a Palavra", "Toque as sílabas na ordem certa.");
+        setCounters("Palavra", `${state.round + 1} / ${syllableRounds.length}`, "Acertos", state.score);
+        status.textContent = `Monte a palavra ${round.word}.`;
+        content.innerHTML = `<div class="decompose-board">
+          <div class="animal-card" style="position:relative;">${round.icon}</div>
+          <div class="decompose-answer-row">
+            ${round.steps.map((step, index) => {
+              const filled = index < builtCount;
+              return `<div class="decompose-answer-slot ${filled ? "filled" : "empty"}"><span>${filled ? String(state.syllablesBuilt[index]) : ""}</span></div>`;
+            }).join("")}
+          </div>
+          <div class="decompose-palette ${state.answerLocked ? "locked" : ""}">
+            ${palette.map((step, index) => `<button type="button" class="decompose-palette-button ${index === state.selected ? "selected" : ""} ${state.syllablesMiss === step ? "miss" : ""}"><span>${step}</span></button>`).join("")}
+          </div>
         </div>`;
       }
 
@@ -18315,7 +18820,7 @@ const brStatesList = [
           if (state.mode !== "pattern") return;
           state.answerLocked = false;
           advancePatternRound();
-        }, 600);
+        }, 2200);
       }
 
       function handlePatternPaletteChoice(item) {
@@ -18491,7 +18996,7 @@ const brStatesList = [
           if (state.mode !== "decompose") return;
           state.answerLocked = false;
           advanceDecomposeRound();
-        }, 600);
+        }, 2200);
       }
 
       function handleDecomposePaletteChoice(step) {
@@ -20249,6 +20754,8 @@ const brStatesList = [
         vertebrate: renderVertebrate,
         math: renderMath,
         habitat: renderHabitat,
+        phonics: renderPhonics,
+        syllables: renderSyllables,
         cycle: renderCycle,
         vaccine: renderVaccine,
         chef: renderChef,
@@ -20494,6 +21001,13 @@ const brStatesList = [
         state.habitatWrong = null;
         state.habitatAttempt = 0;
         state.habitatCorrect = false;
+        state.phonicsWrong = null;
+        state.phonicsAttempt = 0;
+        state.phonicsCorrectIndex = null;
+        window.clearTimeout(state.syllablesMissTimer);
+        state.syllablesMissTimer = null;
+        state.syllablesBuilt = [];
+        state.syllablesMiss = null;
         state.answerLocked = false;
         state.cycleChosen = [];
         state.cycleAttempt = 0;
@@ -21002,7 +21516,7 @@ const brStatesList = [
           state.vertebrateCorrectIndex = correctIndex;
           state.vertebrateSolved = true;
           state.answerLocked = true;
-          showMessage("✅ Isso!", 550);
+          showMessage("✅ Muito bem!", 550);
           render();
           state.answerLockTimer = window.setTimeout(() => {
             if (state.mode !== "vertebrate") return;
@@ -21160,6 +21674,108 @@ const brStatesList = [
         });
       }
 
+      function handlePhonicsEnter() {
+        if (!hasSelection()) return;
+        const options = phonicsOptions();
+        const choice = options[state.selected];
+        if (choice.correct) {
+          state.phonicsWrong = null;
+          state.phonicsCorrectIndex = state.selected;
+          state.answerLocked = true;
+          showMessage("✅ Muito bem!", 650);
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "phonics") return;
+            state.phonicsCorrectIndex = null;
+            state.answerLocked = false;
+            state.phonicsAttempt = 0;
+            nextQuestion("phonics", phonicsRounds, "Sons descobertos!");
+          }, 900);
+          return;
+        }
+
+        lockAnswer({
+          delay: 1400,
+          messageText: "👂 Escute de novo!",
+          guard: () => state.mode === "phonics",
+          onLock: () => {
+            state.phonicsWrong = state.selected;
+          },
+          onUnlock: () => {
+            state.phonicsWrong = null;
+            state.phonicsAttempt += 1;
+          },
+        });
+      }
+
+      function startSyllablesRound() {
+        window.clearTimeout(state.syllablesMissTimer);
+        state.syllablesMissTimer = null;
+        state.syllablesBuilt = [];
+        state.syllablesMiss = null;
+      }
+
+      function advanceSyllablesRound() {
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= syllableRounds.length) {
+          complete("syllables", "Palavras montadas!");
+          return;
+        }
+        startSyllablesRound();
+        render();
+      }
+
+      function completeSyllablesRound() {
+        state.answerLocked = true;
+        showMessage("✅ Palavra montada!", 700);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "syllables") return;
+          state.answerLocked = false;
+          advanceSyllablesRound();
+        }, 2200);
+      }
+
+      function handleSyllablesPaletteChoice(step) {
+        const round = syllableRounds[state.round];
+        if (!round || state.answerLocked) return;
+        const expected = round.steps[state.syllablesBuilt.length];
+        if (step !== expected) {
+          window.clearTimeout(state.syllablesMissTimer);
+          state.syllablesMiss = step;
+          render();
+          state.syllablesMissTimer = window.setTimeout(() => {
+            if (state.mode !== "syllables") return;
+            state.syllablesMiss = null;
+            render();
+          }, 600);
+          return;
+        }
+        window.clearTimeout(state.syllablesMissTimer);
+        state.syllablesMissTimer = null;
+        state.syllablesMiss = null;
+        state.syllablesBuilt.push(step);
+        if (state.syllablesBuilt.length >= round.steps.length) {
+          completeSyllablesRound();
+          return;
+        }
+        render();
+      }
+
+      function handleSyllablesEnter() {
+        const round = syllableRounds[state.round];
+        if (!round || !hasSelection()) return;
+        handleSyllablesPaletteChoice(syllablesPalette()[state.selected]);
+      }
+
+      function handleSyllablesClick(event) {
+        const round = syllableRounds[state.round];
+        if (!round) return false;
+        const palette = syllablesPalette();
+        return activateIndexedClick(event, ".decompose-palette-button", (index) => handleSyllablesPaletteChoice(palette[index]));
+      }
+
       function handleCycleEnter() {
         const cycle = currentCycle();
         const available = state.cycleShuffled;
@@ -21193,13 +21809,14 @@ const brStatesList = [
         state.cycleJustFilledSlot = state.cycleChosen.length - 1;
         state.answerLocked = true;
         state.selected = -1;
+        const cycleRoundComplete = state.cycleChosen.length === cycle.steps.length;
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "cycle") return;
           state.cycleCorrectIndex = null;
           state.cycleJustFilledSlot = null;
           state.answerLocked = false;
-          if (state.cycleChosen.length === cycle.steps.length) {
+          if (cycleRoundComplete) {
             state.round += 1;
             state.cycleChosen = [];
             state.cycleAttempt = 0;
@@ -21213,7 +21830,7 @@ const brStatesList = [
             refreshCycleChoices();
           }
           render();
-        }, 500);
+        }, cycleRoundComplete ? 2200 : 500);
       }
 
       function handleVaccineEnter() {
@@ -21249,13 +21866,14 @@ const brStatesList = [
         state.vaccineJustFilledSlot = state.vaccineChosen.length - 1;
         state.answerLocked = true;
         state.selected = -1;
+        const vaccineRoundComplete = state.vaccineChosen.length === round.steps.length;
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "vaccine") return;
           state.vaccineCorrectIndex = null;
           state.vaccineJustFilledSlot = null;
           state.answerLocked = false;
-          if (state.vaccineChosen.length === round.steps.length) {
+          if (vaccineRoundComplete) {
             state.round += 1;
             state.vaccineChosen = [];
             state.vaccineAttempt = 0;
@@ -21269,7 +21887,7 @@ const brStatesList = [
             refreshVaccineChoices();
           }
           render();
-        }, 500);
+        }, vaccineRoundComplete ? 2200 : 500);
       }
 
       function handleChefEnter() {
@@ -21305,13 +21923,14 @@ const brStatesList = [
         state.chefJustFilledSlot = state.chefChosen.length - 1;
         state.answerLocked = true;
         state.selected = -1;
+        const chefRoundComplete = state.chefChosen.length === recipe.steps.length;
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "chef") return;
           state.chefCorrectIndex = null;
           state.chefJustFilledSlot = null;
           state.answerLocked = false;
-          if (state.chefChosen.length === recipe.steps.length) {
+          if (chefRoundComplete) {
             state.round += 1;
             state.chefChosen = [];
             state.chefAttempt = 0;
@@ -21325,7 +21944,7 @@ const brStatesList = [
             refreshChefChoices();
           }
           render();
-        }, 500);
+        }, chefRoundComplete ? 2200 : 500);
       }
 
       function handleCupEnter() {
@@ -21752,7 +22371,7 @@ const brStatesList = [
           }
           startSortRound();
           render();
-        }, 700);
+        }, 2200);
       }
 
       function handleSortSelect(index) {
@@ -22602,6 +23221,8 @@ const brStatesList = [
         vertebrate: handleVertebrateEnter,
         math: handleMathEnter,
         habitat: handleHabitatEnter,
+        phonics: handlePhonicsEnter,
+        syllables: handleSyllablesEnter,
         cycle: handleCycleEnter,
         vaccine: handleVaccineEnter,
         chef: handleChefEnter,
@@ -22705,6 +23326,20 @@ const brStatesList = [
             columns: chooseGridColumns(count, 2),
             afterMove: () => { state.habitatWrong = null; },
           });
+        } else if (state.mode === "phonics") {
+          const count = phonicsOptions().length;
+          moveSelectionIndex({
+            count,
+            delta,
+            vertical,
+            columns: chooseGridColumns(count, 2),
+            afterMove: () => { state.phonicsWrong = null; },
+          });
+        } else if (state.mode === "syllables") {
+          const round = syllableRounds[state.round];
+          if (!round) return;
+          const count = syllablesPalette().length;
+          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
         } else if (state.mode === "cycle") {
           moveSelectionIndex({ count: state.cycleShuffled.length, delta, afterMove: () => { state.cycleWrong = null; } });
         } else if (state.mode === "vaccine") {
@@ -23203,6 +23838,11 @@ const brStatesList = [
           clearWrong: () => { state.habitatWrong = null; },
           onConfirm: handleHabitatEnter,
         }),
+        phonics: (event) => activateChoiceClick(event, ".habitat", {
+          clearWrong: () => { state.phonicsWrong = null; },
+          onConfirm: handlePhonicsEnter,
+        }),
+        syllables: handleSyllablesClick,
         cycle: (event) => activateChoiceClick(event, ".cycle-item", {
           onConfirm: handleCycleEnter,
         }),
