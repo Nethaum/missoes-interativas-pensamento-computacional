@@ -65,8 +65,8 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha da base (países ou estados) e do jeito de jogar — estudar e reconhecer, bandeira→nome ou nome→bandeira.
-- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de vários temas do próprio material e dicas extras (até 3) que aparecem a cada letra errada.
-- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de várias disciplinas para marcar cada casa, com placar de vitórias e novas partidas seguidas.
+- Robô Decifrador: adivinhação de palavras letra por letra, com pistas de ciências e natureza, animais, tecnologia, arte, geografia, história, português, língua inglesa, educação física e cidadania, e dicas extras (até 3) que aparecem a cada letra errada.
+- Jogo da Velha dos Enigmas: jogo da velha contra o PC ou contra um coleguinha, resolvendo enigmas de ciências e natureza, animais, tecnologia, arte, geografia, história, português, língua inglesa, educação física e cidadania para marcar cada casa, com placar de vitórias e novas partidas seguidas.
 - Robô coletor: sequência de comandos e planejamento de caminho.
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Ciclos da natureza: ordenação de etapas de fenômenos naturais.
