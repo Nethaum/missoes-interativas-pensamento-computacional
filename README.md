@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.13.0
+Versão atual: 2.14.0
 
 ## Acesse
 
@@ -88,6 +88,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
 - Robô Programador: sandbox de programação em blocos (andar, virar, repetir e, nas faixas mais avançadas, criar funções reutilizáveis) onde o aluno monta um programa e observa o robô desenhar num grid, com objetivos (energias, às vezes em ordem obrigatória) e buracos de minhoca que testam se o aluno sabe recalcular a rota, sem resposta certa ou errada.
+- Jogo da Memória: cartas em pares associados (não ícones idênticos) — alfabeto e rotina, animal e filhote, animal e habitat, ou bandeira e país/inglês conforme a faixa etária, sozinho, sem placar contra ninguém.
 
 ## Como usar em sala
 

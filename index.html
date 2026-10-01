@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.13.0">
+  <meta name="app-version" content="2.14.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -3354,6 +3354,42 @@
       font-size: 44px;
     }
 
+    .inline-instruction-banner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 14px;
+      padding: 12px 18px;
+      border: 4px solid var(--orange);
+      border-radius: 16px;
+      background: #fff3ca;
+      color: var(--card-ink);
+      font-size: clamp(15px, 2.4vw, 20px);
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .inline-speak-button {
+      width: 56px;
+      height: 56px;
+      flex: none;
+      border-radius: 50%;
+      border: 3px solid var(--line);
+      background: var(--blue);
+      color: var(--white);
+      font-size: 26px;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.58);
+      animation: phonicsSpeakPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes phonicsSpeakPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
     .habitat-main {
       width: 100%;
       display: grid;
@@ -4796,6 +4832,15 @@
       display: grid;
       gap: 18px;
       justify-items: center;
+    }
+
+    .decompose-board .animal-card {
+      min-height: 150px;
+      font-size: 72px;
+    }
+
+    .decompose-board .inline-instruction-banner {
+      margin-bottom: 0;
     }
 
     .decompose-task-header {
@@ -8717,6 +8762,18 @@
         gap: 6px;
       }
 
+      .inline-instruction-banner {
+        gap: 8px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+      }
+
+      .inline-speak-button {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+
       .habitat-main {
         grid-template-columns: minmax(120px, 0.34fr) minmax(0, 1fr);
         gap: 8px;
@@ -10137,7 +10194,7 @@
         { icon: "🥤", word: "COPO", syllables: ["CO","PO"], distractors: ["VO","TI"] },
         { icon: "🐷", word: "PORCO", syllables: ["POR","CO"], distractors: ["JO","GI"] },
         { icon: "🐓", word: "GALO", syllables: ["GA","LO"], distractors: ["KI","RI"] },
-        { icon: "🦁", word: "LEAO", syllables: ["LE","AO"], distractors: ["BLO","ZE"] },
+        { icon: "🦁", word: "LEÃO", syllables: ["LE","ÃO"], distractors: ["BLO","ZE"] },
         { icon: "🐯", word: "TIGRE", syllables: ["TI","GRE"], distractors: ["FE","GO"] },
         { icon: "🐻", word: "URSO", syllables: ["UR","SO"], distractors: ["VO","RU"] },
         { icon: "🐍", word: "COBRA", syllables: ["CO","BRA"], distractors: ["JE","SU"] },
@@ -10152,10 +10209,10 @@
         { icon: "🦗", word: "GRILO", syllables: ["GRI","LO"], distractors: ["SU","GO"] },
         { icon: "🦦", word: "LONTRA", syllables: ["LON","TRA"], distractors: ["JO","LI"] },
         { icon: "🐹", word: "HAMSTER", syllables: ["HAMS","TER"], distractors: ["LE","GI"] },
-        { icon: "🍎", word: "MACA", syllables: ["MA","CA"], distractors: ["LI","FA"] },
+        { icon: "🍎", word: "MAÇÃ", syllables: ["MA","ÇÃ"], distractors: ["LI","FA"] },
         { icon: "🍇", word: "UVA", syllables: ["U","VA"], distractors: ["JU","SU"] },
-        { icon: "🍋", word: "LIMAO", syllables: ["LI","MAO"], distractors: ["GRA","SE"] },
-        { icon: "🍈", word: "MELAO", syllables: ["ME","LAO"], distractors: ["JU","TI"] },
+        { icon: "🍋", word: "LIMÃO", syllables: ["LI","MÃO"], distractors: ["GRA","SE"] },
+        { icon: "🍈", word: "MELÃO", syllables: ["ME","LÃO"], distractors: ["JU","TI"] },
         { icon: "🥭", word: "MANGA", syllables: ["MAN","GA"], distractors: ["GRA","JU"] },
         { icon: "🌽", word: "MILHO", syllables: ["MI","LHO"], distractors: ["DA","PA"] },
         { icon: "🧀", word: "QUEIJO", syllables: ["QUEI","JO"], distractors: ["VE","FA"] },
@@ -10163,45 +10220,45 @@
         { icon: "🥛", word: "LEITE", syllables: ["LEI","TE"], distractors: ["ME","TRA"] },
         { icon: "🍰", word: "BOLO", syllables: ["BO","LO"], distractors: ["JU","FA"] },
         { icon: "🍕", word: "PIZZA", syllables: ["PIZ","ZA"], distractors: ["ZE","SU"] },
-        { icon: "☕", word: "CAFE", syllables: ["CA","FE"], distractors: ["LU","TE"] },
+        { icon: "☕", word: "CAFÉ", syllables: ["CA","FÉ"], distractors: ["LU","TE"] },
         { icon: "🍚", word: "ARROZ", syllables: ["AR","ROZ"], distractors: ["ZE","SU"] },
         { icon: "🧊", word: "GELO", syllables: ["GE","LO"], distractors: ["LI","PLA"] },
         { icon: "🛏️", word: "CAMA", syllables: ["CA","MA"], distractors: ["LI","FA"] },
         { icon: "🚪", word: "PORTA", syllables: ["POR","TA"], distractors: ["SO","LE"] },
-        { icon: "🛋️", word: "SOFA", syllables: ["SO","FA"], distractors: ["CE","PI"] },
+        { icon: "🛋️", word: "SOFÁ", syllables: ["SO","FÁ"], distractors: ["CE","PI"] },
         { icon: "🍽️", word: "PRATO", syllables: ["PRA","TO"], distractors: ["VA","CO"] },
         { icon: "🍴", word: "GARFO", syllables: ["GAR","FO"], distractors: ["DO","RI"] },
         { icon: "🥄", word: "COLHER", syllables: ["CO","LHER"], distractors: ["VO","FA"] },
         { icon: "🔑", word: "CHAVE", syllables: ["CHA","VE"], distractors: ["LU","DI"] },
-        { icon: "🧼", word: "SABAO", syllables: ["SA","BAO"], distractors: ["TI","DI"] },
+        { icon: "🧼", word: "SABÃO", syllables: ["SA","BÃO"], distractors: ["TI","DI"] },
         { icon: "🪣", word: "BALDE", syllables: ["BAL","DE"], distractors: ["JI","LO"] },
-        { icon: "✏️", word: "LAPIS", syllables: ["LA","PIS"], distractors: ["JE","ZE"] },
+        { icon: "✏️", word: "LÁPIS", syllables: ["LÁ","PIS"], distractors: ["JE","ZE"] },
         { icon: "📚", word: "LIVRO", syllables: ["LI","VRO"], distractors: ["BE","VU"] },
         { icon: "🧺", word: "CESTO", syllables: ["CES","TO"], distractors: ["RE","NO"] },
-        { icon: "🎈", word: "BALAO", syllables: ["BA","LAO"], distractors: ["GI","BO"] },
+        { icon: "🎈", word: "BALÃO", syllables: ["BA","LÃO"], distractors: ["GI","BO"] },
         { icon: "🎯", word: "ALVO", syllables: ["AL","VO"], distractors: ["LU","ZE"] },
         { icon: "🥁", word: "TAMBOR", syllables: ["TAM","BOR"], distractors: ["SI","SE"] },
         { icon: "🚗", word: "CARRO", syllables: ["CAR","RO"], distractors: ["LI","KE"] },
         { icon: "🚤", word: "BARCO", syllables: ["BAR","CO"], distractors: ["RU","FI"] },
         { icon: "🚜", word: "TRATOR", syllables: ["TRA","TOR"], distractors: ["GE","GI"] },
-        { icon: "🚕", word: "TAXI", syllables: ["TA","XI"], distractors: ["NU","GE"] },
+        { icon: "🚕", word: "TÁXI", syllables: ["TÁ","XI"], distractors: ["NU","GE"] },
         { icon: "🧻", word: "PAPEL", syllables: ["PA","PEL"], distractors: ["GRA","SE"] },
         { icon: "🗑️", word: "LIXO", syllables: ["LI","XO"], distractors: ["SI","PRA"] },
         { icon: "🌉", word: "PONTE", syllables: ["PON","TE"], distractors: ["NO","KE"] },
         { icon: "🎪", word: "CIRCO", syllables: ["CIR","CO"], distractors: ["SU","ZE"] },
         { icon: "🎨", word: "TINTA", syllables: ["TIN","TA"], distractors: ["GLO","DRA"] },
         { icon: "🖌️", word: "PINCEL", syllables: ["PIN","CEL"], distractors: ["ZI","KI"] },
-        { icon: "📐", word: "REGUA", syllables: ["RE","GUA"], distractors: ["PA","TO"] },
+        { icon: "📐", word: "RÉGUA", syllables: ["RÉ","GUA"], distractors: ["PA","TO"] },
         { icon: "🧵", word: "LINHA", syllables: ["LI","NHA"], distractors: ["PE","CE"] },
         { icon: "🔋", word: "PILHA", syllables: ["PI","LHA"], distractors: ["ZO","TI"] },
-        { icon: "🧲", word: "IMA", syllables: ["I","MA"], distractors: ["BI","FI"] },
+        { icon: "🧲", word: "ÍMÃ", syllables: ["Í","MÃ"], distractors: ["BI","FI"] },
         { icon: "💍", word: "ANEL", syllables: ["A","NEL"], distractors: ["GI","TI"] },
-        { icon: "👖", word: "CALCA", syllables: ["CAL","CA"], distractors: ["CHO","GLO"] },
+        { icon: "👖", word: "CALÇA", syllables: ["CAL","ÇA"], distractors: ["CHO","GLO"] },
         { icon: "🧦", word: "MEIA", syllables: ["MEI","A"], distractors: ["NU","GE"] },
-        { icon: "👟", word: "TENIS", syllables: ["TE","NIS"], distractors: ["JO","FI"] },
-        { icon: "👒", word: "CHAPEU", syllables: ["CHA","PEU"], distractors: ["HE","KI"] },
+        { icon: "👟", word: "TÊNIS", syllables: ["TÊ","NIS"], distractors: ["JO","FI"] },
+        { icon: "👒", word: "CHAPÉU", syllables: ["CHA","PÉU"], distractors: ["HE","KI"] },
         { icon: "👜", word: "BOLSA", syllables: ["BOL","SA"], distractors: ["PLA","ME"] },
-        { icon: "🎀", word: "LACO", syllables: ["LA","CO"], distractors: ["HE","LE"] },
+        { icon: "🎀", word: "LAÇO", syllables: ["LA","ÇO"], distractors: ["HE","LE"] },
         { icon: "🍂", word: "FOLHA", syllables: ["FO","LHA"], distractors: ["BLO","NO"] },
         { icon: "🌧️", word: "CHUVA", syllables: ["CHU","VA"], distractors: ["VI","JI"] },
         { icon: "☁️", word: "NUVEM", syllables: ["NU","VEM"], distractors: ["DI","ZE"] },
@@ -10217,9 +10274,9 @@
         { icon: "👄", word: "BOCA", syllables: ["BO","CA"], distractors: ["MI","VO"] },
         { icon: "🦷", word: "DENTE", syllables: ["DEN","TE"], distractors: ["RU","ZE"] },
         { icon: "🦵", word: "PERNA", syllables: ["PER","NA"], distractors: ["RE","CE"] },
-        { icon: "💪", word: "BRACO", syllables: ["BRA","CO"], distractors: ["JE","SU"] },
+        { icon: "💪", word: "BRAÇO", syllables: ["BRA","ÇO"], distractors: ["JE","SU"] },
         { icon: "🛹", word: "SKATE", syllables: ["SKA","TE"], distractors: ["KI","SE"] },
-        { icon: "👴", word: "AVO", syllables: ["A","VO"], distractors: ["RA","CE"] },
+        { icon: "👴", word: "AVÔ", syllables: ["A","VÔ"], distractors: ["RA","CE"] },
         { icon: "📼", word: "FITA", syllables: ["FI","TA"], distractors: ["RU","SO"] },
         { icon: "🏹", word: "ARCO", syllables: ["AR","CO"], distractors: ["PO","BLO"] },
         { icon: "🪹", word: "NINHO", syllables: ["NI","NHO"], distractors: ["TO","NO"] },
@@ -10249,17 +10306,17 @@
         { icon: "🥇", word: "OURO", syllables: ["OU","RO"], distractors: ["ZU","SO"] },
         { icon: "🥈", word: "PRATA", syllables: ["PRA","TA"], distractors: ["BI","VU"] },
         { icon: "🥉", word: "BRONZE", syllables: ["BRON","ZE"], distractors: ["JO","LI"] },
-        { icon: "🏆", word: "TROFEU", syllables: ["TRO","FEU"], distractors: ["NE","HE"] },
+        { icon: "🏆", word: "TROFÉU", syllables: ["TRO","FÉU"], distractors: ["NE","HE"] },
         { icon: "🦸", word: "CAPA", syllables: ["CA","PA"], distractors: ["MI","VO"] },
         { icon: "🔍", word: "LUPA", syllables: ["LU","PA"], distractors: ["TU","GLO"] },
         { icon: "🪧", word: "PLACA", syllables: ["PLA","CA"], distractors: ["MO","TA"] },
         { icon: "🖼️", word: "QUADRO", syllables: ["QUA","DRO"], distractors: ["BO","SE"] },
         { icon: "🎧", word: "FONE", syllables: ["FO","NE"], distractors: ["DO","VU"] },
-        { icon: "🤖", word: "ROBO", syllables: ["RO","BO"], distractors: ["LU","ZE"] },
-        { icon: "🐉", word: "DRAGAO", syllables: ["DRA","GAO"], distractors: ["KI","FRA"] },
+        { icon: "🤖", word: "ROBÔ", syllables: ["RO","BÔ"], distractors: ["LU","ZE"] },
+        { icon: "🐉", word: "DRAGÃO", syllables: ["DRA","GÃO"], distractors: ["KI","FRA"] },
         { icon: "🐟", word: "PEIXE", syllables: ["PEI","XE"], distractors: ["CA","MO"] },
         { icon: "🐦‍⬛", word: "CORVO", syllables: ["COR","VO"], distractors: ["BE","ZO"] },
-        { icon: "🦚", word: "PAVAO", syllables: ["PA","VAO"], distractors: ["VI","JI"] },
+        { icon: "🦚", word: "PAVÃO", syllables: ["PA","VÃO"], distractors: ["VI","JI"] },
         { icon: "🦙", word: "LHAMA", syllables: ["LHA","MA"], distractors: ["GE","GI"] },
         { icon: "🍳", word: "PANELA", syllables: ["PA","NE","LA"], distractors: ["DU","SI"] },
         { icon: "🐂", word: "TOURO", syllables: ["TOU","RO"], distractors: ["NU","JU"] },
@@ -10284,7 +10341,7 @@
         { icon: "🐝", word: "ABELHA", syllables: ["A","BE","LHA"], distractors: ["ZU","RE"] },
         { icon: "🐬", word: "GOLFINHO", syllables: ["GOL","FI","NHO"], distractors: ["FLO","NI"] },
         { icon: "🐳", word: "BALEIA", syllables: ["BA","LEI","A"], distractors: ["PI","TRA"] },
-        { icon: "🐊", word: "JACARE", syllables: ["JA","CA","RE"], distractors: ["XE","JU"] },
+        { icon: "🐊", word: "JACARÉ", syllables: ["JA","CA","RÉ"], distractors: ["XE","JU"] },
         { icon: "🐫", word: "CAMELO", syllables: ["CA","ME","LO"], distractors: ["VA","DA"] },
         { icon: "🍊", word: "LARANJA", syllables: ["LA","RAN","JA"], distractors: ["CHO","LO"] },
         { icon: "🍓", word: "MORANGO", syllables: ["MO","RAN","GO"], distractors: ["BLO","TO"] },
@@ -10299,11 +10356,11 @@
         { icon: "🪞", word: "ESPELHO", syllables: ["ES","PE","LHO"], distractors: ["ME","SO"] },
         { icon: "🖊️", word: "CANETA", syllables: ["CA","NE","TA"], distractors: ["VI","PO"] },
         { icon: "🎒", word: "MOCHILA", syllables: ["MO","CHI","LA"], distractors: ["RE","LE"] },
-        { icon: "⏰", word: "RELOGIO", syllables: ["RE","LO","GIO"], distractors: ["JO","SI"] },
-        { icon: "✈️", word: "AVIAO", syllables: ["A","VI","AO"], distractors: ["RU","ZE"] },
+        { icon: "⏰", word: "RELÓGIO", syllables: ["RE","LÓ","GIO"], distractors: ["JO","SI"] },
+        { icon: "✈️", word: "AVIÃO", syllables: ["A","VI","ÃO"], distractors: ["RU","ZE"] },
         { icon: "👕", word: "CAMISA", syllables: ["CA","MI","SA"], distractors: ["CHO","FLO"] },
         { icon: "👗", word: "VESTIDO", syllables: ["VES","TI","DO"], distractors: ["TU","SI"] },
-        { icon: "🌳", word: "ARVORE", syllables: ["AR","VO","RE"], distractors: ["SU","CO"] },
+        { icon: "🌳", word: "ÁRVORE", syllables: ["ÁR","VO","RE"], distractors: ["SU","CO"] },
         { icon: "⭐", word: "ESTRELA", syllables: ["ES","TRE","LA"], distractors: ["ZI","SI"] },
         { icon: "🏰", word: "CASTELO", syllables: ["CAS","TE","LO"], distractors: ["CHO","BE"] },
         { icon: "🎁", word: "PRESENTE", syllables: ["PRE","SEN","TE"], distractors: ["TI","PO"] },
@@ -16542,8 +16599,25 @@ const brStatesList = [
         ].filter(Boolean).join(" ");
       }
 
+      const syllablesLetterPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+      function syllablesUsesLetters() {
+        return state.ageBand === 0;
+      }
+
+      function currentSyllablesRound() {
+        const base = syllableRounds[state.round];
+        if (!base || !syllablesUsesLetters()) return base;
+        const letters = base.word.split("");
+        const used = new Set(letters);
+        const available = syllablesLetterPool.filter((letter) => !used.has(letter));
+        const distractorCount = Math.min(3, available.length);
+        const distractors = shuffle(available, seedFromParts("syllables-letters", state.missionSeed, state.round)).slice(0, distractorCount);
+        return { icon: base.icon, word: base.word, steps: letters, distractors };
+      }
+
       function syllablesPalette() {
-        const round = syllableRounds[state.round];
+        const round = currentSyllablesRound();
         const items = [...round.steps, ...round.distractors];
         return shuffle(items, seedFromParts("syllables", state.missionSeed, state.round));
       }
@@ -17498,6 +17572,10 @@ const brStatesList = [
         setCounters("Rodada", `${state.round + 1} / ${phonicsRounds.length}`, "Acertos", state.score);
         status.textContent = `Toque na imagem que começa com o mesmo som de ${round.word}.`;
         content.innerHTML = `<div class="habitat-board">
+          <div class="inline-instruction-banner">
+            <button type="button" class="inline-speak-button" aria-label="Ouvir a palavra">🔊</button>
+            <span>👂 Toque na imagem que começa com o mesmo som de <strong>${round.word}</strong>.</span>
+          </div>
           <div class="habitat-main">
             <div class="animal-card ${solved ? "fx-flash" : ""}" style="position:relative;">${round.icon}${solved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>👂</span><span>🎉</span><span>✨</span><span>👂</span></div>' : ""}</div>
             <div class="habitats habitats-count-${options.length} ${state.answerLocked ? "locked" : ""}">
@@ -17509,16 +17587,22 @@ const brStatesList = [
           </div>
           ${state.answerLocked && !solved ? pauseOverlay() : ""}
         </div>`;
+        content.scrollTop = 0;
       }
 
       function renderSyllables() {
-        const round = syllableRounds[state.round];
+        const round = currentSyllablesRound();
+        const usesLetters = syllablesUsesLetters();
         const builtCount = state.syllablesBuilt.length;
         const palette = syllablesPalette();
-        setHeader("Monte a Palavra", "Toque as sílabas na ordem certa.");
+        setHeader("Monte a Palavra", usesLetters ? "Toque as letras na ordem certa." : "Toque as sílabas na ordem certa.");
         setCounters("Palavra", `${state.round + 1} / ${syllableRounds.length}`, "Acertos", state.score);
         status.textContent = `Monte a palavra ${round.word}.`;
         content.innerHTML = `<div class="decompose-board">
+          <div class="inline-instruction-banner">
+            <button type="button" class="inline-speak-button" aria-label="Ouvir a palavra">🔊</button>
+            <span>🔤 Monte a palavra <strong>${round.word}</strong>.</span>
+          </div>
           <div class="animal-card" style="position:relative;">${round.icon}</div>
           <div class="decompose-answer-row">
             ${round.steps.map((step, index) => {
@@ -17530,6 +17614,7 @@ const brStatesList = [
             ${palette.map((step, index) => `<button type="button" class="decompose-palette-button ${index === state.selected ? "selected" : ""} ${state.syllablesMiss === step ? "miss" : ""}"><span>${step}</span></button>`).join("")}
           </div>
         </div>`;
+        content.scrollTop = 0;
       }
 
       function currentCycle() {
@@ -22032,7 +22117,7 @@ const brStatesList = [
       }
 
       function handleSyllablesPaletteChoice(step) {
-        const round = syllableRounds[state.round];
+        const round = currentSyllablesRound();
         if (!round || state.answerLocked) return;
         const expected = round.steps[state.syllablesBuilt.length];
         if (step !== expected) {
@@ -22058,13 +22143,13 @@ const brStatesList = [
       }
 
       function handleSyllablesEnter() {
-        const round = syllableRounds[state.round];
+        const round = currentSyllablesRound();
         if (!round || !hasSelection()) return;
         handleSyllablesPaletteChoice(syllablesPalette()[state.selected]);
       }
 
       function handleSyllablesClick(event) {
-        const round = syllableRounds[state.round];
+        const round = currentSyllablesRound();
         if (!round) return false;
         const palette = syllablesPalette();
         return activateIndexedClick(event, ".decompose-palette-button", (index) => handleSyllablesPaletteChoice(palette[index]));
@@ -24189,6 +24274,13 @@ const brStatesList = [
           suppressNextContentClick = false;
           event.preventDefault();
           event.stopPropagation();
+          return;
+        }
+
+        if (clickedElement(event, ".inline-speak-button")) {
+          event.preventDefault();
+          event.stopPropagation();
+          speakCurrentPrompt();
           return;
         }
 
