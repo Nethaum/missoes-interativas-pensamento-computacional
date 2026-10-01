@@ -6786,6 +6786,99 @@
       text-align: center;
     }
 
+    .memory-board {
+      width: min(900px, 100%);
+      display: grid;
+      place-items: center;
+    }
+
+    .memory-grid {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .memory-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .memory-grid-6 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .memory-grid-8 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .memory-grid-10 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .memory-grid-12 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+    .memory-card {
+      aspect-ratio: 1;
+      cursor: pointer;
+      perspective: 700px;
+    }
+
+    .memory-grid.locked .memory-card {
+      cursor: default;
+    }
+
+    .memory-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.35s ease;
+      transform-style: preserve-3d;
+    }
+
+    .memory-card.flipped .memory-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .memory-card-back,
+    .memory-card-front {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      place-items: center;
+      padding: 6px;
+      border-radius: 14px;
+      backface-visibility: hidden;
+      font-size: clamp(28px, 6vw, 52px);
+      line-height: 1.1;
+      text-align: center;
+      overflow: hidden;
+      border: 5px solid var(--line);
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .memory-card-back {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .memory-card-front {
+      background: var(--white);
+      color: var(--card-ink);
+      transform: rotateY(180deg);
+    }
+
+    .memory-card-front > [data-fit-text] {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .memory-card-front .memory-flag-icon {
+      width: 82%;
+      aspect-ratio: 3 / 2;
+    }
+
+    .memory-card.matched .memory-card-front {
+      background: #e6f9ec;
+      border-color: var(--green);
+    }
+
+    .memory-card.selected .memory-card-inner {
+      outline: 3px solid var(--blue);
+      outline-offset: 2px;
+      border-radius: 14px;
+    }
+
     .dataset {
       width: min(880px, 100%);
       display: flex;
@@ -7627,6 +7720,22 @@
       .ttt-board {
         width: min(220px, 68vw);
         gap: 8px;
+      }
+
+      .memory-grid {
+        gap: 6px;
+      }
+
+      .memory-grid-10,
+      .memory-grid-12 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .memory-card-back,
+      .memory-card-front {
+        border-width: 3px;
+        font-size: clamp(22px, 8vw, 36px);
+        padding: 4px;
       }
 
       .ttt-cell {
@@ -9032,6 +9141,7 @@
         { id: "builder", icon: "🤖", title: "Robô Programador", subject: "Sequência, laços e criação livre", featured: true },
         { id: "phonics", icon: "👂", title: "Som Inicial", subject: "Consciência fonológica", featured: true },
         { id: "syllables", icon: "🔤", title: "Monte a Palavra", subject: "Sílabas e leitura", featured: true },
+        { id: "memory", icon: "🃏", title: "Jogo da Memória", subject: "Memória e atenção", featured: true },
         { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
         { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
         { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
@@ -9059,7 +9169,7 @@
           title: "Destaques",
           icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
-          missionIds: ["mathCup", "cup", "decoder", "ttt", "builder"],
+          missionIds: ["mathCup", "cup", "decoder", "ttt", "builder", "memory"],
         },
         {
           title: "Alfabetização",
@@ -9077,7 +9187,7 @@
           title: "Padrões, códigos e dados",
           icon: "🧠",
           description: "Reconhecer padrões, decodificar símbolos e ler dados e imagens.",
-          missionIds: ["pattern", "code", "pixels", "data", "decoder", "cup"],
+          missionIds: ["pattern", "code", "pixels", "data", "decoder", "cup", "memory"],
         },
         {
           title: "Classificação e organização",
@@ -10205,6 +10315,58 @@
         steps: entry.syllables,
         distractors: entry.distractors,
       }));
+
+      const memoryAlphabetPairs = [
+        { a: "💧", b: "A" }, { a: "🛁", b: "B" }, { a: "🛏️", b: "C" }, { a: "🦷", b: "D" },
+        { a: "🪥", b: "E" }, { a: "🌼", b: "F" }, { a: "🐱", b: "G" }, { a: "🌙", b: "L" },
+        { a: "🧦", b: "M" }, { a: "👃", b: "N" }, { a: "🍽️", b: "P" }, { a: "⌚", b: "R" },
+        { a: "🧼", b: "S" }, { a: "👟", b: "T" }, { a: "🧹", b: "V" },
+      ];
+
+      const memoryAnimalBabyPairs = [
+        { a: "🐄", b: "BEZERRO" }, { a: "🐴", b: "POTRO" }, { a: "🐑", b: "CORDEIRO" },
+        { a: "🐷", b: "LEITÃO" }, { a: "🐔", b: "PINTINHO" }, { a: "🐸", b: "GIRINO" },
+        { a: "🦆", b: "PATINHO" }, { a: "🐶", b: "CACHORRINHO" }, { a: "🐱", b: "GATINHO" },
+        { a: "🐰", b: "COELHINHO" }, { a: "🐻", b: "URSINHO" }, { a: "🦁", b: "LEÃOZINHO" },
+        { a: "🐘", b: "ELEFANTINHO" }, { a: "🦘", b: "CANGURUZINHO" },
+      ];
+
+      const memoryAnimalHabitatPairs = [
+        { a: "🐒", b: "🌴" }, { a: "🐬", b: "🌊" }, { a: "🐄", b: "🚜" }, { a: "🐧", b: "🧊" },
+        { a: "🦋", b: "🌼" }, { a: "🐫", b: "🏜️" }, { a: "🐻", b: "🍯" }, { a: "🦅", b: "⛰️" },
+        { a: "🐊", b: "🏞️" }, { a: "🦉", b: "🌙" }, { a: "🐿️", b: "🌰" }, { a: "🦔", b: "🍂" },
+      ];
+
+      const memoryFlagCountryPairs = [
+        { a: "flag:br", b: "BRASIL" }, { a: "flag:pt", b: "PORTUGAL" }, { a: "flag:us", b: "ESTADOS UNIDOS" },
+        { a: "flag:fr", b: "FRANÇA" }, { a: "flag:jp", b: "JAPÃO" }, { a: "flag:de", b: "ALEMANHA" },
+        { a: "flag:it", b: "ITÁLIA" }, { a: "flag:cn", b: "CHINA" }, { a: "flag:es", b: "ESPANHA" },
+        { a: "flag:mx", b: "MÉXICO" }, { a: "flag:ar", b: "ARGENTINA" }, { a: "flag:ca", b: "CANADÁ" },
+      ];
+
+      const memoryEnglishEasyPairs = [
+        { a: "GATO", b: "CAT" }, { a: "CASA", b: "HOUSE" }, { a: "ÁGUA", b: "WATER" },
+        { a: "LIVRO", b: "BOOK" }, { a: "SOL", b: "SUN" }, { a: "LUA", b: "MOON" },
+        { a: "CACHORRO", b: "DOG" }, { a: "ESCOLA", b: "SCHOOL" }, { a: "AMIGO", b: "FRIEND" },
+        { a: "FAMÍLIA", b: "FAMILY" },
+      ];
+
+      const memoryEnglishHardPairs = [
+        { a: "FELIZ", b: "HAPPY" }, { a: "TRABALHO", b: "WORK" }, { a: "MUNDO", b: "WORLD" },
+        { a: "TEMPO", b: "TIME" }, { a: "COZINHA", b: "KITCHEN" }, { a: "JANELA", b: "WINDOW" },
+        { a: "MONTANHA", b: "MOUNTAIN" }, { a: "FLORESTA", b: "FOREST" }, { a: "VIAGEM", b: "TRIP" },
+        { a: "CIDADE", b: "CITY" }, { a: "PROFESSOR", b: "TEACHER" }, { a: "ESTUDANTE", b: "STUDENT" },
+      ];
+
+      const memoryLevelPlans = [
+        { title: "Primeiras cartas", icon: "🃏", age: "6-7 anos", pairs: 3, theme: "Alfabeto e rotina", pool: memoryAlphabetPairs, revealMs: 2400 },
+        { title: "Mais memória", icon: "🃏", age: "8-9 anos", pairs: 6, theme: "Animais e filhotes", pool: memoryAnimalBabyPairs, revealMs: 2000 },
+        { title: "Memória boa", icon: "🃏", age: "10-11 anos", pairs: 8, theme: "Animais e habitats", pool: memoryAnimalHabitatPairs, revealMs: 1700 },
+        { title: "Desafio de memória", icon: "🃏", age: "12-13 anos", pairs: 10, theme: "Bandeiras e inglês", pool: [...memoryFlagCountryPairs, ...memoryEnglishEasyPairs], revealMs: 1450 },
+        { title: "Super memória", icon: "🃏", age: "14 anos", pairs: 12, theme: "Bandeiras e inglês", pool: [...memoryFlagCountryPairs, ...memoryEnglishHardPairs], revealMs: 1200 },
+      ];
+
+      const memoryLevels = memoryLevelPlans;
 
       const cycleBaseRounds = [
         { name: "Borboleta", steps: [{ icon: "🥚", label: "ovinhos" }, { icon: "🐛", label: "lagarta" }, { icon: "🟤", label: "casulo" }, { icon: "🦋", label: "borboleta" }] },
@@ -15183,6 +15345,12 @@ const brStatesList = [
         tttWinLine: null,
         tttScoreX: 0,
         tttScoreO: 0,
+        memoryLevel: null,
+        memoryCards: [],
+        memoryFlipped: [],
+        memoryMatchesFound: 0,
+        memoryAttempts: 0,
+        memoryRoundIndex: 0,
         chefChosen: [],
         chefShuffled: [],
         chefAttempt: 0,
@@ -16656,6 +16824,7 @@ const brStatesList = [
         builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
+        memory: memoryLevels,
       };
 
       function missionAgeRangeLabel(missionId) {
@@ -17547,6 +17716,89 @@ const brStatesList = [
           state.selected = -1;
           tttFinishTurn();
         }, 480);
+      }
+
+      function currentMemoryLevel() {
+        return memoryLevels[state.memoryLevel];
+      }
+
+      function startMemoryRound() {
+        const level = currentMemoryLevel();
+        state.memoryRoundIndex += 1;
+        const chosenPairs = shuffle(level.pool, seedFromParts("memory-pairs", state.missionSeed, state.memoryRoundIndex)).slice(0, level.pairs);
+        const rawCards = chosenPairs.flatMap((pair, pairId) => [
+          { pairId, content: pair.a, matched: false },
+          { pairId, content: pair.b, matched: false },
+        ]);
+        state.memoryCards = shuffle(rawCards, seedFromParts("memory-deck", state.missionSeed, state.memoryRoundIndex));
+        state.memoryFlipped = [];
+        state.memoryMatchesFound = 0;
+        state.memoryAttempts = 0;
+        state.selected = 0;
+        window.clearTimeout(state.answerLockTimer);
+        state.answerLocked = false;
+        render();
+      }
+
+      function finishMemoryRound() {
+        const firstTime = !state.completed.memory;
+        state.completed.memory = true;
+        render();
+        if (firstTime) {
+          showCompleteMessage();
+        } else {
+          showMessage("🎉 Todos os pares encontrados!", 1600);
+        }
+        window.setTimeout(() => {
+          if (state.mode !== "memory") return;
+          startMemoryRound();
+        }, 2400);
+      }
+
+      function handleMemoryReveal(index) {
+        if (state.answerLocked) return;
+        const card = state.memoryCards[index];
+        if (!card || card.matched) return;
+        if (state.memoryFlipped.includes(index)) return;
+        if (state.memoryFlipped.length >= 2) return;
+
+        state.memoryFlipped.push(index);
+        state.selected = index;
+
+        if (state.memoryFlipped.length < 2) {
+          render();
+          return;
+        }
+
+        state.memoryAttempts += 1;
+        const [i1, i2] = state.memoryFlipped;
+        const isMatch = state.memoryCards[i1].pairId === state.memoryCards[i2].pairId;
+
+        if (isMatch) {
+          state.memoryCards[i1].matched = true;
+          state.memoryCards[i2].matched = true;
+          state.memoryMatchesFound += 1;
+          state.memoryFlipped = [];
+          showMessage("✅ Par encontrado!", 600);
+          render();
+          const total = currentMemoryLevel().pairs;
+          if (state.memoryMatchesFound >= total) {
+            window.setTimeout(() => {
+              if (state.mode !== "memory") return;
+              finishMemoryRound();
+            }, 900);
+          }
+          return;
+        }
+
+        state.answerLocked = true;
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "memory") return;
+          state.memoryFlipped = [];
+          state.answerLocked = false;
+          render();
+        }, currentMemoryLevel().revealMs);
       }
 
       function remainingCycleSteps(cycle = currentCycle()) {
@@ -19248,6 +19500,35 @@ const brStatesList = [
         content.innerHTML = `<div class="ttt-wrap">${boardHtml}${enigmaHtml}</div>`;
       }
 
+      function memoryCardContentHtml(content) {
+        if (typeof content === "string" && content.startsWith("flag:")) {
+          return worldFlagArt(content.slice(5), "memory-flag-icon");
+        }
+        return `<span data-fit-text data-fit-min="13">${content}</span>`;
+      }
+
+      function renderMemory() {
+        const level = currentMemoryLevel();
+        setHeader("Jogo da Memória", `Tema: ${level.theme}. Encontre os pares.`);
+        setCounters("Pares", `${state.memoryMatchesFound} / ${level.pairs}`, "Tentativas", state.memoryAttempts);
+        status.textContent = "Toque em duas cartas relacionadas para formar um par.";
+
+        content.innerHTML = `<div class="memory-board">
+          <div class="memory-grid memory-grid-${level.pairs} ${state.answerLocked ? "locked" : ""}">
+            ${state.memoryCards.map((card, index) => {
+              const faceUp = card.matched || state.memoryFlipped.includes(index);
+              const classes = ["memory-card", faceUp ? "flipped" : "", card.matched ? "matched" : "", index === state.selected ? "selected" : ""].filter(Boolean).join(" ");
+              return `<div class="${classes}" data-card="${index}">
+                <div class="memory-card-inner">
+                  <div class="memory-card-back">❓</div>
+                  <div class="memory-card-front">${memoryCardContentHtml(card.content)}</div>
+                </div>
+              </div>`;
+            }).join("")}
+          </div>
+        </div>`;
+      }
+
       function currentMathCupLevel() {
         return mathCupLevels[state.round];
       }
@@ -20774,6 +21055,7 @@ const brStatesList = [
         devices: renderDevices,
         mathCup: renderMathCup,
         ttt: renderTtt,
+        memory: renderMemory,
       };
 
       function textFitsBox(element) {
@@ -20829,6 +21111,7 @@ const brStatesList = [
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
         ttt: "tttLevel",
+        memory: "memoryLevel",
       };
 
       function mathCupTierForAgeBand(ageBand) {
@@ -20882,6 +21165,11 @@ const brStatesList = [
         if (mode === "decompose") {
           state.decomposeLevel = state.ageBand;
           startDecomposeRound();
+          return;
+        }
+        if (mode === "memory") {
+          state.memoryLevel = state.ageBand;
+          startMemoryRound();
           return;
         }
         if (mode === "builder") {
@@ -21111,6 +21399,12 @@ const brStatesList = [
         state.tttWinLine = null;
         state.tttScoreX = 0;
         state.tttScoreO = 0;
+        state.memoryLevel = null;
+        state.memoryCards = [];
+        state.memoryFlipped = [];
+        state.memoryMatchesFound = 0;
+        state.memoryAttempts = 0;
+        state.memoryRoundIndex = 0;
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
@@ -22796,6 +23090,21 @@ const brStatesList = [
         return true;
       }
 
+      function handleMemoryEnter() {
+        if (!hasSelection()) return;
+        handleMemoryReveal(state.selected);
+      }
+
+      function handleMemoryClick(event) {
+        const cardEl = clickedElement(event, ".memory-card");
+        if (!cardEl) return false;
+        const index = Number(cardEl.dataset.card);
+        if (!Number.isInteger(index)) return false;
+        state.selected = index;
+        handleMemoryReveal(index);
+        return true;
+      }
+
       function startMathCupChallenge(type, context = {}) {
         stopMathCupChallengeClock();
         stopMathCupDecisionClock();
@@ -23241,6 +23550,7 @@ const brStatesList = [
         devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
         ttt: handleTttEnter,
+        memory: handleMemoryEnter,
       };
 
       function handleEnter() {
@@ -23602,6 +23912,10 @@ const brStatesList = [
           } else if (!state.tttWinner) {
             moveSelectionIndex({ count: 9, delta, vertical, columns: 3 });
           }
+        } else if (state.mode === "memory") {
+          const level = currentMemoryLevel();
+          const columnsByPairs = { 3: 3, 6: 4, 8: 4, 10: 5, 12: 6 };
+          moveSelectionIndex({ count: level.pairs * 2, delta, vertical, columns: columnsByPairs[level.pairs] || 4 });
         }
         render();
       }
@@ -23867,6 +24181,7 @@ const brStatesList = [
         devices: handleDevicesClick,
         mathCup: handleMathCupClick,
         ttt: handleTttClick,
+        memory: handleMemoryClick,
       };
 
       function handleContentClick(event) {
