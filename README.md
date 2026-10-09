@@ -43,7 +43,7 @@ Referências oficiais:
 
 ## Alinhamento com a BNCC Computação
 
-Os códigos abaixo vêm do [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/anexo-ao-parecer-cne-ceb-no-2-2022), o complemento oficial da BNCC para Computação. A relação entre missão e habilidade é uma leitura pedagógica do material e pode variar conforme a faixa etária escolhida. Os códigos `EF15CO` valem para o 1º ao 5º ano e `EF69CO` para o 6º ao 9º.
+Os códigos abaixo vêm das tabelas de competências e habilidades da [Resolução CNE/CEB nº 1/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/resolucao-cne-ceb-no-1-de-4-de-outubro-de-2022) (Normas sobre Computação na Educação Básica, complemento à BNCC), publicadas no [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/anexo-ao-parecer-cne-ceb-no-2-2022). Os eixos são Pensamento Computacional, Mundo Digital e Cultura Digital. A relação entre missão e habilidade é uma leitura pedagógica do material e pode variar conforme a faixa etária escolhida. Os códigos `EF15CO` valem para o 1º ao 5º ano e `EF69CO` para o 6º ao 9º.
 
 | Missão | Habilidades |
 |---|---|
@@ -59,11 +59,27 @@ Os códigos abaixo vêm do [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov
 | Fábrica de Laços | EF02CO02, EF03CO02, EF04CO03 |
 | Portão Lógico | EF03CO01, EF05CO03, EF05CO04 |
 | Estante Organizada | EF05CO01, EF08CO03 |
-| Caça ao Bug | EF07CO02 (única habilidade oficial de depuração) |
+| Caça ao Bug | EF07CO02 (detectar e remover erros em programas; nos anos anteriores é uma introdução) |
 | Tradutor de Sinais | EF06CO06 (variáveis como parâmetros, correspondência parcial) |
 | Robô Programador | EF02CO02, EF05CO04, EF06CO02, EF07CO05 |
 
-As demais missões (Português, Matemática, Ciências, Geografia, Saúde, Copa da Matemática, Jogo da Velha, Robô Decifrador, Bandeiras e Jogo da Memória) trabalham outras áreas da BNCC e não foram mapeadas aqui.
+Missões de outras áreas, com códigos do texto principal da BNCC (Anexo da versão aprovada em 15/12/2017):
+
+| Missão | Habilidades |
+|---|---|
+| Som Inicial | EF01LP07, EF01LP09 (Língua Portuguesa) |
+| Monte a Palavra | EF01LP02, EF01LP08, EF02LP04, EF02LP05 (Língua Portuguesa) |
+| Jogo da Memória (6-7 anos) | EF01LP07 (Língua Portuguesa) |
+| Dados e gráficos | EF01MA21, EF02MA22, EF03MA27 (Matemática) |
+| Matemática colorida | EF02MA05, EF03MA03, EF04MA03 (Matemática) |
+| Habitats dos animais | EF02CI04, EF03CI04 (Ciências) |
+| Vertebrados e invertebrados | EF03CI06 (Ciências) |
+| Ciclos da natureza | EF03CI05, EF05CI02 (Ciências) |
+| Coleta seletiva | EF05CI05 (Ciências), EF03GE08 (Geografia) |
+| Corrida contra o Aedes | EF04CI08 (Ciências) |
+| Caderneta de vacinação | EF07CI10 (Ciências, 7º ano) |
+
+Copa da Matemática, Jogo da Velha dos Enigmas, Robô Decifrador, Bandeiras e as demais fases do Jogo da Memória não foram mapeados.
 
 ## Dispositivos
 
