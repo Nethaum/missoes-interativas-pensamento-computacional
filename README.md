@@ -41,6 +41,30 @@ Referências oficiais:
 - Programa Saúde na Escola: https://www.gov.br/mec/pt-br/programa-saude-na-escola/tematicas
 - Segurança de ciclistas: https://www.gov.br/transportes/pt-br/assuntos/transito/arquivos-senatran/docs/CartilhaCiclistaatualizada.pdf
 
+## Alinhamento com a BNCC Computação
+
+Os códigos abaixo vêm do [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/anexo-ao-parecer-cne-ceb-no-2-2022), o complemento oficial da BNCC para Computação. A relação entre missão e habilidade é uma leitura pedagógica do material e pode variar conforme a faixa etária escolhida. Os códigos `EF15CO` valem para o 1º ao 5º ano e `EF69CO` para o 6º ao 9º.
+
+| Missão | Habilidades |
+|---|---|
+| Robô coletor | EF01CO02, EF01CO03, EF02CO02 |
+| Chef Cozinheiro | EF01CO02, EF01CO03 |
+| Ciclos da natureza e Caderneta de vacinação | EF01CO03 (ordenar sequências) |
+| Padrão Perfeito | EF01CO01, EF02CO01 |
+| Divida a Tarefa | EF03CO03, EF15CO04, EF06CO04 |
+| Mensagem secreta | EF01CO05, EF04CO04, EF15CO05 |
+| Desmistificador de Pixels | EF04CO05 |
+| Dados e gráficos | EF03CO04, EF03CO05 |
+| Entrada ou saída | EF03CO06, EF05CO05 |
+| Fábrica de Laços | EF02CO02, EF03CO02, EF04CO03 |
+| Portão Lógico | EF03CO01, EF05CO03, EF05CO04 |
+| Estante Organizada | EF05CO01, EF08CO03 |
+| Caça ao Bug | EF07CO02 (única habilidade oficial de depuração) |
+| Tradutor de Sinais | EF06CO06 (variáveis como parâmetros, correspondência parcial) |
+| Robô Programador | EF02CO02, EF05CO04, EF06CO02, EF07CO05 |
+
+As demais missões (Português, Matemática, Ciências, Geografia, Saúde, Copa da Matemática, Jogo da Velha, Robô Decifrador, Bandeiras e Jogo da Memória) trabalham outras áreas da BNCC e não foram mapeadas aqui.
+
 ## Dispositivos
 
 O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência.
@@ -111,7 +135,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, alinhados às Competências Gerais da BNCC e prontos para impressão) e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 
