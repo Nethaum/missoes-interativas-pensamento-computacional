@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.15.0">
+  <meta name="app-version" content="2.16.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -632,6 +632,7 @@
     }
 
     .lesson-plan-modal {
+      grid-template-columns: minmax(0, 1fr);
       z-index: 81;
     }
 
@@ -642,6 +643,7 @@
 
     .lesson-plan-content {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       gap: 10px;
       text-transform: none;
     }
@@ -687,10 +689,155 @@
       padding: 6px 8px;
       text-align: left;
       vertical-align: top;
+      overflow-wrap: anywhere;
     }
 
     .lesson-plan-table th {
       background: #fff7d5;
+    }
+
+    .quiz-why {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-left: 5px solid #2f9e52;
+      border-radius: 8px;
+      background: #e6f9ec;
+      color: var(--card-ink);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .lesson-plan-summary {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .lesson-plan-subtitle {
+      margin-top: 4px;
+      font-size: 13px;
+      font-weight: 900;
+      color: #184832;
+    }
+
+    .lesson-plan-tag {
+      display: inline-block;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: #e8f0ff;
+      color: var(--card-ink);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .lesson-plan-note {
+      padding: 8px 10px;
+      border-left: 4px solid #e0b84a;
+      border-radius: 6px;
+      background: #fff7d5;
+      color: var(--card-ink);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .lesson-plan-mode {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+      color: var(--card-ink);
+    }
+
+    .lesson-plan-mode.desplugada { background: #d9f3df; }
+    .lesson-plan-mode.plugada { background: #d9e8ff; }
+
+    .lesson-plan-screen {
+      font-size: 13px;
+      color: var(--card-ink);
+    }
+
+    .lesson-plan-tools {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .monthly-form {
+      display: grid;
+      gap: 8px;
+    }
+
+    .monthly-form label {
+      display: grid;
+      gap: 3px;
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .monthly-form input,
+    .monthly-form select {
+      min-height: 38px;
+      padding: 6px 9px;
+      border: 2px solid #cdbd91;
+      border-radius: 8px;
+      background: #fff;
+      color: var(--card-ink);
+      font-family: var(--read-font);
+      font-size: 14px;
+    }
+
+    .monthly-form-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .monthly-doc {
+      color: #111;
+      font-family: var(--read-font);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .monthly-header {
+      margin-bottom: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .monthly-title,
+    .monthly-subtitle {
+      margin: 6px 0;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 950;
+    }
+
+    .monthly-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .monthly-table th,
+    .monthly-table td {
+      border: 1px solid #111;
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .monthly-table p {
+      margin: 0 0 6px;
+    }
+
+    .monthly-table ul {
+      margin: 0;
+      padding-left: 18px;
     }
 
     .lesson-plan-footnote {
@@ -710,6 +857,11 @@
     @media (max-width: 720px) {
       .lesson-plan-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .lesson-plan-tools,
+      .monthly-form-row {
+        grid-template-columns: 1fr;
       }
 
       .lesson-plan-table {
@@ -9062,9 +9214,13 @@
       <div id="supportBox" class="support-box" hidden>
         <div class="lesson-plan-box">
           <div class="lesson-plan-badge">👩‍🏫 Área do professor</div>
-          <div class="support-title">📋 Planos de aula (BNCC)</div>
-          <p class="support-text">Um plano por série, do 1º ao 9º ano, com objetivos, competências da BNCC e sequência de aula pronta para imprimir.</p>
+          <div class="support-title">📋 Planos de aula (BNCC e currículo de SC)</div>
+          <p class="support-text">Um plano por série, do 1º ao 9º ano, com habilidades do Currículo de Educação Digital de SC, atividade sem tela, sequência de aula e avaliação, prontos para imprimir.</p>
           <div id="lessonPlanGrid" class="lesson-plan-grid"></div>
+          <div class="lesson-plan-tools">
+            <button id="monthlyPlanButton" class="support-open-link" type="button">📅 Plano de atividade mensal</button>
+            <button id="guidanceButton" class="support-open-link" type="button">📘 Orientações de uso pedagógico</button>
+          </div>
         </div>
         <div id="donateBox" class="donate-box">
         <div class="support-title">☕ Apoie este projeto</div>
@@ -9219,6 +9375,8 @@
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
         { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania", ageRange: "6 a 10+ anos" },
         { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
+        { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, software, arquivos e redes" },
+        { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
         { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos" },
         { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
@@ -9272,6 +9430,12 @@
           description: "Laços, condicionais, ordenação e variáveis: os blocos que formam um programa.",
           missionIds: ["loop", "sort", "cond", "var", "builder"],
         },
+        {
+          title: "Mundo Digital e Cultura Digital",
+          icon: "💻",
+          description: "Entender o computador e a internet e usar a tecnologia com segurança, respeito e senso crítico.",
+          missionIds: ["hardware", "devices", "safe", "pixels"],
+        },
       ];
 
       const lessonPlans = [
@@ -9280,20 +9444,41 @@
           ageLabel: "6-7 anos",
           theme: "Primeiros passos: sequência e comandos",
           duration: "45 minutos",
+          summary: "As crianças percebem que seguir instruções na ordem certa resolve problemas do dia a dia e conhecem a palavra algoritmo, primeiro com o corpo e com cartões e só depois na tela.",
           objectives: [
             "Reconhecer que o computador segue instruções em uma ordem exata.",
             "Identificar e repetir uma sequência simples de comandos.",
             "Perceber que trocar a ordem dos comandos muda o resultado.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…"],
-          skills: [{ code: "EF01CO02", text: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas." }, { code: "EF01CO03", text: "Reorganizar e criar sequências de passos em meios físicos ou digitais, relacionando-as à palavra algoritmos." }, { code: "EF01CO01", text: "Organizar objetos físicos ou digitais explicitando semelhanças (padrões) e diferenças." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Roda de conversa: \"o que é dar um comando?\" Peça exemplos do dia a dia, como uma receita." },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Robô coletor e resolva as primeiras fases junto com a turma, pensando em voz alta sobre a ordem dos comandos." },
-            { step: "Prática em duplas", time: "15 min", description: "Alunos jogam Robô coletor em duplas, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Robô Programador, testando comandos livremente, ou o Padrão Perfeito, repetindo sequências simples." },
-            { step: "Fechamento", time: "10 min", description: "Cada dupla conta uma fase que resolveu e como decidiu a ordem dos comandos." },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…",
           ],
-          missions: ["robot", "recycle", "pattern", "builder"],
+          skills: [
+            { code: "EF01CO02", axis: "Pensamento Computacional", main: true, text: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas." },
+            { code: "EF01CO03", axis: "Pensamento Computacional", main: true, text: "Reorganizar e criar sequências de passos em meios físicos ou digitais, relacionando essas sequências à palavra ‘Algoritmos’." },
+            { code: "EF01CO01", axis: "Pensamento Computacional", main: false, text: "Organizar objetos físicos ou digitais considerando diferentes características para esta organização, explicitando semelhanças (padrões) e diferenças." },
+          ],
+          related: [
+            { code: "EF01MA11", text: "Descrever a localização de pessoas e de objetos no espaço em relação à sua própria posição, utilizando termos como à direita, à esquerda, em frente, atrás." },
+            { code: "EF01MA09", text: "Organizar e ordenar objetos familiares ou representações por figuras, por meio de atributos, tais como cor, forma e medida." },
+            { code: "EF12EF03", text: "Planejar e utilizar estratégias para resolver desafios de brincadeiras e jogos populares do contexto comunitário e regional, com base no reconhecimento das características dessas práticas." },
+            { code: "EF15AR04", text: "Experimentar diferentes formas de expressão artística (desenho, pintura, colagem, quadrinhos, dobradura, escultura, modelagem, instalação, vídeo, fotografia etc.), fazendo uso sustentável de materiais, instrumentos, recursos e técnicas convencionais e não convencionais." },
+          ],
+          materials: [
+            "Cartões com desenhos dos passos de uma rotina (lavar as mãos, escovar os dentes)",
+            "Fita crepe ou giz para desenhar um caminho no chão",
+            "Cartões com setas (avançar, virar à direita, virar à esquerda)",
+            "Computador, tablet ou projetor com a missão Robô coletor (opcional e por pouco tempo)",
+          ],
+          sequence: [
+            { step: "Abertura", time: "8 min", mode: "desplugada", description: "Roda de conversa sobre uma rotina conhecida, como lavar as mãos. Registre no quadro os passos ditos pelas crianças, com desenhos, e pergunte: \"e se o último passo fosse o primeiro?\"." },
+            { step: "Atividade desplugada: o robô humano", time: "15 min", mode: "desplugada", description: "Desenhe um caminho no chão. Um aluno faz o papel de robô e executa exatamente os cartões de setas que a turma escolhe. A dupla confere se o robô chegou ao destino e corrige a ordem dos cartões." },
+            { step: "Missão no computador", time: "12 min", mode: "plugada", description: "Em duplas, as crianças jogam as primeiras fases do Robô coletor, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Padrão Perfeito. O professor lê as instruções em voz alta." },
+            { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Cada dupla conta como decidiu a ordem dos comandos. Apresente a palavra \"algoritmo\": uma sequência de passos para resolver um problema." },
+          ],
+          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07).",
+          missions: ["robot", "pattern", "recycle", "builder", "safe"],
           assessment: [
             "A criança segue a ordem correta de comandos na maior parte das tentativas?",
             "Consegue apontar quando um comando está fora de ordem?",
@@ -9305,21 +9490,41 @@
           ageLabel: "6-7 anos",
           theme: "Sequência com mais autonomia",
           duration: "45 minutos",
+          summary: "A turma cria e compara sequências e padrões, percebe que instruções precisam ser precisas e começa a dividir uma tarefa maior em partes menores.",
           objectives: [
             "Planejar uma sequência de passos antes de executá-la.",
-            "Perceber que a ordem dos passos importa para o resultado.",
+            "Perceber que a ordem e a precisão dos passos importam para o resultado.",
             "Reconhecer que uma tarefa maior pode ser dividida em partes menores.",
             "Começar a comparar semelhanças e diferenças entre padrões visuais.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "9 — Exercitar a empatia, o diálogo, a resolução de conflitos e a cooperação…"],
-          skills: [{ code: "EF01CO02", text: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas." }, { code: "EF02CO01", text: "Criar e comparar modelos (representações) de objetos, identificando padrões e atributos essenciais." }, { code: "EF15CO04", text: "Aplicar a estratégia de decomposição para resolver problemas complexos, dividindo-os em partes menores." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Retome o conceito de comando e pergunte: \"dá pra planejar antes de agir?\"" },
-            { step: "Prática individual", time: "15 min", description: "Alunos jogam Robô coletor sozinhos, tentando planejar o caminho antes de clicar." },
-            { step: "Novo desafio", time: "15 min", description: "Introduza Chef Cozinheiro: ordenar os passos de uma receita. Em seguida, explore o Divida a Tarefa para praticar quebrar uma tarefa maior em passos menores, ou o Padrão Perfeito para reconhecer e continuar sequências de símbolos." },
-            { step: "Fechamento", time: "10 min", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada?" },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "9 — Exercitar a empatia, o diálogo, a resolução de conflitos e a cooperação…",
           ],
-          missions: ["robot", "chef", "decompose", "pattern"],
+          skills: [
+            { code: "EF02CO01", axis: "Pensamento Computacional", main: true, text: "Criar e comparar modelos (representações) de objetos, identificando padrões e atributos essenciais." },
+            { code: "EF02CO02", axis: "Pensamento Computacional", main: true, text: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, construídos como sequências com repetições simples (iterações definidas) com base em instruções preestabelecidas ou criadas, analisando como a precisão da instrução impacta na execução do algoritmo." },
+            { code: "EF01CO02", axis: "Pensamento Computacional", main: false, text: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas." },
+            { code: "EF03CO03", axis: "Pensamento Computacional", main: false, text: "Aplicar a estratégia de decomposição para resolver problemas complexos, dividindo esse problema em partes menores, resolvendo-as e combinando suas soluções." },
+          ],
+          related: [
+            { code: "EF02MA10", text: "Descrever um padrão (ou regularidade) de sequências repetitivas e de sequências recursivas, por meio de palavras, símbolos ou desenhos." },
+            { code: "EF02MA12", text: "Identificar e registrar, em linguagem verbal ou não verbal, a localização e os deslocamentos de pessoas e de objetos no espaço, considerando mais de um ponto de referência, e indicar as mudanças de direção e de sentido." },
+          ],
+          materials: [
+            "Cartões com os passos de uma receita simples, como fazer um sanduíche, em desordem",
+            "Objeto escondido na sala (o \"tesouro\")",
+            "Papel e lápis para registrar a sequência",
+            "Computador ou tablet com Robô coletor, Chef Cozinheiro e Padrão Perfeito",
+          ],
+          sequence: [
+            { step: "Abertura: o professor-robô", time: "10 min", mode: "desplugada", description: "A turma dá instruções para o professor, que as executa exatamente como ditas, para chegar ao objeto escondido. Quando a instrução for incompleta ou ambígua, ele para: assim as crianças percebem que a precisão muda o resultado." },
+            { step: "Atividade desplugada: a receita embaralhada", time: "10 min", mode: "desplugada", description: "Em grupos, as crianças ordenam os cartões de uma receita e depois criam um cartão com um passo que se repete (por exemplo, \"mexer 3 vezes\")." },
+            { step: "Missões no computador", time: "15 min", mode: "plugada", description: "Individualmente ou em duplas: Robô coletor, planejando o caminho antes de clicar; depois Chef Cozinheiro para ordenar a receita e, se houver tempo, Divida a Tarefa ou Padrão Perfeito." },
+            { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada? Que tarefa de casa ou da escola dá para dividir em passos menores?" },
+          ],
+          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06).",
+          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe"],
           assessment: [
             "Planeja ao menos parte do caminho antes de executar?",
             "Identifica o passo certo para continuar uma receita?",
@@ -9332,23 +9537,43 @@
           ageLabel: "8-9 anos",
           theme: "Repetição: fazer mais com menos comandos",
           duration: "50 minutos",
+          summary: "Os alunos descobrem que repetir um bloco de passos economiza comandos, calculam o total de repetições e relacionam laços a ciclos da natureza.",
           objectives: [
             "Compreender o conceito de repetição (laço) como forma de evitar repetir comandos.",
             "Calcular quantas vezes um bloco deve se repetir para atingir um objetivo.",
             "Relacionar repetição com fenômenos naturais que se repetem em ciclos.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…"],
-          skills: [{ code: "EF02CO02", text: "Criar e simular algoritmos com sequências e repetições simples (iterações definidas)." }, { code: "EF03CO02", text: "Criar e simular algoritmos com sequências e repetições simples com condição (iterações indefinidas)." }, { code: "EF01CO05", text: "Representar informação usando diferentes codificações." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Pergunte: \"em vez de escrever 'ande' 6 vezes, existe um jeito mais curto de dizer isso?\"" },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e resolva as primeiras fases, destacando o \"repita N vezes\"." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Fábrica de Laços e, em seguida, Ciclos da natureza. O Robô Programador é uma boa opção extra para quem quiser repetir comandos de forma livre." },
-            { step: "Fechamento", time: "10 min", description: "Discuta: que outras coisas na natureza \"se repetem\" como um laço?" },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…",
           ],
-          missions: ["loop", "code", "cycle", "builder"],
+          skills: [
+            { code: "EF03CO02", axis: "Pensamento Computacional", main: true, text: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências e repetições simples com condição (iterações indefinidas), para resolver problemas de forma independente e em colaboração." },
+            { code: "EF02CO02", axis: "Pensamento Computacional", main: false, text: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, construídos como sequências com repetições simples (iterações definidas) com base em instruções preestabelecidas ou criadas, analisando como a precisão da instrução impacta na execução do algoritmo." },
+          ],
+          related: [
+            { code: "EF03MA07", text: "Resolver e elaborar problemas de multiplicação (por 2, 3, 4, 5 e 10) com os significados de adição de parcelas iguais e elementos apresentados em disposição retangular, utilizando diferentes estratégias de cálculo e registros." },
+            { code: "EF03MA10", text: "Identificar regularidades em sequências ordenadas de números naturais, resultantes da realização de adições ou subtrações sucessivas, por um mesmo número, descrever uma regra de formação da sequência e determinar elementos faltantes ou seguintes." },
+            { code: "EF03CI05", text: "Descrever e comunicar as alterações que ocorrem desde o nascimento em animais de diferentes meios terrestres ou aquáticos, inclusive o homem." },
+          ],
+          materials: [
+            "Cartões com ações de uma coreografia (bater palmas, dar um passo, girar)",
+            "Cartões ilustrados com as fases de um ciclo natural (sapo, planta ou borboleta)",
+            "Papel e lápis",
+            "Computador ou tablet com Fábrica de Laços e Ciclos da natureza",
+          ],
+          sequence: [
+            { step: "Abertura: a coreografia", time: "10 min", mode: "desplugada", description: "Peça à turma uma sequência longa (\"bata palma, bata palma, bata palma, ande, ande, ande\"). Depois, desafie: \"existe um jeito mais curto de dizer isso?\" e escreva a versão com \"repita 3 vezes\"." },
+            { step: "Exploração guiada", time: "10 min", mode: "plugada", description: "Projete a Fábrica de Laços e resolva as primeiras fases com a turma, destacando o \"repita N vezes\" e conferindo o total (repetições × passo)." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam a Fábrica de Laços e, em seguida, os Ciclos da natureza. O Robô Programador é uma opção extra para repetir comandos livremente." },
+            { step: "Atividade desplugada: o ciclo em cartões", time: "13 min", mode: "desplugada", description: "Em grupos, ordenam cartões de um ciclo natural e marcam com uma seta onde o ciclo \"volta ao começo\". Cada grupo escreve o ciclo como um laço: \"repita: ...\"." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Que outras coisas se repetem como um laço (dias da semana, estações, batimentos do coração)?" },
+          ],
+          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos.",
+          missions: ["loop", "cycle", "builder", "hardware", "safe"],
           assessment: [
             "Consegue calcular o total de um laço (repetições × passo)?",
-            "Identifica visualmente um ciclo que se repete na natureza?",
+            "Identifica um ciclo que se repete na natureza?",
             "Tenta mais de uma combinação antes de desistir de uma fase?",
           ],
         },
@@ -9357,20 +9582,41 @@
           ageLabel: "8-9 anos",
           theme: "Códigos, símbolos e decisões",
           duration: "50 minutos",
+          summary: "A turma percebe que a informação precisa ser codificada para ser guardada e transmitida, organiza dados em tabelas e gráficos simples e aplica regras do tipo \"se... então\".",
           objectives: [
             "Decodificar uma mensagem simples a partir de símbolos combinados.",
             "Organizar informações em grupos e comparar quantidades.",
             "Aplicar uma regra do tipo \"se... então...\" para decidir o resultado certo.",
           ],
-          competencies: ["4 — Utilizar diferentes linguagens (verbal, corporal, visual, sonora e digital)…", "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…"],
-          skills: [{ code: "EF03CO01", text: "Associar os valores verdadeiro e falso a sentenças lógicas do dia a dia, usando termos que indicam negação." }, { code: "EF03CO04", text: "Relacionar o conceito de informação com o de dado." }, { code: "EF04CO04", text: "Entender que, para guardar, manipular e transmitir dados, é preciso codificá-los de forma compreendida pela máquina." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Mostre um pequeno código secreto no quadro e desafie a turma a adivinhar o significado." },
-            { step: "Exploração guiada", time: "15 min", description: "Jogue Mensagem secreta em grupo, decifrando juntos as primeiras fases." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Dados e gráficos e Portão Lógico individualmente." },
-            { step: "Fechamento", time: "10 min", description: "Converse sobre regras \"se... então...\" que a turma já segue no dia a dia (se chover, levo guarda-chuva; se o sinal fechar, eu paro)." },
+          competencies: [
+            "4 — Utilizar diferentes linguagens (verbal, corporal, visual, sonora e digital)…",
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
           ],
-          missions: ["code", "data", "cond"],
+          skills: [
+            { code: "EF04CO04", axis: "Mundo Digital", main: true, text: "Entender que para guardar, manipular e transmitir dados deve-se codificá-los de alguma forma que seja compreendida pela máquina (formato digital)." },
+            { code: "EF03CO04", axis: "Mundo Digital", main: true, text: "Relacionar o conceito de informação com o de dado." },
+            { code: "EF03CO01", axis: "Pensamento Computacional", main: false, text: "Associar os valores 'verdadeiro' e 'falso' a sentenças lógicas que dizem respeito a situações do dia a dia, fazendo uso de termos que indicam negação." },
+            { code: "EF05CO04", axis: "Pensamento Computacional", main: false, text: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências, repetições e seleções condicionais para resolver problemas de forma independente e em colaboração." },
+          ],
+          related: [
+            { code: "EF04MA27", text: "Analisar dados apresentados em tabelas simples ou de dupla entrada e em gráficos de colunas ou pictóricos, com base em informações das diferentes áreas do conhecimento, e produzir texto com a síntese de sua análise." },
+            { code: "EF04MA11", text: "Identificar regularidades em sequências numéricas compostas por múltiplos de um número natural." },
+          ],
+          materials: [
+            "Quadro com uma tabela de símbolos e letras (código da turma)",
+            "Papel quadriculado e lápis de cor",
+            "Fichas para registrar a pesquisa da turma (por exemplo, fruta favorita)",
+            "Computador ou tablet com Mensagem secreta, Dados e gráficos e Portão Lógico",
+          ],
+          sequence: [
+            { step: "Abertura: o código da turma", time: "8 min", mode: "desplugada", description: "Mostre uma mensagem escrita em símbolos e desafie a turma a decifrar com a tabela do quadro. Pergunte: por que o código precisa ser combinado por todos?" },
+            { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Jogue Mensagem secreta em grupo, decifrando juntos as primeiras fases." },
+            { step: "Atividade desplugada: pesquisa e gráfico", time: "12 min", mode: "desplugada", description: "A turma coleta uma informação (cada voto é um dado), organiza em tabela e desenha o gráfico de colunas no papel quadriculado. Discuta a diferença entre informação (\"a fruta mais votada é a banana\") e dado (cada voto)." },
+            { step: "Prática no computador", time: "12 min", mode: "plugada", description: "Os alunos jogam Dados e gráficos e o Portão Lógico, aplicando a regra \"se... então...\" para decidir o resultado." },
+            { step: "Fechamento", time: "6 min", mode: "desplugada", description: "Converse sobre regras \"se... então...\" que a turma já segue (se chover, levo guarda-chuva; se o sinal fechar, eu paro)." },
+          ],
+          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos.",
+          missions: ["code", "data", "cond", "hardware", "safe"],
           assessment: [
             "Consegue relacionar símbolo e significado corretamente?",
             "Lê um gráfico simples e compara valores?",
@@ -9382,20 +9628,39 @@
           ageLabel: "10-11 anos",
           theme: "Depuração: encontrar e corrigir erros",
           duration: "50 minutos",
+          summary: "Os alunos leem sequências prontas, localizam onde elas deixam de funcionar e propõem a correção, treinando a calma e o raciocínio diante do erro.",
           objectives: [
             "Ler uma sequência de comandos já pronta, sem criá-la do zero.",
             "Localizar o ponto exato onde uma sequência deixa de funcionar.",
             "Propor a correção certa para o erro encontrado.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "7 — Argumentar com base em fatos, dados e informações confiáveis…"],
-          skills: [{ code: "EF05CO04", text: "Criar e simular algoritmos com sequências, repetições e seleções condicionais, de forma independente e em colaboração." }, { code: "EF04CO05", text: "Codificar informações para representação em computador (binária, ASCII, atributos de pixel como RGB etc.)." }, { code: "EF07CO02", text: "Analisar programas para detectar e remover erros, habilidade aprofundada no 7º ano e aqui trabalhada como introdução." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Explique o que é um \"bug\": um erro escondido em um conjunto de instruções." },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Caça ao Bug e analise juntos por que o robô não chegou ao destino." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Caça ao Bug e depois Copa da Matemática (fase amistosa)." },
-            { step: "Fechamento", time: "10 min", description: "Peça que expliquem, em uma frase, como encontraram o erro em uma fase." },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "7 — Argumentar com base em fatos, dados e informações confiáveis…",
           ],
-          missions: ["bug", "mathCup", "pixels"],
+          skills: [
+            { code: "EF05CO04", axis: "Pensamento Computacional", main: true, text: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências, repetições e seleções condicionais para resolver problemas de forma independente e em colaboração." },
+            { code: "EF05CO05", axis: "Mundo Digital", main: true, text: "Identificar os componentes principais de um computador (dispositivos de entrada/ saída, processadores e armazenamento)." },
+            { code: "EF07CO02", axis: "Pensamento Computacional", main: false, text: "Analisar programas para detectar e remover erros, ampliando a confiança na sua correção." },
+          ],
+          related: [
+            { code: "EF15LP06", text: "Reler e revisar o texto produzido com a ajuda do professor e a colaboração dos colegas, para corrigi-lo e aprimorá-lo, fazendo cortes, acréscimos, reformulações, correções de ortografia e pontuação." },
+          ],
+          materials: [
+            "Instruções impressas de uma receita ou de um trajeto com um passo trocado",
+            "Papel e lápis",
+            "Computador ou tablet com Caça ao Bug e Entrada ou saída",
+            "Projetor (opcional)",
+          ],
+          sequence: [
+            { step: "Abertura: a receita com erro", time: "8 min", mode: "desplugada", description: "Entregue uma receita com um passo fora de ordem e pergunte: onde está o erro? Explique que um \"bug\" é um erro escondido em um conjunto de instruções." },
+            { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Projete a Caça ao Bug e analise com a turma por que o robô não chegou ao destino." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam a Caça ao Bug e, se houver tempo, a missão Entrada ou saída, que mostra o que entra e o que sai de um computador." },
+            { step: "Atividade desplugada: passe o erro", time: "13 min", mode: "desplugada", description: "Cada dupla cria uma sequência de passos com um erro escondido e troca com outra dupla, que precisa encontrar e corrigir o erro." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça que expliquem, em uma frase, como encontraram o erro." },
+          ],
+          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos.",
+          missions: ["bug", "devices", "hardware", "safe"],
           assessment: [
             "Localiza o comando errado sem precisar de várias tentativas?",
             "Explica com suas palavras por que aquele comando estava errado?",
@@ -9407,20 +9672,41 @@
           ageLabel: "10-11 anos",
           theme: "Dados e imagens em binário",
           duration: "50 minutos",
+          summary: "A turma descobre que imagens e outras informações viram números dentro do computador, classifica dados por tipo e ordena listas com um critério claro.",
+          transition2026: true,
           objectives: [
             "Compreender que uma imagem pode ser representada por uma sequência de números (0 e 1).",
+            "Classificar informações em coleções e associá-las a um tipo de dado.",
             "Ordenar uma lista de itens seguindo um critério claro.",
-            "Ler e comparar dados apresentados em gráficos.",
           ],
-          competencies: ["1 — Valorizar e utilizar os conhecimentos historicamente construídos sobre o mundo físico, social, cultural e digital…", "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…"],
-          skills: [{ code: "EF06CO01", text: "Classificar informações, agrupando-as em coleções (conjuntos) e associando cada coleção a um tipo de dado." }, { code: "EF04CO05", text: "Codificar informações para representação em computador (binária, ASCII, atributos de pixel como RGB etc.), retomada do 4º ano." }, { code: "EF05CO01", text: "Reconhecer objetos do mundo real e digital que podem ser representados por listas e fazer manipulações simples sobre elas." }],
+          competencies: [
+            "1 — Valorizar e utilizar os conhecimentos historicamente construídos sobre o mundo físico, social, cultural e digital…",
+            "5 — Compreender, utilizar e criar tecnologias digitais de informação e comunicação…",
+          ],
+          skills: [
+            { code: "EF06CO01", axis: "Pensamento Computacional", main: true, text: "Classificar informações, agrupando-as em coleções (conjuntos) e associando cada coleção a um ‘tipo de dados’." },
+            { code: "EF04CO05", axis: "Mundo Digital", main: true, text: "Codificar diferentes informações para representação em computador (binária, ASCII, atributos de pixel, como RGB etc.)." },
+            { code: "EF05CO01", axis: "Pensamento Computacional", main: false, text: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de listas que estabelecem uma organização na qual há um número variável de itens dispostos em sequência, fazendo manipulações simples sobre estas representações." },
+          ],
+          related: [
+            { code: "EF06MA02", text: "Reconhecer o sistema de numeração decimal, como o que prevaleceu no mundo ocidental, e destacar semelhanças e diferenças com outros sistemas, de modo a sistematizar suas principais características (base, valor posicional e função do zero), utilizando, inclusive, a composição e decomposição de números naturais e números racionais em sua representação decimal." },
+            { code: "EF06MA31", text: "Identificar as variáveis e suas frequências e os elementos constitutivos (título, eixos, legendas, fontes e datas) em diferentes tipos de gráfico." },
+          ],
+          materials: [
+            "Folha quadriculada e lápis preto",
+            "Sequências de 0 e 1 impressas (0 = branco, 1 = preto)",
+            "Computador ou tablet com Desmistificador de Pixels, Estante Organizada e Dados e gráficos",
+            "Projetor (opcional)",
+          ],
           sequence: [
-            { step: "Abertura", time: "5 min", description: "Pergunte: \"como um computador guarda um desenho, se ele só entende números?\"" },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Desmistificador de Pixels e decodifique um desenho junto com a turma." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Desmistificador de Pixels e depois Estante Organizada." },
-            { step: "Fechamento", time: "10 min", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
+            { step: "Abertura: pixel art no papel", time: "8 min", mode: "desplugada", description: "Entregue sequências de 0 e 1 e peça que pintem os quadradinhos (1 = pintado). Pergunte: \"como um computador guarda um desenho, se ele só entende números?\"." },
+            { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Projete o Desmistificador de Pixels e decodifique um desenho junto com a turma." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam o Desmistificador de Pixels e depois a Estante Organizada; para classificar tipos de dados, use também Dados e gráficos." },
+            { step: "Atividade desplugada: o meu código", time: "13 min", mode: "desplugada", description: "Cada aluno cria um desenho simples em grade 5×5, escreve o código em 0 e 1 e troca com um colega, que desenha a partir do código." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
           ],
-          missions: ["pixels", "sort", "data"],
+          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos.",
+          missions: ["pixels", "sort", "data", "hardware", "safe"],
           assessment: [
             "Consegue \"ler\" um código binário simples e prever o desenho?",
             "Ordena uma lista pequena trocando apenas itens vizinhos?",
@@ -9432,20 +9718,40 @@
           ageLabel: "12-13 anos",
           theme: "Variáveis: guardando valores",
           duration: "50 minutos",
+          summary: "Os alunos compreendem a variável como um espaço nomeado que guarda um valor que pode mudar e comparam estratégias de ordenação de uma lista.",
+          transition2026: true,
           objectives: [
             "Compreender a variável como um espaço nomeado que guarda um valor.",
             "Relacionar a troca do valor de uma variável com a mudança visual de um objeto.",
             "Comparar diferentes formas de ordenar uma lista de itens.",
           ],
-          competencies: ["1 — Valorizar e utilizar os conhecimentos historicamente construídos sobre o mundo físico, social, cultural e digital…", "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…"],
-          skills: [{ code: "EF06CO06", text: "Comparar casos particulares de um mesmo problema e criar um algoritmo para todos eles, usando variáveis (parâmetros); correspondência parcial." }, { code: "EF05CO01", text: "Reconhecer objetos do mundo real e digital que podem ser representados por listas e fazer manipulações simples sobre elas, retomada do 5º ano." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Compare uma variável a uma caixa rotulada que guarda um valor que pode mudar." },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Tradutor de Sinais e siga com a turma cada comando da sequência até descobrir o valor final da variável." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Tradutor de Sinais e depois Estante Organizada." },
-            { step: "Fechamento", time: "10 min", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
+          competencies: [
+            "1 — Valorizar e utilizar os conhecimentos historicamente construídos sobre o mundo físico, social, cultural e digital…",
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
           ],
-          missions: ["var", "sort", "math"],
+          skills: [
+            { code: "EF06CO06", axis: "Pensamento Computacional", main: true, text: "Comparar diferentes casos particulares (instâncias) de um mesmo problema, identificando as semelhanças e diferenças entre eles, e criar um algoritmo para resolver todos, fazendo uso de variáveis (parâmetros) para permitir o tratamento de todos os casos de forma genérica." },
+            { code: "EF05CO01", axis: "Pensamento Computacional", main: false, text: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de listas que estabelecem uma organização na qual há um número variável de itens dispostos em sequência, fazendo manipulações simples sobre estas representações." },
+            { code: "EF08CO03", axis: "Pensamento Computacional", main: false, text: "Utilizar algoritmos clássicos de manipulação sobre listas." },
+          ],
+          related: [
+            { code: "EF07MA13", text: "Compreender a ideia de variável, representada por letra ou símbolo, para expressar relação entre duas grandezas, diferenciando-a da ideia de incógnita." },
+          ],
+          materials: [
+            "Caixas ou copos rotulados com nomes (variáveis) e papéis com valores",
+            "Papel e lápis",
+            "Computador ou tablet com Tradutor de Sinais e Estante Organizada",
+            "Projetor (opcional)",
+          ],
+          sequence: [
+            { step: "Abertura: caixas com rótulo", time: "8 min", mode: "desplugada", description: "Compare uma variável a uma caixa rotulada que guarda um valor que pode mudar. Em um jogo de placar, a caixa \"pontos\" recebe novos valores a cada rodada." },
+            { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Projete o Tradutor de Sinais e siga com a turma cada comando da sequência até descobrir o valor final da variável." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam o Tradutor de Sinais e depois a Estante Organizada, comparando como trocar itens vizinhos ordena a lista." },
+            { step: "Atividade desplugada: o placar", time: "13 min", mode: "desplugada", description: "Em grupos, simulam um placar com a caixa \"pontos\": a cada comando do professor, atualizam o valor e registram a sequência de valores. Depois escrevem o algoritmo em português." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
+          ],
+          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos.",
+          missions: ["var", "sort", "math", "hardware", "safe"],
           assessment: [
             "Explica com uma frase o que é uma variável?",
             "Relaciona corretamente o valor escolhido ao resultado visual?",
@@ -9457,20 +9763,42 @@
           ageLabel: "12-13 anos",
           theme: "Eficiência: comparando soluções",
           duration: "50 minutos",
+          summary: "A turma percebe que um mesmo problema pode ter várias soluções corretas, compara quantos passos cada uma usa e depura sequências mais longas.",
+          transition2026: true,
           objectives: [
             "Perceber que um mesmo problema pode ter mais de uma solução correta.",
-            "Comparar soluções de forma intuitiva quanto à quantidade de passos usados.",
+            "Comparar soluções quanto à quantidade de passos usados.",
             "Depurar sequências mais longas com múltiplos comandos.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "7 — Argumentar com base em fatos, dados e informações confiáveis…"],
-          skills: [{ code: "EF07CO02", text: "Analisar programas para detectar e remover erros, ampliando a confiança na sua correção." }, { code: "EF07CO05", text: "Criar algoritmos usando decomposição e reúso no processo de solução, de forma colaborativa e cooperativa." }, { code: "EF06CO02", text: "Elaborar algoritmos que envolvam instruções sequenciais, de repetição e de seleção." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Pergunte: \"duas soluções diferentes podem estar certas ao mesmo tempo?\"" },
-            { step: "Exploração guiada", time: "15 min", description: "Projete Fábrica de Laços e monte, com a turma, mais de uma combinação de repetições e passo extra que chegue ao mesmo total." },
-            { step: "Prática individual", time: "20 min", description: "Alunos jogam Fábrica de Laços e depois Caça ao Bug, em grades maiores." },
-            { step: "Fechamento", time: "10 min", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "7 — Argumentar com base em fatos, dados e informações confiáveis…",
           ],
-          missions: ["loop", "bug", "code"],
+          skills: [
+            { code: "EF06CO02", axis: "Pensamento Computacional", main: true, text: "Elaborar algoritmos que envolvam instruções sequenciais, de repetição e de seleção usando uma linguagem de programação." },
+            { code: "EF07CO02", axis: "Pensamento Computacional", main: true, text: "Analisar programas para detectar e remover erros, ampliando a confiança na sua correção." },
+            { code: "EF07CO05", axis: "Pensamento Computacional", main: false, text: "Criar algoritmos fazendo uso da decomposição e do reúso no processo de solução de forma colaborativa e cooperativa e automatizá-los usando uma linguagem de programação." },
+            { code: "EF08CO03", axis: "Pensamento Computacional", main: false, text: "Utilizar algoritmos clássicos de manipulação sobre listas." },
+          ],
+          related: [
+            { code: "EF08MA10", text: "Identificar a regularidade de uma sequência numérica ou figural não recursiva e construir um algoritmo por meio de um fluxograma que permita indicar os números ou as figuras seguintes." },
+            { code: "EF08MA11", text: "Identificar a regularidade de uma sequência numérica recursiva e construir um algoritmo por meio de um fluxograma que permita indicar os números seguintes." },
+          ],
+          materials: [
+            "Cartões de comandos que podem ser combinados de formas diferentes",
+            "Papel e lápis para desenhar um fluxograma",
+            "Computador ou tablet com Fábrica de Laços, Caça ao Bug e Mensagem secreta",
+            "Projetor (opcional)",
+          ],
+          sequence: [
+            { step: "Abertura", time: "6 min", mode: "desplugada", description: "Pergunte: \"duas soluções diferentes podem estar certas ao mesmo tempo?\". Dê um exemplo (dois caminhos até a quadra) e peça que contem os passos de cada um." },
+            { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Projete a Fábrica de Laços e monte, com a turma, mais de uma combinação de repetições e passo extra que chegue ao mesmo total." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam a Fábrica de Laços e depois a Caça ao Bug, em grades maiores; a Mensagem secreta serve de desafio extra." },
+            { step: "Atividade desplugada: o fluxograma", time: "15 min", mode: "desplugada", description: "Em duplas, desenham o fluxograma de duas soluções para o mesmo problema (por exemplo, achar o maior número de uma lista) e comparam qual usa menos passos." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
+          ],
+          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos.",
+          missions: ["loop", "bug", "code", "hardware", "safe"],
           assessment: [
             "Encontra mais de uma combinação correta para o mesmo total?",
             "Argumenta por que preferiu uma solução a outra?",
@@ -9482,24 +9810,45 @@
           ageLabel: "14 anos",
           theme: "Pensamento computacional integrado",
           duration: "55 minutos",
+          summary: "Os estudantes combinam decomposição, padrões, abstração e algoritmos em desafios de maior complexidade e refletem sobre cifras e segurança da informação.",
+          transition2026: true,
           objectives: [
             "Integrar decomposição, reconhecimento de padrões, abstração e algoritmos em desafios combinados.",
-            "Refletir sobre onde a lógica de programação aparece em tecnologias do cotidiano.",
+            "Compreender como uma cifra simples protege uma mensagem e por que ela pode ser quebrada.",
             "Resolver desafios de maior complexidade com autonomia.",
           ],
-          competencies: ["2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…", "6 — Valorizar a diversidade de saberes e vivências culturais e apropriar-se de conhecimentos e experiências…"],
-          skills: [{ code: "EF09CO02", text: "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa." }, { code: "EF69CO04", text: "Construir soluções de problemas usando a técnica de decomposição e automatizá-las em uma linguagem de programação." }, { code: "EF09CO05", text: "Analisar técnicas de criptografia para armazenamento e transmissão de dados." }],
-          sequence: [
-            { step: "Abertura", time: "5 min", description: "Roda de conversa: onde vocês acham que existe \"pensamento computacional\" fora do computador?" },
-            { step: "Circuito de missões", time: "30 min", description: "Turma se divide em estações: Mensagem secreta, Desmistificador de Pixels, Caça ao Bug, Fábrica de Laços e Divida a Tarefa, todas na fase de 9º ano." },
-            { step: "Desafio final", time: "10 min", description: "Copa da Matemática, Jogo da Velha dos Enigmas ou Robô Decifrador em dupla, faixa mais avançada, como encerramento competitivo e integrador de disciplinas." },
-            { step: "Fechamento", time: "10 min", description: "Cada aluno cita um pilar do pensamento computacional e dá um exemplo pessoal." },
+          competencies: [
+            "2 — Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências…",
+            "6 — Valorizar a diversidade de saberes e vivências culturais e apropriar-se de conhecimentos e experiências…",
           ],
-          missions: ["code", "pixels", "bug", "loop", "ttt", "decoder", "decompose"],
+          skills: [
+            { code: "EF09CO02", axis: "Pensamento Computacional", main: true, text: "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa, selecionando as estruturas de dados e técnicas adequadas, aperfeiçoando e articulando saberes escolares." },
+            { code: "EF09CO05", axis: "Mundo Digital", main: true, text: "Analisar técnicas de criptografia para armazenamento e transmissão de dados." },
+            { code: "EF06CO04", axis: "Pensamento Computacional", main: false, text: "Construir soluções de problemas usando a técnica de decomposição e automatizar tais soluções usando uma linguagem de programação." },
+          ],
+          related: [
+            { code: "EF69AR35", text: "Identificar e manipular diferentes tecnologias e recursos digitais para acessar, apreciar, produzir, registrar e compartilhar práticas e repertórios artísticos, de modo reflexivo, ético e responsável." },
+            { code: "EF09MA22", text: "Escolher e construir o gráfico mais adequado (colunas, setores, linhas), com ou sem uso de planilhas eletrônicas, para apresentar um determinado conjunto de dados, destacando aspectos como as medidas de tendência central." },
+          ],
+          materials: [
+            "Disco de cifra de César em papel (ou tabela de deslocamento do alfabeto)",
+            "Papel e lápis",
+            "Computador ou tablet com as missões do circuito",
+            "Projetor (opcional)",
+          ],
+          sequence: [
+            { step: "Abertura: cifra no papel", time: "10 min", mode: "desplugada", description: "Apresente a cifra de César: cada letra é trocada pela que está N posições adiante. A turma cifra e decifra uma frase curta e discute: por que essa cifra não protege dados hoje?" },
+            { step: "Circuito de missões", time: "20 min", mode: "plugada", description: "A turma se divide em estações: Mensagem secreta, Desmistificador de Pixels, Caça ao Bug, Fábrica de Laços e Divida a Tarefa, todas na fase de 9º ano. Organize a rotação para que cada aluno tenha um tempo de tela equilibrado." },
+            { step: "Atividade desplugada: a minha cifra", time: "12 min", mode: "desplugada", description: "Em duplas, cada aluno inventa uma regra de cifra (um deslocamento diferente ou uma troca de letras), cifra uma frase e passa ao colega, que tenta quebrar o código sem saber a regra. Registrem quantas tentativas foram necessárias e por que." },
+            { step: "Desafio final", time: "8 min", mode: "plugada", description: "Em dupla, Robô Decifrador, Jogo da Velha dos Enigmas ou Copa da Matemática, como encerramento integrador de disciplinas." },
+            { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Cada aluno cita um pilar do pensamento computacional (decomposição, reconhecimento de padrões, abstração, algoritmos) e dá um exemplo pessoal." },
+          ],
+          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos.",
+          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe"],
           assessment: [
             "Resolve desafios da fase mais avançada com autonomia?",
             "Nomeia corretamente ao menos um pilar do pensamento computacional?",
-            "Relaciona o conteúdo a uma tecnologia real que usa no dia a dia?",
+            "Explica por que uma cifra simples pode ser quebrada?",
           ],
         },
       ];
@@ -10007,7 +10356,7 @@
         { icon: "🔑", word: "CHAVE", options: [{ icon: "🎩", word: "CHAPÉU", correct: true }, { icon: "🍌", word: "BANANA" }, { icon: "🧴", word: "GARRAFA" }, { icon: "🐭", word: "RATO" }] },
         { icon: "🌧️", word: "CHUVA", options: [{ icon: "🍫", word: "CHOCOLATE", correct: true }, { icon: "✏️", word: "LÁPIS" }, { icon: "🚪", word: "PORTA" }, { icon: "🐸", word: "SAPO" }] },
         { icon: "👛", word: "BOLSA", options: [{ icon: "🧣", word: "CACHECOL" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "⛵", word: "BARCO", correct: true }, { icon: "🌰", word: "NOZ" }] },
-        { icon: "⛵", word: "BARCO", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🔔", word: "SINO" }, { icon: "💡", word: "LUZ" }, { icon: "🍌", word: "BANANA", correct: true }] },
+        { icon: "⛵", word: "BARCO", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🔔", word: "SINO" }, { icon: "💡", word: "LUZ" }, { icon: "⚽", word: "BOLA", correct: true }] },
         { icon: "🍌", word: "BANANA", options: [{ icon: "👦", word: "GAROTO" }, { icon: "🌉", word: "PONTE" }, { icon: "🙂", word: "ROSTO" }, { icon: "👢", word: "BOTA", correct: true }] },
         { icon: "👢", word: "BOTA", options: [{ icon: "🌰", word: "NOZ" }, { icon: "💡", word: "LUZ" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🦋", word: "BORBOLETA", correct: true }] },
         { icon: "🦋", word: "BORBOLETA", options: [{ icon: "🐍", word: "COBRA" }, { icon: "🐐", word: "BODE", correct: true }, { icon: "🦦", word: "LONTRA" }, { icon: "☂️", word: "GUARDA-CHUVA" }] },
@@ -10030,22 +10379,22 @@
         { icon: "🐶", word: "CACHORRO", options: [{ icon: "🥪", word: "SANDUÍCHE" }, { icon: "🐫", word: "CAMELO", correct: true }, { icon: "🎸", word: "VIOLÃO" }, { icon: "🧚", word: "FADA" }] },
         { icon: "🐫", word: "CAMELO", options: [{ icon: "💨", word: "FUMAÇA" }, { icon: "🧁", word: "BOLINHO" }, { icon: "⚡", word: "RAIO" }, { icon: "🛏️", word: "CAMA", correct: true }] },
         { icon: "🛏️", word: "CAMA", options: [{ icon: "🦷", word: "DENTE" }, { icon: "🐍", word: "COBRA", correct: true }, { icon: "🥪", word: "SANDUÍCHE" }, { icon: "🎮", word: "JOGO" }] },
-        { icon: "🐍", word: "COBRA", options: [{ icon: "🥁", word: "TAMBOR" }, { icon: "🧵", word: "FIO" }, { icon: "👶", word: "BEBÊ" }, { icon: "🐰", word: "COELHO", correct: true }] },
+        { icon: "🐍", word: "COBRA", options: [{ icon: "🥁", word: "TAMBOR" }, { icon: "🧵", word: "FIO" }, { icon: "👶", word: "BEBÊ" }, { icon: "🏠", word: "CASA", correct: true }] },
         { icon: "🐰", word: "COELHO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "👑", word: "COROA", correct: true }, { icon: "👹", word: "MONSTRO" }, { icon: "🌻", word: "JARDIM" }] },
-        { icon: "👑", word: "COROA", options: [{ icon: "🍵", word: "CHÁ" }, { icon: "🎉", word: "FESTA" }, { icon: "🥥", word: "COCO", correct: true }, { icon: "🎻", word: "VIOLINO" }] },
+        { icon: "👑", word: "COROA", options: [{ icon: "☀️", word: "SOL" }, { icon: "🎉", word: "FESTA" }, { icon: "🥥", word: "COCO", correct: true }, { icon: "🎻", word: "VIOLINO" }] },
         { icon: "🥥", word: "COCO", options: [{ icon: "🪁", word: "PIPA" }, { icon: "🎸", word: "VIOLÃO" }, { icon: "🦘", word: "CANGURU", correct: true }, { icon: "⛵", word: "BARCO" }] },
         { icon: "🦘", word: "CANGURU", options: [{ icon: "🐢", word: "TARTARUGA" }, { icon: "🐓", word: "GALO" }, { icon: "🐉", word: "DRAGÃO" }, { icon: "👕", word: "CAMISA", correct: true }] },
         { icon: "👕", word: "CAMISA", options: [{ icon: "🚚", word: "CAMINHÃO", correct: true }, { icon: "🐜", word: "FORMIGA" }, { icon: "😀", word: "SORRISO" }, { icon: "🌃", word: "NOITE" }] },
         { icon: "🚚", word: "CAMINHÃO", options: [{ icon: "📞", word: "TELEFONE" }, { icon: "🥄", word: "COLHER", correct: true }, { icon: "🧹", word: "VASSOURA" }, { icon: "🐞", word: "JOANINHA" }] },
-        { icon: "🥄", word: "COLHER", options: [{ icon: "🍬", word: "DOCE" }, { icon: "🌰", word: "NOZ" }, { icon: "🦉", word: "CORUJA", correct: true }, { icon: "👡", word: "CHINELO" }] },
+        { icon: "🥄", word: "COLHER", options: [{ icon: "🍬", word: "DOCE" }, { icon: "🌰", word: "NOZ" }, { icon: "🦉", word: "CORUJA", correct: true }, { icon: "🦆", word: "PATO" }] },
         { icon: "🦉", word: "CORUJA", options: [{ icon: "🚲", word: "BICICLETA" }, { icon: "⌚", word: "RELÓGIO" }, { icon: "🐓", word: "GALO" }, { icon: "🌵", word: "CACTO", correct: true }] },
         { icon: "🌵", word: "CACTO", options: [{ icon: "🦝", word: "GUAXINIM" }, { icon: "🚩", word: "BANDEIRA" }, { icon: "🎁", word: "PRESENTE" }, { icon: "🦐", word: "CAMARÃO", correct: true }] },
         { icon: "🦐", word: "CAMARÃO", options: [{ icon: "👢", word: "BOTA" }, { icon: "🍄", word: "COGUMELO", correct: true }, { icon: "🥁", word: "TAMBOR" }, { icon: "🌬️", word: "VENTO" }] },
-        { icon: "🍄", word: "COGUMELO", options: [{ icon: "🧣", word: "CACHECOL", correct: true }, { icon: "🎺", word: "TROMBETA" }, { icon: "⚖️", word: "BALANÇA" }, { icon: "🎩", word: "CHAPÉU" }] },
+        { icon: "🍄", word: "COGUMELO", options: [{ icon: "🧣", word: "CACHECOL", correct: true }, { icon: "🎺", word: "TROMBETA" }, { icon: "⚖️", word: "BALANÇA" }, { icon: "🏺", word: "VASO" }] },
         { icon: "🧣", word: "CACHECOL", options: [{ icon: "🍽️", word: "JANTAR" }, { icon: "🌃", word: "NOITE" }, { icon: "🔒", word: "CADEADO", correct: true }, { icon: "🍳", word: "PANELA" }] },
         { icon: "🔒", word: "CADEADO", options: [{ icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "🪑", word: "CADEIRA", correct: true }, { icon: "💿", word: "DISCO" }, { icon: "🌋", word: "VULCÃO" }] },
-        { icon: "🪑", word: "CADEIRA", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍅", word: "TOMATE" }, { icon: "✋", word: "MÃO" }, { icon: "🚗", word: "CARRO", correct: true }] },
-        { icon: "🦷", word: "DENTE", options: [{ icon: "⚡", word: "RAIO" }, { icon: "📷", word: "FOTO" }, { icon: "🍬", word: "DOCE", correct: true }, { icon: "🐬", word: "GOLFINHO" }] },
+        { icon: "🪑", word: "CADEIRA", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍅", word: "TOMATE" }, { icon: "✋", word: "MÃO" }, { icon: "🥤", word: "COPO", correct: true }] },
+        { icon: "🦷", word: "DENTE", options: [{ icon: "⚡", word: "RAIO" }, { icon: "📷", word: "FOTO" }, { icon: "🎲", word: "DADO", correct: true }, { icon: "🐬", word: "GOLFINHO" }] },
         { icon: "🍬", word: "DOCE", options: [{ icon: "🌻", word: "JARDIM" }, { icon: "🧦", word: "MEIA" }, { icon: "🐦", word: "PASSARINHO" }, { icon: "🐉", word: "DRAGÃO", correct: true }] },
         { icon: "🐉", word: "DRAGÃO", options: [{ icon: "☁️", word: "NUVEM" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🦕", word: "DINOSSAURO", correct: true }, { icon: "👢", word: "BOTA" }] },
         { icon: "🦕", word: "DINOSSAURO", options: [{ icon: "🏍️", word: "MOTO" }, { icon: "🧤", word: "LUVA" }, { icon: "💿", word: "DISCO", correct: true }, { icon: "🌰", word: "NOZ" }] },
@@ -10056,8 +10405,8 @@
         { icon: "🏜️", word: "DESERTO", options: [{ icon: "👦", word: "GAROTO" }, { icon: "🏍️", word: "MOTO" }, { icon: "💎", word: "DIAMANTE", correct: true }, { icon: "🪁", word: "PIPA" }] },
         { icon: "💎", word: "DIAMANTE", options: [{ icon: "🍫", word: "CHOCOLATE" }, { icon: "🐞", word: "JOANINHA" }, { icon: "🧤", word: "LUVA" }, { icon: "🧝", word: "DUENDE", correct: true }] },
         { icon: "🧝", word: "DUENDE", options: [{ icon: "🌋", word: "VULCÃO" }, { icon: "🍖", word: "CHURRASCO" }, { icon: "🍦", word: "SORVETE" }, { icon: "🎨", word: "DESENHO", correct: true }] },
-        { icon: "🎨", word: "DESENHO", options: [{ icon: "🦷", word: "DENTE", correct: true }, { icon: "🧃", word: "SUCO" }, { icon: "🦎", word: "LAGARTIXA" }, { icon: "📞", word: "TELEFONE" }] },
-        { icon: "🧚", word: "FADA", options: [{ icon: "📷", word: "FOTO", correct: true }, { icon: "🧦", word: "MEIA" }, { icon: "🚣", word: "REMO" }, { icon: "🛏️", word: "CAMA" }] },
+        { icon: "🎨", word: "DESENHO", options: [{ icon: "👆", word: "DEDO", correct: true }, { icon: "🧃", word: "SUCO" }, { icon: "🦎", word: "LAGARTIXA" }, { icon: "📞", word: "TELEFONE" }] },
+        { icon: "🧚", word: "FADA", options: [{ icon: "🔪", word: "FACA", correct: true }, { icon: "🧦", word: "MEIA" }, { icon: "🚣", word: "REMO" }, { icon: "🛏️", word: "CAMA" }] },
         { icon: "📷", word: "FOTO", options: [{ icon: "🐸", word: "SAPO" }, { icon: "🐒", word: "MACACO" }, { icon: "🕯️", word: "VELA" }, { icon: "🍃", word: "FOLHA", correct: true }] },
         { icon: "🍃", word: "FOLHA", options: [{ icon: "🐬", word: "GOLFINHO" }, { icon: "💵", word: "DINHEIRO" }, { icon: "👻", word: "FANTASMA", correct: true }, { icon: "🎩", word: "CHAPÉU" }] },
         { icon: "👻", word: "FANTASMA", options: [{ icon: "🍿", word: "PIPOCA" }, { icon: "🎀", word: "FITA", correct: true }, { icon: "🛋️", word: "SOFÁ" }, { icon: "🥫", word: "LATA" }] },
@@ -10069,21 +10418,21 @@
         { icon: "🦅", word: "FALCÃO", options: [{ icon: "💨", word: "FUMAÇA", correct: true }, { icon: "🦇", word: "MORCEGO" }, { icon: "🚣", word: "REMO" }, { icon: "🧁", word: "BOLINHO" }] },
         { icon: "💨", word: "FUMAÇA", options: [{ icon: "🦦", word: "LONTRA" }, { icon: "🌀", word: "FURACÃO", correct: true }, { icon: "💵", word: "DINHEIRO" }, { icon: "🍖", word: "CHURRASCO" }] },
         { icon: "🌀", word: "FURACÃO", options: [{ icon: "🐂", word: "BOI" }, { icon: "🧚", word: "FADA", correct: true }, { icon: "🧝", word: "DUENDE" }, { icon: "🥤", word: "GUARANÁ" }] },
-        { icon: "🐓", word: "GALO", options: [{ icon: "🤡", word: "PALHAÇO" }, { icon: "🧛", word: "VAMPIRO" }, { icon: "🥁", word: "TAMBOR" }, { icon: "🐔", word: "GALINHA", correct: true }] },
+        { icon: "🐓", word: "GALO", options: [{ icon: "🤡", word: "PALHAÇO" }, { icon: "🧛", word: "VAMPIRO" }, { icon: "🥁", word: "TAMBOR" }, { icon: "🧴", word: "GARRAFA", correct: true }] },
         { icon: "🐔", word: "GALINHA", options: [{ icon: "☂️", word: "GUARDA-CHUVA", correct: true }, { icon: "🥁", word: "TAMBOR" }, { icon: "🧸", word: "BRINQUEDO" }, { icon: "🙂", word: "ROSTO" }] },
         { icon: "☂️", word: "GUARDA-CHUVA", options: [{ icon: "🥤", word: "GUARANÁ", correct: true }, { icon: "🌱", word: "PLANTA" }, { icon: "👗", word: "VESTIDO" }, { icon: "🌃", word: "NOITE" }] },
         { icon: "🥤", word: "GUARANÁ", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🦝", word: "GUAXINIM", correct: true }, { icon: "🧣", word: "CACHECOL" }, { icon: "💿", word: "DISCO" }] },
         { icon: "🦝", word: "GUAXINIM", options: [{ icon: "👦", word: "GAROTO", correct: true }, { icon: "🌉", word: "PONTE" }, { icon: "🍽️", word: "JANTAR" }, { icon: "🦌", word: "RENA" }] },
         { icon: "👦", word: "GAROTO", options: [{ icon: "🚂", word: "TREM" }, { icon: "🛋️", word: "SOFÁ" }, { icon: "🐬", word: "GOLFINHO", correct: true }, { icon: "🚙", word: "JIPE" }] },
         { icon: "🐬", word: "GOLFINHO", options: [{ icon: "👡", word: "CHINELO" }, { icon: "🔨", word: "MARTELO" }, { icon: "🌀", word: "FURACÃO" }, { icon: "💧", word: "GOTA", correct: true }] },
-        { icon: "💧", word: "GOTA", options: [{ icon: "🚿", word: "DUCHA" }, { icon: "🧳", word: "MALA" }, { icon: "❄️", word: "NEVE" }, { icon: "🐓", word: "GALO", correct: true }] },
+        { icon: "💧", word: "GOTA", options: [{ icon: "🚿", word: "DUCHA" }, { icon: "🧳", word: "MALA" }, { icon: "❄️", word: "NEVE" }, { icon: "🐱", word: "GATO", correct: true }] },
         { icon: "🍽️", word: "JANTAR", options: [{ icon: "🧵", word: "FIO" }, { icon: "🚚", word: "CAMINHÃO" }, { icon: "📻", word: "RÁDIO" }, { icon: "🐞", word: "JOANINHA", correct: true }] },
         { icon: "🐞", word: "JOANINHA", options: [{ icon: "🚙", word: "JIPE", correct: true }, { icon: "🌵", word: "CACTO" }, { icon: "👡", word: "CHINELO" }, { icon: "🚂", word: "TREM" }] },
         { icon: "🚙", word: "JIPE", options: [{ icon: "🔔", word: "SINO" }, { icon: "🐜", word: "FORMIGA" }, { icon: "🧣", word: "CACHECOL" }, { icon: "🌻", word: "JARDIM", correct: true }] },
         { icon: "🌻", word: "JARDIM", options: [{ icon: "🚿", word: "DUCHA" }, { icon: "🌃", word: "NOITE" }, { icon: "👨‍🍳", word: "CHEFE" }, { icon: "🎮", word: "JOGO", correct: true }] },
         { icon: "🎮", word: "JOGO", options: [{ icon: "🍶", word: "JARRA", correct: true }, { icon: "🛢️", word: "BARRIL" }, { icon: "📞", word: "TELEFONE" }, { icon: "🌃", word: "NOITE" }] },
-        { icon: "🍶", word: "JARRA", options: [{ icon: "🍽️", word: "JANTAR", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "🐒", word: "MACACO" }, { icon: "🍫", word: "CHOCOLATE" }] },
-        { icon: "📖", word: "LIVRO", options: [{ icon: "💎", word: "DIAMANTE" }, { icon: "✏️", word: "LÁPIS", correct: true }, { icon: "🍵", word: "CHÁ" }, { icon: "🏛️", word: "MUSEU" }] },
+        { icon: "🍶", word: "JARRA", options: [{ icon: "🦵", word: "JOELHO", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "🐒", word: "MACACO" }, { icon: "🍫", word: "CHOCOLATE" }] },
+        { icon: "📖", word: "LIVRO", options: [{ icon: "💎", word: "DIAMANTE" }, { icon: "🦁", word: "LEÃO", correct: true }, { icon: "🍵", word: "CHÁ" }, { icon: "🏛️", word: "MUSEU" }] },
         { icon: "✏️", word: "LÁPIS", options: [{ icon: "🌃", word: "NOITE" }, { icon: "🍊", word: "LARANJA", correct: true }, { icon: "🍃", word: "FOLHA" }, { icon: "🚿", word: "DUCHA" }] },
         { icon: "🍊", word: "LARANJA", options: [{ icon: "🌃", word: "NOITE" }, { icon: "🎺", word: "TROMBETA" }, { icon: "🦎", word: "LAGARTIXA", correct: true }, { icon: "🐍", word: "COBRA" }] },
         { icon: "🦎", word: "LAGARTIXA", options: [{ icon: "🎩", word: "CHAPÉU" }, { icon: "🐋", word: "BALEIA" }, { icon: "📞", word: "TELEFONE" }, { icon: "🥫", word: "LATA", correct: true }] },
@@ -10094,8 +10443,8 @@
         { icon: "🥛", word: "LEITE", options: [{ icon: "💡", word: "LUZ", correct: true }, { icon: "🐓", word: "GALO" }, { icon: "☁️", word: "NUVEM" }, { icon: "🌭", word: "SALSICHA" }] },
         { icon: "💡", word: "LUZ", options: [{ icon: "🦦", word: "LONTRA", correct: true }, { icon: "🎁", word: "PRESENTE" }, { icon: "🐂", word: "BOI" }, { icon: "🐞", word: "JOANINHA" }] },
         { icon: "🦦", word: "LONTRA", options: [{ icon: "🎉", word: "FESTA" }, { icon: "🐬", word: "DELFIM" }, { icon: "🧃", word: "SUCO" }, { icon: "🐆", word: "LEOPARDO", correct: true }] },
-        { icon: "🐆", word: "LEOPARDO", options: [{ icon: "📖", word: "LIVRO", correct: true }, { icon: "🍿", word: "PIPOCA" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🍫", word: "CHOCOLATE" }] },
-        { icon: "✋", word: "MÃO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🙂", word: "ROSTO" }, { icon: "🐒", word: "MACACO", correct: true }, { icon: "🚂", word: "TREM" }] },
+        { icon: "🐆", word: "LEOPARDO", options: [{ icon: "🌙", word: "LUA", correct: true }, { icon: "🍿", word: "PIPOCA" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🍫", word: "CHOCOLATE" }] },
+        { icon: "✋", word: "MÃO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🙂", word: "ROSTO" }, { icon: "🍎", word: "MAÇÃ", correct: true }, { icon: "🚂", word: "TREM" }] },
         { icon: "🐒", word: "MACACO", options: [{ icon: "🧁", word: "BOLINHO" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🧚", word: "FADA" }, { icon: "🍓", word: "MORANGO", correct: true }] },
         { icon: "🍓", word: "MORANGO", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🥗", word: "SALADA" }, { icon: "🎒", word: "MOCHILA", correct: true }, { icon: "🧁", word: "BOLINHO" }] },
         { icon: "🎒", word: "MOCHILA", options: [{ icon: "🔨", word: "MARTELO", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "🍳", word: "PANELA" }, { icon: "🥫", word: "LATA" }] },
@@ -10109,14 +10458,14 @@
         { icon: "🏍️", word: "MOTO", options: [{ icon: "📞", word: "TELEFONE" }, { icon: "🧦", word: "MEIA", correct: true }, { icon: "❄️", word: "NEVE" }, { icon: "🐬", word: "DELFIM" }] },
         { icon: "🧦", word: "MEIA", options: [{ icon: "🍶", word: "JARRA" }, { icon: "⚡", word: "RAIO" }, { icon: "🏴‍☠️", word: "PIRATA" }, { icon: "🌽", word: "MILHO", correct: true }] },
         { icon: "🌽", word: "MILHO", options: [{ icon: "🌻", word: "JARDIM" }, { icon: "🥭", word: "MANGA", correct: true }, { icon: "🌹", word: "ROSA" }, { icon: "💨", word: "FUMAÇA" }] },
-        { icon: "🥭", word: "MANGA", options: [{ icon: "🐺", word: "LOBO" }, { icon: "🦌", word: "RENA" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "✋", word: "MÃO", correct: true }] },
-        { icon: "☁️", word: "NUVEM", options: [{ icon: "🚢", word: "NAVIO", correct: true }, { icon: "🎀", word: "FITA" }, { icon: "🚂", word: "TREM" }, { icon: "🌊", word: "MAR" }] },
+        { icon: "🥭", word: "MANGA", options: [{ icon: "🐺", word: "LOBO" }, { icon: "🦌", word: "RENA" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "🪑", word: "MESA", correct: true }] },
+        { icon: "☁️", word: "NUVEM", options: [{ icon: "👃", word: "NARIZ", correct: true }, { icon: "🎀", word: "FITA" }, { icon: "🚂", word: "TREM" }, { icon: "🌊", word: "MAR" }] },
         { icon: "🚢", word: "NAVIO", options: [{ icon: "🧚", word: "FADA" }, { icon: "🌉", word: "PONTE" }, { icon: "🌰", word: "NOZ", correct: true }, { icon: "🍵", word: "CHÁ" }] },
         { icon: "🌰", word: "NOZ", options: [{ icon: "😀", word: "SORRISO" }, { icon: "🏍️", word: "MOTO" }, { icon: "🛸", word: "NAVE", correct: true }, { icon: "🦎", word: "LAGARTIXA" }] },
         { icon: "🛸", word: "NAVE", options: [{ icon: "🦊", word: "RAPOSA" }, { icon: "❄️", word: "NEVE", correct: true }, { icon: "😀", word: "SORRISO" }, { icon: "🧹", word: "VASSOURA" }] },
         { icon: "❄️", word: "NEVE", options: [{ icon: "💧", word: "GOTA" }, { icon: "🌃", word: "NOITE", correct: true }, { icon: "🎒", word: "MOCHILA" }, { icon: "👑", word: "COROA" }] },
-        { icon: "🌃", word: "NOITE", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "☁️", word: "NUVEM", correct: true }, { icon: "🔨", word: "MARTELO" }, { icon: "👗", word: "VESTIDO" }] },
-        { icon: "🍞", word: "PÃO", options: [{ icon: "👨‍🍳", word: "CHEFE" }, { icon: "🧵", word: "FIO" }, { icon: "❄️", word: "NEVE" }, { icon: "🐟", word: "PEIXE", correct: true }] },
+        { icon: "🌃", word: "NOITE", options: [{ icon: "⌚", word: "RELÓGIO" }, { icon: "🏊", word: "NADADOR", correct: true }, { icon: "🔨", word: "MARTELO" }, { icon: "👗", word: "VESTIDO" }] },
+        { icon: "🍞", word: "PÃO", options: [{ icon: "👨‍🍳", word: "CHEFE" }, { icon: "🧵", word: "FIO" }, { icon: "❄️", word: "NEVE" }, { icon: "🚪", word: "PORTA", correct: true }] },
         { icon: "🐟", word: "PEIXE", options: [{ icon: "🍿", word: "PIPOCA", correct: true }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "🐺", word: "LOBO" }, { icon: "🍪", word: "BOLACHA" }] },
         { icon: "🍿", word: "PIPOCA", options: [{ icon: "🌽", word: "MILHO" }, { icon: "🐔", word: "GALINHA" }, { icon: "🍭", word: "PIRULITO", correct: true }, { icon: "🛸", word: "NAVE" }] },
         { icon: "🍭", word: "PIRULITO", options: [{ icon: "🪁", word: "PIPA", correct: true }, { icon: "🚚", word: "CAMINHÃO" }, { icon: "🍽️", word: "JANTAR" }, { icon: "🧔", word: "BARBA" }] },
@@ -10130,8 +10479,8 @@
         { icon: "🐷", word: "PORCO", options: [{ icon: "🐦", word: "PASSARINHO", correct: true }, { icon: "🙂", word: "ROSTO" }, { icon: "🛸", word: "NAVE" }, { icon: "👨‍🍳", word: "CHEFE" }] },
         { icon: "🐦", word: "PASSARINHO", options: [{ icon: "🐞", word: "JOANINHA" }, { icon: "🔘", word: "BOTÃO" }, { icon: "🎁", word: "PRESENTE", correct: true }, { icon: "🏛️", word: "MUSEU" }] },
         { icon: "🎁", word: "PRESENTE", options: [{ icon: "🌹", word: "ROSA" }, { icon: "🦶", word: "PÉ", correct: true }, { icon: "🐬", word: "GOLFINHO" }, { icon: "💎", word: "DIAMANTE" }] },
-        { icon: "🦶", word: "PÉ", options: [{ icon: "🧹", word: "VASSOURA" }, { icon: "🍞", word: "PÃO", correct: true }, { icon: "🐔", word: "GALINHA" }, { icon: "🐒", word: "MACACO" }] },
-        { icon: "⚡", word: "RAIO", options: [{ icon: "💧", word: "GOTA" }, { icon: "🌹", word: "ROSA", correct: true }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🌃", word: "NOITE" }] },
+        { icon: "🦶", word: "PÉ", options: [{ icon: "🧹", word: "VASSOURA" }, { icon: "🦆", word: "PATO", correct: true }, { icon: "🐔", word: "GALINHA" }, { icon: "🐒", word: "MACACO" }] },
+        { icon: "⚡", word: "RAIO", options: [{ icon: "💧", word: "GOTA" }, { icon: "🐭", word: "RATO", correct: true }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🌃", word: "NOITE" }] },
         { icon: "🌹", word: "ROSA", options: [{ icon: "🧼", word: "SABÃO" }, { icon: "🎻", word: "VIOLINO" }, { icon: "🦊", word: "RAPOSA", correct: true }, { icon: "🏜️", word: "DESERTO" }] },
         { icon: "🦊", word: "RAPOSA", options: [{ icon: "⌚", word: "RELÓGIO", correct: true }, { icon: "🚂", word: "TREM" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "🎨", word: "DESENHO" }] },
         { icon: "⌚", word: "RELÓGIO", options: [{ icon: "🍿", word: "PIPOCA" }, { icon: "👶", word: "BEBÊ" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "🦌", word: "RENA", correct: true }] },
@@ -10139,8 +10488,8 @@
         { icon: "🤖", word: "ROBÔ", options: [{ icon: "🥗", word: "SALADA" }, { icon: "🚢", word: "NAVIO" }, { icon: "🚣", word: "REMO", correct: true }, { icon: "🥁", word: "TAMBOR" }] },
         { icon: "🚣", word: "REMO", options: [{ icon: "🥤", word: "GUARANÁ" }, { icon: "🙂", word: "ROSTO", correct: true }, { icon: "🦷", word: "DENTE" }, { icon: "🐟", word: "PEIXE" }] },
         { icon: "🙂", word: "ROSTO", options: [{ icon: "👗", word: "VESTIDO" }, { icon: "🍭", word: "PIRULITO" }, { icon: "🎩", word: "CHAPÉU" }, { icon: "📻", word: "RÁDIO", correct: true }] },
-        { icon: "📻", word: "RÁDIO", options: [{ icon: "⚡", word: "RAIO", correct: true }, { icon: "🎉", word: "FESTA" }, { icon: "🌋", word: "VULCÃO" }, { icon: "👡", word: "CHINELO" }] },
-        { icon: "🐸", word: "SAPO", options: [{ icon: "🔔", word: "SINO", correct: true }, { icon: "🍋", word: "LIMÃO" }, { icon: "🍖", word: "CHURRASCO" }, { icon: "🛁", word: "BANHEIRA" }] },
+        { icon: "📻", word: "RÁDIO", options: [{ icon: "📏", word: "RÉGUA", correct: true }, { icon: "🎉", word: "FESTA" }, { icon: "🌋", word: "VULCÃO" }, { icon: "👡", word: "CHINELO" }] },
+        { icon: "🐸", word: "SAPO", options: [{ icon: "☀️", word: "SOL", correct: true }, { icon: "🍋", word: "LIMÃO" }, { icon: "🍖", word: "CHURRASCO" }, { icon: "🛁", word: "BANHEIRA" }] },
         { icon: "🔔", word: "SINO", options: [{ icon: "🍦", word: "SORVETE", correct: true }, { icon: "🚗", word: "CARRO" }, { icon: "🍞", word: "PÃO" }, { icon: "🚣", word: "REMO" }] },
         { icon: "🍦", word: "SORVETE", options: [{ icon: "🎀", word: "FITA" }, { icon: "👛", word: "BOLSA" }, { icon: "🛸", word: "NAVE" }, { icon: "🥗", word: "SALADA", correct: true }] },
         { icon: "🥗", word: "SALADA", options: [{ icon: "🧼", word: "SABÃO", correct: true }, { icon: "🌬️", word: "VENTO" }, { icon: "🛢️", word: "BARRIL" }, { icon: "🌊", word: "MAR" }] },
@@ -10151,8 +10500,8 @@
         { icon: "🧜", word: "SEREIA", options: [{ icon: "🐷", word: "PORCO" }, { icon: "🌭", word: "SALSICHA", correct: true }, { icon: "👹", word: "MONSTRO" }, { icon: "🥤", word: "GUARANÁ" }] },
         { icon: "🌭", word: "SALSICHA", options: [{ icon: "🗼", word: "TORRE" }, { icon: "👨‍🍳", word: "CHEFE" }, { icon: "👕", word: "CAMISA" }, { icon: "🥪", word: "SANDUÍCHE", correct: true }] },
         { icon: "🥪", word: "SANDUÍCHE", options: [{ icon: "🍬", word: "DOCE" }, { icon: "🧚", word: "FADA" }, { icon: "🦌", word: "RENA" }, { icon: "😀", word: "SORRISO", correct: true }] },
-        { icon: "😀", word: "SORRISO", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🐸", word: "SAPO", correct: true }, { icon: "📖", word: "LIVRO" }, { icon: "🚣", word: "REMO" }] },
-        { icon: "🍅", word: "TOMATE", options: [{ icon: "🐢", word: "TARTARUGA", correct: true }, { icon: "⌚", word: "RELÓGIO" }, { icon: "⛵", word: "BARCO" }, { icon: "👦", word: "GAROTO" }] },
+        { icon: "😀", word: "SORRISO", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "👟", word: "SAPATO", correct: true }, { icon: "📖", word: "LIVRO" }, { icon: "🚣", word: "REMO" }] },
+        { icon: "🍅", word: "TOMATE", options: [{ icon: "✂️", word: "TESOURA", correct: true }, { icon: "⌚", word: "RELÓGIO" }, { icon: "⛵", word: "BARCO" }, { icon: "👦", word: "GAROTO" }] },
         { icon: "🐢", word: "TARTARUGA", options: [{ icon: "🎮", word: "JOGO" }, { icon: "🚂", word: "TREM", correct: true }, { icon: "🐬", word: "DELFIM" }, { icon: "📻", word: "RÁDIO" }] },
         { icon: "🚂", word: "TREM", options: [{ icon: "🐰", word: "COELHO" }, { icon: "🥁", word: "TAMBOR", correct: true }, { icon: "🌃", word: "NOITE" }, { icon: "🦌", word: "RENA" }] },
         { icon: "🥁", word: "TAMBOR", options: [{ icon: "🌀", word: "FURACÃO" }, { icon: "🐬", word: "GOLFINHO" }, { icon: "📞", word: "TELEFONE", correct: true }, { icon: "🦕", word: "DINOSSAURO" }] },
@@ -10161,21 +10510,21 @@
         { icon: "🦈", word: "TUBARÃO", options: [{ icon: "🌀", word: "FURACÃO" }, { icon: "☂️", word: "GUARDA-CHUVA" }, { icon: "🍀", word: "TREVO", correct: true }, { icon: "🍵", word: "CHÁ" }] },
         { icon: "🍀", word: "TREVO", options: [{ icon: "🦇", word: "MORCEGO" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "🎺", word: "TROMBETA", correct: true }, { icon: "🌋", word: "VULCÃO" }] },
         { icon: "🎺", word: "TROMBETA", options: [{ icon: "🗼", word: "TORRE", correct: true }, { icon: "🦝", word: "GUAXINIM" }, { icon: "🧁", word: "BOLINHO" }, { icon: "🎮", word: "JOGO" }] },
-        { icon: "🗼", word: "TORRE", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🕯️", word: "VELA" }, { icon: "🧤", word: "LUVA" }, { icon: "🍅", word: "TOMATE", correct: true }] },
-        { icon: "🕯️", word: "VELA", options: [{ icon: "🥛", word: "LEITE" }, { icon: "🍄", word: "COGUMELO" }, { icon: "🎸", word: "VIOLÃO", correct: true }, { icon: "✋", word: "MÃO" }] },
+        { icon: "🗼", word: "TORRE", options: [{ icon: "🍖", word: "CHURRASCO" }, { icon: "🕯️", word: "VELA" }, { icon: "🧤", word: "LUVA" }, { icon: "🐯", word: "TIGRE", correct: true }] },
+        { icon: "🕯️", word: "VELA", options: [{ icon: "🥛", word: "LEITE" }, { icon: "🍄", word: "COGUMELO" }, { icon: "🐄", word: "VACA", correct: true }, { icon: "✋", word: "MÃO" }] },
         { icon: "🎸", word: "VIOLÃO", options: [{ icon: "🌭", word: "SALSICHA" }, { icon: "🧹", word: "VASSOURA", correct: true }, { icon: "🍽️", word: "JANTAR" }, { icon: "👡", word: "CHINELO" }] },
         { icon: "🧹", word: "VASSOURA", options: [{ icon: "🐍", word: "COBRA" }, { icon: "🌋", word: "VULCÃO", correct: true }, { icon: "🥭", word: "MANGA" }, { icon: "🐦", word: "PASSARINHO" }] },
         { icon: "🌋", word: "VULCÃO", options: [{ icon: "🎮", word: "JOGO" }, { icon: "🐺", word: "LOBO" }, { icon: "☁️", word: "NUVEM" }, { icon: "🧛", word: "VAMPIRO", correct: true }] },
         { icon: "🧛", word: "VAMPIRO", options: [{ icon: "👗", word: "VESTIDO", correct: true }, { icon: "🚀", word: "FOGUETE" }, { icon: "🥤", word: "GUARANÁ" }, { icon: "🦊", word: "RAPOSA" }] },
         { icon: "👗", word: "VESTIDO", options: [{ icon: "🦘", word: "CANGURU" }, { icon: "🐢", word: "TARTARUGA" }, { icon: "🌬️", word: "VENTO", correct: true }, { icon: "🌃", word: "NOITE" }] },
         { icon: "🌬️", word: "VENTO", options: [{ icon: "☁️", word: "NUVEM" }, { icon: "🍫", word: "CHOCOLATE" }, { icon: "💡", word: "LUZ" }, { icon: "🎻", word: "VIOLINO", correct: true }] },
-        { icon: "🎻", word: "VIOLINO", options: [{ icon: "🐬", word: "DELFIM" }, { icon: "🕯️", word: "VELA", correct: true }, { icon: "🥤", word: "GUARANÁ" }, { icon: "🦈", word: "TUBARÃO" }] },
-        { icon: "🎩", word: "CHAPÉU", options: [{ icon: "🦌", word: "RENA" }, { icon: "🏜️", word: "DESERTO" }, { icon: "🍫", word: "CHOCOLATE", correct: true }, { icon: "🧳", word: "MALA" }] },
+        { icon: "🎻", word: "VIOLINO", options: [{ icon: "🐬", word: "DELFIM" }, { icon: "🏺", word: "VASO", correct: true }, { icon: "🥤", word: "GUARANÁ" }, { icon: "🦈", word: "TUBARÃO" }] },
+        { icon: "🎩", word: "CHAPÉU", options: [{ icon: "🦌", word: "RENA" }, { icon: "🏜️", word: "DESERTO" }, { icon: "🔑", word: "CHAVE", correct: true }, { icon: "🧳", word: "MALA" }] },
         { icon: "🍫", word: "CHOCOLATE", options: [{ icon: "🦎", word: "LAGARTIXA" }, { icon: "👡", word: "CHINELO", correct: true }, { icon: "🎉", word: "FESTA" }, { icon: "🦷", word: "DENTE" }] },
         { icon: "👡", word: "CHINELO", options: [{ icon: "🍵", word: "CHÁ", correct: true }, { icon: "🦊", word: "RAPOSA" }, { icon: "🗼", word: "TORRE" }, { icon: "🔘", word: "BOTÃO" }] },
         { icon: "🍵", word: "CHÁ", options: [{ icon: "🍭", word: "PIRULITO" }, { icon: "💰", word: "TESOURO" }, { icon: "🍖", word: "CHURRASCO", correct: true }, { icon: "🐔", word: "GALINHA" }] },
         { icon: "🍖", word: "CHURRASCO", options: [{ icon: "👨‍🍳", word: "CHEFE", correct: true }, { icon: "🦊", word: "RAPOSA" }, { icon: "🍌", word: "BANANA" }, { icon: "🎸", word: "VIOLÃO" }] },
-        { icon: "👨‍🍳", word: "CHEFE", options: [{ icon: "🚩", word: "BANDEIRA" }, { icon: "🎮", word: "JOGO" }, { icon: "🍓", word: "MORANGO" }, { icon: "🎩", word: "CHAPÉU", correct: true }] },
+        { icon: "👨‍🍳", word: "CHEFE", options: [{ icon: "🚩", word: "BANDEIRA" }, { icon: "🎮", word: "JOGO" }, { icon: "🍓", word: "MORANGO" }, { icon: "🌧️", word: "CHUVA", correct: true }] },
       ];
 
       const syllableWords = [
@@ -13054,7 +13403,7 @@ const brStatesList = [
             { theme: "ingles", question: "O que significa a palavra \"embarrassed\" em português, apesar da semelhança com \"grávida\"?", options: ["Ocupado(a)","Animado(a)","Envergonhado(a)","Grávida"], answer: 2 },
             { theme: "ingles", question: "Qual é o significado da expressão \"as soon as possible\" (ASAP) em português?", options: ["O mais rápido possível","Nunca mais","Depois de amanhã","Quando for conveniente"], answer: 0 },
             { theme: "ingles", question: "Como se diz \"eu vou fazer\" (futuro com intenção) em inglês, usando \"going to\"?", options: ["I gone to do","I am going to do","I did go to do","I go to do"], answer: 1 },
-            { theme: "ingles", question: "Qual é o significado da palavra \"eventually\" em português, apesar da semelhança com \"eventualmente\"?", options: ["Finalmente / no final das contas","Nunca, em nenhuma situação possível","Eventualmente / às vezes","Raramente ou quase nunca"], answer: 0 },
+            { theme: "ingles", question: "Qual é o significado da palavra \"eventually\" em português, apesar da semelhança com \"eventualmente\"?", options: ["Finalmente, no final das contas","Nunca, em nenhuma situação possível","Eventualmente, às vezes","Raramente ou quase nunca"], answer: 0 },
             { theme: "ingles", question: "Qual é a forma correta do verbo \"to have\" na terceira pessoa do singular (he/she/it) no presente?", options: ["Have","Having","Has","Had"], answer: 2 },
             { theme: "ingles", question: "O que significa a expressão \"it's up to you\" em português?", options: ["É muito caro","A decisão é sua","Não é importante","Está atrasado"], answer: 1 },
             { theme: "educacaofisica", question: "O que é a ginástica de condicionamento físico?", options: ["Uma competição só de salto e arremesso","Um jogo de tabuleiro jogado na quadra","Uma dança típica de festas juninas","Exercícios para melhorar o preparo físico"], answer: 3 },
@@ -13215,7 +13564,7 @@ const brStatesList = [
             { theme: "ingles", question: "O que significa a palavra \"parents\" em inglês, apesar da semelhança com \"parentes\"?", options: ["Pais (mãe e pai)","Parentes em geral","Primos","Avós"], answer: 0 },
             { theme: "ingles", question: "Qual é a forma correta do verbo modal \"can\" para expressar habilidade no passado?", options: ["Cans","Could","Willing","Canned"], answer: 1 },
             { theme: "ingles", question: "O que significa a expressão \"to make up your mind\" em inglês?", options: ["Tomar uma decisão","Mudar de ideia sempre","Esquecer algo","Perder a paciência"], answer: 0 },
-            { theme: "ingles", question: "Qual é o significado da palavra \"lecture\" em inglês, apesar da semelhança com \"leitura\"?", options: ["Redação de um texto escolar","Leitura de um livro","Biblioteca da escola","Palestra / aula expositiva"], answer: 3 },
+            { theme: "ingles", question: "Qual é o significado da palavra \"lecture\" em português, apesar da semelhança com \"leitura\"?", options: ["Redação de um texto escolar","Leitura de um livro","Biblioteca da escola","Palestra ou aula"], answer: 3 },
             { theme: "ingles", question: "Como se forma a voz passiva no presente simples em inglês, como em \"the book is read\"?", options: ["Verbo \"to be\" + gerúndio do verbo","Verbo \"to be\" + particípio passado","Verbo no infinitivo + \"ed\" no final","Verbo modal + infinitivo sem \"to\""], answer: 1 },
             { theme: "ingles", question: "O que significa a expressão \"in the long run\" em inglês?", options: ["Durante uma corrida","Correndo rápido","A longo prazo","Imediatamente"], answer: 2 },
             { theme: "ingles", question: "Qual é o comparativo irregular do adjetivo \"bad\" (ruim) em inglês?", options: ["Worse","Baddest","Badder","More bad"], answer: 0 },
@@ -14989,6 +15338,227 @@ const brStatesList = [
 
       const decomposeLevels = decomposeLevelPlans;
 
+      const hardwareLevels = [
+        {
+          title: "Parte ou programa?", icon: "🖱️", age: "6-7 anos", theme: "Hardware e software",
+          rounds: [
+            { icon: "⌨️", question: "Qual destes é uma parte do computador que dá para tocar?", options: ["Teclado", "Programa de desenho", "Jogo da tela"], answer: 0, why: "O teclado é uma peça física. Peças que dá para tocar são o hardware." },
+            { icon: "🎨", question: "Qual destes é um programa, que usamos na tela mas não dá para tocar?", options: ["Programa de desenho", "Mouse com fio", "Monitor de vídeo do computador"], answer: 0, why: "Programas são o software: instruções que o computador segue." },
+            { icon: "🖥️", question: "O monitor é uma peça que dá para tocar ou um programa?", options: ["Uma peça que dá para tocar", "Um programa de desenho do computador", "Um jogo da tela"], answer: 0, why: "O monitor é hardware, a parte física do computador." },
+            { icon: "🎮", question: "Um jogo de computador é uma peça ou um programa?", options: ["Um programa", "Uma peça física", "Um fio da tomada"], answer: 0, why: "Jogos são programas, ou seja, software." },
+            { icon: "🖱️", question: "Para que serve o mouse?", options: ["Apontar e clicar na tela", "Digitar as letras do texto", "Tocar músicas e sons"], answer: 0, why: "Com o mouse a gente aponta e clica no que aparece na tela." },
+            { icon: "⌨️", question: "Para que serve o teclado?", options: ["Digitar letras e números", "Mostrar imagens na tela", "Imprimir folhas no papel"], answer: 0, why: "O teclado envia as letras e os números que digitamos." },
+            { icon: "🖥️", question: "O que o monitor faz?", options: ["Mostra imagens e textos", "Toca os sons da música", "Cola os papéis da aula"], answer: 0, why: "O monitor mostra para a gente o que o computador está fazendo." },
+            { icon: "🔊", question: "O que a caixa de som faz?", options: ["Toca os sons", "Mostra as figuras", "Digita as palavras"], answer: 0, why: "A caixa de som é uma saída de sons." },
+            { icon: "🖨️", question: "O que a impressora faz?", options: ["Coloca no papel o que está na tela", "Toca uma música para a turma toda ouvir", "Digita as letras no teclado"], answer: 0, why: "A impressora passa para o papel o que o computador manda." },
+            { icon: "📝", question: "Qual programa serve para escrever textos?", options: ["Editor de texto", "Caixa de som do computador", "Impressora"], answer: 0, why: "O editor de texto é um programa feito para escrever." },
+            { icon: "🌐", question: "Qual programa usamos para visitar sites da internet?", options: ["Navegador", "Mouse", "Fone de ouvido"], answer: 0, why: "O navegador é o programa que abre as páginas da internet." },
+            { icon: "🎧", question: "Qual destes é uma peça do computador?", options: ["Fone de ouvido", "Navegador", "Editor de texto"], answer: 0, why: "O fone de ouvido é físico: é hardware." },
+            { icon: "🤝", question: "O que o computador precisa para funcionar bem?", options: ["Peças e programas juntos", "Só as peças, sem programas", "Só os programas, sem peças"], answer: 0, why: "Hardware e software trabalham juntos." },
+            { icon: "🧼", question: "Qual é um bom cuidado ao usar o computador?", options: ["Estar com as mãos limpas e secas", "Comer sanduíche sobre o teclado", "Puxar os fios com muita força"], answer: 0, why: "Cuidar do equipamento faz ele durar mais e funcionar melhor." },
+            { icon: "🎤", question: "Qual destes serve para gravar a nossa voz?", options: ["Microfone", "Impressora", "Monitor"], answer: 0, why: "O microfone capta o som da voz para o computador." },
+            { icon: "📷", question: "Qual destes tira fotos?", options: ["Câmera", "Caixa de som", "Teclado"], answer: 0, why: "A câmera registra imagens." },
+          ],
+        },
+        {
+          title: "Entrada, saída e arquivos", icon: "💾", age: "8-9 anos", theme: "Dispositivos, dados e arquivos",
+          rounds: [
+            { icon: "🖱️", question: "O mouse envia informação para o computador. Ele é um dispositivo de...", options: ["Entrada", "Saída", "Armazenamento"], answer: 0, why: "Dispositivos de entrada enviam informações para o computador." },
+            { icon: "🖥️", question: "O monitor mostra a informação para nós. Ele é um dispositivo de...", options: ["Saída", "Entrada", "Armazenamento"], answer: 0, why: "Dispositivos de saída mostram o resultado para quem usa." },
+            { icon: "🎤", question: "O microfone é um dispositivo de...", options: ["Entrada", "Saída", "Armazenamento"], answer: 0, why: "O microfone leva o som para o computador." },
+            { icon: "🖨️", question: "A impressora é um dispositivo de...", options: ["Saída", "Entrada", "Armazenamento"], answer: 0, why: "A impressora recebe a informação e coloca no papel." },
+            { icon: "💾", question: "O pen drive é um dispositivo de...", options: ["Armazenamento", "Entrada do teclado", "Saída de som"], answer: 0, why: "O pen drive guarda arquivos." },
+            { icon: "👆", question: "A tela de toque de um tablet funciona como...", options: ["Entrada e saída", "Só entrada de dados", "Só saída de imagens"], answer: 0, why: "Ela mostra imagens (saída) e recebe o toque (entrada)." },
+            { icon: "📄", question: "O que é um arquivo?", options: ["Um conjunto de dados guardado com um nome", "Uma peça física que fica dentro do computador", "Um tipo de vírus que apaga tudo"], answer: 0, why: "Fotos, textos e músicas são guardados em arquivos." },
+            { icon: "📁", question: "Para que servem as pastas?", options: ["Organizar os arquivos", "Apagar os arquivos", "Imprimir os arquivos"], answer: 0, why: "Pastas ajudam a achar os arquivos depois." },
+            { icon: "🔢", question: "Qual destes é um dado, ainda sem explicação?", options: ["O número 30", "A frase: hoje está calor", "Um conselho do professor"], answer: 0, why: "Dados são valores soltos. Interpretados, viram informação." },
+            { icon: "0️⃣", question: "Os computadores guardam a informação usando...", options: ["Números: zeros e uns", "Só desenhos e figuras coloridas", "Só palavras e letras do alfabeto"], answer: 0, why: "Tudo vira número em código binário, feito de 0 e 1." },
+            { icon: "🔍", question: "Para pesquisar na internet, usamos...", options: ["Um navegador e uma ferramenta de busca", "Uma impressora que está ligada sem usar cabo", "Um pen drive que está vazio"], answer: 0, why: "O navegador abre os sites e a busca ajuda a achar o assunto." },
+            { icon: "💾", question: "O que fazemos para não perder um trabalho?", options: ["Salvar o arquivo", "Fechar sem salvar", "Desligar o monitor"], answer: 0, why: "Salvar guarda o trabalho no armazenamento." },
+            { icon: "🌐", question: "A internet é...", options: ["Uma rede que conecta computadores do mundo todo", "Uma pasta enorme cheia de arquivos do computador", "Um tipo de teclado com fio muito longo"], answer: 0, why: "Computadores ligados entre si formam uma rede. A internet liga redes no mundo inteiro." },
+            { icon: "🎨", question: "Qual destes é um programa (software)?", options: ["Aplicativo de desenho", "Fone de ouvido novo", "Mouse da escola com fio"], answer: 0, why: "Aplicativos são software." },
+            { icon: "🔌", question: "Onde um trabalho fica guardado com o computador desligado?", options: ["No armazenamento (HD, SSD ou pen drive)", "Só na tela enquanto o computador está ligado", "Dentro das teclas do teclado"], answer: 0, why: "O armazenamento mantém os dados mesmo sem energia." },
+            { icon: "🛡️", question: "Qual cuidado protege o seu trabalho?", options: ["Salvar e guardar uma cópia", "Contar a senha aos colegas", "Fechar sem salvar"], answer: 0, why: "Cópias e senhas protegem contra perdas e acessos indevidos." },
+          ],
+        },
+        {
+          title: "Componentes do computador", icon: "🧠", age: "10-11 anos", theme: "Componentes, sistema operacional e arquivos",
+          rounds: [
+            { icon: "🧠", question: "Qual peça processa as instruções, como se fosse o cérebro do computador?", options: ["Processador (CPU)", "Monitor de vídeo", "Caixa de som", "Teclado com fio"], answer: 0, why: "A CPU executa as instruções dos programas." },
+            { icon: "⚡", question: "A memória RAM guarda...", options: ["Os dados dos programas que estão em uso agora", "Todos os arquivos do aparelho, para sempre", "Apenas as fotos mais antigas do aluno", "Somente as senhas da rede da escola"], answer: 0, why: "A RAM é rápida e temporária: ao desligar, o conteúdo se perde." },
+            { icon: "💽", question: "Qual destes é um dispositivo de armazenamento?", options: ["SSD", "Monitor", "Teclado", "Mouse"], answer: 0, why: "HD e SSD guardam arquivos de forma permanente." },
+            { icon: "🖥️", question: "O sistema operacional serve para...", options: ["Gerenciar o hardware e os programas", "Imprimir documentos para a turma", "Deixar a tela mais colorida", "Conectar o fone de ouvido"], answer: 0, why: "Ele faz a ponte entre as peças e os programas." },
+            { icon: "🖥️", question: "Qual destes é um sistema operacional?", options: ["Android", "Excel", "Paint", "YouTube"], answer: 0, why: "Android, Windows, Linux e macOS são sistemas operacionais." },
+            { icon: "☁️", question: "Dados guardados \"na nuvem\" ficam...", options: ["Em servidores acessados pela internet", "Apenas dentro do seu computador pessoal", "Dentro do mouse sem fio", "Em nuvens de chuva no céu"], answer: 0, why: "A nuvem é armazenamento remoto, em computadores de uma empresa." },
+            { icon: "💾", question: "Arquivos guardados no HD do seu computador estão em armazenamento...", options: ["Local", "Remoto", "Invisível", "Temporário"], answer: 0, why: "Local é o que está no próprio aparelho." },
+            { icon: "🖼️", question: "Qual destas é uma extensão de arquivo de imagem?", options: [".jpg", ".mp3", ".docx", ".txt"], answer: 0, why: "A extensão (o final do nome) mostra o tipo do arquivo." },
+            { icon: "🎵", question: "O arquivo \"minha_musica.mp3\" provavelmente é...", options: ["Um áudio", "Uma foto", "Um texto", "Um programa"], answer: 0, why: "A extensão .mp3 indica áudio." },
+            { icon: "📥", question: "O que é \"entrada\" em um computador?", options: ["O que enviamos a ele, como o que digitamos", "O que sai impresso em papel pela impressora", "Onde guardamos os arquivos do computador", "O fio que liga o monitor na tomada"], answer: 0, why: "Entrada é a informação que vai para o computador." },
+            { icon: "🔌", question: "Qual conjunto tem só dispositivos de saída?", options: ["Monitor, caixa de som e impressora", "Mouse, teclado, microfone e câmera", "Pen drive, SSD e HD externo", "Câmera, monitor, mouse e teclado"], answer: 0, why: "Eles mostram ou entregam o resultado." },
+            { icon: "📂", question: "Para organizar melhor os trabalhos, devemos...", options: ["Criar pastas com nomes claros", "Deixar tudo solto na tela", "Dar o mesmo nome a todos os arquivos", "Guardar tudo em uma só pasta sem nome"], answer: 0, why: "Nomes claros e pastas organizadas facilitam encontrar e reutilizar." },
+            { icon: "📋", question: "Qual é a diferença entre copiar e mover um arquivo?", options: ["Copiar mantém o original; mover troca de lugar", "Copiar apaga o original do computador", "Mover duplica o arquivo em dois lugares ao mesmo tempo", "Não há nenhuma diferença entre as duas"], answer: 0, why: "Copiar faz uma duplicata; mover troca o arquivo de lugar." },
+            { icon: "🗑️", question: "Você excluiu um arquivo importante sem querer. O que ajuda?", options: ["Ter uma cópia de segurança (backup)", "Culpar o mouse do computador", "Desligar o monitor por um tempo", "Reiniciar o teclado do notebook"], answer: 0, why: "Backup é uma cópia guardada em outro lugar." },
+            { icon: "🔋", question: "Qual peça guarda energia para o notebook funcionar sem tomada?", options: ["Bateria", "Processador", "Teclado", "Memória RAM"], answer: 0, why: "A bateria fornece energia ao aparelho portátil." },
+            { icon: "🧩", question: "Qual frase está certa?", options: ["Sem software, o hardware não sabe o que fazer", "O software é uma peça que dá para tocar e pegar", "Hardware e software são a mesma coisa", "O software é só a caixa do computador"], answer: 0, why: "O hardware precisa das instruções do software." },
+          ],
+        },
+        {
+          title: "Arquivos, redes e segurança", icon: "📦", age: "12-13 anos", theme: "Transmissão de dados, arquivos e segurança",
+          rounds: [
+            { icon: "📦", question: "Ao enviar um arquivo pela internet, a informação é...", options: ["Dividida em pacotes que são reunidos no destino", "Enviada inteira por um único fio, sem divisão", "Copiada para dentro do teclado do receptor", "Transformada em papel impresso na outra ponta"], answer: 0, why: "Os pacotes podem seguir caminhos diferentes e são reunidos no final." },
+            { icon: "📨", question: "Um protocolo de rede é...", options: ["Regras para os dispositivos se comunicarem", "Um tipo de vírus que ataca redes", "Um cabo especial para ligar o monitor ao PC", "Um programa para desenhar na tela"], answer: 0, why: "Protocolos, como o HTTP, combinam como os dados são trocados." },
+            { icon: "🗜️", question: "Compactar arquivos serve para...", options: ["Reduzir o espaço que eles ocupam", "Aumentar a velocidade do monitor", "Apagar vírus automaticamente", "Trocar a senha"], answer: 0, why: "Arquivos compactados (.zip) ocupam menos espaço e são mais fáceis de enviar." },
+            { icon: "🏷️", question: "Metadados de uma foto são...", options: ["Informações sobre o arquivo, como data e tamanho", "A própria imagem que aparece na tela", "Os pixels coloridos que formam o desenho inteiro", "O papel em que a foto é impressa"], answer: 0, why: "Metadados descrevem o arquivo, mas não são o conteúdo." },
+            { icon: "📎", question: "Qual extensão indica um arquivo compactado?", options: [".zip", ".png", ".mp4", ".txt"], answer: 0, why: "O formato .zip junta e compacta arquivos." },
+            { icon: "🔑", question: "Qual senha é mais segura?", options: ["Uma frase longa com números e símbolos", "O seu nome e o ano em que nasceu", "A palavra senha seguida de 123456", "O nome do seu bichinho de estimação"], answer: 0, why: "Senhas longas e variadas são difíceis de adivinhar." },
+            { icon: "🔄", question: "Por que manter o sistema e os programas atualizados?", options: ["Para corrigir falhas de segurança", "Para ocupar mais espaço", "Para deixar o aparelho mais lento", "Para trocar a cor da tela"], answer: 0, why: "Atualizações corrigem falhas que criminosos podem usar." },
+            { icon: "💾", question: "Um backup é...", options: ["Uma cópia de segurança dos arquivos", "Um tipo de senha", "Um programa que apaga arquivos antigos do disco", "Um cabo de rede"], answer: 0, why: "Ter cópias em outro lugar evita perder tudo." },
+            { icon: "🎣", question: "Uma mensagem pede sua senha e traz um link estranho. O que fazer?", options: ["Não clicar e avisar um adulto", "Clicar rápido para ver o que é", "Responder com a senha", "Encaminhar para os amigos"], answer: 0, why: "Isso é típico de golpe de phishing." },
+            { icon: "🛡️", question: "Para que serve um antivírus?", options: ["Detectar e remover programas maliciosos", "Aumentar a memória RAM do aparelho", "Deixar a internet muito mais rápida", "Fazer backup de tudo sozinho"], answer: 0, why: "Ele ajuda a identificar ameaças, mas não substitui os cuidados." },
+            { icon: "🌐", question: "Qual destes é um protocolo usado na web?", options: ["HTTP", "Mouse", "Pixel", "Monitor"], answer: 0, why: "O HTTP (e o HTTPS) é o protocolo das páginas da web." },
+            { icon: "📲", question: "Para que serve a verificação em duas etapas?", options: ["Dificultar que estranhos entrem na sua conta", "Mostrar muitos anúncios novos dentro da conta", "Pular a etapa de digitar a senha", "Acelerar o sinal de Wi-Fi de casa"], answer: 0, why: "Mesmo que descubram a senha, falta o segundo passo." },
+            { icon: "📶", question: "Por que ter cuidado em redes Wi-Fi públicas?", options: ["Podem ser menos seguras e expor seus dados", "Deixam o computador sempre muito mais lento", "Só funcionam à noite", "Apagam os arquivos"], answer: 0, why: "Evite informar senhas e dados pessoais nelas." },
+            { icon: "🗑️", question: "Mover um arquivo para a lixeira...", options: ["Normalmente ainda permite recuperá-lo", "Apaga o arquivo para sempre na hora", "Compacta o arquivo para economizar", "Envia uma cópia automática à nuvem"], answer: 0, why: "Só esvaziar a lixeira remove o arquivo de vez." },
+            { icon: "🎬", question: "Qual arquivo costuma ocupar mais espaço?", options: ["Um vídeo em alta qualidade", "Um arquivo de texto simples", "Um ícone pequeno", "Um bilhete digitado"], answer: 0, why: "Vídeo tem muita informação por segundo." },
+            { icon: "🔗", question: "Uma rede de computadores é...", options: ["Dispositivos conectados que trocam dados", "Um único computador isolado de todos os outros", "Um programa de edição de imagens", "Uma peça do teclado do notebook"], answer: 0, why: "Redes permitem compartilhar dados e recursos." },
+          ],
+        },
+        {
+          title: "Como a internet funciona", icon: "🌍", age: "14 anos", theme: "Internet, paralelismo, segurança e criptografia",
+          rounds: [
+            { icon: "🌍", question: "O endereço IP serve para...", options: ["Identificar um dispositivo na rede", "Aumentar a memória do aparelho", "Guardar as fotos da família", "Proteger o aparelho contra vírus"], answer: 0, why: "O IP funciona como um endereço para os pacotes chegarem." },
+            { icon: "📖", question: "O DNS é o serviço que...", options: ["Traduz nomes de sites em endereços IP", "Protege os arquivos de todos contra vírus", "Compacta arquivos para enviar", "Aumenta o brilho da tela do site"], answer: 0, why: "Ele funciona como uma lista telefônica da internet." },
+            { icon: "📡", question: "O roteador...", options: ["Direciona os pacotes entre as redes", "Armazena todos os sites do mundo", "Cria senhas fortes para as contas", "Imprime documentos pela rede"], answer: 0, why: "Roteadores decidem o caminho dos pacotes." },
+            { icon: "🗄️", question: "Um servidor é...", options: ["Um computador que oferece serviços ou dados a outros", "Um tipo de teclado especial criado para jogos online", "Um aplicativo de desenho em tablets", "Um fio de rede muito comprido e fino"], answer: 0, why: "Sites e aplicativos ficam em servidores." },
+            { icon: "🏢", question: "O provedor de internet é...", options: ["A empresa que fornece o acesso à rede", "O dono de todos os sites do mundo", "Um tipo de cabo de fibra óptica", "O sistema operacional do roteador"], answer: 0, why: "Ele conecta a sua casa ou escola à internet." },
+            { icon: "⚙️", question: "Paralelismo é...", options: ["Executar partes de uma tarefa ao mesmo tempo", "Executar um único passo por vez, sempre", "Apagar as tarefas que ficaram prontas", "Repetir a mesma tarefa sem nunca parar"], answer: 0, why: "Dividir o trabalho entre várias unidades acelera a solução." },
+            { icon: "⏱️", question: "Na computação concorrente...", options: ["Várias tarefas avançam no mesmo período", "Um programa nunca chega a terminar", "Só um computador fica ligado na rede", "As tarefas vão sendo apagadas do disco"], answer: 0, why: "Concorrência exige organizar quem usa cada recurso e quando." },
+            { icon: "🌐", question: "O processamento distribuído usa...", options: ["Vários computadores em uma mesma tarefa", "Somente um computador muito potente", "Papel, lápis e uma calculadora", "Apenas a memória RAM do aparelho"], answer: 0, why: "A tarefa é dividida entre máquinas ligadas em rede." },
+            { icon: "🦠", question: "Malware é...", options: ["Programa feito para causar danos", "Um programa para editar vídeos", "Um tipo de memória do computador", "Um cabo de rede com defeito"], answer: 0, why: "Vírus, ransomware e espiões são exemplos de malware." },
+            { icon: "🔐", question: "O ransomware...", options: ["Bloqueia arquivos e exige pagamento", "Melhora a segurança dos arquivos", "Aumenta a velocidade da internet", "Faz backup automático de tudo"], answer: 0, why: "É um sequestro de dados: pagar não garante a devolução." },
+            { icon: "🎭", question: "Phishing é...", options: ["Golpe que engana para obter dados", "Um tipo de cabo de fibra", "Uma rede social de vídeos curtos", "Um jogo de pesca para celular"], answer: 0, why: "O golpista se passa por alguém confiável." },
+            { icon: "🔏", question: "A criptografia serve para...", options: ["Transformar dados em código para proteger", "Deixar os arquivos muito maiores", "Apagar todo o histórico de navegação do aparelho", "Aumentar o brilho de toda a tela"], answer: 0, why: "Só quem tem a chave consegue ler o conteúdo." },
+            { icon: "🔡", question: "Na cifra de César, cada letra é...", options: ["Deslocada um número fixo de posições no alfabeto", "Trocada por um número sorteado, sem nenhuma regra", "Apagada do texto", "Repetida duas vezes"], answer: 0, why: "Com deslocamento 3, A vira D, B vira E, e assim por diante." },
+            { icon: "🧩", question: "Por que a cifra de César é fácil de quebrar?", options: ["Há poucos deslocamentos para testar", "Usa números enormes e aleatórios", "Não usa nenhuma letra do alfabeto", "Só funciona com palavras de vogais"], answer: 0, why: "Um computador testa todas as chaves em instantes." },
+            { icon: "🔒", question: "O que o HTTPS mostra a respeito de um site?", options: ["Que a conexão é protegida por criptografia", "Que o site é sempre verdadeiro", "Que o site não tem nenhum anúncio chato na página", "Que o acesso ao site é gratuito"], answer: 0, why: "HTTPS protege a troca de dados, mas não garante que o conteúdo seja confiável." },
+            { icon: "☁️", question: "Guardar dados em mais de um lugar (redundância) ajuda a...", options: ["Não perder tudo se um local falhar", "Gastar mais energia sem benefício", "Deixar os arquivos ilegíveis", "Impedir qualquer cópia"], answer: 0, why: "Cópias em locais diferentes protegem contra falhas." },
+          ],
+        },
+      ];
+
+      const safeLevels = [
+        {
+          title: "É seguro ou não?", icon: "🔒", age: "6-7 anos", theme: "Cuidados e uso seguro",
+          rounds: [
+            { icon: "🔒", question: "Um desconhecido pede seu nome e endereço na internet. O que você faz?", options: ["Não conto e chamo um adulto", "Conto tudo o que ele pedir", "Conto só o endereço da casa"], answer: 0, why: "Nome, endereço e telefone são dados pessoais. Não se dão a desconhecidos." },
+            { icon: "😟", question: "Você vê algo na tela que dá medo ou vergonha. O que fazer?", options: ["Contar a um adulto de confiança", "Esconder tudo e não contar", "Mostrar para todo mundo ver na hora"], answer: 0, why: "Contar para um adulto ajuda a resolver e a se sentir seguro." },
+            { icon: "🔑", question: "A senha é como a chave da sua casa. Você deve...", options: ["Guardar só para você e seus responsáveis", "Contar para os colegas", "Escrever na mochila para todos verem"], answer: 0, why: "Senha é segredo." },
+            { icon: "🛑", question: "Um jogo pede para clicar em um link e dar seus dados. O que fazer?", options: ["Pedir ajuda a um adulto primeiro", "Clicar e preencher tudo rápido", "Mandar o link para os amigos"], answer: 0, why: "Links desconhecidos podem ser golpes." },
+            { icon: "⏱️", question: "Qual é um bom jeito de usar a tela?", options: ["Pouco tempo e com um adulto sabendo", "O dia todo, sem fazer pausas", "Escondido de todos os adultos da casa"], answer: 0, why: "Usar a tela com equilíbrio faz bem ao corpo e à mente." },
+            { icon: "📚", question: "Qual destes pode ajudar a gente a aprender?", options: ["Um programa educativo com orientação", "Mexer em tudo sem saber o que faz", "Instalar qualquer coisa que aparece"], answer: 0, why: "Aprender com orientação é mais seguro e mais divertido." },
+            { icon: "🧭", question: "Na internet, quem pode nos ajudar a escolher o que é bom?", options: ["Pais, responsáveis e professores", "Qualquer pessoa estranha do jogo", "Ninguém, a gente decide sozinho"], answer: 0, why: "Adultos de confiança ajudam a escolher e a proteger." },
+            { icon: "🤝", question: "Alguém fala mal de um colega em um jogo online. O que é bom fazer?", options: ["Não participar e contar para um adulto", "Rir e falar mal do colega também no jogo", "Responder com mais ofensas ainda"], answer: 0, why: "Respeitar os outros vale também na internet." },
+            { icon: "📱", question: "Qual destes aparelhos usamos para nos comunicar?", options: ["Celular", "Martelo", "Colher"], answer: 0, why: "Celulares e computadores ajudam a conversar e a aprender." },
+            { icon: "🏫", question: "Onde as pessoas usam computadores e tablets?", options: ["Em casa, no trabalho e nos hospitais", "Somente dentro da sala de aula da escola", "Em nenhum lugar do mundo todo"], answer: 0, why: "A tecnologia está em muitos lugares do dia a dia." },
+            { icon: "🧼", question: "O que é bom fazer antes de usar o computador?", options: ["Lavar as mãos", "Comer sobre o teclado", "Puxar os fios"], answer: 0, why: "Cuidar do equipamento ajuda a durar mais." },
+            { icon: "👀", question: "Como descansar os olhos quando usamos a tela?", options: ["Fazer pausas e olhar para longe", "Chegar bem perto da tela", "Usar no escuro, sem fazer nenhuma pausa"], answer: 0, why: "Pausas protegem os olhos." },
+            { icon: "👤", question: "Dados pessoais são...", options: ["Dados sobre você, como nome e endereço", "Os desenhos que você faz na escola", "Os jogos que você tem no celular"], answer: 0, why: "Eles dizem quem você é e onde mora, por isso devem ser protegidos." },
+            { icon: "🚦", question: "Qual é o jeito mais seguro de usar a internet na sua idade?", options: ["Junto de um adulto", "Sozinho e escondido", "Sem nenhuma regra"], answer: 0, why: "Na sua idade, a companhia de um adulto protege." },
+            { icon: "📷", question: "Antes de compartilhar uma foto de um colega, o que fazer?", options: ["Pedir permissão a ele e aos responsáveis", "Compartilhar logo", "Escolher uma foto engraçada e postar"], answer: 0, why: "A imagem da pessoa é dela." },
+            { icon: "📞", question: "Um adulto desconhecido pede para ver você por vídeo. O que fazer?", options: ["Não aceitar e contar para um responsável", "Aceitar com curiosidade", "Dar o número do telefone dele aos colegas da turma"], answer: 0, why: "Não se conversa com desconhecidos sozinho." },
+          ],
+        },
+        {
+          title: "Dados pessoais e fontes", icon: "🔎", age: "8-9 anos", theme: "Privacidade, pesquisa e criação digital",
+          rounds: [
+            { icon: "🔍", question: "Para pesquisar um assunto, usamos...", options: ["Um navegador e uma ferramenta de busca", "Uma impressora que não tem cabo", "Um pen drive que está sem arquivos"], answer: 0, why: "O navegador abre os sites e a busca ajuda a encontrá-los." },
+            { icon: "⭐", question: "Qual fonte é mais confiável para uma pesquisa escolar?", options: ["Site de escola, museu ou universidade", "Um boato encaminhado em mensagem por colegas", "Uma publicação sem autor"], answer: 0, why: "Fontes com autoria e instituição responsável são mais confiáveis." },
+            { icon: "❓", question: "Uma informação aparece sem autor e sem data. O que fazer?", options: ["Conferir em outras fontes confiáveis", "Compartilhar logo com os amigos", "Acreditar sem verificar nada"], answer: 0, why: "Sem autor e sem data, vale desconfiar e comparar." },
+            { icon: "📍", question: "Qual destes dados pessoais não devo divulgar?", options: ["Meu endereço e meu telefone", "A cor de roupa de que eu mais gosto", "Meu desenho favorito"], answer: 0, why: "Endereço e telefone permitem que estranhos encontrem você." },
+            { icon: "📸", question: "Antes de compartilhar a foto de um colega, você deve...", options: ["Pedir permissão a ele e a um adulto", "Postar na hora, sem avisar ninguém", "Marcar todo mundo que aparece na foto"], answer: 0, why: "Compartilhar a imagem de alguém exige o consentimento dele." },
+            { icon: "🏠", question: "Avisar na internet que a casa ficará vazia é...", options: ["Perigoso: estranhos podem usar isso", "Seguro, porque ninguém vai ler isso", "Uma boa ideia para ganhar curtidas"], answer: 0, why: "Informações sobre rotina e ausência podem facilitar crimes." },
+            { icon: "🧾", question: "Quem criou um desenho ou um texto merece...", options: ["Ter seu nome citado como autor", "Ser ignorado", "Ter o trabalho copiado sem aviso"], answer: 0, why: "Dar crédito é respeito à autoria." },
+            { icon: "📝", question: "Qual ferramenta serve para criar uma apresentação?", options: ["Editor de slides", "Antivírus do computador", "Roteador de internet"], answer: 0, why: "Existem ferramentas próprias para textos, slides e vídeos." },
+            { icon: "🎬", question: "Para gravar um vídeo na escola, é importante...", options: ["Ter autorização de quem aparece", "Filmar sem que ninguém perceba", "Postar sem avisar ninguém antes"], answer: 0, why: "Autorização protege a imagem e a privacidade de todos." },
+            { icon: "📊", question: "Ao coletar dados em uma pesquisa com os colegas, devemos...", options: ["Guardar com cuidado e não expor os nomes", "Publicar tudo com o nome de cada um dos colegas", "Vender os dados para quem quiser"], answer: 0, why: "Dados coletados devem ser usados com ética." },
+            { icon: "🖥️", question: "Ao usar um computador compartilhado, no fim da aula você deve...", options: ["Sair da sua conta e fechar seus arquivos", "Deixar tudo aberto para o próximo", "Anotar a senha em um papel colado na tela"], answer: 0, why: "Assim, ninguém acessa o que é seu." },
+            { icon: "🎁", question: "Um site promete prêmio em troca dos seus dados. O mais provável é...", options: ["Um golpe", "Um presente de verdade", "Uma tarefa da escola"], answer: 0, why: "Prêmios fáceis são um truque comum para roubar informações." },
+            { icon: "📅", question: "Por que olhar a data de uma notícia?", options: ["Para saber se ela ainda vale", "Para gastar um pouco de tempo", "Não faz nenhuma diferença"], answer: 0, why: "Notícias antigas podem deixar de ser verdadeiras hoje." },
+            { icon: "📱", question: "Um desconhecido manda mensagem para você. O que fazer?", options: ["Não responder e avisar um adulto", "Responder e contar seus dados", "Marcar um encontro com ele"], answer: 0, why: "Conversas com desconhecidos podem ser perigosas." },
+            { icon: "⚖️", question: "Copiar o trabalho de outra pessoa e dizer que é seu...", options: ["Não é correto", "É permitido sempre", "É criar algo novo"], answer: 0, why: "Isso se chama plágio e desrespeita o autor." },
+            { icon: "🌐", question: "Para saber se um site é confiável, é bom...", options: ["Ver o autor e comparar com outras fontes", "Olhar só as cores e o desenho do site", "Contar quantos anúncios aparecem nele"], answer: 0, why: "Autoria e comparação ajudam a confirmar." },
+          ],
+        },
+        {
+          title: "Conduta, autoria e consumo", icon: "🤝", age: "10-11 anos", theme: "Conduta, direitos autorais e consumo consciente",
+          rounds: [
+            { icon: "🧐", question: "Qual sinal indica que uma notícia pode ser falsa?", options: ["Título exagerado e sem fonte", "Fonte citada e data clara", "Autor identificado e contato disponível"], answer: 0, why: "Exageros e falta de fontes pedem cuidado." },
+            { icon: "©️", question: "Os direitos autorais servem para...", options: ["Proteger quem criou uma obra", "Impedir qualquer pessoa de estudar", "Apagar obras antigas"], answer: 0, why: "Eles reconhecem e protegem o trabalho do autor." },
+            { icon: "📚", question: "Ao usar uma imagem da internet em um trabalho, o correto é...", options: ["Verificar a licença e citar a fonte", "Copiar sem citar", "Dizer que você mesmo desenhou a imagem"], answer: 0, why: "Citar a fonte e respeitar a licença são formas de respeito." },
+            { icon: "💬", question: "No grupo da turma, alguém escreve ofensas em letras maiúsculas. O melhor é...", options: ["Responder com respeito ou pedir ajuda", "Ofender de volta com mais força", "Rir e continuar a briga no grupo da turma"], answer: 0, why: "A conversa digital também exige respeito." },
+            { icon: "🤝", question: "Conduta respeitosa no ambiente digital inclui...", options: ["Escrever com educação e respeitar opiniões", "Zombar dos colegas que erram", "Usar apelidos que ofendem e magoam os outros"], answer: 0, why: "Ética vale também em mensagens e comentários." },
+            { icon: "🔁", question: "Antes de repassar uma mensagem, você deve...", options: ["Checar se a informação é verdadeira", "Repassar logo para todos os grupos", "Apagar a fonte para ninguém ver"], answer: 0, why: "Repassar sem checar espalha desinformação." },
+            { icon: "🏭", question: "Celulares e computadores usam muitos recursos da natureza. O que ajuda o ambiente?", options: ["Usar por mais tempo e descartar certo", "Trocar de aparelho a cada poucos meses", "Jogar tudo no lixo comum da rua"], answer: 0, why: "Aparelhos têm materiais que poluem se descartados errado." },
+            { icon: "🔋", question: "Obsolescência é...", options: ["Quando o aparelho fica ultrapassado e é trocado", "Quando um aparelho acaba de ser fabricado", "Quando um aparelho não gasta nenhuma energia"], answer: 0, why: "Trocar aparelhos sem necessidade aumenta o lixo eletrônico." },
+            { icon: "♻️", question: "Onde descartar pilhas e eletrônicos velhos?", options: ["Em pontos de coleta apropriados", "No lixo comum da sua casa", "Em um rio ou em um terreno vazio"], answer: 0, why: "Esses materiais exigem descarte adequado." },
+            { icon: "👷", question: "Como as tecnologias mudam o mundo do trabalho?", options: ["Criam novas profissões e transformam outras", "Não mudam nada na forma de trabalhar", "Acabam com todos os empregos do mundo inteiro"], answer: 0, why: "O trabalho muda, e aprender continuamente ajuda a acompanhar." },
+            { icon: "🔎", question: "Os resultados patrocinados de uma busca...", options: ["Podem ser anúncios: vale comparar fontes", "São sempre os mais confiáveis de todos", "Não existem nas páginas de busca"], answer: 0, why: "Os primeiros resultados nem sempre são os melhores." },
+            { icon: "🧑‍🤝‍🧑", question: "Pode usar o nome e a foto de um colega para criar um perfil falso?", options: ["Não: é desrespeito e traz consequências", "Sim, porque é só uma brincadeira boba", "Só se ele nunca ficar sabendo disso"], answer: 0, why: "Fingir ser outra pessoa pode causar sofrimento." },
+            { icon: "🛡️", question: "Qual atitude protege seus dados em um computador compartilhado?", options: ["Sair da conta ao terminar", "Salvar a senha no navegador", "Deixar a conta aberta"], answer: 0, why: "Sair da conta evita que outros usem seus dados." },
+            { icon: "🧪", question: "Uma pesquisa com a turma deve respeitar...", options: ["A privacidade: sem expor nomes e respostas", "Apenas quem responde as perguntas certo", "Somente quem tem celular em casa"], answer: 0, why: "Os dados dos colegas merecem cuidado." },
+            { icon: "🧠", question: "O que é a \"fonte\" de uma informação?", options: ["De onde ela veio", "A cor do texto", "O tamanho da letra"], answer: 0, why: "Conhecer a fonte ajuda a avaliar a confiança." },
+            { icon: "🏥", question: "Qual fonte costuma ser mais confiável para um tema de saúde?", options: ["O site do Ministério da Saúde", "Uma corrente de mensagens repassada por todos", "Um comentário anônimo"], answer: 0, why: "Instituições oficiais e especialistas são referência." },
+          ],
+        },
+        {
+          title: "Redes sociais e privacidade", icon: "🛡️", age: "12-13 anos", theme: "Redes sociais, privacidade e respeito",
+          rounds: [
+            { icon: "🧠", question: "Empatia na web significa...", options: ["Pensar no que o outro sente antes de comentar", "Concordar com tudo o que todos dizem na rede", "Ignorar quem pensa de modo diferente"], answer: 0, why: "A empatia reduz conflitos e agressões." },
+            { icon: "💔", question: "Cyberbullying é...", options: ["Ofender ou ameaçar alguém várias vezes online", "Uma brincadeira sem importância entre amigos", "Um tipo de jogo de ação para celular"], answer: 0, why: "Ele causa sofrimento real e pode ter consequências legais." },
+            { icon: "🆘", question: "Se você sofrer cyberbullying, o recomendado é...", options: ["Guardar as provas e contar a um adulto", "Responder com ofensas ainda piores", "Apagar tudo e esconder de todos"], answer: 0, why: "Contar e guardar as provas ajuda a resolver." },
+            { icon: "🌱", question: "Descartar celulares e peças eletrônicas no lixo comum causa...", options: ["Impactos ambientais por substâncias tóxicas", "Nenhum problema para o ambiente", "Mais espaço livre nos aterros sanitários"], answer: 0, why: "Eletrônicos têm metais e produtos que contaminam o solo e a água." },
+            { icon: "🎙️", question: "Ao publicar um vídeo ou podcast, é importante...", options: ["Documentar as fontes e dar os créditos", "Copiar tudo sem avisar ninguém", "Esconder o nome do autor original da obra"], answer: 0, why: "Citar fontes dá credibilidade e respeita quem criou." },
+            { icon: "📜", question: "Os termos de uso de uma rede social...", options: ["Dizem o que a plataforma faz com seus dados", "São só um enfeite sem importância", "Garantem que nada será coletado de você"], answer: 0, why: "Ler os termos ajuda a decidir se aceita ou não." },
+            { icon: "🧾", question: "Por que ler a política de privacidade?", options: ["Para saber quais dados coletam e como usam", "Para ganhar prêmios da plataforma", "Ela não serve para nenhuma coisa útil ou importante"], answer: 0, why: "É o documento que explica o tratamento dos seus dados." },
+            { icon: "📍", question: "Qual dado exige mais cuidado?", options: ["Localização em tempo real", "A cor favorita", "O nome de um personagem"], answer: 0, why: "Quem sabe onde você está pode colocar você em risco." },
+            { icon: "⚠️", question: "Um jogo simples pede CPF e endereço. Isso é...", options: ["Um alerta: pode ser golpe ou coleta excessiva", "Algo normal e sempre seguro de informar a todos", "Obrigatório por lei para qualquer jogo"], answer: 0, why: "Só forneça os dados realmente necessários." },
+            { icon: "📣", question: "Compartilhar uma notícia sem checar pode...", options: ["Espalhar desinformação", "Melhorar a notícia", "Garantir que ela é verdadeira"], answer: 0, why: "Cada compartilhamento amplia o alcance, certo ou errado." },
+            { icon: "⚖️", question: "O que são vieses em uma fonte de informação?", options: ["Tendências que podem favorecer um lado", "Erros de digitação encontrados no texto", "Imagens bonitas e muito bem editadas"], answer: 0, why: "Toda fonte tem um ponto de vista. Comparar ajuda a perceber." },
+            { icon: "🤖", question: "Os algoritmos das redes escolhem o que você vê. Isso pode...", options: ["Criar uma bolha de conteúdos parecidos", "Mostrar tudo igual para todos os usuários", "Impedir que apareça qualquer anúncio"], answer: 0, why: "Variar as fontes ajuda a ver outros pontos de vista." },
+            { icon: "🔐", question: "Uma boa prática de privacidade é...", options: ["Revisar quem pode ver suas publicações", "Aceitar todos os pedidos de amizade", "Usar a mesma senha em todas as contas"], answer: 0, why: "Configurar a privacidade reduz riscos." },
+            { icon: "🗣️", question: "Liberdade de expressão significa poder...", options: ["Opinar, respeitando os direitos dos outros", "Ofender sem consequências para ninguém", "Divulgar dados pessoais de outras pessoas na rede"], answer: 0, why: "Ela não autoriza discurso de ódio nem a violação de direitos." },
+            { icon: "🧍", question: "Opiniões diferentes na web devem ser...", options: ["Respeitadas e debatidas com argumentos", "Atacadas com ofensas e deboche", "Ignoradas sempre, sem ouvir ninguém"], answer: 0, why: "Debater com respeito é parte da cidadania digital." },
+            { icon: "🔍", question: "Para avaliar a precisão de uma informação, olhe...", options: ["Autoria, data, fontes citadas e relevância", "Só a quantidade de curtidas e de comentários", "A cor do site e o tamanho das letras"], answer: 0, why: "Vários critérios juntos dão mais segurança." },
+          ],
+        },
+        {
+          title: "Informação e cidadania digital", icon: "🌍", age: "14 anos", theme: "Veracidade, direitos digitais e impactos sociais",
+          rounds: [
+            { icon: "🔎", question: "Para avaliar a veracidade de uma informação, é preciso...", options: ["Checar a origem, comparar fontes e o propósito", "Confiar em quem compartilhou a postagem com você", "Ver se a postagem tem muitas curtidas"], answer: 0, why: "A origem e o propósito mostram por que a informação foi divulgada." },
+            { icon: "🎯", question: "A desinformação difere de um simples erro porque...", options: ["Pode ser feita de propósito para enganar", "É sempre um engano acidental de alguém", "É sempre apenas uma piada divertida"], answer: 0, why: "Há desinformação com objetivos políticos, financeiros ou golpistas." },
+            { icon: "🖼️", question: "Imagens geradas por inteligência artificial...", options: ["Podem enganar: é preciso verificar a origem", "Nunca parecem reais para ninguém", "São sempre verdadeiras, porque são feitas por IA"], answer: 0, why: "Fotos e vídeos falsos podem parecer verdadeiros." },
+            { icon: "📸", question: "Usar a imagem de alguém sem permissão pode...", options: ["Violar o direito de imagem e gerar punição", "Ser sempre permitido pela lei", "Não ter nenhuma consequência para ninguém"], answer: 0, why: "O direito de imagem protege a pessoa." },
+            { icon: "🎨", question: "Ao criar conteúdo a partir de obras de outras pessoas, é preciso...", options: ["Respeitar as licenças e dar os créditos", "Remover o nome do autor original", "Cobrar dos colegas por tudo o que fizer"], answer: 0, why: "Licenças definem como uma obra pode ser usada." },
+            { icon: "🌍", question: "A desigualdade no acesso à internet e a computadores...", options: ["Levanta questões de equidade, acesso e poder", "Não afeta as oportunidades de ninguém no mundo", "Beneficia todos do mesmo jeito sempre"], answer: 0, why: "Quem não tem acesso perde oportunidades de estudo e trabalho." },
+            { icon: "🏙️", question: "Como o ambiente digital pode ajudar com um problema da cidade?", options: ["Mapeando o problema e propondo soluções", "Ignorando o problema e esperando", "Apenas reclamando em redes sociais por horas"], answer: 0, why: "Dados e participação podem apoiar soluções de interesse coletivo." },
+            { icon: "🧑‍💼", question: "A automação e a inteligência artificial podem...", options: ["Mudar profissões e exigir novas habilidades", "Não afetar nenhum tipo de trabalho no futuro", "Acabar com toda atividade humana"], answer: 0, why: "Há mudanças e novas oportunidades, mas também desafios." },
+            { icon: "🤖", question: "Uma IA responde com muita confiança, mas a resposta está errada. O que fazer?", options: ["Checar em fontes confiáveis antes", "Aceitar a resposta sem questionar", "Compartilhar logo com todos"], answer: 0, why: "Ferramentas de IA podem errar e inventar informações." },
+            { icon: "📢", question: "Qual é o propósito de um anúncio disfarçado de notícia?", options: ["Vender ou convencer sem deixar isso claro", "Informar de forma neutra e imparcial", "Educar sem nenhum interesse comercial"], answer: 0, why: "Reconhecer o propósito faz parte de avaliar a informação." },
+            { icon: "🧭", question: "Antes de usar dados de terceiros em um projeto, você deve...", options: ["Verificar a licença e a privacidade", "Copiar tudo sem pedir a ninguém", "Esconder a origem dos dados usados"], answer: 0, why: "O uso de dados exige ética e respeito às regras." },
+            { icon: "⚖️", question: "Os direitos digitais incluem...", options: ["Proteção de dados e liberdade responsável", "O direito de ofender quem quiser", "O acesso livre à senha dos outros usuários"], answer: 0, why: "Direitos digitais protegem as pessoas na rede." },
+            { icon: "🧠", question: "Por que desconfiar de manchetes que provocam muita raiva ou medo?", options: ["Costumam ser feitas para gerar cliques", "São sempre feitas com informações corretas", "Nunca têm um autor identificado"], answer: 0, why: "Emoções fortes fazem a pessoa compartilhar sem checar." },
+            { icon: "🔗", question: "Para verificar uma imagem suspeita, um passo útil é...", options: ["Fazer a busca reversa da imagem", "Apenas dar zoom na imagem", "Compartilhar a imagem para perguntar aos amigos"], answer: 0, why: "A busca reversa mostra onde ela já apareceu." },
+            { icon: "🌐", question: "Participar de forma ética da web envolve...", options: ["Responsabilidade, respeito e atenção", "Anonimato para poder ofender", "Copiar e colar sem pensar muito no que faz"], answer: 0, why: "O que se faz online afeta pessoas reais." },
+            { icon: "🧩", question: "Qual conduta ajuda a combater a desinformação?", options: ["Checar antes e corrigir com respeito", "Compartilhar para alertar sem checar", "Ignorar tudo o que é falso"], answer: 0, why: "Cada pessoa pode ajudar a reduzir a circulação de informações falsas." },
+          ],
+        },
+      ];
+
+      const quizMissions = {
+        hardware: { title: "Computador por dentro", levels: hardwareLevels, finalMessage: "Computador explorado!" },
+        safe: { title: "Navegação segura", levels: safeLevels, finalMessage: "Navegação segura!" },
+      };
+
       function currentDecomposeRounds() {
         return decomposeLevels[state.decomposeLevel].rounds;
       }
@@ -15383,6 +15953,10 @@ const brStatesList = [
         decomposeMissTimer: null,
         decomposeWrong: null,
         decomposeCorrectIndex: null,
+        quizLevel: null,
+        quizWrong: null,
+        quizCorrectIndex: null,
+        quizAttempt: 0,
         builderLevel: null,
         builderCells: [],
         builderVisitCounts: [],
@@ -16173,6 +16747,8 @@ const brStatesList = [
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
         pattern: patternLevels.map((level) => level.rounds.map(cloneValue)),
         decompose: decomposeLevels.map((level) => level.rounds.map(cloneValue)),
+        hardware: hardwareLevels.map((level) => level.rounds.map(cloneValue)),
+        safe: safeLevels.map((level) => level.rounds.map(cloneValue)),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
@@ -16262,6 +16838,13 @@ const brStatesList = [
         });
       }
 
+      function resetQuizRoundPools(mode, seed) {
+        quizMissions[mode].levels.forEach((level, levelIndex) => {
+          const source = roundPools[mode][levelIndex];
+          resetRoundPool(level.rounds, source, seedFromParts(seed, mode, levelIndex), { free: true });
+        });
+      }
+
       function resetDecoderRoundPools(seed) {
         decoderLevels.forEach((level, levelIndex) => {
           const source = roundPools.decoder[levelIndex];
@@ -16322,6 +16905,7 @@ const brStatesList = [
         if (mode === "var") resetVarRoundPools(seedForMode);
         if (mode === "pattern") resetPatternRoundPools(seedForMode);
         if (mode === "decompose") resetDecomposeRoundPools(seedForMode);
+        if (quizMissions[mode]) resetQuizRoundPools(mode, seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "ttt") resetTttRoundPools(seedForMode);
         if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
@@ -16889,6 +17473,8 @@ const brStatesList = [
         var: varLevels,
         pattern: patternLevels,
         decompose: decomposeLevels,
+        hardware: hardwareLevels,
+        safe: safeLevels,
         builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
@@ -19424,6 +20010,121 @@ const brStatesList = [
         render();
       }
 
+      function currentQuizRounds() {
+        return quizMissions[state.mode].levels[state.quizLevel].rounds;
+      }
+
+      function quizOptions() {
+        const round = currentQuizRounds()[state.round];
+        const correctText = round.options[round.answer];
+        return orderAnswerOptions(round.options, {
+          seed: seedFromParts(state.mode, state.missionSeed, state.quizLevel, state.round, round.question),
+          attempt: state.quizAttempt,
+          isCorrect: (option) => option === correctText,
+        });
+      }
+
+      function startQuizRound() {
+        state.selected = -1;
+        state.quizWrong = null;
+        state.quizCorrectIndex = null;
+        state.quizAttempt = 0;
+      }
+
+      function renderQuiz() {
+        const mission = quizMissions[state.mode];
+        const level = mission.levels[state.quizLevel];
+        const rounds = level.rounds;
+        const round = rounds[state.round];
+        const options = quizOptions();
+        setHeader(mission.title, level.title);
+        setCounters("Desafio", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        status.textContent = state.quizCorrectIndex !== null ? "Muito bem!" : "Escolha a resposta certa.";
+        content.innerHTML = `<div class="decompose-board">
+          <div class="decompose-task-header">
+            <span class="decompose-task-icon">${round.icon}</span>
+            <span class="decompose-task-title" data-speak>${round.question}</span>
+          </div>
+          <div class="decompose-options ${state.answerLocked ? "locked" : ""}">
+            ${options.map((option, index) => `<button type="button" class="decompose-option ${index === state.selected ? "selected" : ""} ${state.quizWrong === index ? "wrong" : ""} ${state.quizCorrectIndex === index ? "correct" : ""}">
+              <span class="decompose-option-steps"><span class="decompose-option-step" data-speak>${option}</span></span>
+              ${state.quizCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
+            </button>`).join("")}
+          </div>
+          ${state.quizCorrectIndex !== null ? `<div class="quiz-why" data-speak>${round.why}</div>` : ""}
+        </div>`;
+      }
+
+      function advanceQuizRound() {
+        const mode = state.mode;
+        const rounds = currentQuizRounds();
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete(mode, quizMissions[mode].finalMessage);
+          return;
+        }
+        startQuizRound();
+        render();
+      }
+
+      function handleQuizSubmit() {
+        const round = currentQuizRounds()[state.round];
+        if (!round) return;
+        const options = quizOptions();
+        const isCorrect = options[state.selected] === round.options[round.answer];
+        if (!isCorrect) {
+          lockAnswer({
+            delay: 1200,
+            messageText: "Quase! tente de novo.",
+            messageType: "info",
+            guard: () => Boolean(quizMissions[state.mode]),
+            onLock: () => { state.quizWrong = state.selected; },
+            onUnlock: () => {
+              state.quizWrong = null;
+              state.quizAttempt += 1;
+              state.selected = -1;
+            },
+          });
+          return;
+        }
+        state.quizWrong = null;
+        state.quizCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("✨ Isso mesmo!", 600);
+        render();
+        const mode = state.mode;
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== mode) return;
+          state.quizCorrectIndex = null;
+          state.answerLocked = false;
+          advanceQuizRound();
+        }, 3200);
+      }
+
+      function handleQuizEnter() {
+        if (!hasSelection()) return;
+        handleQuizSubmit();
+      }
+
+      function handleQuizClick(event) {
+        if (!currentQuizRounds()[state.round]) return false;
+        return activateChoiceClick(event, ".decompose-option", {
+          clearWrong: () => { state.quizWrong = null; },
+          onConfirm: handleQuizSubmit,
+        });
+      }
+
+      function backToQuizMenu() {
+        stopTimer();
+        state.answerLocked = false;
+        state.quizLevel = null;
+        resetRoundState(0);
+        startQuizRound();
+        state.mode = "menu";
+        render();
+      }
+
       function currentDecoderRounds() {
         return decoderLevels[state.decoderLevel].rounds;
       }
@@ -21128,6 +21829,8 @@ const brStatesList = [
         var: renderVar,
         pattern: renderPattern,
         decompose: renderDecompose,
+        hardware: renderQuiz,
+        safe: renderQuiz,
         builder: renderBuilder,
         decoder: renderDecoder,
         devices: renderDevices,
@@ -21185,6 +21888,8 @@ const brStatesList = [
         var: "varLevel",
         pattern: "patternLevel",
         decompose: "decomposeLevel",
+        hardware: "quizLevel",
+        safe: "quizLevel",
         builder: "builderLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
@@ -21243,6 +21948,11 @@ const brStatesList = [
         if (mode === "decompose") {
           state.decomposeLevel = state.ageBand;
           startDecomposeRound();
+          return;
+        }
+        if (quizMissions[mode]) {
+          state.quizLevel = state.ageBand;
+          startQuizRound();
           return;
         }
         if (mode === "memory") {
@@ -21454,6 +22164,10 @@ const brStatesList = [
         state.decomposeMiss = null;
         state.decomposeWrong = null;
         state.decomposeCorrectIndex = null;
+        state.quizLevel = null;
+        state.quizWrong = null;
+        state.quizCorrectIndex = null;
+        state.quizAttempt = 0;
         window.clearTimeout(state.builderRunTimer);
         state.builderRunTimer = null;
         window.clearTimeout(state.builderAutoAdvanceTimer);
@@ -23623,6 +24337,8 @@ const brStatesList = [
         var: handleVarEnter,
         pattern: handlePatternEnter,
         decompose: handleDecomposeEnter,
+        hardware: handleQuizEnter,
+        safe: handleQuizEnter,
         builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
@@ -23930,6 +24646,14 @@ const brStatesList = [
               });
             }
           }
+        } else if (quizMissions[state.mode]) {
+          const round = currentQuizRounds()[state.round];
+          if (!round) return;
+          moveSelectionIndex({
+            count: round.options.length,
+            delta,
+            afterMove: () => { state.quizWrong = null; },
+          });
         } else if (state.mode === "builder") {
           const count = currentBuilderPaletteBlocks().length;
           moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 2) });
@@ -24254,6 +24978,8 @@ const brStatesList = [
         var: handleVarClick,
         pattern: handlePatternClick,
         decompose: handleDecomposeClick,
+        hardware: handleQuizClick,
+        safe: handleQuizClick,
         builder: handleBuilderClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
@@ -24390,27 +25116,253 @@ const brStatesList = [
         return item ? `${item.icon} ${item.title}` : id;
       }
 
+      function lessonPlanScreenMinutes(plan) {
+        const minutes = (item) => parseInt(item.time, 10) || 0;
+        const total = plan.sequence.reduce((sum, item) => sum + minutes(item), 0);
+        const screen = plan.sequence.filter((item) => item.mode === "plugada").reduce((sum, item) => sum + minutes(item), 0);
+        return { total, screen };
+      }
+
       function lessonPlanHtml(plan) {
+        const gradeNumber = parseInt(plan.grade, 10);
+        const earlyYears = gradeNumber <= 5;
+        const axes = [...new Set(plan.skills.map((item) => item.axis))];
+        const mainSkills = plan.skills.filter((item) => item.main);
+        const otherSkills = plan.skills.filter((item) => !item.main);
+        const skillYear = (code) => `${parseInt(code.slice(2, 4), 10)}º ano`;
+        const { total, screen } = lessonPlanScreenMinutes(plan);
+        const modeLabel = { desplugada: "Sem tela", plugada: "No computador" };
+        const implementationNote = plan.transition2026
+          ? `<div class="lesson-plan-note"><strong>Implementação em Santa Catarina:</strong> em 2026, as turmas do 6º ano ao Ensino Médio partem das habilidades do 6º ano; em 2027, do 7º ano, e assim por diante, até 2030, quando cada ano trabalha as suas próprias habilidades. As habilidades de retomada e de ampliação ajudam a ajustar o plano ao nível real da turma.</div>`
+          : "";
+        const earlyYearsNote = earlyYears
+          ? `<div class="lesson-plan-note"><strong>Anos iniciais:</strong> a alfabetização é prioridade. Leia os enunciados em voz alta, use imagens e cartões e mantenha o uso de telas equilibrado e restrito, sempre com intenção pedagógica clara.</div>`
+          : `<div class="lesson-plan-note"><strong>Uso pedagógico dos dispositivos:</strong> as telas entram com objetivo definido e tempo limitado. O dispositivo não deve ser usado como recompensa nem como entretenimento.</div>`;
         return `
           <h2 class="lesson-plan-title">${plan.grade} · ${plan.theme}</h2>
-          <div class="lesson-plan-meta">Faixa etária sugerida: ${plan.ageLabel} · Duração: ${plan.duration}</div>
+          <div class="lesson-plan-meta">Faixa etária sugerida: ${plan.ageLabel} · Duração: ${plan.duration} · Eixos: ${axes.join(" · ")}</div>
+          <p class="lesson-plan-summary">${plan.summary}</p>
+          ${earlyYearsNote}
+          ${implementationNote}
           <h3 class="lesson-plan-section-title">Objetivos de aprendizagem</h3>
           <ul class="lesson-plan-list">${plan.objectives.map((item) => `<li>${item}</li>`).join("")}</ul>
           <h3 class="lesson-plan-section-title">Competências Gerais da BNCC</h3>
           <ul class="lesson-plan-list">${plan.competencies.map((item) => `<li>${item}</li>`).join("")}</ul>
-          <h3 class="lesson-plan-section-title">Habilidades da BNCC Computação</h3>
-          <ul class="lesson-plan-list">${plan.skills.map((item) => `<li><strong>${item.code}</strong> — ${item.text}</li>`).join("")}</ul>
+          <h3 class="lesson-plan-section-title">Habilidades da BNCC Computação (Currículo de Educação Digital de SC)</h3>
+          <ul class="lesson-plan-list">${mainSkills.map((item) => `<li><strong>${item.code}</strong> <span class="lesson-plan-tag">${item.axis}</span> — ${item.text}</li>`).join("")}</ul>
+          ${otherSkills.length ? `<div class="lesson-plan-subtitle">Retomada e ampliação</div><ul class="lesson-plan-list">${otherSkills.map((item) => `<li><strong>${item.code}</strong> <span class="lesson-plan-tag">${skillYear(item.code)}</span> — ${item.text}</li>`).join("")}</ul>` : ""}
+          <h3 class="lesson-plan-section-title">Habilidades relacionadas (transversalidade)</h3>
+          <ul class="lesson-plan-list">${plan.related.map((item) => `<li><strong>${item.code}</strong> — ${item.text}</li>`).join("")}</ul>
+          <h3 class="lesson-plan-section-title">Recursos necessários</h3>
+          <ul class="lesson-plan-list">${plan.materials.map((item) => `<li>${item}</li>`).join("")}</ul>
           <h3 class="lesson-plan-section-title">Sequência didática</h3>
           <table class="lesson-plan-table">
-            <thead><tr><th>Etapa</th><th>Tempo</th><th>O que fazer</th></tr></thead>
-            <tbody>${plan.sequence.map((item) => `<tr><td>${item.step}</td><td>${item.time}</td><td>${item.description}</td></tr>`).join("")}</tbody>
+            <thead><tr><th>Etapa</th><th>Tempo</th><th>Modo</th><th>O que fazer</th></tr></thead>
+            <tbody>${plan.sequence.map((item) => `<tr><td>${item.step}</td><td>${item.time}</td><td><span class="lesson-plan-mode ${item.mode}">${modeLabel[item.mode] || item.mode}</span></td><td>${item.description}</td></tr>`).join("")}</tbody>
           </table>
+          <div class="lesson-plan-screen">Tempo no computador: <strong>${screen} de ${total} minutos</strong></div>
           <h3 class="lesson-plan-section-title">Missões recomendadas</h3>
           <ul class="lesson-plan-list">${plan.missions.map((id) => `<li>${missionTitleById(id)}</li>`).join("")}</ul>
+          ${plan.extension ? `<p class="lesson-plan-summary">${plan.extension}</p>` : ""}
           <h3 class="lesson-plan-section-title">Avaliação (observação em sala)</h3>
           <ul class="lesson-plan-list">${plan.assessment.map((item) => `<li>${item}</li>`).join("")}</ul>
-          <div class="lesson-plan-footnote">Alinhado às Competências Gerais da BNCC e às habilidades de Computação (Parecer CNE/CEB 2/2022 e Resolução CNE/CEB 1/2022). Missões Interativas — Pensamento Computacional.</div>
+          <div class="lesson-plan-footnote">Alinhado ao Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026), à BNCC e à BNCC Computação (Parecer CNE/CEB 2/2022 e Resolução CNE/CEB 1/2022). Formato inspirado nas Sugestões Didáticas do currículo. Missões Interativas — Pensamento Computacional.</div>
         `;
+      }
+
+      function missionPlainTitle(id) {
+        const item = missions.find((entry) => entry.id === id);
+        return item ? item.title : id;
+      }
+
+      function monthlyDateLabel(value) {
+        const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || "");
+        return match ? `${match[3]}/${match[2]}/${match[1]}` : "";
+      }
+
+      function monthlyIsoDate(date) {
+        const pad = (number) => String(number).padStart(2, "0");
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+      }
+
+      function monthlyThemeOptions(selected) {
+        return lessonPlans
+          .map((plan, index) => `<option value="${index}"${index === selected ? " selected" : ""}>${escapeHtml(plan.theme)} (${escapeHtml(plan.ageLabel)})</option>`)
+          .join("");
+      }
+
+      function monthlyPlanFormHtml() {
+        const now = new Date();
+        const start = monthlyIsoDate(new Date(now.getFullYear(), now.getMonth(), 1));
+        const end = monthlyIsoDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+        const defaults = [1, 2, 3, 4, 5];
+        const weekFields = defaults
+          .map((theme, index) => `<label>${index + 1}ª semana: tema<select id="monthlyTheme${index + 1}">${monthlyThemeOptions(theme)}</select></label>`)
+          .join("");
+        return `
+          <h2 class="lesson-plan-title">Plano de atividade mensal</h2>
+          <p class="lesson-plan-summary">Preencha os dados e escolha o tema de cada semana. O plano sai no formato da rede estadual (objetivos e metas, atividades por semana, material de apoio e referências), pronto para imprimir ou salvar em PDF. Nada é guardado neste aparelho.</p>
+          <form id="monthlyPlanForm" class="monthly-form" autocomplete="off">
+            <label>Escola<input id="monthlySchool" type="text" placeholder="Ex.: Escola de Educação Básica ..."></label>
+            <label>Coordenadoria Regional de Educação (opcional)<input id="monthlyRegional" type="text" placeholder="Ex.: Coordenadoria Regional de Educação de ..."></label>
+            <label>Professor(a)<input id="monthlyTeacher" type="text"></label>
+            <label>Turma<input id="monthlyGroup" type="text" placeholder="Ex.: Integral (2º ao 8º ano)"></label>
+            <label>Título do plano<input id="monthlyTitle" type="text" value="Educação Digital"></label>
+            <div class="monthly-form-row">
+              <label>Início<input id="monthlyStart" type="date" value="${start}"></label>
+              <label>Fim<input id="monthlyEnd" type="date" value="${end}"></label>
+              <label>Semanas<select id="monthlyWeeks"><option value="4">4 semanas</option><option value="5" selected>5 semanas</option></select></label>
+            </div>
+            ${weekFields}
+            <button class="support-open-link" type="submit">Gerar plano</button>
+          </form>
+        `;
+      }
+
+      function monthlyPlanDocHtml(data) {
+        const plans = data.themes.slice(0, data.weeks).map((index) => lessonPlans[index]);
+        const goals = [
+          "Desenvolver habilidades do Currículo de Educação Digital de Santa Catarina nos eixos Pensamento Computacional, Mundo Digital e Cultura Digital.",
+        ];
+        plans.forEach((plan) => {
+          if (!goals.includes(plan.objectives[0])) goals.push(plan.objectives[0]);
+        });
+        goals.push("Usar as tecnologias digitais com intenção pedagógica, de forma segura e com tempo de tela equilibrado.");
+        const weekItems = plans
+          .map((plan, index) => {
+            const offScreen = plan.sequence.find((item) => item.step.startsWith("Atividade desplugada")) || plan.sequence.find((item) => item.mode === "desplugada");
+            const offScreenName = offScreen.step.replace(/^Atividade desplugada:\s*/, "");
+            const missionNames = plan.missions.slice(0, 3).map(missionPlainTitle).join(", ");
+            const codes = plan.skills.filter((item) => item.main).map((item) => item.code).join(", ");
+            return `<p><strong>${index + 1}ª SEMANA:</strong> ${escapeHtml(plan.theme)}. Atividade sem tela: ${escapeHtml(offScreenName.charAt(0).toLowerCase() + offScreenName.slice(1))}. No computador: ${escapeHtml(missionNames)}. Habilidades: ${escapeHtml(codes)}.</p>`;
+          })
+          .join("");
+        const materials = [
+          "Computadores ou tablets com acesso ao Missões Interativas",
+          "projetor",
+          "quadro e pincéis",
+          "papel e canetas",
+        ];
+        plans.forEach((plan) => {
+          plan.materials
+            .filter((item) => !/^(Computador|Projetor)/.test(item))
+            .slice(0, 1)
+            .forEach((item) => {
+              const text = item.charAt(0).toLowerCase() + item.slice(1);
+              if (!materials.includes(text)) materials.push(text);
+            });
+        });
+        const upper = (value) => escapeHtml(value).toUpperCase();
+        const period = data.start && data.end ? `${monthlyDateLabel(data.start)} – ${monthlyDateLabel(data.end)}` : "";
+        return `
+          <div class="monthly-doc">
+            <div class="monthly-header">
+              <strong>Estado de Santa Catarina</strong><br>
+              Secretaria de Estado da Educação<br>
+              ${data.regional ? `${escapeHtml(data.regional)}<br>` : ""}
+              ${data.school ? `<strong>${upper(data.school)}</strong>` : ""}
+            </div>
+            <h2 class="monthly-title">PLANO DE ATIVIDADE MENSAL</h2>
+            <h3 class="monthly-subtitle">${upper(data.title || "Educação Digital")}</h3>
+            <table class="monthly-table">
+              <tr><td colspan="2"><strong>Professor(a):</strong> ${escapeHtml(data.teacher)}</td></tr>
+              <tr><td colspan="2"><strong>Turma:</strong> ${escapeHtml(data.group)}</td></tr>
+              <tr><th>Objetivos/Metas</th><th>Atividades formativas a serem realizadas</th></tr>
+              <tr>
+                <td><ul>${goals.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></td>
+                <td>${weekItems}</td>
+              </tr>
+              <tr><td colspan="2"><strong>Período de aplicação do plano:</strong> ${escapeHtml(period)}</td></tr>
+              <tr><td colspan="2"><strong>Material de apoio:</strong> ${escapeHtml(materials.join(", "))}.</td></tr>
+              <tr><td colspan="2"><strong>Referências:</strong> BNCC; BNCC Computação (Parecer CNE/CEB nº 2/2022 e Resolução CNE/CEB nº 1/2022); Currículo Base do Território Catarinense; Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026); Resolução CNE/CEB nº 2/2025.</td></tr>
+            </table>
+            <div class="lesson-plan-actions lesson-plan-print-hide"><button id="monthlyPlanEditButton" class="support-copy-button" type="button">✏️ Editar dados</button></div>
+          </div>
+        `;
+      }
+
+      function openMonthlyPlan() {
+        lessonPlanContent.innerHTML = monthlyPlanFormHtml();
+        lessonPlanModal.hidden = false;
+        const form = document.getElementById("monthlyPlanForm");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const value = (id) => document.getElementById(id).value.trim();
+          const weeks = Number(document.getElementById("monthlyWeeks").value);
+          const themes = [1, 2, 3, 4, 5].map((number) => Number(document.getElementById(`monthlyTheme${number}`).value));
+          const data = {
+            school: value("monthlySchool"),
+            regional: value("monthlyRegional"),
+            teacher: value("monthlyTeacher"),
+            group: value("monthlyGroup"),
+            title: value("monthlyTitle"),
+            start: value("monthlyStart"),
+            end: value("monthlyEnd"),
+            weeks,
+            themes,
+          };
+          lessonPlanContent.innerHTML = monthlyPlanDocHtml(data);
+          document.getElementById("monthlyPlanEditButton").addEventListener("click", () => {
+            openMonthlyPlan();
+            Object.entries({ monthlySchool: data.school, monthlyRegional: data.regional, monthlyTeacher: data.teacher, monthlyGroup: data.group, monthlyTitle: data.title, monthlyStart: data.start, monthlyEnd: data.end, monthlyWeeks: String(data.weeks) }).forEach(([id, text]) => {
+              document.getElementById(id).value = text;
+            });
+            data.themes.forEach((theme, index) => {
+              document.getElementById(`monthlyTheme${index + 1}`).value = String(theme);
+            });
+          });
+        });
+      }
+
+      function guidanceHtml() {
+        const screenShare = lessonPlans.filter((plan) => parseInt(plan.grade, 10) <= 5).map((plan) => lessonPlanScreenMinutes(plan));
+        const minScreen = Math.min(...screenShare.map((item) => item.screen));
+        const maxScreen = Math.max(...screenShare.map((item) => item.screen));
+        return `
+          <h2 class="lesson-plan-title">Orientações de uso pedagógico</h2>
+          <p class="lesson-plan-summary">Princípios do Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026), da BNCC Computação e das Diretrizes Operacionais do CNE (Resolução CNE/CEB nº 2/2025) aplicados a este material.</p>
+          <h3 class="lesson-plan-section-title">Antes da aula</h3>
+          <ul class="lesson-plan-list">
+            <li>Defina a habilidade e o objetivo da aula e escolha a missão a partir deles (cada plano indica as habilidades e as missões).</li>
+            <li>Prepare a atividade sem tela: ela vem primeiro e dá sentido ao que será feito no computador.</li>
+            <li>Teste o equipamento, o som e a voz de leitura do navegador antes de a turma chegar.</li>
+          </ul>
+          <h3 class="lesson-plan-section-title">Tempo de tela e intenção pedagógica</h3>
+          <ul class="lesson-plan-list">
+            <li>Nos anos iniciais, o currículo pede uso equilibrado e mais restrito dos dispositivos. Os planos de 1º ao 5º ano deste material usam de ${minScreen} a ${maxScreen} minutos no computador por aula, alternando com atividades sem tela.</li>
+            <li>Dispositivos não devem ser moeda de troca, recompensa nem entretenimento. Todo uso do computador deve ter objetivo, tempo e produto definidos.</li>
+            <li>Evite propor tarefas pedagógicas que estimulem crianças com menos de 12 anos a ter celular próprio ou a usar aplicativos de mensagem.</li>
+          </ul>
+          <h3 class="lesson-plan-section-title">Turma com idades e níveis diferentes</h3>
+          <ul class="lesson-plan-list">
+            <li>Em turmas mistas (por exemplo, integral do 2º ao 8º ano), cada aluno ou grupo escolhe a faixa de idade no início, e a mesma habilidade é trabalhada em níveis diferentes.</li>
+            <li>Organize estações: um grupo no computador, outro com a atividade sem tela e outro em dupla de apoio, alternando a cada rodada.</li>
+            <li>Para quem ainda não lê com autonomia: use o botão 🔊 Ouvir quando a missão oferecer, leia os enunciados em voz alta, trabalhe em duplas e aceite respostas por desenho e fala.</li>
+          </ul>
+          <h3 class="lesson-plan-section-title">Cidadania digital e Inteligência Artificial</h3>
+          <ul class="lesson-plan-list">
+            <li>Converse sobre privacidade, respeito nas redes, fontes confiáveis e desinformação a partir de situações reais da turma.</li>
+            <li>A Inteligência Artificial atravessa os três eixos do currículo: evite o otimismo excessivo e a aversão e promova a análise crítica de benefícios e riscos. As referências da UNESCO (2025) orientam esse trabalho.</li>
+            <li>Este material funciona sem cadastro, sem login e sem coleta de dados dos estudantes.</li>
+          </ul>
+          <h3 class="lesson-plan-section-title">Avaliação</h3>
+          <ul class="lesson-plan-list">
+            <li>A avaliação é formativa e contínua: observe a participação, o raciocínio e a capacidade de explicar a solução, usando as perguntas de cada plano.</li>
+            <li>Retome habilidades de anos anteriores quando a turma precisar. O currículo prevê esse ajuste ao diagnóstico de cada turma.</li>
+          </ul>
+          <h3 class="lesson-plan-section-title">Documentos de referência</h3>
+          <ul class="lesson-plan-list">
+            <li>Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026).</li>
+            <li>BNCC e BNCC Computação (Parecer CNE/CEB nº 2/2022 e Resolução CNE/CEB nº 1/2022).</li>
+            <li>Resolução CNE/CEB nº 2/2025, Lei nº 15.100/2025 e Decreto nº 12.385/2025 (uso de dispositivos digitais nas escolas).</li>
+            <li>MEC (2025): Educação Digital e Midiática: como elaborar e implementar o currículo nas escolas.</li>
+          </ul>
+        `;
+      }
+
+      function openGuidance() {
+        lessonPlanContent.innerHTML = guidanceHtml();
+        lessonPlanModal.hidden = false;
       }
 
       function renderLessonPlanGrid() {
@@ -24825,6 +25777,10 @@ const brStatesList = [
           backToDecomposeLevels();
           return;
         }
+        if (quizMissions[state.mode] && state.quizLevel !== null) {
+          backToQuizMenu();
+          return;
+        }
         if (state.mode === "builder" && state.builderLevel !== null) {
           backToBuilderLevels();
           return;
@@ -24933,6 +25889,8 @@ const brStatesList = [
         if (event.target === lessonPlanModal) closeLessonPlanModal();
       });
       lessonPlanPrintButton.addEventListener("click", () => window.print());
+      document.getElementById("monthlyPlanButton").addEventListener("click", openMonthlyPlan);
+      document.getElementById("guidanceButton").addEventListener("click", openGuidance);
       renderLessonPlanGrid();
       childAudienceButton.addEventListener("click", lockAboutForChild);
       adultHoldButton.addEventListener("pointerdown", startAdultHold);

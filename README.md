@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.15.0
+Versão atual: 2.16.0
 
 ## Acesse
 
@@ -43,7 +43,7 @@ Referências oficiais:
 
 ## Alinhamento com a BNCC Computação
 
-Os códigos abaixo vêm das tabelas de competências e habilidades da [Resolução CNE/CEB nº 1/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/resolucao-cne-ceb-no-1-de-4-de-outubro-de-2022) (Normas sobre Computação na Educação Básica, complemento à BNCC), publicadas no [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/anexo-ao-parecer-cne-ceb-no-2-2022). Os eixos são Pensamento Computacional, Mundo Digital e Cultura Digital. A relação entre missão e habilidade é uma leitura pedagógica do material e pode variar conforme a faixa etária escolhida. Os códigos `EF15CO` valem para o 1º ao 5º ano e `EF69CO` para o 6º ao 9º.
+Os códigos abaixo vêm das tabelas de competências e habilidades da [Resolução CNE/CEB nº 1/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/resolucao-cne-ceb-no-1-de-4-de-outubro-de-2022) (Normas sobre Computação na Educação Básica, complemento à BNCC), publicadas no [Anexo ao Parecer CNE/CEB nº 2/2022](https://www.gov.br/mec/pt-br/cne/pdf/base-nacional-comum-curricular-bncc/anexo-ao-parecer-cne-ceb-no-2-2022). Os eixos são Pensamento Computacional, Mundo Digital e Cultura Digital. Os mesmos códigos e textos constam no Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026), que não criou nem alterou habilidades e usa apenas os códigos de cada ano (de `EF01CO01` a `EF09CO10`). A relação entre missão e habilidade é uma leitura pedagógica do material e pode variar conforme a faixa etária escolhida.
 
 | Missão | Habilidades |
 |---|---|
@@ -51,11 +51,13 @@ Os códigos abaixo vêm das tabelas de competências e habilidades da [Resoluç�
 | Chef Cozinheiro | EF01CO02, EF01CO03 |
 | Ciclos da natureza e Caderneta de vacinação | EF01CO03 (ordenar sequências) |
 | Padrão Perfeito | EF01CO01, EF02CO01 |
-| Divida a Tarefa | EF03CO03, EF15CO04, EF06CO04 |
-| Mensagem secreta | EF01CO05, EF04CO04, EF15CO05 |
+| Divida a Tarefa | EF03CO03, EF06CO04 |
+| Mensagem secreta | EF01CO05, EF04CO04, EF04CO05 |
 | Desmistificador de Pixels | EF04CO05 |
 | Dados e gráficos | EF03CO04, EF03CO05 |
 | Entrada ou saída | EF03CO06, EF05CO05 |
+| Computador por dentro | EF02CO04, EF03CO04, EF03CO06, EF04CO04, EF05CO05, EF05CO06, EF05CO07, EF06CO07, EF06CO08, EF07CO06, EF07CO07, EF08CO05, EF08CO06, EF09CO04, EF09CO05 |
+| Navegação segura | EF01CO07, EF02CO06, EF03CO07, EF03CO09, EF04CO07, EF04CO08, EF05CO08, EF05CO09, EF06CO09, EF06CO10, EF07CO08 a EF07CO10, EF08CO07 a EF08CO11, EF09CO06 a EF09CO10 |
 | Fábrica de Laços | EF02CO02, EF03CO02, EF04CO03 |
 | Portão Lógico | EF03CO01, EF05CO03, EF05CO04 |
 | Estante Organizada | EF05CO01, EF08CO03 |
@@ -101,7 +103,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 ## Missões
 
-Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (sequência e algoritmos, padrões e dados, lógica de programação, classificação, lógica e decisão, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
+Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (alfabetização, sequência e algoritmos, padrões, códigos e dados, classificação e organização, lógica e decisão, lógica de programação, mundo digital e cultura digital, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha da base (países ou estados) e do jeito de jogar — estudar e reconhecer, bandeira→nome ou nome→bandeira.
@@ -119,6 +121,8 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Dados e gráficos: contagem, comparação e leitura de informações.
 - Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
+- Computador por dentro: perguntas sobre hardware e software, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto.
+- Navegação segura: perguntas sobre dados pessoais, fontes confiáveis, convivência e ética digital, direitos autorais e impactos sociais da tecnologia, com explicação a cada acerto.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
@@ -151,7 +155,7 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão) e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal e orientações de uso pedagógico e tempo de tela e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 
