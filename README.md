@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.16.0
+Versão atual: 2.17.0
 
 ## Acesse
 
@@ -57,13 +57,18 @@ Os códigos abaixo vêm das tabelas de competências e habilidades da [Resoluç�
 | Dados e gráficos | EF03CO04, EF03CO05 |
 | Entrada ou saída | EF03CO06, EF05CO05 |
 | Computador por dentro | EF02CO04, EF03CO04, EF03CO06, EF04CO04, EF05CO05, EF05CO06, EF05CO07, EF06CO07, EF06CO08, EF07CO06, EF07CO07, EF08CO05, EF08CO06, EF09CO04, EF09CO05 |
-| Navegação segura | EF01CO07, EF02CO06, EF03CO07, EF03CO09, EF04CO07, EF04CO08, EF05CO08, EF05CO09, EF06CO09, EF06CO10, EF07CO08 a EF07CO10, EF08CO07 a EF08CO11, EF09CO06 a EF09CO10 |
+| Navegação segura | EF01CO07, EF02CO05, EF02CO06, EF03CO07, EF03CO09, EF04CO06 a EF04CO08, EF05CO08 a EF05CO10, EF06CO09, EF06CO10, EF07CO08 a EF07CO10, EF08CO07 a EF08CO11, EF09CO06 a EF09CO10 |
+| Dados, algoritmos e IA | EF05CO08, EF08CO07, EF08CO11, EF09CO07, EF09CO10 (a IA é tema transversal do currículo, sem componente próprio) |
+| Organize os dados | EF01CO01, EF04CO01, EF04CO02, EF05CO01, EF05CO02, EF07CO01, EF07CO04, EF08CO02, EF09CO01, EF09CO03 |
+| Leia o código | EF01CO02, EF02CO02, EF04CO03, EF05CO03, EF05CO04, EF06CO01, EF06CO02, EF06CO05, EF07CO02, EF07CO05, EF08CO01, EF08CO02, EF08CO03, EF09CO02 |
 | Fábrica de Laços | EF02CO02, EF03CO02, EF04CO03 |
 | Portão Lógico | EF03CO01, EF05CO03, EF05CO04 |
 | Estante Organizada | EF05CO01, EF08CO03 |
 | Caça ao Bug | EF07CO02 (detectar e remover erros em programas; nos anos anteriores é uma introdução) |
 | Tradutor de Sinais | EF06CO06 (variáveis como parâmetros, correspondência parcial) |
 | Robô Programador | EF02CO02, EF05CO04, EF06CO02, EF07CO05 |
+
+As missões apoiam a leitura, a análise e a discussão. Habilidades que pedem criar programas ou produtos (por exemplo EF03CO08, EF04CO06 e EF07CO11) dependem de atividades práticas na aula, como mostram os planos.
 
 Missões de outras áreas, com códigos do texto principal da BNCC (Anexo da versão aprovada em 15/12/2017):
 
@@ -85,7 +90,7 @@ Copa da Matemática, Jogo da Velha dos Enigmas, Robô Decifrador, Bandeiras e as
 
 ## Dispositivos
 
-O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência.
+O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência. Depois da primeira visita, o material também abre sem internet (o navegador guarda uma cópia dos arquivos do próprio site, sem coletar nenhum dado).
 
 ## Destaques
 
@@ -99,7 +104,7 @@ Missões pensadas também para apresentações, feiras e aulas especiais, reunid
 
 ## Manutenção
 
-O material é revisado continuamente para corrigir problemas, melhorar a leitura em diferentes telas e manter as missões adequadas ao uso em sala. A página avisa automaticamente quando uma nova versão é publicada. O histórico detalhado de mudanças fica registrado nos commits do repositório.
+O material é revisado continuamente para corrigir problemas, melhorar a leitura em diferentes telas e manter as missões adequadas ao uso em sala. A página avisa automaticamente quando uma nova versão é publicada. O histórico detalhado de mudanças fica registrado nos commits do repositório. As verificações automáticas ficam na pasta [`qa/`](qa/README.md).
 
 ## Missões
 
@@ -113,24 +118,27 @@ Todas as missões ficam numa lista única, com chips de filtro por categoria ped
 - Chef Cozinheiro: ordenar os passos de uma receita para treinar algoritmo e sequência.
 - Ciclos da natureza: ordenação de etapas de fenômenos naturais.
 - Caderneta de vacinação: organização e cuidado com a saúde.
-- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo.
+- Caça ao Bug: depuração de comandos, veja o robô andar o caminho com bug, encontre o passo errado e escolha o comando certo para corrigi-lo e estude o caminho corrigido até tocar em Continuar.
 - Padrão Perfeito: reconhecimento e continuação de sequências e padrões, em ritmo tranquilo, sem cronômetro.
 - Divida a Tarefa: quebrar uma tarefa grande do dia a dia em passos menores, ordenando os passos certos ou escolhendo a melhor forma de dividir.
-- Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada.
-- Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade.
-- Dados e gráficos: contagem, comparação e leitura de informações.
+- Mensagem secreta: decifrar uma palavra usando uma legenda de símbolos que muda a cada rodada, com a palavra decifrada na tela até o aluno tocar em Continuar.
+- Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade, com o desenho e o código lado a lado até o aluno tocar em Continuar.
+- Dados e gráficos: contagem, comparação e leitura de informações, com a explicação do acerto na tela até o aluno tocar em Continuar.
 - Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
 - Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
-- Computador por dentro: perguntas sobre hardware e software, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto.
-- Navegação segura: perguntas sobre dados pessoais, fontes confiáveis, convivência e ética digital, direitos autorais e impactos sociais da tecnologia, com explicação a cada acerto.
+- Computador por dentro: perguntas sobre hardware e software, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto e botão Continuar para estudar a resolução.
+- Dados, algoritmos e IA: perguntas equilibradas sobre dados, padrões, vieses, privacidade e uso responsável da inteligência artificial, sem otimismo excessivo nem aversão.
+- Organize os dados: listas, tabelas, registros, grafos, árvores e máquinas de estados em situações do dia a dia.
+- Leia o código: prever o resultado de programas, de sequências de comandos em português a código em Python, com explicação a cada acerto e botão Continuar para estudar a resolução.
+- Navegação segura: perguntas sobre dados pessoais, fontes confiáveis, convivência e ética digital, direitos autorais e impactos sociais da tecnologia, com explicação a cada acerto e botão Continuar para estudar a resolução.
 - Habitats dos animais: relação entre seres vivos e ambientes.
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
 - Matemática colorida: cálculo mental com dificuldade progressiva.
 - Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
-- Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra.
-- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final.
+- Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra, com a regra aplicada na tela até o aluno tocar em Continuar.
+- Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final e, no acerto, mostrando de novo como a caixa mudou a cada comando até o aluno tocar em Continuar.
 - Robô Programador: sandbox de programação em blocos (andar, virar, repetir e, nas faixas mais avançadas, criar funções reutilizáveis) onde o aluno monta um programa e observa o robô desenhar num grid, com objetivos (energias, às vezes em ordem obrigatória) e buracos de minhoca que testam se o aluno sabe recalcular a rota, sem resposta certa ou errada.
 - Jogo da Memória: cartas em pares associados (não ícones idênticos) — alfabeto e rotina, animal e filhote, animal e habitat, ou bandeira e país/inglês conforme a faixa etária, sozinho, sem placar contra ninguém.
 

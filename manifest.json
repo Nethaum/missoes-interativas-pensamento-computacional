@@ -1,7 +1,7 @@
 {
   "name": "Missões Interativas - Pensamento Computacional",
   "short_name": "Missões Interativas",
-  "description": "Material gratuito em HTML para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.",
+  "description": "Material gratuito em HTML para aulas de Pensamento Computacional e Educação Digital no Ensino Fundamental.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

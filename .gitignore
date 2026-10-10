@@ -10,3 +10,6 @@ Desktop.ini
 # Arquivos locais de referência
 \# Dossie curricular - Start by Alur*.txt
 \# Dossiê curricular - Start by Alur*.txt
+
+# Dependências das verificações automáticas
+node_modules/

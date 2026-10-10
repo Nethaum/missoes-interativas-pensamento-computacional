@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.16.0">
+  <meta name="app-version" content="2.17.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -696,7 +696,51 @@
       background: #fff7d5;
     }
 
+    .quiz-code {
+      margin: 10px 0 0;
+      padding: 12px 14px;
+      overflow-x: auto;
+      border: 3px solid #d6caa4;
+      border-radius: 10px;
+      background: #1e2a38;
+      color: #f4f1de;
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 17px;
+      line-height: 1.5;
+      letter-spacing: 0;
+      text-align: left;
+      text-shadow: none;
+      text-transform: none;
+      white-space: pre;
+      justify-self: stretch;
+    }
+
+    .continue-button {
+      display: block;
+      width: min(320px, 100%);
+      height: 56px;
+      min-height: 56px;
+      margin: 12px auto 0;
+      padding: 0 18px;
+      border: 4px solid #184832;
+      border-radius: 14px;
+      background: #e7f5ec;
+      box-shadow: 0 6px 0 rgba(24, 72, 50, 0.35);
+      color: #184832;
+      font-family: var(--read-font);
+      font-size: 20px;
+      font-weight: 950;
+      cursor: pointer;
+      scroll-margin-bottom: 84px;
+    }
+
+    .continue-button:active {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 rgba(24, 72, 50, 0.35);
+    }
+
     .quiz-why {
+      text-transform: none;
       margin-top: 10px;
       padding: 10px 14px;
       border-left: 5px solid #2f9e52;
@@ -706,6 +750,211 @@
       font-size: 17px;
       font-weight: 700;
       line-height: 1.4;
+    }
+
+    .sheet-block {
+      display: grid;
+      gap: 6px;
+      break-inside: avoid;
+    }
+
+    .sheet-cards {
+      display: grid;
+      grid-template-columns: repeat(var(--sheet-columns, 3), minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .sheet-card {
+      display: grid;
+      gap: 2px;
+      place-items: center;
+      align-content: center;
+      min-height: 66px;
+      padding: 8px;
+      border: 2px dashed #555;
+      border-radius: 10px;
+      color: var(--card-ink);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: center;
+      break-inside: avoid;
+    }
+
+    .sheet-card-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .sheet-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--sheet-columns, 5), 28px);
+      width: max-content;
+      max-width: 100%;
+      border: 2px solid #111;
+      background: #fff;
+    }
+
+    .sheet-grid span {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #888;
+    }
+
+    .sheet-pixel-code {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      break-inside: avoid;
+    }
+
+    .sheet-code-row {
+      font-family: monospace;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    .sheet-lines {
+      display: grid;
+    }
+
+    .sheet-lines span {
+      height: 30px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: var(--card-ink);
+      font-size: 13px;
+    }
+
+    .sheet-table th,
+    .sheet-table td {
+      min-width: 26px;
+      height: 28px;
+      padding: 3px 6px;
+      border: 1px solid #555;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .sheet-table th {
+      background: #fff7d5;
+    }
+
+    .sheet-table.compact th,
+    .sheet-table.compact td {
+      min-width: 0;
+      padding: 3px 1px;
+    }
+
+    .sheet-criteria {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .sheet-observation-table td {
+      height: 30px;
+    }
+
+    .sheet-observation-table td:last-child {
+      width: 28%;
+    }
+
+    .sheet-strip {
+      display: flex;
+      flex-wrap: wrap;
+      width: max-content;
+      max-width: 100%;
+      border: 2px dashed #555;
+      color: var(--card-ink);
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .sheet-strip span {
+      display: grid;
+      place-items: center;
+      width: 16px;
+      height: 24px;
+      border-right: 1px solid #888;
+    }
+
+    .sheet-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 18px;
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .sheet-fields span {
+      padding-bottom: 12px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sheet-flow-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      color: var(--card-ink);
+      font-size: 13px;
+    }
+
+    .sheet-flow-legend i {
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    .sheet-flow-template {
+      display: grid;
+      gap: 2px;
+      justify-items: center;
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .sheet-flow-shape {
+      display: grid;
+      place-items: center;
+      min-width: 130px;
+      min-height: 30px;
+      border: 2px solid #111;
+      background: #fff;
+    }
+
+    .sheet-flow-shape.oval {
+      border-radius: 999px;
+    }
+
+    .sheet-flow-shape.diamond {
+      border: 0;
+      background: #111;
+      clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    }
+
+    .sheet-flow-legend .sheet-flow-shape {
+      min-width: 0;
+      min-height: 0;
+    }
+
+    .observation-sheet {
+      display: grid;
+      gap: 10px;
+      page: observation;
+    }
+
+    @page observation {
+      size: A4 landscape;
     }
 
     .lesson-plan-summary {
@@ -9377,6 +9626,9 @@
         { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
         { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, software, arquivos e redes" },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
+        { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
+        { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
+        { id: "reading", icon: "👓", title: "Leia o código", subject: "Programas, laços e variáveis" },
         { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
         { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos" },
         { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
@@ -9428,13 +9680,13 @@
           title: "Lógica de programação",
           icon: "🧑‍💻",
           description: "Laços, condicionais, ordenação e variáveis: os blocos que formam um programa.",
-          missionIds: ["loop", "sort", "cond", "var", "builder"],
+          missionIds: ["loop", "sort", "cond", "var", "reading", "builder"],
         },
         {
           title: "Mundo Digital e Cultura Digital",
           icon: "💻",
           description: "Entender o computador e a internet e usar a tecnologia com segurança, respeito e senso crítico.",
-          missionIds: ["hardware", "devices", "safe", "pixels"],
+          missionIds: ["hardware", "devices", "safe", "ai", "structures", "pixels"],
         },
       ];
 
@@ -9477,8 +9729,8 @@
             { step: "Missão no computador", time: "12 min", mode: "plugada", description: "Em duplas, as crianças jogam as primeiras fases do Robô coletor, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Padrão Perfeito. O professor lê as instruções em voz alta." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Cada dupla conta como decidiu a ordem dos comandos. Apresente a palavra \"algoritmo\": uma sequência de passos para resolver um problema." },
           ],
-          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07).",
-          missions: ["robot", "pattern", "recycle", "builder", "safe"],
+          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07). Para ler as primeiras instruções de um programa e organizar objetos em listas e tabelas, use também Leia o código e Organize os dados (6-7 anos), que retomam EF01CO02 e EF01CO01.",
+          missions: ["robot", "pattern", "recycle", "builder", "safe", "reading", "structures"],
           assessment: [
             "A criança segue a ordem correta de comandos na maior parte das tentativas?",
             "Consegue apontar quando um comando está fora de ordem?",
@@ -9523,8 +9775,8 @@
             { step: "Missões no computador", time: "15 min", mode: "plugada", description: "Individualmente ou em duplas: Robô coletor, planejando o caminho antes de clicar; depois Chef Cozinheiro para ordenar a receita e, se houver tempo, Divida a Tarefa ou Padrão Perfeito." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada? Que tarefa de casa ou da escola dá para dividir em passos menores?" },
           ],
-          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06).",
-          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe"],
+          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06). Leia o código (6-7 anos) retoma comandos e repetições simples (EF02CO02).",
+          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe", "reading"],
           assessment: [
             "Planeja ao menos parte do caminho antes de executar?",
             "Identifica o passo certo para continuar uma receita?",
@@ -9569,8 +9821,8 @@
             { step: "Atividade desplugada: o ciclo em cartões", time: "13 min", mode: "desplugada", description: "Em grupos, ordenam cartões de um ciclo natural e marcam com uma seta onde o ciclo \"volta ao começo\". Cada grupo escreve o ciclo como um laço: \"repita: ...\"." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Que outras coisas se repetem como um laço (dias da semana, estações, batimentos do coração)?" },
           ],
-          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos.",
-          missions: ["loop", "cycle", "builder", "hardware", "safe"],
+          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos. Leia o código (8-9 anos) trabalha laços e decisões em português (EF02CO02 e EF03CO01).",
+          missions: ["loop", "cycle", "builder", "hardware", "safe", "reading"],
           assessment: [
             "Consegue calcular o total de um laço (repetições × passo)?",
             "Identifica um ciclo que se repete na natureza?",
@@ -9615,8 +9867,8 @@
             { step: "Prática no computador", time: "12 min", mode: "plugada", description: "Os alunos jogam Dados e gráficos e o Portão Lógico, aplicando a regra \"se... então...\" para decidir o resultado." },
             { step: "Fechamento", time: "6 min", mode: "desplugada", description: "Converse sobre regras \"se... então...\" que a turma já segue (se chover, levo guarda-chuva; se o sinal fechar, eu paro)." },
           ],
-          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos.",
-          missions: ["code", "data", "cond", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos. Organize os dados (8-9 anos) apresenta tabelas e registros (EF04CO01 e EF04CO02), e Leia o código (8-9 anos) trabalha repetições, decisões e variáveis (EF04CO03).",
+          missions: ["code", "data", "cond", "hardware", "safe", "reading", "structures"],
           assessment: [
             "Consegue relacionar símbolo e significado corretamente?",
             "Lê um gráfico simples e compara valores?",
@@ -9659,8 +9911,8 @@
             { step: "Atividade desplugada: passe o erro", time: "13 min", mode: "desplugada", description: "Cada dupla cria uma sequência de passos com um erro escondido e troca com outra dupla, que precisa encontrar e corrigir o erro." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça que expliquem, em uma frase, como encontraram o erro." },
           ],
-          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos.",
-          missions: ["bug", "devices", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04).",
+          missions: ["bug", "devices", "hardware", "safe", "reading", "structures"],
           assessment: [
             "Localiza o comando errado sem precisar de várias tentativas?",
             "Explica com suas palavras por que aquele comando estava errado?",
@@ -9705,8 +9957,8 @@
             { step: "Atividade desplugada: o meu código", time: "13 min", mode: "desplugada", description: "Cada aluno cria um desenho simples em grade 5×5, escreve o código em 0 e 1 e troca com um colega, que desenha a partir do código." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
           ],
-          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos.",
-          missions: ["pixels", "sort", "data", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos. Leia o código (10-11 anos) trabalha programas simples, tipos de dados e a relação entre entrada e saída (EF06CO01, EF06CO02 e EF06CO05).",
+          missions: ["pixels", "sort", "data", "hardware", "safe", "reading"],
           assessment: [
             "Consegue \"ler\" um código binário simples e prever o desenho?",
             "Ordena uma lista pequena trocando apenas itens vizinhos?",
@@ -9750,8 +10002,8 @@
             { step: "Atividade desplugada: o placar", time: "13 min", mode: "desplugada", description: "Em grupos, simulam um placar com a caixa \"pontos\": a cada comando do professor, atualizam o valor e registram a sequência de valores. Depois escrevem o algoritmo em português." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
           ],
-          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos.",
-          missions: ["var", "sort", "math", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos. Organize os dados (12-13 anos) trabalha registros, listas e grafos (EF07CO01 e EF07CO04), e Leia o código (12-13 anos) trabalha funções, detecção de erros e reúso (EF07CO02 e EF07CO05).",
+          missions: ["var", "sort", "math", "hardware", "safe", "reading", "structures"],
           assessment: [
             "Explica com uma frase o que é uma variável?",
             "Relaciona corretamente o valor escolhido ao resultado visual?",
@@ -9797,8 +10049,8 @@
             { step: "Atividade desplugada: o fluxograma", time: "15 min", mode: "desplugada", description: "Em duplas, desenham o fluxograma de duas soluções para o mesmo problema (por exemplo, achar o maior número de uma lista) e comparam qual usa menos passos." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
           ],
-          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos.",
-          missions: ["loop", "bug", "code", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos. Organize os dados e Leia o código (12-13 anos) tratam de listas e de soluções com estruturas de dados (EF08CO02 e EF08CO04), e Dados, algoritmos e IA (12-13 anos) discute algoritmos das redes, vieses e uso responsável (EF08CO07 e EF08CO11).",
+          missions: ["loop", "bug", "code", "hardware", "safe", "reading", "structures", "ai"],
           assessment: [
             "Encontra mais de uma combinação correta para o mesmo total?",
             "Argumenta por que preferiu uma solução a outra?",
@@ -9843,12 +10095,241 @@
             { step: "Desafio final", time: "8 min", mode: "plugada", description: "Em dupla, Robô Decifrador, Jogo da Velha dos Enigmas ou Copa da Matemática, como encerramento integrador de disciplinas." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Cada aluno cita um pilar do pensamento computacional (decomposição, reconhecimento de padrões, abstração, algoritmos) e dá um exemplo pessoal." },
           ],
-          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos.",
-          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe"],
+          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos. Leia o código (14 anos) trabalha recursão e eficiência (EF08CO01 e EF09CO02), Organize os dados (14 anos) trata de árvores, grafos e autômatos (EF09CO01 e EF09CO03), e Dados, algoritmos e IA (14 anos) discute fundamentos e impactos (EF09CO07 e EF09CO10).",
+          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe", "reading", "structures", "ai"],
           assessment: [
             "Resolve desafios da fase mais avançada com autonomia?",
             "Nomeia corretamente ao menos um pilar do pensamento computacional?",
             "Explica por que uma cifra simples pode ser quebrada?",
+          ],
+        },
+      ];
+
+      const unpluggedSheets = [
+        {
+          grade: "1º ano",
+          title: "O robô humano e a rotina",
+          intro: "Recorte os cartões. Use as setas para guiar o colega-robô pelo caminho no chão e os cartões da rotina para ordenar os passos de lavar as mãos.",
+          teacherNote: "Ordem certa da rotina: torneira, sabonete, esfregar, enxaguar, secar. Embaralhe os cartões antes de entregar à turma.",
+          blocks: [
+            {
+              type: "cards", title: "Cartões de comandos do robô", columns: 4,
+              items: [
+                { icon: "⬆️", text: "Avançar", copies: 4 },
+                { icon: "⬅️", text: "Virar à esquerda", copies: 2 },
+                { icon: "➡️", text: "Virar à direita", copies: 2 },
+              ],
+            },
+            {
+              type: "cards", title: "Cartões da rotina: lavar as mãos", columns: 3,
+              items: [
+                { icon: "🚰", text: "Abrir a torneira" },
+                { icon: "🧼", text: "Passar sabonete" },
+                { icon: "🙌", text: "Esfregar as mãos" },
+                { icon: "💧", text: "Enxaguar" },
+                { icon: "🧻", text: "Secar as mãos" },
+              ],
+            },
+            { type: "grid", title: "Caminho do robô", columns: 5, rows: 5, caption: "Desenhe o caminho do robô do início (I) até o tesouro (T)." },
+          ],
+        },
+        {
+          grade: "2º ano",
+          title: "A receita embaralhada e o passo que se repete",
+          intro: "Em grupos, recorte e ordene os cartões da receita. Depois escolham um cartão de repetição e escrevam as instruções para chegar ao tesouro escondido.",
+          teacherNote: "Ordem certa: lavar as mãos, pegar o pão, colocar o queijo, colocar o tomate, fechar o sanduíche.",
+          blocks: [
+            {
+              type: "cards", title: "Receita do sanduíche", columns: 3,
+              items: [
+                { icon: "🚰", text: "Lavar as mãos" },
+                { icon: "🍞", text: "Pegar duas fatias de pão" },
+                { icon: "🧀", text: "Colocar o queijo" },
+                { icon: "🍅", text: "Colocar o tomate" },
+                { icon: "🥪", text: "Fechar o sanduíche" },
+              ],
+            },
+            {
+              type: "cards", title: "Cartões de repetição", columns: 3,
+              items: [
+                { icon: "🥄", text: "Mexer 3 vezes" },
+                { icon: "👏", text: "Bater palmas 2 vezes" },
+                { icon: "🦶", text: "Dar 3 passos" },
+              ],
+            },
+            { type: "lines", title: "Instruções para chegar ao tesouro", count: 6, caption: "Escreva uma instrução por linha. Seja preciso: o professor-robô só faz o que está escrito." },
+          ],
+        },
+        {
+          grade: "3º ano",
+          title: "A coreografia e o ciclo em laço",
+          intro: "Monte uma coreografia com os cartões e descubra como usar \"repita\" para escrever menos. Depois ordene um ciclo da natureza e escreva-o como um laço.",
+          teacherNote: "Ciclos: ovo, lagarta, casulo, borboleta; semente, broto, flor, novas sementes. Os cartões de repetição têm um espaço em branco para o número de vezes.",
+          blocks: [
+            {
+              type: "cards", title: "Cartões da coreografia", columns: 4,
+              items: [
+                { icon: "👏", text: "Bater palmas", copies: 3 },
+                { icon: "🦶", text: "Dar um passo", copies: 3 },
+                { icon: "🔄", text: "Girar", copies: 2 },
+                { icon: "🔁", text: "Repita ___ vezes", copies: 2 },
+              ],
+            },
+            {
+              type: "cards", title: "Ciclo da borboleta", columns: 4,
+              items: [
+                { icon: "🥚", text: "Ovo" },
+                { icon: "🐛", text: "Lagarta" },
+                { icon: "🧶", text: "Casulo" },
+                { icon: "🦋", text: "Borboleta" },
+              ],
+            },
+            {
+              type: "cards", title: "Ciclo da planta", columns: 4,
+              items: [
+                { icon: "🌰", text: "Semente" },
+                { icon: "🌱", text: "Broto" },
+                { icon: "🌻", text: "Planta com flor" },
+                { icon: "🌾", text: "Novas sementes" },
+              ],
+            },
+            { type: "lines", title: "O ciclo escrito como um laço", count: 4, caption: "Comece com \"repita:\" e escreva os passos do ciclo." },
+          ],
+        },
+        {
+          grade: "4º ano",
+          title: "O código da turma, a pesquisa e as regras",
+          intro: "Decifre as mensagens com a tabela de símbolos, registre uma pesquisa da turma em um gráfico de colunas e ligue cada situação à sua regra \"se... então...\".",
+          teacherNote: "Mensagens: BOLA, GATO e CASA. Cada voto da pesquisa é um dado; a opção mais votada é uma informação.",
+          blocks: [
+            {
+              type: "table", title: "Tabela de símbolos", headers: ["Símbolo", "★", "●", "▲", "■", "◆", "♥", "♣", "♠"],
+              rows: [["Letra", "A", "B", "C", "G", "L", "O", "S", "T"]],
+            },
+            {
+              type: "table", title: "Mensagens para decifrar", headers: ["Mensagem", "Resposta"],
+              rows: [["● ♥ ◆ ★", ""], ["■ ★ ♠ ♥", ""], ["▲ ★ ♣ ★", ""]],
+            },
+            {
+              type: "table", title: "Ficha da pesquisa", headers: ["Opção", "Votos (um traço por voto)", "Total"],
+              blankRows: 5,
+            },
+            { type: "grid", title: "Gráfico de colunas", columns: 8, rows: 10, caption: "Pinte uma coluna para cada opção. Cada quadradinho vale um voto." },
+            {
+              type: "cards", title: "Regras \"se... então...\"", columns: 2,
+              items: [
+                { icon: "🌧️", text: "SE chover, ENTÃO levo o guarda-chuva" },
+                { icon: "🚦", text: "SE o sinal fechar, ENTÃO eu paro" },
+                { icon: "☀️", text: "SE o sol estiver forte, ENTÃO uso boné" },
+                { icon: "🧥", text: "SE estiver frio, ENTÃO visto um casaco" },
+              ],
+            },
+          ],
+        },
+        {
+          grade: "5º ano",
+          title: "Receita e trajeto com erro",
+          intro: "Leia cada sequência, encontre o passo errado e explique como corrigi-lo. Depois crie a sua sequência com um erro escondido e troque com outra dupla.",
+          teacherNote: "Erros escondidos: na vitamina, \"beber\" vem antes de \"bater\"; no trajeto, o passo de virar à esquerda na porta da biblioteca deveria ser virar à direita.",
+          blocks: [
+            {
+              type: "steps", title: "Receita de vitamina de banana",
+              items: ["Descascar a banana.", "Beber a vitamina.", "Colocar a banana e o leite no liquidificador.", "Bater por um minuto."],
+            },
+            {
+              type: "steps", title: "Trajeto da sala até a biblioteca",
+              items: ["Sair da sala.", "Virar à esquerda no corredor.", "Andar 10 passos.", "Virar à esquerda na porta da biblioteca.", "Entrar na biblioteca."],
+              caption: "No mapa, o corredor vira à esquerda e a porta da biblioteca fica à direita. Qual passo está errado?",
+            },
+            { type: "table", title: "Passe o erro: a sequência da dupla", headers: ["Passo", "Instrução"], blankRows: 6 },
+            { type: "lines", title: "Onde está o erro e como corrigir?", count: 3 },
+          ],
+        },
+        {
+          grade: "6º ano",
+          title: "Imagens em 0 e 1",
+          intro: "Pinte cada grade 5×5 seguindo o código: 1 é quadradinho pintado e 0 é quadradinho em branco. Depois crie o seu desenho, escreva o código e troque com um colega.",
+          teacherNote: "Os desenhos dos códigos são um coração, a letra T e uma casa.",
+          blocks: [
+            {
+              type: "pixelcode", title: "Códigos para pintar",
+              items: [
+                { name: "Código A", rows: ["01010", "11111", "11111", "01110", "00100"] },
+                { name: "Código B", rows: ["11111", "00100", "00100", "00100", "00100"] },
+                { name: "Código C", rows: ["00100", "01110", "11111", "11111", "11011"] },
+              ],
+            },
+            { type: "grid", title: "O meu desenho", columns: 5, rows: 5, caption: "Pinte a grade e escreva o código ao lado." },
+            { type: "lines", title: "O meu código (um número de 5 dígitos por linha)", count: 5 },
+          ],
+        },
+        {
+          grade: "7º ano",
+          title: "Caixas com rótulo: as variáveis",
+          intro: "Cada caixa guarda um valor que pode mudar. Siga os comandos do professor, atualize o valor de cada caixa e registre a sequência na tabela.",
+          teacherNote: "Comece com pontos = 0 e vidas = 3 e leia os comandos em voz alta, um de cada vez.",
+          blocks: [
+            {
+              type: "cards", title: "Caixas (variáveis)", columns: 3,
+              items: [
+                { icon: "📦", text: "pontos" },
+                { icon: "📦", text: "vidas" },
+                { icon: "📦", text: "nível" },
+              ],
+            },
+            {
+              type: "cards", title: "Cartões de comandos", columns: 2,
+              items: [
+                { text: "pontos = 0" },
+                { text: "pontos = pontos + 1" },
+                { text: "pontos = pontos + 5" },
+                { text: "vidas = vidas − 1" },
+                { text: "pontos = pontos × 2" },
+                { text: "nível = nível + 1" },
+              ],
+            },
+            { type: "table", title: "Registro de valores", headers: ["Comando", "pontos", "vidas", "nível"], blankRows: 8 },
+          ],
+        },
+        {
+          grade: "8º ano",
+          title: "Duas soluções, qual é mais eficiente?",
+          intro: "Monte duas soluções diferentes para o mesmo problema com os cartões, desenhe o fluxograma de cada uma e compare quantos passos cada uma usa.",
+          teacherNote: "Problema sugerido: achar o maior número de uma lista de cinco números. Valorize as duas soluções e peça que justifiquem a escolha.",
+          blocks: [
+            {
+              type: "cards", title: "Cartões de comandos", columns: 3,
+              items: [
+                { icon: "⬆️", text: "Avançar", copies: 3 },
+                { icon: "➡️", text: "Virar à direita", copies: 2 },
+                { icon: "⬅️", text: "Virar à esquerda", copies: 2 },
+                { icon: "🔁", text: "Repita 2 vezes", copies: 2 },
+                { icon: "🔁", text: "Repita 3 vezes", copies: 2 },
+                { icon: "❓", text: "SE ... ENTÃO ...", copies: 2 },
+              ],
+            },
+            { type: "flowchart", title: "Modelo de fluxograma", caption: "Oval: início ou fim. Retângulo: ação. Losango: decisão (sim ou não)." },
+            { type: "table", title: "Comparando as soluções", headers: ["", "Solução A", "Solução B"], rows: [["Passos usados", "", ""], ["Repetições usadas", "", ""], ["Chega ao destino?", "", ""]] },
+          ],
+        },
+        {
+          grade: "9º ano",
+          title: "Cifras: protegendo uma mensagem",
+          intro: "Use as tiras para cifrar e decifrar mensagens com a cifra de César. Depois invente a sua cifra, passe a mensagem a um colega e registre quantas tentativas ele precisou para quebrá-la.",
+          teacherNote: "Recorte as duas tiras e deslize uma sobre a outra para escolher o deslocamento. Com o deslocamento 3, A vira D.",
+          blocks: [
+            { type: "strip", title: "Tiras do alfabeto (recorte as duas)", copies: 2 },
+            { type: "caesar", title: "Cifra de César com deslocamento 3", shift: 3 },
+            { type: "table", title: "A minha cifra", headers: ["Regra da cifra", "Frase cifrada", "Tentativas para quebrar"], blankRows: 4 },
+            {
+              type: "cards", title: "Os pilares do pensamento computacional", columns: 4,
+              items: [
+                { icon: "🧩", text: "Decomposição" },
+                { icon: "🔎", text: "Reconhecimento de padrões" },
+                { icon: "🗺️", text: "Abstração" },
+                { icon: "📋", text: "Algoritmos" },
+              ],
+            },
           ],
         },
       ];
@@ -15554,10 +16035,284 @@ const brStatesList = [
         },
       ];
 
+      const readingLevels = [
+        {
+          title: "O robô obedece", icon: "🤖", age: "6-7 anos", theme: "Sequências e repetições",
+          rounds: [
+            { icon: "🤖", question: "O robô vai seguir este programa. Qual é o último comando?", options: ["giro", "palma", "pulo"], answer: 0, why: "O robô obedece um comando por vez, de cima para baixo.", code: "palma\npulo\ngiro" },
+            { icon: "👏", question: "Quantas palmas o robô vai bater?", options: ["3", "1", "2"], answer: 0, why: "\"Repita 3 vezes\" faz o comando que está embaixo acontecer 3 vezes.", code: "repita 3 vezes:\n  palma" },
+            { icon: "🦘", question: "Quantos pulos o robô vai dar?", options: ["2", "1", "3"], answer: 0, why: "Só o pulo está dentro do \"repita\". A palma acontece uma vez só.", code: "palma\nrepita 2 vezes:\n  pulo" },
+            { icon: "🧭", question: "Quantas vezes o robô avança?", options: ["3", "2", "4"], answer: 0, why: "Há três comandos \"avançar\". O comando \"virar\" só gira o robô.", code: "avançar\navançar\nvirar à direita\navançar" },
+            { icon: "🔁", question: "Qual programa faz o robô bater 3 palmas?", options: ["repita 3 vezes: palma", "repita 2 vezes: palma", "repita 3 vezes: pulo"], answer: 0, why: "O número diz quantas vezes, e a palavra diz qual comando repetir." },
+            { icon: "🐇", question: "O programa manda pular 4 vezes. Qual é o jeito mais curto de escrever?", options: ["repita 4 vezes: pulo", "pulo pulo pulo pulo pulo", "pulo, pulo, pulo"], answer: 0, why: "Um laço evita escrever o mesmo comando várias vezes." },
+            { icon: "🧩", question: "Qual comando falta para o robô terminar com um giro?", options: ["giro", "palma", "pulo"], answer: 0, why: "O último comando do programa é o que acontece por último.", code: "palma\npulo\n?" },
+            { icon: "🔢", question: "Quantas ações o robô faz no total?", options: ["4", "2", "3"], answer: 0, why: "Dentro do laço há 2 comandos, e eles acontecem 2 vezes: 2 × 2 = 4.", code: "repita 2 vezes:\n  palma\n  giro" },
+            { icon: "🔄", question: "A ordem importa? O que o robô faz primeiro?", options: ["giro", "palma", "os dois juntos"], answer: 0, why: "O computador segue a ordem escrita, sem pular passos.", code: "giro\npalma" },
+            { icon: "🐞", question: "Este programa tem um erro: o robô devia bater 2 palmas. O que está errado?", options: ["O número 3", "A palavra palma", "A palavra repita"], answer: 0, why: "Achar o erro e corrigir faz parte de programar. Aqui o certo é repetir 2 vezes.", code: "repita 3 vezes:\n  palma" },
+            { icon: "🚶", question: "O robô começa em casa e vai à escola. Qual programa está na ordem certa?", options: ["sair de casa, andar, chegar na escola", "chegar na escola, andar, sair de casa", "andar, chegar na escola, sair de casa"], answer: 0, why: "Um algoritmo é uma sequência de passos na ordem certa." },
+            { icon: "📣", question: "Quem escreve o programa para o robô?", options: ["Uma pessoa", "O próprio robô sozinho", "O vento"], answer: 0, why: "Os programas são escritos por pessoas, e o computador só obedece." },
+          ],
+        },
+        {
+          title: "Laços, decisões e variáveis", icon: "🔁", age: "8-9 anos", theme: "Programas em português",
+          rounds: [
+            { icon: "👣", question: "Quantos passos o robô dá?", options: ["4", "1", "5"], answer: 0, why: "O laço repete o comando \"avançar\" quatro vezes.", code: "repita 4 vezes:\n  avançar" },
+            { icon: "☔", question: "Hoje está chovendo. O que o programa manda pegar?", options: ["guarda-chuva", "boné de sol", "os dois itens"], answer: 0, why: "O \"se\" escolhe o caminho: se a condição é verdadeira, faz o que vem logo abaixo.", code: "se estiver chovendo:\n  pegar guarda-chuva\nsenão:\n  pegar boné" },
+            { icon: "☀️", question: "Hoje está sol. O que o programa manda pegar?", options: ["boné", "guarda-chuva", "nada"], answer: 0, why: "Quando a condição é falsa, o computador faz o que está no \"senão\".", code: "se estiver chovendo:\n  pegar guarda-chuva\nsenão:\n  pegar boné" },
+            { icon: "🧮", question: "Qual é o valor de pontos no final?", options: ["2", "0", "1"], answer: 0, why: "Uma variável guarda um valor que pode mudar. Aqui ela recebeu +1 duas vezes.", code: "pontos = 0\npontos = pontos + 1\npontos = pontos + 1" },
+            { icon: "🎯", question: "Qual é o valor de pontos no final?", options: ["8", "3", "5"], answer: 0, why: "Primeiro pontos vale 5. Depois recebe o valor antigo mais 3.", code: "pontos = 5\npontos = pontos + 3" },
+            { icon: "🔁", question: "Quantas palmas acontecem?", options: ["6", "2", "3"], answer: 0, why: "Dentro do laço há 2 palmas, e ele roda 3 vezes: 2 × 3 = 6.", code: "repita 3 vezes:\n  palma\n  palma" },
+            { icon: "🚦", question: "O sinal está vermelho. O que o carro faz?", options: ["parar", "andar", "buzinar"], answer: 0, why: "Como o sinal não é verde, a condição é falsa e vale o \"senão\".", code: "se o sinal for verde:\n  andar\nsenão:\n  parar" },
+            { icon: "🏷️", question: "O que é uma variável?", options: ["Uma caixa com nome que guarda um valor", "Um comando que repete outros comandos", "Um erro que aparece no programa"], answer: 0, why: "Variáveis guardam valores, como pontos, vidas ou nome." },
+            { icon: "🧱", question: "Qual programa desenha um quadrado (4 lados iguais)?", options: ["repita 4 vezes: andar, virar", "repita 3 vezes: andar, virar", "andar, virar"], answer: 0, why: "Um quadrado tem 4 lados e 4 curvas, então o laço repete 4 vezes." },
+            { icon: "🧐", question: "O programa devia contar até 3. O que está errado?", options: ["Está diminuindo em vez de somar", "O número 3 do laço de repetição", "A palavra repita escrita no começo"], answer: 0, why: "O sinal de menos faz o contador diminuir. Para contar, é preciso somar.", code: "contador = 0\nrepita 3 vezes:\n  contador = contador - 1" },
+            { icon: "🧮", question: "Qual é o valor de vidas no final?", options: ["2", "1", "3"], answer: 0, why: "A variável vidas começa em 3 e perde 1.", code: "vidas = 3\nvidas = vidas - 1" },
+            { icon: "📋", question: "Qual comando é uma repetição?", options: ["repita 5 vezes", "se estiver frio", "pontos = 0"], answer: 0, why: "\"Repita\" cria um laço, \"se\" cria uma decisão e o sinal \"=\" guarda um valor." },
+          ],
+        },
+        {
+          title: "Meu primeiro código", icon: "🖥️", age: "10-11 anos", theme: "Print, variáveis, laços e decisões",
+          rounds: [
+            { icon: "🖥️", question: "O que aparece na tela?", options: ["Olá", "Oi", "print"], answer: 0, why: "A instrução print mostra o texto na tela.", code: "print(\"Olá\")" },
+            { icon: "➕", question: "O que aparece na tela?", options: ["5", "3", "32"], answer: 0, why: "x guarda o valor 3. A tela mostra x + 2, que é 5.", code: "x = 3\nprint(x + 2)" },
+            { icon: "🔁", question: "O que aparece na tela?", options: ["0 1 2", "1 2 3", "0 1 2 3"], answer: 0, why: "range(3) gera 0, 1 e 2. A contagem começa no zero.", code: "for i in range(3):\n    print(i)" },
+            { icon: "🧮", question: "Qual é o valor final de total?", options: ["12", "6", "12 0"], answer: 0, why: "O laço soma 2, depois 4 e depois 6: o total é 12.", code: "total = 0\nfor n in [2, 4, 6]:\n    total = total + n\nprint(total)" },
+            { icon: "🌡️", question: "O que aparece na tela?", options: ["calor", "frio", "calor frio"], answer: 0, why: "30 é maior que 25, então a condição é verdadeira e vale o primeiro bloco.", code: "temperatura = 30\nif temperatura > 25:\n    print(\"calor\")\nelse:\n    print(\"frio\")" },
+            { icon: "🔤", question: "O que aparece na tela?", options: ["Oi, Ana", "Oi, nome", "Ana"], answer: 0, why: "O print mostra o texto e depois o valor guardado na variável nome.", code: "nome = \"Ana\"\nprint(\"Oi,\", nome)" },
+            { icon: "✖️", question: "O que aparece na tela?", options: ["8", "4", "6"], answer: 0, why: "b recebe o dobro de a. Como a vale 4, b vale 8.", code: "a = 4\nb = a * 2\nprint(b)" },
+            { icon: "🔢", question: "Quantas vezes aparece a palavra \"oi\"?", options: ["4", "3", "5"], answer: 0, why: "range(4) repete o bloco 4 vezes.", code: "for i in range(4):\n    print(\"oi\")" },
+            { icon: "🔄", question: "O que aparece na tela?", options: ["6", "10", "4"], answer: 0, why: "Primeiro x vale 10. Depois recebe o valor antigo menos 4.", code: "x = 10\nx = x - 4\nprint(x)" },
+            { icon: "🧠", question: "O que aparece na tela?", options: ["passou", "estudar mais", "7"], answer: 0, why: "7 é maior ou igual a 6, então vale o primeiro bloco.", code: "nota = 7\nif nota >= 6:\n    print(\"passou\")\nelse:\n    print(\"estudar mais\")" },
+            { icon: "📏", question: "O que aparece na tela?", options: ["3", "8", "5"], answer: 0, why: "len conta quantos itens a lista tem.", code: "lista = [5, 8, 3]\nprint(len(lista))" },
+            { icon: "🔢", question: "Que tipo de dado é o valor guardado em idade?", options: ["Número inteiro", "Texto (string)", "Número com vírgula"], answer: 0, why: "11 é um número sem parte decimal, ou seja, um inteiro.", code: "idade = 11" },
+            { icon: "🔤", question: "Que tipo de dado é o valor guardado em nome?", options: ["Texto (string)", "Número inteiro", "Verdadeiro ou falso"], answer: 0, why: "Valores entre aspas são texto, chamados de strings.", code: "nome = \"Ana\"" },
+            { icon: "📏", question: "Que tipo de dado é o valor guardado em altura?", options: ["Número real (com vírgula)", "Número inteiro, sem decimais", "Texto (string) entre aspas"], answer: 0, why: "Números com parte decimal são do tipo real.", code: "altura = 1.52" },
+            { icon: "🐞", question: "O programa devia mostrar 1 2 3, mas mostra 0 1 2. Como corrigir?", options: ["Mostrar i + 1", "Trocar range por for", "Apagar o print"], answer: 0, why: "range(3) começa no zero. Somar 1 ao valor mostrado dá 1, 2 e 3.", code: "for i in range(3):\n    print(i)" },
+          ],
+        },
+        {
+          title: "Programas com listas e funções", icon: "🧩", age: "12-13 anos", theme: "Listas, funções e laços",
+          rounds: [
+            { icon: "🔁", question: "O que aparece na tela?", options: ["10", "15", "6"], answer: 0, why: "range(1, 5) vai de 1 a 4. A soma é 1 + 2 + 3 + 4 = 10.", code: "soma = 0\nfor i in range(1, 5):\n    soma = soma + i\nprint(soma)" },
+            { icon: "📋", question: "O que aparece na tela?", options: ["uva", "maçã", "pera"], answer: 0, why: "A posição começa no zero: 0 é maçã, 1 é uva e 2 é pera.", code: "frutas = [\"maçã\", \"uva\", \"pera\"]\nprint(frutas[1])" },
+            { icon: "🧩", question: "O que aparece na tela?", options: ["14", "21", "16"], answer: 0, why: "A função dobro recebe 7 e devolve 7 × 2.", code: "def dobro(n):\n    return n * 2\n\nprint(dobro(7))" },
+            { icon: "🔀", question: "O que aparece na tela?", options: ["é ímpar", "é par", "é primo"], answer: 0, why: "O resto de 15 dividido por 2 é 1, então o número é ímpar.", code: "x = 15\nif x % 2 == 0:\n    print(\"é par\")\nelse:\n    print(\"é ímpar\")" },
+            { icon: "🔠", question: "O que aparece na tela?", options: ["6", "5", "7"], answer: 0, why: "len conta as letras: c-o-d-i-g-o são 6 letras.", code: "palavra = \"codigo\"\nprint(len(palavra))" },
+            { icon: "➗", question: "O que aparece na tela?", options: ["jovem", "criança", "adulto"], answer: 0, why: "13 não é menor que 12, mas é menor que 18: o programa mostra jovem.", code: "idade = 13\nif idade < 12:\n    print(\"criança\")\nelif idade < 18:\n    print(\"jovem\")\nelse:\n    print(\"adulto\")" },
+            { icon: "🔢", question: "O que aparece na tela?", options: ["8", "3", "5"], answer: 0, why: "O programa guarda o maior valor visto até agora e termina com 8.", code: "numeros = [3, 8, 5]\nmaior = numeros[0]\nfor n in numeros:\n    if n > maior:\n        maior = n\nprint(maior)" },
+            { icon: "🔄", question: "O que aparece na tela?", options: ["3", "2", "4"], answer: 0, why: "O laço while repete enquanto contador for menor que 3, e para quando chega a 3.", code: "contador = 0\nwhile contador < 3:\n    contador = contador + 1\nprint(contador)" },
+            { icon: "🧮", question: "O que aparece na tela?", options: ["3", "6", "2"], answer: 0, why: "Entre 1 e 6, os pares são 2, 4 e 6: são 3.", code: "pares = 0\nfor n in range(1, 7):\n    if n % 2 == 0:\n        pares = pares + 1\nprint(pares)" },
+            { icon: "✂️", question: "O que aparece na tela?", options: ["c", "r", "computador"], answer: 0, why: "A primeira letra fica na posição zero.", code: "frase = \"computador\"\nprint(frase[0])" },
+            { icon: "➕", question: "O que aparece na tela?", options: ["[1, 2, 3]", "[1, 2]", "[3, 1, 2]"], answer: 0, why: "append coloca o novo item no final da lista.", code: "lista = [1, 2]\nlista.append(3)\nprint(lista)" },
+            { icon: "🐞", question: "O programa devia somar de 1 a 5, mas mostra 10. Qual é o erro?", options: ["range(1, 5) para antes do 5", "O print está errado", "A variável soma deveria começar em 1"], answer: 0, why: "O final do range não entra na contagem. Para incluir o 5, use range(1, 6).", code: "soma = 0\nfor i in range(1, 5):\n    soma = soma + i\nprint(soma)" },
+          ],
+        },
+        {
+          title: "Programas mais espertos", icon: "⚡", age: "14 anos", theme: "Recursão, dicionários e eficiência",
+          rounds: [
+            { icon: "🧬", question: "O que aparece na tela?", options: ["24", "10", "16"], answer: 0, why: "A função chama a si mesma (recursão): 4 × 3 × 2 × 1 = 24.", code: "def fatorial(n):\n    if n <= 1:\n        return 1\n    return n * fatorial(n - 1)\n\nprint(fatorial(4))" },
+            { icon: "🔁", question: "O que aparece na tela?", options: ["1 2 2 4 3 6", "1 2 3 4 5 6", "1 2 3"], answer: 0, why: "Para cada i, o laço de dentro roda duas vezes: 1 2, 2 4 e 3 6.", code: "for i in range(1, 4):\n    for j in range(1, 3):\n        print(i * j, end=\" \")" },
+            { icon: "📊", question: "O que aparece na tela?", options: ["7.5", "30.0", "7.0"], answer: 0, why: "A soma é 30 e há 4 notas, então a média é 7,5.", code: "notas = [6, 9, 7, 8]\nprint(sum(notas) / len(notas))" },
+            { icon: "🔠", question: "O que aparece na tela?", options: ["3", "2", "6"], answer: 0, why: "A letra \"a\" aparece 3 vezes em banana.", code: "texto = \"banana\"\ncontagem = 0\nfor letra in texto:\n    if letra == \"a\":\n        contagem = contagem + 1\nprint(contagem)" },
+            { icon: "🧩", question: "O que aparece na tela?", options: ["Oi Oi", "Oi", "Oi Oi Oi"], answer: 0, why: "O parâmetro vezes tem valor padrão 2, então \"Oi \" é repetido duas vezes.", code: "def saudacao(nome, vezes=2):\n    return (nome + \" \") * vezes\n\nprint(saudacao(\"Oi\"))" },
+            { icon: "📚", question: "O que aparece na tela?", options: ["[1, 3, 4]", "[4, 1, 3]", "[4, 3, 1]"], answer: 0, why: "sort ordena a lista do menor para o maior.", code: "lista = [4, 1, 3]\nlista.sort()\nprint(lista)" },
+            { icon: "🗂️", question: "O que aparece na tela?", options: ["14", "Léo", "nome"], answer: 0, why: "Um dicionário guarda pares chave e valor. A chave \"idade\" vale 14.", code: "aluno = {\"nome\": \"Léo\", \"idade\": 14}\nprint(aluno[\"idade\"])" },
+            { icon: "🔀", question: "O que aparece na tela?", options: ["B", "A", "C"], answer: 0, why: "x > 5 é verdadeiro e y > 5 é falso. O \"and\" falha, mas o \"or\" dá certo: o programa mostra B.", code: "x = 7\ny = 3\nif x > 5 and y > 5:\n    print(\"A\")\nelif x > 5 or y > 5:\n    print(\"B\")\nelse:\n    print(\"C\")" },
+            { icon: "🔢", question: "O que aparece na tela?", options: ["6", "3", "10"], answer: 0, why: "f(3) = 3 + f(2) = 3 + 2 + f(1) = 3 + 2 + 1 + f(0) = 6.", code: "def f(n):\n    if n == 0:\n        return 0\n    return n + f(n - 1)\n\nprint(f(3))" },
+            { icon: "🌀", question: "O que aparece na tela?", options: ["32", "20", "16"], answer: 0, why: "n vai de 1 para 2, 4, 8, 16 e 32. O laço para quando n não é mais menor que 20.", code: "n = 1\nwhile n < 20:\n    n = n * 2\nprint(n)" },
+            { icon: "⚡", question: "Qual programa é mais eficiente para somar de 1 a 100?", options: ["Usar a fórmula 100 * 101 / 2", "Somar um número de cada vez, 100 vezes", "Somar 100 vezes o número 100"], answer: 0, why: "Um algoritmo é eficiente quando resolve o problema com menos passos. A fórmula resolve em um passo só." },
+            { icon: "🐞", question: "A função devia devolver o maior de dois números, mas devolve o menor. Qual é o erro?", options: ["A comparação está invertida", "Falta o print", "Os parâmetros têm nomes errados"], answer: 0, why: "Se a < b, o maior é b. A função devolve a quando deveria devolver b.", code: "def maior(a, b):\n    if a < b:\n        return a\n    return b" },
+          ],
+        },
+      ];
+
+      const structuresLevels = [
+        {
+          title: "Listas e tabelas do dia a dia", icon: "📋", age: "6-7 anos", theme: "Listas, filas e tabelas",
+          rounds: [
+            { icon: "🛒", question: "Qual destes é uma lista?", options: ["A lista de compras do mercado", "Uma nuvem no céu azul da tarde", "Um sorriso largo de uma pessoa feliz"], answer: 0, why: "Uma lista guarda itens um depois do outro." },
+            { icon: "🧍", question: "Em uma fila, quem é o primeiro da lista?", options: ["Quem está na frente", "Quem chegou por último", "Quem está no meio"], answer: 0, why: "Em uma lista, o primeiro item é o que está no começo." },
+            { icon: "🗓️", question: "O quadro de horários da escola tem linhas e colunas. Como se chama isso?", options: ["Tabela", "Receita", "Cantiga"], answer: 0, why: "Uma tabela organiza informações em linhas e colunas." },
+            { icon: "🔢", question: "Lista: Ana, Beto, Caio. Quem é o segundo da lista?", options: ["Beto", "Ana", "Caio"], answer: 0, why: "A ordem da lista importa: Ana é a primeira, Beto é o segundo." },
+            { icon: "🍇", question: "Lista: 🍎 🍌 🍇. Qual é o último item?", options: ["🍇", "🍎", "🍌"], answer: 0, why: "O último item é o que fica no final da lista." },
+            { icon: "🧸", question: "Para guardar os brinquedos por tipo, o que fazemos?", options: ["Juntamos os carrinhos, as bonecas e os blocos", "Misturamos tudo na mesma caixa grande", "Guardamos só os brinquedos que são os maiores"], answer: 0, why: "Organizar em grupos ajuda a achar as coisas depois." },
+            { icon: "🧾", question: "Quantos itens tem esta lista: pão, leite, ovo, café?", options: ["4", "3", "5"], answer: 0, why: "Contando um a um: pão, leite, ovo e café são 4 itens." },
+            { icon: "🔲", question: "Em uma tabela, cada quadradinho fica em uma linha e em uma...", options: ["Coluna", "Música", "Cor"], answer: 0, why: "A posição de um quadradinho é dada pela linha e pela coluna." },
+            { icon: "📇", question: "A ficha de um amigo tem nome, idade e cor favorita. O que ela guarda?", options: ["Informações sobre uma pessoa", "Informações sobre o tempo", "Informações sobre um carro"], answer: 0, why: "Uma ficha reúne vários dados sobre a mesma coisa." },
+            { icon: "➕", question: "Para colocar \"uva\" em uma lista de frutas, onde ela pode entrar?", options: ["No fim da lista", "Só no começo", "Em lugar nenhum"], answer: 0, why: "Podemos acrescentar novos itens ao final de uma lista." },
+            { icon: "📏", question: "Qual lista está em ordem, do menor para o maior?", options: ["1, 2, 3, 4", "4, 2, 3, 1", "3, 1, 4, 2"], answer: 0, why: "Ordenar é arrumar os itens seguindo uma regra, como do menor ao maior." },
+            { icon: "📚", question: "Na biblioteca, como os livros ficam organizados para achar rápido?", options: ["Em estantes, por assunto ou ordem", "Em uma pilha misturada no chão da sala", "Dentro de caixas fechadas que não têm nome"], answer: 0, why: "Organizar os dados facilita encontrá-los." },
+          ],
+        },
+        {
+          title: "Tabelas, listas e fichas", icon: "🗓️", age: "8-9 anos", theme: "Matrizes, registros e listas",
+          rounds: [
+            { icon: "🔢", question: "Uma tabela tem 3 linhas e 4 colunas. Quantas células ela tem?", options: ["12", "7", "10"], answer: 0, why: "Multiplicamos linhas por colunas: 3 × 4 = 12." },
+            { icon: "📍", question: "Linha 2, coluna 3 de uma tabela indica...", options: ["A posição de uma célula", "O nome que a tabela recebeu", "A cor da letra que foi usada"], answer: 0, why: "Linha e coluna dizem exatamente onde está cada valor." },
+            { icon: "🎂", question: "Ana tem 8 anos, Beto tem 9 e Caio tem 7. Quem é o mais velho?", options: ["Beto", "Ana", "Caio"], answer: 0, why: "Comparando as idades: 9 é o maior valor." },
+            { icon: "📇", question: "Uma ficha de aluno tem nome, idade e turma. Cada informação da ficha chama-se...", options: ["Campo", "Gráfico", "Tecla"], answer: 0, why: "Uma ficha com vários campos é chamada de registro." },
+            { icon: "🗓️", question: "Qual estrutura é boa para os horários da semana (dias e períodos)?", options: ["Tabela", "Uma única palavra", "Um só número"], answer: 0, why: "Dias nas colunas e períodos nas linhas formam uma tabela." },
+            { icon: "🧑‍🎓", question: "Qual é melhor para guardar nome, idade e turma de UM aluno?", options: ["Um registro (uma ficha)", "Uma tabela de horários", "Uma lista de números"], answer: 0, why: "Um registro reúne campos diferentes sobre um mesmo objeto." },
+            { icon: "📋", question: "Lista: 5, 9, 2. Qual é o primeiro item?", options: ["5", "9", "2"], answer: 0, why: "O primeiro item é o que está no começo da lista." },
+            { icon: "➕", question: "Lista: 5, 9, 2. Se colocarmos 7 no final, como ela fica?", options: ["5, 9, 2, 7", "7, 5, 9, 2", "5, 9, 7"], answer: 0, why: "Acrescentar ao final mantém a ordem dos itens que já estavam." },
+            { icon: "🔠", question: "Em uma planilha, as letras A, B, C... identificam as...", options: ["Colunas", "Linhas", "Células"], answer: 0, why: "As colunas têm letras e as linhas têm números." },
+            { icon: "🧮", question: "Notas de 3 alunos em 4 provas ficam bem organizadas em...", options: ["Uma tabela com alunos nas linhas e provas nas colunas", "Uma única palavra que cada aluno escolhe escrever", "Um único número que serve para a turma inteira"], answer: 0, why: "Uma tabela de dupla entrada cruza duas informações." },
+            { icon: "🔤", question: "Para colocar nomes do A ao Z, usamos a ordem...", options: ["Alfabética", "Das cores", "Da altura"], answer: 0, why: "A ordem alfabética é uma regra de ordenação." },
+            { icon: "👥", question: "Qual organiza várias pessoas com nome, idade e cidade?", options: ["Uma tabela, com uma linha por pessoa", "Um único número escrito no quadro", "Uma foto da turma inteira reunida"], answer: 0, why: "Cada linha é uma pessoa e cada coluna é um campo." },
+          ],
+        },
+        {
+          title: "Listas e grafos", icon: "🗺️", age: "10-11 anos", theme: "Listas ordenadas e grafos",
+          rounds: [
+            { icon: "📋", question: "Qual exemplo é uma lista?", options: ["Os nomes da chamada da turma", "A cor do céu em um dia de sol", "Um único número escrito na lousa"], answer: 0, why: "Listas guardam vários itens dispostos em sequência." },
+            { icon: "🔢", question: "Lista: 10, 20, 30, 40. Qual item está na 3ª posição?", options: ["30", "20", "40"], answer: 0, why: "Contando da primeira posição: 10, 20, 30." },
+            { icon: "➖", question: "Uma lista tem 5 itens. Se removermos o primeiro, quantos restam?", options: ["4", "5", "3"], answer: 0, why: "Uma lista pode crescer e diminuir: 5 − 1 = 4." },
+            { icon: "🗺️", question: "Para guardar cidades e as estradas que ligam uma à outra, uma boa estrutura é...", options: ["Um grafo", "Um parágrafo", "Um número"], answer: 0, why: "Um grafo tem vértices (os pontos) e arestas (as ligações)." },
+            { icon: "🏙️", question: "Em um grafo de mapa, o que os círculos (vértices) representam?", options: ["As cidades", "As estradas", "Os habitantes"], answer: 0, why: "Os vértices são os pontos que se ligam." },
+            { icon: "🛣️", question: "E as linhas (arestas) que ligam os círculos?", options: ["As estradas entre as cidades", "As próprias cidades do mapa", "A população de cada cidade"], answer: 0, why: "As arestas mostram quem está ligado a quem." },
+            { icon: "👭", question: "Pessoas e as amizades entre elas formam...", options: ["Um grafo", "Uma lista de compras", "Uma tabela de horários"], answer: 0, why: "Pessoas são vértices e amizades são arestas." },
+            { icon: "🚇", question: "O mapa do metrô, com estações e trilhos, é bem representado por...", options: ["Um grafo", "Um registro único", "Uma lista de números"], answer: 0, why: "Estações ligadas por trilhos formam um grafo." },
+            { icon: "🎟️", question: "Quem chegou primeiro é atendido primeiro. Que estrutura é essa?", options: ["Uma fila, ou seja, uma lista em ordem de chegada", "Uma tabela de dupla entrada, com linhas e colunas", "Um registro com vários campos de cadastro"], answer: 0, why: "Uma fila segue a ordem de chegada dos itens." },
+            { icon: "🔎", question: "Para achar o caminho mais curto entre duas cidades em um grafo, olhamos...", options: ["Os caminhos de arestas que ligam as duas", "A cor que foi usada para pintar o mapa", "O nome que cada cidade recebeu na fundação"], answer: 0, why: "Um caminho é uma sequência de arestas entre dois vértices." },
+            { icon: "📊", question: "A lista 3, 1, 2 ordenada do menor para o maior fica...", options: ["1, 2, 3", "3, 2, 1", "2, 1, 3"], answer: 0, why: "Ordenar do menor para o maior dá 1, 2 e 3." },
+            { icon: "🔗", question: "Cidades A, B e C: A liga a B e B liga a C. Quantas estradas (arestas) existem?", options: ["2", "3", "1"], answer: 0, why: "As ligações são A–B e B–C." },
+          ],
+        },
+        {
+          title: "Registros, listas e grafos", icon: "🕸️", age: "12-13 anos", theme: "Registros, caminhos e árvores",
+          rounds: [
+            { icon: "📇", question: "Em um registro com nome, idade e cidade, cada item é um...", options: ["Campo", "Vértice", "Índice"], answer: 0, why: "Registros agrupam campos de tipos diferentes." },
+            { icon: "📋", question: "Qual estrutura é boa para a chamada, que cresce e diminui?", options: ["Uma lista", "Um registro único", "Uma constante"], answer: 0, why: "Listas têm número variável de itens." },
+            { icon: "0️⃣", question: "Na lista 8, 6, 9, o índice 0 guarda qual valor?", options: ["8", "6", "9"], answer: 0, why: "Em programação, a contagem de posições começa no zero." },
+            { icon: "🗒️", question: "Registros em lista: Ana (nota 8) e Beto (nota 6). Qual é a nota do Beto?", options: ["6", "8", "14"], answer: 0, why: "Primeiro achamos o registro certo e depois lemos o campo nota." },
+            { icon: "🔗", question: "No grafo A–B, A–C, B–D, quantos vizinhos tem o vértice A?", options: ["2", "3", "1"], answer: 0, why: "A está ligado a B e a C." },
+            { icon: "🛤️", question: "Grafo A–B, B–C, C–D. Qual é um caminho de A até D?", options: ["A, B, C, D", "A, C, B, D", "A, B, D, C"], answer: 0, why: "Cada passo do caminho precisa seguir uma aresta que existe." },
+            { icon: "🔀", question: "Grafo A–B, A–C, B–D, C–D. Existe caminho de A até D?", options: ["Sim, por B ou por C", "Não existe", "Só passando por A de novo"], answer: 0, why: "Há dois caminhos possíveis: A, B, D e A, C, D." },
+            { icon: "🕸️", question: "Um grafo conexo é aquele em que...", options: ["Há caminho entre quaisquer dois vértices", "Todas as arestas têm o mesmo tamanho", "Existem exatamente três vértices"], answer: 0, why: "Conexo significa que nenhum vértice fica isolado." },
+            { icon: "🧮", question: "Notas de vários alunos em várias provas ficam bem em...", options: ["Uma matriz, ou seja, uma tabela de linhas e colunas", "Um registro único com vários campos diferentes", "Um grafo de estradas ligando várias cidades"], answer: 0, why: "Matrizes organizam valores com duas posições: linha e coluna." },
+            { icon: "🗂️", question: "Para o cadastro de um aluno com nome, idade, turma e notas, usamos...", options: ["Um registro", "Um grafo", "Um único número"], answer: 0, why: "O registro junta campos de tipos diferentes." },
+            { icon: "🌳", question: "Uma árvore é um grafo especial. Nela, cada elemento...", options: ["Tem um pai, menos a raiz", "Liga-se a todos os outros", "Não tem ligação nenhuma"], answer: 0, why: "Em uma árvore existe uma raiz e cada elemento descende dela." },
+            { icon: "🔢", question: "O \"grau\" de um vértice em um grafo é...", options: ["O número de ligações que ele tem", "O tamanho do desenho na página", "A distância até o centro do grafo"], answer: 0, why: "Se um vértice liga a 3 outros, o grau dele é 3." },
+          ],
+        },
+        {
+          title: "Árvores, grafos e autômatos", icon: "🌳", age: "14 anos", theme: "Árvores, grafos e máquinas de estados",
+          rounds: [
+            { icon: "📁", question: "Pastas e subpastas do computador formam uma estrutura de...", options: ["Árvore", "Fila", "Tabela fixa"], answer: 0, why: "Uma pasta contém subpastas, como galhos que se abrem." },
+            { icon: "🌳", question: "Em uma árvore, o elemento do topo é a...", options: ["Raiz", "Folha", "Aresta"], answer: 0, why: "Todos os outros elementos descendem da raiz." },
+            { icon: "🍃", question: "Elementos da árvore sem filhos, no final dos galhos, são as...", options: ["Folhas", "Raízes", "Colunas"], answer: 0, why: "As folhas são os elementos sem descendentes." },
+            { icon: "👪", question: "Uma árvore genealógica da família é exemplo de...", options: ["Árvore, um grafo hierárquico", "Fila de espera de atendimento", "Matriz de notas dos alunos"], answer: 0, why: "Cada pessoa liga aos pais e aos filhos, como em uma árvore." },
+            { icon: "📍", question: "O GPS busca o melhor trajeto entre dois pontos usando um...", options: ["Grafo de ruas e cruzamentos", "Registro único de cadastro", "Parágrafo de texto corrido"], answer: 0, why: "Cruzamentos são vértices e ruas são arestas." },
+            { icon: "🔁", question: "Um autômato, ou máquina de estados, descreve...", options: ["Estados e as transições entre eles", "Só números soltos, sem relação entre si", "Apenas imagens, sem nenhuma regra"], answer: 0, why: "Ele mostra em que estado o sistema está e como muda de um para outro." },
+            { icon: "🚦", question: "No semáforo verde, amarelo e vermelho, cada cor é um...", options: ["Estado", "Erro", "Registro"], answer: 0, why: "O semáforo está sempre em um estado e muda por transições." },
+            { icon: "⏱️", question: "O que faz o semáforo passar do verde para o amarelo?", options: ["Um evento, como o fim do tempo", "A cor do carro que vem na rua", "O nome da rua onde ele fica"], answer: 0, why: "As transições acontecem quando um evento ocorre." },
+            { icon: "🚪", question: "Porta automática fechada e o sensor detecta alguém. O que acontece?", options: ["Ela passa para o estado aberta", "Continua no estado fechada, sem mudança", "Desaparece completamente do corredor"], answer: 0, why: "O evento do sensor causa a transição de fechada para aberta." },
+            { icon: "🔄", question: "Se uma estrutura tem um ciclo (A liga B, B liga C e C liga A), ela deixa de ser...", options: ["Uma árvore", "Um grafo", "Um conjunto de ligações"], answer: 0, why: "Árvores não têm ciclos, mas outros grafos podem ter." },
+            { icon: "↩️", question: "Para desfazer ações, a última feita é a primeira desfeita. Qual estrutura segue essa ideia?", options: ["Uma pilha", "Uma fila", "Uma matriz"], answer: 0, why: "Em uma pilha, o último a entrar é o primeiro a sair." },
+            { icon: "🧭", question: "Para escolher a estrutura de dados certa para um problema, primeiro...", options: ["Entendemos como os dados se relacionam", "Escolhemos a mais difícil possível", "Usamos sempre uma lista, para tudo"], answer: 0, why: "A estrutura adequada depende de como os dados se organizam." },
+          ],
+        },
+      ];
+
+      const aiLevels = [
+        {
+          title: "Máquinas que ajudam", icon: "🤖", age: "6-7 anos", theme: "Tecnologia e pessoas",
+          rounds: [
+            { icon: "🤖", question: "Quem criou os programas dos computadores e dos robôs?", options: ["Pessoas", "Os próprios robôs, sozinhos", "Os animais"], answer: 0, why: "Os programas são feitos por pessoas." },
+            { icon: "🗣️", question: "Um assistente de voz responde às perguntas. Ele é...", options: ["Um programa de computador", "Uma pessoa escondida dentro do aparelho", "Um bichinho de estimação que fala"], answer: 0, why: "Assistentes de voz são programas que seguem instruções e dados." },
+            { icon: "❤️", question: "O computador sente alegria e tristeza como as pessoas?", options: ["Não, ele só segue instruções e dados", "Sim, ele sente tudo como nós sentimos", "Sim, mas só nos dias de muito sol"], answer: 0, why: "Máquinas não têm sentimentos, mesmo quando parecem simpáticas." },
+            { icon: "👪", question: "Uma máquina disse algo que você não entendeu. O que fazer?", options: ["Perguntar a um adulto", "Acreditar sem pensar", "Esconder de todos"], answer: 0, why: "Um adulto de confiança ajuda a entender e a conferir." },
+            { icon: "🔒", question: "Posso contar meu endereço a um assistente de voz?", options: ["Não, dados pessoais ficam em segredo", "Sim, sempre que ele pedir a informação", "Só se for para brincar com ele"], answer: 0, why: "Nome, endereço e telefone são dados pessoais e devem ser protegidos." },
+            { icon: "📷", question: "Câmeras e sensores ajudam as máquinas a...", options: ["Perceber o que está em volta", "Sentir sono quando fica tarde", "Ficar com fome depois do almoço"], answer: 0, why: "Sensores captam informações do ambiente para o programa usar." },
+            { icon: "✅", question: "Uma máquina pode errar?", options: ["Sim, e uma pessoa deve conferir", "Nunca erra, porque é uma máquina", "Só erra nas segundas-feiras"], answer: 0, why: "Máquinas e programas podem errar, por isso é preciso conferir." },
+            { icon: "🎨", question: "Um programa desenha uma figura. Ele faz isso a partir de...", options: ["Instruções e exemplos que recebeu", "Mágica que acontece dentro do computador", "Um desenho que já estava escondido na tela"], answer: 0, why: "Os programas funcionam com instruções e dados." },
+            { icon: "🧸", question: "Um robô de brinquedo obedece a comandos. Ele...", options: ["Segue as instruções que recebe", "Inventa as regras que ele quiser", "Escolhe o que sente vontade de fazer"], answer: 0, why: "Robôs seguem as instruções que as pessoas programaram." },
+            { icon: "🐱", question: "Um programa reconhece fotos de gato porque viu...", options: ["Muitos exemplos de fotos", "Só uma única foto de um gato", "Uma música sobre gatos e cachorros"], answer: 0, why: "Aprender com muitos exemplos ajuda a reconhecer padrões." },
+            { icon: "🤝", question: "Para decisões importantes sobre você, quem deve participar?", options: ["Pessoas de confiança, junto com a tecnologia", "Só a máquina, sem ninguém por perto", "Ninguém, porque ninguém precisa decidir"], answer: 0, why: "A tecnologia ajuda, mas as pessoas é que decidem." },
+            { icon: "🧑‍🏫", question: "Antes de usar um programa novo, o que é bom fazer?", options: ["Pedir ajuda a um adulto", "Clicar em todos os botões sem ler", "Dar todos os seus dados logo de cara"], answer: 0, why: "Usar tecnologia com orientação é mais seguro." },
+          ],
+        },
+        {
+          title: "Aprender com exemplos", icon: "🔎", age: "8-9 anos", theme: "Dados e padrões",
+          rounds: [
+            { icon: "🔎", question: "Uma IA aprende encontrando padrões em...", options: ["Muitos exemplos, os dados", "Um exemplo só, visto uma vez", "Sonhos que ela tem de noite"], answer: 0, why: "Os dados são os exemplos dos quais ela aprende padrões." },
+            { icon: "🐱", question: "Para reconhecer gatos, uma IA precisa ver...", options: ["Muitas fotos de gatos e de outros animais", "Apenas uma única foto de um gato qualquer", "Somente fotos de cachorros e de outros bichos"], answer: 0, why: "Quanto mais variados os exemplos, melhor ela aprende a diferenciar." },
+            { icon: "🧮", question: "A IA recebe dados, procura padrões e dá uma resposta. A resposta pode estar...", options: ["Certa ou errada", "Sempre certa, porque é uma máquina", "Sempre errada, porque é nova"], answer: 0, why: "Uma IA pode errar, por isso a resposta deve ser conferida." },
+            { icon: "🛑", question: "Um chatbot disse algo que parece errado. O que fazer?", options: ["Conferir em fontes confiáveis ou perguntar a um adulto", "Copiar a resposta direto na lição sem pensar nela", "Repassar a resposta para todos os amigos da turma"], answer: 0, why: "Conferir evita espalhar informações erradas." },
+            { icon: "🔐", question: "Posso digitar meu nome completo e meu endereço em um chatbot?", options: ["Não, são dados pessoais", "Sim, porque é sempre seguro", "Só se for de noite, com a luz apagada"], answer: 0, why: "Dados pessoais não devem ser dados a ferramentas online." },
+            { icon: "🎵", question: "O aplicativo recomenda músicas parecidas com as que você ouve. Ele usa...", options: ["Dados do que você ouviu e padrões", "Adivinhação mágica do aplicativo", "Um sorteio feito sem nenhuma regra"], answer: 0, why: "Recomendações vêm de dados de uso e de padrões." },
+            { icon: "✍️", question: "Se a IA ajudar em um trabalho da escola, o certo é...", options: ["Contar que usou e conferir o que ela escreveu", "Dizer que fez tudo sozinho, sem citar a ajuda", "Entregar o texto sem ler nada do que ela escreveu"], answer: 0, why: "Honestidade e conferência fazem parte do uso responsável." },
+            { icon: "🎓", question: "A IA pode ajudar a estudar, mas quem aprende é...", options: ["Você", "A máquina que respondeu a tudo", "O vizinho que escuta a conversa"], answer: 0, why: "Aprender exige esforço e compreensão de quem estuda." },
+            { icon: "🌍", question: "A IA aprende com dados feitos por pessoas. Se os dados forem injustos, ela pode...", options: ["Repetir a injustiça", "Corrigir tudo sozinha, sem ajuda", "Parar de funcionar para sempre"], answer: 0, why: "Dados com preconceito podem gerar resultados com preconceito." },
+            { icon: "🌐", question: "Qual destes é um uso de IA no dia a dia?", options: ["Um tradutor automático", "Um lápis de cor da caixa nova", "Uma régua de plástico transparente"], answer: 0, why: "Tradutores, mapas e assistentes usam técnicas de IA." },
+            { icon: "🤔", question: "A IA entende o mundo como uma pessoa?", options: ["Não, ela encontra padrões nos dados", "Sim, igualzinho a uma pessoa", "Sim, e até sonha como nós sonhamos"], answer: 0, why: "Ela calcula padrões, sem viver nem sentir como as pessoas." },
+            { icon: "🧑‍🏫", question: "Para usar IA na escola com segurança, é importante...", options: ["Combinar o uso com o professor e os responsáveis", "Esconder o uso dos adultos para ninguém atrapalhar", "Usar sem ler as regras do aplicativo escolhido"], answer: 0, why: "Regras combinadas protegem os estudantes." },
+          ],
+        },
+        {
+          title: "Algoritmos que decidem", icon: "📺", age: "10-11 anos", theme: "Recomendações e informação",
+          rounds: [
+            { icon: "📺", question: "O algoritmo de recomendação sugere vídeos com base em...", options: ["O que você já assistiu e curtiu", "O clima do dia em que você assiste", "Um sorteio feito entre todos os usuários"], answer: 0, why: "Ele aprende com o seu comportamento e o de outras pessoas." },
+            { icon: "🎈", question: "Se você só vê opiniões iguais às suas na rede, isso pode formar...", options: ["Uma bolha de conteúdos", "Um erro de energia no aparelho que usa", "Uma tela maior para ver melhor o conteúdo"], answer: 0, why: "Recomendações muito parecidas reduzem a variedade de pontos de vista." },
+            { icon: "📈", question: "Treinar uma IA é...", options: ["Mostrar muitos exemplos para ela achar padrões", "Ligar o aparelho na tomada e esperar um pouco", "Dar broncas nela toda vez que ela erra"], answer: 0, why: "O treinamento usa muitos dados para ajustar o sistema." },
+            { icon: "🧪", question: "Dados de treino ruins ou incompletos geram...", options: ["Resultados piores e até injustos", "Resultados perfeitos para todas as pessoas", "Mais velocidade em qualquer situação"], answer: 0, why: "A qualidade dos dados afeta a qualidade da IA." },
+            { icon: "🤥", question: "IA generativa pode inventar fatos que parecem verdadeiros. O que fazer?", options: ["Checar em fontes confiáveis", "Acreditar porque está bem escrito", "Pedir que ela jure"], answer: 0, why: "Texto bem escrito não quer dizer texto verdadeiro." },
+            { icon: "🖼️", question: "Imagens criadas por IA podem parecer fotos reais. Antes de compartilhar, devemos...", options: ["Verificar a origem", "Compartilhar rápido", "Apagar a fonte"], answer: 0, why: "Verificar a origem reduz a desinformação." },
+            { icon: "🔏", question: "Dados pessoais enviados a um aplicativo de IA podem...", options: ["Ser guardados e usados pela empresa", "Sumir sempre na hora, sem deixar rastro", "Ficar guardados só no seu caderno de aula"], answer: 0, why: "Leia as regras de privacidade antes de enviar dados." },
+            { icon: "🧰", question: "Qual é um bom uso de IA na escola?", options: ["Tirar dúvidas, conferir e escrever com suas palavras", "Pedir que ela faça toda a lição de casa no seu lugar", "Copiar a resposta pronta sem ler nem conferir nada"], answer: 0, why: "A IA apoia o estudo, mas não substitui o aprendizado." },
+            { icon: "⚖️", question: "Quem é responsável por conferir o que a IA produz?", options: ["Quem a usa", "Ninguém", "A impressora"], answer: 0, why: "Quem usa uma ferramenta responde pelo uso que faz dela." },
+            { icon: "🏥", question: "A IA ajuda médicos a analisar exames. A decisão final fica com...", options: ["O profissional de saúde", "A máquina, sozinha", "Quem inventou o programa"], answer: 0, why: "A IA apoia, mas a responsabilidade é de uma pessoa preparada." },
+            { icon: "🧑‍🤝‍🧑", question: "A IA pode ajudar ou prejudicar. Isso depende...", options: ["De como as pessoas a usam", "Só da própria máquina, que decide tudo", "Do horário do dia em que ela é usada"], answer: 0, why: "A tecnologia reflete as escolhas de quem a cria e usa." },
+            { icon: "🧩", question: "Qual atitude é equilibrada diante da IA?", options: ["Conhecer benefícios e riscos e usar com cuidado", "Confiar em tudo o que a IA responde sem conferir", "Recusar tudo sem nem conhecer como a ferramenta funciona"], answer: 0, why: "O currículo pede nem otimismo excessivo nem aversão." },
+          ],
+        },
+        {
+          title: "Viés, privacidade e ética", icon: "⚖️", age: "12-13 anos", theme: "Uso responsável",
+          rounds: [
+            { icon: "🎯", question: "Viés em IA é...", options: ["Um resultado que favorece ou prejudica grupos por causa dos dados", "Um defeito físico da tela do computador que atrapalha a leitura", "Um erro de digitação que aparece nas respostas da ferramenta"], answer: 0, why: "O viés vem dos dados e das escolhas feitas ao criar o sistema." },
+            { icon: "📚", question: "Uma IA treinada só com fotos de um tipo de pessoa pode...", options: ["Errar mais com pessoas diferentes", "Funcionar igual para todas as pessoas do mundo", "Ficar mais rápida e mais precisa sempre"], answer: 0, why: "Dados pouco variados geram resultados desiguais." },
+            { icon: "🎭", question: "Deepfake é...", options: ["Vídeo ou áudio falso criado com IA", "Um tipo de antivírus muito moderno e seguro", "Um jogo de cartas muito popular na internet"], answer: 0, why: "Deepfakes imitam rostos e vozes reais." },
+            { icon: "🛡️", question: "Diante de um vídeo suspeito de uma pessoa famosa, o primeiro passo é...", options: ["Verificar em fontes oficiais", "Compartilhar logo", "Acreditar porque parece real"], answer: 0, why: "Checar a origem evita espalhar desinformação." },
+            { icon: "📄", question: "Entregar um texto gerado por IA como se fosse seu é...", options: ["Falta de ética e pode ser plágio", "Algo sempre permitido em qualquer escola", "Uma garantia de que a nota será muito boa"], answer: 0, why: "Autoria honesta é parte da conduta ética." },
+            { icon: "🗂️", question: "Os dados que você escreve em uma ferramenta de IA...", options: ["Podem ser guardados e usados para treinar o sistema", "São apagados na mesma hora, sem deixar nenhum rastro", "Ninguém nunca vê, nem a empresa responsável"], answer: 0, why: "Leia a política de privacidade antes de usar." },
+            { icon: "🌀", question: "Alucinação, em IA, é quando ela...", options: ["Inventa uma informação falsa com muita segurança", "Fica sem conexão com a internet por um tempo", "Desliga sozinha quando o aparelho esquenta muito"], answer: 0, why: "Sistemas generativos podem criar respostas convincentes e erradas." },
+            { icon: "🧭", question: "Por que os direitos humanos devem guiar o uso da IA na educação?", options: ["Porque a tecnologia deve servir às pessoas", "Porque as máquinas também têm direitos humanos", "Porque ficou na moda falar desse assunto"], answer: 0, why: "A UNESCO defende uma IA centrada no ser humano." },
+            { icon: "📊", question: "Algoritmos de recomendação podem aumentar o tempo de tela. Uma boa prática é...", options: ["Definir limites e escolher o que assistir", "Deixar o algoritmo decidir tudo por você", "Aumentar o brilho da tela para ver melhor"], answer: 0, why: "Escolher conscientemente protege o tempo e a atenção." },
+            { icon: "🏛️", question: "Quem deve participar da criação de regras para o uso de IA?", options: ["Sociedade, governos e empresas, com participação das pessoas", "Apenas as próprias máquinas, que criam as suas regras", "Ninguém, porque não são necessárias regras nenhumas"], answer: 0, why: "Regras democráticas ajudam a proteger direitos." },
+            { icon: "🧑‍💼", question: "A automação com IA pode substituir tarefas, mas também...", options: ["Criar novas funções e exigir novas habilidades", "Acabar com todo e qualquer trabalho humano", "Não mudar absolutamente nada no trabalho de ninguém"], answer: 0, why: "O trabalho muda, e aprender continuamente ajuda a acompanhar." },
+            { icon: "🕵️", question: "Antes de confiar em uma resposta de IA sobre saúde, você deve...", options: ["Consultar fontes oficiais e profissionais", "Seguir a resposta sem pensar nem conferir", "Perguntar a ela outra vez até ela concordar"], answer: 0, why: "Em saúde, a orientação é de profissionais." },
+          ],
+        },
+        {
+          title: "Fundamentos e impactos", icon: "🧠", age: "14 anos", theme: "Aprendizado de máquina e sociedade",
+          rounds: [
+            { icon: "🧠", question: "Aprendizado de máquina é...", options: ["Uma técnica em que o sistema aprende padrões a partir de dados", "Uma máquina capaz de ler a mente das pessoas à distância", "A memória do pen drive que guarda os arquivos da escola"], answer: 0, why: "Em vez de receber todas as regras, o sistema ajusta seu comportamento com dados." },
+            { icon: "📉", question: "Dados de treino, em IA, são...", options: ["Exemplos usados para o sistema aprender", "As senhas de todos os usuários do sistema", "As peças físicas dentro do computador"], answer: 0, why: "Quanto mais variados e corretos, melhor o aprendizado." },
+            { icon: "🎲", question: "Modelos de linguagem geram texto prevendo...", options: ["Quais palavras tendem a vir em seguida", "A verdade absoluta sobre cada assunto", "Os sentimentos reais de quem escreve"], answer: 0, why: "Eles calculam probabilidades, sem garantia de verdade." },
+            { icon: "⚖️", question: "Por que a IA pode reproduzir preconceitos?", options: ["Porque aprende com dados que refletem preconceitos humanos", "Porque ela forma uma opinião própria sobre as pessoas", "Porque foi criada de propósito para ofender pessoas"], answer: 0, why: "O viés dos dados pode aparecer nos resultados." },
+            { icon: "🔍", question: "Transparência em IA significa...", options: ["Explicar como e com quais dados o sistema decide", "Usar uma tela de vidro totalmente transparente", "Esconder o código de todo mundo para ninguém copiar"], answer: 0, why: "Sem transparência, fica difícil questionar os resultados." },
+            { icon: "👤", question: "Uma IA centrada no ser humano é aquela que...", options: ["Respeita os direitos e a autonomia das pessoas", "Coloca a máquina no comando de todas as decisões", "Elimina todos os empregos que as pessoas têm"], answer: 0, why: "O foco são as necessidades e os direitos das pessoas." },
+            { icon: "💼", question: "As mudanças no trabalho causadas pela IA pedem...", options: ["Aprendizado contínuo e debate sobre justiça", "Que ninguém estude mais nada de tecnologia", "Esperar sem fazer absolutamente nada a respeito"], answer: 0, why: "Preparar-se e discutir os efeitos sociais são formas de agir." },
+            { icon: "🔬", question: "Comparando com a inteligência humana, a IA...", options: ["Processa dados rápido, mas não tem consciência nem vivências", "Pensa, sente e entende o mundo exatamente como as pessoas", "Entende qualquer assunto sem precisar de nenhum dado"], answer: 0, why: "Há diferenças importantes entre calcular padrões e compreender o mundo." },
+            { icon: "🧾", question: "Quem responde por danos causados por um sistema de IA?", options: ["As pessoas e as organizações que o criam e usam", "A própria máquina, que foi quem cometeu o erro", "Ninguém, porque o erro foi apenas da máquina"], answer: 0, why: "A responsabilidade é humana e institucional." },
+            { icon: "🧪", question: "Como avaliar uma ferramenta de IA antes de usar?", options: ["Ver que dados coleta, seus limites e quem a mantém", "Escolher só pelo nome bonito que a ferramenta tem", "Olhar apenas o número de downloads que ela tem"], answer: 0, why: "Análise crítica considera privacidade, limites e responsabilidade." },
+            { icon: "🌱", question: "Treinar e usar grandes modelos de IA consome...", options: ["Muita energia e recursos, com impacto ambiental", "Nenhuma energia, porque tudo funciona só na nuvem", "Apenas energia solar, sem nenhum impacto ambiental"], answer: 0, why: "Os centros de dados usam energia e água." },
+            { icon: "🗳️", question: "Participar de forma cidadã no debate sobre IA é...", options: ["Informar-se, questionar e propor soluções", "Ignorar completamente o assunto e seus efeitos", "Aceitar tudo o que dizem sem fazer perguntas"], answer: 0, why: "Cidadania digital inclui debater os impactos das tecnologias." },
+          ],
+        },
+      ];
+
       const quizMissions = {
         hardware: { title: "Computador por dentro", levels: hardwareLevels, finalMessage: "Computador explorado!" },
         safe: { title: "Navegação segura", levels: safeLevels, finalMessage: "Navegação segura!" },
+        reading: { title: "Leia o código", levels: readingLevels, finalMessage: "Código lido!" },
+        structures: { title: "Organize os dados", levels: structuresLevels, finalMessage: "Dados organizados!" },
+        ai: { title: "Dados, algoritmos e IA", levels: aiLevels, finalMessage: "IA com senso crítico!" },
       };
+
+      function mapQuizMissions(build) {
+        return Object.fromEntries(Object.entries(quizMissions).map(([id, mission]) => [id, build(mission, id)]));
+      }
 
       function currentDecomposeRounds() {
         return decomposeLevels[state.decomposeLevel].rounds;
@@ -15920,6 +16675,7 @@ const brStatesList = [
         bugFixWrong: null,
         bugFixCorrectIndex: null,
         bugFixAttempt: 0,
+        bugContinuePending: false,
         loopLevel: null,
         loopRepeat: 0,
         loopExtra: 0,
@@ -16747,8 +17503,7 @@ const brStatesList = [
         var: varLevels.map((level) => level.rounds.map(cloneValue)),
         pattern: patternLevels.map((level) => level.rounds.map(cloneValue)),
         decompose: decomposeLevels.map((level) => level.rounds.map(cloneValue)),
-        hardware: hardwareLevels.map((level) => level.rounds.map(cloneValue)),
-        safe: safeLevels.map((level) => level.rounds.map(cloneValue)),
+        ...mapQuizMissions((mission) => mission.levels.map((level) => level.rounds.map(cloneValue))),
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
@@ -17226,7 +17981,7 @@ const brStatesList = [
       }
 
       function legacyLockedClass() {
-        return state.answerLocked ? "legacy-locked" : "";
+        return state.answerLocked || isWaitingToContinueLegacy() ? "legacy-locked" : "";
       }
 
       function lockLegacyMistake(wrongIndex, options = {}) {
@@ -17295,25 +18050,40 @@ const brStatesList = [
         }, 1100);
       }
 
-      function advanceLegacyQuiz(rounds, finalMessage, why = "") {
+      const legacyQuizSetups = {
+        detective: { rounds: () => legacyDataQuizRounds, finalMessage: "Gráficos investigados!" },
+        organize: { rounds: () => legacyOrganizeRounds, finalMessage: "Dados organizados!" },
+      };
+
+      function isWaitingToContinueLegacy() {
+        return state.legacyCorrectIndex !== null;
+      }
+
+      function showLegacyAnswer(why = "") {
         state.legacyCorrectIndex = state.selected;
         state.legacyFeedback = why;
-        state.answerLocked = true;
         showMessage("✅ Certo!", 750);
         render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (!isLevelMission(state.mode) || !state.legacyActivity) return;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          resetLegacyRuntimeState();
-          if (state.round >= rounds.length) {
-            completeLegacyActivity(finalMessage);
-            return;
-          }
-          render();
-        }, 900);
+      }
+
+      function continueLegacyQuiz() {
+        const { rounds, finalMessage } = legacyQuizSetups[state.legacyActivity];
+        state.score += 1;
+        state.round += 1;
+        state.selected = -1;
+        resetLegacyRuntimeState();
+        if (state.round >= rounds().length) {
+          completeLegacyActivity(finalMessage);
+          return;
+        }
+        render();
+      }
+
+      function legacyExplanationHtml() {
+        if (!isWaitingToContinueLegacy()) return "";
+        const { rounds } = legacyQuizSetups[state.legacyActivity];
+        const explanation = state.legacyFeedback ? `<div class="quiz-why" data-speak>${state.legacyFeedback}</div>` : "";
+        return explanation + continueButtonHtml(state.round + 1 >= rounds().length);
       }
 
       function renderLevelsMenu() {
@@ -17372,8 +18142,10 @@ const brStatesList = [
             </div>`).join("")}
           </div>
           <div class="answer-row answer-row-count-${options.length}">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
+          ${legacyExplanationHtml()}
           ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
+        showContinueButton();
       }
 
       function renderLegacyOrganize() {
@@ -17386,8 +18158,10 @@ const brStatesList = [
           <div class="quiz-question">${round.question}</div>
           <div class="dataset">${round.items.map((item) => `<div class="data-chip">${colorLabelHtml(item)}</div>`).join("")}</div>
           <div class="answer-row answer-row-count-${options.length}">${options.map((option, index) => `<div class="${legacyOptionClass("answer-card", index)}">${colorLabelHtml(option)}</div>`).join("")}</div>
+          ${legacyExplanationHtml()}
           ${state.answerLocked && state.legacyCorrectIndex === null ? pauseOverlay() : ""}
         </div>`;
+        showContinueButton();
       }
 
       const legacyRenderers = {
@@ -17473,8 +18247,7 @@ const brStatesList = [
         var: varLevels,
         pattern: patternLevels,
         decompose: decomposeLevels,
-        hardware: hardwareLevels,
-        safe: safeLevels,
+        ...mapQuizMissions((mission) => mission.levels),
         builder: builderLevels,
         decoder: decoderLevels,
         ttt: tttLevels,
@@ -18988,6 +19761,11 @@ const brStatesList = [
         return codeActiveIndex() === -1;
       }
 
+      // A palavra inteira foi decifrada e a missão espera o aluno tocar em Continuar.
+      function isCodeWaitingToContinue() {
+        return state.codeDecoded.length > 0 && codeSolved();
+      }
+
       function codeOptions() {
         const round = currentCodeRounds()[state.round];
         const activeIndex = codeActiveIndex();
@@ -19124,7 +19902,10 @@ const brStatesList = [
         const uniqueLetters = [...new Set(round.word.split(""))];
         setHeader("Mensagem secreta", `${level.title}: decifre o código.`);
         setCounters("Mensagem", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = "Veja a legenda e escolha a letra certa para cada símbolo.";
+        const wordSolved = isCodeWaitingToContinue();
+        status.textContent = wordSolved
+          ? "Mensagem decifrada! Veja a palavra e continue."
+          : "Veja a legenda e escolha a letra certa para cada símbolo.";
         content.innerHTML = `<div class="code-board">
           <div class="subject-theme-badge">
             <span class="subject-theme-icon">${themeMeta.icon}</span>
@@ -19145,13 +19926,15 @@ const brStatesList = [
               </div>`;
             }).join("")}
           </div>
-          <div class="code-options ${state.answerLocked ? "locked" : ""}">
+          <div class="code-options ${state.answerLocked || wordSolved ? "locked" : ""}">
             ${options.map((letter, index) => `<div class="code-option ${index === state.selected ? "selected" : ""} ${state.codeWrong === index ? "wrong" : ""} ${state.codeCorrectIndex === index ? "correct" : ""}">
               ${letter}
               ${state.codeCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔐</span><span>🎉</span><span>✨</span><span>🔐</span></div>' : ""}
             </div>`).join("")}
           </div>
+          ${wordSolved ? `<div class="quiz-why" data-speak>Mensagem decifrada: ${[...accentedWord(round.word)].join("")}</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
         </div>`;
+        if (wordSolved) showContinueButton();
       }
 
       function currentPixelRounds() {
@@ -19179,18 +19962,23 @@ const brStatesList = [
         const options = pixelOptions();
         setHeader("Desmistificador de Pixels", `${level.title}: leia o código.`);
         setCounters("Código", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = "1 pinta o quadrado, 0 deixa em branco. Qual desenho é esse?";
+        const answered = state.pixelCorrectIndex !== null;
+        status.textContent = answered
+          ? "Decifrado! Compare o código com o desenho e continue."
+          : "1 pinta o quadrado, 0 deixa em branco. Qual desenho é esse?";
         content.innerHTML = `<div class="pixel-board">
           <div class="pixel-code">
             ${round.code.map((row) => `<div class="pixel-code-row">${row.split("").map((bit) => `<span class="pixel-bit ${bit === "1" ? "on" : ""}">${bit}</span>`).join("")}</div>`).join("")}
           </div>
-          <div class="pixel-options ${state.answerLocked ? "locked" : ""}">
+          <div class="pixel-options ${state.answerLocked || answered ? "locked" : ""}">
             ${options.map((grid, index) => `<div class="pixel-option ${index === state.selected ? "selected" : ""} ${state.pixelWrong === index ? "wrong" : ""} ${state.pixelCorrectIndex === index ? "correct" : ""}">
               ${pixelGridHtml(grid, level.size, "mini")}
               ${state.pixelCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🧩</span><span>🎉</span><span>✨</span><span>🧩</span></div>' : ""}
             </div>`).join("")}
           </div>
+          ${answered ? `<div class="quiz-why" data-speak>Cada 1 pinta um quadrado e cada 0 deixa em branco. O desenho destacado é o que combina com o código.</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
         </div>`;
+        if (answered) showContinueButton();
       }
 
       function currentBugRounds() {
@@ -19220,6 +20008,7 @@ const brStatesList = [
       function bugPlayAnimation() {
         window.clearTimeout(state.bugAnimTimer);
         state.bugAnimTimer = null;
+        state.bugContinuePending = false;
         state.bugShowCorrected = false;
         state.bugAnimStep = 0;
         render();
@@ -19278,7 +20067,7 @@ const brStatesList = [
         setHeader("Caça ao Bug", `${level.title}: ache e corrija o comando errado.`);
         setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
         status.textContent = showingCorrected
-          ? "Assim é o caminho certo até a estrela!"
+          ? (state.bugContinuePending ? "Assim é o caminho certo até a estrela! Estude o caminho e continue." : "Assim é o caminho certo até a estrela!")
           : fixing
             ? "Escolha a direção certa para consertar o comando."
             : "Veja o robô andar e clique no comando que está errado.";
@@ -19299,7 +20088,7 @@ const brStatesList = [
         content.innerHTML = `<div class="bug-board">
           <div class="bug-grid" style="grid-template-columns: repeat(${level.cols}, 1fr)">${cells.join("")}</div>
           ${showingCorrected
-            ? `<div class="bug-corrected-banner">✅ Caminho corrigido!</div>`
+            ? `<div class="bug-corrected-banner">✅ Caminho corrigido!</div>${state.bugContinuePending ? continueButtonHtml(state.round + 1 >= rounds.length) : ""}`
             : `
           <button type="button" class="bug-replay-button" ${state.answerLocked || fixing ? "disabled" : ""}>▶️ Ver de novo</button>
           <div class="bug-chip-row ${state.answerLocked || fixing ? "locked" : ""}">
@@ -19319,6 +20108,7 @@ const brStatesList = [
             </div>
           </div>` : ""}`}
         </div>`;
+        if (state.bugContinuePending) showContinueButton();
       }
 
       function currentLoopRounds() {
@@ -19464,7 +20254,10 @@ const brStatesList = [
         const options = condOptions();
         setHeader("Portão Lógico", `${level.title}: aplique a regra.`);
         setCounters("Portão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = "Leia a regra, veja quem chegou no portão e escolha o que acontece.";
+        const answered = state.condCorrectIndex !== null;
+        status.textContent = answered
+          ? "Certo! Veja como a regra foi aplicada e continue."
+          : "Leia a regra, veja quem chegou no portão e escolha o que acontece.";
         content.innerHTML = `<div class="cond-board">
           <div class="cond-rule">
             <span class="cond-rule-icon">${round.scenario.icon}</span>
@@ -19477,7 +20270,7 @@ const brStatesList = [
             </div>
             <div class="cond-gate-icon">🚧</div>
           </div>
-          <div class="cond-options ${state.answerLocked ? "locked" : ""}">
+          <div class="cond-options ${state.answerLocked || answered ? "locked" : ""}">
             ${options.map((outcomeIndex, index) => {
               const outcome = round.scenario.outcomes[outcomeIndex];
               return `<div class="cond-option ${index === state.selected ? "selected" : ""} ${state.condWrong === index ? "wrong" : ""} ${state.condCorrectIndex === index ? "correct" : ""}">
@@ -19487,10 +20280,30 @@ const brStatesList = [
               </div>`;
             }).join("")}
           </div>
+          ${answered ? `<div class="quiz-why" data-speak>Regra aplicada: ${round.input.label} → ${round.scenario.outcomes[round.answerIndex].label}.</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
         </div>`;
+        if (answered) showContinueButton();
+      }
+
+      function continueCond() {
+        const rounds = currentCondRounds();
+        state.condCorrectIndex = null;
+        state.score += 1;
+        state.round += 1;
+        state.selected = -1;
+        state.condAttempt = 0;
+        if (state.round >= rounds.length) {
+          complete("cond", "Regras aplicadas!");
+          return;
+        }
+        render();
       }
 
       function handleCondEnter() {
+        if (state.condCorrectIndex !== null) {
+          continueCond();
+          return;
+        }
         if (!hasSelection()) return;
         const rounds = currentCondRounds();
         const round = rounds[state.round];
@@ -19509,26 +20322,16 @@ const brStatesList = [
         }
         state.condWrong = null;
         state.condCorrectIndex = state.selected;
-        state.answerLocked = true;
         showMessage("🚦 Certo!", 600);
         render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "cond") return;
-          state.condCorrectIndex = null;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          state.condAttempt = 0;
-          if (state.round >= rounds.length) {
-            complete("cond", "Regras aplicadas!");
-            return;
-          }
-          render();
-        }, 600);
       }
 
       function handleCondClick(event) {
+        if (clickedElement(event, ".continue-button")) {
+          continueCond();
+          return true;
+        }
+        if (state.condCorrectIndex !== null) return true;
         return activateChoiceClick(event, ".cond-option", {
           clearWrong: () => { state.condWrong = null; },
           onConfirm: handleCondEnter,
@@ -19614,10 +20417,13 @@ const brStatesList = [
           return shown > 0 ? track.commands[shown - 1].valueIndex : null;
         });
         const options = answering ? varOptions() : [];
+        const solved = state.varCorrectIndex !== null;
 
         setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
         setCounters("Comando", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = answering
+        status.textContent = solved
+          ? "Certo! Veja como a caixa mudou a cada comando e continue."
+          : answering
           ? (isPair ? "Do que você lembra: quais foram os valores finais?" : "Do que você lembra: qual foi o valor final?")
           : fullyRevealed
             ? "Reveja os comandos e toque em 🙈 quando estiver pronto para responder."
@@ -19627,7 +20433,7 @@ const brStatesList = [
           <div class="var-tracks ${isPair ? "pair" : ""}">
             ${round.tracks.map((track, trackIndex) => {
               const attribute = varAttributeSets[track.attrIndex];
-              const knownIndex = answering ? null : currentValueIndexByTrack[trackIndex];
+              const knownIndex = answering && !solved ? null : currentValueIndexByTrack[trackIndex];
               const shown = revealedCmdCountByTrack[trackIndex];
               return `<div class="var-track">
                 <div class="var-track-header"><span class="var-track-icon">${attribute.icon}</span><span class="var-track-name">${attribute.name}</span></div>
@@ -19639,13 +20445,13 @@ const brStatesList = [
                   ${track.commands.slice(0, shown).map((cmd, index) => `<div class="var-command ${cmd.type === "noop" ? "noop" : ""} ${index === shown - 1 ? "just-revealed" : ""}">
                     <span class="var-command-step">${index + 1}</span>
                     <span class="var-command-text">${verbFor(cmd.type)}</span>
-                    <span class="var-command-value">${answering ? "❓" : attribute.values[cmd.valueIndex].visual}</span>
+                    <span class="var-command-value">${answering && !solved ? "❓" : attribute.values[cmd.valueIndex].visual}</span>
                   </div>`).join("")}
                 </div>
               </div>`;
             }).join("")}
           </div>
-          ${answering ? `<div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked ? "locked" : ""}">
+          ${answering ? `<div class="var-options ${isPair ? "pair" : ""} ${state.answerLocked || solved ? "locked" : ""}">
             ${options.map((option, index) => {
               const visuals = isPair
                 ? round.tracks.map((track, trackIndex) => varAttributeSets[track.attrIndex].values[trackIndex === 0 ? option.a : option.b].visual).join(" ")
@@ -19655,8 +20461,9 @@ const brStatesList = [
                 ${state.varCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
               </div>`;
             }).join("")}
-          </div>` : `<button type="button" class="var-next-button">${fullyRevealed ? "🙈 Esconder e responder" : "▶️ Próximo comando"}</button>`}
+          </div>${solved ? continueButtonHtml(state.round + 1 >= rounds.length) : ""}` : `<button type="button" class="var-next-button">${fullyRevealed ? "🙈 Esconder e responder" : "▶️ Próximo comando"}</button>`}
         </div>`;
+        if (solved) showContinueButton();
       }
 
       function startPatternRound() {
@@ -19824,18 +20631,6 @@ const brStatesList = [
         });
       }
 
-      function backToPatternLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        window.clearTimeout(state.patternMissTimer);
-        state.patternMissTimer = null;
-        state.patternLevel = null;
-        resetRoundState(0);
-        startPatternRound();
-        state.mode = "menu";
-        render();
-      }
-
       function startDecomposeRound() {
         window.clearTimeout(state.decomposeMissTimer);
         state.decomposeMissTimer = null;
@@ -19998,16 +20793,12 @@ const brStatesList = [
         });
       }
 
-      function backToDecomposeLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        window.clearTimeout(state.decomposeMissTimer);
-        state.decomposeMissTimer = null;
-        state.decomposeLevel = null;
-        resetRoundState(0);
-        startDecomposeRound();
-        state.mode = "menu";
-        render();
+      function continueButtonHtml(isLastRound) {
+        return `<button type="button" class="continue-button">${isLastRound ? "Concluir" : "Continuar"} ▶</button>`;
+      }
+
+      function showContinueButton() {
+        content.querySelector(".continue-button")?.scrollIntoView({ block: "nearest" });
       }
 
       function currentQuizRounds() {
@@ -20039,20 +20830,23 @@ const brStatesList = [
         const options = quizOptions();
         setHeader(mission.title, level.title);
         setCounters("Desafio", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
-        status.textContent = state.quizCorrectIndex !== null ? "Muito bem!" : "Escolha a resposta certa.";
+        const answered = state.quizCorrectIndex !== null;
+        status.textContent = answered ? "Muito bem! Leia a explicação e continue." : "Escolha a resposta certa.";
         content.innerHTML = `<div class="decompose-board">
           <div class="decompose-task-header">
             <span class="decompose-task-icon">${round.icon}</span>
             <span class="decompose-task-title" data-speak>${round.question}</span>
           </div>
-          <div class="decompose-options ${state.answerLocked ? "locked" : ""}">
+          ${round.code ? `<pre class="quiz-code" aria-label="Código do programa">${escapeHtml(round.code)}</pre>` : ""}
+          <div class="decompose-options ${state.answerLocked || answered ? "locked" : ""}">
             ${options.map((option, index) => `<button type="button" class="decompose-option ${index === state.selected ? "selected" : ""} ${state.quizWrong === index ? "wrong" : ""} ${state.quizCorrectIndex === index ? "correct" : ""}">
               <span class="decompose-option-steps"><span class="decompose-option-step" data-speak>${option}</span></span>
               ${state.quizCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
             </button>`).join("")}
           </div>
-          ${state.quizCorrectIndex !== null ? `<div class="quiz-why" data-speak>${round.why}</div>` : ""}
+          ${answered ? `<div class="quiz-why" data-speak>${round.why}</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
         </div>`;
+        if (answered) showContinueButton();
       }
 
       function advanceQuizRound() {
@@ -20090,39 +20884,35 @@ const brStatesList = [
         }
         state.quizWrong = null;
         state.quizCorrectIndex = state.selected;
-        state.answerLocked = true;
         showMessage("✨ Isso mesmo!", 600);
         render();
-        const mode = state.mode;
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== mode) return;
-          state.quizCorrectIndex = null;
-          state.answerLocked = false;
-          advanceQuizRound();
-        }, 3200);
+      }
+
+      function continueQuiz() {
+        state.quizCorrectIndex = null;
+        advanceQuizRound();
       }
 
       function handleQuizEnter() {
+        if (state.quizCorrectIndex !== null) {
+          continueQuiz();
+          return;
+        }
         if (!hasSelection()) return;
         handleQuizSubmit();
       }
 
       function handleQuizClick(event) {
         if (!currentQuizRounds()[state.round]) return false;
+        if (clickedElement(event, ".continue-button")) {
+          continueQuiz();
+          return true;
+        }
+        if (state.quizCorrectIndex !== null) return true;
         return activateChoiceClick(event, ".decompose-option", {
           clearWrong: () => { state.quizWrong = null; },
           onConfirm: handleQuizSubmit,
         });
-      }
-
-      function backToQuizMenu() {
-        stopTimer();
-        state.answerLocked = false;
-        state.quizLevel = null;
-        resetRoundState(0);
-        startQuizRound();
-        state.mode = "menu";
-        render();
       }
 
       function currentDecoderRounds() {
@@ -21829,8 +22619,7 @@ const brStatesList = [
         var: renderVar,
         pattern: renderPattern,
         decompose: renderDecompose,
-        hardware: renderQuiz,
-        safe: renderQuiz,
+        ...mapQuizMissions(() => renderQuiz),
         builder: renderBuilder,
         decoder: renderDecoder,
         devices: renderDevices,
@@ -21888,8 +22677,7 @@ const brStatesList = [
         var: "varLevel",
         pattern: "patternLevel",
         decompose: "decomposeLevel",
-        hardware: "quizLevel",
-        safe: "quizLevel",
+        ...mapQuizMissions(() => "quizLevel"),
         builder: "builderLevel",
         decoder: "decoderLevel",
         mathCup: "mathCupLevel",
@@ -22049,12 +22837,7 @@ const brStatesList = [
         clearMathCupPassTargets();
       }
 
-      function reset(mode = state.mode) {
-        stopTimer();
-        state.mode = mode;
-        state.missionSeed = createRunSeed(mode);
-        resetMissionRoundPools(mode, state.missionSeed);
-        resetRoundState(initialSelectionForMode(mode));
+      function resetNatureMissionsState() {
         state.dengueWrong = null;
         state.dengueAttempt = 0;
         state.dengueStreak = 0;
@@ -22077,6 +22860,9 @@ const brStatesList = [
         state.habitatWrong = null;
         state.habitatAttempt = 0;
         state.habitatCorrect = false;
+      }
+
+      function resetLanguageMissionsState() {
         state.phonicsWrong = null;
         state.phonicsAttempt = 0;
         state.phonicsCorrectIndex = null;
@@ -22084,7 +22870,9 @@ const brStatesList = [
         state.syllablesMissTimer = null;
         state.syllablesBuilt = [];
         state.syllablesMiss = null;
-        state.answerLocked = false;
+      }
+
+      function resetSequenceMissionsState(mode) {
         state.cycleChosen = [];
         state.cycleAttempt = 0;
         state.cycleWrong = null;
@@ -22103,6 +22891,9 @@ const brStatesList = [
         state.chefCorrectIndex = null;
         state.chefJustFilledSlot = null;
         state.chefShuffled = mode === "chef" ? chefOrder(chefRecipes[0].steps) : [];
+      }
+
+      function resetMathAndCupState() {
         state.mathLevel = null;
         state.mathAttempt = 0;
         state.mathWrong = null;
@@ -22113,6 +22904,9 @@ const brStatesList = [
         state.cupAttempt = 0;
         state.cupWrong = null;
         state.cupCorrectIndex = null;
+      }
+
+      function resetProgrammingMissionsState() {
         state.codeLevel = null;
         state.codeAttempt = 0;
         state.codeWrong = null;
@@ -22127,6 +22921,7 @@ const brStatesList = [
         state.bugAnimTimer = null;
         state.bugAnimStep = 0;
         state.bugShowCorrected = false;
+        state.bugContinuePending = false;
         state.bugLevel = null;
         state.bugAttempt = 0;
         state.bugWrong = null;
@@ -22177,6 +22972,9 @@ const brStatesList = [
         state.decoderLevel = null;
         state.decoderGuessed = [];
         state.decoderWrong = 0;
+      }
+
+      function resetGameMissionsState() {
         state.tttLevel = null;
         state.tttOpponent = null;
         state.tttBoard = [];
@@ -22200,6 +22998,21 @@ const brStatesList = [
         state.devicesAttempt = 0;
         state.devicesWrong = null;
         state.devicesCorrectIndex = null;
+      }
+
+      function reset(mode = state.mode) {
+        stopTimer();
+        state.mode = mode;
+        state.missionSeed = createRunSeed(mode);
+        resetMissionRoundPools(mode, state.missionSeed);
+        resetRoundState(initialSelectionForMode(mode));
+        resetNatureMissionsState();
+        resetLanguageMissionsState();
+        state.answerLocked = false;
+        resetSequenceMissionsState(mode);
+        resetMathAndCupState();
+        resetProgrammingMissionsState();
+        resetGameMissionsState();
         resetMathCupCampaignState({
           resetLevel: true,
           resetTeam: true,
@@ -22219,18 +23032,6 @@ const brStatesList = [
         const item = filteredMenuItems()[state.selected];
         if (!item) return;
         reset(item.id);
-      }
-
-      function backToMathLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.mathLevel = null;
-        resetRoundState(0);
-        state.mathAttempt = 0;
-        state.mathWrong = null;
-        state.mathCorrectIndex = null;
-        state.mode = "menu";
-        render();
       }
 
       function openMathCupLevelSelect() {
@@ -22379,7 +23180,7 @@ const brStatesList = [
           lockLegacyMistake(state.selected);
           return;
         }
-        advanceLegacyQuiz(legacyDataQuizRounds, "Gráficos investigados!", round.why);
+        showLegacyAnswer(round.why);
       }
 
       function handleLegacyOrganizeEnter() {
@@ -22392,7 +23193,7 @@ const brStatesList = [
           lockLegacyMistake(state.selected);
           return;
         }
-        advanceLegacyQuiz(legacyOrganizeRounds, "Dados organizados!", round.why);
+        showLegacyAnswer(round.why);
       }
 
       const legacyEnterHandlers = {
@@ -22409,6 +23210,10 @@ const brStatesList = [
           openLegacyActivity();
           return;
         }
+        if (isWaitingToContinueLegacy()) {
+          continueLegacyQuiz();
+          return;
+        }
         legacyEnterHandlers[state.legacyActivity]?.();
       }
 
@@ -22421,6 +23226,7 @@ const brStatesList = [
           return;
         }
 
+        if (isWaitingToContinueLegacy()) return;
         const activity = state.legacyActivity;
         const activityCounts = {
           detective: legacyOptions(legacyDataQuizRounds[state.round]).length,
@@ -23095,112 +23901,26 @@ const brStatesList = [
         }, 600);
       }
 
-      function backToCodeLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.codeLevel = null;
-        resetRoundState(0);
-        state.codeAttempt = 0;
-        state.codeWrong = null;
+      function continueCode() {
+        const rounds = currentCodeRounds();
         state.codeCorrectIndex = null;
-        state.codeLetterMap = {};
-        state.codeDecoded = [];
-        state.mode = "menu";
-        render();
-      }
-
-      function backToPixelLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.pixelLevel = null;
-        resetRoundState(0);
-        state.pixelAttempt = 0;
-        state.pixelWrong = null;
-        state.pixelCorrectIndex = null;
-        state.mode = "menu";
-        render();
-      }
-
-      function backToCondLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.condLevel = null;
-        resetRoundState(0);
-        state.condAttempt = 0;
-        state.condWrong = null;
-        state.condCorrectIndex = null;
-        state.mode = "menu";
-        render();
-      }
-
-      function backToBugLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        window.clearTimeout(state.bugAnimTimer);
-        state.bugAnimTimer = null;
-        state.bugAnimStep = 0;
-        state.bugShowCorrected = false;
-        state.bugLevel = null;
-        resetRoundState(0);
-        state.bugAttempt = 0;
-        state.bugWrong = null;
-        state.bugCorrectIndex = null;
-        state.bugFixPhase = null;
-        state.bugFixWrong = null;
-        state.bugFixCorrectIndex = null;
-        state.bugFixAttempt = 0;
-        state.mode = "menu";
-        render();
-      }
-
-      function backToLoopLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.loopLevel = null;
-        resetRoundState(0);
-        state.loopRepeat = 0;
-        state.loopExtra = 0;
-        state.loopWrong = false;
-        state.loopSolved = false;
-        state.mode = "menu";
-        render();
-      }
-
-      function backToSortLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.sortLevel = null;
-        resetRoundState(0);
-        state.sortItems = [];
-        state.sortSelectedIndex = -1;
-        state.sortWrong = null;
-        state.sortJustSwapped = null;
-        state.mode = "menu";
-        render();
-      }
-
-      function backToVarLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.varLevel = null;
-        resetRoundState(0);
-        startVarRound();
-        state.mode = "menu";
-        render();
-      }
-
-      function backToDecoderLevels() {
-        stopTimer();
-        state.answerLocked = false;
-        state.decoderLevel = null;
-        resetRoundState(0);
-        state.decoderGuessed = [];
-        state.decoderWrong = 0;
-        state.mode = "menu";
+        state.selected = -1;
+        state.codeAttempt = 0;
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete("code", "Códigos decifrados!");
+          return;
+        }
+        startCodeRound();
         render();
       }
 
       function handleCodeEnter() {
+        if (isCodeWaitingToContinue()) {
+          continueCode();
+          return;
+        }
         if (!hasSelection()) return;
         const rounds = currentCodeRounds();
         const round = rounds[state.round];
@@ -23222,9 +23942,13 @@ const brStatesList = [
         state.codeWrong = null;
         state.codeCorrectIndex = state.selected;
         state.codeDecoded[activeIndex] = true;
-        state.answerLocked = true;
         const wordDone = codeSolved();
         showMessage(wordDone ? "🔓 Mensagem decifrada!" : "✅ Letra certa!", wordDone ? 800 : 500);
+        if (wordDone) {
+          render();
+          return;
+        }
+        state.answerLocked = true;
         render();
         state.answerLockTimer = window.setTimeout(() => {
           if (state.mode !== "code") return;
@@ -23232,27 +23956,41 @@ const brStatesList = [
           state.answerLocked = false;
           state.selected = -1;
           state.codeAttempt = 0;
-          if (wordDone) {
-            state.score += 1;
-            state.round += 1;
-            if (state.round >= rounds.length) {
-              complete("code", "Códigos decifrados!");
-              return;
-            }
-            startCodeRound();
-          }
           render();
-        }, wordDone ? 800 : 500);
+        }, 500);
       }
 
       function handleCodeClick(event) {
+        if (clickedElement(event, ".continue-button")) {
+          continueCode();
+          return true;
+        }
+        if (isCodeWaitingToContinue()) return true;
         return activateChoiceClick(event, ".code-option", {
           clearWrong: () => { state.codeWrong = null; },
           onConfirm: handleCodeEnter,
         });
       }
 
+      function continuePixels() {
+        const rounds = currentPixelRounds();
+        state.pixelCorrectIndex = null;
+        state.score += 1;
+        state.round += 1;
+        state.selected = -1;
+        state.pixelAttempt = 0;
+        if (state.round >= rounds.length) {
+          complete("pixels", "Pixels desvendados!");
+          return;
+        }
+        render();
+      }
+
       function handlePixelEnter() {
+        if (state.pixelCorrectIndex !== null) {
+          continuePixels();
+          return;
+        }
         if (!hasSelection()) return;
         const rounds = currentPixelRounds();
         const round = rounds[state.round];
@@ -23271,26 +24009,16 @@ const brStatesList = [
         }
         state.pixelWrong = null;
         state.pixelCorrectIndex = state.selected;
-        state.answerLocked = true;
         showMessage("🧩 Decifrado!", 600);
         render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "pixels") return;
-          state.pixelCorrectIndex = null;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          state.selected = -1;
-          state.pixelAttempt = 0;
-          if (state.round >= rounds.length) {
-            complete("pixels", "Pixels desvendados!");
-            return;
-          }
-          render();
-        }, 600);
       }
 
       function handlePixelClick(event) {
+        if (clickedElement(event, ".continue-button")) {
+          continuePixels();
+          return true;
+        }
+        if (state.pixelCorrectIndex !== null) return true;
         return activateChoiceClick(event, ".pixel-option", {
           clearWrong: () => { state.pixelWrong = null; },
           onConfirm: handlePixelEnter,
@@ -23323,26 +24051,37 @@ const brStatesList = [
           if (state.mode !== "bug") return;
           bugPlayCorrectedAnimation(() => {
             if (state.mode !== "bug") return;
-            state.bugCorrectIndex = null;
-            state.bugFixPhase = null;
-            state.bugFixWrong = null;
-            state.bugFixCorrectIndex = null;
-            state.bugFixAttempt = 0;
             state.answerLocked = false;
-            state.score += 1;
-            state.round += 1;
-            state.selected = -1;
-            state.bugAttempt = 0;
-            if (state.round >= rounds.length) {
-              complete("bug", "Bugs corrigidos!");
-              return;
-            }
-            bugPlayAnimation();
+            state.bugContinuePending = true;
+            render();
           });
         }, 600);
       }
 
+      function continueBug() {
+        const rounds = currentBugRounds();
+        state.bugContinuePending = false;
+        state.bugCorrectIndex = null;
+        state.bugFixPhase = null;
+        state.bugFixWrong = null;
+        state.bugFixCorrectIndex = null;
+        state.bugFixAttempt = 0;
+        state.score += 1;
+        state.round += 1;
+        state.selected = -1;
+        state.bugAttempt = 0;
+        if (state.round >= rounds.length) {
+          complete("bug", "Bugs corrigidos!");
+          return;
+        }
+        bugPlayAnimation();
+      }
+
       function handleBugEnter() {
+        if (state.bugContinuePending) {
+          continueBug();
+          return;
+        }
         if (state.bugFixPhase === "choosing") {
           handleBugFixEnter();
           return;
@@ -23377,6 +24116,11 @@ const brStatesList = [
       }
 
       function handleBugClick(event) {
+        if (clickedElement(event, ".continue-button")) {
+          continueBug();
+          return true;
+        }
+        if (state.bugContinuePending) return true;
         if (state.bugFixPhase === "choosing") {
           return activateChoiceClick(event, ".bug-fix-option", {
             clearWrong: () => { state.bugFixWrong = null; },
@@ -23512,7 +24256,24 @@ const brStatesList = [
         return activateIndexedClick(event, ".sort-item", (index) => handleSortSelect(index));
       }
 
+      function continueVar() {
+        const rounds = currentVarRounds();
+        state.varCorrectIndex = null;
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete("var", "Variáveis dominadas!");
+          return;
+        }
+        startVarRound();
+        render();
+      }
+
       function handleVarEnter() {
+        if (state.varCorrectIndex !== null) {
+          continueVar();
+          return;
+        }
         const rounds = currentVarRounds();
         const round = rounds[state.round];
         if (!round) return;
@@ -23543,21 +24304,8 @@ const brStatesList = [
         }
         state.varWrong = null;
         state.varCorrectIndex = state.selected;
-        state.answerLocked = true;
         showMessage("🎁 Guardado!", 600);
         render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "var") return;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          if (state.round >= rounds.length) {
-            complete("var", "Variáveis dominadas!");
-            return;
-          }
-          startVarRound();
-          render();
-        }, 600);
       }
 
       function handleVarClick(event) {
@@ -23565,6 +24313,11 @@ const brStatesList = [
           handleVarEnter();
           return true;
         }
+        if (clickedElement(event, ".continue-button")) {
+          continueVar();
+          return true;
+        }
+        if (state.varCorrectIndex !== null) return true;
         return activateChoiceClick(event, ".var-option", {
           clearWrong: () => { state.varWrong = null; },
           onConfirm: handleVarEnter,
@@ -24337,8 +25090,7 @@ const brStatesList = [
         var: handleVarEnter,
         pattern: handlePatternEnter,
         decompose: handleDecomposeEnter,
-        hardware: handleQuizEnter,
-        safe: handleQuizEnter,
+        ...mapQuizMissions(() => handleQuizEnter),
         builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
         devices: handleDevicesEnter,
@@ -24364,361 +25116,192 @@ const brStatesList = [
         moveSelectionIndex({ count: items.length, delta, vertical, columns: 2, allowUnselected: false });
       }
 
+      const MENU_COLUMNS = 3;
+      const MEMORY_COLUMNS_BY_PAIRS = { 3: 3, 6: 4, 8: 4, 10: 5, 12: 6 };
+      const MEMORY_DEFAULT_COLUMNS = 4;
+      const TIC_TAC_TOE_CELLS = 9;
+      const TIC_TAC_TOE_COLUMNS = 3;
+
+      // Cada navegador descreve como a seleção por teclado se move no estado atual da missão:
+      //   null          -> nada a fazer (a tela não muda)
+      //   NO_MOVE       -> não há para onde mover, mas a tela é redesenhada
+      //   { count, ...} -> mover pela lista de `count` itens (colunas, seleção obrigatória e campo de erro a limpar)
+      //   { run }       -> ação própria da missão
+      const NO_MOVE = { count: 0 };
+
+      function menuNavigation(count, preferredColumns = MENU_COLUMNS) {
+        return { count, columns: chooseGridColumns(count, preferredColumns), allowUnselected: false };
+      }
+
+      function choiceNavigation(count, wrongKey = null, preferredColumns = 1) {
+        return { count, columns: chooseGridColumns(count, preferredColumns), wrongKey };
+      }
+
+      function navigateLevelsOrChoices(levelState, levelCount, choices) {
+        return levelState === null ? menuNavigation(levelCount) : choices();
+      }
+
+      function dengueNavigation() {
+        return state.dengueFinished ? null : choiceNavigation(dengueOptions().length, "dengueWrong", 2);
+      }
+
+      function recycleNavigation() {
+        return state.recycleFinished ? null : choiceNavigation(recycleOptions().length, "recycleWrong", 2);
+      }
+
+      function vertebrateNavigation() {
+        return state.vertebrateFinished ? null : choiceNavigation(vertebrateOptions().length, "vertebrateWrong", 2);
+      }
+
+      function syllablesNavigation() {
+        return syllableRounds[state.round] ? choiceNavigation(syllablesPalette().length, null, 3) : null;
+      }
+
+      function cupNavigation() {
+        if (state.cupMode === null) return menuNavigation(2, 2);
+        if (state.cupQuizMode === null) return menuNavigation(cupQuizModes.length);
+        if (state.cupPhase === "choose") return choiceNavigation(cupOptions().length, "cupWrong");
+        return NO_MOVE;
+      }
+
+      function bugNavigation() {
+        if (state.bugContinuePending) return null;
+        return navigateLevelsOrChoices(state.bugLevel, bugLevels.length, () => {
+          if (state.bugFixPhase === "choosing") return choiceNavigation(bugFixOptions().length, "bugFixWrong", 4);
+          return choiceNavigation(currentBugRounds()[state.round].sequence.length, "bugWrong");
+        });
+      }
+
+      function loopNavigation() {
+        return navigateLevelsOrChoices(state.loopLevel, loopLevels.length, () => ({
+          run: (delta, vertical) => adjustLoopValue(vertical ? "extra" : "repeat", delta),
+        }));
+      }
+
+      function sortNavigation() {
+        return navigateLevelsOrChoices(state.sortLevel, sortLevels.length, () => ({ ...choiceNavigation(state.sortItems.length), allowUnselected: false }));
+      }
+
+      function varNavigation() {
+        return navigateLevelsOrChoices(state.varLevel, varLevels.length, () => {
+          const totalSteps = varRevealOrder(currentVarRounds()[state.round]).length;
+          const stillRevealing = state.varRevealCount < totalSteps || !state.varAnswering;
+          const waitingToContinue = state.varCorrectIndex !== null;
+          return stillRevealing || waitingToContinue ? null : choiceNavigation(varOptions().length, "varWrong", 2);
+        });
+      }
+
+      function patternNavigation() {
+        return navigateLevelsOrChoices(state.patternLevel, patternLevels.length, () => {
+          const round = currentPatternRounds()[state.round];
+          if (!round) return null;
+          if (round.kind === "copy") return choiceNavigation(patternPaletteFor(round).length, null, 3);
+          return choiceNavigation(round.options.length, "patternWrong", 3);
+        });
+      }
+
+      function decomposeNavigation() {
+        return navigateLevelsOrChoices(state.decomposeLevel, decomposeLevels.length, () => {
+          const round = currentDecomposeRounds()[state.round];
+          if (!round) return null;
+          if (round.kind === "order") return choiceNavigation(round.palette.length, null, 3);
+          return choiceNavigation(round.options.length, "decomposeWrong");
+        });
+      }
+
+      function quizNavigation() {
+        const round = currentQuizRounds()[state.round];
+        const waitingToContinue = state.quizCorrectIndex !== null;
+        return round && !waitingToContinue ? choiceNavigation(round.options.length, "quizWrong") : null;
+      }
+
+      function mathCupNavigation() {
+        if (state.mathCupBreak?.kind === "eliminated") return { count: 2, allowUnselected: false };
+        if (state.mathCupLevel === null) {
+          const isLevelScreen = state.mathCupScreen === "levels";
+          return { ...menuNavigation(isLevelScreen ? mathCupLevelPlans.length : 2), horizontalOnly: !isLevelScreen };
+        }
+        if (state.mathCupTeamCode === null) return menuNavigation(mathCupTeamChoices().length, MATH_CUP_TEAM_GRID_COLUMNS);
+        if (state.mathCupChallenge) return choiceNavigation(mathCupOptions().length, "mathCupWrong");
+        return NO_MOVE;
+      }
+
+      function ticTacToeNavigation() {
+        if (state.tttOpponent === null) return menuNavigation(2, 2);
+        if (state.tttEnigma) return choiceNavigation(tttEnigmaOptions().length, "tttWrong");
+        if (!state.tttWinner) return choiceNavigation(TIC_TAC_TOE_CELLS, null, TIC_TAC_TOE_COLUMNS);
+        return NO_MOVE;
+      }
+
+      function memoryNavigation() {
+        const { pairs } = currentMemoryLevel();
+        return { count: pairs * 2, columns: MEMORY_COLUMNS_BY_PAIRS[pairs] || MEMORY_DEFAULT_COLUMNS };
+      }
+
+      const keyboardNavigators = {
+        menu: () => ({ run: moveMenuSelection }),
+        dengue: dengueNavigation,
+        recycle: recycleNavigation,
+        vertebrate: vertebrateNavigation,
+        math: () => navigateLevelsOrChoices(state.mathLevel, mathLevels.length, () => choiceNavigation(mathOptions().length, "mathWrong")),
+        habitat: () => choiceNavigation(habitatOptions().length, "habitatWrong", 2),
+        phonics: () => choiceNavigation(phonicsOptions().length, "phonicsWrong", 2),
+        syllables: syllablesNavigation,
+        cycle: () => choiceNavigation(state.cycleShuffled.length, "cycleWrong"),
+        vaccine: () => choiceNavigation(state.vaccineShuffled.length, "vaccineWrong"),
+        chef: () => choiceNavigation(state.chefShuffled.length, "chefWrong"),
+        cup: cupNavigation,
+        code: () => (isCodeWaitingToContinue()
+          ? null
+          : navigateLevelsOrChoices(state.codeLevel, codeLevels.length, () => choiceNavigation(codeOptions().length, "codeWrong", 2))),
+        pixels: () => (state.pixelCorrectIndex !== null
+          ? null
+          : navigateLevelsOrChoices(state.pixelLevel, pixelLevels.length, () => choiceNavigation(pixelOptions().length, "pixelWrong", 2))),
+        bug: bugNavigation,
+        loop: loopNavigation,
+        sort: sortNavigation,
+        cond: () => (state.condCorrectIndex !== null
+          ? null
+          : navigateLevelsOrChoices(state.condLevel, condLevels.length, () => choiceNavigation(condOptions().length, "condWrong", 2))),
+        var: varNavigation,
+        pattern: patternNavigation,
+        decompose: decomposeNavigation,
+        ...mapQuizMissions(() => quizNavigation),
+        builder: () => choiceNavigation(currentBuilderPaletteBlocks().length, null, 2),
+        decoder: () => navigateLevelsOrChoices(state.decoderLevel, decoderLevels.length, () => choiceNavigation(DECODER_ALPHABET.length, null, 7)),
+        devices: () => choiceNavigation(deviceOptions().length, "devicesWrong"),
+        mathCup: mathCupNavigation,
+        ttt: ticTacToeNavigation,
+        memory: memoryNavigation,
+      };
+
+      function applyKeyboardNavigation(navigation, delta, vertical) {
+        if (navigation.run) {
+          navigation.run(delta, vertical);
+          return;
+        }
+        moveSelectionIndex({
+          count: navigation.count,
+          delta,
+          vertical: vertical && !navigation.horizontalOnly,
+          columns: navigation.columns,
+          allowUnselected: navigation.allowUnselected,
+          afterMove: navigation.wrongKey ? () => { state[navigation.wrongKey] = null; } : null,
+        });
+      }
+
       function moveSelection(delta, vertical = false) {
         if (state.ageBand === null) {
           moveSelectionIndex({ count: ageBands.length, delta, vertical, columns: chooseGridColumns(ageBands.length, 5), allowUnselected: false });
           return;
         }
-        if (state.mode === "menu") {
-          moveMenuSelection(delta, vertical);
-        } else if (isLevelMission(state.mode)) {
+        if (isLevelMission(state.mode)) {
           moveLegacySelection(delta, vertical);
           return;
-        } else if (state.mode === "dengue" && !state.dengueFinished) {
-          const count = dengueOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.dengueWrong = null; },
-          });
-        } else if (state.mode === "dengue") {
-          return;
-        } else if (state.mode === "recycle" && !state.recycleFinished) {
-          const count = recycleOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.recycleWrong = null; },
-          });
-        } else if (state.mode === "recycle") {
-          return;
-        } else if (state.mode === "vertebrate" && !state.vertebrateFinished) {
-          const count = vertebrateOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.vertebrateWrong = null; },
-          });
-        } else if (state.mode === "vertebrate") {
-          return;
-        } else if (state.mode === "math") {
-          if (state.mathLevel === null) {
-            const count = mathLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = mathOptions().length;
-            moveSelectionIndex({ count, delta, afterMove: () => { state.mathWrong = null; } });
-          }
-        } else if (state.mode === "habitat") {
-          const count = habitatOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.habitatWrong = null; },
-          });
-        } else if (state.mode === "phonics") {
-          const count = phonicsOptions().length;
-          moveSelectionIndex({
-            count,
-            delta,
-            vertical,
-            columns: chooseGridColumns(count, 2),
-            afterMove: () => { state.phonicsWrong = null; },
-          });
-        } else if (state.mode === "syllables") {
-          const round = syllableRounds[state.round];
-          if (!round) return;
-          const count = syllablesPalette().length;
-          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
-        } else if (state.mode === "cycle") {
-          moveSelectionIndex({ count: state.cycleShuffled.length, delta, afterMove: () => { state.cycleWrong = null; } });
-        } else if (state.mode === "vaccine") {
-          moveSelectionIndex({ count: state.vaccineShuffled.length, delta, afterMove: () => { state.vaccineWrong = null; } });
-        } else if (state.mode === "chef") {
-          moveSelectionIndex({ count: state.chefShuffled.length, delta, afterMove: () => { state.chefWrong = null; } });
-        } else if (state.mode === "cup" && state.cupMode === null) {
-          moveSelectionIndex({ count: 2, delta, vertical, columns: chooseGridColumns(2, 2), allowUnselected: false });
-        } else if (state.mode === "cup" && state.cupQuizMode === null) {
-          moveSelectionIndex({ count: cupQuizModes.length, delta, vertical, columns: chooseGridColumns(cupQuizModes.length, 3), allowUnselected: false });
-        } else if (state.mode === "cup" && state.cupPhase === "choose") {
-          const count = cupOptions().length;
-          moveSelectionIndex({ count, delta, afterMove: () => { state.cupWrong = null; } });
-        } else if (state.mode === "code") {
-          if (state.codeLevel === null) {
-            const count = codeLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = codeOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 2),
-              afterMove: () => { state.codeWrong = null; },
-            });
-          }
-        } else if (state.mode === "pixels") {
-          if (state.pixelLevel === null) {
-            const count = pixelLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = pixelOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 2),
-              afterMove: () => { state.pixelWrong = null; },
-            });
-          }
-        } else if (state.mode === "bug") {
-          if (state.bugLevel === null) {
-            const count = bugLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else if (state.bugFixPhase === "choosing") {
-            const count = bugFixOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 4),
-              afterMove: () => { state.bugFixWrong = null; },
-            });
-          } else {
-            const count = currentBugRounds()[state.round].sequence.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              afterMove: () => { state.bugWrong = null; },
-            });
-          }
-        } else if (state.mode === "loop") {
-          if (state.loopLevel === null) {
-            const count = loopLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            adjustLoopValue(vertical ? "extra" : "repeat", delta);
-          }
-        } else if (state.mode === "sort") {
-          if (state.sortLevel === null) {
-            const count = sortLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = state.sortItems.length;
-            moveSelectionIndex({ count, delta, allowUnselected: false });
-          }
-        } else if (state.mode === "cond") {
-          if (state.condLevel === null) {
-            const count = condLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = condOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 2),
-              afterMove: () => { state.condWrong = null; },
-            });
-          }
-        } else if (state.mode === "var") {
-          if (state.varLevel === null) {
-            const count = varLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const round = currentVarRounds()[state.round];
-            const totalSteps = varRevealOrder(round).length;
-            if (state.varRevealCount < totalSteps || !state.varAnswering) return;
-            const count = varOptions().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 2),
-              afterMove: () => { state.varWrong = null; },
-            });
-          }
-        } else if (state.mode === "pattern") {
-          if (state.patternLevel === null) {
-            const count = patternLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const round = currentPatternRounds()[state.round];
-            if (!round) return;
-            if (round.kind === "copy") {
-              const count = patternPaletteFor(round).length;
-              moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
-            } else {
-              const count = round.options.length;
-              moveSelectionIndex({
-                count,
-                delta,
-                vertical,
-                columns: chooseGridColumns(count, 3),
-                afterMove: () => { state.patternWrong = null; },
-              });
-            }
-          }
-        } else if (state.mode === "decompose") {
-          if (state.decomposeLevel === null) {
-            const count = decomposeLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const round = currentDecomposeRounds()[state.round];
-            if (!round) return;
-            if (round.kind === "order") {
-              const count = round.palette.length;
-              moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 3) });
-            } else {
-              const count = round.options.length;
-              moveSelectionIndex({
-                count,
-                delta,
-                afterMove: () => { state.decomposeWrong = null; },
-              });
-            }
-          }
-        } else if (quizMissions[state.mode]) {
-          const round = currentQuizRounds()[state.round];
-          if (!round) return;
-          moveSelectionIndex({
-            count: round.options.length,
-            delta,
-            afterMove: () => { state.quizWrong = null; },
-          });
-        } else if (state.mode === "builder") {
-          const count = currentBuilderPaletteBlocks().length;
-          moveSelectionIndex({ count, delta, vertical, columns: chooseGridColumns(count, 2) });
-        } else if (state.mode === "decoder") {
-          if (state.decoderLevel === null) {
-            const count = decoderLevels.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else {
-            const count = DECODER_ALPHABET.length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, 7),
-            });
-          }
-        } else if (state.mode === "devices") {
-          const count = deviceOptions().length;
-          moveSelectionIndex({ count, delta, afterMove: () => { state.devicesWrong = null; } });
-        } else if (state.mode === "mathCup") {
-          if (state.mathCupBreak?.kind === "eliminated") {
-            moveSelectionIndex({ count: 2, delta, allowUnselected: false });
-          } else if (state.mathCupLevel === null) {
-            const isLevelScreen = state.mathCupScreen === "levels";
-            const count = isLevelScreen ? mathCupLevelPlans.length : 2;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical: isLevelScreen && vertical,
-              columns: chooseGridColumns(count, 3),
-              allowUnselected: false,
-            });
-          } else if (state.mathCupTeamCode === null) {
-            const count = mathCupTeamChoices().length;
-            moveSelectionIndex({
-              count,
-              delta,
-              vertical,
-              columns: chooseGridColumns(count, MATH_CUP_TEAM_GRID_COLUMNS),
-              allowUnselected: false,
-            });
-          } else if (state.mathCupChallenge) {
-            const count = mathCupOptions().length;
-            moveSelectionIndex({ count, delta, afterMove: () => { state.mathCupWrong = null; } });
-          }
-        } else if (state.mode === "ttt") {
-          if (state.tttOpponent === null) {
-            moveSelectionIndex({ count: 2, delta, vertical, columns: chooseGridColumns(2, 2), allowUnselected: false });
-          } else if (state.tttEnigma) {
-            const count = tttEnigmaOptions().length;
-            moveSelectionIndex({ count, delta, afterMove: () => { state.tttWrong = null; } });
-          } else if (!state.tttWinner) {
-            moveSelectionIndex({ count: 9, delta, vertical, columns: 3 });
-          }
-        } else if (state.mode === "memory") {
-          const level = currentMemoryLevel();
-          const columnsByPairs = { 3: 3, 6: 4, 8: 4, 10: 5, 12: 6 };
-          moveSelectionIndex({ count: level.pairs * 2, delta, vertical, columns: columnsByPairs[level.pairs] || 4 });
         }
+        const navigation = keyboardNavigators[state.mode]?.() ?? NO_MOVE;
+        if (navigation === null) return;
+        applyKeyboardNavigation(navigation, delta, vertical);
         render();
       }
 
@@ -24786,6 +25369,11 @@ const brStatesList = [
         };
         const selector = selectors[state.legacyActivity];
         if (!selector) return false;
+        if (clickedElement(event, ".continue-button")) {
+          continueLegacyQuiz();
+          return true;
+        }
+        if (isWaitingToContinueLegacy()) return true;
 
         return activateChoiceClick(event, selector, {
           clearWrong: () => { state.legacyWrong = null; },
@@ -24978,8 +25566,7 @@ const brStatesList = [
         var: handleVarClick,
         pattern: handlePatternClick,
         decompose: handleDecomposeClick,
-        hardware: handleQuizClick,
-        safe: handleQuizClick,
+        ...mapQuizMissions(() => handleQuizClick),
         builder: handleBuilderClick,
         decoder: handleDecoderClick,
         devices: handleDevicesClick,
@@ -25123,7 +25710,165 @@ const brStatesList = [
         return { total, screen };
       }
 
-      function lessonPlanHtml(plan) {
+      const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const OBSERVATION_SHEET_ROWS = 25;
+      const FLOWCHART_STEP_COUNT = 4;
+      const STRIP_WRAP_LETTERS = 13;
+
+      function repeatItem(item) {
+        return Array.from({ length: item.copies || 1 }, () => item);
+      }
+
+      function sheetCardsHtml(block) {
+        const cards = block.items.flatMap(repeatItem).map((item) => `
+          <div class="sheet-card">
+            ${item.icon ? `<span class="sheet-card-icon" aria-hidden="true">${item.icon}</span>` : ""}
+            <span>${escapeHtml(item.text)}</span>
+          </div>`).join("");
+        return `<div class="sheet-cards" style="--sheet-columns: ${block.columns}">${cards}</div>`;
+      }
+
+      function sheetGridHtml(columns, rows) {
+        return `<div class="sheet-grid" style="--sheet-columns: ${columns}">${"<span></span>".repeat(columns * rows)}</div>`;
+      }
+
+      function sheetPixelCodeHtml(block) {
+        return block.items.map((item) => `
+          <div class="sheet-pixel-code">
+            ${sheetGridHtml(item.rows[0].length, item.rows.length)}
+            <div><strong>${escapeHtml(item.name)}</strong>${item.rows.map((row) => `<div class="sheet-code-row">${row.split("").join(" ")}</div>`).join("")}</div>
+          </div>`).join("");
+      }
+
+      function sheetStepsHtml(block) {
+        return `<ol class="lesson-plan-list">${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>`;
+      }
+
+      function sheetTableHtml(block) {
+        const columnCount = block.headers.length;
+        const blankRows = Array.from({ length: block.blankRows || 0 }, () => Array(columnCount).fill(""));
+        const rows = [...(block.rows || []), ...blankRows];
+        return `<table class="sheet-table${block.compact ? " compact" : ""}">
+          <thead><tr>${block.headers.map((header) => `<th scope="col">${escapeHtml(header)}</th>`).join("")}</tr></thead>
+          <tbody>${rows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+        </table>`;
+      }
+
+      function sheetLinesHtml(block) {
+        return `<div class="sheet-lines">${"<span></span>".repeat(block.count)}</div>`;
+      }
+
+      function sheetStripHtml(block) {
+        const strip = `<div class="sheet-strip" aria-hidden="true">${(ALPHABET + ALPHABET.slice(0, STRIP_WRAP_LETTERS)).split("").map((letter) => `<span>${letter}</span>`).join("")}</div>`;
+        return strip.repeat(block.copies || 1);
+      }
+
+      function shiftLetter(letter, shift) {
+        return ALPHABET[(ALPHABET.indexOf(letter) + shift) % ALPHABET.length];
+      }
+
+      function sheetCaesarHtml(block) {
+        const halves = [ALPHABET.slice(0, ALPHABET.length / 2), ALPHABET.slice(ALPHABET.length / 2)];
+        return halves.map((half) => {
+          const letters = half.split("");
+          return sheetTableHtml({
+            compact: true,
+            headers: ["Letra", ...letters],
+            rows: [["Vira", ...letters.map((letter) => shiftLetter(letter, block.shift))]],
+          });
+        }).join("");
+      }
+
+      function sheetFlowchartHtml() {
+        const step = `<div class="sheet-flow-arrow" aria-hidden="true">↓</div><div class="sheet-flow-shape box"></div>`;
+        return `
+          <div class="sheet-flow-legend">
+            <span><i class="sheet-flow-shape oval"></i> início ou fim</span>
+            <span><i class="sheet-flow-shape box"></i> ação</span>
+            <span><i class="sheet-flow-shape diamond"></i> decisão</span>
+          </div>
+          <div class="sheet-flow-template" aria-hidden="true">
+            <div class="sheet-flow-shape oval">Início</div>
+            ${step.repeat(FLOWCHART_STEP_COUNT)}
+            <div class="sheet-flow-arrow">↓</div><div class="sheet-flow-shape oval">Fim</div>
+          </div>`;
+      }
+
+      const sheetBlockRenderers = {
+        cards: sheetCardsHtml,
+        grid: (block) => sheetGridHtml(block.columns, block.rows),
+        pixelcode: sheetPixelCodeHtml,
+        steps: sheetStepsHtml,
+        table: sheetTableHtml,
+        lines: sheetLinesHtml,
+        strip: sheetStripHtml,
+        caesar: sheetCaesarHtml,
+        flowchart: sheetFlowchartHtml,
+      };
+
+      function sheetBlockHtml(block) {
+        return `
+          <section class="sheet-block">
+            <h3 class="lesson-plan-section-title">${escapeHtml(block.title)}</h3>
+            ${block.caption ? `<p class="lesson-plan-summary">${escapeHtml(block.caption)}</p>` : ""}
+            ${sheetBlockRenderers[block.type](block)}
+          </section>`;
+      }
+
+      function sheetBackButtonHtml(planIndex) {
+        return `<div class="lesson-plan-actions lesson-plan-print-hide"><button class="support-copy-button" type="button" data-plan-back="${planIndex}">↩️ Voltar ao plano</button></div>`;
+      }
+
+      function unpluggedSheetHtml(planIndex) {
+        const plan = lessonPlans[planIndex];
+        const sheet = unpluggedSheets.find((entry) => entry.grade === plan.grade);
+        return `
+          <h2 class="lesson-plan-title">${plan.grade} · Ficha desplugada: ${escapeHtml(sheet.title)}</h2>
+          <p class="lesson-plan-summary">${escapeHtml(sheet.intro)}</p>
+          ${sheet.blocks.map(sheetBlockHtml).join("")}
+          <div class="lesson-plan-note"><strong>Para o professor:</strong> ${escapeHtml(sheet.teacherNote)}</div>
+          ${sheetBackButtonHtml(planIndex)}
+        `;
+      }
+
+      function observationSheetHtml(planIndex) {
+        const plan = lessonPlans[planIndex];
+        const criteria = plan.assessment;
+        const mainSkills = plan.skills.filter((skill) => skill.main).map((skill) => skill.code).join(", ");
+        const blankRows = Array.from({ length: OBSERVATION_SHEET_ROWS }, (_, row) =>
+          `<tr><td>${row + 1}</td><td></td>${criteria.map(() => "<td></td>").join("")}<td></td></tr>`).join("");
+        return `
+          <div class="observation-sheet">
+            <h2 class="lesson-plan-title">${plan.grade} · Ficha de observação: ${escapeHtml(plan.theme)}</h2>
+            <div class="sheet-fields"><span>Escola:</span><span>Turma:</span><span>Data:</span><span>Professor(a):</span></div>
+            <p class="lesson-plan-summary"><strong>Habilidades observadas:</strong> ${mainSkills}. Marque <strong>S</strong> (sim), <strong>P</strong> (em parte) ou <strong>N</strong> (ainda não) para cada critério.</p>
+            <ul class="lesson-plan-list sheet-criteria">${criteria.map((criterion, index) => `<li><strong>C${index + 1}</strong> — ${escapeHtml(criterion)}</li>`).join("")}</ul>
+            <table class="sheet-table sheet-observation-table">
+              <thead><tr><th scope="col">Nº</th><th scope="col">Estudante</th>${criteria.map((_, index) => `<th scope="col">C${index + 1}</th>`).join("")}<th scope="col">Observações</th></tr></thead>
+              <tbody>${blankRows}</tbody>
+            </table>
+            <div class="lesson-plan-footnote">A avaliação é formativa e contínua: registre o que observou durante a aula e retome as habilidades com a turma quando necessário.</div>
+            ${sheetBackButtonHtml(planIndex)}
+          </div>
+        `;
+      }
+
+      const lessonPlanSheetOpeners = {
+        unplugged: unpluggedSheetHtml,
+        observation: observationSheetHtml,
+      };
+
+      function handleLessonPlanContentClick(event) {
+        const sheetButton = event.target.closest("[data-sheet]");
+        if (sheetButton) {
+          lessonPlanContent.innerHTML = lessonPlanSheetOpeners[sheetButton.dataset.sheet](Number(sheetButton.dataset.planIndex));
+          return;
+        }
+        const backButton = event.target.closest("[data-plan-back]");
+        if (backButton) openLessonPlan(Number(backButton.dataset.planBack));
+      }
+
+      function lessonPlanHtml(plan, planIndex) {
         const gradeNumber = parseInt(plan.grade, 10);
         const earlyYears = gradeNumber <= 5;
         const axes = [...new Set(plan.skills.map((item) => item.axis))];
@@ -25166,6 +25911,10 @@ const brStatesList = [
           ${plan.extension ? `<p class="lesson-plan-summary">${plan.extension}</p>` : ""}
           <h3 class="lesson-plan-section-title">Avaliação (observação em sala)</h3>
           <ul class="lesson-plan-list">${plan.assessment.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <div class="lesson-plan-tools lesson-plan-print-hide">
+            <button id="unpluggedSheetButton" class="support-open-link" type="button" data-sheet="unplugged" data-plan-index="${planIndex}">🧩 Ficha desplugada</button>
+            <button id="observationSheetButton" class="support-open-link" type="button" data-sheet="observation" data-plan-index="${planIndex}">📝 Ficha de observação</button>
+          </div>
           <div class="lesson-plan-footnote">Alinhado ao Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026), à BNCC e à BNCC Computação (Parecer CNE/CEB 2/2022 e Resolução CNE/CEB 1/2022). Formato inspirado nas Sugestões Didáticas do currículo. Missões Interativas — Pensamento Computacional.</div>
         `;
       }
@@ -25342,7 +26091,7 @@ const brStatesList = [
           <h3 class="lesson-plan-section-title">Cidadania digital e Inteligência Artificial</h3>
           <ul class="lesson-plan-list">
             <li>Converse sobre privacidade, respeito nas redes, fontes confiáveis e desinformação a partir de situações reais da turma.</li>
-            <li>A Inteligência Artificial atravessa os três eixos do currículo: evite o otimismo excessivo e a aversão e promova a análise crítica de benefícios e riscos. As referências da UNESCO (2025) orientam esse trabalho.</li>
+            <li>A Inteligência Artificial atravessa os três eixos do currículo: evite o otimismo excessivo e a aversão e promova a análise crítica de benefícios e riscos. As referências da UNESCO (2025) orientam esse trabalho. A missão Dados, algoritmos e IA ajuda a iniciar a conversa, sem tratar a IA como disciplina à parte.</li>
             <li>Este material funciona sem cadastro, sem login e sem coleta de dados dos estudantes.</li>
           </ul>
           <h3 class="lesson-plan-section-title">Avaliação</h3>
@@ -25372,7 +26121,7 @@ const brStatesList = [
       function openLessonPlan(index) {
         const plan = lessonPlans[index];
         if (!plan) return;
-        lessonPlanContent.innerHTML = lessonPlanHtml(plan);
+        lessonPlanContent.innerHTML = lessonPlanHtml(plan, index);
         lessonPlanModal.hidden = false;
       }
 
@@ -25717,6 +26466,101 @@ const brStatesList = [
         startHoldAction(homeButton, goHome, { holdMessage: "Segure início" });
       }
 
+      // Volta ao menu principal limpando o que a missão deixou para trás.
+      function leaveMissionToMenu(levelKey, resetMission = () => {}) {
+        stopTimer();
+        state.answerLocked = false;
+        state[levelKey] = null;
+        resetRoundState(0);
+        resetMission();
+        state.mode = "menu";
+        render();
+      }
+
+      function clearStateTimer(timerKey) {
+        window.clearTimeout(state[timerKey]);
+        state[timerKey] = null;
+      }
+
+      function levelExit(mode, levelKey, resetMission) {
+        return {
+          applies: () => state.mode === mode && state[levelKey] !== null,
+          run: () => leaveMissionToMenu(levelKey, resetMission),
+        };
+      }
+
+      // Saídas do botão voltar, na ordem em que valem. A primeira que se aplica ao estado atual é executada.
+      const missionExits = [
+        levelExit("math", "mathLevel", () => {
+          state.mathAttempt = 0;
+          state.mathWrong = null;
+          state.mathCorrectIndex = null;
+        }),
+        levelExit("code", "codeLevel", () => {
+          state.codeAttempt = 0;
+          state.codeWrong = null;
+          state.codeCorrectIndex = null;
+          state.codeLetterMap = {};
+          state.codeDecoded = [];
+        }),
+        levelExit("pixels", "pixelLevel", () => {
+          state.pixelAttempt = 0;
+          state.pixelWrong = null;
+          state.pixelCorrectIndex = null;
+        }),
+        levelExit("bug", "bugLevel", () => {
+          clearStateTimer("bugAnimTimer");
+          state.bugAnimStep = 0;
+          state.bugShowCorrected = false;
+          state.bugContinuePending = false;
+          state.bugAttempt = 0;
+          state.bugWrong = null;
+          state.bugCorrectIndex = null;
+          state.bugFixPhase = null;
+          state.bugFixWrong = null;
+          state.bugFixCorrectIndex = null;
+          state.bugFixAttempt = 0;
+        }),
+        levelExit("loop", "loopLevel", () => {
+          state.loopRepeat = 0;
+          state.loopExtra = 0;
+          state.loopWrong = false;
+          state.loopSolved = false;
+        }),
+        levelExit("sort", "sortLevel", () => {
+          state.sortItems = [];
+          state.sortSelectedIndex = -1;
+          state.sortWrong = null;
+          state.sortJustSwapped = null;
+        }),
+        levelExit("cond", "condLevel", () => {
+          state.condAttempt = 0;
+          state.condWrong = null;
+          state.condCorrectIndex = null;
+        }),
+        levelExit("var", "varLevel", startVarRound),
+        levelExit("pattern", "patternLevel", () => {
+          clearStateTimer("patternMissTimer");
+          startPatternRound();
+        }),
+        levelExit("decompose", "decomposeLevel", () => {
+          clearStateTimer("decomposeMissTimer");
+          startDecomposeRound();
+        }),
+        {
+          applies: () => Boolean(quizMissions[state.mode]) && state.quizLevel !== null,
+          run: () => leaveMissionToMenu("quizLevel", startQuizRound),
+        },
+        { applies: () => state.mode === "builder" && state.builderLevel !== null, run: backToBuilderLevels },
+        levelExit("decoder", "decoderLevel", () => {
+          state.decoderGuessed = [];
+          state.decoderWrong = 0;
+        }),
+        { applies: () => state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro"), run: backToMathCupLevels },
+        { applies: () => state.mode === "cup" && state.cupQuizMode !== null, run: backToCupQuizMode },
+        { applies: () => state.mode === "cup" && state.cupMode !== null, run: backToCupDataset },
+      ];
+
       function handleBackAction({ fromKeyboardEscape = false } = {}) {
         resetBackHold();
         const keepFullscreen = fromKeyboardEscape
@@ -25737,68 +26581,9 @@ const brStatesList = [
           backLegacy();
           return;
         }
-        if (state.mode === "math" && state.mathLevel !== null) {
-          backToMathLevels();
-          return;
-        }
-        if (state.mode === "code" && state.codeLevel !== null) {
-          backToCodeLevels();
-          return;
-        }
-        if (state.mode === "pixels" && state.pixelLevel !== null) {
-          backToPixelLevels();
-          return;
-        }
-        if (state.mode === "bug" && state.bugLevel !== null) {
-          backToBugLevels();
-          return;
-        }
-        if (state.mode === "loop" && state.loopLevel !== null) {
-          backToLoopLevels();
-          return;
-        }
-        if (state.mode === "sort" && state.sortLevel !== null) {
-          backToSortLevels();
-          return;
-        }
-        if (state.mode === "cond" && state.condLevel !== null) {
-          backToCondLevels();
-          return;
-        }
-        if (state.mode === "var" && state.varLevel !== null) {
-          backToVarLevels();
-          return;
-        }
-        if (state.mode === "pattern" && state.patternLevel !== null) {
-          backToPatternLevels();
-          return;
-        }
-        if (state.mode === "decompose" && state.decomposeLevel !== null) {
-          backToDecomposeLevels();
-          return;
-        }
-        if (quizMissions[state.mode] && state.quizLevel !== null) {
-          backToQuizMenu();
-          return;
-        }
-        if (state.mode === "builder" && state.builderLevel !== null) {
-          backToBuilderLevels();
-          return;
-        }
-        if (state.mode === "decoder" && state.decoderLevel !== null) {
-          backToDecoderLevels();
-          return;
-        }
-        if (state.mode === "mathCup" && (state.mathCupLevel !== null || state.mathCupScreen !== "intro")) {
-          backToMathCupLevels();
-          return;
-        }
-        if (state.mode === "cup" && state.cupQuizMode !== null) {
-          backToCupQuizMode();
-          return;
-        }
-        if (state.mode === "cup" && state.cupMode !== null) {
-          backToCupDataset();
+        const exit = missionExits.find((candidate) => candidate.applies());
+        if (exit) {
+          exit.run();
           return;
         }
         stopTimer();
@@ -25889,6 +26674,7 @@ const brStatesList = [
         if (event.target === lessonPlanModal) closeLessonPlanModal();
       });
       lessonPlanPrintButton.addEventListener("click", () => window.print());
+      lessonPlanContent.addEventListener("click", handleLessonPlanContentClick);
       document.getElementById("monthlyPlanButton").addEventListener("click", openMonthlyPlan);
       document.getElementById("guidanceButton").addEventListener("click", openGuidance);
       renderLessonPlanGrid();
@@ -25981,6 +26767,15 @@ const brStatesList = [
       });
       window.setTimeout(checkForUpdate, 20000);
       window.setInterval(checkForUpdate, 10 * 60 * 1000);
+
+      function registerOfflineSupport() {
+        if (!("serviceWorker" in navigator) || !location.protocol.startsWith("http")) return;
+        navigator.serviceWorker.register("./sw.js").catch(() => {
+          // sem suporte offline: o material continua funcionando com internet
+        });
+      }
+
+      registerOfflineSupport();
 
       updateViewportMode();
       render();

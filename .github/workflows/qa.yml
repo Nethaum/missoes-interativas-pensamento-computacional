@@ -1,0 +1,36 @@
+name: QA
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: qa
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: qa/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Static checks (syntax, lint, data, emoji)
+        run: npm run static
+
+      - name: End-to-end checks (smoke, quizzes, teacher area)
+        run: npm run e2e:quick

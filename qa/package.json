@@ -1,0 +1,18 @@
+{
+  "name": "missoes-interativas-qa",
+  "private": true,
+  "description": "Verificações automáticas do Missões Interativas - Pensamento Computacional",
+  "scripts": {
+    "static": "node static/syntax.js && node static/lint.js && node static/data.js && node static/emoji.js",
+    "e2e:quick": "node e2e/smoke.js --bands 0,2,4 --steps 15 && node e2e/keyboard.js && node e2e/quizzes.js && node e2e/continue-flow.js && node e2e/teacher-area.js",
+    "e2e": "node e2e/smoke.js && node e2e/keyboard.js && node e2e/quizzes.js && node e2e/continue-flow.js && node e2e/teacher-area.js && node e2e/a11y.js && node e2e/offline.js",
+    "test": "npm run static && npm run e2e:quick"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "axe-core": "^4.10.0",
+    "emojibase-data": "^16.0.0",
+    "eslint": "^9.0.0",
+    "playwright-core": "^1.48.0"
+  }
+}
