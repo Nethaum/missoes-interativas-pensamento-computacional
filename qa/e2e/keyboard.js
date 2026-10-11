@@ -24,9 +24,9 @@ async function main() {
   const page = await newPage(browser);
   await installFakeClock(page);
   await openMenu(page, server.url, band);
-  const cardCount = (await page.$$('.menu-card')).length;
+  const cardCount = (await page.$$('.menu-tile')).length;
   for (let index = 0; index < cardCount; index++) {
-    const card = (await page.$$('.menu-card'))[index];
+    const card = (await page.$$('.menu-tile'))[index];
     const title = (await card.textContent()).trim().replace(/\s+/g, ' ').slice(0, 40);
     const errorsBefore = page.collectedErrors.length;
     await card.scrollIntoViewIfNeeded();

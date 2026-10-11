@@ -26,9 +26,9 @@ async function auditScreen(page, report, where) {
 async function auditBand(page, baseUrl, band, report) {
   await openMenu(page, baseUrl, band);
   await auditScreen(page, report, `faixa ${band}, menu`);
-  const cardCount = (await page.$$('.menu-card')).length;
+  const cardCount = (await page.$$('.menu-tile')).length;
   for (let index = 0; index < cardCount; index++) {
-    const card = (await page.$$('.menu-card'))[index];
+    const card = (await page.$$('.menu-tile'))[index];
     const title = (await card.textContent()).trim().replace(/\s+/g, ' ').slice(0, 28);
     await card.scrollIntoViewIfNeeded();
     await card.click();

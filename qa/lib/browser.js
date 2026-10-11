@@ -30,12 +30,12 @@ async function openMenu(page, baseUrl, band) {
   await page.goto(`${baseUrl}/?qa=${Date.now()}`);
   await page.waitForSelector('.age-picker-card');
   await page.locator('.age-picker-card').nth(band).click();
-  await page.waitForSelector('.menu-card');
+  await page.waitForSelector('.menu-tile');
 }
 
 /** Abre uma missão pelo título que aparece no cartão do menu. */
 async function openMission(page, title) {
-  await page.locator('.menu-card', { hasText: title }).first().click();
+  await page.locator('.menu-tile', { hasText: title }).first().click();
 }
 
 /** Volta ao menu com o botão início (toque longo) e informa se o menu reapareceu. */
@@ -47,7 +47,7 @@ async function goHome(page) {
   await page.waitForTimeout(HOME_LONG_PRESS_MS);
   await press('pointerup');
   await page.waitForTimeout(300);
-  return Boolean(await page.$('.menu-card'));
+  return Boolean(await page.$('.menu-tile'));
 }
 
 /** Troca o relógio da página por um controlável: o tempo só avança quando o teste manda. */
@@ -68,7 +68,7 @@ async function holdBackButton(page) {
   await page.waitForTimeout(500);
   await dispatch('pointerup');
   await page.waitForTimeout(400);
-  return Boolean(await page.$('.menu-card'));
+  return Boolean(await page.$('.menu-tile'));
 }
 
 /** Segura o botão "Sou adulto" até liberar a área do professor. */

@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.17.0
+Versão atual: 2.18.0
 
 ## Acesse
 
@@ -108,7 +108,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 ## Missões
 
-Todas as missões ficam numa lista única, com chips de filtro por categoria pedagógica (alfabetização, sequência e algoritmos, padrões, códigos e dados, classificação e organização, lógica e decisão, lógica de programação, mundo digital e cultura digital, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
+Todas as missões ficam numa grade compacta (mais de uma dezena por tela no computador), com uma barra de filtros por categoria pedagógica (alfabetização, sequência e algoritmos, padrões, códigos e dados, classificação e organização, lógica e decisão, lógica de programação, mundo digital e cultura digital, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha da base (países ou estados) e do jeito de jogar — estudar e reconhecer, bandeira→nome ou nome→bandeira.

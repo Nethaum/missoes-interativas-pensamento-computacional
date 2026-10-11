@@ -29,7 +29,7 @@ async function interactOnce(page, step) {
 }
 
 async function exerciseMission(page, baseUrl, band, cardIndex, steps) {
-  const card = (await page.$$('.menu-card'))[cardIndex];
+  const card = (await page.$$('.menu-tile'))[cardIndex];
   const title = (await card.textContent()).trim().replace(/\s+/g, ' ').slice(0, 40);
   const errorsBefore = page.collectedErrors.length;
   await card.scrollIntoViewIfNeeded();
@@ -51,7 +51,7 @@ async function main() {
   for (const band of bands) {
     const page = await newPage(browser);
     await openMenu(page, server.url, band);
-    const cardCount = (await page.$$('.menu-card')).length;
+    const cardCount = (await page.$$('.menu-tile')).length;
     for (let cardIndex = 0; cardIndex < cardCount; cardIndex++) {
       const { title, errors } = await exerciseMission(page, server.url, band, cardIndex, steps);
       missionsTested++;
