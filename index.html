@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="2.18.0">
+  <meta name="app-version" content="3.0.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -629,6 +629,83 @@
 
     .lesson-plan-button:hover {
       border-color: var(--blue);
+    }
+
+    .lesson-plan-button.in-panel {
+      border-color: var(--green);
+      background: #e7f5ec;
+    }
+
+    .assessment-box {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .assessment-missed li {
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .assessment-context,
+    .assessment-why {
+      color: var(--card-muted);
+      font-size: 13px;
+    }
+
+    .assessment-code {
+      margin: 4px 0;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #1e2a38;
+      color: #f4f1de;
+      font-size: 13px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .assessment-score {
+      color: var(--card-ink);
+      font-size: 26px;
+      font-weight: 950;
+    }
+
+    .assessment-score span {
+      font-size: 18px;
+    }
+
+    #homeButton:disabled,
+    #resetButton:disabled,
+    #backButton:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      filter: grayscale(0.6);
+    }
+
+    .lesson-plan-tool-wide {
+      grid-column: 1 / -1;
+    }
+
+    .lesson-missions-status {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 3px solid var(--green);
+      border-radius: 12px;
+      background: #e7f5ec;
+      color: var(--card-ink);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .lesson-missions-status .support-copy-button {
+      width: auto;
+      min-height: 36px;
+      padding: 6px 12px;
     }
 
     .lesson-plan-modal {
@@ -1578,21 +1655,6 @@
 
     .menu-tile-star + .menu-tile-check {
       top: 22px;
-    }
-
-    .menu-tile-age {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      padding: 2px 7px;
-      border: 2px solid #2f6dd6;
-      border-radius: 999px;
-      background: #eef4ff;
-      color: #12356e;
-      font-size: 10px;
-      font-weight: 950;
-      line-height: 1.2;
-      white-space: nowrap;
     }
 
     @media (max-width: 720px) {
@@ -9388,6 +9450,15 @@
             <button id="monthlyPlanButton" class="support-open-link" type="button">📅 Plano de atividade mensal</button>
             <button id="guidanceButton" class="support-open-link" type="button">📘 Orientações de uso pedagógico</button>
           </div>
+          <div class="assessment-box">
+            <div class="support-title">📝 Modo avaliação</div>
+            <p class="support-text">Nas missões de perguntas, em Dados e gráficos e no Portão Lógico: 10 perguntas, uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
+            <button id="assessmentModeButton" class="support-open-link" type="button" aria-pressed="false">📝 Ligar o modo avaliação</button>
+          </div>
+          <div id="lessonMissionsStatus" class="lesson-missions-status" hidden>
+            <span id="lessonMissionsText"></span>
+            <button id="clearLessonMissionsButton" class="support-copy-button" type="button">Limpar</button>
+          </div>
         </div>
         <div id="donateBox" class="donate-box">
         <div class="support-title">☕ Apoie este projeto</div>
@@ -9523,33 +9594,33 @@
 
       const missions = [
         { id: "mathCup", icon: "🏆", title: "Copa da Matemática", subject: "Futebol, estratégia e cálculo mental", featured: true },
-        { id: "cup", icon: "🌎", title: "Bandeiras", subject: "Bandeiras dos países e dos estados do Brasil", ageRange: "6 a 10+ anos", featured: true },
+        { id: "cup", icon: "🌎", title: "Bandeiras", subject: "Bandeiras dos países e dos estados do Brasil", featured: true },
         { id: "decoder", icon: "🤖", title: "Robô Decifrador", subject: "Adivinhação de palavras", featured: true },
         { id: "ttt", icon: "⭕", title: "Jogo da Velha dos Enigmas", subject: "Enigmas de todas as disciplinas", featured: true },
         { id: "builder", icon: "🤖", title: "Robô Programador", subject: "Sequência, laços e criação livre", featured: true },
         { id: "phonics", icon: "👂", title: "Som Inicial", subject: "Consciência fonológica", featured: true },
         { id: "syllables", icon: "🔤", title: "Monte a Palavra", subject: "Sílabas e leitura", featured: true },
         { id: "memory", icon: "🃏", title: "Jogo da Memória", subject: "Memória e atenção", featured: true },
-        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo", ageRange: "6 a 10+ anos" },
-        { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas", ageRange: "6 a 10+ anos" },
-        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza", ageRange: "6 a 10+ anos" },
-        { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania", ageRange: "6 a 10+ anos" },
-        { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos", ageRange: "6 a 10+ anos" },
+        { id: "robot", icon: "🤖", title: "Robô coletor", subject: "Algoritmo" },
+        { id: "chef", icon: "👨‍🍳", title: "Chef Cozinheiro", subject: "Algoritmo e receitas" },
+        { id: "cycle", icon: "🌱", title: "Ciclos da natureza", subject: "Natureza" },
+        { id: "vaccine", icon: "💉", title: "Caderneta de vacinação", subject: "Saúde e cidadania" },
+        { id: "bug", icon: "🐞", title: "Caça ao Bug", subject: "Depuração de comandos" },
         { id: "pattern", icon: "🔷", title: "Padrão Perfeito", subject: "Sequências e padrões" },
         { id: "decompose", icon: "🗂️", title: "Divida a Tarefa", subject: "Decomposição" },
-        { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos", ageRange: "6 a 10+ anos" },
-        { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens", ageRange: "6 a 10+ anos" },
+        { id: "code", icon: "🔐", title: "Mensagem secreta", subject: "Códigos e símbolos" },
+        { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
-        { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania", ageRange: "6 a 10+ anos" },
-        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia", ageRange: "6 a 10+ anos" },
+        { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania" },
+        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia" },
         { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, software, arquivos e redes" },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
         { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
         { id: "reading", icon: "👓", title: "Leia o código", subject: "Programas, laços e variáveis" },
-        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia", ageRange: "6 a 10+ anos" },
-        { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia", ageRange: "9 a 11 anos" },
-        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção", ageRange: "6 a 10+ anos" },
+        { id: "habitat", icon: "🐾", title: "Habitats dos animais", subject: "Biologia" },
+        { id: "vertebrate", icon: "🦴", title: "Vertebrados e invertebrados", subject: "Biologia" },
+        { id: "dengue", icon: "🦟", title: "Corrida contra o Aedes", subject: "Saúde, ambiente e prevenção" },
         { id: "math", icon: "🍎", title: "Matemática colorida", subject: "Matemática" },
         { id: "loop", icon: "🔁", title: "Fábrica de Laços", subject: "Repetição e laços" },
         { id: "sort", icon: "📚", title: "Estante Organizada", subject: "Ordenação" },
@@ -10251,6 +10322,86 @@
           ],
         },
       ];
+
+      // Missões com modo avaliação e as habilidades da BNCC Computação (Currículo de Educação Digital de SC) que cada uma trabalha.
+      const assessmentMissionSkills = {
+        hardware: ["EF02CO04", "EF03CO04", "EF03CO06", "EF04CO04", "EF05CO05", "EF05CO06", "EF05CO07", "EF06CO07", "EF06CO08", "EF07CO06", "EF07CO07", "EF08CO05", "EF08CO06", "EF09CO04", "EF09CO05"],
+        safe: ["EF01CO07", "EF02CO05", "EF02CO06", "EF03CO07", "EF03CO09", "EF04CO06", "EF04CO07", "EF04CO08", "EF05CO08", "EF05CO09", "EF05CO10", "EF06CO09", "EF06CO10", "EF07CO08", "EF07CO09", "EF07CO10", "EF08CO07", "EF08CO08", "EF08CO09", "EF08CO10", "EF08CO11", "EF09CO06", "EF09CO07", "EF09CO08", "EF09CO09", "EF09CO10"],
+        ai: ["EF05CO08", "EF08CO07", "EF08CO11", "EF09CO07", "EF09CO10"],
+        structures: ["EF01CO01", "EF04CO01", "EF04CO02", "EF05CO01", "EF05CO02", "EF07CO01", "EF07CO04", "EF08CO02", "EF09CO01", "EF09CO03"],
+        reading: ["EF01CO02", "EF02CO02", "EF04CO03", "EF05CO03", "EF05CO04", "EF06CO01", "EF06CO02", "EF06CO05", "EF07CO02", "EF07CO05", "EF08CO01", "EF08CO02", "EF08CO03", "EF09CO02"],
+        data: ["EF03CO04", "EF03CO05"],
+        cond: ["EF03CO01", "EF05CO03", "EF05CO04"],
+      };
+
+      const bnccSkillTexts = {
+        EF01CO01: "Organizar objetos físicos ou digitais considerando diferentes características para esta organização, explicitando semelhanças (padrões) e diferenças.",
+        EF01CO02: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas.",
+        EF01CO07: "Conhecer as possibilidades de uso seguro das tecnologias computacionais para proteção dos dados pessoais e para garantir a própria segurança.",
+        EF02CO02: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, construídos como sequências com repetições simples (iterações definidas) com base em instruções preestabelecidas ou criadas, analisando como a precisão da instrução impacta na execução do algoritmo.",
+        EF02CO04: "Diferenciar componentes físicos (hardware) e programas que fornecem as instruções (software) para o hardware.",
+        EF02CO05: "Reconhecer as características e usos das tecnologias computacionais no cotidiano dentro e fora da escola.",
+        EF02CO06: "Reconhecer os cuidados com a segurança no uso de dispositivos computacionais.",
+        EF03CO01: "Associar os valores 'verdadeiro' e 'falso' a sentenças lógicas que dizem respeito a situações do dia a dia, fazendo uso de termos que indicam negação.",
+        EF03CO04: "Relacionar o conceito de informação com o de dado.",
+        EF03CO05: "Compreender que dados são estruturados em formatos específicos dependendo da informação armazenada.",
+        EF03CO06: "Reconhecer que, para um computador realizar tarefas, ele se comunica com o mundo exterior com o uso de interfaces físicas (dispositivos de entrada e saída).",
+        EF03CO07: "Utilizar diferentes navegadores e ferramentas de busca para pesquisar e acessar informações.",
+        EF03CO09: "Reconhecer o potencial impacto do compartilhamento de informações pessoais ou de seus pares em meio digital.",
+        EF04CO01: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de matrizes que estabelecem uma organização na qual cada componente está em uma posição definida por coordenadas, fazendo manipulações simples sobre estas representações.",
+        EF04CO02: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de registros que estabelecem uma organização na qual cada componente é identificado por um nome, fazendo manipulações sobre estas representações.",
+        EF04CO03: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências e repetições simples e aninhadas (iterações definidas e indefinidas), para resolver problemas de forma independente e em colaboração.",
+        EF04CO04: "Entender que para guardar, manipular e transmitir dados deve-se codificá-los de alguma forma que seja compreendida pela máquina (formato digital).",
+        EF04CO06: "Usar diferentes ferramentas computacionais para criação de conteúdo (textos, apresentações, vídeos etc.).",
+        EF04CO07: "Demonstrar postura ética nas atividades de coleta, transferência, guarda e uso de dados.",
+        EF04CO08: "Reconhecer a importância de verificar a confiabilidade das fontes de informações obtidas na Internet.",
+        EF05CO01: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de listas que estabelecem uma organização na qual há um número variável de itens dispostos em sequência, fazendo manipulações simples sobre estas representações.",
+        EF05CO02: "Reconhecer objetos do mundo real e digital que podem ser representados através de grafos que estabelecem uma organização com uma quantidade variável de vértices conectados por arestas, fazendo manipulações simples sobre estas representações.",
+        EF05CO03: "Realizar operações de negação, conjunção e disjunção sobre sentenças lógicas e valores 'verdadeiro' e 'falso'.",
+        EF05CO04: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências, repetições e seleções condicionais para resolver problemas de forma independente e em colaboração.",
+        EF05CO05: "Identificar os componentes principais de um computador (dispositivos de entrada/ saída, processadores e armazenamento).",
+        EF05CO06: "Reconhecer que os dados podem ser armazenados em um dispositivo local ou remoto.",
+        EF05CO07: "Reconhecer a necessidade de um sistema operacional para a execução de programas e gerenciamento do hardware.",
+        EF05CO08: "Acessar as informações na Internet de forma crítica para distinguir os conteúdos confiáveis de não confiáveis.",
+        EF05CO09: "Usar informações considerando aplicações e limites dos direitos autorais em diferentes mídias digitais.",
+        EF05CO10: "Expressar-se crítica e criativamente na compreensão das mudanças tecnológicas no mundo do trabalho e sobre a evolução da sociedade.",
+        EF06CO01: "Classificar informações, agrupando-as em coleções (conjuntos) e associando cada coleção a um ‘tipo de dados’.",
+        EF06CO02: "Elaborar algoritmos que envolvam instruções sequenciais, de repetição e de seleção usando uma linguagem de programação.",
+        EF06CO05: "Identificar os recursos ou insumos necessários (entradas) para a resolução de problemas, bem como os resultados esperados (saídas), determinando os respectivos tipos de dados, e estabelecendo a definição de problema como uma relação entre entrada e saída.",
+        EF06CO07: "Entender o processo de transmissão de dados, como a informação é quebrada em pedaços, transmitida em pacotes através de múltiplos equipamentos, e reconstruída no destino.",
+        EF06CO08: "Compreender e utilizar diferentes formas de armazenar, manipular, compactar e recuperar arquivos, documentos e metadados.",
+        EF06CO09: "Apresentar conduta e linguagem apropriadas ao se comunicar em ambiente digital, considerando a ética e o respeito.",
+        EF06CO10: "Analisar o consumo de tecnologia na sociedade, compreendendo criticamente o caminho da produção dos recursos bem como aspectos ligados à obsolescência e a sustentabilidade.",
+        EF07CO01: "Criar soluções de problemas para os quais seja adequado o uso de registros e matrizes unidimensionais para descrever suas informações e automatizá- las usando uma linguagem de programação.",
+        EF07CO02: "Analisar programas para detectar e remover erros, ampliando a confiança na sua correção.",
+        EF07CO04: "Explorar propriedades básicas de grafos.",
+        EF07CO05: "Criar algoritmos fazendo uso da decomposição e do reúso no processo de solução de forma colaborativa e cooperativa e automatizá-los usando uma linguagem de programação.",
+        EF07CO06: "Compreender o papel de protocolos para a transmissão de dados.",
+        EF07CO07: "Identificar problemas de segurança cibernética e experimentar formas de proteção.",
+        EF07CO08: "Demonstrar empatia sobre opiniões divergentes na web.",
+        EF07CO09: "Reconhecer e debater sobre cyberbullying.",
+        EF07CO10: "Identificar os impactos ambientais do descarte de peças de computadores e eletrônicos, bem como sua relação com a sustentabilidade.",
+        EF08CO01: "Construir soluções de problemas usando a técnica de recursão e automatizar tais soluções usando uma linguagem de programação.",
+        EF08CO02: "Criar soluções de problemas para os quais seja adequado o uso de listas para descrever suas informações e automatizá-las usando uma linguagem de programação, empregando ou não a recursão como uma técnica de resolver o problema.",
+        EF08CO03: "Utilizar algoritmos clássicos de manipulação sobre listas.",
+        EF08CO05: "Compreender os conceitos de paralelismo, concorrência e armazenamento/ processamento distribuídos.",
+        EF08CO06: "Entender como é a estrutura e funcionamento da internet.",
+        EF08CO07: "Compartilhar informações por meio de redes sociais, compreendendo a sua dinâmica de funcionamento, de forma responsável e avaliando sua confiabilidade, considerando o respeito e a ética.",
+        EF08CO08: "Distinguir os tipos de dados pessoais que são solicitados em espaços digitais e os riscos associados.",
+        EF08CO09: "Analisar criticamente as políticas de termos de uso das redes sociais e demais plataformas.",
+        EF08CO10: "Discutir questões sobre segurança e privacidade relacionadas ao uso dos ambientes virtuais.",
+        EF08CO11: "Avaliar a precisão, relevância, adequação, abrangência e vieses que ocorrem em fontes de informação eletrônica.",
+        EF09CO01: "Criar soluções de problemas para os quais seja adequado o uso de árvores e grafos para descrever suas informações e automatizá-las usando uma linguagem de programação.",
+        EF09CO02: "Construir soluções computacionais de problemas de diferentes áreas do conhecimento, de forma individual e colaborativa, selecionando as estruturas de dados e técnicas adequadas, aperfeiçoando e articulando saberes escolares.",
+        EF09CO03: "Usar autômatos para descrever comportamentos de forma abstrata automatizando-os através de uma linguagem de programação baseada em eventos.",
+        EF09CO04: "Compreender o funcionamento de malwares e outros ataques cibernéticos.",
+        EF09CO05: "Analisar técnicas de criptografia para armazenamento e transmissão de dados.",
+        EF09CO06: "Analisar problemas sociais de sua cidade e estado a partir de ambientes digitais, propondo soluções.",
+        EF09CO07: "Avaliar aplicações e implicações políticas, socioambientais e culturais das tecnologias digitais para propor alternativas aos desafios do mundo contemporâneo, incluindo aqueles relativos ao mundo do trabalho.",
+        EF09CO08: "Discutir como a distribuição desigual de recursos de computação em uma economia global levanta questões de equidade, acesso e poder.",
+        EF09CO09: "Criar ou utilizar conteúdo em meio digital, compreendendo questões éticas relacionadas a direitos autorais e de uso de imagem.",
+        EF09CO10: "Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.",
+      };
 
       const missionIndexById = new Map(missions.map((item, index) => [item.id, index]));
 
@@ -16519,6 +16670,9 @@ const brStatesList = [
         ageBand: null,
         mode: "menu",
         menuFilter: null,
+        lessonPlanIndexes: [],
+        assessmentMode: false,
+        assessmentRun: null,
         round: 0,
         selected: 0,
         score: 0,
@@ -17990,7 +18144,7 @@ const brStatesList = [
         state.round += 1;
         state.selected = -1;
         resetLegacyRuntimeState();
-        if (state.round >= rounds().length) {
+        if (state.round >= roundTotal(rounds())) {
           completeLegacyActivity(finalMessage);
           return;
         }
@@ -18001,7 +18155,7 @@ const brStatesList = [
         if (!isWaitingToContinueLegacy()) return "";
         const { rounds } = legacyQuizSetups[state.legacyActivity];
         const explanation = state.legacyFeedback ? `<div class="quiz-why" data-speak>${state.legacyFeedback}</div>` : "";
-        return explanation + continueButtonHtml(state.round + 1 >= rounds().length);
+        return explanation + continueButtonHtml(state.round + 1 >= roundTotal(rounds()));
       }
 
       function renderLevelsMenu() {
@@ -18048,7 +18202,7 @@ const brStatesList = [
         const options = legacyOptions(round);
         const max = Math.max(...round.values);
         setHeader("Detetive dos dados", "Observe o gráfico.");
-        setCounters("Gráfico", `${state.round + 1} / ${legacyDataQuizRounds.length}`, "Acertos", state.score);
+        setMissionCounters("Gráfico", legacyDataQuizRounds);
         status.textContent = state.legacyFeedback || "Compare números e alturas.";
         content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="quiz-question">${round.question}</div>
@@ -18070,7 +18224,7 @@ const brStatesList = [
         const round = legacyOrganizeRounds[state.round];
         const options = legacyOptions(round);
         setHeader("Organize dados", "Conte e compare.");
-        setCounters("Conjunto", `${state.round + 1} / ${legacyOrganizeRounds.length}`, "Acertos", state.score);
+        setMissionCounters("Conjunto", legacyOrganizeRounds);
         status.textContent = state.legacyFeedback || "Agrupe os itens iguais.";
         content.innerHTML = `<div class="data-quiz-board ${legacyLockedClass()} ${state.legacyCorrectIndex !== null ? "fx-flash" : ""}">
           <div class="quiz-question">${round.question}</div>
@@ -18099,9 +18253,8 @@ const brStatesList = [
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
-        state.menuFilter = null;
-        const missionIndex = missions.findIndex((item) => item.id === mode);
-        state.selected = missionIndex >= 0 ? missionIndex : 0;
+        state.menuFilter = defaultMenuFilter();
+        selectMissionInMenu(mode);
         state.round = 0;
         state.score = 0;
         state.dengueFinished = false;
@@ -18138,13 +18291,165 @@ const brStatesList = [
         };
       }
 
+      const ASSESSMENT_QUESTIONS = 10;
+      const ASSESSMENT_BAND_YEARS = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 9]];
+
+      function isAssessable(missionId) {
+        return Object.keys(assessmentMissionSkills).includes(missionId);
+      }
+
+      function isAssessmentRunActive() {
+        return state.assessmentRun !== null;
+      }
+
+      // Em avaliação a missão para nas primeiras perguntas sorteadas, mesmo que o nível tenha mais rodadas.
+      function roundTotal(rounds) {
+        return isAssessmentRunActive() ? Math.min(rounds.length, state.assessmentRun.total) : rounds.length;
+      }
+
+      function setMissionCounters(label, rounds) {
+        const position = `${state.round + 1} / ${roundTotal(rounds)}`;
+        if (isAssessmentRunActive()) setCounters(label, position, "Modo", "📝 Prova");
+        else setCounters(label, position, "Acertos", state.score);
+      }
+
+      function beginAssessmentRun(mode) {
+        const active = state.assessmentMode && isAssessable(mode) && state.ageBand !== null;
+        state.assessmentRun = active ? { missionId: mode, band: state.ageBand, total: ASSESSMENT_QUESTIONS, hits: 0, misses: 0, missed: [] } : null;
+        updateAssessmentLock();
+      }
+
+      // `answer` descreve a pergunta (question, context, code, chosen, correct, why) e só é guardada quando o aluno erra.
+      function recordAssessmentAnswer(isCorrect, answer) {
+        const run = state.assessmentRun;
+        if (isCorrect) {
+          run.hits += 1;
+        } else {
+          run.misses += 1;
+          run.missed.push(answer);
+        }
+        showMessage("📝 Resposta registrada", 600, "info");
+      }
+
+      function missedQuestionHtml(item) {
+        return `<li>
+          <strong>${escapeHtml(item.question)}</strong>
+          ${item.context ? `<div class="assessment-context">${escapeHtml(item.context)}</div>` : ""}
+          ${item.code ? `<pre class="assessment-code">${escapeHtml(item.code)}</pre>` : ""}
+          <div>Resposta do aluno: <em>${escapeHtml(item.chosen)}</em> · Resposta certa: <strong>${escapeHtml(item.correct)}</strong></div>
+          ${item.why ? `<div class="assessment-why">${escapeHtml(item.why)}</div>` : ""}
+        </li>`;
+      }
+
+      function missedQuestionsHtml(run) {
+        if (!run.missed.length) return '<p class="lesson-plan-summary">Nenhuma pergunta errada. 🎉</p>';
+        return `<h3 class="lesson-plan-section-title">Perguntas para rever (${run.missed.length})</h3>
+          <ol class="lesson-plan-list assessment-missed">${run.missed.map(missedQuestionHtml).join("")}</ol>`;
+      }
+
+      // Enquanto o aluno responde, início, recomeçar e voltar ficam desativados.
+      function updateAssessmentLock() {
+        const locked = isAssessmentRunActive();
+        [homeButton, resetButton, backButton].forEach((button) => {
+          button.disabled = locked;
+          button.setAttribute("aria-disabled", String(locked));
+        });
+        document.body.classList.toggle("assessment-running", locked);
+      }
+
+      function assessmentSkillsFor(missionId, band) {
+        const [firstYear, lastYear] = ASSESSMENT_BAND_YEARS[band];
+        const all = assessmentMissionSkills[missionId];
+        const ofBand = all.filter((code) => {
+          const year = Number(code.slice(2, 4));
+          return year >= firstYear && year <= lastYear;
+        });
+        return ofBand.length ? ofBand : all;
+      }
+
+      function assessmentResultHtml(run) {
+        const total = run.hits + run.misses;
+        const percent = total ? Math.round((run.hits / total) * 100) : 0;
+        const missionTitle = missions.find((item) => item.id === run.missionId).title;
+        const band = ageBands[run.band];
+        const skills = assessmentSkillsFor(run.missionId, run.band)
+          .map((code) => `<li><strong>${code}</strong> — ${escapeHtml(bnccSkillTexts[code])}</li>`).join("");
+        return `
+          <h2 class="lesson-plan-title">📝 Resultado da avaliação</h2>
+          <div class="lesson-plan-meta">${escapeHtml(missionTitle)} · ${band.grade} (${band.ageLabel}) · ${new Date().toLocaleDateString("pt-BR")}</div>
+          <div class="assessment-score"><strong>${run.hits}</strong> de <strong>${total}</strong> acertos <span>(${percent}%)</span></div>
+          <p class="lesson-plan-summary">Contam os acertos de primeira: cada pergunta teve uma tentativa, sem a resposta certa na tela.</p>
+          ${missedQuestionsHtml(run)}
+          <h3 class="lesson-plan-section-title">Habilidades da BNCC Computação trabalhadas</h3>
+          <ul class="lesson-plan-list">${skills}</ul>
+          <div class="sheet-fields"><span>Estudante:</span><span>Turma:</span><span>Professor(a):</span><span>Observações:</span></div>
+          <div class="lesson-plan-footnote">Nada é guardado neste aparelho: imprima ou salve em PDF para registrar o resultado.</div>
+        `;
+      }
+
+      function finishAssessmentRun() {
+        const run = state.assessmentRun;
+        state.assessmentRun = null;
+        updateAssessmentLock();
+        returnToMissionMenu(run.missionId);
+        lessonPlanContent.innerHTML = assessmentResultHtml(run);
+        lessonPlanModal.hidden = false;
+      }
+
+      function setAssessmentMode(on) {
+        state.assessmentMode = on;
+        state.assessmentRun = null;
+        if (state.mode !== "menu") {
+          stopTimer();
+          state.answerLocked = false;
+          state.mode = "menu";
+        }
+        state.menuFilter = defaultMenuFilter();
+        state.selected = 0;
+        updateAssessmentLock();
+        renderAssessmentModeButton();
+        render();
+      }
+
+      function renderAssessmentModeButton() {
+        const button = document.getElementById("assessmentModeButton");
+        button.setAttribute("aria-pressed", String(state.assessmentMode));
+        button.textContent = state.assessmentMode ? "✅ Modo avaliação ligado (tocar para desligar)" : "📝 Ligar o modo avaliação";
+      }
+
+      const LESSON_FILTER = "lesson";
+
+      // Missões recomendadas pelos planos que o professor mandou para o painel (sem repetir, na ordem do catálogo).
+      function lessonMissionIds() {
+        const wanted = new Set(state.lessonPlanIndexes.flatMap((index) => lessonPlans[index].missions));
+        return missions.map((item) => item.id).filter((id) => wanted.has(id));
+      }
+
+      function defaultMenuFilter() {
+        return state.lessonPlanIndexes.length ? LESSON_FILTER : null;
+      }
+
+      function missionIdsOfMenuFilter(filter) {
+        return filter === LESSON_FILTER ? lessonMissionIds() : missionCategories[filter]?.missionIds || [];
+      }
+
+      function assessmentMenuIds() {
+        const assessable = missions.map((item) => item.id).filter(isAssessable);
+        const ofLesson = new Set(lessonMissionIds());
+        const inLesson = assessable.filter((id) => ofLesson.has(id));
+        return inLesson.length ? inLesson : assessable;
+      }
+
       function filteredMenuItems() {
+        if (state.assessmentMode) return assessmentMenuIds().map(menuItemById).filter(Boolean);
         if (state.menuFilter === null) {
           return missions.map((item, index) => ({ ...item, globalIndex: index }));
         }
-        return (missionCategories[state.menuFilter]?.missionIds || [])
-          .map(menuItemById)
-          .filter(Boolean);
+        return missionIdsOfMenuFilter(state.menuFilter).map(menuItemById).filter(Boolean);
+      }
+
+      function selectMissionInMenu(missionId) {
+        state.selected = Math.max(0, filteredMenuItems().findIndex((item) => item.id === missionId));
       }
 
       function setMenuFilter(filterIndex) {
@@ -18172,17 +18477,6 @@ const brStatesList = [
         memory: memoryLevels,
       };
 
-      function missionAgeRangeLabel(missionId) {
-        const levels = missionAgeLevelSources[missionId] || levelMissions[missionId]?.levels;
-        if (levels && levels.length) {
-          const firstNumber = levels[0].age.match(/\d+/)?.[0] || levels[0].age;
-          const lastMatches = levels[levels.length - 1].age.match(/\d+/g);
-          const lastNumber = lastMatches ? lastMatches[lastMatches.length - 1] : levels[levels.length - 1].age;
-          return `${firstNumber} a ${lastNumber} anos`;
-        }
-        return missions[missionIndexById.get(missionId)]?.ageRange || null;
-      }
-
       function renderAgePicker() {
         setHeader("Missões Interativas", "Escolha sua idade");
         ageBadge.hidden = true;
@@ -18201,25 +18495,16 @@ const brStatesList = [
         if (index < 0 || index >= ageBands.length) return;
         state.ageBand = index;
         state.selected = 0;
-        state.menuFilter = null;
+        state.menuFilter = defaultMenuFilter();
         showMessage("▶️ Vamos lá!", 650, "info");
         render();
       }
 
-      // Faixa que cobre quase todas as idades não precisa de selo: só as exceções aparecem.
-      function isWholeAgeRange(ageRange) {
-        const [first, last] = ageRange.match(/\d+/g).map(Number);
-        return first <= 6 && last >= 10;
-      }
-
       function menuTileHtml(item, isSelected) {
-        const ageRange = missionAgeRangeLabel(item.id);
-        const showAgeRange = ageRange && !isWholeAgeRange(ageRange);
         const done = Boolean(state.completed[item.id]);
         return `<div class="menu-tile ${item.featured ? "featured" : ""} ${isSelected ? "selected" : ""} ${done ? "done" : ""}">
           ${item.featured ? '<div class="menu-tile-star" role="img" aria-label="Destaque">⭐</div>' : ""}
           ${done ? '<div class="menu-tile-check" role="img" aria-label="Missão feita">✅</div>' : ""}
-          ${showAgeRange ? `<div class="menu-tile-age">${ageRange}</div>` : ""}
           <div class="menu-tile-icon">${item.icon}</div>
           <div class="menu-tile-title">${item.title}</div>
           <div class="menu-tile-subject">${item.subject}</div>
@@ -18240,12 +18525,19 @@ const brStatesList = [
       function renderMenu() {
         const items = filteredMenuItems();
         const activeFilter = state.menuFilter;
-        const category = activeFilter === null ? null : missionCategories[activeFilter];
-        setHeader("Missões Interativas", category ? `${category.icon} ${category.title}` : "Todas as missões");
+        const lessonActive = activeFilter === LESSON_FILTER;
+        const category = activeFilter === null || lessonActive ? null : missionCategories[activeFilter];
+        const hasLesson = state.lessonPlanIndexes.length > 0 && !state.assessmentMode;
+        setHeader("Missões Interativas", state.assessmentMode ? "📝 Modo avaliação" : lessonActive ? "📋 Missões da aula" : category ? `${category.icon} ${category.title}` : "Todas as missões");
         setCounters("Missões", `${items.length}`, "Feitas", `${Object.keys(state.completed).length}`);
-        status.textContent = category ? category.description : "Toque numa missão pra jogar, ou filtre por categoria.";
+        status.textContent = state.assessmentMode
+          ? `Modo avaliação: ${ASSESSMENT_QUESTIONS} perguntas por missão, uma tentativa em cada.`
+          : lessonActive
+          ? "Missões escolhidas para a aula de hoje. Toque em Todas para ver as outras."
+          : category ? category.description : "Toque numa missão pra jogar, ou filtre por categoria.";
         content.innerHTML = `<div class="menu-screen">
-          <div class="menu-filters">
+          <div class="menu-filters" ${state.assessmentMode ? "hidden" : ""}>
+            ${hasLesson ? `<button type="button" class="menu-filter-chip ${lessonActive ? "active" : ""}" data-filter="${LESSON_FILTER}">📋 Da aula (${lessonMissionIds().length})</button>` : ""}
             <button type="button" class="menu-filter-chip ${activeFilter === null ? "active" : ""}" data-filter="all">🔷 Todas</button>
             ${missionCategories.map((cat, index) => `<button type="button" class="menu-filter-chip ${activeFilter === index ? "active" : ""}" data-filter="${index}">${cat.icon} ${cat.title}</button>`).join("")}
           </div>
@@ -20188,7 +20480,7 @@ const brStatesList = [
         const round = rounds[state.round];
         const options = condOptions();
         setHeader("Portão Lógico", `${level.title}: aplique a regra.`);
-        setCounters("Portão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Portão", rounds);
         const answered = state.condCorrectIndex !== null;
         status.textContent = answered
           ? "Certo! Veja como a regra foi aplicada e continue."
@@ -20215,7 +20507,7 @@ const brStatesList = [
               </div>`;
             }).join("")}
           </div>
-          ${answered ? `<div class="quiz-why" data-speak>Regra aplicada: ${round.input.label} → ${round.scenario.outcomes[round.answerIndex].label}.</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
+          ${answered ? `<div class="quiz-why" data-speak>Regra aplicada: ${round.input.label} → ${round.scenario.outcomes[round.answerIndex].label}.</div>${continueButtonHtml(state.round + 1 >= roundTotal(rounds))}` : ""}
         </div>`;
         if (answered) showContinueButton();
       }
@@ -20234,6 +20526,22 @@ const brStatesList = [
         render();
       }
 
+      function answerCondInAssessment(isCorrect, rounds, round, choice) {
+        const { outcomes } = round.scenario;
+        recordAssessmentAnswer(isCorrect, {
+          question: round.scenario.ruleText,
+          context: round.input.label,
+          chosen: outcomes[choice].label,
+          correct: outcomes[round.answerIndex].label,
+          why: `Regra aplicada: ${round.input.label} → ${outcomes[round.answerIndex].label}.`,
+        });
+        state.round += 1;
+        state.selected = -1;
+        state.condAttempt = 0;
+        if (state.round >= roundTotal(rounds)) finishAssessmentRun();
+        else render();
+      }
+
       function handleCondEnter() {
         if (state.condCorrectIndex !== null) {
           continueCond();
@@ -20245,6 +20553,10 @@ const brStatesList = [
         if (!round) return;
         const choice = condOptions()[state.selected];
         const isCorrect = choice === round.answerIndex;
+        if (isAssessmentRunActive()) {
+          answerCondInAssessment(isCorrect, rounds, round, choice);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -20764,9 +21076,11 @@ const brStatesList = [
         const round = rounds[state.round];
         const options = quizOptions();
         setHeader(mission.title, level.title);
-        setCounters("Desafio", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Desafio", rounds);
         const answered = state.quizCorrectIndex !== null;
-        status.textContent = answered ? "Muito bem! Leia a explicação e continue." : "Escolha a resposta certa.";
+        status.textContent = answered
+          ? "Muito bem! Leia a explicação e continue."
+          : isAssessmentRunActive() ? "Avaliação: escolha com atenção, só há uma tentativa." : "Escolha a resposta certa.";
         content.innerHTML = `<div class="decompose-board">
           <div class="decompose-task-header">
             <span class="decompose-task-icon">${round.icon}</span>
@@ -20779,7 +21093,7 @@ const brStatesList = [
               ${state.quizCorrectIndex === index ? '<div class="fx-stamp">✅</div>' : ""}
             </button>`).join("")}
           </div>
-          ${answered ? `<div class="quiz-why" data-speak>${round.why}</div>${continueButtonHtml(state.round + 1 >= rounds.length)}` : ""}
+          ${answered ? `<div class="quiz-why" data-speak>${round.why}</div>${continueButtonHtml(state.round + 1 >= roundTotal(rounds))}` : ""}
         </div>`;
         if (answered) showContinueButton();
       }
@@ -20787,14 +21101,28 @@ const brStatesList = [
       function advanceQuizRound() {
         const mode = state.mode;
         const rounds = currentQuizRounds();
-        state.score += 1;
+        if (!isAssessmentRunActive()) state.score += 1;
         state.round += 1;
-        if (state.round >= rounds.length) {
-          complete(mode, quizMissions[mode].finalMessage);
+        if (state.round >= roundTotal(rounds)) {
+          if (isAssessmentRunActive()) finishAssessmentRun();
+          else complete(mode, quizMissions[mode].finalMessage);
           return;
         }
         startQuizRound();
         render();
+      }
+
+      // Na avaliação o erro também passa para a próxima pergunta, sem mostrar a resposta certa.
+      function answerQuizInAssessment(isCorrect, round, chosen) {
+        recordAssessmentAnswer(isCorrect, {
+          question: round.question,
+          code: round.code,
+          chosen,
+          correct: round.options[round.answer],
+          why: round.why,
+        });
+        state.selected = -1;
+        advanceQuizRound();
       }
 
       function handleQuizSubmit() {
@@ -20802,6 +21130,10 @@ const brStatesList = [
         if (!round) return;
         const options = quizOptions();
         const isCorrect = options[state.selected] === round.options[round.answer];
+        if (isAssessmentRunActive()) {
+          answerQuizInAssessment(isCorrect, round, options[state.selected]);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1200,
@@ -22960,6 +23292,7 @@ const brStatesList = [
         }
         if (mode === "robot") resetRobot();
         applyAutoTierForMode(mode);
+        beginAssessmentRun(mode);
         render();
       }
 
@@ -23105,30 +23438,45 @@ const brStatesList = [
         return legacyOptions(round)[state.selected];
       }
 
-      function handleLegacyDataEnter() {
+      // Resume os dados da pergunta de gráfico ou de conjunto, que não aparecem no enunciado.
+      function legacyRoundContext(round) {
+        if (round.labels) return round.labels.map((label, index) => `${label}: ${round.values[index]}`).join(", ");
+        return (round.items || []).join(" ");
+      }
+
+      function answerLegacyInAssessment(isCorrect, round) {
+        recordAssessmentAnswer(isCorrect, {
+          question: round.question,
+          context: legacyRoundContext(round),
+          chosen: selectedLegacyAnswer(round),
+          correct: round.options[round.answer],
+          why: round.why,
+        });
+        const { rounds } = legacyQuizSetups[state.legacyActivity];
+        state.round += 1;
+        state.selected = -1;
+        resetLegacyRuntimeState();
+        if (state.round >= roundTotal(rounds())) finishAssessmentRun();
+        else render();
+      }
+
+      function answerLegacyRound(round) {
         if (state.selected < 0) {
           showMessage("↔️ Escolha!", 650, "info");
           return;
         }
-        const round = legacyDataQuizRounds[state.round];
-        if (selectedLegacyAnswer(round) !== round.options[round.answer]) {
-          lockLegacyMistake(state.selected);
-          return;
-        }
-        showLegacyAnswer(round.why);
+        const isCorrect = selectedLegacyAnswer(round) === round.options[round.answer];
+        if (isAssessmentRunActive()) answerLegacyInAssessment(isCorrect, round);
+        else if (isCorrect) showLegacyAnswer(round.why);
+        else lockLegacyMistake(state.selected);
+      }
+
+      function handleLegacyDataEnter() {
+        answerLegacyRound(legacyDataQuizRounds[state.round]);
       }
 
       function handleLegacyOrganizeEnter() {
-        if (state.selected < 0) {
-          showMessage("↔️ Escolha!", 650, "info");
-          return;
-        }
-        const round = legacyOrganizeRounds[state.round];
-        if (selectedLegacyAnswer(round) !== round.options[round.answer]) {
-          lockLegacyMistake(state.selected);
-          return;
-        }
-        showLegacyAnswer(round.why);
+        answerLegacyRound(legacyOrganizeRounds[state.round]);
       }
 
       const legacyEnterHandlers = {
@@ -24906,8 +25254,8 @@ const brStatesList = [
         state.mathCupBreak = null;
         state.mathCupGoalPause = null;
         state.mode = "menu";
-        state.menuFilter = null;
-        state.selected = missions.findIndex((item) => item.id === "mathCup");
+        state.menuFilter = defaultMenuFilter();
+        selectMissionInMenu("mathCup");
         state.round = 0;
         state.score = 0;
         render();
@@ -25280,7 +25628,8 @@ const brStatesList = [
         const filterChip = clickedElement(event, ".menu-filter-chip");
         if (filterChip) {
           const filterValue = filterChip.dataset.filter;
-          setMenuFilter(filterValue === "all" ? null : Number(filterValue));
+          if (filterValue === "all") setMenuFilter(null);
+          else setMenuFilter(filterValue === LESSON_FILTER ? LESSON_FILTER : Number(filterValue));
           return true;
         }
 
@@ -25793,7 +26142,47 @@ const brStatesList = [
         observation: observationSheetHtml,
       };
 
+      function isPlanInPanel(planIndex) {
+        return state.lessonPlanIndexes.includes(planIndex);
+      }
+
+      function lessonPanelButtonLabel(planIndex) {
+        return isPlanInPanel(planIndex) ? "✅ No painel dos alunos (tocar para remover)" : "📌 Usar as missões deste plano no painel dos alunos";
+      }
+
+      function renderLessonMissionsStatus() {
+        const statusBox = document.getElementById("lessonMissionsStatus");
+        statusBox.hidden = state.lessonPlanIndexes.length === 0;
+        const grades = state.lessonPlanIndexes.map((index) => lessonPlans[index].grade).join(", ");
+        document.getElementById("lessonMissionsText").textContent = `📌 No painel dos alunos: ${grades} (${lessonMissionIds().length} missões)`;
+        renderLessonPlanGrid();
+      }
+
+      function setLessonPlansInPanel(planIndexes) {
+        state.lessonPlanIndexes = planIndexes;
+        if (state.mode === "menu") {
+          state.menuFilter = defaultMenuFilter();
+          state.selected = 0;
+        }
+        renderLessonMissionsStatus();
+        render();
+      }
+
+      function togglePlanInPanel(planIndex) {
+        const next = isPlanInPanel(planIndex)
+          ? state.lessonPlanIndexes.filter((index) => index !== planIndex)
+          : [...state.lessonPlanIndexes, planIndex].sort((a, b) => a - b);
+        setLessonPlansInPanel(next);
+      }
+
       function handleLessonPlanContentClick(event) {
+        const panelButton = event.target.closest("[data-lesson-panel]");
+        if (panelButton) {
+          const planIndex = Number(panelButton.dataset.lessonPanel);
+          togglePlanInPanel(planIndex);
+          panelButton.textContent = lessonPanelButtonLabel(planIndex);
+          return;
+        }
         const sheetButton = event.target.closest("[data-sheet]");
         if (sheetButton) {
           lessonPlanContent.innerHTML = lessonPlanSheetOpeners[sheetButton.dataset.sheet](Number(sheetButton.dataset.planIndex));
@@ -25849,6 +26238,7 @@ const brStatesList = [
           <div class="lesson-plan-tools lesson-plan-print-hide">
             <button id="unpluggedSheetButton" class="support-open-link" type="button" data-sheet="unplugged" data-plan-index="${planIndex}">🧩 Ficha desplugada</button>
             <button id="observationSheetButton" class="support-open-link" type="button" data-sheet="observation" data-plan-index="${planIndex}">📝 Ficha de observação</button>
+            <button id="lessonPanelButton" class="support-open-link lesson-plan-tool-wide" type="button" data-lesson-panel="${planIndex}">${lessonPanelButtonLabel(planIndex)}</button>
           </div>
           <div class="lesson-plan-footnote">Alinhado ao Currículo de Educação Digital da Rede Estadual de Santa Catarina (2026), à BNCC e à BNCC Computação (Parecer CNE/CEB 2/2022 e Resolução CNE/CEB 1/2022). Formato inspirado nas Sugestões Didáticas do currículo. Missões Interativas — Pensamento Computacional.</div>
         `;
@@ -26032,6 +26422,7 @@ const brStatesList = [
           <h3 class="lesson-plan-section-title">Avaliação</h3>
           <ul class="lesson-plan-list">
             <li>A avaliação é formativa e contínua: observe a participação, o raciocínio e a capacidade de explicar a solução, usando as perguntas de cada plano.</li>
+            <li>Para registrar o desempenho em uma aula, ligue o modo avaliação na área do professor: são 10 perguntas por missão, uma tentativa em cada, e o resultado sai com as perguntas erradas e as habilidades da BNCC para imprimir.</li>
             <li>Retome habilidades de anos anteriores quando a turma precisar. O currículo prevê esse ajuste ao diagnóstico de cada turma.</li>
           </ul>
           <h3 class="lesson-plan-section-title">Documentos de referência</h3>
@@ -26050,7 +26441,7 @@ const brStatesList = [
       }
 
       function renderLessonPlanGrid() {
-        lessonPlanGrid.innerHTML = lessonPlans.map((plan, index) => `<button class="lesson-plan-button" type="button" data-plan-index="${index}">${plan.grade}</button>`).join("");
+        lessonPlanGrid.innerHTML = lessonPlans.map((plan, index) => `<button class="lesson-plan-button ${isPlanInPanel(index) ? "in-panel" : ""}" type="button" data-plan-index="${index}">${isPlanInPanel(index) ? "📌 " : ""}${plan.grade}</button>`).join("");
       }
 
       function openLessonPlan(index) {
@@ -26367,6 +26758,7 @@ const brStatesList = [
       }
 
       function requestBackAction({ fromKeyboardEscape = false } = {}) {
+        if (isAssessmentRunActive()) return;
         if (!isBackActionProtected()) {
           handleBackAction({ fromKeyboardEscape });
           return;
@@ -26378,7 +26770,7 @@ const brStatesList = [
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
-        state.menuFilter = null;
+        state.menuFilter = defaultMenuFilter();
         state.selected = 0;
         render();
       }
@@ -26387,13 +26779,14 @@ const brStatesList = [
         stopTimer();
         state.answerLocked = false;
         state.mode = "menu";
-        state.menuFilter = null;
+        state.menuFilter = defaultMenuFilter();
         state.ageBand = null;
         state.selected = 0;
         render();
       }
 
       function requestHomeAction() {
+        if (isAssessmentRunActive()) return;
         if (!isBackActionProtected()) {
           goHome();
           return;
@@ -26556,6 +26949,7 @@ const brStatesList = [
         } else if (event.key === "Escape") {
           requestBackAction({ fromKeyboardEscape: true });
         } else if (event.key.toLowerCase() === "r") {
+          if (isAssessmentRunActive()) return;
           if (isLevelMission(state.mode)) {
             resetLegacyView();
             return;
@@ -26612,6 +27006,8 @@ const brStatesList = [
       lessonPlanContent.addEventListener("click", handleLessonPlanContentClick);
       document.getElementById("monthlyPlanButton").addEventListener("click", openMonthlyPlan);
       document.getElementById("guidanceButton").addEventListener("click", openGuidance);
+      document.getElementById("clearLessonMissionsButton").addEventListener("click", () => setLessonPlansInPanel([]));
+      document.getElementById("assessmentModeButton").addEventListener("click", () => setAssessmentMode(!state.assessmentMode));
       renderLessonPlanGrid();
       childAudienceButton.addEventListener("click", lockAboutForChild);
       adultHoldButton.addEventListener("pointerdown", startAdultHold);
@@ -26647,6 +27043,7 @@ const brStatesList = [
       resetButton.addEventListener("pointerdown", (event) => {
         event.preventDefault();
         event.stopPropagation();
+        if (isAssessmentRunActive()) return;
         startHoldAction(resetButton, restartFresh, { holdMessage: "Segure recomeçar" });
       });
       resetButton.addEventListener("pointerup", resetBackHold);

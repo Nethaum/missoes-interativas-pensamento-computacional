@@ -23,6 +23,8 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 | `e2e/quizzes.js` | Joga as missões de perguntas e respostas: erro, acerto, explicação e avanço só com o botão Continuar |
 | `e2e/continue-flow.js` | Dados e gráficos, Portão Lógico, Tradutor de Sinais, Mensagem secreta, Desmistificador de Pixels e Caça ao Bug: a resolução fica na tela até o aluno tocar em Continuar |
 | `e2e/teacher-area.js` | Planos, fichas, plano mensal e orientações no celular e no desktop (acessibilidade e vazamento horizontal) |
+| `e2e/lesson-missions.js` | Missões da aula: planos enviados ao painel, filtro "Da aula", "Todas" e limpeza |
+| `e2e/assessment.js` | Modo avaliação: 10 perguntas, uma tentativa, botões desativados, resultado com perguntas erradas e habilidades |
 | `e2e/a11y.js` | Auditoria axe-core de todas as telas no celular |
 | `e2e/offline.js` | Se o material abre e funciona sem internet depois da primeira visita |
 

@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 2.18.0
+Versão atual: 3.0.0
 
 ## Acesse
 
@@ -163,7 +163,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal e orientações de uso pedagógico e tempo de tela e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo avaliação (10 perguntas por missão, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 

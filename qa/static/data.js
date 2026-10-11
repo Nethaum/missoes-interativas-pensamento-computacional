@@ -116,12 +116,28 @@ function checkSyllables() {
 // ---- Planos de aula ----
 function checkLessonPlans() {
   const plans = loadConst('lessonPlans');
+  const missionIds = new Set(loadConst('missions').map((mission) => mission.id));
   plans.forEach((plan) => {
     const total = plan.sequence.reduce((sum, step) => sum + parseInt(step.time, 10), 0);
     if (total !== parseInt(plan.duration, 10)) report.problem(`plano ${plan.grade}: etapas somam ${total} min e a duração é ${plan.duration}`);
     if (!plan.skills.some((skill) => skill.main)) report.problem(`plano ${plan.grade}: sem habilidade principal`);
+    plan.missions
+      .filter((id) => !missionIds.has(id))
+      .forEach((id) => report.problem(`plano ${plan.grade}: missão recomendada inexistente (${id})`));
   });
   report.ok(`planos de aula: ${plans.length}`);
+}
+
+// ---- Modo avaliação ----
+function checkAssessmentSkills() {
+  const skillsByMission = loadConst('assessmentMissionSkills');
+  const skillTexts = loadConst('bnccSkillTexts');
+  const missionIds = new Set(loadConst('missions').map((mission) => mission.id));
+  Object.entries(skillsByMission).forEach(([missionId, codes]) => {
+    if (!missionIds.has(missionId)) report.problem(`avaliação: missão inexistente (${missionId})`);
+    codes.filter((code) => !skillTexts[code]).forEach((code) => report.problem(`avaliação: ${missionId} cita ${code} sem texto da habilidade`));
+  });
+  report.ok(`modo avaliação: ${Object.keys(skillsByMission).length} missões com habilidades`);
 }
 
 checkTicTacToe();
@@ -129,4 +145,5 @@ QUIZ_MISSION_IDS.forEach(checkQuizMission);
 checkPhonics();
 checkSyllables();
 checkLessonPlans();
+checkAssessmentSkills();
 report.finish();
