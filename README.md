@@ -90,7 +90,7 @@ Copa da Matemática, Jogo da Velha dos Enigmas, Robô Decifrador, Bandeiras e as
 
 ## Dispositivos
 
-O projeto foi pensado para desktop, notebook, painel interativo e celular. Em telas pequenas, a orientação horizontal costuma oferecer a melhor experiência. Depois da primeira visita, o material também abre sem internet (o navegador guarda uma cópia dos arquivos do próprio site, sem coletar nenhum dado).
+O projeto é otimizado para computador (desktop, notebook e painel interativo), porque o foco é o uso em sala de aula. No celular ele abre, mas algumas missões ficam apertadas; por isso aparece um aviso discreto, que some sozinho, e a orientação horizontal costuma ser melhor. Depois da primeira visita, o material também abre sem internet (o navegador guarda uma cópia dos arquivos do próprio site, sem coletar nenhum dado).
 
 ## Destaques
 

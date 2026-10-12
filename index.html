@@ -1501,8 +1501,8 @@
     .mobile-notice {
       position: fixed;
       left: 50%;
-      bottom: calc(78px + var(--safe-bottom));
-      z-index: 24;
+      top: calc(76px + var(--safe-top, 0px));
+      z-index: 40;
       transform: translateX(-50%);
       max-width: min(460px, calc(100vw - 28px));
       padding: 10px 14px;
@@ -1511,13 +1511,48 @@
       background: rgba(23, 63, 50, 0.96);
       color: var(--ink);
       font-family: var(--read-font);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 950;
       line-height: 1.1;
       text-align: center;
       text-shadow: var(--chalk-shadow);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-      pointer-events: none;
+    }
+
+    .mobile-notice:not([hidden]) {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+      padding: 6px 6px 6px 12px;
+    }
+
+    .mobile-notice-text {
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .mobile-notice-portrait {
+      display: none;
+    }
+
+    body.is-portrait .mobile-notice-portrait {
+      display: inline;
+    }
+
+    .mobile-notice-dismiss {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      font-weight: 900;
+      font-size: 13px;
+      cursor: pointer;
     }
 
     .update-banner {
@@ -8510,9 +8545,10 @@
       }
     }
 
-    @media (max-width: 720px) and (orientation: portrait) {
+    @media (max-width: 720px) {
       .mobile-notice {
-        bottom: calc(70px + var(--safe-bottom));
+        top: calc(60px + var(--safe-top, 0px));
+        max-width: calc(100vw - 20px);
       }
     }
 
@@ -9426,7 +9462,10 @@
     <div id="message" class="message">Muito bem!</div>
   </main>
 
-  <div id="mobileNotice" class="mobile-notice" hidden>📱 Vire o celular para jogar melhor.</div>
+  <div id="mobileNotice" class="mobile-notice" hidden>
+    <span class="mobile-notice-text">💻 Feito para o computador. No celular, algumas missões ficam apertadas.<span class="mobile-notice-portrait"> Vire o aparelho para jogar melhor.</span></span>
+    <button id="mobileNoticeDismiss" class="mobile-notice-dismiss" type="button" aria-label="Fechar aviso">✕</button>
+  </div>
 
   <div id="updateBanner" class="update-banner" hidden>
     <span class="update-banner-text">🔄 Nova versão disponível.</span>
@@ -9584,6 +9623,12 @@
       const feedbackNotice = document.getElementById("feedbackNotice");
       const appVersion = document.getElementById("appVersion");
       const mobileNotice = document.getElementById("mobileNotice");
+      const mobileNoticeDismiss = document.getElementById("mobileNoticeDismiss");
+      const MOBILE_NOTICE_KEY = "mobileNoticeDismissed";
+      const MOBILE_NOTICE_SHOWN_MS = 10000;
+      let mobileNoticeDismissed = false;
+      let mobileNoticeTimer = null;
+      try { mobileNoticeDismissed = sessionStorage.getItem(MOBILE_NOTICE_KEY) === "1"; } catch { mobileNoticeDismissed = false; }
       const updateBanner = document.getElementById("updateBanner");
       const updateBannerButton = document.getElementById("updateBannerButton");
       const updateBannerDismiss = document.getElementById("updateBannerDismiss");
@@ -26472,7 +26517,16 @@ const brStatesList = [
         document.body.classList.toggle("is-phone", isPhone);
         document.body.classList.toggle("is-portrait", isPortrait);
         document.body.classList.toggle("is-landscape", !isPortrait);
-        mobileNotice.hidden = !(isPhone && isPortrait && !isAboutModalOpen());
+        mobileNotice.hidden = !(isPhone && !mobileNoticeDismissed && !isAboutModalOpen());
+        if (!mobileNotice.hidden && mobileNoticeTimer === null) mobileNoticeTimer = window.setTimeout(dismissMobileNotice, MOBILE_NOTICE_SHOWN_MS);
+      }
+
+      // O aviso some sozinho e, depois de fechado, não volta nesta sessão do navegador.
+      function dismissMobileNotice() {
+        window.clearTimeout(mobileNoticeTimer);
+        mobileNoticeDismissed = true;
+        mobileNotice.hidden = true;
+        try { sessionStorage.setItem(MOBILE_NOTICE_KEY, "1"); } catch { /* sem armazenamento: o aviso só some até recarregar */ }
       }
 
       function handleViewportChange() {
@@ -27597,6 +27651,7 @@ const brStatesList = [
 
       updateBannerButton.addEventListener("click", () => location.reload());
       updateBannerDismiss.addEventListener("click", () => { updateBanner.hidden = true; });
+      mobileNoticeDismiss.addEventListener("click", dismissMobileNotice);
       document.addEventListener("visibilitychange", () => {
         if (!document.hidden) {
           checkForUpdate();
