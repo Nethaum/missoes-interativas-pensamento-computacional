@@ -25,6 +25,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 | `e2e/teacher-area.js` | Planos, fichas, plano mensal e orientações no celular e no desktop (acessibilidade e vazamento horizontal) |
 | `e2e/lesson-missions.js` | Missões da aula: planos enviados ao painel, filtro "Da aula", "Todas" e limpeza |
 | `e2e/assessment.js` | Modo avaliação: 10 perguntas, uma tentativa, botões desativados, resultado com perguntas erradas e habilidades |
+| `e2e/assessment-puzzles.js` | Modo avaliação em Chef, Ciclos, Caderneta, Padrão, Divida a Tarefa, Estante, Robô coletor e Robô Programador |
 | `e2e/a11y.js` | Auditoria axe-core de todas as telas no celular |
 | `e2e/offline.js` | Se o material abre e funciona sem internet depois da primeira visita |
 

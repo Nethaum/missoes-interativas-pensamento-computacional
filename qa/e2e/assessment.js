@@ -1,27 +1,22 @@
 // Modo avaliação: 10 perguntas, uma tentativa, sem resposta na tela, botões de saída desativados e resultado no fim.
 const { loadConst } = require('../lib/extract');
 const { startServer } = require('../lib/server');
-const { launchBrowser, newPage, openMenu, openMission, unlockTeacherArea } = require('../lib/browser');
+const { launchBrowser, newPage, openMenu, openMission } = require('../lib/browser');
+const { setAssessmentMode } = require('../lib/assessment');
 const { createReport } = require('../lib/report');
 
 const BAND_USED = 3;
 const QUESTIONS = 10;
 const HITS_PLANNED = 7;
-const ASSESSABLE_MISSIONS = 7;
+const ASSESSABLE_MISSIONS = 21;
+const MAX_CLICKS = QUESTIONS * 2 + 3;
+const ROBOT_WALK_MS = 4500;
 const OPTION = '.decompose-option';
 const OPTION_TEXT = '.decompose-option-step';
 const QUESTION = '.decompose-task-title';
 const RESULT_SCORE = '#lessonPlanModal .assessment-score';
 const ANSWER_SETTLE_MS = 700;
 const GUARDED_BUTTONS = ['#homeButton', '#resetButton', '#backButton'];
-
-async function setAssessmentMode(page, wanted) {
-  await unlockTeacherArea(page);
-  const pressed = (await page.getAttribute('#assessmentModeButton', 'aria-pressed')) === 'true';
-  if (pressed !== wanted) await page.click('#assessmentModeButton');
-  await page.keyboard.press('Escape');
-  await page.waitForTimeout(300);
-}
 
 const buttonsDisabled = (page) => page.evaluate((selectors) => selectors.map((selector) => document.querySelector(selector).disabled), GUARDED_BUTTONS);
 
@@ -85,12 +80,44 @@ async function checkResult(page, report, expectedHits, wrongQuestions) {
   if ((await buttonsDisabled(page)).some(Boolean)) report.problem('os botões deveriam voltar a funcionar depois do resultado');
 }
 
-async function checkGenericAssessment(page, report, title, optionSelector) {
+// Tradutor de Sinais: ver todos os comandos e esconder a caixa antes de responder.
+async function revealVariableCommands(page) {
+  for (let step = 0; step < 20; step++) {
+    const label = await page.innerText('.var-next-button').catch(() => null);
+    if (label === null) return;
+    const readyToAnswer = label.includes('Esconder');
+    await page.click('.var-next-button');
+    await page.waitForTimeout(150);
+    if (readyToAnswer) return;
+  }
+}
+
+// Caça ao Bug: primeiro o comando errado, depois a direção certa. O robô anda no começo de cada rodada.
+const bugOptionSelector = async (page) => ((await page.$('.bug-fix-option')) ? '.bug-fix-option' : '.bug-chip');
+const waitForRobotWalk = async (page) => {
+  if (!(await page.$('.bug-fix-option'))) await page.waitForTimeout(ROBOT_WALK_MS);
+};
+
+const GENERIC_MISSIONS = [
+  { title: 'Portão Lógico', option: '.cond-option' },
+  { title: 'Dados e gráficos', option: '.answer-row .answer-card' },
+  { title: 'Desmistificador de Pixels', option: '.pixel-option' },
+  { title: 'Entrada ou saída', option: '.device-option' },
+  { title: 'Fábrica de Laços', option: '.loop-confirm-button' },
+  { title: 'Mensagem secreta', option: '.code-option' },
+  { title: 'Tradutor de Sinais', option: '.var-option', ready: '.var-next-button', prepare: revealVariableCommands },
+  { title: 'Caça ao Bug', option: bugOptionSelector, ready: '.bug-chip', prepare: waitForRobotWalk },
+];
+
+async function checkGenericAssessment(page, report, mission) {
+  const { title, option, prepare, ready } = mission;
   await openMission(page, title);
-  await page.waitForSelector(optionSelector);
-  for (let answered = 0; answered < QUESTIONS + 3; answered++) {
+  await page.waitForSelector(ready || option);
+  for (let clicks = 0; clicks < MAX_CLICKS; clicks++) {
     if (await page.locator('#lessonPlanModal .assessment-score').isVisible().catch(() => false)) break;
-    await page.locator(optionSelector).first().click({ timeout: 3000 }).catch(() => {});
+    if (prepare) await prepare(page);
+    const selector = typeof option === 'function' ? await option(page) : option;
+    await page.locator(selector).first().click({ timeout: 3000 }).catch(() => {});
     await page.waitForTimeout(ANSWER_SETTLE_MS);
   }
   await page.waitForSelector(RESULT_SCORE, { state: 'visible', timeout: 5000 }).catch(() => report.problem(`${title}: o resultado não apareceu`));
@@ -115,12 +142,11 @@ async function main() {
     const shown = await page.locator('.menu-tile').count();
     if (shown !== ASSESSABLE_MISSIONS) report.problem(`o painel deveria mostrar ${ASSESSABLE_MISSIONS} missões avaliáveis e mostra ${shown}`);
     await checkQuizAssessment(page, report);
-    await checkGenericAssessment(page, report, 'Portão Lógico', '.cond-option');
-    await checkGenericAssessment(page, report, 'Dados e gráficos', '.answer-row .answer-card');
+    for (const mission of GENERIC_MISSIONS) await checkGenericAssessment(page, report, mission);
     await setAssessmentMode(page, false);
     if ((await page.locator('.menu-tile').count()) !== allMissions) report.problem('ao desligar, o painel deveria voltar a mostrar todas as missões');
     page.collectedErrors.forEach((error) => report.problem(error));
-    report.ok('avaliação percorrida em 3 tipos de missão');
+    report.ok(`avaliação percorrida em ${GENERIC_MISSIONS.length + 1} missões`);
   } finally {
     await browser.close();
     await server.close();

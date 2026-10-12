@@ -108,7 +108,7 @@ O material é revisado continuamente para corrigir problemas, melhorar a leitura
 
 ## Missões
 
-Todas as missões ficam numa grade compacta (mais de uma dezena por tela no computador), com uma barra de filtros por categoria pedagógica (alfabetização, sequência e algoritmos, padrões, códigos e dados, classificação e organização, lógica e decisão, lógica de programação, mundo digital e cultura digital, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
+Todas as missões ficam numa grade compacta (mais de uma dezena por tela no computador), agrupadas em Destaques e uma seção por categoria, com uma barra de filtros por categoria pedagógica (alfabetização, sequência e algoritmos, padrões, códigos e dados, classificação e organização, lógica e decisão, lógica de programação, mundo digital e cultura digital, destaques) para achar rápido o que precisa. As faixas de dificuldade vão do 1º ao 9º ano.
 
 - Copa da Matemática: futebol, estratégia, cálculo mental e probabilidade.
 - Bandeiras: reconhecimento das bandeiras dos países ou dos estados do Brasil, com escolha da base (países ou estados) e do jeito de jogar — estudar e reconhecer, bandeira→nome ou nome→bandeira.
@@ -163,7 +163,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo avaliação (10 perguntas por missão, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo avaliação (21 missões com resposta certa ou errada, 10 perguntas por missão, ou 5 no Robô coletor e na Estante Organizada e 3 no Robô Programador, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 

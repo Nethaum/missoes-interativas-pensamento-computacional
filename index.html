@@ -653,6 +653,22 @@
       font-size: 13px;
     }
 
+    .assessment-answers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      align-items: flex-start;
+    }
+
+    .assessment-answers span {
+      display: grid;
+      gap: 4px;
+    }
+
+    .assessment-answers .pixel-grid {
+      width: 64px;
+    }
+
     .assessment-code {
       margin: 4px 0;
       padding: 6px 10px;
@@ -1578,6 +1594,26 @@
       }
     }
 
+    .menu-section {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+    }
+
+    .menu-section-title {
+      margin: 4px 0 0;
+      color: var(--ink);
+      font-family: var(--chalk-font);
+      font-size: 20px;
+      line-height: 1.1;
+      text-align: left;
+      text-shadow: var(--chalk-shadow);
+    }
+
+    .menu-section-title.featured {
+      color: var(--yellow);
+    }
+
     .menu-grid {
       width: 100%;
       display: grid;
@@ -1669,7 +1705,7 @@
       }
 
       .menu-tile {
-        min-height: 104px;
+        min-height: 124px;
         padding: 10px 6px 8px;
       }
 
@@ -1682,7 +1718,8 @@
       }
 
       .menu-tile-subject {
-        display: none;
+        font-size: 11px;
+        line-height: 1.2;
       }
     }
 
@@ -9452,7 +9489,7 @@
           </div>
           <div class="assessment-box">
             <div class="support-title">📝 Modo avaliação</div>
-            <p class="support-text">Nas missões de perguntas, em Dados e gráficos e no Portão Lógico: 10 perguntas, uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
+            <p class="support-text">Em 21 missões com resposta certa ou errada: 10 perguntas por missão (5 em Robô coletor e Estante Organizada, 3 em Robô Programador, que são fases inteiras), uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
             <button id="assessmentModeButton" class="support-open-link" type="button" aria-pressed="false">📝 Ligar o modo avaliação</button>
           </div>
           <div id="lessonMissionsStatus" class="lesson-missions-status" hidden>
@@ -10332,17 +10369,33 @@
         reading: ["EF01CO02", "EF02CO02", "EF04CO03", "EF05CO03", "EF05CO04", "EF06CO01", "EF06CO02", "EF06CO05", "EF07CO02", "EF07CO05", "EF08CO01", "EF08CO02", "EF08CO03", "EF09CO02"],
         data: ["EF03CO04", "EF03CO05"],
         cond: ["EF03CO01", "EF05CO03", "EF05CO04"],
+        pixels: ["EF04CO05"],
+        var: ["EF06CO06"],
+        devices: ["EF03CO06", "EF05CO05"],
+        loop: ["EF02CO02", "EF03CO02", "EF04CO03"],
+        code: ["EF01CO05", "EF04CO04", "EF04CO05"],
+        bug: ["EF07CO02"],
+        robot: ["EF01CO02", "EF01CO03", "EF02CO02"],
+        chef: ["EF01CO02", "EF01CO03"],
+        cycle: ["EF01CO03"],
+        vaccine: ["EF01CO03"],
+        pattern: ["EF01CO01", "EF02CO01"],
+        decompose: ["EF03CO03", "EF06CO04"],
+        sort: ["EF05CO01", "EF08CO03"],
+        builder: ["EF02CO02", "EF05CO04", "EF06CO02", "EF07CO05"],
       };
 
       const bnccSkillTexts = {
         EF01CO01: "Organizar objetos físicos ou digitais considerando diferentes características para esta organização, explicitando semelhanças (padrões) e diferenças.",
         EF01CO02: "Identificar e seguir sequências de passos aplicados no dia a dia para resolver problemas.",
+        EF01CO05: "Representar informação usando diferentes codificações.",
         EF01CO07: "Conhecer as possibilidades de uso seguro das tecnologias computacionais para proteção dos dados pessoais e para garantir a própria segurança.",
         EF02CO02: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, construídos como sequências com repetições simples (iterações definidas) com base em instruções preestabelecidas ou criadas, analisando como a precisão da instrução impacta na execução do algoritmo.",
         EF02CO04: "Diferenciar componentes físicos (hardware) e programas que fornecem as instruções (software) para o hardware.",
         EF02CO05: "Reconhecer as características e usos das tecnologias computacionais no cotidiano dentro e fora da escola.",
         EF02CO06: "Reconhecer os cuidados com a segurança no uso de dispositivos computacionais.",
         EF03CO01: "Associar os valores 'verdadeiro' e 'falso' a sentenças lógicas que dizem respeito a situações do dia a dia, fazendo uso de termos que indicam negação.",
+        EF03CO02: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências e repetições simples com condição (iterações indefinidas), para resolver problemas de forma independente e em colaboração.",
         EF03CO04: "Relacionar o conceito de informação com o de dado.",
         EF03CO05: "Compreender que dados são estruturados em formatos específicos dependendo da informação armazenada.",
         EF03CO06: "Reconhecer que, para um computador realizar tarefas, ele se comunica com o mundo exterior com o uso de interfaces físicas (dispositivos de entrada e saída).",
@@ -10352,6 +10405,7 @@
         EF04CO02: "Reconhecer objetos do mundo real e/ou digital que podem ser representados através de registros que estabelecem uma organização na qual cada componente é identificado por um nome, fazendo manipulações sobre estas representações.",
         EF04CO03: "Criar e simular algoritmos representados em linguagem oral, escrita ou pictográfica, que incluam sequências e repetições simples e aninhadas (iterações definidas e indefinidas), para resolver problemas de forma independente e em colaboração.",
         EF04CO04: "Entender que para guardar, manipular e transmitir dados deve-se codificá-los de alguma forma que seja compreendida pela máquina (formato digital).",
+        EF04CO05: "Codificar diferentes informações para representação em computador (binária, ASCII, atributos de pixel, como RGB etc.).",
         EF04CO06: "Usar diferentes ferramentas computacionais para criação de conteúdo (textos, apresentações, vídeos etc.).",
         EF04CO07: "Demonstrar postura ética nas atividades de coleta, transferência, guarda e uso de dados.",
         EF04CO08: "Reconhecer a importância de verificar a confiabilidade das fontes de informações obtidas na Internet.",
@@ -10368,6 +10422,7 @@
         EF06CO01: "Classificar informações, agrupando-as em coleções (conjuntos) e associando cada coleção a um ‘tipo de dados’.",
         EF06CO02: "Elaborar algoritmos que envolvam instruções sequenciais, de repetição e de seleção usando uma linguagem de programação.",
         EF06CO05: "Identificar os recursos ou insumos necessários (entradas) para a resolução de problemas, bem como os resultados esperados (saídas), determinando os respectivos tipos de dados, e estabelecendo a definição de problema como uma relação entre entrada e saída.",
+        EF06CO06: "Comparar diferentes casos particulares (instâncias) de um mesmo problema, identificando as semelhanças e diferenças entre eles, e criar um algoritmo para resolver todos, fazendo uso de variáveis (parâmetros) para permitir o tratamento de todos os casos de forma genérica.",
         EF06CO07: "Entender o processo de transmissão de dados, como a informação é quebrada em pedaços, transmitida em pacotes através de múltiplos equipamentos, e reconstruída no destino.",
         EF06CO08: "Compreender e utilizar diferentes formas de armazenar, manipular, compactar e recuperar arquivos, documentos e metadados.",
         EF06CO09: "Apresentar conduta e linguagem apropriadas ao se comunicar em ambiente digital, considerando a ética e o respeito.",
@@ -10401,6 +10456,10 @@
         EF09CO08: "Discutir como a distribuição desigual de recursos de computação em uma economia global levanta questões de equidade, acesso e poder.",
         EF09CO09: "Criar ou utilizar conteúdo em meio digital, compreendendo questões éticas relacionadas a direitos autorais e de uso de imagem.",
         EF09CO10: "Avaliar a veracidade, credibilidade e relevância da informação em seus diferentes formatos, sendo capaz de identificar o propósito pelo qual foi disseminada.",
+        EF01CO03: "Reorganizar e criar sequências de passos em meios físicos ou digitais, relacionando essas sequências à palavra ‘Algoritmos’.",
+        EF02CO01: "Criar e comparar modelos (representações) de objetos, identificando padrões e atributos essenciais.",
+        EF03CO03: "Aplicar a estratégia de decomposição para resolver problemas complexos, dividindo esse problema em partes menores, resolvendo-as e combinando suas soluções.",
+        EF06CO04: "Construir soluções de problemas usando a técnica de decomposição e automatizar tais soluções usando uma linguagem de programação.",
       };
 
       const missionIndexById = new Map(missions.map((item, index) => [item.id, index]));
@@ -14402,6 +14461,28 @@ const brStatesList = [
         return state.builderGoals.every((cell) => state.builderCells[cell]);
       }
 
+      function builderGoalsReached(level) {
+        return level.orderedGoals
+          ? state.builderNextGoalIndex
+          : state.builderGoals.filter((cell) => state.builderCells[cell]).length;
+      }
+
+      // Cada fase é uma pergunta e só vale a primeira execução do programa.
+      function answerBuilderInAssessment(allGoalsReached) {
+        const level = builderLevels[state.builderLevel];
+        recordAssessmentAnswer(allGoalsReached, {
+          question: `Fase ${assessmentAnswered() + 1}: programe o robô para alcançar todos os objetivos.`,
+          chosen: `${state.builderProgram.length} blocos, ${builderGoalsReached(level)} de ${state.builderGoals.length} objetivos`,
+          correct: "todos os objetivos na primeira execução",
+        });
+        if (assessmentAnswered() >= state.assessmentRun.total) {
+          finishAssessmentRun();
+          return;
+        }
+        startBuilderCanvas();
+        render();
+      }
+
       function resetBuilderRound() {
         const size = builderGridSize();
         window.clearTimeout(state.builderRunTimer);
@@ -14666,7 +14747,7 @@ const brStatesList = [
           applyBuilderStep(state.builderRunQueue[state.builderRunIndex]);
           state.builderRunIndex += 1;
           const nowComplete = builderGoalsComplete();
-          if (!wasComplete && nowComplete) {
+          if (!wasComplete && nowComplete && !isAssessmentRunActive()) {
             showMessage("🎉 Todos os objetivos alcançados!", 1200, "good");
             state.completed.builder = true;
           }
@@ -14679,6 +14760,10 @@ const brStatesList = [
             state.builderRunIndex = 0;
             state.builderRunTimer = null;
             state.builderExecutedCount = state.builderProgram.length;
+            if (isAssessmentRunActive()) {
+              answerBuilderInAssessment(nowComplete);
+              return;
+            }
             if (nowComplete) {
               state.builderAutoAdvanceTimer = window.setTimeout(() => {
                 if (state.mode !== "builder") return;
@@ -16671,6 +16756,8 @@ const brStatesList = [
         mode: "menu",
         menuFilter: null,
         lessonPlanIndexes: [],
+        sortInitialValues: [],
+        robotBumps: 0,
         assessmentMode: false,
         assessmentRun: null,
         round: 0,
@@ -18292,6 +18379,8 @@ const brStatesList = [
       }
 
       const ASSESSMENT_QUESTIONS = 10;
+      // Missões em que cada pergunta é uma fase inteira têm menos perguntas.
+      const ASSESSMENT_TOTALS = { sort: 5, robot: 5, builder: 3 };
       const ASSESSMENT_BAND_YEARS = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 9]];
 
       function isAssessable(missionId) {
@@ -18307,15 +18396,23 @@ const brStatesList = [
         return isAssessmentRunActive() ? Math.min(rounds.length, state.assessmentRun.total) : rounds.length;
       }
 
-      function setMissionCounters(label, rounds) {
-        const position = `${state.round + 1} / ${roundTotal(rounds)}`;
-        if (isAssessmentRunActive()) setCounters(label, position, "Modo", "📝 Prova");
-        else setCounters(label, position, "Acertos", state.score);
+      function assessmentAnswered() {
+        return state.assessmentRun.hits + state.assessmentRun.misses;
+      }
+
+      // `extra` troca o segundo contador (por padrão "Modo: Prova") por um dado útil da missão.
+      function setMissionCounters(label, rounds, extra = ["Modo", "📝 Prova"]) {
+        if (isAssessmentRunActive()) {
+          const run = state.assessmentRun;
+          setCounters(label, `${Math.min(assessmentAnswered() + 1, run.total)} / ${run.total}`, ...extra);
+        } else {
+          setCounters(label, `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        }
       }
 
       function beginAssessmentRun(mode) {
         const active = state.assessmentMode && isAssessable(mode) && state.ageBand !== null;
-        state.assessmentRun = active ? { missionId: mode, band: state.ageBand, total: ASSESSMENT_QUESTIONS, hits: 0, misses: 0, missed: [] } : null;
+        state.assessmentRun = active ? { missionId: mode, band: state.ageBand, total: ASSESSMENT_TOTALS[mode] || ASSESSMENT_QUESTIONS, hits: 0, misses: 0, missed: [] } : null;
         updateAssessmentLock();
       }
 
@@ -18336,7 +18433,10 @@ const brStatesList = [
           <strong>${escapeHtml(item.question)}</strong>
           ${item.context ? `<div class="assessment-context">${escapeHtml(item.context)}</div>` : ""}
           ${item.code ? `<pre class="assessment-code">${escapeHtml(item.code)}</pre>` : ""}
-          <div>Resposta do aluno: <em>${escapeHtml(item.chosen)}</em> · Resposta certa: <strong>${escapeHtml(item.correct)}</strong></div>
+          <div class="assessment-answers">
+            <span>Resposta do aluno: <em>${item.chosenHtml || escapeHtml(item.chosen)}</em></span>
+            <span>Resposta certa: <strong>${item.correctHtml || escapeHtml(item.correct)}</strong></span>
+          </div>
           ${item.why ? `<div class="assessment-why">${escapeHtml(item.why)}</div>` : ""}
         </li>`;
       }
@@ -18440,12 +18540,27 @@ const brStatesList = [
         return inLesson.length ? inLesson : assessable;
       }
 
+      // Com filtro ativo (categoria, aula ou avaliação) o painel mostra uma lista só.
+      function filteredMissionItems() {
+        const ids = state.assessmentMode ? assessmentMenuIds() : missionIdsOfMenuFilter(state.menuFilter);
+        return ids.map(menuItemById).filter(Boolean);
+      }
+
+      // Em "Todas": os destaques primeiro e depois uma seção por categoria. Cada missão aparece uma vez só.
+      function menuSections() {
+        if (state.assessmentMode || state.menuFilter !== null) return [{ items: filteredMissionItems() }];
+        const shown = new Set();
+        const unseen = (ids) => ids.filter((id) => !shown.has(id) && shown.add(id)).map(menuItemById).filter(Boolean);
+        const shelf = { icon: "⭐", title: "Destaques", featured: true, items: unseen(missions.filter((item) => item.featured).map((item) => item.id)) };
+        const byCategory = missionCategories
+          .filter((category) => category.title !== shelf.title)
+          .map((category) => ({ icon: category.icon, title: category.title, items: unseen(category.missionIds) }));
+        return [shelf, ...byCategory].filter((section) => section.items.length);
+      }
+
+      // A ordem desta lista é a ordem dos cartões na tela: o toque e o teclado usam o mesmo índice.
       function filteredMenuItems() {
-        if (state.assessmentMode) return assessmentMenuIds().map(menuItemById).filter(Boolean);
-        if (state.menuFilter === null) {
-          return missions.map((item, index) => ({ ...item, globalIndex: index }));
-        }
-        return missionIdsOfMenuFilter(state.menuFilter).map(menuItemById).filter(Boolean);
+        return menuSections().flatMap((section) => section.items);
       }
 
       function selectMissionInMenu(missionId) {
@@ -18522,6 +18637,15 @@ const brStatesList = [
         return Math.max(1, tiles.filter((tile) => tile.offsetTop === tiles[0].offsetTop).length);
       }
 
+      function menuSectionsHtml() {
+        let tileNumber = 0;
+        return menuSections().map((section) => {
+          const tiles = section.items.map((item) => menuTileHtml(item, tileNumber++ === state.selected)).join("");
+          const heading = section.title ? `<h2 class="menu-section-title ${section.featured ? "featured" : ""}">${section.icon} ${section.title}</h2>` : "";
+          return `<section class="menu-section">${heading}<div class="menu-grid">${tiles}</div></section>`;
+        }).join("");
+      }
+
       function renderMenu() {
         const items = filteredMenuItems();
         const activeFilter = state.menuFilter;
@@ -18541,7 +18665,7 @@ const brStatesList = [
             <button type="button" class="menu-filter-chip ${activeFilter === null ? "active" : ""}" data-filter="all">🔷 Todas</button>
             ${missionCategories.map((cat, index) => `<button type="button" class="menu-filter-chip ${activeFilter === index ? "active" : ""}" data-filter="${index}">${cat.icon} ${cat.title}</button>`).join("")}
           </div>
-          <div class="menu-grid">${items.map((item, index) => menuTileHtml(item, index === state.selected)).join("")}</div>
+          ${menuSectionsHtml()}
         </div>`;
         keepSelectedTileVisible();
       }
@@ -18585,6 +18709,7 @@ const brStatesList = [
         state.robotStunned = false;
         state.robotJustCollected = null;
         state.robotBump = false;
+        state.robotBumps = 0;
       }
 
       function renderRobot() {
@@ -18595,7 +18720,8 @@ const brStatesList = [
           ? Math.round((state.robotCollected.size / level.energies.length) * 100)
           : 100;
         setHeader("Robô coletor", portalOpen ? "A saída está aberta!" : "Colete as energias e encontre a saída.");
-        setCounters("Fase", `${state.round + 1} / ${robotLevels.length}`, "Passos", state.robotSteps);
+        if (isAssessmentRunActive()) setMissionCounters("Fase", robotLevels, ["Passos", state.robotSteps]);
+        else setCounters("Fase", `${state.round + 1} / ${robotLevels.length}`, "Passos", state.robotSteps);
         status.textContent = portalOpen ? "Vá até o portal!" : `Faltam ${remaining} energias.`;
         const walls = new Set(level.walls.map((wall) => wall.join(",")));
         const holes = new Set(level.holes.map((hole) => hole.join(",")));
@@ -18650,6 +18776,22 @@ const brStatesList = [
         </div>`;
       }
 
+      // Cada fase é uma pergunta: acerta quem chega ao portal sem cair em buraco de minhoca nem bater na parede.
+      function answerRobotInAssessment() {
+        recordAssessmentAnswer(state.robotFalls === 0 && state.robotBumps === 0, {
+          question: `Fase ${state.round + 1}: colete as energias e chegue ao portal.`,
+          chosen: `${state.robotSteps} passos, ${state.robotFalls} quedas e ${state.robotBumps} batidas`,
+          correct: "chegar sem cair em buracos nem bater nas paredes",
+        });
+        state.round += 1;
+        if (assessmentAnswered() >= state.assessmentRun.total || state.round >= robotLevels.length) {
+          finishAssessmentRun();
+          return;
+        }
+        resetRobot();
+        render();
+      }
+
       function moveRobot(key) {
         if (state.robotFinishing || state.robotFalling || state.robotStunned) return;
         state.robotJustCollected = null;
@@ -18664,6 +18806,7 @@ const brStatesList = [
         const ny = state.robot[1] + move[1];
         const blocked = level.walls.some((wall) => wall[0] === nx && wall[1] === ny);
         if (nx < 0 || ny < 0 || nx >= level.size[0] || ny >= level.size[1] || blocked) {
+          state.robotBumps += 1;
           state.robotBump = true;
           state.robotStunned = true;
           showMessage("💫 Tonto!", 600, "warn");
@@ -18706,6 +18849,10 @@ const brStatesList = [
           if (state.robotCollected.size < level.energies.length) {
             showMessage("✨ Falta energia!", 700, "warn");
             render();
+            return;
+          }
+          if (isAssessmentRunActive()) {
+            answerRobotInAssessment();
             return;
           }
           state.robotFinishing = true;
@@ -19539,7 +19686,8 @@ const brStatesList = [
         const available = state.cycleShuffled;
         state.selected = Math.min(state.selected, Math.max(0, available.length - 1));
         setHeader("Ciclos da natureza", cycle.name);
-        setCounters("Ciclo", `${state.round + 1} / ${cycles.length}`, "Passos", `${state.cycleChosen.length} / ${cycle.steps.length}`);
+        if (isAssessmentRunActive()) setMissionCounters("Ciclo", cycles);
+        else setCounters("Ciclo", `${state.round + 1} / ${cycles.length}`, "Passos", `${state.cycleChosen.length} / ${cycle.steps.length}`);
         status.textContent = state.answerLocked ? "Observe a ordem." : state.cycleChosen.length ? "Qual vem depois?" : "O que vem primeiro?";
         content.innerHTML = `<div class="cycle-board">
           <div class="cycle-slots">
@@ -19562,7 +19710,8 @@ const brStatesList = [
         const available = state.vaccineShuffled;
         state.selected = Math.min(state.selected, Math.max(0, available.length - 1));
         setHeader("Caderneta de vacinação", round.name);
-        setCounters("Etapa", `${state.round + 1} / ${vaccineRounds.length}`, "Passos", `${state.vaccineChosen.length} / ${round.steps.length}`);
+        if (isAssessmentRunActive()) setMissionCounters("Etapa", vaccineRounds);
+        else setCounters("Etapa", `${state.round + 1} / ${vaccineRounds.length}`, "Passos", `${state.vaccineChosen.length} / ${round.steps.length}`);
         status.textContent = state.answerLocked ? "Observe a ordem." : state.vaccineChosen.length ? "Qual vem depois?" : "O que vem primeiro?";
         content.innerHTML = `<div class="cycle-board">
           <div class="cycle-slots">
@@ -19616,7 +19765,8 @@ const brStatesList = [
         const available = state.chefShuffled;
         state.selected = Math.min(state.selected, Math.max(0, available.length - 1));
         setHeader("Chef Cozinheiro", recipe.name);
-        setCounters("Receita", `${state.round + 1} / ${chefRecipes.length}`, "Passos", `${state.chefChosen.length} / ${recipe.steps.length}`);
+        if (isAssessmentRunActive()) setMissionCounters("Receita", chefRecipes);
+        else setCounters("Receita", `${state.round + 1} / ${chefRecipes.length}`, "Passos", `${state.chefChosen.length} / ${recipe.steps.length}`);
         status.textContent = state.answerLocked ? "Observe a ordem." : state.chefChosen.length ? "Qual é o próximo passo?" : "Qual é o primeiro passo?";
         content.innerHTML = `<div class="cycle-board">
           <div class="cycle-slots">
@@ -20128,7 +20278,7 @@ const brStatesList = [
         const options = codeOptions();
         const uniqueLetters = [...new Set(round.word.split(""))];
         setHeader("Mensagem secreta", `${level.title}: decifre o código.`);
-        setCounters("Mensagem", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Mensagem", rounds);
         const wordSolved = isCodeWaitingToContinue();
         status.textContent = wordSolved
           ? "Mensagem decifrada! Veja a palavra e continue."
@@ -20149,7 +20299,7 @@ const brStatesList = [
               if (index === activeIndex) classes.push("active");
               return `<div class="${classes.join(" ")}">
                 <span class="code-symbol">${state.codeLetterMap[letter]}</span>
-                <span class="code-symbol-letter">${done ? accentedWord(round.word)[index] : ""}</span>
+                <span class="code-symbol-letter">${done ? (isAssessmentRunActive() ? "✔" : accentedWord(round.word)[index]) : ""}</span>
               </div>`;
             }).join("")}
           </div>
@@ -20188,7 +20338,7 @@ const brStatesList = [
         const round = rounds[state.round];
         const options = pixelOptions();
         setHeader("Desmistificador de Pixels", `${level.title}: leia o código.`);
-        setCounters("Código", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Código", rounds);
         const answered = state.pixelCorrectIndex !== null;
         status.textContent = answered
           ? "Decifrado! Compare o código com o desenho e continue."
@@ -20292,7 +20442,7 @@ const brStatesList = [
         const fixing = state.bugFixPhase === "choosing";
 
         setHeader("Caça ao Bug", `${level.title}: ache e corrija o comando errado.`);
-        setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Missão", rounds);
         status.textContent = showingCorrected
           ? (state.bugContinuePending ? "Assim é o caminho certo até a estrela! Estude o caminho e continue." : "Assim é o caminho certo até a estrela!")
           : fixing
@@ -20389,7 +20539,7 @@ const brStatesList = [
         const maxExtra = loopMaxExtra(round);
 
         setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
-        setCounters("Missão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Missão", rounds);
         status.textContent = `O robô precisa andar ${round.target} casas. Cada repetição avança ${round.step}. Monte o laço certo!`;
         content.innerHTML = `<div class="loop-board">
           <div class="loop-track">
@@ -20434,6 +20584,7 @@ const brStatesList = [
       function startSortRound() {
         const round = currentSortRounds()[state.round];
         state.sortItems = round.items.map((item) => ({ ...item }));
+        state.sortInitialValues = state.sortItems.map((item) => item.value);
         state.sortSelectedIndex = -1;
         state.sortMoves = 0;
         state.sortWrong = null;
@@ -20448,7 +20599,8 @@ const brStatesList = [
         const level = sortLevels[state.sortLevel];
         const rounds = level.rounds;
         setHeader("Estante Organizada", `${level.title}: troque os vizinhos.`);
-        setCounters("Estante", `${state.round + 1} / ${rounds.length}`, "Trocas", state.sortMoves);
+        if (isAssessmentRunActive()) setMissionCounters("Estante", rounds, ["Trocas", state.sortMoves]);
+        else setCounters("Estante", `${state.round + 1} / ${rounds.length}`, "Trocas", state.sortMoves);
         status.textContent = "Toque em um item e depois no vizinho para trocar.";
         content.innerHTML = `<div class="sort-board">
           <div class="sort-row ${state.answerLocked ? "locked" : ""}">
@@ -20667,7 +20819,7 @@ const brStatesList = [
         const solved = state.varCorrectIndex !== null;
 
         setHeader("Tradutor de Sinais", `${level.title}: complete a variável.`);
-        setCounters("Comando", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Comando", rounds);
         status.textContent = solved
           ? "Certo! Veja como a caixa mudou a cada comando e continue."
           : answering
@@ -20728,7 +20880,7 @@ const brStatesList = [
         const rounds = level.rounds;
         const round = rounds[state.round];
         setHeader("Padrão Perfeito", `${level.title}: observe o padrão.`);
-        setCounters("Padrão", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Padrão", rounds);
 
         if (round.kind === "copy") {
           const palette = patternPaletteFor(round);
@@ -20794,11 +20946,53 @@ const brStatesList = [
         }, 2200);
       }
 
+      function advancePatternInAssessment(rounds) {
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          finishAssessmentRun();
+          return;
+        }
+        startPatternRound();
+        render();
+      }
+
+      // Cada item escolhido ao copiar o padrão, e cada escolha de "o que continua", é uma pergunta.
+      function answerPatternPickInAssessment(round, item, expected, rounds) {
+        recordAssessmentAnswer(item === expected, {
+          question: `Repita o padrão: qual é o item ${state.patternBuilt.length + 1}?`,
+          context: `Modelo: ${round.sequence.map(String).join(" ")}`,
+          chosen: String(item),
+          correct: String(expected),
+        });
+        state.patternBuilt.push(expected);
+        if (assessmentAnswered() >= state.assessmentRun.total) {
+          finishAssessmentRun();
+          return;
+        }
+        if (state.patternBuilt.length >= round.sequence.length) advancePatternInAssessment(rounds);
+        else render();
+      }
+
+      function answerPatternChoiceInAssessment(isCorrect, round, rounds) {
+        recordAssessmentAnswer(isCorrect, {
+          question: "Qual item continua o padrão?",
+          context: `Padrão: ${round.sequence.map(String).join(" ")} ❓`,
+          chosen: String(round.options[state.selected]),
+          correct: String(round.options[round.answerIndex]),
+        });
+        if (assessmentAnswered() >= state.assessmentRun.total) finishAssessmentRun();
+        else advancePatternInAssessment(rounds);
+      }
+
       function handlePatternPaletteChoice(item) {
         const rounds = currentPatternRounds();
         const round = rounds[state.round];
         if (!round || round.kind !== "copy" || state.answerLocked) return;
         const expected = round.sequence[state.patternBuilt.length];
+        if (isAssessmentRunActive()) {
+          answerPatternPickInAssessment(round, item, expected, rounds);
+          return;
+        }
         if (item !== expected) {
           window.clearTimeout(state.patternMissTimer);
           state.patternMiss = item;
@@ -20826,6 +21020,10 @@ const brStatesList = [
         const round = rounds[state.round];
         if (!round) return;
         const isCorrect = state.selected === round.answerIndex;
+        if (isAssessmentRunActive()) {
+          answerPatternChoiceInAssessment(isCorrect, round, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1200,
@@ -20893,7 +21091,7 @@ const brStatesList = [
         const rounds = level.rounds;
         const round = rounds[state.round];
         setHeader("Divida a Tarefa", `${level.title}: divida a tarefa em partes menores.`);
-        setCounters("Tarefa", `${state.round + 1} / ${rounds.length}`, "Acertos", state.score);
+        setMissionCounters("Tarefa", rounds);
 
         if (round.kind === "order") {
           const builtCount = state.decomposeBuilt.length;
@@ -20958,11 +21156,55 @@ const brStatesList = [
         }, 2200);
       }
 
+      function advanceDecomposeInAssessment(rounds) {
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          finishAssessmentRun();
+          return;
+        }
+        startDecomposeRound();
+        render();
+      }
+
+      // Cada passo escolhido na ordem, e cada divisão escolhida entre as opções, é uma pergunta.
+      function answerDecomposePickInAssessment(round, step, expected, rounds) {
+        recordAssessmentAnswer(step === expected, {
+          question: `${round.taskTitle}: qual é o passo ${state.decomposeBuilt.length + 1}?`,
+          chosen: step,
+          correct: expected,
+        });
+        state.decomposeBuilt.push(expected);
+        if (assessmentAnswered() >= state.assessmentRun.total) {
+          finishAssessmentRun();
+          return;
+        }
+        if (state.decomposeBuilt.length >= round.steps.length) advanceDecomposeInAssessment(rounds);
+        else render();
+      }
+
+      function decomposeOptionText(steps) {
+        return steps.map((step, index) => `${index + 1}. ${step}`).join(" ");
+      }
+
+      function answerDecomposeChoiceInAssessment(isCorrect, round, rounds) {
+        recordAssessmentAnswer(isCorrect, {
+          question: `${round.taskTitle}: qual divisão faz mais sentido?`,
+          chosen: decomposeOptionText(round.options[state.selected]),
+          correct: decomposeOptionText(round.options[round.answerIndex]),
+        });
+        if (assessmentAnswered() >= state.assessmentRun.total) finishAssessmentRun();
+        else advanceDecomposeInAssessment(rounds);
+      }
+
       function handleDecomposePaletteChoice(step) {
         const rounds = currentDecomposeRounds();
         const round = rounds[state.round];
         if (!round || round.kind !== "order" || state.answerLocked) return;
         const expected = round.steps[state.decomposeBuilt.length];
+        if (isAssessmentRunActive()) {
+          answerDecomposePickInAssessment(round, step, expected, rounds);
+          return;
+        }
         if (step !== expected) {
           window.clearTimeout(state.decomposeMissTimer);
           state.decomposeMiss = step;
@@ -20990,6 +21232,10 @@ const brStatesList = [
         const round = rounds[state.round];
         if (!round) return;
         const isCorrect = state.selected === round.answerIndex;
+        if (isAssessmentRunActive()) {
+          answerDecomposeChoiceInAssessment(isCorrect, round, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1200,
@@ -21261,7 +21507,7 @@ const brStatesList = [
         const item = deviceItems[state.round];
         const options = deviceOptions();
         setHeader("Entrada ou saída", "Como o computador troca informação?");
-        setCounters("Dispositivo", `${state.round + 1} / ${deviceItems.length}`, "Acertos", state.score);
+        setMissionCounters("Dispositivo", deviceItems);
         status.textContent = "Esse dispositivo manda informação para o computador ou recebe informação dele?";
         content.innerHTML = `<div class="device-board">
           <div class="device-card ${state.devicesCorrectIndex !== null ? "fx-flash" : ""}">
@@ -21270,7 +21516,7 @@ const brStatesList = [
           </div>
           <div class="device-options ${state.answerLocked ? "locked" : ""}">
             ${options.map((type, index) => `<div class="device-option ${index === state.selected ? "selected" : ""} ${state.devicesWrong === index ? "wrong" : ""} ${state.devicesCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="12">
-              ${type === "entrada" ? "📥 Entrada" : "📤 Saída"}
+              ${deviceTypeLabel(type)}
               ${state.devicesCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🖥️</span><span>🎉</span><span>✨</span><span>🖥️</span></div>' : ""}
             </div>`).join("")}
           </div>
@@ -23951,6 +24197,44 @@ const brStatesList = [
         return activateIndexedClick(event, ".decompose-palette-button", (index) => handleSyllablesPaletteChoice(palette[index]));
       }
 
+      function stepText(step) {
+        return `${step.icon} ${step.label}`;
+      }
+
+      // Missões de ordenar passos: o passo certo entra na fila mesmo depois de um erro, para a avaliação seguir.
+      const stepOrderMissions = {
+        chef: () => ({ name: currentChefRecipe().name, steps: currentChefRecipe().steps, chosenKey: "chefChosen", attemptKey: "chefAttempt", roundCount: chefRecipes.length, refresh: refreshChefChoices }),
+        cycle: () => ({ name: currentCycle().name, steps: currentCycle().steps, chosenKey: "cycleChosen", attemptKey: "cycleAttempt", roundCount: cycles.length, refresh: refreshCycleChoices }),
+        vaccine: () => ({ name: currentVaccineRound().name, steps: currentVaccineRound().steps, chosenKey: "vaccineChosen", attemptKey: "vaccineAttempt", roundCount: vaccineRounds.length, refresh: refreshVaccineChoices }),
+      };
+
+      function answerStepInAssessment(mission, choice, expected) {
+        const config = stepOrderMissions[mission]();
+        const chosen = state[config.chosenKey];
+        recordAssessmentAnswer(choice === expected, {
+          question: `${config.name}: qual é o passo ${chosen.length + 1}?`,
+          chosen: stepText(choice),
+          correct: stepText(expected),
+        });
+        chosen.push(expected);
+        state.selected = -1;
+        state[config.attemptKey] = 0;
+        if (assessmentAnswered() >= state.assessmentRun.total) {
+          finishAssessmentRun();
+          return;
+        }
+        if (chosen.length === config.steps.length) {
+          state.round += 1;
+          state[config.chosenKey] = [];
+          if (state.round >= config.roundCount) {
+            finishAssessmentRun();
+            return;
+          }
+        }
+        config.refresh();
+        render();
+      }
+
       function handleCycleEnter() {
         const cycle = currentCycle();
         const available = state.cycleShuffled;
@@ -23961,6 +24245,10 @@ const brStatesList = [
 
         const choice = available[state.selected];
         const expected = cycle.steps[state.cycleChosen.length];
+        if (isAssessmentRunActive()) {
+          answerStepInAssessment("cycle", choice, expected);
+          return;
+        }
         if (choice !== expected) {
           const wrongIndex = state.selected;
           lockAnswer({
@@ -24018,6 +24306,10 @@ const brStatesList = [
 
         const choice = available[state.selected];
         const expected = round.steps[state.vaccineChosen.length];
+        if (isAssessmentRunActive()) {
+          answerStepInAssessment("vaccine", choice, expected);
+          return;
+        }
         if (choice !== expected) {
           const wrongIndex = state.selected;
           lockAnswer({
@@ -24075,6 +24367,10 @@ const brStatesList = [
 
         const choice = available[state.selected];
         const expected = recipe.steps[state.chefChosen.length];
+        if (isAssessmentRunActive()) {
+          answerStepInAssessment("chef", choice, expected);
+          return;
+        }
         if (choice !== expected) {
           const wrongIndex = state.selected;
           lockAnswer({
@@ -24199,6 +24495,33 @@ const brStatesList = [
         render();
       }
 
+      // Cada letra escolhida é uma pergunta; na avaliação a letra certa não aparece depois de um erro.
+      function answerCodeInAssessment(round, rounds, activeIndex, choice) {
+        const targetLetter = round.word[activeIndex];
+        recordAssessmentAnswer(choice === targetLetter, {
+          question: `Qual letra corresponde ao símbolo ${state.codeLetterMap[targetLetter]}?`,
+          context: `Palavra: ${[...accentedWord(round.word)].join("")}`,
+          chosen: choice,
+          correct: targetLetter,
+        });
+        state.codeDecoded[activeIndex] = true;
+        state.selected = -1;
+        state.codeAttempt = 0;
+        if (assessmentAnswered() >= state.assessmentRun.total) {
+          finishAssessmentRun();
+          return;
+        }
+        if (codeSolved()) {
+          state.round += 1;
+          if (state.round >= rounds.length) {
+            finishAssessmentRun();
+            return;
+          }
+          startCodeRound();
+        }
+        render();
+      }
+
       function handleCodeEnter() {
         if (isCodeWaitingToContinue()) {
           continueCode();
@@ -24212,6 +24535,10 @@ const brStatesList = [
         if (activeIndex === -1) return;
         const targetLetter = round.word[activeIndex];
         const choice = codeOptions()[state.selected];
+        if (isAssessmentRunActive()) {
+          answerCodeInAssessment(round, rounds, activeIndex, choice);
+          return;
+        }
         if (choice !== targetLetter) {
           lockAnswer({
             delay: 1100,
@@ -24255,6 +24582,23 @@ const brStatesList = [
         });
       }
 
+      function answerPixelsInAssessment(isCorrect, round, choice, rounds) {
+        const size = pixelLevels[state.pixelLevel].size;
+        recordAssessmentAnswer(isCorrect, {
+          question: "Qual desenho combina com o código?",
+          code: round.code.join("\n"),
+          chosen: "",
+          chosenHtml: pixelGridHtml(choice, size, "mini"),
+          correct: "",
+          correctHtml: pixelGridHtml(round.optionGrids[round.answer], size, "mini"),
+        });
+        state.round += 1;
+        state.selected = -1;
+        state.pixelAttempt = 0;
+        if (state.round >= roundTotal(rounds)) finishAssessmentRun();
+        else render();
+      }
+
       function continuePixels() {
         const rounds = currentPixelRounds();
         state.pixelCorrectIndex = null;
@@ -24280,6 +24624,10 @@ const brStatesList = [
         if (!round) return;
         const choice = pixelOptions()[state.selected];
         const isCorrect = pixelGridEquals(choice, round.optionGrids[round.answer]);
+        if (isAssessmentRunActive()) {
+          answerPixelsInAssessment(isCorrect, round, choice, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -24308,6 +24656,53 @@ const brStatesList = [
         });
       }
 
+      function bugCommandLabel(index, key) {
+        return `comando ${index + 1} (${arrowSymbols[key]})`;
+      }
+
+      function advanceBugInAssessment(rounds) {
+        state.round += 1;
+        state.selected = -1;
+        state.bugFixPhase = null;
+        state.bugFixWrong = null;
+        state.bugFixCorrectIndex = null;
+        state.bugFixAttempt = 0;
+        state.bugAttempt = 0;
+        state.bugWrong = null;
+        state.bugCorrectIndex = null;
+        if (state.round >= roundTotal(rounds)) {
+          finishAssessmentRun();
+          return;
+        }
+        bugPlayAnimation();
+      }
+
+      // Achar o comando errado e corrigi-lo contam como uma pergunta só: errar o primeiro passo encerra a rodada.
+      function answerBugChipInAssessment(isCorrect, round, rounds) {
+        if (isCorrect) {
+          state.bugFixPhase = "choosing";
+          state.selected = -1;
+          render();
+          return;
+        }
+        recordAssessmentAnswer(false, {
+          question: "Qual comando do caminho está errado?",
+          context: `O caminho tem ${round.sequence.length} comandos.`,
+          chosen: bugCommandLabel(state.selected, round.sequence[state.selected]),
+          correct: bugCommandLabel(round.answer, round.sequence[round.answer]),
+        });
+        advanceBugInAssessment(rounds);
+      }
+
+      function answerBugFixInAssessment(isCorrect, round, choice, rounds) {
+        recordAssessmentAnswer(isCorrect, {
+          question: `Qual comando deveria estar no lugar do comando ${round.answer + 1}?`,
+          chosen: arrowSymbols[choice],
+          correct: arrowSymbols[round.correctMoves[round.answer]],
+        });
+        advanceBugInAssessment(rounds);
+      }
+
       function handleBugFixEnter() {
         if (!hasSelection()) return;
         const rounds = currentBugRounds();
@@ -24315,6 +24710,10 @@ const brStatesList = [
         if (!round) return;
         const choice = bugFixOptions()[state.selected];
         const isCorrect = choice === round.correctMoves[round.answer];
+        if (isAssessmentRunActive()) {
+          answerBugFixInAssessment(isCorrect, round, choice, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1200,
@@ -24374,6 +24773,10 @@ const brStatesList = [
         const round = rounds[state.round];
         if (!round) return;
         const isCorrect = state.selected === round.answer;
+        if (isAssessmentRunActive()) {
+          answerBugChipInAssessment(isCorrect, round, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -24420,12 +24823,35 @@ const brStatesList = [
         });
       }
 
+      function loopPlanText(repeats, extra) {
+        return `${repeats} repetições${extra ? ` e passo extra ${extra}` : ""}`;
+      }
+
+      function answerLoopInAssessment(round, total, rounds) {
+        const correctRepeats = Math.floor(round.target / round.step);
+        const correctExtra = loopLevels[state.loopLevel].extraStep ? round.target % round.step : 0;
+        const chosenExtra = loopLevels[state.loopLevel].extraStep ? state.loopExtra : 0;
+        recordAssessmentAnswer(total === round.target, {
+          question: `O robô precisa andar ${round.target} casas e cada repetição avança ${round.step}. Qual é o laço?`,
+          chosen: `${loopPlanText(state.loopRepeat, chosenExtra)} (total ${total})`,
+          correct: loopPlanText(correctRepeats, correctExtra),
+        });
+        state.round += 1;
+        startLoopRound();
+        if (state.round >= roundTotal(rounds)) finishAssessmentRun();
+        else render();
+      }
+
       function handleLoopEnter() {
         if (state.answerLocked) return;
         const rounds = currentLoopRounds();
         const round = rounds[state.round];
         if (!round) return;
         const total = loopCurrentTotal(round);
+        if (isAssessmentRunActive()) {
+          answerLoopInAssessment(round, total, rounds);
+          return;
+        }
         if (total !== round.target) {
           state.loopWrong = true;
           render();
@@ -24469,7 +24895,34 @@ const brStatesList = [
         return false;
       }
 
+      // O mínimo de trocas entre vizinhos para ordenar é o número de pares fora de ordem.
+      function sortMinimumMoves(values) {
+        let pairs = 0;
+        values.forEach((value, index) => values.slice(index + 1).forEach((other) => { if (value > other) pairs += 1; }));
+        return pairs;
+      }
+
+      function answerSortInAssessment() {
+        const minimum = sortMinimumMoves(state.sortInitialValues);
+        recordAssessmentAnswer(state.sortMoves <= minimum, {
+          question: `Ordene a fila ${state.sortInitialValues.join(" ")} trocando só os vizinhos.`,
+          chosen: `${state.sortMoves} trocas`,
+          correct: `${minimum} trocas (o mínimo)`,
+        });
+        state.round += 1;
+        if (assessmentAnswered() >= state.assessmentRun.total || state.round >= currentSortRounds().length) {
+          finishAssessmentRun();
+          return;
+        }
+        startSortRound();
+        render();
+      }
+
       function completeSortRound() {
+        if (isAssessmentRunActive()) {
+          answerSortInAssessment();
+          return;
+        }
         state.answerLocked = true;
         showMessage("✅ Ordenado!", 700);
         render();
@@ -24539,6 +24992,39 @@ const brStatesList = [
         return activateIndexedClick(event, ".sort-item", (index) => handleSortSelect(index));
       }
 
+      function varValueVisual(track, valueIndex) {
+        return varAttributeSets[track.attrIndex].values[valueIndex].visual;
+      }
+
+      function varChoiceText(choice, round) {
+        if (round.tracks.length === 1) return varValueVisual(round.tracks[0], choice);
+        return round.tracks.map((track, index) => varValueVisual(track, index === 0 ? choice.a : choice.b)).join(" ");
+      }
+
+      function varCommandsText(round) {
+        const verbs = { set: "Guarde", change: "Troque para", noop: "Mantém" };
+        return round.tracks
+          .map((track) => `${varAttributeSets[track.attrIndex].name}: ${track.commands.map((cmd) => `${verbs[cmd.type]} ${varValueVisual(track, cmd.valueIndex)}`).join(" → ")}`)
+          .join(" | ");
+      }
+
+      function answerVarInAssessment(isCorrect, round, choice, rounds) {
+        const correctChoice = varOptions().find((option) => isVarChoiceCorrect(option, round));
+        recordAssessmentAnswer(isCorrect, {
+          question: "Qual foi o valor final da caixa?",
+          context: varCommandsText(round),
+          chosen: varChoiceText(choice, round),
+          correct: varChoiceText(correctChoice, round),
+        });
+        state.round += 1;
+        if (state.round >= roundTotal(rounds)) {
+          finishAssessmentRun();
+          return;
+        }
+        startVarRound();
+        render();
+      }
+
       function continueVar() {
         const rounds = currentVarRounds();
         state.varCorrectIndex = null;
@@ -24575,6 +25061,10 @@ const brStatesList = [
         if (!hasSelection()) return;
         const choice = varOptions()[state.selected];
         const isCorrect = isVarChoiceCorrect(choice, round);
+        if (isAssessmentRunActive()) {
+          answerVarInAssessment(isCorrect, round, choice, rounds);
+          return;
+        }
         if (!isCorrect) {
           lockAnswer({
             delay: 1500,
@@ -24623,14 +25113,13 @@ const brStatesList = [
         const canClearProgram = !state.builderRunning
           && (editingSomething || state.builderProgram.length > state.builderExecutedCount);
 
-        const goalsReached = level.orderedGoals
-          ? state.builderNextGoalIndex
-          : state.builderGoals.filter((cell) => state.builderCells[cell]).length;
+        const goalsReached = builderGoalsReached(level);
         const allGoalsReached = builderGoalsComplete();
         const nothingPending = state.builderProgram.length > 0 && state.builderProgram.length === state.builderExecutedCount;
 
         setHeader("Robô Programador", `${level.title}: monte seu programa.`);
-        setCounters("Blocos", `${state.builderProgram.length}${commandLimit === Infinity ? "" : `/${commandLimit}`}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
+        if (isAssessmentRunActive()) setMissionCounters("Fase", builderLevels, ["Objetivos", `${goalsReached}/${state.builderGoals.length}`]);
+        else setCounters("Blocos", `${state.builderProgram.length}${commandLimit === Infinity ? "" : `/${commandLimit}`}`, "Objetivos", `${goalsReached}/${state.builderGoals.length}`);
         status.textContent = state.builderRunning
           ? "🤖 Executando..."
           : state.builderEditingFunctionIndex !== null
@@ -24842,10 +25331,31 @@ const brStatesList = [
         return activateIndexedClick(event, ".decoder-letter", (index) => handleDecoderGuess(DECODER_ALPHABET[index]));
       }
 
+      function deviceTypeLabel(type) {
+        return type === "entrada" ? "📥 Entrada" : "📤 Saída";
+      }
+
+      function answerDeviceInAssessment(item, choice) {
+        recordAssessmentAnswer(choice === item.type, {
+          question: `${item.icon} ${item.name}: é um dispositivo de entrada ou de saída?`,
+          chosen: deviceTypeLabel(choice),
+          correct: deviceTypeLabel(item.type),
+        });
+        state.round += 1;
+        state.selected = -1;
+        state.devicesAttempt = 0;
+        if (state.round >= roundTotal(deviceItems)) finishAssessmentRun();
+        else render();
+      }
+
       function handleDevicesEnter() {
         if (!hasSelection()) return;
         const item = deviceItems[state.round];
         const choice = deviceOptions()[state.selected];
+        if (isAssessmentRunActive()) {
+          answerDeviceInAssessment(item, choice);
+          return;
+        }
         if (choice !== item.type) {
           lockAnswer({
             delay: 1500,
