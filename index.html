@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.0.0">
+  <meta name="app-version" content="3.1.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -1626,6 +1626,295 @@
       .update-banner-button {
         padding: 6px 9px;
         font-size: 12px;
+      }
+    }
+
+    .lesson-slide {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 4px 10px;
+      text-align: left;
+      text-transform: none;
+      cursor: pointer;
+    }
+
+    .lesson-slide-title {
+      margin: 0;
+      color: var(--yellow);
+      font-family: var(--chalk-font);
+      font-size: clamp(24px, min(3.6vw, 6vh), 80px);
+      line-height: 1.05;
+      text-shadow: var(--chalk-shadow);
+    }
+
+    .lesson-slide-body {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .lesson-lines {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: min(14px, 1.8vh);
+      list-style: none;
+    }
+
+    .lesson-line,
+    .lesson-visual {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .lesson-line.shown,
+    .lesson-visual.shown {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .lesson-line {
+      color: var(--ink);
+      font-family: var(--chalk-font);
+      font-size: clamp(17px, min(2.3vw, 3.9vh), 56px);
+      line-height: 1.2;
+      text-shadow: var(--chalk-shadow);
+    }
+
+    .lesson-hi {
+      background: none;
+      color: var(--yellow);
+      text-decoration: underline wavy rgba(255, 224, 102, 0.55);
+      text-underline-offset: 5px;
+    }
+
+    .lesson-visual {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .lesson-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 6px;
+    }
+
+    .lesson-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lesson-box {
+      padding: 8px 14px;
+      border: 3px solid rgba(255, 247, 214, 0.8);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--ink);
+      font-family: var(--chalk-font);
+      font-size: clamp(14px, min(1.9vw, 3.2vh), 44px);
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    .lesson-arrow {
+      color: var(--yellow);
+      font-family: var(--chalk-font);
+      font-size: clamp(20px, min(2.6vw, 4.4vh), 52px);
+    }
+
+    .lesson-repeat {
+      color: var(--yellow);
+      font-family: var(--chalk-font);
+      font-size: clamp(14px, min(1.7vw, 2.8vh), 34px);
+    }
+
+    .lesson-caption {
+      color: rgba(255, 247, 214, 0.82);
+      font-family: var(--chalk-font);
+      font-size: clamp(13px, min(1.6vw, 2.7vh), 32px);
+      text-align: center;
+    }
+
+    .lesson-compare {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .lesson-side {
+      display: grid;
+      align-content: start;
+      gap: 6px;
+      padding: 10px 12px;
+      border: 3px dashed rgba(255, 247, 214, 0.7);
+      border-radius: 14px;
+      font-family: var(--chalk-font);
+      text-align: center;
+    }
+
+    .lesson-side.good {
+      border-color: rgba(134, 239, 172, 0.85);
+    }
+
+    .lesson-side.bad {
+      border-color: rgba(252, 165, 165, 0.85);
+    }
+
+    .lesson-side-title {
+      color: var(--yellow);
+      font-size: clamp(14px, min(1.9vw, 3.1vh), 40px);
+    }
+
+    .lesson-side-item {
+      color: var(--ink);
+      font-size: clamp(13px, min(1.7vw, 2.9vh), 36px);
+      line-height: 1.15;
+    }
+
+    .lesson-branch {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .lesson-question {
+      border-color: var(--yellow);
+    }
+
+    .lesson-paths {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .lesson-path {
+      display: grid;
+      gap: 6px;
+      justify-items: center;
+    }
+
+    .lesson-path-label {
+      font-family: var(--chalk-font);
+      font-size: clamp(14px, min(1.7vw, 2.8vh), 34px);
+    }
+
+    .lesson-path-label.yes {
+      color: #86efac;
+    }
+
+    .lesson-path-label.no {
+      color: #fca5a5;
+    }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(var(--cols), 1fr);
+      gap: 6px;
+    }
+
+    .lesson-cell {
+      width: clamp(40px, min(6vw, 9vh), 130px);
+      height: clamp(40px, min(6vw, 9vh), 130px);
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(255, 247, 214, 0.45);
+      border-radius: 10px;
+      font-size: clamp(22px, min(3.4vw, 5.6vh), 72px);
+    }
+
+    .lesson-code {
+      margin: 0;
+      padding: 12px 16px;
+      border: 3px dashed rgba(255, 247, 214, 0.6);
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.22);
+      color: var(--ink);
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: clamp(13px, min(1.7vw, 2.9vh), 38px);
+      line-height: 1.35;
+      white-space: pre-wrap;
+      text-transform: none;
+    }
+
+    .lesson-skills {
+      color: rgba(255, 247, 214, 0.6);
+      font-family: var(--read-font);
+      font-size: 12px;
+    }
+
+    .lesson-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-right: 72px;
+    }
+
+    .lesson-nav {
+      width: auto;
+      height: auto;
+      padding: 7px 16px;
+      border: 3px solid rgba(255, 247, 214, 0.8);
+      border-radius: 14px;
+      background: rgba(23, 63, 50, 0.9);
+      color: var(--ink);
+      font-family: var(--read-font);
+      font-size: clamp(13px, min(1.6vw, 2.8vh), 28px);
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .lesson-nav:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .lesson-play {
+      border-color: var(--yellow);
+      background: var(--yellow);
+      color: var(--card-ink);
+    }
+
+    .lesson-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lesson-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255, 247, 214, 0.7);
+      border-radius: 50%;
+    }
+
+    .lesson-dot.past {
+      background: rgba(255, 247, 214, 0.55);
+    }
+
+    .lesson-dot.current {
+      border-color: var(--yellow);
+      background: var(--yellow);
+    }
+
+    @media (max-width: 900px) {
+      .lesson-slide-body {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
       }
     }
 
@@ -9531,6 +9820,11 @@
             <p class="support-text">Em 21 missões com resposta certa ou errada: 10 perguntas por missão (5 em Robô coletor e Estante Organizada, 3 em Robô Programador, que são fases inteiras), uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
             <button id="assessmentModeButton" class="support-open-link" type="button" aria-pressed="false">📝 Ligar o modo avaliação</button>
           </div>
+          <div class="assessment-box">
+            <div class="support-title">📖 Modo aula</div>
+            <p class="support-text">Um quadro negro para explicar o conceito antes da missão. Cada tema tem poucos slides, com definições curtas e desenhos que aparecem passo a passo: seta para a direita, espaço ou toque avançam, seta para a esquerda volta e Esc retorna ao painel. No fim, um botão abre a missão. Com o modo ligado, o painel mostra só as missões que já têm aula.</p>
+            <button id="lessonModeButton" class="support-open-link" type="button" aria-pressed="false">📖 Ligar o modo aula</button>
+          </div>
           <div id="lessonMissionsStatus" class="lesson-missions-status" hidden>
             <span id="lessonMissionsText"></span>
             <button id="clearLessonMissionsButton" class="support-copy-button" type="button">Limpar</button>
@@ -10406,6 +10700,183 @@
       ];
 
       // Missões com modo avaliação e as habilidades da BNCC Computação (Currículo de Educação Digital de SC) que cada uma trabalha.
+      // Modo aula: slides de quadro negro com a explicação do conceito de cada missão.
+      // Cada linha aparece num toque (**assim** destaca a palavra) e o desenho (`visual`) aparece depois das linhas.
+      // Desenhos: flow (caixas ligadas por setas), compare (duas colunas), branch (decisão sim/não), grid (mapa de emojis) e code (blocos de comandos).
+      const lessonDecks = [
+        {
+          id: "algoritmo",
+          icon: "🧭",
+          title: "Algoritmo e sequência",
+          missions: ["robot", "chef", "cycle", "vaccine"],
+          skills: ["EF01CO02", "EF01CO03", "EF02CO02"],
+          slides: [
+            {
+              title: "O que é um algoritmo?",
+              lines: [
+                "**Algoritmo** é uma sequência de passos para resolver um problema.",
+                "Cada passo é claro e **não deixa dúvida**.",
+                "Se a **ordem** muda, o resultado muda!",
+              ],
+              visual: { kind: "flow", items: ["✋ Pegar a escova", "🧴 Pôr a pasta", "🦷 Escovar", "💧 Enxaguar"], caption: "Exemplo: escovar os dentes" },
+            },
+            {
+              title: "Receita também é algoritmo",
+              lines: [
+                "Uma receita diz **o que fazer** e **em que ordem**.",
+                "Trocar a ordem estraga o resultado.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Ordem certa", tone: "good", items: ["🥣 Misturar", "🔥 Assar", "🍰 Servir"] },
+                right: { title: "❌ Ordem trocada", tone: "bad", items: ["🍰 Servir", "🔥 Assar", "🥣 Misturar"] },
+              },
+            },
+            {
+              title: "Sequências que se repetem",
+              lines: [
+                "Algumas sequências formam um **ciclo**: terminam e **recomeçam**.",
+                "Dia e noite, estações do ano, a vida de uma planta…",
+                "A caderneta de vacinação também segue uma **ordem no calendário**.",
+              ],
+              visual: { kind: "flow", items: ["🌱 Semente", "🌿 Planta", "🌻 Flor"], repeat: true, caption: "Ciclo de uma planta" },
+            },
+            {
+              title: "Instruções para o robô",
+              lines: [
+                "O robô só entende **comandos simples**: ↑ ↓ ← →.",
+                "Antes de andar, **planeje o caminho** inteiro.",
+                "Um passo a mais e ele bate na parede ou cai no buraco!",
+              ],
+              visual: { kind: "grid", rows: [["🤖", "⬜", "⚡"], ["⬜", "🧱", "⬜"], ["⬜", "⬜", "🚪"]], caption: "Caminho: → → ↓ ↓ (pega a energia e chega à saída)" },
+            },
+            {
+              title: "Como montar um algoritmo",
+              lines: [
+                "1. **Entender** o problema.",
+                "2. **Listar** os passos.",
+                "3. **Ordenar** os passos.",
+                "4. **Testar** e corrigir o que der errado.",
+              ],
+              visual: { kind: "flow", items: ["🔎 Entender", "📝 Listar", "🔢 Ordenar", "🧪 Testar"], repeat: true, caption: "Errou? Volte e corrija!" },
+            },
+          ],
+        },
+        {
+          id: "lacos",
+          icon: "🔁",
+          title: "Laços e repetição",
+          missions: ["loop"],
+          skills: ["EF02CO02", "EF03CO02", "EF04CO03"],
+          slides: [
+            {
+              title: "Repetir dá trabalho",
+              lines: [
+                "Imagine dar **4 passos** para a frente.",
+                "Escrever o mesmo comando 4 vezes cansa e **aumenta a chance de erro**.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "😓 Sem laço", tone: "bad", items: ["👣 Dar um passo", "👣 Dar um passo", "👣 Dar um passo", "👣 Dar um passo"] },
+                right: { title: "😀 Com laço", tone: "good", items: ["🔁 Repita 4 vezes:", "👣 Dar um passo"] },
+              },
+            },
+            {
+              title: "O que é um laço?",
+              lines: [
+                "**Laço** (ou repetição) executa os mesmos comandos **várias vezes**.",
+                "Dizemos **quantas vezes** repetir.",
+                "Os comandos que se repetem ficam **dentro** do laço.",
+              ],
+              visual: { kind: "code", lines: ["repita 3 vezes", "    bater palma 👏", "fim"] },
+            },
+            {
+              title: "Mesmo resultado, menos comandos",
+              lines: [
+                "Repetir 3 vezes 👏 é o mesmo que bater **três palmas seguidas**.",
+                "O laço é um **atalho**: escrevemos menos e fazemos igual.",
+              ],
+              visual: { kind: "flow", items: ["Repita 3×: 👏", "👏 👏 👏"], join: "=" },
+            },
+            {
+              title: "Procure o que se repete",
+              lines: [
+                "Onde existe um **padrão**, existe um laço escondido.",
+                "Descubra o **bloco** que se repete e **quantas vezes** ele aparece.",
+              ],
+              visual: { kind: "flow", items: ["🔴 🔵 🔴 🔵 🔴 🔵", "Repita 3×: 🔴 🔵"], join: "=", caption: "O bloco que se repete é 🔴 🔵" },
+            },
+            {
+              title: "Cuidado com a contagem",
+              lines: [
+                "Repetir **de menos** ou **demais** muda o resultado.",
+                "Conte com atenção e **teste** o algoritmo.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "❌ Repita 2×: 👏", tone: "bad", items: ["👏 👏", "Faltou uma palma!"] },
+                right: { title: "✅ Repita 3×: 👏", tone: "good", items: ["👏 👏 👏", "Três palmas, como pedido."] },
+              },
+            },
+          ],
+        },
+        {
+          id: "condicionais",
+          icon: "🔀",
+          title: "Condições: verdadeiro ou falso",
+          missions: ["cond"],
+          skills: ["EF03CO01", "EF05CO03", "EF05CO04"],
+          slides: [
+            {
+              title: "Decidimos o tempo todo",
+              lines: [
+                "**Se** está chovendo, **então** levo o guarda-chuva.",
+                "**Senão**, deixo em casa.",
+                "O caminho muda de acordo com a **condição**.",
+              ],
+              visual: { kind: "branch", question: "☔ Está chovendo?", yes: "🌂 Levar o guarda-chuva", no: "😎 Deixar em casa" },
+            },
+            {
+              title: "Verdadeiro ou falso?",
+              lines: [
+                "Uma **condição** é uma frase que só pode ser **verdadeira** ou **falsa**.",
+                "O computador escolhe o caminho de acordo com o resultado.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Verdadeiro", tone: "good", items: ["O gato é um animal.", "7 é maior que 5."] },
+                right: { title: "❌ Falso", tone: "bad", items: ["O sol é frio.", "3 é maior que 9."] },
+              },
+            },
+            {
+              title: "A regra do portão",
+              lines: [
+                "Regra: **só cachorros** entram no parquinho.",
+                "Se for cachorro, **entra**. Se não for, **fica de fora**.",
+              ],
+              visual: { kind: "branch", question: "🐶 É cachorro?", yes: "✅ Entra no parquinho", no: "🚫 Fica de fora" },
+            },
+            {
+              title: "Combinando condições",
+              lines: [
+                "**E**: as duas condições precisam ser verdadeiras.",
+                "**OU**: basta uma ser verdadeira.",
+                "**NÃO**: inverte o valor (verdadeiro vira falso).",
+              ],
+              visual: { kind: "code", lines: ["tem ingresso E é sábado", "   → entra só se as duas forem verdadeiras", "", "tem ingresso OU é convidado", "   → entra se pelo menos uma for verdadeira"] },
+            },
+            {
+              title: "Escrevendo como o computador",
+              lines: [
+                "Em programação: **se** (condição) **então** … **senão** …",
+                "Testar as condições com cuidado evita decisões erradas.",
+              ],
+              visual: { kind: "code", lines: ["se (está chovendo)", "    levar guarda-chuva", "senão", "    deixar em casa"] },
+            },
+          ],
+        },
+      ];
+
       const assessmentMissionSkills = {
         hardware: ["EF02CO04", "EF03CO04", "EF03CO06", "EF04CO04", "EF05CO05", "EF05CO06", "EF05CO07", "EF06CO07", "EF06CO08", "EF07CO06", "EF07CO07", "EF08CO05", "EF08CO06", "EF09CO04", "EF09CO05"],
         safe: ["EF01CO07", "EF02CO05", "EF02CO06", "EF03CO07", "EF03CO09", "EF04CO06", "EF04CO07", "EF04CO08", "EF05CO08", "EF05CO09", "EF05CO10", "EF06CO09", "EF06CO10", "EF07CO08", "EF07CO09", "EF07CO10", "EF08CO07", "EF08CO08", "EF08CO09", "EF08CO10", "EF08CO11", "EF09CO06", "EF09CO07", "EF09CO08", "EF09CO09", "EF09CO10"],
@@ -16805,6 +17276,8 @@ const brStatesList = [
         robotBumps: 0,
         assessmentMode: false,
         assessmentRun: null,
+        lessonMode: false,
+        lessonDeck: null,
         round: 0,
         selected: 0,
         score: 0,
@@ -18542,6 +19015,7 @@ const brStatesList = [
       }
 
       function setAssessmentMode(on) {
+        if (on && state.lessonMode) setLessonMode(false);
         state.assessmentMode = on;
         state.assessmentRun = null;
         if (state.mode !== "menu") {
@@ -18560,6 +19034,201 @@ const brStatesList = [
         const button = document.getElementById("assessmentModeButton");
         button.setAttribute("aria-pressed", String(state.assessmentMode));
         button.textContent = state.assessmentMode ? "✅ Modo avaliação ligado (tocar para desligar)" : "📝 Ligar o modo avaliação";
+      }
+
+      function lessonDeckOf(missionId) {
+        return lessonDecks.find((deck) => deck.missions.includes(missionId)) || null;
+      }
+
+      // Missões com aula, na ordem do catálogo; se o professor mandou planos para o painel, só as deles.
+      function lessonMissionMenuIds() {
+        const withDeck = missions.map((item) => item.id).filter((id) => lessonDeckOf(id));
+        const ofPlan = new Set(lessonMissionIds());
+        const inPlan = withDeck.filter((id) => ofPlan.has(id));
+        return inPlan.length ? inPlan : withDeck;
+      }
+
+      function setLessonMode(on) {
+        if (on && state.assessmentMode) setAssessmentMode(false);
+        state.lessonMode = on;
+        state.lessonDeck = null;
+        if (state.mode !== "menu") {
+          stopTimer();
+          state.answerLocked = false;
+          state.mode = "menu";
+        }
+        state.menuFilter = defaultMenuFilter();
+        state.selected = 0;
+        renderLessonModeButton();
+        render();
+      }
+
+      function renderLessonModeButton() {
+        const button = document.getElementById("lessonModeButton");
+        button.setAttribute("aria-pressed", String(state.lessonMode));
+        button.textContent = state.lessonMode ? "✅ Modo aula ligado (tocar para desligar)" : "📖 Ligar o modo aula";
+      }
+
+      function openLessonDeck(missionId) {
+        const deck = lessonDeckOf(missionId);
+        if (!deck) return;
+        state.lessonDeck = { deckId: deck.id, missionId, slide: 0, revealed: 0 };
+        state.mode = "lesson";
+        render();
+      }
+
+      function closeLessonDeck() {
+        const missionId = state.lessonDeck?.missionId;
+        state.lessonDeck = null;
+        state.mode = "menu";
+        if (missionId) selectMissionInMenu(missionId);
+        render();
+      }
+
+      function playLessonMission() {
+        const missionId = state.lessonDeck.missionId;
+        state.lessonDeck = null;
+        reset(missionId);
+      }
+
+      // Cada linha é um toque; o desenho aparece depois da última linha.
+      function lessonBeats(slide) {
+        return slide.lines.length + (slide.visual ? 1 : 0);
+      }
+
+      function currentLessonSlide() {
+        const run = state.lessonDeck;
+        const deck = lessonDecks.find((item) => item.id === run.deckId);
+        return { run, deck, slide: deck.slides[run.slide] };
+      }
+
+      function lessonDeckIsAtEnd() {
+        const { run, deck, slide } = currentLessonSlide();
+        return run.slide === deck.slides.length - 1 && run.revealed >= lessonBeats(slide);
+      }
+
+      function stepLessonForward() {
+        const { run, deck, slide } = currentLessonSlide();
+        if (run.revealed < lessonBeats(slide)) {
+          run.revealed += 1;
+        } else if (run.slide < deck.slides.length - 1) {
+          run.slide += 1;
+          run.revealed = 0;
+        } else {
+          return;
+        }
+        render();
+      }
+
+      function stepLessonBack() {
+        const { run, deck } = currentLessonSlide();
+        if (run.revealed > 0) {
+          run.revealed -= 1;
+        } else if (run.slide > 0) {
+          run.slide -= 1;
+          run.revealed = lessonBeats(deck.slides[run.slide]);
+        } else {
+          return;
+        }
+        render();
+      }
+
+      // Enter e espaço avançam; no fim da aula abrem a missão.
+      function handleLessonEnter() {
+        if (lessonDeckIsAtEnd()) playLessonMission();
+        else stepLessonForward();
+      }
+
+      function handleLessonKey(key) {
+        if (["ArrowRight", "ArrowDown", "PageDown"].includes(key)) stepLessonForward();
+        else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(key)) stepLessonBack();
+        else if (key === "Enter" || key === " ") handleLessonEnter();
+      }
+
+      function handleLessonClick(event) {
+        if (clickedElement(event, ".lesson-prev")) {
+          stepLessonBack();
+        } else if (clickedElement(event, ".lesson-play")) {
+          playLessonMission();
+        } else if (clickedElement(event, ".lesson-next, .lesson-slide")) {
+          stepLessonForward();
+        } else {
+          return false;
+        }
+        return true;
+      }
+
+      // **texto** vira destaque em giz amarelo; todo o resto é escapado.
+      function lessonChalkHtml(text) {
+        return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<mark class="lesson-hi">$1</mark>');
+      }
+
+      const lessonBoxHtml = (text, extraClass = "") => `<div class="lesson-box ${extraClass}">${lessonChalkHtml(text)}</div>`;
+
+      const lessonVisualRenderers = {
+        flow: (visual) => {
+          const arrow = (symbol) => `<span class="lesson-arrow" aria-hidden="true">${symbol}</span>`;
+          const last = visual.items.length - 1;
+          const repeat = visual.repeat ? `${arrow("↩")}<span class="lesson-repeat">🔁 e recomeça</span>` : "";
+          // A seta fica junto da caixa anterior para não ficar sozinha no começo da linha.
+          const steps = visual.items.map((item, index) => `<span class="lesson-step">${lessonBoxHtml(item)}${index < last ? arrow(visual.join || "→") : repeat}</span>`);
+          return `<div class="lesson-flow">${steps.join("")}</div>`;
+        },
+        compare: (visual) => `<div class="lesson-compare">${[visual.left, visual.right].map((side) => `
+          <div class="lesson-side ${side.tone}">
+            <div class="lesson-side-title">${lessonChalkHtml(side.title)}</div>
+            ${side.items.map((item) => `<div class="lesson-side-item">${lessonChalkHtml(item)}</div>`).join("")}
+          </div>`).join("")}</div>`,
+        branch: (visual) => `<div class="lesson-branch">
+          ${lessonBoxHtml(visual.question, "lesson-question")}
+          <div class="lesson-paths">
+            <div class="lesson-path"><span class="lesson-path-label yes">✅ Sim</span>${lessonBoxHtml(visual.yes)}</div>
+            <div class="lesson-path"><span class="lesson-path-label no">❌ Não</span>${lessonBoxHtml(visual.no)}</div>
+          </div>
+        </div>`,
+        grid: (visual) => `<div class="lesson-grid" style="--cols:${visual.rows[0].length}">${visual.rows.flat().map((cell) => `<div class="lesson-cell">${cell}</div>`).join("")}</div>`,
+        code: (visual) => `<pre class="lesson-code">${escapeHtml(visual.lines.join("\n"))}</pre>`,
+      };
+
+      function lessonVisualHtml(visual) {
+        const caption = visual.caption ? `<div class="lesson-caption">${lessonChalkHtml(visual.caption)}</div>` : "";
+        return lessonVisualRenderers[visual.kind](visual) + caption;
+      }
+
+      function lessonControlsHtml(deck, run, atEnd) {
+        const first = run.slide === 0 && run.revealed === 0;
+        const dots = deck.slides.map((_, index) => `<span class="lesson-dot ${index === run.slide ? "current" : index < run.slide ? "past" : ""}"></span>`).join("");
+        const forward = atEnd
+          ? `<button type="button" class="lesson-nav lesson-play">🎮 Agora vamos jogar</button>`
+          : `<button type="button" class="lesson-nav lesson-next">Avançar ▶</button>`;
+        return `<div class="lesson-controls">
+          <button type="button" class="lesson-nav lesson-prev" ${first ? "disabled" : ""}>◀ Voltar</button>
+          <div class="lesson-dots" aria-hidden="true">${dots}</div>
+          ${forward}
+        </div>`;
+      }
+
+      function renderLessonDeck() {
+        const { run, deck, slide } = currentLessonSlide();
+        const atEnd = lessonDeckIsAtEnd();
+        setHeader("Missões Interativas", `📖 ${deck.title}`);
+        setCounters("Slide", `${run.slide + 1} / ${deck.slides.length}`, "Modo", "📖 Aula");
+        status.textContent = "Seta para a direita ou espaço: avançar. Seta para a esquerda: voltar. Esc: painel.";
+        const lines = slide.lines.map((line, index) => `<li class="lesson-line ${index < run.revealed ? "shown" : ""}">${lessonChalkHtml(line)}</li>`).join("");
+        const visual = slide.visual
+          ? `<div class="lesson-visual ${run.revealed > slide.lines.length ? "shown" : ""}">${lessonVisualHtml(slide.visual)}</div>`
+          : "";
+        const skills = run.slide === deck.slides.length - 1 ? `<div class="lesson-skills">BNCC Computação: ${deck.skills.join(" · ")}</div>` : "";
+        content.innerHTML = `<div class="lesson-slide" role="group" aria-label="Slide ${run.slide + 1} de ${deck.slides.length}: ${escapeHtml(slide.title)}">
+          <h2 class="lesson-slide-title">${escapeHtml(slide.title)}</h2>
+          <div class="lesson-slide-body">
+            <ul class="lesson-lines">${lines}</ul>
+            ${visual}
+          </div>
+          ${skills}
+          ${lessonControlsHtml(deck, run, atEnd)}
+        </div>`;
+        content.scrollTop = 0;
       }
 
       const LESSON_FILTER = "lesson";
@@ -18587,13 +19256,13 @@ const brStatesList = [
 
       // Com filtro ativo (categoria, aula ou avaliação) o painel mostra uma lista só.
       function filteredMissionItems() {
-        const ids = state.assessmentMode ? assessmentMenuIds() : missionIdsOfMenuFilter(state.menuFilter);
+        const ids = state.assessmentMode ? assessmentMenuIds() : state.lessonMode ? lessonMissionMenuIds() : missionIdsOfMenuFilter(state.menuFilter);
         return ids.map(menuItemById).filter(Boolean);
       }
 
       // Em "Todas": os destaques primeiro e depois uma seção por categoria. Cada missão aparece uma vez só.
       function menuSections() {
-        if (state.assessmentMode || state.menuFilter !== null) return [{ items: filteredMissionItems() }];
+        if (state.assessmentMode || state.lessonMode || state.menuFilter !== null) return [{ items: filteredMissionItems() }];
         const shown = new Set();
         const unseen = (ids) => ids.filter((id) => !shown.has(id) && shown.add(id)).map(menuItemById).filter(Boolean);
         const shelf = { icon: "⭐", title: "Destaques", featured: true, items: unseen(missions.filter((item) => item.featured).map((item) => item.id)) };
@@ -18691,21 +19360,33 @@ const brStatesList = [
         }).join("");
       }
 
+      // Título e dica do painel conforme o modo (avaliação, aula, missões do plano, categoria ou todas).
+      function menuHeading(lessonActive, category) {
+        if (state.assessmentMode) {
+          return { title: "📝 Modo avaliação", status: `Modo avaliação: ${ASSESSMENT_QUESTIONS} perguntas por missão, uma tentativa em cada.` };
+        }
+        if (state.lessonMode) {
+          return { title: "📖 Modo aula", status: "Escolha o tema: a aula abre no quadro e termina com a missão." };
+        }
+        if (lessonActive) {
+          return { title: "📋 Missões da aula", status: "Missões escolhidas para a aula de hoje. Toque em Todas para ver as outras." };
+        }
+        if (category) return { title: `${category.icon} ${category.title}`, status: category.description };
+        return { title: "Todas as missões", status: "Toque numa missão pra jogar, ou filtre por categoria." };
+      }
+
       function renderMenu() {
         const items = filteredMenuItems();
         const activeFilter = state.menuFilter;
         const lessonActive = activeFilter === LESSON_FILTER;
         const category = activeFilter === null || lessonActive ? null : missionCategories[activeFilter];
-        const hasLesson = state.lessonPlanIndexes.length > 0 && !state.assessmentMode;
-        setHeader("Missões Interativas", state.assessmentMode ? "📝 Modo avaliação" : lessonActive ? "📋 Missões da aula" : category ? `${category.icon} ${category.title}` : "Todas as missões");
+        const hasLesson = state.lessonPlanIndexes.length > 0 && !state.assessmentMode && !state.lessonMode;
+        const heading = menuHeading(lessonActive, category);
+        setHeader("Missões Interativas", heading.title);
         setCounters("Missões", `${items.length}`, "Feitas", `${Object.keys(state.completed).length}`);
-        status.textContent = state.assessmentMode
-          ? `Modo avaliação: ${ASSESSMENT_QUESTIONS} perguntas por missão, uma tentativa em cada.`
-          : lessonActive
-          ? "Missões escolhidas para a aula de hoje. Toque em Todas para ver as outras."
-          : category ? category.description : "Toque numa missão pra jogar, ou filtre por categoria.";
+        status.textContent = heading.status;
         content.innerHTML = `<div class="menu-screen">
-          <div class="menu-filters" ${state.assessmentMode ? "hidden" : ""}>
+          <div class="menu-filters" ${state.assessmentMode || state.lessonMode ? "hidden" : ""}>
             ${hasLesson ? `<button type="button" class="menu-filter-chip ${lessonActive ? "active" : ""}" data-filter="${LESSON_FILTER}">📋 Da aula (${lessonMissionIds().length})</button>` : ""}
             <button type="button" class="menu-filter-chip ${activeFilter === null ? "active" : ""}" data-filter="all">🔷 Todas</button>
             ${missionCategories.map((cat, index) => `<button type="button" class="menu-filter-chip ${activeFilter === index ? "active" : ""}" data-filter="${index}">${cat.icon} ${cat.title}</button>`).join("")}
@@ -23156,6 +23837,7 @@ const brStatesList = [
       }
 
       const missionRenderers = {
+        lesson: renderLessonDeck,
         robot: renderRobot,
         dengue: renderDengue,
         recycle: renderRecycle,
@@ -23590,6 +24272,10 @@ const brStatesList = [
       function chooseMenu() {
         const item = filteredMenuItems()[state.selected];
         if (!item) return;
+        if (state.lessonMode) {
+          openLessonDeck(item.id);
+          return;
+        }
         reset(item.id);
       }
 
@@ -26348,6 +27034,7 @@ const brStatesList = [
       }
 
       const missionClickHandlers = {
+        lesson: handleLessonClick,
         robot: handleRobotClick,
         dengue: (event) => {
           if (state.dengueFinished) {
@@ -27258,7 +27945,7 @@ const brStatesList = [
       });
 
       function isBackActionProtected() {
-        if (state.mode === "menu") return false;
+        if (state.mode === "menu" || state.mode === "lesson") return false;
         const stateKey = missionLevelStateKeys[state.mode];
         if (stateKey) return state[stateKey] !== null;
         if (isLevelMission(state.mode)) return state.legacyActivity !== null;
@@ -27383,6 +28070,7 @@ const brStatesList = [
 
       // Saídas do botão voltar, na ordem em que valem. A primeira que se aplica ao estado atual é executada.
       const missionExits = [
+        { applies: () => state.mode === "lesson", run: closeLessonDeck },
         levelExit("math", "mathLevel", () => {
           state.mathAttempt = 0;
           state.mathWrong = null;
@@ -27513,12 +28201,14 @@ const brStatesList = [
         } else if (event.key === "Escape") {
           requestBackAction({ fromKeyboardEscape: true });
         } else if (event.key.toLowerCase() === "r") {
-          if (isAssessmentRunActive()) return;
+          if (isAssessmentRunActive() || state.mode === "lesson") return;
           if (isLevelMission(state.mode)) {
             resetLegacyView();
             return;
           }
           reset(state.mode);
+        } else if (state.mode === "lesson") {
+          handleLessonKey(event.key);
         } else if (state.answerLocked || (state.mode === "cup" && state.cupQuizMode === "study" && state.cupPhase === "study")) {
           return;
         } else if (state.mode === "robot" && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
@@ -27572,6 +28262,7 @@ const brStatesList = [
       document.getElementById("guidanceButton").addEventListener("click", openGuidance);
       document.getElementById("clearLessonMissionsButton").addEventListener("click", () => setLessonPlansInPanel([]));
       document.getElementById("assessmentModeButton").addEventListener("click", () => setAssessmentMode(!state.assessmentMode));
+      document.getElementById("lessonModeButton").addEventListener("click", () => setLessonMode(!state.lessonMode));
       renderLessonPlanGrid();
       childAudienceButton.addEventListener("click", lockAboutForChild);
       adultHoldButton.addEventListener("pointerdown", startAdultHold);

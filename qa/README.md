@@ -16,7 +16,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 |---|---|
 | `static/syntax.js` | Se o JavaScript do `index.html` é válido |
 | `static/lint.js` | ESLint: variáveis não declaradas ou sem uso, chaves duplicadas e outros erros comuns |
-| `static/data.js` | Integridade dos dados: Jogo da Velha, quizzes, Som Inicial, Monte a Palavra e planos de aula (tempos, habilidades, viés de tamanho da resposta certa) |
+| `static/data.js` | Integridade dos dados: Jogo da Velha, quizzes, Som Inicial, Monte a Palavra e planos de aula (tempos, habilidades, viés de tamanho da resposta certa) e slides do modo aula (tamanho das linhas, desenhos, missões e habilidades) |
 | `static/emoji.js` | Política de emojis: no máximo Unicode 12, para aparecer em aparelhos mais antigos |
 | `e2e/smoke.js` | Abre cada missão em cada faixa etária e interage ao acaso, procurando erros de JavaScript |
 | `e2e/keyboard.js` | Navegação por teclado em cada missão e saída pelo botão voltar (toque longo) |
@@ -27,6 +27,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 | `e2e/assessment.js` | Modo avaliação: 10 perguntas, uma tentativa, botões desativados, resultado com perguntas erradas e habilidades |
 | `e2e/assessment-puzzles.js` | Modo avaliação em Chef, Ciclos, Caderneta, Padrão, Divida a Tarefa, Estante, Robô coletor e Robô Programador |
 | `e2e/mobile-notice.js` | Aviso discreto de "feito para o computador": aparece no celular, some sozinho ou ao fechar, e não aparece no desktop |
+| `e2e/lesson-mode.js` | Modo aula: painel só com as missões que têm aula, slides que aparecem linha por linha, voltar, tocar para avançar, botão de jogar no fim e exclusão com o modo avaliação |
 | `e2e/a11y.js` | Auditoria axe-core de todas as telas no celular |
 | `e2e/offline.js` | Se o material abre e funciona sem internet depois da primeira visita |
 

@@ -140,10 +140,50 @@ function checkAssessmentSkills() {
   report.ok(`modo avaliação: ${Object.keys(skillsByMission).length} missões com habilidades`);
 }
 
+// ---- Modo aula: slides de quadro negro ----
+const LESSON_VISUAL_KINDS = ['flow', 'compare', 'branch', 'grid', 'code'];
+const MAX_LESSON_LINES = 4;
+const MAX_LESSON_LINE_LENGTH = 100;
+const MAX_LESSON_SLIDES = 8;
+
+function checkLessonSlide(deck, slide, number) {
+  const where = `aula ${deck.id}, slide ${number}`;
+  if (!slide.title) report.problem(`${where}: sem título`);
+  if (!slide.lines || !slide.lines.length || slide.lines.length > MAX_LESSON_LINES) report.problem(`${where}: deve ter de 1 a ${MAX_LESSON_LINES} linhas`);
+  (slide.lines || []).forEach((line) => {
+    if (line.length > MAX_LESSON_LINE_LENGTH) report.problem(`${where}: linha longa demais (${line.length}): ${line.slice(0, 40)}…`);
+    if ((line.match(/\*\*/g) || []).length % 2) report.problem(`${where}: ** sem par em "${line.slice(0, 40)}"`);
+  });
+  if (slide.visual && !LESSON_VISUAL_KINDS.includes(slide.visual.kind)) report.problem(`${where}: desenho desconhecido "${slide.visual.kind}"`);
+}
+
+function checkLessonDecks() {
+  const decks = loadConst('lessonDecks');
+  const assessable = Object.keys(loadConst('assessmentMissionSkills'));
+  const skillTexts = loadConst('bnccSkillTexts');
+  const seen = new Set();
+  decks.forEach((deck) => {
+    if (seen.has(deck.id)) report.problem(`aula ${deck.id}: id repetido`);
+    seen.add(deck.id);
+    if (!deck.slides.length || deck.slides.length > MAX_LESSON_SLIDES) report.problem(`aula ${deck.id}: de 1 a ${MAX_LESSON_SLIDES} slides`);
+    deck.missions.forEach((id) => {
+      if (!assessable.includes(id)) report.problem(`aula ${deck.id}: missão ${id} não é de pensamento computacional`);
+    });
+    deck.skills.forEach((code) => {
+      if (!skillTexts[code]) report.problem(`aula ${deck.id}: habilidade ${code} sem texto`);
+    });
+    deck.slides.forEach((slide, index) => checkLessonSlide(deck, slide, index + 1));
+  });
+  const owners = decks.flatMap((deck) => deck.missions);
+  if (new Set(owners).size !== owners.length) report.problem('uma missão aparece em mais de uma aula');
+  report.ok(`modo aula: ${decks.length} aulas, ${decks.reduce((sum, deck) => sum + deck.slides.length, 0)} slides`);
+}
+
 checkTicTacToe();
 QUIZ_MISSION_IDS.forEach(checkQuizMission);
 checkPhonics();
 checkSyllables();
 checkLessonPlans();
 checkAssessmentSkills();
+checkLessonDecks();
 report.finish();
