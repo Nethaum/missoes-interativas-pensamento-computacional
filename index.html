@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.1.0">
+  <meta name="app-version" content="3.2.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -6266,87 +6266,6 @@
     .decoder-letter.wrong { border-color: var(--red); background: #fff0f0; opacity: 0.55; cursor: default; animation: fx-shake 0.5s ease; }
     .decoder-alphabet.locked .decoder-letter:not(.correct):not(.wrong) { opacity: 0.42; filter: grayscale(0.35); }
 
-    .device-board {
-      width: min(520px, 100%);
-      display: grid;
-      gap: 16px;
-      justify-items: center;
-    }
-
-    .device-card {
-      display: grid;
-      justify-items: center;
-      gap: 8px;
-      padding: 20px 30px;
-      border: 5px solid var(--line);
-      border-radius: 20px;
-      background: var(--white);
-      box-shadow: 0 8px 0 rgba(205, 189, 145, 0.58);
-    }
-
-    .device-icon {
-      font-size: 64px;
-      line-height: 1;
-      filter: var(--visual-pop-shadow);
-    }
-
-    .device-name {
-      font-size: 20px;
-      font-weight: 950;
-      color: var(--card-ink);
-      text-shadow: none;
-    }
-
-    .device-options {
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .device-option {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      min-height: 72px;
-      display: grid;
-      place-items: center;
-      padding: 12px;
-      border: 4px solid var(--line);
-      border-radius: 16px;
-      background: var(--white);
-      color: var(--card-ink);
-      font-weight: 950;
-      font-size: 20px;
-      text-shadow: none;
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
-      cursor: pointer;
-      transition: transform 0.12s ease;
-    }
-
-    .device-option.selected {
-      border-color: var(--blue);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
-    }
-
-    .device-option.wrong {
-      border-color: var(--red);
-      background: #fff0f0;
-      animation: fx-shake 0.5s ease;
-    }
-
-    .device-option.correct {
-      border-color: #2f9e52;
-      background: #e6f9ec;
-    }
-
-    .device-options.locked .device-option:not(.wrong):not(.correct) {
-      opacity: 0.42;
-      filter: grayscale(0.35);
-      transform: none;
-    }
-
     .flag-art {
       position: relative;
       display: grid;
@@ -7943,7 +7862,6 @@
     .legacy-locked .answer-card,
     .math-cup-challenge.locked .math-cup-answer,
     .code-options.locked .code-option,
-    .device-options.locked .device-option,
     .decompose-palette.locked .decompose-palette-button,
     .decompose-options.locked .decompose-option {
       cursor: default;
@@ -7957,7 +7875,6 @@
     .direction-button,
     .answer-card,
     .code-option,
-    .device-option,
     .pixel-option,
     .bug-chip,
     .bug-fix-option,
@@ -7983,7 +7900,6 @@
     .direction-button:hover:not(.selected):not(.correct):not(.wrong),
     .answer-card:hover:not(.selected):not(.correct):not(.wrong),
     .code-option:hover:not(.selected):not(.correct):not(.wrong),
-    .device-option:hover:not(.selected):not(.correct):not(.wrong),
     .pixel-option:hover:not(.selected):not(.correct):not(.wrong),
     .bug-chip:hover:not(.selected):not(.correct):not(.wrong),
     .bug-fix-option:hover:not(.selected):not(.correct):not(.wrong),
@@ -8012,7 +7928,6 @@
     .direction-button:active,
     .answer-card:active,
     .code-option:active,
-    .device-option:active,
     .pixel-option:active,
     .bug-chip:active,
     .bug-fix-option:active,
@@ -8255,8 +8170,7 @@
       .math-cup-goal-pause,
       .math-cup-player.pass-target,
       .math-cup-cell.pass-target-cell,
-      .code-option,
-      .device-option {
+      .code-option {
         touch-action: manipulation;
       }
 
@@ -8441,19 +8355,6 @@
       .code-option {
         min-height: 52px;
         font-size: 14px;
-      }
-
-      .device-icon {
-        font-size: 48px;
-      }
-
-      .device-name {
-        font-size: 16px;
-      }
-
-      .device-option {
-        min-height: 60px;
-        font-size: 17px;
       }
 
       .level-select,
@@ -9817,7 +9718,7 @@
           </div>
           <div class="assessment-box">
             <div class="support-title">📝 Modo avaliação</div>
-            <p class="support-text">Em 21 missões com resposta certa ou errada: 10 perguntas por missão (5 em Robô coletor e Estante Organizada, 3 em Robô Programador, que são fases inteiras), uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
+            <p class="support-text">Em 20 missões com resposta certa ou errada: 10 perguntas por missão (5 em Robô coletor e Estante Organizada, 3 em Robô Programador, que são fases inteiras), uma tentativa em cada, sem mostrar a resposta. Início, recomeçar e voltar ficam desativados enquanto o aluno responde, e o resultado aparece no fim, pronto para imprimir. Nada é guardado.</p>
             <button id="assessmentModeButton" class="support-open-link" type="button" aria-pressed="false">📝 Ligar o modo avaliação</button>
           </div>
           <div class="assessment-box">
@@ -9988,8 +9889,7 @@
         { id: "pixels", icon: "🧩", title: "Desmistificador de Pixels", subject: "Código binário e imagens" },
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
         { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania" },
-        { id: "devices", icon: "🖱️", title: "Entrada ou saída", subject: "Computador e tecnologia" },
-        { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, software, arquivos e redes" },
+        { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, entrada e saída, arquivos e redes" },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
         { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
@@ -10033,7 +9933,7 @@
           title: "Classificação e organização",
           icon: "🗂️",
           description: "Separar, agrupar e organizar itens pelas suas características.",
-          missionIds: ["recycle", "devices", "habitat", "vertebrate"],
+          missionIds: ["recycle", "habitat", "vertebrate"],
         },
         {
           title: "Lógica e decisão",
@@ -10051,7 +9951,7 @@
           title: "Mundo Digital e Cultura Digital",
           icon: "💻",
           description: "Entender o computador e a internet e usar a tecnologia com segurança, respeito e senso crítico.",
-          missionIds: ["hardware", "devices", "safe", "ai", "structures", "pixels"],
+          missionIds: ["hardware", "safe", "ai", "structures", "pixels"],
         },
       ];
 
@@ -10266,18 +10166,18 @@
           materials: [
             "Instruções impressas de uma receita ou de um trajeto com um passo trocado",
             "Papel e lápis",
-            "Computador ou tablet com Caça ao Bug e Entrada ou saída",
+            "Computador ou tablet com Caça ao Bug e Computador por dentro",
             "Projetor (opcional)",
           ],
           sequence: [
             { step: "Abertura: a receita com erro", time: "8 min", mode: "desplugada", description: "Entregue uma receita com um passo fora de ordem e pergunte: onde está o erro? Explique que um \"bug\" é um erro escondido em um conjunto de instruções." },
             { step: "Exploração guiada", time: "12 min", mode: "plugada", description: "Projete a Caça ao Bug e analise com a turma por que o robô não chegou ao destino." },
-            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam a Caça ao Bug e, se houver tempo, a missão Entrada ou saída, que mostra o que entra e o que sai de um computador." },
+            { step: "Prática individual", time: "12 min", mode: "plugada", description: "Os alunos jogam a Caça ao Bug e, se houver tempo, a missão Computador por dentro, que mostra o que entra e o que sai de um computador." },
             { step: "Atividade desplugada: passe o erro", time: "13 min", mode: "desplugada", description: "Cada dupla cria uma sequência de passos com um erro escondido e troca com outra dupla, que precisa encontrar e corrigir o erro." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça que expliquem, em uma frase, como encontraram o erro." },
           ],
           extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04).",
-          missions: ["bug", "devices", "hardware", "safe", "reading", "structures"],
+          missions: ["bug", "hardware", "safe", "reading", "structures"],
           assessment: [
             "Localiza o comando errado sem precisar de várias tentativas?",
             "Explica com suas palavras por que aquele comando estava errado?",
@@ -10875,6 +10775,83 @@
             },
           ],
         },
+        {
+          id: "computador",
+          icon: "💻",
+          title: "Computador por dentro",
+          missions: ["hardware"],
+          skills: ["EF02CO04", "EF03CO06", "EF05CO05", "EF05CO06"],
+          slides: [
+            {
+              title: "O que é um computador?",
+              lines: [
+                "O computador **recebe** informações, **processa** e **mostra** o resultado.",
+                "Ele só faz o que as **instruções** (os programas) mandam.",
+              ],
+              visual: { kind: "flow", items: ["⌨️ Entrada", "🧠 Processamento", "🖥️ Saída"], caption: "Receber, processar e mostrar" },
+            },
+            {
+              title: "Hardware e software",
+              lines: [
+                "**Hardware** são as peças que dá para tocar.",
+                "**Software** são os programas: as instruções para o hardware.",
+                "Um precisa do outro para funcionar.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🖱️ Hardware", tone: "good", items: ["Teclado", "Monitor", "Mouse"] },
+                right: { title: "💻 Software", tone: "good", items: ["Programa de desenho", "Jogo", "Navegador"] },
+              },
+            },
+            {
+              title: "Dispositivos de entrada",
+              lines: [
+                "**Entrada** manda informação **para** o computador.",
+                "Exemplos: teclado, mouse, microfone, câmera e controle de videogame.",
+              ],
+              visual: { kind: "flow", items: ["🎤 Microfone", "🧠 Computador"], caption: "Entrada: do mundo para o computador" },
+            },
+            {
+              title: "Dispositivos de saída",
+              lines: [
+                "**Saída** mostra ou toca a informação **do** computador.",
+                "Exemplos: monitor, caixa de som, fone de ouvido, impressora e projetor.",
+              ],
+              visual: { kind: "flow", items: ["🧠 Computador", "🖨️ Impressora"], caption: "Saída: do computador para o mundo" },
+            },
+            {
+              title: "Entrada, saída ou os dois?",
+              lines: [
+                "Alguns aparelhos fazem **as duas coisas**.",
+                "A tela de toque **mostra** imagens (saída) e **sente** o toque (entrada).",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "📥 Entrada", tone: "good", items: ["🖱️ Mouse", "⌨️ Teclado", "📷 Câmera"] },
+                right: { title: "📤 Saída", tone: "good", items: ["🖥️ Monitor", "🔊 Caixa de som", "🖨️ Impressora"] },
+                caption: "Tela de toque: entrada e saída!",
+              },
+            },
+            {
+              title: "Dentro do computador",
+              lines: [
+                "**Processador**: faz as contas e executa as instruções.",
+                "**Memória**: guarda o que está em uso agora.",
+                "**Armazenamento**: guarda os arquivos por muito tempo.",
+              ],
+              visual: { kind: "flow", items: ["🧠 Processador", "⚡ Memória", "💾 Armazenamento"], join: "+" },
+            },
+            {
+              title: "Arquivos e redes",
+              lines: [
+                "**Arquivo** guarda informação: texto, foto, música ou vídeo.",
+                "**Rede** liga computadores para trocar informação, como a internet.",
+                "Cuide dos seus arquivos e das suas senhas!",
+              ],
+              visual: { kind: "flow", items: ["💻 Computador", "🌐 Rede", "💻 Outro computador"], join: "↔" },
+            },
+          ],
+        },
       ];
 
       const assessmentMissionSkills = {
@@ -10887,7 +10864,6 @@
         cond: ["EF03CO01", "EF05CO03", "EF05CO04"],
         pixels: ["EF04CO05"],
         var: ["EF06CO06"],
-        devices: ["EF03CO06", "EF05CO05"],
         loop: ["EF02CO02", "EF03CO02", "EF04CO03"],
         code: ["EF01CO05", "EF04CO04", "EF04CO05"],
         bug: ["EF07CO02"],
@@ -16509,6 +16485,7 @@ const brStatesList = [
             { icon: "🧼", question: "Qual é um bom cuidado ao usar o computador?", options: ["Estar com as mãos limpas e secas", "Comer sanduíche sobre o teclado", "Puxar os fios com muita força"], answer: 0, why: "Cuidar do equipamento faz ele durar mais e funcionar melhor." },
             { icon: "🎤", question: "Qual destes serve para gravar a nossa voz?", options: ["Microfone", "Impressora", "Monitor"], answer: 0, why: "O microfone capta o som da voz para o computador." },
             { icon: "📷", question: "Qual destes tira fotos?", options: ["Câmera", "Caixa de som", "Teclado"], answer: 0, why: "A câmera registra imagens." },
+            { icon: "📷", question: "A câmera é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 0, why: "A câmera capta imagens e manda para o computador: é de entrada." },
           ],
         },
         {
@@ -16530,6 +16507,12 @@ const brStatesList = [
             { icon: "🎨", question: "Qual destes é um programa (software)?", options: ["Aplicativo de desenho", "Fone de ouvido novo", "Mouse da escola com fio"], answer: 0, why: "Aplicativos são software." },
             { icon: "🔌", question: "Onde um trabalho fica guardado com o computador desligado?", options: ["No armazenamento (HD, SSD ou pen drive)", "Só na tela enquanto o computador está ligado", "Dentro das teclas do teclado"], answer: 0, why: "O armazenamento mantém os dados mesmo sem energia." },
             { icon: "🛡️", question: "Qual cuidado protege o seu trabalho?", options: ["Salvar e guardar uma cópia", "Contar a senha aos colegas", "Fechar sem salvar"], answer: 0, why: "Cópias e senhas protegem contra perdas e acessos indevidos." },
+            { icon: "⌨️", question: "O teclado é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 0, why: "O teclado envia as letras que você digita para o computador: é de entrada." },
+            { icon: "🕹️", question: "O controle de videogame é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 0, why: "Os botões do controle mandam comandos para o computador: é de entrada." },
+            { icon: "🔊", question: "A caixa de som é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 1, why: "A caixa de som toca os sons que vêm do computador: é de saída." },
+            { icon: "🎧", question: "O fone de ouvido, só para ouvir, é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 1, why: "O fone toca o som que vem do computador: é de saída." },
+            { icon: "📽️", question: "O projetor é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 1, why: "O projetor mostra na parede a imagem que vem do computador: é de saída." },
+            { icon: "📺", question: "A televisão ligada ao computador é um dispositivo de...", options: ["Entrada", "Saída", "Os dois"], answer: 1, why: "A televisão mostra imagens e sons do computador: é de saída." },
           ],
         },
         {
@@ -16988,23 +16971,6 @@ const brStatesList = [
         return decomposeLevels[state.decomposeLevel].rounds;
       }
 
-      const deviceItems = [
-        { icon: "🖱️", name: "Mouse", type: "entrada" },
-        { icon: "⌨️", name: "Teclado", type: "entrada" },
-        { icon: "🎤", name: "Microfone", type: "entrada" },
-        { icon: "📷", name: "Câmera", type: "entrada" },
-        { icon: "🕹️", name: "Controle de videogame", type: "entrada" },
-        { icon: "👆", name: "Tela de toque", type: "entrada" },
-        { icon: "🖥️", name: "Monitor", type: "saída" },
-        { icon: "🔊", name: "Caixa de som", type: "saída" },
-        { icon: "🎧", name: "Fone de ouvido", type: "saída" },
-        { icon: "🖨️", name: "Impressora", type: "saída" },
-        { icon: "📽️", name: "Projetor", type: "saída" },
-        { icon: "📺", name: "Televisão", type: "saída" },
-      ];
-
-      const deviceAnswerTypes = ["entrada", "saída"];
-
       const chartPalette = ["blue", "orange", "green", "purple"];
 
       const levelMissions = {
@@ -17438,9 +17404,6 @@ const brStatesList = [
         chefWrong: null,
         chefCorrectIndex: null,
         chefJustFilledSlot: null,
-        devicesWrong: null,
-        devicesAttempt: 0,
-        devicesCorrectIndex: null,
         answerLocked: false,
         answerLockTimer: null,
         cycleChosen: [],
@@ -18184,7 +18147,6 @@ const brStatesList = [
         decoder: decoderLevels.map((level) => level.rounds.map(cloneValue)),
         ttt: tttLevels.map((level) => level.rounds.map(cloneValue)),
         chef: chefRecipes.map(cloneValue),
-        devices: deviceItems.map(cloneValue),
         math: mathLevels.map((level) => level.rounds.map(cloneValue)),
         legacy: {
           detective: legacyDataQuizRounds.map(cloneValue),
@@ -18340,7 +18302,6 @@ const brStatesList = [
         if (quizMissions[mode]) resetQuizRoundPools(mode, seedForMode);
         if (mode === "decoder") resetDecoderRoundPools(seedForMode);
         if (mode === "ttt") resetTttRoundPools(seedForMode);
-        if (mode === "devices") resetRoundPool(deviceItems, roundPools.devices, seedForMode, { free: true });
         if (mode === "math") resetMathRoundPools(seedForMode);
       }
 
@@ -20895,15 +20856,6 @@ const brStatesList = [
         });
       }
 
-      function deviceOptions() {
-        const item = deviceItems[state.round];
-        return orderAnswerOptions(deviceAnswerTypes, {
-          seed: seedFromParts("devices", state.missionSeed, state.round, item.name),
-          attempt: state.devicesAttempt,
-          isCorrect: (type) => type === item.type,
-        });
-      }
-
       const cupQuizModes = [
         { id: "study", icon: "📖", title: "Estudar e reconhecer", kicker: "Veja a bandeira e o nome juntos, depois escolha a bandeira certa." },
         { id: "flagToName", icon: "🏳️", title: "Bandeira → Nome", kicker: "Só a bandeira aparece. Escolha o nome certo." },
@@ -22225,26 +22177,6 @@ const brStatesList = [
               if (wrong) classes.push("wrong");
               return `<button type="button" class="${classes.join(" ")}" ${guessed ? "disabled" : ""}>${letter}</button>`;
             }).join("")}
-          </div>
-        </div>`;
-      }
-
-      function renderDevices() {
-        const item = deviceItems[state.round];
-        const options = deviceOptions();
-        setHeader("Entrada ou saída", "Como o computador troca informação?");
-        setMissionCounters("Dispositivo", deviceItems);
-        status.textContent = "Esse dispositivo manda informação para o computador ou recebe informação dele?";
-        content.innerHTML = `<div class="device-board">
-          <div class="device-card ${state.devicesCorrectIndex !== null ? "fx-flash" : ""}">
-            <div class="device-icon">${item.icon}</div>
-            <div class="device-name" data-fit-text data-fit-min="12">${item.name}</div>
-          </div>
-          <div class="device-options ${state.answerLocked ? "locked" : ""}">
-            ${options.map((type, index) => `<div class="device-option ${index === state.selected ? "selected" : ""} ${state.devicesWrong === index ? "wrong" : ""} ${state.devicesCorrectIndex === index ? "correct" : ""}" data-fit-text data-fit-min="12">
-              ${deviceTypeLabel(type)}
-              ${state.devicesCorrectIndex === index ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🖥️</span><span>🎉</span><span>✨</span><span>🖥️</span></div>' : ""}
-            </div>`).join("")}
           </div>
         </div>`;
       }
@@ -23862,7 +23794,6 @@ const brStatesList = [
         ...mapQuizMissions(() => renderQuiz),
         builder: renderBuilder,
         decoder: renderDecoder,
-        devices: renderDevices,
         mathCup: renderMathCup,
         ttt: renderTtt,
         memory: renderMemory,
@@ -24235,9 +24166,6 @@ const brStatesList = [
         state.memoryMatchesFound = 0;
         state.memoryAttempts = 0;
         state.memoryRoundIndex = 0;
-        state.devicesAttempt = 0;
-        state.devicesWrong = null;
-        state.devicesCorrectIndex = null;
       }
 
       function reset(mode = state.mode) {
@@ -26062,62 +25990,6 @@ const brStatesList = [
         return activateIndexedClick(event, ".decoder-letter", (index) => handleDecoderGuess(DECODER_ALPHABET[index]));
       }
 
-      function deviceTypeLabel(type) {
-        return type === "entrada" ? "📥 Entrada" : "📤 Saída";
-      }
-
-      function answerDeviceInAssessment(item, choice) {
-        recordAssessmentAnswer(choice === item.type, {
-          question: `${item.icon} ${item.name}: é um dispositivo de entrada ou de saída?`,
-          chosen: deviceTypeLabel(choice),
-          correct: deviceTypeLabel(item.type),
-        });
-        state.round += 1;
-        state.selected = -1;
-        state.devicesAttempt = 0;
-        if (state.round >= roundTotal(deviceItems)) finishAssessmentRun();
-        else render();
-      }
-
-      function handleDevicesEnter() {
-        if (!hasSelection()) return;
-        const item = deviceItems[state.round];
-        const choice = deviceOptions()[state.selected];
-        if (isAssessmentRunActive()) {
-          answerDeviceInAssessment(item, choice);
-          return;
-        }
-        if (choice !== item.type) {
-          lockAnswer({
-            delay: 1500,
-            messageText: "👀 Pense de novo!",
-            guard: () => state.mode === "devices",
-            onLock: () => { state.devicesWrong = state.selected; },
-            onUnlock: () => { state.devicesWrong = null; state.devicesAttempt += 1; },
-          });
-          return;
-        }
-        state.devicesWrong = null;
-        state.devicesCorrectIndex = state.selected;
-        state.answerLocked = true;
-        showMessage("✅ Certo!", 600);
-        render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "devices") return;
-          state.devicesCorrectIndex = null;
-          state.answerLocked = false;
-          state.devicesAttempt = 0;
-          nextQuestion("devices", deviceItems, "Dispositivos classificados!");
-        }, 600);
-      }
-
-      function handleDevicesClick(event) {
-        return activateChoiceClick(event, ".device-option", {
-          clearWrong: () => { state.devicesWrong = null; },
-          onConfirm: handleDevicesEnter,
-        });
-      }
-
       function handleTttEnter() {
         if (state.tttOpponent === null) {
           if (!hasSelection()) return;
@@ -26617,7 +26489,6 @@ const brStatesList = [
         ...mapQuizMissions(() => handleQuizEnter),
         builder: handleBuilderEnter,
         decoder: handleDecoderEnter,
-        devices: handleDevicesEnter,
         mathCup: handleMathCupEnter,
         ttt: handleTttEnter,
         memory: handleMemoryEnter,
@@ -26793,7 +26664,6 @@ const brStatesList = [
         ...mapQuizMissions(() => quizNavigation),
         builder: () => choiceNavigation(currentBuilderPaletteBlocks().length, null, 2),
         decoder: () => navigateLevelsOrChoices(state.decoderLevel, decoderLevels.length, () => choiceNavigation(DECODER_ALPHABET.length, null, 7)),
-        devices: () => choiceNavigation(deviceOptions().length, "devicesWrong"),
         mathCup: mathCupNavigation,
         ttt: ticTacToeNavigation,
         memory: memoryNavigation,
@@ -27095,7 +26965,6 @@ const brStatesList = [
         ...mapQuizMissions(() => handleQuizClick),
         builder: handleBuilderClick,
         decoder: handleDecoderClick,
-        devices: handleDevicesClick,
         mathCup: handleMathCupClick,
         ttt: handleTttClick,
         memory: handleMemoryClick,
@@ -27130,7 +26999,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .device-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button, .decompose-option, .decompose-palette-button")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button, .decompose-option, .decompose-palette-button")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();

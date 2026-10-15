@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 3.1.0
+Versão atual: 3.2.0
 
 ## Acesse
 
@@ -55,7 +55,6 @@ Os códigos abaixo vêm das tabelas de competências e habilidades da [Resoluç�
 | Mensagem secreta | EF01CO05, EF04CO04, EF04CO05 |
 | Desmistificador de Pixels | EF04CO05 |
 | Dados e gráficos | EF03CO04, EF03CO05 |
-| Entrada ou saída | EF03CO06, EF05CO05 |
 | Computador por dentro | EF02CO04, EF03CO04, EF03CO06, EF04CO04, EF05CO05, EF05CO06, EF05CO07, EF06CO07, EF06CO08, EF07CO06, EF07CO07, EF08CO05, EF08CO06, EF09CO04, EF09CO05 |
 | Navegação segura | EF01CO07, EF02CO05, EF02CO06, EF03CO07, EF03CO09, EF04CO06 a EF04CO08, EF05CO08 a EF05CO10, EF06CO09, EF06CO10, EF07CO08 a EF07CO10, EF08CO07 a EF08CO11, EF09CO06 a EF09CO10 |
 | Dados, algoritmos e IA | EF05CO08, EF08CO07, EF08CO11, EF09CO07, EF09CO10 (a IA é tema transversal do currículo, sem componente próprio) |
@@ -125,8 +124,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 - Desmistificador de Pixels: leitura de código binário simples para revelar desenhos em grade, com o desenho e o código lado a lado até o aluno tocar em Continuar.
 - Dados e gráficos: contagem, comparação e leitura de informações, com a explicação do acerto na tela até o aluno tocar em Continuar.
 - Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
-- Entrada ou saída: identificação de dispositivos que enviam ou recebem informações do computador.
-- Computador por dentro: perguntas sobre hardware e software, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto e botão Continuar para estudar a resolução.
+- Computador por dentro: perguntas sobre hardware e software, dispositivos de entrada e saída, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto e botão Continuar para estudar a resolução.
 - Dados, algoritmos e IA: perguntas equilibradas sobre dados, padrões, vieses, privacidade e uso responsável da inteligência artificial, sem otimismo excessivo nem aversão.
 - Organize os dados: listas, tabelas, registros, grafos, árvores e máquinas de estados em situações do dia a dia.
 - Leia o código: prever o resultado de programas, de sequências de comandos em português a código em Python, com explicação a cada acerto e botão Continuar para estudar a resolução.
@@ -163,7 +161,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo aula (quadro negro com slides curtos que explicam o conceito de cada missão de pensamento computacional, linha por linha, e terminam abrindo a missão; hoje com 3 temas: algoritmo e sequência, laços e condições) e do modo avaliação (21 missões com resposta certa ou errada, 10 perguntas por missão, ou 5 no Robô coletor e na Estante Organizada e 3 no Robô Programador, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo aula (quadro negro com slides curtos que explicam o conceito de cada missão de pensamento computacional, linha por linha, e terminam abrindo a missão; hoje com 4 temas: algoritmo e sequência, laços, condições e computador por dentro) e do modo avaliação (20 missões com resposta certa ou errada, 10 perguntas por missão, ou 5 no Robô coletor e na Estante Organizada e 3 no Robô Programador, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 

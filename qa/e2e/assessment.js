@@ -8,7 +8,7 @@ const { createReport } = require('../lib/report');
 const BAND_USED = 3;
 const QUESTIONS = 10;
 const HITS_PLANNED = 7;
-const ASSESSABLE_MISSIONS = 21;
+const ASSESSABLE_MISSIONS = 20;
 const MAX_CLICKS = QUESTIONS * 2 + 3;
 const ROBOT_WALK_MS = 4500;
 const OPTION = '.decompose-option';
@@ -102,7 +102,6 @@ const GENERIC_MISSIONS = [
   { title: 'Portão Lógico', option: '.cond-option' },
   { title: 'Dados e gráficos', option: '.answer-row .answer-card' },
   { title: 'Desmistificador de Pixels', option: '.pixel-option' },
-  { title: 'Entrada ou saída', option: '.device-option' },
   { title: 'Fábrica de Laços', option: '.loop-confirm-button' },
   { title: 'Mensagem secreta', option: '.code-option' },
   { title: 'Tradutor de Sinais', option: '.var-option', ready: '.var-next-button', prepare: revealVariableCommands },

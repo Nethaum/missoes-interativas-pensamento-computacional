@@ -10,7 +10,7 @@ const SHOWN_LINES = '.lesson-line.shown';
 const SHOWN_VISUAL = '.lesson-visual.shown';
 const SETTLE_MS = 150;
 // Missão do painel que abre cada aula.
-const DECK_ENTRY = { algoritmo: 'Robô coletor', lacos: 'Fábrica de Laços', condicionais: 'Portão Lógico' };
+const DECK_ENTRY = { algoritmo: 'Robô coletor', lacos: 'Fábrica de Laços', condicionais: 'Portão Lógico', computador: 'Computador por dentro' };
 
 async function setMode(page, buttonId, wanted) {
   await unlockTeacherArea(page);
