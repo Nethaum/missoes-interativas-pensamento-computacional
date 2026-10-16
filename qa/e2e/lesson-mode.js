@@ -10,7 +10,25 @@ const SHOWN_LINES = '.lesson-line.shown';
 const SHOWN_VISUAL = '.lesson-visual.shown';
 const SETTLE_MS = 150;
 // Missão do painel que abre cada aula.
-const DECK_ENTRY = { algoritmo: 'Robô coletor', lacos: 'Fábrica de Laços', condicionais: 'Portão Lógico', computador: 'Computador por dentro' };
+const DECK_ENTRY = {
+  algoritmo: 'Robô coletor',
+  lacos: 'Fábrica de Laços',
+  condicionais: 'Portão Lógico',
+  computador: 'Computador por dentro',
+  padroes: 'Padrão Perfeito',
+  decomposicao: 'Divida a Tarefa',
+  depuracao: 'Caça ao Bug',
+  variaveis: 'Tradutor de Sinais',
+  ordenacao: 'Estante Organizada',
+  dados: 'Dados e gráficos',
+  pixels: 'Desmistificador de Pixels',
+  codigos: 'Mensagem secreta',
+  programador: 'Robô Programador',
+  leitura: 'Leia o código',
+  estruturas: 'Organize os dados',
+  seguranca: 'Navegação segura',
+  ia: 'Dados, algoritmos e IA',
+};
 
 async function setMode(page, buttonId, wanted) {
   await unlockTeacherArea(page);
@@ -40,17 +58,19 @@ async function revealSlide(page, report, deckId, slide, number) {
 }
 
 async function checkDeck(page, report, deck) {
-  if (!DECK_ENTRY[deck.id]) return report.problem(`aula ${deck.id}: falta incluir no teste (DECK_ENTRY)`);
-  await openMission(page, DECK_ENTRY[deck.id]);
+  const entry = deck.standalone ? deck.title : DECK_ENTRY[deck.id];
+  if (!entry) return report.problem(`aula ${deck.id}: falta incluir no teste (DECK_ENTRY)`);
+  await openMission(page, entry);
   await page.waitForSelector(SLIDE);
   for (let index = 0; index < deck.slides.length; index++) {
     await revealSlide(page, report, deck.id, deck.slides[index], index + 1);
     if (index < deck.slides.length - 1) await press(page, 'ArrowRight');
   }
-  if (!(await page.isVisible('.lesson-play'))) report.problem(`${deck.id}: no fim deveria aparecer "Agora vamos jogar"`);
-  if (!(await page.innerText('.lesson-skills')).includes(deck.skills[0])) report.problem(`${deck.id}: habilidades da BNCC fora do último slide`);
+  const endButton = deck.standalone ? '.lesson-close' : '.lesson-play';
+  if (!(await page.isVisible(endButton))) report.problem(`${deck.id}: no fim deveria aparecer o botão final (${endButton})`);
+  if (deck.skills.length && !(await page.innerText('.lesson-skills')).includes(deck.skills[0])) report.problem(`${deck.id}: habilidades da BNCC fora do último slide`);
   await press(page, 'ArrowLeft');
-  if ((await page.locator('.lesson-play').count()) !== 0) report.problem(`${deck.id}: voltar um toque deveria esconder o botão de jogar`);
+  if ((await page.locator('.lesson-play, .lesson-close').count()) !== 0) report.problem(`${deck.id}: voltar um toque deveria esconder o botão final`);
   return null;
 }
 
@@ -88,7 +108,7 @@ async function main() {
     const page = await newPage(browser);
     await openMenu(page, server.url, BAND_USED);
     await setMode(page, '#lessonModeButton', true);
-    const expected = decks.flatMap((deck) => deck.missions).length;
+    const expected = decks.flatMap((deck) => deck.missions).length + decks.filter((deck) => deck.standalone).length;
     const shown = await page.locator('.menu-tile').count();
     if (shown !== expected) report.problem(`o painel deveria mostrar ${expected} missões com aula e mostra ${shown}`);
     for (const deck of decks) {

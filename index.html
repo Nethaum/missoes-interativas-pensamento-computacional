@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.2.0">
+  <meta name="app-version" content="3.3.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -1827,13 +1827,13 @@
     }
 
     .lesson-cell {
-      width: clamp(40px, min(6vw, 9vh), 130px);
-      height: clamp(40px, min(6vw, 9vh), 130px);
+      width: clamp(34px, min(6vw, 7.4vh), 130px);
+      height: clamp(34px, min(6vw, 7.4vh), 130px);
       display: grid;
       place-items: center;
       border: 2px solid rgba(255, 247, 214, 0.45);
       border-radius: 10px;
-      font-size: clamp(22px, min(3.4vw, 5.6vh), 72px);
+      font-size: clamp(20px, min(3.4vw, 4.4vh), 72px);
     }
 
     .lesson-code {
@@ -1884,7 +1884,8 @@
       cursor: default;
     }
 
-    .lesson-play {
+    .lesson-play,
+    .lesson-close {
       border-color: var(--yellow);
       background: var(--yellow);
       color: var(--card-ink);
@@ -10852,6 +10853,813 @@
             },
           ],
         },
+        {
+          id: "padroes",
+          icon: "🔴",
+          title: "Padrões",
+          missions: ["pattern"],
+          skills: ["EF01CO01", "EF02CO01"],
+          slides: [
+            {
+              title: "O que é um padrão?",
+              lines: [
+                "**Padrão** é algo que se **repete** sempre do mesmo jeito.",
+                "Cores, formas, sons e números podem formar padrões.",
+              ],
+              visual: { kind: "flow", items: ["🔴", "🔵", "🔴", "🔵", "🔴", "❓"], join: "", caption: "O que vem agora?" },
+            },
+            {
+              title: "Descubra a regra",
+              lines: [
+                "Procure o **grupo** que se repete.",
+                "A regra diz o que vem **depois**.",
+                "Se a regra é **AB, AB, AB**, depois do B vem o A.",
+              ],
+              visual: { kind: "flow", items: ["🔴 🔵", "🔴 🔵", "🔴 🔵", "🔴 ❓"], join: "→" },
+            },
+            {
+              title: "Padrões que crescem",
+              lines: [
+                "Alguns padrões **aumentam** a cada passo.",
+                "Em 2, 4, 6, 8… sempre soma **mais 2**.",
+              ],
+              visual: { kind: "flow", items: ["2", "4", "6", "8", "❓"], join: "→", caption: "Regra: mais 2" },
+            },
+            {
+              title: "Duas pistas ao mesmo tempo",
+              lines: [
+                "Às vezes a **cor** e a **forma** mudam juntas.",
+                "Descubra **uma pista de cada vez**.",
+              ],
+              visual: { kind: "flow", items: ["🔴 ▲", "🔵 ●", "🔴 ▲", "🔵 ●", "❓"], join: "→" },
+            },
+            {
+              title: "Padrão e repetição",
+              lines: [
+                "Se algo se repete, não precisamos escrever tudo.",
+                "Padrões ajudam a **prever** o que vem e a **economizar** comandos.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "Escrevendo tudo", tone: "bad", items: ["🔴🔵🔴🔵🔴🔵"] },
+                right: { title: "Usando o padrão", tone: "good", items: ["Repita 3×: 🔴🔵"] },
+              },
+            },
+          ],
+        },
+        {
+          id: "decomposicao",
+          icon: "🧩",
+          title: "Dividir a tarefa",
+          missions: ["decompose"],
+          skills: ["EF03CO03", "EF06CO04"],
+          slides: [
+            {
+              title: "Tarefa grande, partes pequenas",
+              lines: [
+                "**Decompor** é dividir um problema grande em partes **menores**.",
+                "Cada parte fica mais fácil de resolver.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "Tarefa grande", tone: "bad", items: ["🧺 Arrumar o quarto"] },
+                right: { title: "Partes menores", tone: "good", items: ["👕 Guardar as roupas", "📚 Organizar os livros", "🛏️ Arrumar a cama"] },
+              },
+            },
+            {
+              title: "Depois, a ordem",
+              lines: [
+                "Depois de dividir, **ordene** as partes.",
+                "Alguns passos precisam vir **antes** dos outros.",
+              ],
+              visual: { kind: "flow", items: ["🍞 Pegar o pão", "🧈 Passar manteiga", "🥪 Montar o lanche"], caption: "Fazer um lanche" },
+            },
+            {
+              title: "Boas divisões",
+              lines: [
+                "Uma boa divisão tem partes **claras** que não se misturam.",
+                "Cada parte tem **um objetivo só**.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Boa divisão", tone: "good", items: ["Juntar os materiais", "Montar a maquete", "Pintar"] },
+                right: { title: "❌ Divisão confusa", tone: "bad", items: ["Fazer tudo", "Fazer mais um pouco", "Terminar"] },
+              },
+            },
+            {
+              title: "Dividir para resolver",
+              lines: [
+                "Programadores dividem programas grandes em **funções** pequenas.",
+                "Quem divide bem **encontra erros** mais depressa.",
+              ],
+              visual: { kind: "code", lines: ["função fazerBolo():", "    preparar()", "    assar()", "    servir()"] },
+            },
+          ],
+        },
+        {
+          id: "depuracao",
+          icon: "🐞",
+          title: "Caçando bugs",
+          missions: ["bug"],
+          skills: ["EF07CO02"],
+          slides: [
+            {
+              title: "O que é um bug?",
+              lines: [
+                "**Bug** é um erro no algoritmo ou no programa.",
+                "O programa roda, mas **não faz o que deveria**.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Esperado", tone: "good", items: ["🤖 Chega ao portal"] },
+                right: { title: "🐞 Com bug", tone: "bad", items: ["🤖 Bate na parede"] },
+              },
+            },
+            {
+              title: "Depurar é caçar bugs",
+              lines: [
+                "**Depurar** é procurar e consertar os erros.",
+                "Observe, ache o comando errado, corrija e teste.",
+              ],
+              visual: { kind: "flow", items: ["👀 Observar", "🔎 Achar o erro", "🛠️ Corrigir", "🧪 Testar"], repeat: true },
+            },
+            {
+              title: "Siga o caminho passo a passo",
+              lines: [
+                "Simule cada comando, **um de cada vez**, como se fosse o robô.",
+                "O erro aparece onde o caminho **sai do esperado**.",
+              ],
+              visual: { kind: "code", lines: ["1. ➡️ direita", "2. ➡️ direita", "3. ⬇️ baixo   ← deveria ir para cima!", "4. ⬆️ cima"] },
+            },
+            {
+              title: "Errar faz parte",
+              lines: [
+                "Todo programador encontra bugs.",
+                "**Testar cedo** e **muitas vezes** ajuda a achar o erro.",
+                "Depois de corrigir, **teste de novo**.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "variaveis",
+          icon: "📦",
+          title: "Variáveis",
+          missions: ["var"],
+          skills: ["EF06CO06"],
+          slides: [
+            {
+              title: "Uma caixa com nome",
+              lines: [
+                "**Variável** é como uma caixa com **nome** que guarda um valor.",
+                "O nome ajuda a **achar** a caixa depois.",
+              ],
+              visual: { kind: "flow", items: ["📦 cor", "🔵 azul"], join: "=", caption: "A variável cor guarda azul" },
+            },
+            {
+              title: "O valor pode mudar",
+              lines: [
+                "O que está na caixa pode ser **trocado**.",
+                "Quando troca, o valor **antigo** some.",
+              ],
+              visual: { kind: "code", lines: ["cor = azul", "cor = verde", "mostrar cor   → verde"] },
+            },
+            {
+              title: "Siga os comandos",
+              lines: [
+                "Leia os comandos **na ordem**, um por vez.",
+                "Anote o valor depois de cada comando.",
+              ],
+              visual: { kind: "code", lines: ["pontos = 2", "pontos = pontos + 3", "mostrar pontos   → 5"] },
+            },
+            {
+              title: "Cuidado com as pegadinhas",
+              lines: [
+                "Só vale o **último** valor guardado.",
+                "Comandos que **não mudam** a caixa não alteram o valor.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "Comandos", tone: "good", items: ["x = 4", "x = 7", "x = x + 1"] },
+                right: { title: "Valor final", tone: "good", items: ["x vale 8"] },
+              },
+            },
+            {
+              title: "Mais de uma variável",
+              lines: [
+                "Podemos ter **várias** caixas, cada uma com o seu nome.",
+                "Mudar uma caixa **não muda** as outras.",
+              ],
+              visual: { kind: "flow", items: ["📦 a = 3", "📦 b = 5"], join: "·" },
+            },
+          ],
+        },
+        {
+          id: "ordenacao",
+          icon: "📚",
+          title: "Ordenação",
+          missions: ["sort"],
+          skills: ["EF05CO01", "EF08CO03"],
+          slides: [
+            {
+              title: "Colocar em ordem",
+              lines: [
+                "**Ordenar** é organizar do menor para o maior (ou ao contrário).",
+                "Exemplo: livros do mais fino ao mais grosso.",
+              ],
+              visual: { kind: "flow", items: ["3 1 2", "1 2 3"], join: "→", caption: "Fora de ordem → em ordem" },
+            },
+            {
+              title: "Trocar os vizinhos",
+              lines: [
+                "Um jeito de ordenar é **comparar dois vizinhos**.",
+                "Se estiverem fora de ordem, **troque** de lugar.",
+              ],
+              visual: { kind: "flow", items: ["3 1 2", "1 3 2", "1 2 3"], join: "→", caption: "Cada troca deixa a fila mais organizada" },
+            },
+            {
+              title: "Menos trocas, menos tempo",
+              lines: [
+                "Existem jeitos mais **rápidos** e mais **lentos** de ordenar.",
+                "**Pensar antes** economiza trocas.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🐢 Muitas trocas", tone: "bad", items: ["Trocar sem pensar"] },
+                right: { title: "🐇 Poucas trocas", tone: "good", items: ["Trocar só o que está fora de ordem"] },
+              },
+            },
+            {
+              title: "Ordenar no computador",
+              lines: [
+                "Computadores ordenam **milhões** de itens: nomes, preços e resultados.",
+                "Os algoritmos de ordenação seguem **regras**, como a troca de vizinhos.",
+              ],
+              visual: { kind: "flow", items: ["📇 Lista bagunçada", "⚙️ Algoritmo", "✅ Lista ordenada"], join: "→" },
+            },
+          ],
+        },
+        {
+          id: "dados",
+          icon: "📊",
+          title: "Dados e gráficos",
+          missions: ["data"],
+          skills: ["EF03CO04", "EF03CO05"],
+          slides: [
+            {
+              title: "Dados e informação",
+              lines: [
+                "**Dado** é um valor solto: 8, azul, gato.",
+                "**Informação** é o dado com significado.",
+              ],
+              visual: { kind: "flow", items: ["📄 Dado: 8", "💡 Informação: 8 alunos gostam de azul"], join: "→" },
+            },
+            {
+              title: "Contar e organizar",
+              lines: [
+                "Para entender os dados, **contamos** e **agrupamos**.",
+                "Uma tabela mostra os grupos e **quantos** há em cada um.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🍎 Maçã", tone: "good", items: ["3"] },
+                right: { title: "🍌 Banana", tone: "good", items: ["5"] },
+              },
+            },
+            {
+              title: "Gráfico de barras",
+              lines: [
+                "Quanto mais **alta** a barra, **maior** o valor.",
+                "Leia o **título** e o **nome** de cada barra.",
+              ],
+              visual: { kind: "code", lines: ["Gato   ███ 3", "Cão    █████ 5", "Peixe  ██ 2"] },
+            },
+            {
+              title: "Comparar valores",
+              lines: [
+                "Compare as barras para achar o **maior**, o **menor** e a **diferença**.",
+                "Diferença = maior − menor.",
+              ],
+              visual: { kind: "code", lines: ["maior: Cão (5)", "menor: Peixe (2)", "diferença: 5 − 2 = 3"] },
+            },
+            {
+              title: "Dados contam histórias",
+              lines: [
+                "Com dados podemos **decidir melhor**.",
+                "Pergunte sempre: de onde vêm os dados? Eles são **confiáveis**?",
+              ],
+            },
+          ],
+        },
+        {
+          id: "pixels",
+          icon: "🧩",
+          title: "Imagens e pixels",
+          missions: ["pixels"],
+          skills: ["EF04CO05"],
+          slides: [
+            {
+              title: "Imagens são quadradinhos",
+              lines: [
+                "Uma imagem digital é feita de **pixels**: quadradinhos de cor.",
+                "De longe, os quadradinhos formam o desenho.",
+              ],
+              visual: {
+                kind: "grid",
+                rows: [["⬛", "⬜", "⬜", "⬛"], ["⬜", "⬛", "⬛", "⬜"], ["⬜", "⬛", "⬛", "⬜"], ["⬛", "⬜", "⬜", "⬛"]],
+                caption: "Um desenho de 4×4 pixels",
+              },
+            },
+            {
+              title: "O computador usa números",
+              lines: [
+                "O computador guarda cada pixel como um **número**.",
+                "Em imagens simples: **1** é pixel preto e **0** é pixel branco.",
+              ],
+              visual: { kind: "code", lines: ["1 0 0 1", "0 1 1 0", "0 1 1 0", "1 0 0 1"] },
+            },
+            {
+              title: "Do código ao desenho",
+              lines: [
+                "Leia o código **linha por linha**.",
+                "Cada **1** pinta o quadrado e cada **0** deixa em branco.",
+              ],
+              visual: { kind: "flow", items: ["1 0 0 1", "⬛ ⬜ ⬜ ⬛"], join: "→", caption: "Uma linha do desenho" },
+            },
+            {
+              title: "Mais pixels, mais detalhes",
+              lines: [
+                "Quanto **mais pixels**, mais **nítida** fica a imagem.",
+                "Fotos e telas têm **milhões** de pixels.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "4×4 pixels", tone: "bad", items: ["poucos detalhes"] },
+                right: { title: "1000×1000 pixels", tone: "good", items: ["muitos detalhes"] },
+              },
+            },
+          ],
+        },
+        {
+          id: "codigos",
+          icon: "🔐",
+          title: "Códigos secretos",
+          missions: ["code"],
+          skills: ["EF01CO05", "EF04CO04", "EF04CO05"],
+          slides: [
+            {
+              title: "Mensagem em código",
+              lines: [
+                "**Código** troca letras ou palavras por **símbolos**.",
+                "Só quem tem a **chave** consegue ler a mensagem.",
+              ],
+              visual: { kind: "flow", items: ["🔑 Chave", "📩 Mensagem em código", "📖 Mensagem lida"], join: "→" },
+            },
+            {
+              title: "Como funciona a chave",
+              lines: [
+                "A chave diz qual símbolo vale para cada letra.",
+                "Exemplo: A = 1, B = 2, C = 3.",
+              ],
+              visual: { kind: "code", lines: ["A = 1   B = 2   C = 3", "3 1 2   →   C A B"] },
+            },
+            {
+              title: "Decodificar",
+              lines: [
+                "**Decodificar** é traduzir o código de volta para letras.",
+                "Procure **padrões** e use as letras que você já descobriu.",
+              ],
+              visual: { kind: "code", lines: ["código: 3 1 2 1", "chave:  A=1  B=2  C=3", "palavra: C A B A"] },
+            },
+            {
+              title: "Computadores só entendem códigos",
+              lines: [
+                "Letras, fotos e sons viram **números** dentro do computador.",
+                "Esses números são guardados como **zeros e uns**.",
+              ],
+              visual: { kind: "flow", items: ["🔤 Letra A", "🔢 65", "💾 01000001"], join: "→" },
+            },
+          ],
+        },
+        {
+          id: "programador",
+          icon: "🤖",
+          title: "Programando com blocos",
+          missions: ["builder"],
+          skills: ["EF02CO02", "EF05CO04", "EF06CO02", "EF07CO05"],
+          slides: [
+            {
+              title: "Programar com blocos",
+              lines: [
+                "Blocos são **comandos prontos**: andar, virar e repetir.",
+                "Encaixe os blocos **em ordem** para o robô seguir.",
+              ],
+              visual: { kind: "flow", items: ["🔼 Andar", "↪️ Virar à direita", "🔼 Andar"], join: "→" },
+            },
+            {
+              title: "Comandos básicos",
+              lines: [
+                "**Andar**: o robô dá um passo para onde está olhando.",
+                "**Virar**: muda a direção, sem sair do lugar.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🔼 Andar", tone: "good", items: ["um passo à frente"] },
+                right: { title: "↪️ Virar", tone: "good", items: ["à direita ou à esquerda"] },
+              },
+            },
+            {
+              title: "Repetir blocos",
+              lines: [
+                "O bloco **repetir** executa os comandos várias vezes.",
+                "Menos blocos, **mesmo caminho**.",
+              ],
+              visual: { kind: "code", lines: ["repetir 3 vezes", "    andar", "virar à direita"] },
+            },
+            {
+              title: "Funções: blocos que você cria",
+              lines: [
+                "**Função** é um grupo de comandos com um **nome**.",
+                "Crie uma vez e **reutilize** quantas vezes quiser.",
+              ],
+              visual: { kind: "code", lines: ["função quadrado:", "    repetir 4 vezes:", "        andar", "        virar à direita"] },
+            },
+            {
+              title: "A ordem importa",
+              lines: [
+                "Para visitar os objetivos, planeje a **ordem** do caminho.",
+                "Teste, observe o robô e **ajuste** os blocos.",
+              ],
+              visual: { kind: "flow", items: ["📝 Planejar", "🧱 Montar", "▶️ Executar", "👀 Observar"], repeat: true, caption: "Não deu certo? Ajuste e tente de novo" },
+            },
+          ],
+        },
+        {
+          id: "leitura",
+          icon: "👓",
+          title: "Lendo programas",
+          missions: ["reading"],
+          skills: ["EF04CO03", "EF05CO04", "EF06CO02"],
+          slides: [
+            {
+              title: "Ler antes de rodar",
+              lines: [
+                "Ler um programa é **simular** o que o computador faria.",
+                "Siga as linhas **de cima para baixo**.",
+              ],
+              visual: { kind: "code", lines: ["avançar", "avançar", "virar", "avançar"] },
+            },
+            {
+              title: "Repetições",
+              lines: [
+                "Em **repita N vezes**, o que está dentro acontece N vezes.",
+                "Conte as repetições com cuidado.",
+              ],
+              visual: { kind: "code", lines: ["repita 4 vezes:", "    avançar", "→ o robô dá 4 passos"] },
+            },
+            {
+              title: "Decisões",
+              lines: [
+                "**se … senão**: o programa escolhe um caminho.",
+                "Veja se a condição é **verdadeira** ou **falsa**.",
+              ],
+              visual: { kind: "code", lines: ["se (nota >= 6):", '    mostrar "aprovado"', "senão:", '    mostrar "estudar mais"'] },
+            },
+            {
+              title: "Variáveis e listas",
+              lines: [
+                "Variáveis guardam um valor; **listas** guardam vários.",
+                "O primeiro item da lista está na posição **0**.",
+              ],
+              visual: { kind: "code", lines: ['frutas = ["maçã", "uva", "pera"]', "mostrar frutas[1]   → uva"] },
+            },
+            {
+              title: "Teste de mesa",
+              lines: [
+                "Anote os valores a cada passo, como numa **tabela**.",
+                "Assim você descobre o resultado **sem rodar** o programa.",
+              ],
+              visual: { kind: "code", lines: ["x = 0", "repita 3 vezes: x = x + 2", "→ x vale 6"] },
+            },
+          ],
+        },
+        {
+          id: "estruturas",
+          icon: "🗂️",
+          title: "Organizando dados",
+          missions: ["structures"],
+          skills: ["EF04CO01", "EF04CO02", "EF05CO01"],
+          slides: [
+            {
+              title: "Organizar para encontrar",
+              lines: [
+                "**Estrutura de dados** é um jeito de organizar informações.",
+                "Organizar bem faz achar o que precisa **mais rápido**.",
+              ],
+              visual: { kind: "flow", items: ["📚 Tudo misturado", "🗂️ Tudo organizado"], join: "→" },
+            },
+            {
+              title: "Lista",
+              lines: [
+                "**Lista**: itens em fila, um depois do outro.",
+                "Cada item tem uma **posição**.",
+              ],
+              visual: { kind: "code", lines: ["1. pão", "2. leite", "3. ovos"] },
+            },
+            {
+              title: "Tabela",
+              lines: [
+                "**Tabela**: informações em linhas e colunas.",
+                "Para achar um dado, **cruze** a linha com a coluna.",
+              ],
+              visual: { kind: "code", lines: ["         Nota  Faltas", "Ana        9       1", "Beto       7       0"] },
+            },
+            {
+              title: "Registro",
+              lines: [
+                "**Registro** (ficha): vários dados sobre **uma coisa só**.",
+                "Exemplo: nome, idade e turma de um aluno.",
+              ],
+              visual: { kind: "code", lines: ["aluno:", "  nome: Ana", "  idade: 9", "  turma: 4º ano"] },
+            },
+            {
+              title: "Grafos e árvores",
+              lines: [
+                "**Grafo**: pontos ligados por linhas, como um mapa de ruas.",
+                "**Árvore**: partes que se ramificam, como pastas dentro de pastas.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🗺️ Grafo", tone: "good", items: ["Casa — Escola", "Escola — Praça"] },
+                right: { title: "🌳 Árvore", tone: "good", items: ["Pasta", "└ Documentos", "└ Fotos"] },
+              },
+            },
+          ],
+        },
+        {
+          id: "seguranca",
+          icon: "🛡️",
+          title: "Navegação segura",
+          missions: ["safe"],
+          skills: ["EF01CO07", "EF03CO07", "EF05CO08"],
+          slides: [
+            {
+              title: "Seguro ou não?",
+              lines: [
+                "Na internet, **pare e pense** antes de clicar.",
+                "Se algo parecer estranho, **conte para um adulto**.",
+              ],
+              visual: { kind: "branch", question: "🤔 Isso é seguro?", yes: "✅ Pode usar", no: "🚫 Pare e peça ajuda" },
+            },
+            {
+              title: "Dados pessoais",
+              lines: [
+                "**Dados pessoais** dizem quem você é: nome completo, endereço e escola.",
+                "Não compartilhe com quem você **não conhece**.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Pode", tone: "good", items: ["Apelido no jogo"] },
+                right: { title: "❌ Não pode", tone: "bad", items: ["Endereço", "Senha", "Foto da escola"] },
+              },
+            },
+            {
+              title: "Senhas",
+              lines: [
+                "Senha é **segredo**: não conte nem para os amigos.",
+                "Uma senha forte mistura letras, números e símbolos.",
+              ],
+              visual: { kind: "code", lines: ["fraca:  123456", "forte:  Gato!Azul#47"] },
+            },
+            {
+              title: "Respeito online",
+              lines: [
+                "Trate as pessoas online como trata **pessoalmente**.",
+                "Se sofrer **cyberbullying**, guarde as provas e **conte a um adulto**.",
+              ],
+            },
+            {
+              title: "Informação confiável",
+              lines: [
+                "Nem tudo na internet é **verdade**.",
+                "Confira a **fonte**, a **data** e se outros sites dizem o mesmo.",
+              ],
+              visual: { kind: "flow", items: ["📰 Notícia", "🔎 Conferir a fonte", "✅ Compartilhar"], join: "→" },
+            },
+            {
+              title: "Direitos autorais",
+              lines: [
+                "Textos, fotos e músicas têm **autor**.",
+                "**Cite as fontes** e peça permissão quando precisar.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "ia",
+          icon: "🤖",
+          title: "Inteligência artificial",
+          missions: ["ai"],
+          skills: ["EF05CO08", "EF08CO11", "EF09CO07", "EF09CO10"],
+          slides: [
+            {
+              title: "Máquinas que ajudam",
+              lines: [
+                "**Inteligência artificial (IA)** faz tarefas que parecem inteligentes.",
+                "Ela traduz, reconhece voz e sugere vídeos.",
+              ],
+              visual: { kind: "flow", items: ["🎤 Você fala", "🤖 IA", "📝 Texto escrito"], join: "→" },
+            },
+            {
+              title: "A IA aprende com exemplos",
+              lines: [
+                "A IA aprende com **muitos exemplos** (dados).",
+                "Quanto melhores os exemplos, melhor ela aprende.",
+              ],
+              visual: { kind: "flow", items: ["📷 Muitas fotos de gatos", "🧠 Aprende o padrão", "🐱 Reconhece um gato"], join: "→" },
+            },
+            {
+              title: "Quem decide?",
+              lines: [
+                "Algoritmos **recomendam** vídeos e notícias para você.",
+                "Eles seguem regras e dados criados por **pessoas**.",
+              ],
+            },
+            {
+              title: "A IA pode errar",
+              lines: [
+                "A IA pode errar e ter **viés**: aprende os erros dos exemplos.",
+                "Sempre **confira** as informações importantes.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Bom uso", tone: "good", items: ["Ajudar a estudar", "Conferir a resposta"] },
+                right: { title: "⚠️ Cuidado", tone: "bad", items: ["Copiar sem entender", "Acreditar em tudo"] },
+              },
+            },
+            {
+              title: "Uso responsável",
+              lines: [
+                "Não passe **dados pessoais** para ferramentas de IA.",
+                "Você continua **responsável** pelo que faz com a ajuda dela.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "computador-notebook",
+          standalone: true,
+          icon: "💻",
+          title: "Computador e notebook",
+          subject: "Para conhecer",
+          missions: [],
+          skills: ["EF02CO04", "EF03CO06"],
+          slides: [
+            {
+              title: "O que é um computador?",
+              lines: [
+                "O **computador** é uma máquina que ajuda a gente.",
+                "Ele guarda coisas, faz contas e mostra imagens.",
+                "Ele só faz o que a gente **manda**.",
+              ],
+              visual: { kind: "flow", items: ["🧒 Você manda", "💻 O computador faz", "🖥️ Mostra na tela"], join: "→" },
+            },
+            {
+              title: "Computador de mesa",
+              lines: [
+                "O computador de mesa tem **peças separadas**.",
+                "A **tela** mostra. O **teclado** e o **mouse** mandam.",
+                "Fica sempre no mesmo lugar.",
+              ],
+              visual: { kind: "flow", items: ["🖥️ Tela", "⌨️ Teclado", "🖱️ Mouse"], join: "+", caption: "Peças do computador de mesa" },
+            },
+            {
+              title: "O que é um notebook?",
+              lines: [
+                "O **notebook** é um computador que a gente **carrega**.",
+                "Tela, teclado e **touchpad** vêm juntos.",
+                "Ele tem **bateria**: funciona sem tomada por um tempo.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🖥️ De mesa", tone: "good", items: ["Fica parado", "Peças separadas", "Usa tomada"] },
+                right: { title: "💻 Notebook", tone: "good", items: ["Dá para carregar", "Tudo junto", "Tem bateria"] },
+              },
+            },
+            {
+              title: "Para que usamos?",
+              lines: [
+                "Para **estudar**, **pesquisar**, **desenhar** e **jogar**.",
+                "Para aprender coisas novas.",
+                "Sempre com a **permissão** de um adulto.",
+              ],
+              visual: { kind: "flow", items: ["📚 Estudar", "🎨 Desenhar", "🔎 Pesquisar"], join: "·" },
+            },
+            {
+              title: "Ligar e desligar",
+              lines: [
+                "Para **ligar**, aperte o botão de ligar e espere abrir.",
+                "Para **desligar**, use o menu do computador.",
+                "Não desligue puxando da tomada.",
+              ],
+              visual: { kind: "flow", items: ["🔘 Ligar", "⏳ Esperar", "✅ Usar"], join: "→" },
+            },
+            {
+              title: "Cuidados",
+              lines: [
+                "Mãos **limpas** e **secas**.",
+                "Comida e bebida **longe** do computador.",
+                "Abra e feche a tampa **devagar**.",
+                "Segure com as **duas mãos**.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Faça", tone: "good", items: ["Mãos limpas", "Abrir devagar"] },
+                right: { title: "❌ Não faça", tone: "bad", items: ["Bebida perto", "Bater a tampa"] },
+              },
+            },
+          ],
+        },
+        {
+          id: "notebook-uso",
+          standalone: true,
+          icon: "🖱️",
+          title: "Como usar o notebook",
+          subject: "Touchpad e teclado",
+          missions: [],
+          skills: [],
+          slides: [
+            {
+              title: "O touchpad",
+              lines: [
+                "O **touchpad** é o quadrado embaixo do teclado.",
+                "Ele faz o trabalho do **mouse**.",
+                "Passe o dedo nele para mexer a **setinha** da tela.",
+              ],
+              visual: { kind: "flow", items: ["☝️ Dedo no touchpad", "➡️ A setinha anda"], join: "→" },
+            },
+            {
+              title: "Clicar",
+              lines: [
+                "Para **clicar**, toque **uma vez** no touchpad.",
+                "Em alguns notebooks, aperte a parte de baixo dele.",
+                "Cada notebook é um pouquinho diferente.",
+              ],
+              visual: { kind: "flow", items: ["☝️ Um toque", "🖱️ Um clique"], join: "=" },
+            },
+            {
+              title: "Clicar duas vezes",
+              lines: [
+                "Para **abrir** um programa, toque **duas vezes rápido**.",
+                "Isso se chama **duplo clique**.",
+                "Muito devagar não funciona: tente de novo!",
+              ],
+              visual: { kind: "flow", items: ["☝️ ☝️ Dois toques rápidos", "📂 Abre"], join: "→" },
+            },
+            {
+              title: "Rolar a página",
+              lines: [
+                "Para **subir ou descer** a página, use **dois dedos**.",
+                "Deslize os dois dedos para cima ou para baixo.",
+              ],
+              visual: { kind: "flow", items: ["✌️ Dois dedos", "↕️ A página rola"], join: "→" },
+            },
+            {
+              title: "Arrastar",
+              lines: [
+                "Para **arrastar** uma figura, ponha a setinha em cima dela.",
+                "**Aperte e segure** o touchpad e mexa o dedo.",
+                "Depois, **solte**.",
+              ],
+              visual: { kind: "flow", items: ["👆 Segurar", "➡️ Mover", "🖐️ Soltar"], join: "→" },
+            },
+            {
+              title: "O teclado",
+              lines: [
+                "**Letras e números**: aperte a tecla uma vez.",
+                "**Espaço**: separa as palavras.",
+                "**Enter**: vai para a linha de baixo.",
+                "**Apagar**: apaga a letra anterior.",
+              ],
+            },
+            {
+              title: "Boa postura",
+              lines: [
+                "Sente-se com as **costas retas**.",
+                "A tela fica na altura dos **olhos**.",
+                "A cada 20 minutos, **olhe para longe** e descanse.",
+              ],
+            },
+            {
+              title: "Hora de praticar!",
+              lines: [
+                "Leve a setinha até **cada canto** da tela.",
+                "Clique, dê um duplo clique e role uma página.",
+                "Se travar, **peça ajuda** ao professor!",
+              ],
+            },
+          ],
+        },
       ];
 
       const assessmentMissionSkills = {
@@ -18850,7 +19658,7 @@ const brStatesList = [
 
       function menuItemById(id) {
         const globalIndex = missionIndexById.get(id);
-        if (globalIndex === undefined) return null;
+        if (globalIndex === undefined) return standaloneLessonItem(id);
         return {
           ...missions[globalIndex],
           globalIndex,
@@ -19001,12 +19809,31 @@ const brStatesList = [
         return lessonDecks.find((deck) => deck.missions.includes(missionId)) || null;
       }
 
+      // Aulas sem missão (computador, notebook…) aparecem no painel do modo aula com o id "aula:<id da aula>".
+      const STANDALONE_LESSON_PREFIX = "aula:";
+
+      function standaloneLessonDeck(itemId) {
+        if (!itemId.startsWith(STANDALONE_LESSON_PREFIX)) return null;
+        const deckId = itemId.slice(STANDALONE_LESSON_PREFIX.length);
+        return lessonDecks.find((deck) => deck.standalone && deck.id === deckId) || null;
+      }
+
+      function standaloneLessonItem(itemId) {
+        const deck = standaloneLessonDeck(itemId);
+        return deck ? { id: itemId, icon: deck.icon, title: deck.title, subject: deck.subject, globalIndex: -1 } : null;
+      }
+
+      function lessonDeckForItem(itemId) {
+        return standaloneLessonDeck(itemId) || lessonDeckOf(itemId);
+      }
+
       // Missões com aula, na ordem do catálogo; se o professor mandou planos para o painel, só as deles.
       function lessonMissionMenuIds() {
         const withDeck = missions.map((item) => item.id).filter((id) => lessonDeckOf(id));
         const ofPlan = new Set(lessonMissionIds());
         const inPlan = withDeck.filter((id) => ofPlan.has(id));
-        return inPlan.length ? inPlan : withDeck;
+        const standalone = lessonDecks.filter((deck) => deck.standalone).map((deck) => `${STANDALONE_LESSON_PREFIX}${deck.id}`);
+        return [...(inPlan.length ? inPlan : withDeck), ...standalone];
       }
 
       function setLessonMode(on) {
@@ -19031,7 +19858,7 @@ const brStatesList = [
       }
 
       function openLessonDeck(missionId) {
-        const deck = lessonDeckOf(missionId);
+        const deck = lessonDeckForItem(missionId);
         if (!deck) return;
         state.lessonDeck = { deckId: deck.id, missionId, slide: 0, revealed: 0 };
         state.mode = "lesson";
@@ -19096,8 +19923,9 @@ const brStatesList = [
 
       // Enter e espaço avançam; no fim da aula abrem a missão.
       function handleLessonEnter() {
-        if (lessonDeckIsAtEnd()) playLessonMission();
-        else stepLessonForward();
+        if (!lessonDeckIsAtEnd()) stepLessonForward();
+        else if (currentLessonSlide().deck.standalone) closeLessonDeck();
+        else playLessonMission();
       }
 
       function handleLessonKey(key) {
@@ -19111,6 +19939,8 @@ const brStatesList = [
           stepLessonBack();
         } else if (clickedElement(event, ".lesson-play")) {
           playLessonMission();
+        } else if (clickedElement(event, ".lesson-close")) {
+          closeLessonDeck();
         } else if (clickedElement(event, ".lesson-next, .lesson-slide")) {
           stepLessonForward();
         } else {
@@ -19159,9 +19989,10 @@ const brStatesList = [
       function lessonControlsHtml(deck, run, atEnd) {
         const first = run.slide === 0 && run.revealed === 0;
         const dots = deck.slides.map((_, index) => `<span class="lesson-dot ${index === run.slide ? "current" : index < run.slide ? "past" : ""}"></span>`).join("");
-        const forward = atEnd
-          ? `<button type="button" class="lesson-nav lesson-play">🎮 Agora vamos jogar</button>`
-          : `<button type="button" class="lesson-nav lesson-next">Avançar ▶</button>`;
+        const endButton = deck.standalone
+          ? `<button type="button" class="lesson-nav lesson-close">↩ Voltar ao painel</button>`
+          : `<button type="button" class="lesson-nav lesson-play">🎮 Agora vamos jogar</button>`;
+        const forward = atEnd ? endButton : `<button type="button" class="lesson-nav lesson-next">Avançar ▶</button>`;
         return `<div class="lesson-controls">
           <button type="button" class="lesson-nav lesson-prev" ${first ? "disabled" : ""}>◀ Voltar</button>
           <div class="lesson-dots" aria-hidden="true">${dots}</div>
@@ -19179,7 +20010,7 @@ const brStatesList = [
         const visual = slide.visual
           ? `<div class="lesson-visual ${run.revealed > slide.lines.length ? "shown" : ""}">${lessonVisualHtml(slide.visual)}</div>`
           : "";
-        const skills = run.slide === deck.slides.length - 1 ? `<div class="lesson-skills">BNCC Computação: ${deck.skills.join(" · ")}</div>` : "";
+        const skills = run.slide === deck.slides.length - 1 && deck.skills.length ? `<div class="lesson-skills">BNCC Computação: ${deck.skills.join(" · ")}</div>` : "";
         content.innerHTML = `<div class="lesson-slide" role="group" aria-label="Slide ${run.slide + 1} de ${deck.slides.length}: ${escapeHtml(slide.title)}">
           <h2 class="lesson-slide-title">${escapeHtml(slide.title)}</h2>
           <div class="lesson-slide-body">

@@ -166,6 +166,7 @@ function checkLessonDecks() {
     if (seen.has(deck.id)) report.problem(`aula ${deck.id}: id repetido`);
     seen.add(deck.id);
     if (!deck.slides.length || deck.slides.length > MAX_LESSON_SLIDES) report.problem(`aula ${deck.id}: de 1 a ${MAX_LESSON_SLIDES} slides`);
+    if (!deck.standalone && !deck.missions.length) report.problem(`aula ${deck.id}: sem missão e sem marcar como aula avulsa`);
     deck.missions.forEach((id) => {
       if (!assessable.includes(id)) report.problem(`aula ${deck.id}: missão ${id} não é de pensamento computacional`);
     });

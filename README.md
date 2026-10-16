@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 3.2.0
+Versão atual: 3.3.0
 
 ## Acesse
 
@@ -161,7 +161,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 
 ## Uso educacional
 
-O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo aula (quadro negro com slides curtos que explicam o conceito de cada missão de pensamento computacional, linha por linha, e terminam abrindo a missão; hoje com 4 temas: algoritmo e sequência, laços, condições e computador por dentro) e do modo avaliação (20 missões com resposta certa ou errada, 10 perguntas por missão, ou 5 no Robô coletor e na Estante Organizada e 3 no Robô Programador, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
+O material é gratuito para uso educacional. A área "Sobre" reúne informações para adultos, apoio voluntário, planos de aula por série (1º ao 9º ano, no formato de sugestões didáticas do currículo de SC, com atividade desplugada, alinhados às Competências Gerais da BNCC e às habilidades de Computação, prontos para impressão), um gerador de plano de atividade mensal, orientações de uso pedagógico e tempo de tela, e o botão que manda as missões de um ou mais planos para o painel dos alunos, além do modo aula (quadro negro com slides curtos que explicam o conceito de cada missão de pensamento computacional, linha por linha, e terminam abrindo a missão; com um tema para cada missão de pensamento computacional e duas aulas sem missão, sobre o computador e o notebook e sobre como usar o touchpad e o teclado, em palavras simples para crianças) e do modo avaliação (20 missões com resposta certa ou errada, 10 perguntas por missão, ou 5 no Robô coletor e na Estante Organizada e 3 no Robô Programador, uma tentativa em cada, início, recomeçar e voltar desativados e resultado com as perguntas erradas e as habilidades da BNCC para imprimir, sem guardar dados) (filtro "Da aula", só enquanto a página estiver aberta) e canais para comentários, sugestões e relatos de problemas.
 
 ## Créditos
 
