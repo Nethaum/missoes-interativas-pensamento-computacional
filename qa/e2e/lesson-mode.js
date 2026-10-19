@@ -1,7 +1,8 @@
 // Modo aula: quadro negro com slides que aparecem linha por linha e terminam abrindo a missão.
 const { loadConst } = require('../lib/extract');
 const { startServer } = require('../lib/server');
-const { launchBrowser, newPage, openMenu, openMission, unlockTeacherArea } = require('../lib/browser');
+const { launchBrowser, newPage, openMenu, openMission } = require('../lib/browser');
+const { setTeacherSwitch } = require('../lib/assessment');
 const { createReport } = require('../lib/report');
 
 const BAND_USED = 2;
@@ -28,15 +29,8 @@ const DECK_ENTRY = {
   estruturas: 'Organize os dados',
   seguranca: 'Navegação segura',
   ia: 'Dados, algoritmos e IA',
+  digitacao: 'Digitação',
 };
-
-async function setMode(page, buttonId, wanted) {
-  await unlockTeacherArea(page);
-  const pressed = (await page.getAttribute(buttonId, 'aria-pressed')) === 'true';
-  if (pressed !== wanted) await page.click(buttonId);
-  await page.keyboard.press('Escape');
-  await page.waitForTimeout(300);
-}
 
 const press = async (page, key) => {
   await page.keyboard.press(key);
@@ -107,7 +101,7 @@ async function main() {
   try {
     const page = await newPage(browser);
     await openMenu(page, server.url, BAND_USED);
-    await setMode(page, '#lessonModeButton', true);
+    await setTeacherSwitch(page, '#lessonModeButton', true);
     const expected = decks.flatMap((deck) => deck.missions).length + decks.filter((deck) => deck.standalone).length;
     const shown = await page.locator('.menu-tile').count();
     if (shown !== expected) report.problem(`o painel deveria mostrar ${expected} missões com aula e mostra ${shown}`);
@@ -118,9 +112,9 @@ async function main() {
     await checkNavigation(page, report);
     await checkPlayButton(page, report, decks[0]);
     await page.keyboard.press('Escape');
-    await setMode(page, '#assessmentModeButton', true);
+    await setTeacherSwitch(page, '#assessmentModeButton', true);
     if ((await page.getAttribute('#lessonModeButton', 'aria-pressed')) !== 'false') report.problem('ligar a avaliação deveria desligar o modo aula');
-    await setMode(page, '#assessmentModeButton', false);
+    await setTeacherSwitch(page, '#assessmentModeButton', false);
     page.collectedErrors.forEach((error) => report.problem(error));
     report.ok(`modo aula: ${decks.length} aulas percorridas`);
   } finally {

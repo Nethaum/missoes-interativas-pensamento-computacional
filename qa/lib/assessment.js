@@ -4,14 +4,16 @@ const RESULT_SCORE = '#lessonPlanModal .assessment-score';
 const RESULT_TIMEOUT_MS = 8000;
 const SCORE_PATTERN = /(\d+) de (\d+) acertos/;
 
-/** Liga ou desliga o modo avaliação pela área do professor e fecha a área. */
-async function setAssessmentMode(page, wanted) {
+/** Liga ou desliga um interruptor da área do professor (modo avaliação, modo aula...) e fecha a área. */
+async function setTeacherSwitch(page, buttonId, wanted) {
   await unlockTeacherArea(page);
-  const pressed = (await page.getAttribute('#assessmentModeButton', 'aria-pressed')) === 'true';
-  if (pressed !== wanted) await page.click('#assessmentModeButton');
+  const pressed = (await page.getAttribute(buttonId, 'aria-pressed')) === 'true';
+  if (pressed !== wanted) await page.click(buttonId);
   await page.keyboard.press('Escape');
   await page.waitForTimeout(300);
 }
+
+const setAssessmentMode = (page, wanted) => setTeacherSwitch(page, '#assessmentModeButton', wanted);
 
 const resultIsVisible = (page) => page.locator(RESULT_SCORE).isVisible().catch(() => false);
 
@@ -29,4 +31,4 @@ async function closeResult(page) {
   await page.waitForTimeout(300);
 }
 
-module.exports = { RESULT_SCORE, setAssessmentMode, resultIsVisible, readResult, closeResult };
+module.exports = { RESULT_SCORE, setTeacherSwitch, setAssessmentMode, resultIsVisible, readResult, closeResult };

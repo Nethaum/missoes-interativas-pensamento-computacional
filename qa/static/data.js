@@ -145,6 +145,8 @@ const LESSON_VISUAL_KINDS = ['flow', 'compare', 'branch', 'grid', 'code'];
 const MAX_LESSON_LINES = 4;
 const MAX_LESSON_LINE_LENGTH = 100;
 const MAX_LESSON_SLIDES = 8;
+// Missões que têm aula mas não entram no modo avaliação.
+const LESSON_EXTRA_MISSIONS = ['typing'];
 
 function checkLessonSlide(deck, slide, number) {
   const where = `aula ${deck.id}, slide ${number}`;
@@ -159,7 +161,7 @@ function checkLessonSlide(deck, slide, number) {
 
 function checkLessonDecks() {
   const decks = loadConst('lessonDecks');
-  const assessable = Object.keys(loadConst('assessmentMissionSkills'));
+  const assessable = [...Object.keys(loadConst('assessmentMissionSkills')), ...LESSON_EXTRA_MISSIONS];
   const skillTexts = loadConst('bnccSkillTexts');
   const seen = new Set();
   decks.forEach((deck) => {
@@ -180,6 +182,41 @@ function checkLessonDecks() {
   report.ok(`modo aula: ${decks.length} aulas, ${decks.reduce((sum, deck) => sum + deck.slides.length, 0)} slides`);
 }
 
+// ---- Digitação: cada exercício só usa teclas já liberadas na fase ----
+const TYPING_MAX_LINE = 70;
+
+function checkTypingStages() {
+  const stages = loadConst('typingStages');
+  const bands = loadConst('typingBandStages');
+  const allowed = new Set([' ']);
+  let capitals = false;
+  stages.forEach((stage, stageIndex) => {
+    [...stage.newKeys].forEach((char) => allowed.add(char));
+    capitals = capitals || Boolean(stage.capitals);
+    const where = `digitação, fase ${stageIndex + 1}`;
+    if (!stage.tip || !stage.title) report.problem(`${where}: falta título ou dica`);
+    if (!stage.exercises.length) report.problem(`${where}: sem exercícios`);
+    stage.exercises.forEach((text) => {
+      // fases de acento usam só letras minúsculas e espaços: servem para qualquer faixa que as inclua
+      if (stage.accent && !/^[a-zçáéíóúàãõâêô ]+$/.test(text)) report.problem(`${where}: fase de acento só com letras minúsculas ("${text}")`);
+      if (text.length > TYPING_MAX_LINE) report.problem(`${where}: exercício longo demais (${text.length})`);
+      if (/\s{2}|^\s|\s$/.test(text)) report.problem(`${where}: espaços sobrando em "${text}"`);
+      [...text].forEach((char) => {
+        const isCapital = char !== char.toLowerCase();
+        const ok = isCapital ? capitals && allowed.has(char.toLowerCase()) : allowed.has(char);
+        if (!ok) report.problem(`${where}: "${char}" ainda não foi liberada em "${text}"`);
+      });
+    });
+  });
+  stages.forEach((stage, stageIndex) => {
+    if (!bands.some((indexes) => indexes.includes(stageIndex))) report.problem(`digitação: a fase ${stageIndex + 1} não é usada por nenhuma faixa etária`);
+  });
+  bands.forEach((indexes, band) => {
+    if (indexes.some((index) => !stages[index])) report.problem(`digitação: faixa ${band} aponta para uma fase que não existe`);
+  });
+  report.ok(`digitação: ${stages.length} fases, ${stages.reduce((sum, stage) => sum + stage.exercises.length, 0)} exercícios`);
+}
+
 checkTicTacToe();
 QUIZ_MISSION_IDS.forEach(checkQuizMission);
 checkPhonics();
@@ -187,4 +224,5 @@ checkSyllables();
 checkLessonPlans();
 checkAssessmentSkills();
 checkLessonDecks();
+checkTypingStages();
 report.finish();

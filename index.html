@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.4.0">
+  <meta name="app-version" content="3.5.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -5438,6 +5438,237 @@
       transform: none;
     }
 
+    .typing-board {
+      width: min(900px, 100%);
+      display: grid;
+      gap: 7px;
+      justify-items: center;
+    }
+
+    .typing-stage {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px 16px;
+      padding: 3px 16px;
+      border: 4px solid var(--line);
+      border-radius: 14px;
+      background: #fff8e1;
+      color: var(--card-ink);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .typing-stage strong {
+      color: #a35a00;
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .typing-tip {
+      color: var(--card-muted);
+      font-weight: 700;
+    }
+
+    .typing-text {
+      width: 100%;
+      padding: 6px 18px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: clamp(18px, min(3vw, 4.4vh), 36px);
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: left;
+      text-transform: none;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .typing-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .typing-char {
+      color: #9aa3b5;
+      border-bottom: 3px solid transparent;
+      border-radius: 4px;
+    }
+
+    .typing-char.typed {
+      color: #1f7a3d;
+    }
+
+    .typing-char.current {
+      color: var(--card-ink);
+      background: #fff1b8;
+      border-bottom-color: var(--orange);
+    }
+
+    .typing-char.current.wrong {
+      background: #ffd6d6;
+      border-bottom-color: var(--red);
+      animation: fx-shake 0.3s ease;
+    }
+
+    .typing-hint {
+      padding: 2px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--card-ink);
+      font-size: 16px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .typing-finger {
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: var(--finger-color);
+    }
+
+    .typing-keyboard {
+      display: grid;
+      gap: 4px;
+      justify-items: center;
+    }
+
+    .typing-krow {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .typing-key {
+      width: clamp(30px, 4.6vw, 54px);
+      height: clamp(24px, min(3.8vw, 5vh), 44px);
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      background: var(--finger-color);
+      color: #1b2230;
+      font-size: clamp(13px, 1.7vw, 20px);
+      font-weight: 900;
+      text-shadow: none;
+      text-transform: uppercase;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.22);
+    }
+
+    .typing-key.locked {
+      opacity: 0.28;
+    }
+
+    .typing-key.target {
+      z-index: 1;
+      border-color: #1b2230;
+      transform: translateY(-2px) scale(1.14);
+      box-shadow: 0 0 0 4px var(--yellow), 0 6px 0 rgba(0, 0, 0, 0.3);
+      animation: typing-pulse 0.9s ease-in-out infinite;
+    }
+
+    .typing-key.wrong-press {
+      background: #ff9a9a;
+      animation: fx-shake 0.3s ease;
+    }
+
+    .typing-key.home-mark {
+      border-bottom: 5px solid rgba(0, 0, 0, 0.55);
+    }
+
+    .typing-key.shift {
+      width: clamp(52px, 7.2vw, 88px);
+      font-size: clamp(11px, 1.3vw, 16px);
+    }
+
+    .typing-key.space {
+      width: clamp(180px, 36vw, 400px);
+      font-size: clamp(11px, 1.3vw, 16px);
+    }
+
+    @keyframes typing-pulse {
+      0%, 100% { transform: translateY(-2px) scale(1.14); }
+      50% { transform: translateY(-3px) scale(1.2); }
+    }
+
+    .f-lp { --finger-color: #f9a8d4; }
+    .f-lr { --finger-color: #fdba74; }
+    .f-lm { --finger-color: #fde68a; }
+    .f-li { --finger-color: #86efac; }
+    .f-ri { --finger-color: #7dd3fc; }
+    .f-rm { --finger-color: #c4b5fd; }
+    .f-rr { --finger-color: #fca5a5; }
+    .f-rp { --finger-color: #bef264; }
+    .f-th { --finger-color: #cbd5e1; }
+
+    .typing-result {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      padding: 12px 16px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: #e6f9ec;
+      color: var(--card-ink);
+    }
+
+    .typing-stars {
+      font-size: 38px;
+      letter-spacing: 6px;
+    }
+
+    .typing-result-text {
+      font-size: 17px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .typing-practice {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .typing-practice strong {
+      padding: 0 8px;
+      border-radius: 6px;
+      background: var(--white);
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .typing-next-button,
+    .typing-peek-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      background: var(--yellow);
+      padding: 8px 26px;
+      font-size: 17px;
+      font-weight: 950;
+      font-family: inherit;
+      color: var(--card-ink);
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .typing-peek-button {
+      background: var(--white);
+      padding: 5px 18px;
+      font-size: 15px;
+    }
+
     .sort-board {
       width: min(760px, 100%);
       display: grid;
@@ -9959,6 +10190,7 @@
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
         { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania" },
         { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, entrada e saída, arquivos e redes" },
+        { id: "typing", icon: "⌨️", title: "Digitação", subject: "Teclado e dedos" },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
         { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
@@ -10020,7 +10252,7 @@
           title: "Mundo Digital e Cultura Digital",
           icon: "💻",
           description: "Entender o computador e a internet e usar a tecnologia com segurança, respeito e senso crítico.",
-          missionIds: ["hardware", "safe", "ai", "structures", "pixels"],
+          missionIds: ["hardware", "typing", "safe", "ai", "structures", "pixels"],
         },
       ];
 
@@ -10063,8 +10295,8 @@
             { step: "Missão no computador", time: "12 min", mode: "plugada", description: "Em duplas, as crianças jogam as primeiras fases do Robô coletor, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Padrão Perfeito. O professor lê as instruções em voz alta." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Cada dupla conta como decidiu a ordem dos comandos. Apresente a palavra \"algoritmo\": uma sequência de passos para resolver um problema." },
           ],
-          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07). Para ler as primeiras instruções de um programa e organizar objetos em listas e tabelas, use também Leia o código e Organize os dados (6-7 anos), que retomam EF01CO02 e EF01CO01.",
-          missions: ["robot", "pattern", "recycle", "builder", "safe", "reading", "structures"],
+          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07). Para ler as primeiras instruções de um programa e organizar objetos em listas e tabelas, use também Leia o código e Organize os dados (6-7 anos), que retomam EF01CO02 e EF01CO01. Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking.",
+          missions: ["robot", "pattern", "recycle", "builder", "safe", "reading", "structures", "typing"],
           assessment: [
             "A criança segue a ordem correta de comandos na maior parte das tentativas?",
             "Consegue apontar quando um comando está fora de ordem?",
@@ -10109,8 +10341,8 @@
             { step: "Missões no computador", time: "15 min", mode: "plugada", description: "Individualmente ou em duplas: Robô coletor, planejando o caminho antes de clicar; depois Chef Cozinheiro para ordenar a receita e, se houver tempo, Divida a Tarefa ou Padrão Perfeito." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada? Que tarefa de casa ou da escola dá para dividir em passos menores?" },
           ],
-          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06). Leia o código (6-7 anos) retoma comandos e repetições simples (EF02CO02).",
-          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe", "reading"],
+          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06). Leia o código (6-7 anos) retoma comandos e repetições simples (EF02CO02). Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking.",
+          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe", "reading", "typing"],
           assessment: [
             "Planeja ao menos parte do caminho antes de executar?",
             "Identifica o passo certo para continuar uma receita?",
@@ -10155,8 +10387,8 @@
             { step: "Atividade desplugada: o ciclo em cartões", time: "13 min", mode: "desplugada", description: "Em grupos, ordenam cartões de um ciclo natural e marcam com uma seta onde o ciclo \"volta ao começo\". Cada grupo escreve o ciclo como um laço: \"repita: ...\"." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Que outras coisas se repetem como um laço (dias da semana, estações, batimentos do coração)?" },
           ],
-          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos. Leia o código (8-9 anos) trabalha laços e decisões em português (EF02CO02 e EF03CO01).",
-          missions: ["loop", "cycle", "builder", "hardware", "safe", "reading"],
+          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos. Leia o código (8-9 anos) trabalha laços e decisões em português (EF02CO02 e EF03CO01). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking.",
+          missions: ["loop", "cycle", "builder", "hardware", "safe", "reading", "typing"],
           assessment: [
             "Consegue calcular o total de um laço (repetições × passo)?",
             "Identifica um ciclo que se repete na natureza?",
@@ -10201,8 +10433,8 @@
             { step: "Prática no computador", time: "12 min", mode: "plugada", description: "Os alunos jogam Dados e gráficos e o Portão Lógico, aplicando a regra \"se... então...\" para decidir o resultado." },
             { step: "Fechamento", time: "6 min", mode: "desplugada", description: "Converse sobre regras \"se... então...\" que a turma já segue (se chover, levo guarda-chuva; se o sinal fechar, eu paro)." },
           ],
-          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos. Organize os dados (8-9 anos) apresenta tabelas e registros (EF04CO01 e EF04CO02), e Leia o código (8-9 anos) trabalha repetições, decisões e variáveis (EF04CO03).",
-          missions: ["code", "data", "cond", "hardware", "safe", "reading", "structures"],
+          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos. Organize os dados (8-9 anos) apresenta tabelas e registros (EF04CO01 e EF04CO02), e Leia o código (8-9 anos) trabalha repetições, decisões e variáveis (EF04CO03). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking.",
+          missions: ["code", "data", "cond", "hardware", "safe", "reading", "structures", "typing"],
           assessment: [
             "Consegue relacionar símbolo e significado corretamente?",
             "Lê um gráfico simples e compara valores?",
@@ -10245,8 +10477,8 @@
             { step: "Atividade desplugada: passe o erro", time: "13 min", mode: "desplugada", description: "Cada dupla cria uma sequência de passos com um erro escondido e troca com outra dupla, que precisa encontrar e corrigir o erro." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça que expliquem, em uma frase, como encontraram o erro." },
           ],
-          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04).",
-          missions: ["bug", "hardware", "safe", "reading", "structures"],
+          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking.",
+          missions: ["bug", "hardware", "safe", "reading", "structures", "typing"],
           assessment: [
             "Localiza o comando errado sem precisar de várias tentativas?",
             "Explica com suas palavras por que aquele comando estava errado?",
@@ -10291,8 +10523,8 @@
             { step: "Atividade desplugada: o meu código", time: "13 min", mode: "desplugada", description: "Cada aluno cria um desenho simples em grade 5×5, escreve o código em 0 e 1 e troca com um colega, que desenha a partir do código." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
           ],
-          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos. Leia o código (10-11 anos) trabalha programas simples, tipos de dados e a relação entre entrada e saída (EF06CO01, EF06CO02 e EF06CO05).",
-          missions: ["pixels", "sort", "data", "hardware", "safe", "reading"],
+          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos. Leia o código (10-11 anos) trabalha programas simples, tipos de dados e a relação entre entrada e saída (EF06CO01, EF06CO02 e EF06CO05). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking.",
+          missions: ["pixels", "sort", "data", "hardware", "safe", "reading", "typing"],
           assessment: [
             "Consegue \"ler\" um código binário simples e prever o desenho?",
             "Ordena uma lista pequena trocando apenas itens vizinhos?",
@@ -10336,8 +10568,8 @@
             { step: "Atividade desplugada: o placar", time: "13 min", mode: "desplugada", description: "Em grupos, simulam um placar com a caixa \"pontos\": a cada comando do professor, atualizam o valor e registram a sequência de valores. Depois escrevem o algoritmo em português." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
           ],
-          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos. Organize os dados (12-13 anos) trabalha registros, listas e grafos (EF07CO01 e EF07CO04), e Leia o código (12-13 anos) trabalha funções, detecção de erros e reúso (EF07CO02 e EF07CO05).",
-          missions: ["var", "sort", "math", "hardware", "safe", "reading", "structures"],
+          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos. Organize os dados (12-13 anos) trabalha registros, listas e grafos (EF07CO01 e EF07CO04), e Leia o código (12-13 anos) trabalha funções, detecção de erros e reúso (EF07CO02 e EF07CO05). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking.",
+          missions: ["var", "sort", "math", "hardware", "safe", "reading", "structures", "typing"],
           assessment: [
             "Explica com uma frase o que é uma variável?",
             "Relaciona corretamente o valor escolhido ao resultado visual?",
@@ -10383,8 +10615,8 @@
             { step: "Atividade desplugada: o fluxograma", time: "15 min", mode: "desplugada", description: "Em duplas, desenham o fluxograma de duas soluções para o mesmo problema (por exemplo, achar o maior número de uma lista) e comparam qual usa menos passos." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
           ],
-          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos. Organize os dados e Leia o código (12-13 anos) tratam de listas e de soluções com estruturas de dados (EF08CO02 e EF08CO04), e Dados, algoritmos e IA (12-13 anos) discute algoritmos das redes, vieses e uso responsável (EF08CO07 e EF08CO11).",
-          missions: ["loop", "bug", "code", "hardware", "safe", "reading", "structures", "ai"],
+          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos. Organize os dados e Leia o código (12-13 anos) tratam de listas e de soluções com estruturas de dados (EF08CO02 e EF08CO04), e Dados, algoritmos e IA (12-13 anos) discute algoritmos das redes, vieses e uso responsável (EF08CO07 e EF08CO11). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking.",
+          missions: ["loop", "bug", "code", "hardware", "safe", "reading", "structures", "ai", "typing"],
           assessment: [
             "Encontra mais de uma combinação correta para o mesmo total?",
             "Argumenta por que preferiu uma solução a outra?",
@@ -10429,8 +10661,8 @@
             { step: "Desafio final", time: "8 min", mode: "plugada", description: "Em dupla, Robô Decifrador, Jogo da Velha dos Enigmas ou Copa da Matemática, como encerramento integrador de disciplinas." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Cada aluno cita um pilar do pensamento computacional (decomposição, reconhecimento de padrões, abstração, algoritmos) e dá um exemplo pessoal." },
           ],
-          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos. Leia o código (14 anos) trabalha recursão e eficiência (EF08CO01 e EF09CO02), Organize os dados (14 anos) trata de árvores, grafos e autômatos (EF09CO01 e EF09CO03), e Dados, algoritmos e IA (14 anos) discute fundamentos e impactos (EF09CO07 e EF09CO10).",
-          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe", "reading", "structures", "ai"],
+          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos. Leia o código (14 anos) trabalha recursão e eficiência (EF08CO01 e EF09CO02), Organize os dados (14 anos) trata de árvores, grafos e autômatos (EF09CO01 e EF09CO03), e Dados, algoritmos e IA (14 anos) discute fundamentos e impactos (EF09CO07 e EF09CO10). Para o teclado, a missão Digitação (14 anos) treina frases e textos com acentos, em parte sem olhar o teclado, sem tempo nem ranking.",
+          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe", "reading", "structures", "ai", "typing"],
           assessment: [
             "Resolve desafios da fase mais avançada com autonomia?",
             "Nomeia corretamente ao menos um pilar do pensamento computacional?",
@@ -11571,6 +11803,94 @@
                 "Não passe **dados pessoais** para ferramentas de IA.",
                 "Você continua **responsável** pelo que faz com a ajuda dela.",
               ],
+            },
+          ],
+        },
+        {
+          id: "digitacao",
+          icon: "⌨️",
+          title: "Digitação",
+          missions: ["typing"],
+          skills: ["EF03CO06", "EF04CO06"],
+          slides: [
+            {
+              title: "Para que digitar bem?",
+              lines: [
+                "Digitar com os dez dedos deixa o trabalho no computador **mais fácil**.",
+                "O mais importante é digitar **certo**: a velocidade vem com o tempo.",
+                "Treinar um pouco **todo dia** funciona melhor do que treinar muito uma vez só.",
+              ],
+              visual: { kind: "flow", items: ["🐢 Devagar e certo", "🚶 Com treino", "🏃 Cada vez melhor"], join: "→" },
+            },
+            {
+              title: "Postura",
+              lines: [
+                "Sente-se com as **costas retas** e os pés no chão.",
+                "Cotovelos dobrados e **pulsos relaxados**.",
+                "Os olhos ficam na **tela**, não nas mãos.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "✅ Faça", tone: "good", items: ["Costas retas", "Pulsos relaxados", "Tela na altura dos olhos"] },
+                right: { title: "❌ Evite", tone: "bad", items: ["Curvar as costas", "Apoiar o pulso com força", "Olhar para as mãos"] },
+              },
+            },
+            {
+              title: "Fileira de apoio",
+              lines: [
+                "Os dedos descansam na fileira do meio: **A S D F** e **J K L Ç**.",
+                "Os indicadores ficam no **F** e no **J**: sinta o risquinho!",
+                "Depois de apertar outra tecla, o dedo **volta ao lugar**.",
+              ],
+              visual: { kind: "code", lines: ["mão esquerda:  A S D F", "mão direita:   J K L Ç", "indicadores:   F e J (com risquinho)"] },
+            },
+            {
+              title: "Um dedo para cada tecla",
+              lines: [
+                "Cada dedo cuida de algumas teclas.",
+                "Na tela, teclas da **mesma cor** usam o **mesmo dedo**.",
+                "Os **polegares** apertam a barra de espaço.",
+              ],
+              visual: {
+                kind: "compare",
+                left: { title: "🖐️ Mão esquerda", tone: "good", items: ["mindinho: Q A Z", "anelar: W S X", "médio: E D C", "indicador: R T F G V B"] },
+                right: { title: "🖐️ Mão direita", tone: "good", items: ["indicador: Y U H J N M", "médio: I K ,", "anelar: O L .", "mindinho: P Ç"] },
+              },
+            },
+            {
+              title: "Sem olhar o teclado",
+              lines: [
+                "No começo, você pode **espiar** o teclado.",
+                "Aos poucos, olhe só para o **texto**.",
+                "Seus dedos aprendem **onde as teclas estão**.",
+              ],
+            },
+            {
+              title: "Errou? Sem problema!",
+              lines: [
+                "Errar faz parte de aprender.",
+                "Aqui **não há tempo nem ranking**: ninguém compete com ninguém.",
+                "No fim de cada exercício, o jogo mostra as teclas que pedem **mais treino**.",
+              ],
+              visual: { kind: "flow", items: ["⌨️ Digitar", "🔎 Ver os erros", "🔁 Treinar de novo"], repeat: true },
+            },
+            {
+              title: "Maiúsculas e pontuação",
+              lines: [
+                "Para a **letra maiúscula**, segure o **Shift** com o mindinho da outra mão.",
+                "Para **?** e **!**, também use o Shift.",
+                "Ponto e vírgula ficam na fileira de baixo.",
+              ],
+              visual: { kind: "code", lines: ["Shift + a   →   A", "Shift + 1   →   !", "Shift + /   →   ?"] },
+            },
+            {
+              title: "Acentos",
+              lines: [
+                "Acento agudo (´) e til (~): aperte o acento primeiro e **depois a letra**.",
+                "Chapéu (^) e crase (`) usam o **Shift** junto com a tecla do acento.",
+                "O **Ç** tem tecla própria, ao lado do L.",
+              ],
+              visual: { kind: "code", lines: ["´ + a   →   á", "~ + a   →   ã", "Shift + ~ , e   →   ê", "Shift + ´ , a   →   à"] },
             },
           ],
         },
@@ -15770,12 +16090,12 @@ const brStatesList = [
 
       // Cada pedido é de um produto; a cada 3ª rodada o aluno prevê o resultado de um laço pronto em vez de montar o laço.
       const loopProducts = [
-        { icon: "🍪", name: "biscoitos" },
-        { icon: "🧸", name: "ursinhos" },
-        { icon: "✏️", name: "lápis" },
-        { icon: "🍕", name: "pizzas" },
-        { icon: "🎈", name: "balões" },
-        { icon: "🍬", name: "balas" },
+        { icon: "🍪", name: "biscoitos", howMany: "Quantos" },
+        { icon: "🧸", name: "ursinhos", howMany: "Quantos" },
+        { icon: "✏️", name: "lápis", howMany: "Quantos" },
+        { icon: "🍕", name: "pizzas", howMany: "Quantas" },
+        { icon: "🎈", name: "balões", howMany: "Quantos" },
+        { icon: "🍬", name: "balas", howMany: "Quantas" },
       ];
       const LOOP_PREDICT_EVERY = 3;
       const LOOP_RUN_TOTAL_MS = 3600;
@@ -18220,6 +18540,16 @@ const brStatesList = [
         loopAttempt: 0,
         loopWrongIndex: null,
         loopCorrectIndex: null,
+        typingPos: 0,
+        typingErrors: 0,
+        typingMissed: {},
+        typingFlash: null,
+        typingFlashTimer: null,
+        typingDone: false,
+        typingStars: 0,
+        typingStarsTotal: 0,
+        typingPeek: false,
+        typingDead: false,
         sortLevel: null,
         sortItems: [],
         sortSelectedIndex: -1,
@@ -20078,9 +20408,14 @@ const brStatesList = [
         return lessonVisualRenderers[visual.kind](visual) + caption;
       }
 
+      function lessonDotClass(index, currentSlide) {
+        if (index === currentSlide) return "current";
+        return index < currentSlide ? "past" : "";
+      }
+
       function lessonControlsHtml(deck, run, atEnd) {
         const first = run.slide === 0 && run.revealed === 0;
-        const dots = deck.slides.map((_, index) => `<span class="lesson-dot ${index === run.slide ? "current" : index < run.slide ? "past" : ""}"></span>`).join("");
+        const dots = deck.slides.map((_, index) => `<span class="lesson-dot ${lessonDotClass(index, run.slide)}"></span>`).join("");
         const endButton = deck.standalone
           ? `<button type="button" class="lesson-nav lesson-close">↩ Voltar ao painel</button>`
           : `<button type="button" class="lesson-nav lesson-play">🎮 Agora vamos jogar</button>`;
@@ -20139,9 +20474,15 @@ const brStatesList = [
       }
 
       // Com filtro ativo (categoria, aula ou avaliação) o painel mostra uma lista só.
+      // Ids das missões que o painel mostra: avaliação, aula ou o filtro escolhido.
+      function menuMissionIds() {
+        if (state.assessmentMode) return assessmentMenuIds();
+        if (state.lessonMode) return lessonMissionMenuIds();
+        return missionIdsOfMenuFilter(state.menuFilter);
+      }
+
       function filteredMissionItems() {
-        const ids = state.assessmentMode ? assessmentMenuIds() : state.lessonMode ? lessonMissionMenuIds() : missionIdsOfMenuFilter(state.menuFilter);
-        return ids.map(menuItemById).filter(Boolean);
+        return menuMissionIds().map(menuItemById).filter(Boolean);
       }
 
       // Em "Todas": os destaques primeiro e depois uma seção por categoria. Cada missão aparece uma vez só.
@@ -22184,14 +22525,45 @@ const brStatesList = [
         const solved = state.loopCorrectIndex !== null;
         setHeader("Fábrica de Laços", `${level.title}: preveja o resultado.`);
         setMissionCounters("Missão", rounds);
-        status.textContent = `Leia o laço. Quantos ${round.product.name} a máquina vai embalar?`;
+        status.textContent = `Leia o laço. ${round.product.howMany} ${round.product.name} a máquina vai embalar?`;
         content.innerHTML = `<div class="loop-board">
-          <div class="loop-order">🔮 Quantos ${round.product.icon} a máquina vai embalar?</div>
+          <div class="loop-order">🔮 ${round.product.howMany} ${round.product.icon} a máquina vai embalar?</div>
           ${loopPredictCodeHtml(round)}
           ${solved ? loopBeltHtml(round.product, round.step, repeat, extra, repeat + 1) : ""}
           <div class="loop-choices ${state.answerLocked ? "locked" : ""}">
             ${options.map((value, index) => `<div class="loop-choice ${index === state.selected ? "selected" : ""} ${state.loopWrongIndex === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">${value}</div>`).join("")}
           </div>
+        </div>`;
+      }
+
+      // O que a execução da máquina mostra neste instante (caixas feitas, linha acesa e total).
+      function loopRunView(round) {
+        const run = state.loopRun;
+        const shown = run ? run.shown : 0;
+        const repeatsDone = Math.min(shown, state.loopRepeat);
+        const inExtra = Boolean(run) && state.loopExtra > 0 && shown > state.loopRepeat;
+        return {
+          run,
+          shown,
+          inExtra,
+          inRepeats: Boolean(run) && shown > 0 && !inExtra,
+          running: Boolean(run) && !state.loopSolved && !state.loopWrong && shown <= run.units,
+          lap: repeatsDone ? `volta ${repeatsDone} de ${state.loopRepeat}` : "",
+          total: repeatsDone * round.step + (shown > state.loopRepeat ? state.loopExtra : 0),
+        };
+      }
+
+      // Bloco de código da máquina: repita [n] vezes: embalar X (depois, embalar [n] soltos).
+      function loopCodeHtml(level, round, view) {
+        const { product } = round;
+        const lap = view.run && state.loopRepeat > 0 ? `<span class="loop-lap">${view.lap}</span>` : "";
+        const extraLine = level.extraStep
+          ? `<div class="loop-code-line ${view.inExtra ? "active" : ""}"><span class="loop-code-kw">depois,</span> embalar ${loopStepperHtml("extra", state.loopExtra, loopMaxExtra(round))} ${product.icon} soltos</div>`
+          : "";
+        return `<div class="loop-code">
+          <div class="loop-code-line ${view.inRepeats ? "active" : ""}"><span class="loop-code-kw">repita</span> ${loopStepperHtml("repeat", state.loopRepeat, loopMaxRepeat())} <span class="loop-code-kw">vezes:</span>${lap}</div>
+          <div class="loop-code-line indent ${view.inRepeats ? "active" : ""}">embalar <span class="loop-code-value">${round.step}</span> ${product.icon}</div>
+          ${extraLine}
         </div>`;
       }
 
@@ -22204,34 +22576,476 @@ const brStatesList = [
           return;
         }
         const { product } = round;
-        const run = state.loopRun;
-        const shown = run ? run.shown : 0;
-        const running = Boolean(run) && !state.loopSolved && !state.loopWrong && shown <= run.units;
-        const inExtra = Boolean(run) && state.loopExtra > 0 && shown > state.loopRepeat;
-        const inRepeats = Boolean(run) && shown > 0 && !inExtra;
-        const runTotal = Math.min(shown, state.loopRepeat) * round.step + (shown > state.loopRepeat ? state.loopExtra : 0);
-        const maxRepeat = loopMaxRepeat();
-        const maxExtra = loopMaxExtra(round);
-
+        const view = loopRunView(round);
+        const question = level.extraStep ? "Quantas vezes repetir e quantos soltos no fim?" : "Quantas vezes ela deve repetir?";
         setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
         setMissionCounters("Missão", rounds);
-        status.textContent = `Pedido: ${round.target} ${product.name}. A máquina embala ${round.step} de cada vez. ${level.extraStep ? "Quantas vezes repetir e quantos soltos no fim?" : "Quantas vezes ela deve repetir?"}`;
-        const lap = run && state.loopRepeat > 0 ? `<span class="loop-lap">${Math.min(shown, state.loopRepeat) ? `volta ${Math.min(shown, state.loopRepeat)} de ${state.loopRepeat}` : ""}</span>` : "";
-        const extraLine = level.extraStep ? `<div class="loop-code-line ${inExtra ? "active" : ""}"><span class="loop-code-kw">depois,</span> embalar ${loopStepperHtml("extra", state.loopExtra, maxExtra)} ${product.icon} soltos</div>` : "";
+        status.textContent = `Pedido: ${round.target} ${product.name}. A máquina embala ${round.step} de cada vez. ${question}`;
         content.innerHTML = `<div class="loop-board">
           <div class="loop-order">📋 Pedido: <strong>${round.target}</strong> ${product.icon} ${product.name}</div>
           <div class="loop-builder ${state.answerLocked ? "locked" : ""}">
-            <div class="loop-code">
-              <div class="loop-code-line ${inRepeats ? "active" : ""}"><span class="loop-code-kw">repita</span> ${loopStepperHtml("repeat", state.loopRepeat, maxRepeat)} <span class="loop-code-kw">vezes:</span>${lap}</div>
-              <div class="loop-code-line indent ${inRepeats ? "active" : ""}">embalar <span class="loop-code-value">${round.step}</span> ${product.icon}</div>
-              ${extraLine}
-            </div>
-            ${loopBeltHtml(product, round.step, state.loopRepeat, state.loopExtra, shown)}
+            ${loopCodeHtml(level, round, view)}
+            ${loopBeltHtml(product, round.step, state.loopRepeat, state.loopExtra, view.shown)}
             <div class="loop-run-row">
-              <div class="loop-total ${state.loopWrong ? "wrong" : ""} ${state.loopSolved ? "correct" : ""}">Embalados: ${run ? runTotal : "?"}</div>
-              <button type="button" class="loop-confirm-button" ${state.answerLocked || running ? "disabled" : ""}>▶️ Ligar a máquina!</button>
+              <div class="loop-total ${state.loopWrong ? "wrong" : ""} ${state.loopSolved ? "correct" : ""}">Embalados: ${view.run ? view.total : "?"}</div>
+              <button type="button" class="loop-confirm-button" ${state.answerLocked || view.running ? "disabled" : ""}>▶️ Ligar a máquina!</button>
             </div>
           </div>
+        </div>`;
+      }
+
+      // Missão Digitação: treino de teclado sem tempo, sem ranking e sem comparação com os colegas.
+      // Cada fase libera teclas novas e o foco é acertar com calma, usando o dedo certo. Os textos não usam acentos
+      // nem ç, para funcionar em qualquer teclado; a regra "só teclas já liberadas" é conferida em qa/static/data.js.
+      const typingStages = [
+        {
+          title: "Fileira de apoio: A S D F",
+          newKeys: "asdf",
+          tip: "Os indicadores ficam no F e no J: sinta o risquinho nas teclas.",
+          exercises: ["ff dd ss aa ff dd ss aa", "fa da sa fa da sa fad dad", "asa fada dada asa fada", "dada fada asa dada fada asa"],
+        },
+        {
+          title: "Fileira de apoio: J K L",
+          newKeys: "jkl",
+          tip: "Mantenha o indicador direito no J e use o médio (K) e o anelar (L).",
+          exercises: ["jj kk ll jj kk ll jk lk", "ja ka la ja ka la jal kal", "sala fala salsa falsa", "ala sala fala falsa alfalfa"],
+        },
+        {
+          title: "Indicadores: G e H",
+          newKeys: "gh",
+          tip: "O indicador alcança o G e o H sem os outros dedos saírem do lugar.",
+          exercises: ["gg hh gg hh fg dh jh kg", "ga ha ga ha gal hal", "gala haja alga falha", "salsa falha haja alga gala"],
+        },
+        {
+          title: "Vogais: E I O U",
+          newKeys: "eiou",
+          tip: "As vogais ficam na fileira de cima: o dedo sobe e volta para a fileira de apoio.",
+          exercises: ["ee ii oo uu ei ou ei ou", "dedo lado sede fila filho", "ideia aula saia luas solo", "a aula fala do dedo e do filho"],
+        },
+        {
+          title: "Fileira de cima: Q W R T Y P",
+          newKeys: "qwrtyp",
+          tip: "Suba o dedo, aperte a tecla e volte sempre para a fileira de apoio.",
+          exercises: ["qq ww rr tt yy pp qw rt yp", "pato rato porta prato trigo", "quase pedra preto papel pai", "o pai pegou o prato e o papel"],
+        },
+        {
+          title: "Fileira de baixo: Z X C V B N M",
+          newKeys: "zxcvbnm",
+          tip: "Desça o dedo com calma e volte para a fileira de apoio.",
+          exercises: ["zz xx cc vv bb nn mm zx cv bn", "casa bola vaca mesa mundo", "zebra caixa navio banana nuvem", "a vaca come a banana e a zebra bebe leite"],
+        },
+        {
+          title: "Palavras e frases",
+          newKeys: "",
+          tip: "Use o polegar para a barra de espaço e mantenha um ritmo calmo.",
+          exercises: ["o gato bebe leite", "a casa azul tem porta verde", "eu gosto de ler e de brincar", "o sol brilha e as nuvens passam"],
+        },
+        {
+          title: "Letras maiúsculas",
+          newKeys: "",
+          capitals: true,
+          tip: "Para a letra maiúscula, aperte o Shift com o mindinho da mão contrária.",
+          exercises: ["Ana Bia Caio Davi Eva Felipe", "Rio de Janeiro Santa Catarina", "Maria gosta de pizza", "Eu me chamo Lucas e gosto de futebol"],
+        },
+        {
+          title: "Pontuação: . , ? !",
+          newKeys: ".,?!",
+          tip: "O ponto e a vírgula ficam na fileira de baixo. Para ? e !, use o Shift.",
+          exercises: ["Oi! Tudo bem? Sim, tudo bem.", "Quem quer brincar? Eu quero!", "Bia, Caio e Davi. Que legal!", "Digitar com calma. Errar, tentar, melhorar!"],
+        },
+        {
+          title: "Números",
+          newKeys: "0123456789",
+          tip: "Os números ficam na fileira de cima: o dedo sobe e volta para o apoio.",
+          exercises: ["1 2 3 4 5 6 7 8 9 0", "10 20 30 40 50 60 70 80 90", "Eu tenho 9 anos.", "Eu moro na casa 25, rua 7."],
+        },
+        {
+          title: "Frases completas",
+          newKeys: "",
+          hideKeyboard: true,
+          tip: "Tente olhar para o texto e não para o teclado. Se precisar, é só espiar.",
+          exercises: ["Eu moro em Santa Catarina.", "Aprendo a digitar com calma, dedo por dedo.", "A turma tem 25 alunos e 1 professor.", "O computador tem teclado, mouse e tela."],
+        },
+        {
+          title: "Textos",
+          newKeys: "",
+          hideKeyboard: true,
+          tip: "Respire, relaxe os ombros e digite com calma.",
+          exercises: [
+            "O teclado tem muitas teclas. Cada dedo cuida de algumas delas.",
+            "Sente com as costas retas e relaxe os ombros. Digite sem olhar.",
+            "Quem treina um pouco todo dia aprende cada vez melhor.",
+            "Muito bem! Continue treinando sempre.",
+          ],
+        },
+        {
+          title: "Acento agudo: ´",
+          newKeys: "´áéíóú",
+          accent: true,
+          tip: "Aperte a tecla do acento (´), solte, e depois a vogal. O acento vem sempre antes da letra.",
+          exercises: ["café sofá avó pé chá", "já lá jacaré maré café", "caí aí baú saí fui", "a vovó fez café e o sofá é azul"],
+        },
+        {
+          title: "Cedilha: Ç",
+          newKeys: "ç",
+          accent: true,
+          tip: "O Ç tem tecla própria, ao lado do L: use o mindinho direito.",
+          exercises: ["ça ço çu aço oço uça", "caça praça laço braço poço", "cabeça almoço açaí açúcar", "a moça comeu açaí no almoço"],
+        },
+        {
+          title: "Til: ~",
+          newKeys: "~ãõ",
+          accent: true,
+          tip: "A tecla do til (~) fica ao lado do Ç. Aperte o til, solte, e depois o A ou o O.",
+          exercises: ["ão ãe õe ão ãe õe", "mão pão irmã maçã manhã", "balões botões limões leões", "a mãe comprou pão e limão na feira"],
+        },
+        {
+          title: "Chapéu e crase: ^ e `",
+          newKeys: "^`âêôà",
+          accent: true,
+          tip: "O chapéu (^) é Shift junto com a tecla do til. A crase (`) é Shift junto com a tecla do acento agudo.",
+          exercises: ["â ê ô à â ê ô à", "você bebê avô vovô", "lâmpada âmbar ônibus câmera", "fui à feira e vi a lâmpada"],
+        },
+        {
+          title: "Textos com acentos",
+          newKeys: "",
+          hideKeyboard: true,
+          tip: "Agora com acentos: lembre-se de apertar o acento antes da letra.",
+          exercises: [
+            "Você aprendeu a digitar com atenção.",
+            "A professora disse parabéns, turma!",
+            "Hoje é sábado e vamos ao parque.",
+            "O computador também ajuda a gente a aprender.",
+          ],
+        },
+      ];
+
+      // Fases de cada faixa etária (índices de typingStages): quem é maior começa mais adiante.
+      // Acentos: 8-9 anos agudo e cedilha, 10-11 acrescentam o til, 12-13 o chapéu e a crase, e aos 14 há textos com acentos.
+      const typingBandStages = [[0, 1, 2, 3], [0, 1, 2, 3, 4, 5, 12, 13], [3, 4, 5, 6, 7, 12, 13, 14], [6, 7, 8, 9, 12, 13, 14, 15], [8, 9, 10, 11, 12, 13, 14, 15, 16]];
+
+      const typingFingerNames = {
+        lp: "mindinho esquerdo",
+        lr: "anelar esquerdo",
+        lm: "médio esquerdo",
+        li: "indicador esquerdo",
+        ri: "indicador direito",
+        rm: "médio direito",
+        rr: "anelar direito",
+        rp: "mindinho direito",
+        th: "polegar",
+      };
+
+      // Teclado ABNT2 simplificado: cada tecla com o dedo que a aperta.
+      const typingKeyboardRows = [
+        { digits: true, keys: [["1", "lp"], ["2", "lr"], ["3", "lm"], ["4", "li"], ["5", "li"], ["6", "ri"], ["7", "ri"], ["8", "rm"], ["9", "rr"], ["0", "rp"]] },
+        { keys: [["q", "lp"], ["w", "lr"], ["e", "lm"], ["r", "li"], ["t", "li"], ["y", "ri"], ["u", "ri"], ["i", "rm"], ["o", "rr"], ["p", "rp"], ["´", "rp"]] },
+        { keys: [["a", "lp"], ["s", "lr"], ["d", "lm"], ["f", "li"], ["g", "li"], ["h", "ri"], ["j", "ri"], ["k", "rm"], ["l", "rr"], ["ç", "rp"], ["~", "rp"]] },
+        { shifts: true, keys: [["z", "lp"], ["x", "lr"], ["c", "lm"], ["v", "li"], ["b", "li"], ["n", "ri"], ["m", "ri"], [",", "rm"], [".", "rr"], ["/", "rp"]] },
+      ];
+      const typingShiftedKeys = { "!": "1", "?": "/" };
+      const TYPING_FLASH_MS = 350;
+      const TYPING_STAR_ACCURACY = [95, 85];
+
+      function typingKeyFor(char) {
+        if (char === " ") return { base: " ", shift: false };
+        if (typingShiftedKeys[char]) return { base: typingShiftedKeys[char], shift: true };
+        const lower = char.toLowerCase();
+        return { base: lower, shift: lower !== char };
+      }
+
+      // ABNT2: o acento agudo (´) e o til (~) são teclas mortas: primeiro o acento, depois a letra.
+      // Com Shift, o agudo vira crase (`) e o til vira chapéu (^).
+      const typingAccentKeys = {
+        "á": { dead: "´", deadShift: false, letter: "a" },
+        "é": { dead: "´", deadShift: false, letter: "e" },
+        "í": { dead: "´", deadShift: false, letter: "i" },
+        "ó": { dead: "´", deadShift: false, letter: "o" },
+        "ú": { dead: "´", deadShift: false, letter: "u" },
+        "à": { dead: "´", deadShift: true, letter: "a" },
+        "ã": { dead: "~", deadShift: false, letter: "a" },
+        "õ": { dead: "~", deadShift: false, letter: "o" },
+        "â": { dead: "~", deadShift: true, letter: "a" },
+        "ê": { dead: "~", deadShift: true, letter: "e" },
+        "ô": { dead: "~", deadShift: true, letter: "o" },
+      };
+      const typingDeadNames = { "´": "acento agudo (´)", "´+": "crase (Shift + ´)", "~": "til (~)", "~+": "chapéu (Shift + ~)" };
+
+      // Teclas que o aluno aperta para digitar um caractere: um passo, ou dois nos acentos (acento e letra).
+      function typingStepsFor(char) {
+        const lower = char.toLowerCase();
+        const accent = typingAccentKeys[lower];
+        if (!accent) return [typingKeyFor(char)];
+        return [{ base: accent.dead, shift: accent.deadShift }, { base: accent.letter, shift: lower !== char }];
+      }
+
+      // Passo de agora: nos acentos, primeiro a tecla do acento e, depois que ela foi apertada, a letra.
+      function typingTargetStep(expected) {
+        const steps = typingStepsFor(expected);
+        return steps.length > 1 && state.typingDead ? steps[1] : steps[0];
+      }
+
+      function typingFingerFor(base) {
+        if (base === " ") return "th";
+        const row = typingKeyboardRows.find((candidate) => candidate.keys.some(([label]) => label === base));
+        return row ? row.keys.find(([label]) => label === base)[1] : null;
+      }
+
+      function currentTypingRounds() {
+        return typingBandStages[state.ageBand ?? 0].flatMap((stageIndex) => typingStages[stageIndex].exercises.map((text) => ({ text, stageIndex })));
+      }
+
+      // Teclas já liberadas até a fase (as novas de cada fase somam com as das anteriores).
+      function typingAllowedKeys(stageIndex) {
+        const allowed = new Set([" "]);
+        typingStages.slice(0, stageIndex + 1).forEach((stage) => [...stage.newKeys].forEach((char) => allowed.add(char)));
+        return allowed;
+      }
+
+      function startTypingExercise() {
+        window.clearTimeout(state.typingFlashTimer);
+        state.typingPos = 0;
+        state.typingErrors = 0;
+        state.typingMissed = {};
+        state.typingFlash = null;
+        state.typingDone = false;
+        state.typingStars = 0;
+        state.typingPeek = false;
+        state.typingDead = false;
+      }
+
+      function resetTyping() {
+        startTypingExercise();
+        state.typingStarsTotal = 0;
+      }
+
+      function typingStarsFor(total) {
+        const accuracy = (total * 100) / (total + state.typingErrors);
+        if (accuracy >= TYPING_STAR_ACCURACY[0]) return 3;
+        return accuracy >= TYPING_STAR_ACCURACY[1] ? 2 : 1;
+      }
+
+      function finishTypingExercise(round) {
+        state.typingDone = true;
+        state.typingStars = typingStarsFor(round.text.length);
+        state.typingStarsTotal += state.typingStars;
+      }
+
+      function continueTyping() {
+        const rounds = currentTypingRounds();
+        if (state.round + 1 >= rounds.length) {
+          complete("typing", "Digitação concluída!");
+          return;
+        }
+        state.round += 1;
+        startTypingExercise();
+        render();
+      }
+
+      // Recebe todas as teclas do teclado enquanto a missão está aberta (F e R também são letras aqui).
+      // Devolve false para o que o app deve tratar (Esc, setas...).
+      function handleTypingKey(event) {
+        const key = event.key;
+        if (state.typingDone) return handleTypingKeyWhenDone(event);
+        if (key === "Dead") {
+          if (!event.repeat) handleTypingDeadKey();
+          return true;
+        }
+        if (key.length !== 1) return false;
+        if (event.repeat) return true;
+        const round = currentTypingRounds()[state.round];
+        const expected = round.text[state.typingPos];
+        state.typingDead = false;
+        if (key !== expected) {
+          registerTypingError(expected, key);
+          return true;
+        }
+        state.typingPos += 1;
+        state.typingFlash = null;
+        if (state.typingPos >= round.text.length) finishTypingExercise(round);
+        render();
+        return true;
+      }
+
+      // Com o exercício terminado, Enter ou espaço continuam; as demais teclas de caractere são ignoradas.
+      function handleTypingKeyWhenDone(event) {
+        const continues = event.key === "Enter" || event.key === " ";
+        if (continues && !event.repeat) continueTyping();
+        return continues || event.key.length === 1;
+      }
+
+      // Conta o engano (sem punição além de mostrar o que faltou) e sinaliza a tecla por um instante.
+      function registerTypingError(expected, shownKey) {
+        state.typingErrors += 1;
+        state.typingMissed[expected] = (state.typingMissed[expected] || 0) + 1;
+        state.typingFlash = shownKey;
+        render();
+        window.clearTimeout(state.typingFlashTimer);
+        state.typingFlashTimer = window.setTimeout(() => {
+          if (state.mode !== "typing") return;
+          state.typingFlash = null;
+          render();
+        }, TYPING_FLASH_MS);
+      }
+
+      // Tecla de acento: é esperada antes de uma letra acentuada (e, no teclado US-Internacional, antes do ç);
+      // fora disso conta como engano.
+      function handleTypingDeadKey() {
+        const round = currentTypingRounds()[state.round];
+        const expected = round.text[state.typingPos];
+        if (typingStepsFor(expected).length > 1 || expected.toLowerCase() === "ç") {
+          state.typingDead = true;
+          render();
+          return;
+        }
+        registerTypingError(expected, "´");
+      }
+
+      function handleTypingClick(event) {
+        if (clickedElement(event, ".typing-next-button")) {
+          continueTyping();
+          return true;
+        }
+        if (clickedElement(event, ".typing-peek-button")) {
+          state.typingPeek = !state.typingPeek;
+          render();
+          return true;
+        }
+        return false;
+      }
+
+      function typingCharHtml(char, index) {
+        const classes = ["typing-char"];
+        if (index < state.typingPos) classes.push("typed");
+        else if (index === state.typingPos && !state.typingDone) classes.push("current");
+        if (index === state.typingPos && state.typingFlash) classes.push("wrong");
+        if (char === " ") classes.push("space");
+        return `<span class="${classes.join(" ")}">${char === " " ? "&nbsp;" : escapeHtml(char)}</span>`;
+      }
+
+      // Cada palavra fica num bloco que não quebra no meio; os espaços são as únicas quebras de linha.
+      function typingTextHtml(text) {
+        const words = text.split(" ");
+        const parts = [];
+        let index = 0;
+        words.forEach((word, wordIndex) => {
+          const chars = [...word].map((char) => {
+            const charHtml = typingCharHtml(char, index);
+            index += 1;
+            return charHtml;
+          }).join("");
+          parts.push(`<span class="typing-word">${chars}</span>`);
+          if (wordIndex < words.length - 1) {
+            parts.push(typingCharHtml(" ", index));
+            index += 1;
+          }
+        });
+        return parts.join("");
+      }
+
+      function typingKeyHtml(label, finger, view) {
+        const classes = ["typing-key", `f-${finger}`];
+        if (!view.allowed.has(label)) classes.push("locked");
+        if (view.target.base === label) classes.push("target");
+        if (view.wrong && view.wrong.base === label) classes.push("wrong-press");
+        if (label === "f" || label === "j") classes.push("home-mark");
+        return `<span class="${classes.join(" ")}">${label}</span>`;
+      }
+
+      // Shift da mão contrária à do dedo que aperta a tecla ("l" ou "r"); nulo quando a tecla não pede Shift.
+      function typingShiftSide(target) {
+        if (!target.shift) return null;
+        return typingFingerFor(target.base).startsWith("l") ? "r" : "l";
+      }
+
+      function typingKeyboardHtml(stageIndex, expected) {
+        const allowed = typingAllowedKeys(stageIndex);
+        const target = typingTargetStep(expected);
+        const wrong = state.typingFlash ? typingKeyFor(state.typingFlash) : null;
+        const view = { allowed, target, wrong };
+        const hasDigits = [...allowed].some((char) => "0123456789".includes(char));
+        const shiftSide = typingShiftSide(target);
+        const rows = typingKeyboardRows.filter((row) => !row.digits || hasDigits).map((row) => {
+          const keys = row.keys.map(([label, finger]) => typingKeyHtml(label, finger, view)).join("");
+          const shiftLeft = row.shifts ? `<span class="typing-key shift f-lp ${shiftSide === "l" ? "target" : ""}">Shift</span>` : "";
+          const shiftRight = row.shifts ? `<span class="typing-key shift f-rp ${shiftSide === "r" ? "target" : ""}">Shift</span>` : "";
+          return `<div class="typing-krow">${shiftLeft}${keys}${shiftRight}</div>`;
+        }).join("");
+        const space = `<div class="typing-krow"><span class="typing-key space f-th ${target.base === " " ? "target" : ""}">espaço</span></div>`;
+        return `<div class="typing-keyboard" aria-hidden="true">${rows}${space}</div>`;
+      }
+
+      // Dica da próxima tecla: qual é e com qual dedo apertar.
+      function typingHint(expected) {
+        const steps = typingStepsFor(expected);
+        const key = typingTargetStep(expected);
+        const finger = typingFingerFor(key.base);
+        const name = expected === " " ? "barra de espaço" : expected;
+        const shiftHand = finger.startsWith("l") ? "direito" : "esquerdo";
+        const shiftText = key.shift ? ` (com Shift, mindinho ${shiftHand})` : "";
+        let text = `Próxima tecla: ${name}${shiftText}`;
+        if (steps.length > 1 && !state.typingDead) {
+          const deadName = typingDeadNames[steps[0].base + (steps[0].shift ? "+" : "")];
+          text = `Para escrever ${name}: primeiro o ${deadName}`;
+        } else if (steps.length > 1) {
+          text = `Agora a letra ${key.base.toUpperCase()}${shiftText}`;
+        }
+        return { finger, text, fingerName: typingFingerNames[finger] };
+      }
+
+      function typingResultHtml(round, isLast) {
+        const total = round.text.length;
+        const accuracy = Math.round((total * 100) / (total + state.typingErrors));
+        const stars = "⭐".repeat(state.typingStars) + "☆".repeat(3 - state.typingStars);
+        const messages = [
+          "Bom treino! Errar faz parte de aprender. Vá com calma e olhe a dica da tecla.",
+          "Muito bem! Com um pouco mais de calma, fica perfeito.",
+          "Perfeito! Seus dedos estão no caminho certo.",
+        ];
+        const trouble = Object.entries(state.typingMissed).sort((first, second) => second[1] - first[1]).slice(0, 3)
+          .map(([char]) => `<strong>${escapeHtml(char === " " ? "espaço" : char)}</strong>`);
+        const practice = trouble.length ? `<div class="typing-practice">Teclas para treinar mais: ${trouble.join(" ")}</div>` : "";
+        return `<div class="typing-result">
+          <div class="typing-stars" role="img" aria-label="${state.typingStars} de 3 estrelas">${stars}</div>
+          <div class="typing-result-text">${messages[state.typingStars - 1]} Precisão: ${accuracy}%.</div>
+          ${practice}
+          <button type="button" class="typing-next-button">${isLast ? "Concluir" : "Continuar"} ▶</button>
+        </div>`;
+      }
+
+      // Abaixo do texto: o resultado do exercício, o teclado com a dica ou o aviso de teclado escondido.
+      function typingBelowHtml(round, stage, hint, isLast) {
+        if (state.typingDone) return typingResultHtml(round, isLast);
+        if (stage.hideKeyboard && !state.typingPeek) {
+          return `<div class="typing-hint">⌨️ Sem olhar o teclado! Olhe só para o texto.</div>
+            <button type="button" class="typing-peek-button">👀 Espiar o teclado</button>`;
+        }
+        const hideButton = stage.hideKeyboard ? '<button type="button" class="typing-peek-button">🙈 Esconder o teclado</button>' : "";
+        return `<div class="typing-hint">${hint.text} · dedo <span class="typing-finger f-${hint.finger}">${hint.fingerName}</span></div>
+          ${typingKeyboardHtml(round.stageIndex, round.text[state.typingPos])}
+          ${hideButton}`;
+      }
+
+      function typingStatusText(stage, hint) {
+        if (state.typingDone) return "Exercício concluído! Continue quando quiser.";
+        if (stage.hideKeyboard && !state.typingPeek) return "Digite o texto sem olhar o teclado. Se precisar, é só espiar.";
+        return `Digite o texto. ${hint.text}, dedo ${hint.fingerName}.`;
+      }
+
+      function renderTyping() {
+        const rounds = currentTypingRounds();
+        const round = rounds[state.round];
+        const stage = typingStages[round.stageIndex];
+        const bandStages = typingBandStages[state.ageBand ?? 0];
+        const hint = state.typingDone ? null : typingHint(round.text[state.typingPos]);
+        setHeader("Digitação", `Fase ${bandStages.indexOf(round.stageIndex) + 1} de ${bandStages.length}: ${stage.title}`);
+        setCounters("Exercício", `${state.round + 1} / ${rounds.length}`, "Estrelas", String(state.typingStarsTotal));
+        status.textContent = typingStatusText(stage, hint);
+        const newKeys = stage.newKeys ? `Teclas novas: <strong>${[...stage.newKeys].join(" ")}</strong>` : "Pratique com calma";
+        content.innerHTML = `<div class="typing-board">
+          <div class="typing-stage"><span>${newKeys}</span><span class="typing-tip">${stage.tip}</span></div>
+          <div class="typing-text" role="group" aria-label="Texto para digitar: ${escapeHtml(round.text)}"><span aria-hidden="true">${typingTextHtml(round.text)}</span></div>
+          ${typingBelowHtml(round, stage, hint, state.round + 1 >= rounds.length)}
         </div>`;
       }
 
@@ -24749,6 +25563,7 @@ const brStatesList = [
       }
 
       const missionRenderers = {
+        typing: renderTyping,
         lesson: renderLessonDeck,
         robot: renderRobot,
         dengue: renderDengue,
@@ -25176,6 +25991,7 @@ const brStatesList = [
           state.legacyGradeIndex = 0;
         }
         if (mode === "robot") resetRobot();
+        if (mode === "typing") resetTyping();
         applyAutoTierForMode(mode);
         beginAssessmentRun(mode);
         render();
@@ -25851,8 +26667,8 @@ const brStatesList = [
         vaccine: () => ({ name: currentVaccineRound().name, steps: currentVaccineRound().steps, chosenKey: "vaccineChosen", attemptKey: "vaccineAttempt", roundCount: vaccineRounds.length, refresh: refreshVaccineChoices }),
       };
 
-      function answerStepInAssessment(mission, choice, expected) {
-        const config = stepOrderMissions[mission]();
+      function answerStepInAssessment(missionId, choice, expected) {
+        const config = stepOrderMissions[missionId]();
         const chosen = state[config.chosenKey];
         recordAssessmentAnswer(choice === expected, {
           question: `${config.name}: qual é o passo ${chosen.length + 1}?`,
@@ -27970,6 +28786,7 @@ const brStatesList = [
       }
 
       const missionClickHandlers = {
+        typing: handleTypingClick,
         lesson: handleLessonClick,
         robot: handleRobotClick,
         dengue: (event) => {
@@ -29131,6 +29948,7 @@ const brStatesList = [
         event.preventDefault();
         event.stopPropagation();
         if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (state.mode === "typing" && handleTypingKey(event)) return;
         if (state.mode === "decoder" && state.decoderLevel !== null && /^[a-zA-Z]$/.test(event.key)) {
           handleDecoderGuess(event.key.toUpperCase());
           return;

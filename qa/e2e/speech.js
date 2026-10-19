@@ -56,7 +56,9 @@ async function main() {
     await openMission(page, 'Fábrica de Laços');
     await page.waitForSelector(SPEAK_BUTTON);
     const loops = (await spokenText(page)) || '';
-    if ((loops.match(/monte o laço certo/gi) || []).length !== 1) report.problem(`Fábrica de Laços: "Monte o laço certo" deveria ser lido uma vez só ("${loops}")`);
+    // a primeira rodada é sorteada (montar ou prever): em qualquer uma, nenhuma frase pode ser lida duas vezes
+    if (!loops) report.problem('Fábrica de Laços: nada foi falado');
+    if ((loops.match(/monte o laço certo/gi) || []).length > 1) report.problem(`Fábrica de Laços: "Monte o laço certo" foi lido duas vezes ("${loops}")`);
 
     await openMenu(page, server.url, BAND_USED);
     await openMission(page, 'Caça ao Bug');

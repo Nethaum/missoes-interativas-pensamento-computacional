@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 3.4.0
+Versão atual: 3.5.0
 
 ## Acesse
 
@@ -125,6 +125,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 - Dados e gráficos: contagem, comparação e leitura de informações, com a explicação do acerto na tela até o aluno tocar em Continuar.
 - Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
 - Computador por dentro: perguntas sobre hardware e software, dispositivos de entrada e saída, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto e botão Continuar para estudar a resolução.
+- Digitação: treino de teclado sem tempo e sem ranking, em 17 fases que liberam teclas aos poucos (fileira de apoio, vogais, fileiras de cima e de baixo, palavras, maiúsculas, pontuação, números, acentos e textos), escolhidas por faixa etária: 6-7 anos só letras; 8-9 anos acrescentam o acento agudo e o cedilha; 10-11 o til; 12-13 o chapéu e a crase; aos 14 há frases e textos com acentos. O teclado na tela mostra a próxima tecla e o dedo certo (e, nos acentos, primeiro a tecla do acento e depois a letra, como no teclado ABNT2), as estrelas dependem da precisão e o fim de cada exercício lista as teclas que pedem mais treino. Nas fases de frases e textos o teclado começa escondido. A missão está recomendada em todos os planos de aula, com a faixa etária de cada série.
 - Dados, algoritmos e IA: perguntas equilibradas sobre dados, padrões, vieses, privacidade e uso responsável da inteligência artificial, sem otimismo excessivo nem aversão.
 - Organize os dados: listas, tabelas, registros, grafos, árvores e máquinas de estados em situações do dia a dia.
 - Leia o código: prever o resultado de programas, de sequências de comandos em português a código em Python, com explicação a cada acerto e botão Continuar para estudar a resolução.

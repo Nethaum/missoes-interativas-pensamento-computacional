@@ -16,7 +16,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 |---|---|
 | `static/syntax.js` | Se o JavaScript do `index.html` é válido |
 | `static/lint.js` | ESLint: variáveis não declaradas ou sem uso, chaves duplicadas e outros erros comuns |
-| `static/data.js` | Integridade dos dados: Jogo da Velha, quizzes, Som Inicial, Monte a Palavra e planos de aula (tempos, habilidades, viés de tamanho da resposta certa) e slides do modo aula (tamanho das linhas, desenhos, missões e habilidades) |
+| `static/data.js` | Integridade dos dados: Jogo da Velha, quizzes, Som Inicial, Monte a Palavra e planos de aula (tempos, habilidades, viés de tamanho da resposta certa) , slides do modo aula (tamanho das linhas, desenhos, missões e habilidades) e exercícios de digitação (só teclas já liberadas na fase) |
 | `static/emoji.js` | Política de emojis: no máximo Unicode 12, para aparecer em aparelhos mais antigos |
 | `e2e/smoke.js` | Abre cada missão em cada faixa etária e interage ao acaso, procurando erros de JavaScript |
 | `e2e/keyboard.js` | Navegação por teclado em cada missão e saída pelo botão voltar (toque longo) |
@@ -30,6 +30,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 | `e2e/lesson-mode.js` | Modo aula (todas as aulas, inclusive as sem missão): painel só com as missões que têm aula, slides que aparecem linha por linha, voltar, tocar para avançar, botão de jogar no fim e exclusão com o modo avaliação |
 | `e2e/speech.js` | Leitura em voz alta: Som Inicial, Monte a Palavra, Vertebrados e Fábrica de Laços não leem o título repetido, e as outras missões continuam lendo |
 | `e2e/loop.js` | Fábrica de Laços: pedido da fábrica, execução animada (o total só aparece depois de ligar a máquina) e rodadas de prever |
+| `e2e/typing.js` | Digitação: dica do dedo, erro sem punição, estrelas por precisão, Shift nas maiúsculas, acentos (tecla morta e letra), teclado escondido nas fases de frases e conclusão da missão |
 | `e2e/a11y.js` | Auditoria axe-core de todas as telas no celular |
 | `e2e/offline.js` | Se o material abre e funciona sem internet depois da primeira visita |
 
