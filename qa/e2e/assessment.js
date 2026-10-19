@@ -98,11 +98,14 @@ const waitForRobotWalk = async (page) => {
   if (!(await page.$('.bug-fix-option'))) await page.waitForTimeout(ROBOT_WALK_MS);
 };
 
+// Fábrica de Laços: nas rodadas de prever, o aluno escolhe um número; nas de montar, liga a máquina.
+const loopOptionSelector = async (page) => ((await page.$('.loop-choice')) ? '.loop-choice' : '.loop-confirm-button');
+
 const GENERIC_MISSIONS = [
   { title: 'Portão Lógico', option: '.cond-option' },
   { title: 'Dados e gráficos', option: '.answer-row .answer-card' },
   { title: 'Desmistificador de Pixels', option: '.pixel-option' },
-  { title: 'Fábrica de Laços', option: '.loop-confirm-button' },
+  { title: 'Fábrica de Laços', option: loopOptionSelector, ready: '.loop-code' },
   { title: 'Mensagem secreta', option: '.code-option' },
   { title: 'Tradutor de Sinais', option: '.var-option', ready: '.var-next-button', prepare: revealVariableCommands },
   { title: 'Caça ao Bug', option: bugOptionSelector, ready: '.bug-chip', prepare: waitForRobotWalk },

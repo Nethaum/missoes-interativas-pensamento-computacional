@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 3.3.0
+Versão atual: 3.4.0
 
 ## Acesse
 
@@ -133,7 +133,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 - Vertebrados e invertebrados: classificação de seres vivos com raio-x interativo.
 - Corrida contra o Aedes: prevenção da dengue, observação do ambiente e tomada de decisão.
 - Matemática colorida: cálculo mental com dificuldade progressiva.
-- Fábrica de Laços: repetição e laços, ajustando repetições (e passo extra) até o robô alcançar a bandeira na trilha.
+- Fábrica de Laços: repetição e laços em pedidos de uma fábrica ("embalar 4 biscoitos, repetir quantas vezes?"). O aluno monta o laço num bloco de código, liga a máquina e vê as caixas saindo na esteira, com a linha do laço acesa a cada volta; o total só aparece depois de ligar. Parte das rodadas pede para prever o resultado de um laço pronto.
 - Estante Organizada: ordenação, trocando itens vizinhos até formar a sequência correta.
 - Portão Lógico: lógica condicional (Se/Senão), com cenários do cotidiano (inclusive segurança no trânsito de bicicleta) para descobrir o resultado certo de cada regra, com a regra aplicada na tela até o aluno tocar em Continuar.
 - Tradutor de Sinais: variáveis, revelando os comandos um a um e observando o valor mudar na caixa, depois escondendo tudo para testar se o aluno lembra o valor final e, no acerto, mostrando de novo como a caixa mudou a cada comando até o aluno tocar em Continuar.

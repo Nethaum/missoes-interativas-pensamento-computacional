@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.3.0">
+  <meta name="app-version" content="3.4.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -5160,103 +5160,20 @@
     .loop-board {
       width: min(760px, 100%);
       display: grid;
-      gap: 18px;
+      gap: 10px;
       justify-items: center;
-    }
-
-    .loop-track {
-      position: relative;
-      width: 100%;
-      height: 68px;
-      padding: 0 18px;
-      border: 5px solid var(--line);
-      border-radius: 18px;
-      background: linear-gradient(90deg, #eef4ff, #f7fbff);
-      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
-    }
-
-    .loop-robot {
-      position: absolute;
-      top: 50%;
-      left: 0%;
-      transform: translate(-50%, -50%);
-      font-size: 32px;
-      line-height: 1;
-      z-index: 2;
-    }
-
-    .loop-robot.walking {
-      animation: loop-robot-cheer 0.6s ease;
-    }
-
-    @keyframes loop-robot-cheer {
-      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-      40% { transform: translate(-50%, -50%) scale(1.25) rotate(-8deg); }
-      70% { transform: translate(-50%, -50%) scale(1.1) rotate(6deg); }
-      100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-    }
-
-    .loop-flag {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: grid;
-      justify-items: center;
-      font-size: 26px;
-      line-height: 1;
-      z-index: 1;
-    }
-
-    .loop-flag-label {
-      font-size: 11px;
-      font-weight: 950;
-      color: var(--card-ink);
-      background: var(--white);
-      border: 2px solid var(--line);
-      border-radius: 999px;
-      padding: 1px 6px;
-      margin-top: 2px;
     }
 
     .loop-builder {
       width: 100%;
       display: grid;
-      gap: 14px;
+      gap: 8px;
       justify-items: center;
-      padding: 16px 18px;
+      padding: 10px 14px;
       border: 4px solid var(--line);
       border-radius: 18px;
       background: var(--white);
       box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
-    }
-
-    .loop-builder-step {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--card-ink);
-      text-align: center;
-    }
-
-    .loop-stepper-row {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .loop-stepper {
-      display: grid;
-      gap: 6px;
-      justify-items: center;
-    }
-
-    .loop-stepper-label {
-      font-size: 13px;
-      font-weight: 900;
-      color: var(--card-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
     }
 
     .loop-stepper-controls {
@@ -5319,8 +5236,8 @@
       border: 4px solid var(--line);
       border-radius: 999px;
       background: var(--yellow);
-      padding: 12px 30px;
-      font-size: 18px;
+      padding: 8px 26px;
+      font-size: 17px;
       font-weight: 950;
       font-family: inherit;
       color: var(--card-ink);
@@ -5336,39 +5253,190 @@
       box-shadow: none;
     }
 
-    .loop-option-bar-track {
-      position: relative;
+    .loop-order {
+      padding: 6px 20px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: #fff8e1;
+      color: var(--card-ink);
+      font-size: 18px;
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 5px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .loop-order strong {
+      font-size: 24px;
+    }
+
+    .loop-code {
       width: 100%;
-      height: 20px;
-      border-radius: 6px;
-      background: #eef1f6;
+      display: grid;
+      gap: 2px;
+      padding: 8px 14px;
+      border: 4px solid #2d3b55;
+      border-radius: 16px;
+      background: #1e2a38;
+      color: #f4f1de;
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 18px;
+      text-align: left;
     }
 
-    .loop-option-target-line {
-      position: absolute;
-      top: -4px;
-      bottom: -4px;
-      width: 3px;
-      background: var(--card-ink);
-      z-index: 2;
+    .loop-code .loop-stepper-btn {
+      width: 34px;
+      height: 34px;
+      font-size: 20px;
+      border-width: 3px;
+      box-shadow: 0 3px 0 rgba(52, 120, 229, 0.4);
     }
 
-    .loop-option-bar {
-      position: relative;
+    .loop-code-line {
       display: flex;
-      height: 100%;
-      border-radius: 6px;
-      overflow: hidden;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      transition: background 0.2s ease;
     }
 
-    .loop-bar-segment {
-      height: 100%;
-      background: var(--blue);
-      box-sizing: border-box;
-      border-right: 1px solid rgba(255, 255, 255, 0.55);
+    .loop-code-line.indent {
+      padding-left: 34px;
     }
 
-    .loop-bar-segment.extra { background: var(--orange); }
+    .loop-code-line.active {
+      background: rgba(255, 224, 102, 0.22);
+      box-shadow: inset 3px 0 0 var(--yellow);
+    }
+
+    .loop-code-kw {
+      color: #8ecbff;
+      font-weight: 800;
+    }
+
+    .loop-code-value,
+    .loop-code .loop-stepper-value {
+      min-width: 28px;
+      color: var(--yellow);
+      font-size: 22px;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .loop-lap {
+      margin-left: auto;
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .loop-belt {
+      width: 100%;
+      min-height: 54px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+      padding: 4px 14px;
+      border: 5px solid var(--line);
+      border-radius: 18px;
+      background: repeating-linear-gradient(90deg, #e9edf5 0 14px, #dde3ee 14px 28px);
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .loop-belt-machine {
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .loop-belt-hint {
+      color: var(--card-muted);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .loop-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border: 3px solid #b9893c;
+      border-radius: 10px;
+      background: #f6d9a3;
+      color: var(--card-ink);
+      font-size: 18px;
+      font-weight: 950;
+      animation: loop-box-pop 0.3s ease;
+    }
+
+    .loop-box.extra {
+      border-color: var(--orange);
+      background: #ffd9b3;
+    }
+
+    @keyframes loop-box-pop {
+      0% { transform: translateY(-14px) scale(0.6); opacity: 0; }
+      100% { transform: none; opacity: 1; }
+    }
+
+    .loop-run-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .loop-choices {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .loop-choice {
+      min-height: 64px;
+      display: grid;
+      place-items: center;
+      padding: 10px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-size: 26px;
+      font-weight: 950;
+      text-shadow: none;
+      box-shadow: 0 7px 0 rgba(205, 189, 145, 0.58);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .loop-choice:hover:not(.selected):not(.correct):not(.wrong) {
+      transform: translateY(-3px);
+    }
+
+    .loop-choice.selected {
+      border-color: var(--blue);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 rgba(52, 120, 229, 0.22);
+    }
+
+    .loop-choice.wrong {
+      border-color: var(--red);
+      background: #fff0f0;
+      animation: fx-shake 0.5s ease;
+    }
+
+    .loop-choice.correct {
+      border-color: #2f9e52;
+      background: #e6f9ec;
+    }
+
+    .loop-choices.locked .loop-choice:not(.wrong):not(.correct) {
+      opacity: 0.42;
+      filter: grayscale(0.35);
+      transform: none;
+    }
 
     .sort-board {
       width: min(760px, 100%);
@@ -15700,10 +15768,26 @@ const brStatesList = [
         return { target: repeat * step + extra, step };
       }
 
+      // Cada pedido é de um produto; a cada 3ª rodada o aluno prevê o resultado de um laço pronto em vez de montar o laço.
+      const loopProducts = [
+        { icon: "🍪", name: "biscoitos" },
+        { icon: "🧸", name: "ursinhos" },
+        { icon: "✏️", name: "lápis" },
+        { icon: "🍕", name: "pizzas" },
+        { icon: "🎈", name: "balões" },
+        { icon: "🍬", name: "balas" },
+      ];
+      const LOOP_PREDICT_EVERY = 3;
+      const LOOP_RUN_TOTAL_MS = 3600;
+      const LOOP_RUN_MIN_STEP_MS = 250;
+      const LOOP_RUN_MAX_STEP_MS = 650;
+
       const loopLevels = loopLevelPlans.map((plan, tierIndex) => {
-        const rounds = Array.from({ length: plan.roundCount }, (_, index) =>
-          generateLoopRound(plan, seedFromParts("loop-tier", tierIndex, index))
-        );
+        const rounds = Array.from({ length: plan.roundCount }, (_, index) => ({
+          ...generateLoopRound(plan, seedFromParts("loop-tier", tierIndex, index)),
+          kind: (index + 1) % LOOP_PREDICT_EVERY === 0 ? "predict" : "build",
+          product: loopProducts[(tierIndex + index) % loopProducts.length],
+        }));
         return { ...plan, preview: ["🔁", "➡️", "🎯"], rounds };
       });
 
@@ -18132,6 +18216,10 @@ const brStatesList = [
         loopExtra: 0,
         loopWrong: false,
         loopSolved: false,
+        loopRun: null,
+        loopAttempt: 0,
+        loopWrongIndex: null,
+        loopCorrectIndex: null,
         sortLevel: null,
         sortItems: [],
         sortSelectedIndex: -1,
@@ -18745,11 +18833,15 @@ const brStatesList = [
         mission.textContent = missionText;
       }
 
+      // Nestas missões o título só repete a instrução que já vem no texto de apoio, então a leitura em voz alta o pula.
+      const SPEAK_WITHOUT_HEADER = ["phonics", "syllables", "vertebrate"];
+
       function speakCurrentPrompt() {
         if (!window.speechSynthesis) return;
         window.speechSynthesis.cancel();
         const extra = Array.from(content.querySelectorAll("[data-speak]")).map((el) => el.textContent);
-        const parts = [mission.textContent, status.textContent, ...extra]
+        const header = SPEAK_WITHOUT_HEADER.includes(state.mode) ? "" : mission.textContent;
+        const parts = [header, status.textContent, ...extra]
           .map((text) => (text || "").trim().replace(/[.!?]+$/, ""))
           .filter(Boolean);
         const text = parts.join(". ");
@@ -22006,6 +22098,11 @@ const brStatesList = [
         state.loopExtra = 0;
         state.loopWrong = false;
         state.loopSolved = false;
+        state.loopRun = null;
+        state.loopAttempt = 0;
+        state.loopWrongIndex = null;
+        state.loopCorrectIndex = null;
+        state.selected = -1;
       }
 
       function loopMaxRepeat() {
@@ -22031,57 +22128,109 @@ const brStatesList = [
         }
       }
 
+      // Repetições inteiras e passo extra que levam ao alvo da rodada.
+      function loopRoundParts(round) {
+        return { repeat: Math.floor(round.target / round.step), extra: round.target % round.step };
+      }
+
+      function loopStepperHtml(kind, value, max) {
+        const locked = state.answerLocked;
+        return `<span class="loop-stepper-controls">
+          <button type="button" class="loop-stepper-btn" data-stepper="${kind}" data-delta="-1" ${locked || value <= 0 ? "disabled" : ""}>−</button>
+          <span class="loop-stepper-value">${value}</span>
+          <button type="button" class="loop-stepper-btn" data-stepper="${kind}" data-delta="1" ${locked || value >= max ? "disabled" : ""}>+</button>
+        </span>`;
+      }
+
+      // Esteira com uma caixa por repetição já feita e, no fim, a caixa do passo extra.
+      function loopBeltHtml(product, step, repeat, extra, shownUnits) {
+        const boxes = [];
+        for (let index = 0; index < Math.min(shownUnits, repeat); index += 1) {
+          boxes.push(`<span class="loop-box">${product.icon} ${step}</span>`);
+        }
+        if (shownUnits > repeat && extra > 0) boxes.push(`<span class="loop-box extra">${product.icon} ${extra}</span>`);
+        const hint = boxes.length ? "" : '<span class="loop-belt-hint">A máquina está parada.</span>';
+        return `<div class="loop-belt"><span class="loop-belt-machine" aria-hidden="true">🏭</span>${hint}${boxes.join("")}</div>`;
+      }
+
+      function loopPredictCodeHtml(round) {
+        const { repeat, extra } = loopRoundParts(round);
+        const extraLine = extra ? `<div class="loop-code-line"><span class="loop-code-kw">depois,</span> embalar <span class="loop-code-value">${extra}</span> ${round.product.icon} soltos</div>` : "";
+        return `<div class="loop-code">
+          <div class="loop-code-line"><span class="loop-code-kw">repita</span> <span class="loop-code-value">${repeat}</span> <span class="loop-code-kw">vezes:</span></div>
+          <div class="loop-code-line indent">embalar <span class="loop-code-value">${round.step}</span> ${round.product.icon}</div>
+          ${extraLine}
+        </div>`;
+      }
+
+      // Alternativas da rodada de prever: o resultado certo e erros comuns (somar em vez de multiplicar, esquecer o extra...).
+      function loopPredictOptions(round) {
+        const { repeat, extra } = loopRoundParts(round);
+        const candidates = [round.target, repeat + round.step, repeat * round.step, (repeat + 1) * round.step + extra, round.target - round.step, round.target + round.step, round.target + 1, round.target - 1];
+        const options = [];
+        candidates.forEach((value) => {
+          if (value > 0 && !options.includes(value) && options.length < 4) options.push(value);
+        });
+        return orderAnswerOptions(options, {
+          seed: seedFromParts("loop-predict", state.missionSeed, state.round),
+          attempt: state.loopAttempt,
+          isCorrect: (value) => value === round.target,
+        });
+      }
+
+      function renderLoopPredict(level, round, rounds) {
+        const options = loopPredictOptions(round);
+        const { repeat, extra } = loopRoundParts(round);
+        const solved = state.loopCorrectIndex !== null;
+        setHeader("Fábrica de Laços", `${level.title}: preveja o resultado.`);
+        setMissionCounters("Missão", rounds);
+        status.textContent = `Leia o laço. Quantos ${round.product.name} a máquina vai embalar?`;
+        content.innerHTML = `<div class="loop-board">
+          <div class="loop-order">🔮 Quantos ${round.product.icon} a máquina vai embalar?</div>
+          ${loopPredictCodeHtml(round)}
+          ${solved ? loopBeltHtml(round.product, round.step, repeat, extra, repeat + 1) : ""}
+          <div class="loop-choices ${state.answerLocked ? "locked" : ""}">
+            ${options.map((value, index) => `<div class="loop-choice ${index === state.selected ? "selected" : ""} ${state.loopWrongIndex === index ? "wrong" : ""} ${state.loopCorrectIndex === index ? "correct" : ""}">${value}</div>`).join("")}
+          </div>
+        </div>`;
+      }
+
       function renderLoop() {
         const level = loopLevels[state.loopLevel];
         const rounds = level.rounds;
         const round = rounds[state.round];
-        const currentTotal = loopCurrentTotal(round);
-        const maxTotal = Math.max(round.target, currentTotal, 1);
-        const percentFor = (value) => Math.min(100, (value / maxTotal) * 100);
-        const targetPercent = percentFor(round.target);
-        const currentPercent = percentFor(currentTotal);
-        const segWidth = percentFor(round.step);
-        const extraWidth = percentFor(state.loopExtra);
-        const segments = Array.from({ length: state.loopRepeat }, () => `<span class="loop-bar-segment" style="width:${segWidth}%"></span>`).join("");
-        const extraSeg = state.loopExtra ? `<span class="loop-bar-segment extra" style="width:${extraWidth}%"></span>` : "";
+        if (round.kind === "predict") {
+          renderLoopPredict(level, round, rounds);
+          return;
+        }
+        const { product } = round;
+        const run = state.loopRun;
+        const shown = run ? run.shown : 0;
+        const running = Boolean(run) && !state.loopSolved && !state.loopWrong && shown <= run.units;
+        const inExtra = Boolean(run) && state.loopExtra > 0 && shown > state.loopRepeat;
+        const inRepeats = Boolean(run) && shown > 0 && !inExtra;
+        const runTotal = Math.min(shown, state.loopRepeat) * round.step + (shown > state.loopRepeat ? state.loopExtra : 0);
         const maxRepeat = loopMaxRepeat();
         const maxExtra = loopMaxExtra(round);
 
         setHeader("Fábrica de Laços", `${level.title}: monte o laço certo.`);
         setMissionCounters("Missão", rounds);
-        status.textContent = `O robô precisa andar ${round.target} casas. Cada repetição avança ${round.step}. Monte o laço certo!`;
+        status.textContent = `Pedido: ${round.target} ${product.name}. A máquina embala ${round.step} de cada vez. ${level.extraStep ? "Quantas vezes repetir e quantos soltos no fim?" : "Quantas vezes ela deve repetir?"}`;
+        const lap = run && state.loopRepeat > 0 ? `<span class="loop-lap">${Math.min(shown, state.loopRepeat) ? `volta ${Math.min(shown, state.loopRepeat)} de ${state.loopRepeat}` : ""}</span>` : "";
+        const extraLine = level.extraStep ? `<div class="loop-code-line ${inExtra ? "active" : ""}"><span class="loop-code-kw">depois,</span> embalar ${loopStepperHtml("extra", state.loopExtra, maxExtra)} ${product.icon} soltos</div>` : "";
         content.innerHTML = `<div class="loop-board">
-          <div class="loop-track">
-            <div class="loop-flag" style="left:${targetPercent}%">🏁<span class="loop-flag-label">${round.target}</span></div>
-            <div class="loop-robot ${state.loopSolved ? "walking" : ""}" style="left:${currentPercent}%;">🤖</div>
-            ${state.loopSolved ? '<div class="fx-stamp">✅</div><div class="fx-confetti"><span>🎉</span><span>✨</span><span>🔁</span><span>🎉</span><span>✨</span><span>🔁</span></div>' : ""}
-          </div>
+          <div class="loop-order">📋 Pedido: <strong>${round.target}</strong> ${product.icon} ${product.name}</div>
           <div class="loop-builder ${state.answerLocked ? "locked" : ""}">
-            <div class="loop-builder-step">🔁 Cada repetição avança <strong>${round.step}</strong> ${round.step === 1 ? "casa" : "casas"}.</div>
-            <div class="loop-stepper-row">
-              <div class="loop-stepper">
-                <span class="loop-stepper-label">Repetições</span>
-                <div class="loop-stepper-controls">
-                  <button type="button" class="loop-stepper-btn" data-stepper="repeat" data-delta="-1" ${state.loopRepeat <= 0 ? "disabled" : ""}>−</button>
-                  <span class="loop-stepper-value">${state.loopRepeat}</span>
-                  <button type="button" class="loop-stepper-btn" data-stepper="repeat" data-delta="1" ${state.loopRepeat >= maxRepeat ? "disabled" : ""}>+</button>
-                </div>
-              </div>
-              ${level.extraStep ? `<div class="loop-stepper">
-                <span class="loop-stepper-label">Passo extra</span>
-                <div class="loop-stepper-controls">
-                  <button type="button" class="loop-stepper-btn" data-stepper="extra" data-delta="-1" ${state.loopExtra <= 0 ? "disabled" : ""}>−</button>
-                  <span class="loop-stepper-value">${state.loopExtra}</span>
-                  <button type="button" class="loop-stepper-btn" data-stepper="extra" data-delta="1" ${state.loopExtra >= maxExtra ? "disabled" : ""}>+</button>
-                </div>
-              </div>` : ""}
+            <div class="loop-code">
+              <div class="loop-code-line ${inRepeats ? "active" : ""}"><span class="loop-code-kw">repita</span> ${loopStepperHtml("repeat", state.loopRepeat, maxRepeat)} <span class="loop-code-kw">vezes:</span>${lap}</div>
+              <div class="loop-code-line indent ${inRepeats ? "active" : ""}">embalar <span class="loop-code-value">${round.step}</span> ${product.icon}</div>
+              ${extraLine}
             </div>
-            <div class="loop-option-bar-track">
-              <span class="loop-option-target-line" style="left:${targetPercent}%"></span>
-              <div class="loop-option-bar">${segments}${extraSeg}</div>
+            ${loopBeltHtml(product, round.step, state.loopRepeat, state.loopExtra, shown)}
+            <div class="loop-run-row">
+              <div class="loop-total ${state.loopWrong ? "wrong" : ""} ${state.loopSolved ? "correct" : ""}">Embalados: ${run ? runTotal : "?"}</div>
+              <button type="button" class="loop-confirm-button" ${state.answerLocked || running ? "disabled" : ""}>▶️ Ligar a máquina!</button>
             </div>
-            <div class="loop-total ${state.loopWrong ? "wrong" : ""} ${state.loopSolved ? "correct" : ""}">Total: ${currentTotal}</div>
-            <button type="button" class="loop-confirm-button" ${state.answerLocked ? "disabled" : ""}>▶️ Andar!</button>
           </div>
         </div>`;
       }
@@ -24933,6 +25082,10 @@ const brStatesList = [
         state.loopExtra = 0;
         state.loopWrong = false;
         state.loopSolved = false;
+        state.loopRun = null;
+        state.loopAttempt = 0;
+        state.loopWrongIndex = null;
+        state.loopCorrectIndex = null;
         state.sortLevel = null;
         state.sortItems = [];
         state.sortSelectedIndex = -1;
@@ -26317,19 +26470,119 @@ const brStatesList = [
         return `${repeats} repetições${extra ? ` e passo extra ${extra}` : ""}`;
       }
 
-      function answerLoopInAssessment(round, total, rounds) {
-        const correctRepeats = Math.floor(round.target / round.step);
-        const correctExtra = loopLevels[state.loopLevel].extraStep ? round.target % round.step : 0;
-        const chosenExtra = loopLevels[state.loopLevel].extraStep ? state.loopExtra : 0;
-        recordAssessmentAnswer(total === round.target, {
-          question: `O robô precisa andar ${round.target} casas e cada repetição avança ${round.step}. Qual é o laço?`,
-          chosen: `${loopPlanText(state.loopRepeat, chosenExtra)} (total ${total})`,
-          correct: loopPlanText(correctRepeats, correctExtra),
-        });
+      function advanceLoopRound(rounds) {
         state.round += 1;
         startLoopRound();
         if (state.round >= roundTotal(rounds)) finishAssessmentRun();
         else render();
+      }
+
+      function answerLoopInAssessment(round, total, rounds) {
+        const { repeat: correctRepeats, extra: correctExtra } = loopRoundParts(round);
+        const chosenExtra = loopLevels[state.loopLevel].extraStep ? state.loopExtra : 0;
+        recordAssessmentAnswer(total === round.target, {
+          question: `Pedido de ${round.target} ${round.product.name}. A máquina embala ${round.step} de cada vez. Qual é o laço?`,
+          chosen: `${loopPlanText(state.loopRepeat, chosenExtra)} (total ${total})`,
+          correct: loopPlanText(correctRepeats, loopLevels[state.loopLevel].extraStep ? correctExtra : 0),
+        });
+        advanceLoopRound(rounds);
+      }
+
+      function answerLoopPredictInAssessment(round, rounds, chosen) {
+        const { repeat, extra } = loopRoundParts(round);
+        recordAssessmentAnswer(chosen === round.target, {
+          question: `Repita ${repeat} vezes: embalar ${round.step} ${round.product.name}${extra ? `, depois embalar ${extra} soltos` : ""}. Quantos a máquina embala?`,
+          chosen: String(chosen),
+          correct: String(round.target),
+        });
+        advanceLoopRound(rounds);
+      }
+
+      // Vai para a próxima rodada (ou conclui a missão) depois de um acerto.
+      function completeLoopRound(rounds) {
+        state.answerLocked = false;
+        state.score += 1;
+        state.round += 1;
+        if (state.round >= rounds.length) {
+          complete("loop", "Laços concluídos!");
+          return;
+        }
+        startLoopRound();
+        render();
+      }
+
+      function handleLoopPredictEnter(round, rounds) {
+        if (!hasSelection()) return;
+        const chosen = loopPredictOptions(round)[state.selected];
+        if (isAssessmentRunActive()) {
+          answerLoopPredictInAssessment(round, rounds, chosen);
+          return;
+        }
+        if (chosen !== round.target) {
+          lockAnswer({
+            delay: 1500,
+            messageText: "👀 Pense de novo!",
+            guard: () => state.mode === "loop",
+            onLock: () => { state.loopWrongIndex = state.selected; },
+            onUnlock: () => { state.loopWrongIndex = null; state.loopAttempt += 1; },
+          });
+          return;
+        }
+        state.loopWrongIndex = null;
+        state.loopCorrectIndex = state.selected;
+        state.answerLocked = true;
+        showMessage("🔁 Certo!", 600);
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "loop") return;
+          completeLoopRound(rounds);
+        }, 1400);
+      }
+
+      // A máquina embala uma caixa por vez; o tempo total da execução é quase o mesmo para qualquer número de repetições.
+      function startLoopRun(round, rounds) {
+        const units = state.loopRepeat + (state.loopExtra > 0 ? 1 : 0);
+        const stepMs = Math.max(LOOP_RUN_MIN_STEP_MS, Math.min(LOOP_RUN_MAX_STEP_MS, LOOP_RUN_TOTAL_MS / Math.max(units, 1)));
+        state.loopRun = { shown: 0, units, stepMs };
+        state.answerLocked = true;
+        render();
+        state.answerLockTimer = window.setTimeout(() => advanceLoopRun(round, rounds), stepMs);
+      }
+
+      function advanceLoopRun(round, rounds) {
+        const run = state.loopRun;
+        if (state.mode !== "loop" || !run) return;
+        if (run.shown < run.units) {
+          run.shown += 1;
+          render();
+          state.answerLockTimer = window.setTimeout(() => advanceLoopRun(round, rounds), run.stepMs);
+          return;
+        }
+        finishLoopRun(round, rounds);
+      }
+
+      function finishLoopRun(round, rounds) {
+        const total = loopCurrentTotal(round);
+        if (total === round.target) {
+          state.loopSolved = true;
+          showMessage("🔁 Pedido pronto!", 700);
+          render();
+          state.answerLockTimer = window.setTimeout(() => {
+            if (state.mode !== "loop") return;
+            completeLoopRound(rounds);
+          }, 1100);
+          return;
+        }
+        state.loopWrong = true;
+        showMessage(total < round.target ? "👀 Faltou embalar" : "👀 Passou do pedido", 1300, "warn");
+        render();
+        state.answerLockTimer = window.setTimeout(() => {
+          if (state.mode !== "loop") return;
+          state.loopWrong = false;
+          state.loopRun = null;
+          state.answerLocked = false;
+          render();
+        }, 1700);
       }
 
       function handleLoopEnter() {
@@ -26337,38 +26590,15 @@ const brStatesList = [
         const rounds = currentLoopRounds();
         const round = rounds[state.round];
         if (!round) return;
-        const total = loopCurrentTotal(round);
+        if (round.kind === "predict") {
+          handleLoopPredictEnter(round, rounds);
+          return;
+        }
         if (isAssessmentRunActive()) {
-          answerLoopInAssessment(round, total, rounds);
+          answerLoopInAssessment(round, loopCurrentTotal(round), rounds);
           return;
         }
-        if (total !== round.target) {
-          state.loopWrong = true;
-          render();
-          window.setTimeout(() => {
-            if (state.mode !== "loop") return;
-            state.loopWrong = false;
-            render();
-          }, 500);
-          return;
-        }
-        state.loopWrong = false;
-        state.loopSolved = true;
-        state.answerLocked = true;
-        showMessage("🔁 Certo!", 600);
-        render();
-        state.answerLockTimer = window.setTimeout(() => {
-          if (state.mode !== "loop") return;
-          state.answerLocked = false;
-          state.score += 1;
-          state.round += 1;
-          if (state.round >= rounds.length) {
-            complete("loop", "Laços concluídos!");
-            return;
-          }
-          startLoopRound();
-          render();
-        }, 900);
+        startLoopRun(round, rounds);
       }
 
       function handleLoopClick(event) {
@@ -26382,7 +26612,10 @@ const brStatesList = [
           handleLoopEnter();
           return true;
         }
-        return false;
+        return activateChoiceClick(event, ".loop-choice", {
+          clearWrong: () => { state.loopWrongIndex = null; },
+          onConfirm: handleLoopEnter,
+        });
       }
 
       // O mínimo de trocas entre vizinhos para ordenar é o número de pares fora de ordem.
@@ -27399,9 +27632,11 @@ const brStatesList = [
       }
 
       function loopNavigation() {
-        return navigateLevelsOrChoices(state.loopLevel, loopLevels.length, () => ({
-          run: (delta, vertical) => adjustLoopValue(vertical ? "extra" : "repeat", delta),
-        }));
+        return navigateLevelsOrChoices(state.loopLevel, loopLevels.length, () => {
+          const round = currentLoopRounds()[state.round];
+          if (round?.kind === "predict") return choiceNavigation(loopPredictOptions(round).length, "loopWrongIndex", 2);
+          return { run: (delta, vertical) => adjustLoopValue(vertical ? "extra" : "repeat", delta) };
+        });
       }
 
       function sortNavigation() {
@@ -27830,7 +28065,7 @@ const brStatesList = [
         if (!handler) return;
 
         if (state.answerLocked) {
-          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button, .decompose-option, .decompose-palette-button")) {
+          if (clickedElement(event, ".math-cup-answer, .option, .habitat, .cycle-item, .cup-goal, .cup-name-option, .dengue-action, .direction-button, .answer-card, .code-option, .loop-choice, .pixel-option, .bug-chip, .bug-fix-option, .loop-stepper-btn, .loop-confirm-button, .sort-item, .cond-option, .var-option, .decoder-letter, .pattern-option, .pattern-palette-button, .decompose-option, .decompose-palette-button")) {
             showMessage("⏳ Espere!", 450, "info");
             event.preventDefault();
             event.stopPropagation();
@@ -28806,6 +29041,10 @@ const brStatesList = [
           state.loopExtra = 0;
           state.loopWrong = false;
           state.loopSolved = false;
+          state.loopRun = null;
+          state.loopAttempt = 0;
+          state.loopWrongIndex = null;
+          state.loopCorrectIndex = null;
         }),
         levelExit("sort", "sortLevel", () => {
           state.sortItems = [];
