@@ -1,13 +1,16 @@
-// Digitação: teclado na tela com o dedo certo, erro sem punição, estrelas por precisão, teclado escondido nas últimas fases.
+// Digitação: teclado na tela com o dedo certo, erro sem punição, estrelas por precisão, acentos, teclado escondido,
+// pular de fase e terminar quando quiser (a missão tem de 160 a 999 exercícios, conforme a faixa etária).
 const { startServer } = require('../lib/server');
 const { launchBrowser, newPage, openMenu, openMission } = require('../lib/browser');
 const { createReport } = require('../lib/report');
 
 const MISSION = 'Digitação';
 const ALL_STARS = '⭐⭐⭐';
-const EXERCISES_PER_STAGE = 4;
 const SETTLE_MS = 120;
 const COMPLETE_MS = 1800;
+const EXERCISES_BY_BAND = [160, 480, 640, 800, 999];
+const BAND_STAGES = [4, 8, 8, 8, 9];
+const SAMPLE_EXERCISES = 3;
 
 const counter = async (page) => (await page.innerText('#leftValue')).replace(/\s+/g, '');
 const exerciseText = async (page) => (await page.textContent('.typing-text')).replace(/ /g, ' ').trim();
@@ -29,16 +32,27 @@ async function pressChar(page, char, usIntl = false) {
   else await page.keyboard.type(char);
 }
 
+async function typeText(page, text, usIntl = false) {
+  for (const char of text) await pressChar(page, char, usIntl);
+  await page.waitForTimeout(SETTLE_MS);
+}
+
 // Digita o exercício inteiro (com acentos, se houver); devolve o texto digitado.
 async function typeExercise(page, usIntl = false) {
   const text = await exerciseText(page);
-  for (const char of text) await pressChar(page, char, usIntl);
-  await page.waitForTimeout(SETTLE_MS);
+  await typeText(page, text, usIntl);
   return text;
 }
 
 async function nextExercise(page) {
   await page.keyboard.press('Enter');
+  await page.waitForTimeout(SETTLE_MS);
+}
+
+// Termina um exercício e pula para a fase seguinte pelo botão.
+async function skipStage(page, usIntl = false) {
+  await typeExercise(page, usIntl);
+  await page.click('.typing-skip-stage');
   await page.waitForTimeout(SETTLE_MS);
 }
 
@@ -57,6 +71,7 @@ async function checkBasics(browser, report, server) {
   if (!(await page.$('.typing-key.target'))) report.problem('o teclado na tela deveria destacar a próxima tecla');
   if (!(await page.innerText('.typing-hint')).toLowerCase().includes('dedo')) report.problem('a dica deveria dizer qual dedo usar');
   if (!text.startsWith('ff')) report.problem(`o primeiro exercício deveria começar com "ff" e começa com "${text.slice(0, 4)}"`);
+  if (!(await counter(page)).endsWith(`/${EXERCISES_BY_BAND[0]}`)) report.problem(`a faixa dos 6-7 anos deveria ter ${EXERCISES_BY_BAND[0]} exercícios (${await counter(page)})`);
 
   await page.keyboard.press('f');
   await page.waitForTimeout(SETTLE_MS);
@@ -71,7 +86,7 @@ async function checkBasics(browser, report, server) {
   await page.keyboard.type(text.slice(1));
   await page.waitForSelector('.typing-result');
   const stars = await page.innerText('.typing-stars');
-  if (stars.includes('⭐⭐⭐')) report.problem(`com 3 erros não deveria ter 3 estrelas ("${stars}")`);
+  if (stars.includes(ALL_STARS)) report.problem(`com 3 erros não deveria ter 3 estrelas ("${stars}")`);
   if (!(await page.innerText('.typing-practice')).toLowerCase().includes('f')) report.problem('as teclas para treinar deveriam listar a que errou (F)');
   if (!(await page.innerText('.typing-result-text')).includes('%')) report.problem('o resultado deveria mostrar a precisão');
 
@@ -82,29 +97,33 @@ async function checkBasics(browser, report, server) {
   await page.waitForSelector('.typing-result');
   if (!(await page.innerText('.typing-stars')).includes(ALL_STARS)) report.problem('sem erros deveria ter 3 estrelas');
   if (await page.$('.typing-practice')) report.problem('sem erros não deveria listar teclas para treinar');
-  page.collectedErrors.forEach((error) => report.problem(`faixa 6-7: ${error}`));
 
-  // termina a missão inteira: volta ao painel com a missão marcada como feita
-  await nextExercise(page);
-  for (let guard = 0; guard < 30 && (await page.$('.typing-text')); guard++) {
-    await typeExercise(page);
+  // as primeiras fases têm exercícios gerados: digita alguns além dos escritos à mão
+  for (let exercise = 0; exercise < SAMPLE_EXERCISES; exercise++) {
     await nextExercise(page);
-    await page.waitForTimeout(40);
+    await typeExercise(page);
   }
-  await page.waitForSelector('.menu-tile', { timeout: COMPLETE_MS * 2 }).catch(() => report.problem('ao concluir todos os exercícios a missão deveria voltar ao painel'));
+  const phaseBefore = await page.innerText('#mission');
+  await page.waitForSelector('.typing-skip-stage');
+  await page.click('.typing-skip-stage');
+  if ((await page.innerText('#mission')) === phaseBefore) report.problem('"Próxima fase" deveria mudar de fase');
+  await typeExercise(page);
+  await page.waitForSelector('.typing-finish');
+  await page.click('.typing-finish');
+  await page.waitForSelector('.menu-tile', { timeout: COMPLETE_MS * 2 }).catch(() => report.problem('"Terminar" deveria voltar ao painel'));
+  page.collectedErrors.forEach((error) => report.problem(`faixa 6-7: ${error}`));
   await page.close();
 }
 
-// Faixa dos 14 anos: as maiúsculas pedem Shift e as fases de frases e textos começam com o teclado escondido.
+// Faixa dos 14 anos: 999 exercícios, maiúsculas com Shift e fases de frases com o teclado escondido.
 async function checkAdvanced(browser, report, server) {
   const page = await openTyping(browser, server, 4);
+  if (!(await counter(page)).endsWith(`/${EXERCISES_BY_BAND[4]}`)) report.problem(`a faixa dos 14 anos deveria ter ${EXERCISES_BY_BAND[4]} exercícios (${await counter(page)})`);
   const capital = (await exerciseText(page))[0];
   if (capital !== capital.toUpperCase() || capital === capital.toLowerCase()) report.problem(`o primeiro exercício dos 14 anos deveria começar com uma maiúscula ("${capital}")`);
   if ((await page.locator('.typing-key.shift.target').count()) !== 1) report.problem('para uma maiúscula o Shift da mão contrária deveria ficar destacado');
-  for (let exercise = 0; exercise < EXERCISES_PER_STAGE * 2; exercise++) {
-    await typeExercise(page);
-    await nextExercise(page);
-  }
+  await skipStage(page);
+  await skipStage(page);
   if (await page.$('.typing-keyboard')) report.problem('nas fases de frases o teclado deveria começar escondido');
   if (!(await page.$('.typing-peek-button'))) report.problem('deveria haver um botão para espiar o teclado');
   await page.click('.typing-peek-button');
@@ -113,13 +132,10 @@ async function checkAdvanced(browser, report, server) {
   await page.close();
 }
 
-// Faixa dos 12-13 anos: passa por todas as fases, inclusive as de acento, apertando o acento e depois a letra.
+// Faixa dos 12-13 anos: passa pelas fases de acento (inclusive linhas geradas), apertando o acento e depois a letra.
 async function checkAccents(browser, report, server) {
   const page = await openTyping(browser, server, 3);
-  for (let exercise = 0; exercise < EXERCISES_PER_STAGE * 4; exercise++) {
-    await typeExercise(page);
-    await nextExercise(page);
-  }
+  for (let stage = 0; stage < BAND_STAGES[3] - 4; stage++) await skipStage(page);
   const text = await exerciseText(page);
   if (!text.startsWith('café')) return report.problem(`a fase do acento agudo deveria começar em "café" e começa em "${text.slice(0, 8)}"`);
   await page.keyboard.type('caf');
@@ -137,15 +153,18 @@ async function checkAccents(browser, report, server) {
   await sendKey(page, 'Dead');
   await page.waitForTimeout(SETTLE_MS);
   if (!(await page.$('.typing-char.current.wrong'))) report.problem('apertar um acento sem precisar deveria ser sinalizado');
-  for (let exercise = 0; exercise < EXERCISES_PER_STAGE * 4 && (await page.$('.typing-text')); exercise++) {
-    if (await page.$('.typing-result')) {
-      await nextExercise(page);
-    } else {
-      await page.keyboard.press(' ').catch(() => {});
-      // na fase do cedilha digita como num teclado US-Internacional (acento morto antes do c)
-      const usIntl = (await page.innerText('#mission')).toLowerCase().includes('cedilha');
+  await typeText(page, (await exerciseText(page)).slice(await typedCount(page)));
+
+  // nas quatro fases de acento: os exercícios escritos à mão e mais um gerado; no cedilha, como no teclado US-Internacional
+  for (let stage = 0; stage < 4; stage++) {
+    const usIntl = (await page.innerText('#mission')).toLowerCase().includes('cedilha');
+    for (let exercise = stage === 0 ? 1 : 0; exercise < 5; exercise++) {
+      if (exercise > 0 || stage === 0) await nextExercise(page);
       await typeExercise(page, usIntl);
-      await nextExercise(page);
+    }
+    if (stage < 3) {
+      await page.click('.typing-skip-stage');
+      await page.waitForTimeout(SETTLE_MS);
     }
   }
   page.collectedErrors.forEach((error) => report.problem(`faixa 12-13 anos: ${error}`));
@@ -160,7 +179,7 @@ async function main() {
     await checkBasics(browser, report, server);
     await checkAdvanced(browser, report, server);
     await checkAccents(browser, report, server);
-    report.ok('Digitação: dica do dedo, erro sem punição, estrelas e teclado escondido');
+    report.ok('Digitação: dica do dedo, erro sem punição, estrelas, acentos, pular de fase e terminar');
   } finally {
     await browser.close();
     await server.close();

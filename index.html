@@ -5643,7 +5643,16 @@
       text-transform: uppercase;
     }
 
+    .typing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
     .typing-next-button,
+    .typing-secondary-button,
     .typing-peek-button {
       display: inline-flex;
       align-items: center;
@@ -5663,6 +5672,7 @@
       box-shadow: 0 5px 0 rgba(205, 189, 145, 0.55);
     }
 
+    .typing-secondary-button,
     .typing-peek-button {
       background: var(--white);
       padding: 5px 18px;
@@ -10190,7 +10200,7 @@
         { id: "data", icon: "📊", title: "Dados e gráficos", subject: "Leitura de dados" },
         { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania" },
         { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, entrada e saída, arquivos e redes" },
-        { id: "typing", icon: "⌨️", title: "Digitação", subject: "Teclado e dedos" },
+        { id: "typing", icon: "⌨️", title: "Digitação", subject: "Teclado e dedos", featured: true },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
         { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
@@ -10210,7 +10220,7 @@
           title: "Destaques",
           icon: "⭐",
           description: "Missões especiais para feira, apresentação e aulas de impacto.",
-          missionIds: ["mathCup", "cup", "decoder", "ttt", "builder", "memory"],
+          missionIds: ["mathCup", "cup", "decoder", "ttt", "builder", "memory", "typing"],
         },
         {
           title: "Alfabetização",
@@ -22724,6 +22734,219 @@ const brStatesList = [
       // Acentos: 8-9 anos agudo e cedilha, 10-11 acrescentam o til, 12-13 o chapéu e a crase, e aos 14 há textos com acentos.
       const typingBandStages = [[0, 1, 2, 3], [0, 1, 2, 3, 4, 5, 12, 13], [3, 4, 5, 6, 7, 12, 13, 14], [6, 7, 8, 9, 12, 13, 14, 15], [8, 9, 10, 11, 12, 13, 14, 15, 16]];
 
+      // Quantos exercícios cada fase tem em cada faixa etária (os escritos à mão vêm primeiro; o resto é gerado) e o
+      // tamanho máximo das linhas geradas. A faixa dos 14 anos chega a 9 fases x 111 = 999 exercícios.
+      const TYPING_MAX_EXERCISES = 999;
+      const typingExercisesPerStage = [40, 60, 80, 100, 111];
+      const typingMaxLength = [26, 34, 44, 56, 64];
+
+      // Tipo de cada fase (mesma ordem de typingStages): decide de onde saem as linhas geradas.
+      const typingStageKinds = [
+        "drill", "drill", "drill", "drill", "drill", "drill",
+        "sentences", "capitals", "punctuation", "numbers", "full", "texts",
+        "accent:acute", "accent:cedilla", "accent:tilde", "accent:circumflex", "accentText",
+      ];
+
+      // Palavras e frases para gerar os exercícios. Cada fase só usa o que cabe nas teclas já liberadas (conferido em
+      // qa/static/data.js); por isso as listas comuns não têm acentos nem ç.
+      const typingBank = {
+        words: [
+          "gato", "rato", "pato", "vaca", "cavalo", "zebra", "coelho", "macaco", "tigre", "peixe", "boi", "porco", "galo", "galinha",
+          "ovelha", "urso", "lobo", "raposa", "sapo", "cobra", "tartaruga", "formiga", "abelha", "borboleta", "aranha", "elefante",
+          "girafa", "tatu", "lagarto", "pombo", "cachorro", "leopardo", "golfinho", "pinguim",
+          "casa", "mesa", "cadeira", "porta", "janela", "livro", "caderno", "caneta", "borracha", "mochila", "bola", "boneca", "carro",
+          "bicicleta", "chave", "telefone", "teclado", "mouse", "tela", "cabo", "luz", "cama", "copo", "prato", "garfo", "colher", "faca",
+          "panela", "geladeira",
+          "leite", "suco", "pizza", "banana", "laranja", "melancia", "uva", "pera", "manga", "milho", "arroz", "queijo", "bolo", "sorvete",
+          "pipoca", "chocolate", "salada", "ovo", "mel", "tomate", "cenoura", "batata", "alface", "limonada", "bolacha",
+          "pai", "tio", "tia", "amigo", "amiga", "aluno", "aluna", "turma", "menino", "menina", "professor", "professora", "escola", "sala",
+          "quadro", "giz", "nota", "prova", "aula", "recreio", "diretor", "merenda",
+          "sol", "lua", "mar", "rio", "flor", "planta", "folha", "nuvem", "chuva", "vento", "terra", "pedra", "praia", "campo", "floresta",
+          "montanha", "estrela", "jardim", "lago", "fogo", "neve",
+          "dia", "noite", "tarde", "hora", "semana", "mes", "ano", "hoje", "ontem",
+          "correr", "pular", "brincar", "ler", "escrever", "digitar", "desenhar", "cantar", "pintar", "estudar", "aprender", "ajudar",
+          "beber", "comer", "dormir", "jogar", "nadar", "subir", "descer", "abrir", "fechar", "olhar", "ouvir", "falar", "pensar",
+          "sorrir", "viajar", "cozinhar", "lavar", "guardar", "procurar", "encontrar",
+          "bebe", "come", "dorme", "brinca", "corre", "pula", "canta", "pinta", "estuda", "aprende", "ajuda", "gosta", "quer", "tem", "faz", "vai",
+          "grande", "pequeno", "azul", "verde", "vermelho", "amarelo", "rosa", "roxo", "preto", "branco", "novo", "velho", "bonito", "feliz",
+          "calmo", "legal", "forte", "doce", "frio", "quente", "alto", "baixo", "limpo", "cheio", "vazio", "longo", "curto",
+          "com", "sem", "para", "por", "muito", "pouco", "sempre", "nunca", "agora", "depois", "antes", "juntos", "sozinho", "todos",
+          "cada", "outro", "mesmo",
+        ],
+        sentences: [
+          "o gato bebe leite", "a casa azul tem porta verde", "eu gosto de ler e de brincar", "o sol brilha e as nuvens passam",
+          "a menina pula corda no recreio", "o professor escreve no quadro", "meu amigo gosta de pizza", "a turma estuda junto",
+          "o cachorro corre no jardim", "a vaca come capim no campo", "o pato nada no lago", "eu pinto um desenho bonito",
+          "a bola rola pelo campo", "o vento balanca as folhas", "a lua brilha de noite", "eu bebo suco de laranja",
+          "a aluna escreve no caderno", "o trem passa na ponte", "a flor cresce no jardim", "o rio corre para o mar",
+          "eu guardo o livro na mochila", "a professora abre a porta", "meu tio tem um carro novo", "a tartaruga anda devagar",
+          "o coelho pula na grama", "eu desenho uma casa grande", "a chuva cai sobre o telhado", "o aluno digita com calma",
+          "a banana tem casca amarela", "o peixe nada no rio", "a galinha bota um ovo", "eu escovo os dentes de noite",
+          "o computador tem teclado e tela", "a turma canta junto", "eu ajudo meu amigo na aula", "o menino chuta a bola",
+          "a abelha faz mel", "o cavalo corre no campo", "eu viajo com meu pai", "a menina lava a boneca",
+          "o gato dorme na cama", "o professor guarda o giz", "eu como pipoca no cinema", "a nuvem cobre o sol",
+          "o lobo uiva para a lua", "a zebra tem listras pretas e brancas", "eu aprendo algo novo todo dia", "o robo anda pela sala",
+          "a estrela brilha no alto", "meu amigo mora perto da escola", "a janela fica aberta", "o aluno guarda o caderno",
+          "eu pulo corda com minha amiga", "a formiga leva folhas para casa", "o sapo pula no lago", "a professora conta um conto",
+          "eu desenho uma flor azul", "o menino empina pipa no vento", "a bicicleta tem duas rodas", "o macaco sobe no galho",
+        ],
+        names: [
+          "Ana", "Bia", "Caio", "Davi", "Eva", "Gabi", "Hugo", "Iara", "Lucas", "Maria", "Nina", "Paulo", "Rita", "Sara", "Tiago", "Vera",
+          "Yuri", "Zeca", "Bruno", "Carla", "Dani", "Elisa", "Felipe", "Helena", "Igor", "Karina", "Laura", "Marcos", "Pedro", "Renata",
+          "Sandro", "Tatiana", "Vitor", "Rio de Janeiro", "Santa Catarina", "Brasil", "Curitiba", "Blumenau", "Joinville", "Salvador", "Recife",
+        ],
+        punctuated: [
+          "Oi! Tudo bem?", "Sim, tudo bem.", "Quem quer brincar? Eu quero!", "Bia, Caio e Davi. Que legal!", "Bom dia, turma!",
+          "Como vai o seu dia?", "Eu gosto de pizza, bolo e suco.", "Vamos brincar no recreio!", "Quem quer ler um livro?",
+          "Cuidado com o degrau!", "Que dia lindo, pessoal!", "Sim, eu quero ajudar.", "Hoje tem aula de computador.",
+          "Vamos digitar, devagar e certo!", "Que bola grande!", "Quantos livros tem na mochila?", "O gato dorme, o cachorro corre.",
+          "Eu sei ler, escrever e digitar.", "Pedro, venha aqui!", "Ana, olhe o pombo!", "Quem chegou primeiro?", "Obrigado, professor!",
+          "De nada, Bia.", "Vamos guardar o material, turma.", "Cadeira, mesa, quadro e giz.", "Uva, pera, banana e laranja.",
+          "Azul, verde, rosa e roxo.", "Hoje o dia fica bonito.", "Pare, olhe e escute!", "Quem sabe a resposta?", "Eu sei! Eu sei!",
+          "Vamos juntos, sem pressa.", "Que legal, deu certo!", "Quase certo, continue!", "Respire fundo, relaxe os ombros.",
+          "Bom trabalho, turma!", "Quem quer tentar de novo?", "Tente outra vez, sem pressa.", "Muito bem, Carla!",
+        ],
+        numberTemplates: [
+          "Eu tenho {n} anos.", "A casa tem {n} janelas.", "Tenho {n} bolas e {m} bonecas.", "A turma tem {n} alunos.",
+          "Moro na rua {n}, casa {m}.", "Comprei {n} bolos e {m} sucos.", "O jogo tem {n} fases.", "Contei {n}, {m} e {k}.",
+          "A sala tem {n} mesas.", "Meu time fez {n} gols.",
+        ],
+        accent: {
+          acute: [
+            "café", "sofá", "avó", "pé", "chá", "jacaré", "maré", "lá", "já", "aí", "baú", "saí", "caí", "até", "fé", "pá", "cá", "água",
+            "lápis", "música", "número", "médico", "último", "rápido", "fácil", "difícil", "útil", "pássaro", "árvore", "óculos", "máquina",
+            "sábado", "história", "matemática", "gramática", "química", "física", "plástico", "pétala", "sílaba", "décimo", "mágico",
+            "público", "lógica", "ótimo", "péssimo",
+          ],
+          cedilla: [
+            "caça", "praça", "laço", "braço", "poço", "cabeça", "almoço", "açaí", "açúcar", "moça", "graça", "traço", "faço", "peça", "preço",
+            "começo", "pareço", "endereço", "terça", "força", "serviço", "esforço", "reforço", "caroço", "palhaço", "espaço", "abraço",
+            "açude", "traçado", "lenço", "pescoço", "cabeçalho",
+          ],
+          tilde: [
+            "mão", "pão", "irmã", "maçã", "manhã", "balões", "botões", "limões", "leões", "coração", "avião", "limão", "cidadão", "irmão",
+            "ação", "lição", "canção", "emoção", "feijão", "tubarão", "capitão", "região", "estação", "informação", "televisão", "mãe",
+            "pães", "cães", "põe", "lições", "ações", "canções", "órfão", "sertão", "patrão", "então", "razão", "leão", "melão", "camarão",
+          ],
+          circumflex: [
+            "você", "bebê", "avô", "vovô", "lâmpada", "âmbar", "ônibus", "câmera", "pêssego", "tênis", "português", "japonês", "estômago",
+            "metrô", "robô", "pôster", "ângulo", "âncora", "também", "têm", "três", "mês", "à tarde", "à noite", "às vezes", "à escola", "à feira",
+          ],
+        },
+        accentSentences: [
+          "Você aprendeu a digitar com atenção.", "A professora disse parabéns, turma!", "Hoje é sábado e vamos ao parque.",
+          "O computador também ajuda a gente a aprender.", "A minha mãe fez um bolo de cenoura.", "O João comprou pão e limão na feira.",
+          "Está calor hoje, vamos tomar água!", "Quem quer ouvir uma história?", "A música começa às três horas.",
+          "O ônibus chegou atrasado hoje.", "Eu gosto de açaí com banana.", "Meu avô conta histórias de pescador.",
+          "A lâmpada da sala queimou ontem.", "Você sabe o número do telefone?", "O médico examinou o pé do menino.",
+          "Que tênis bonito você tem!", "A criança brinca na praça com a bola.", "Eu ganhei um livro de matemática.",
+          "O professor escreveu no quadro, leia com atenção.", "Minha irmã estuda português à tarde.", "O avião passou sobre a cidade.",
+          "Vamos ao parque no sábado, tá?", "Não esqueça de beber água, meu amigo!", "O coração bate mais rápido quando corremos.",
+          "A árvore do quintal tem muitas folhas.", "Eu escrevo com a mão direita.", "A manhã está linda hoje!", "Ela é a minha melhor amiga.",
+          "Eles têm um cachorro muito brincalhão.", "O pássaro canta no galho da árvore.", "Tenho três lápis e uma borracha.",
+          "O café da manhã é muito importante.", "Vamos à escola de ônibus?", "O verão chegou e o sol está forte.",
+          "Meu pai trabalha com máquinas grandes.", "A questão de hoje é muito difícil.", "Você consegue digitar sem olhar para o teclado?",
+        ],
+      };
+
+      // Gera as linhas de uma fase depois das escritas à mão. É uma função pura (só usa os argumentos), para a checagem
+      // estática poder rodá-la: cada linha só usa teclas já liberadas, cabe em `maxLength` e não se repete.
+      const typingGenerateExercises = (stages, bank, kinds, stageIndex, count, maxLength, curated) => {
+        const allowed = new Set([" "]);
+        let capitals = false;
+        stages.slice(0, stageIndex + 1).forEach((stage) => {
+          [...stage.newKeys].forEach((char) => allowed.add(char));
+          capitals = capitals || Boolean(stage.capitals);
+        });
+        const fits = (text) => text.length <= maxLength && [...text].every((char) => {
+          const lower = char.toLowerCase();
+          return char === lower ? allowed.has(char) : capitals && allowed.has(lower);
+        });
+        let seed = 7919 * (stageIndex + 1) + maxLength;
+        const random = () => {
+          seed = (seed + 0x6d2b79f5) | 0;
+          let value = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
+          return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+        };
+        const pick = (list) => list[Math.floor(random() * list.length)];
+        const capitalize = (word) => word[0].toUpperCase() + word.slice(1);
+
+        const [kind, detail] = kinds[stageIndex].split(":");
+        const newLetters = [...stages[stageIndex].newKeys].filter((char) => /[a-z]/.test(char));
+        const letters = [...allowed].filter((char) => /[a-z]/.test(char));
+        const vowels = letters.filter((char) => "aeiou".includes(char));
+        const consonants = letters.filter((char) => !vowels.includes(char));
+        const syllables = [];
+        consonants.forEach((consonant) => vowels.forEach((vowel) => syllables.push(consonant + vowel, vowel + consonant)));
+        if (!vowels.length) letters.forEach((first) => letters.forEach((second) => syllables.push(first + second)));
+        newLetters.forEach((letter) => syllables.push(letter + letter));
+
+        const words = bank.words.filter(fits);
+        const sentences = bank.sentences.filter(fits);
+        const punctuated = bank.punctuated.filter(fits);
+        const hasNewKey = (text) => newLetters.some((letter) => text.includes(letter));
+
+        // Junta itens sorteados até chegar perto do tamanho desejado; começa por um item com tecla nova, se houver.
+        const buildLine = (pool, preferred) => {
+          const goal = Math.floor(maxLength * (0.55 + random() * 0.35));
+          const items = [pick(preferred.length ? preferred : pool)];
+          let length = items[0].length;
+          for (let guard = 0; guard < 30 && length < goal; guard += 1) {
+            const next = pick(pool);
+            if (!items.includes(next) && length + 1 + next.length <= maxLength) {
+              items.push(next);
+              length += 1 + next.length;
+            }
+          }
+          return items.join(" ");
+        };
+        const wordsLine = () => buildLine(words, []);
+        const randomNumber = () => String(1 + Math.floor(random() * (random() < 0.5 ? 9 : 99)));
+
+        const makers = {
+          drill: () => {
+            const pool = words.length >= 12 ? words : [...words, ...syllables];
+            return buildLine(pool, pool.filter(hasNewKey));
+          },
+          sentences: () => (sentences.length && random() < 0.6 ? pick(sentences) : wordsLine()),
+          capitals: () => {
+            const names = bank.names.filter(fits);
+            return sentences.length && random() < 0.4 ? capitalize(pick(sentences)) : buildLine(names, []);
+          },
+          punctuation: () => {
+            if (random() < 0.5) return pick(punctuated);
+            const [first, second, third] = [pick(words), pick(words), pick(words)];
+            return pick([`${capitalize(first)}, ${second} e ${third}.`, `${capitalize(first)} ${second}?`, `${capitalize(first)} ${second} ${third}!`]);
+          },
+          numbers: () => {
+            if (random() < 0.5) {
+              return pick(bank.numberTemplates).replace("{n}", randomNumber()).replace("{m}", randomNumber()).replace("{k}", randomNumber());
+            }
+            return buildLine(Array.from({ length: 12 }, randomNumber), []);
+          },
+          full: () => pick([pick(punctuated), `${capitalize(pick(sentences))}.`, buildLine(punctuated, [])]),
+          texts: () => buildLine(punctuated, []),
+          accent: () => {
+            const accented = bank.accent[detail].filter(fits);
+            return buildLine([...accented, ...accented, ...words.slice(0, 40)], accented);
+          },
+          accentText: () => buildLine(bank.accentSentences.filter(fits), []),
+        };
+
+        const seen = new Set(curated);
+        const lines = [];
+        const wanted = count - curated.length;
+        for (let attempts = 0; lines.length < wanted && attempts < count * 60; attempts += 1) {
+          const line = makers[kind]();
+          if (fits(line) && !seen.has(line)) {
+            seen.add(line);
+            lines.push(line);
+          }
+        }
+        return lines;
+      };
+
       const typingFingerNames = {
         lp: "mindinho esquerdo",
         lr: "anelar esquerdo",
@@ -22791,8 +23014,38 @@ const brStatesList = [
         return row ? row.keys.find(([label]) => label === base)[1] : null;
       }
 
+      // Exercícios de uma fase: os escritos à mão e, depois, os gerados até completar a quantidade da faixa.
+      function typingStageExercises(stageIndex, band) {
+        const curated = typingStages[stageIndex].exercises;
+        const count = Math.min(typingExercisesPerStage[band], TYPING_MAX_EXERCISES);
+        return [...curated, ...typingGenerateExercises(typingStages, typingBank, typingStageKinds, stageIndex, count, typingMaxLength[band], curated)];
+      }
+
+      // As rodadas de cada faixa são geradas uma vez só (a geração é determinística).
+      const typingRoundsByBand = new Map();
+
       function currentTypingRounds() {
-        return typingBandStages[state.ageBand ?? 0].flatMap((stageIndex) => typingStages[stageIndex].exercises.map((text) => ({ text, stageIndex })));
+        const band = state.ageBand ?? 0;
+        if (!typingRoundsByBand.has(band)) {
+          const rounds = typingBandStages[band].flatMap((stageIndex) => typingStageExercises(stageIndex, band).map((text) => ({ text, stageIndex })));
+          typingRoundsByBand.set(band, rounds);
+        }
+        return typingRoundsByBand.get(band);
+      }
+
+      // Primeira rodada da fase seguinte; nulo na última fase.
+      function nextTypingStageStart(rounds) {
+        const current = rounds[state.round].stageIndex;
+        const next = rounds.findIndex((round, index) => index > state.round && round.stageIndex !== current);
+        return next < 0 ? null : next;
+      }
+
+      function skipTypingStage() {
+        const next = nextTypingStageStart(currentTypingRounds());
+        if (next === null) return;
+        state.round = next;
+        startTypingExercise();
+        render();
       }
 
       // Teclas já liberadas até a fase (as novas de cada fase somam com as das anteriores).
@@ -22906,6 +23159,14 @@ const brStatesList = [
           continueTyping();
           return true;
         }
+        if (clickedElement(event, ".typing-skip-stage")) {
+          skipTypingStage();
+          return true;
+        }
+        if (clickedElement(event, ".typing-finish")) {
+          complete("typing", "Digitação concluída!");
+          return true;
+        }
         if (clickedElement(event, ".typing-peek-button")) {
           state.typingPeek = !state.typingPeek;
           render();
@@ -22993,7 +23254,7 @@ const brStatesList = [
         return { finger, text, fingerName: typingFingerNames[finger] };
       }
 
-      function typingResultHtml(round, isLast) {
+      function typingResultHtml(round, isLast, canSkipStage) {
         const total = round.text.length;
         const accuracy = Math.round((total * 100) / (total + state.typingErrors));
         const stars = "⭐".repeat(state.typingStars) + "☆".repeat(3 - state.typingStars);
@@ -23009,13 +23270,17 @@ const brStatesList = [
           <div class="typing-stars" role="img" aria-label="${state.typingStars} de 3 estrelas">${stars}</div>
           <div class="typing-result-text">${messages[state.typingStars - 1]} Precisão: ${accuracy}%.</div>
           ${practice}
-          <button type="button" class="typing-next-button">${isLast ? "Concluir" : "Continuar"} ▶</button>
+          <div class="typing-actions">
+            <button type="button" class="typing-next-button">${isLast ? "Concluir" : "Continuar"} ▶</button>
+            ${canSkipStage ? '<button type="button" class="typing-secondary-button typing-skip-stage">⏭ Próxima fase</button>' : ""}
+            ${isLast ? "" : '<button type="button" class="typing-secondary-button typing-finish">🏁 Terminar</button>'}
+          </div>
         </div>`;
       }
 
       // Abaixo do texto: o resultado do exercício, o teclado com a dica ou o aviso de teclado escondido.
-      function typingBelowHtml(round, stage, hint, isLast) {
-        if (state.typingDone) return typingResultHtml(round, isLast);
+      function typingBelowHtml(round, stage, hint, position) {
+        if (state.typingDone) return typingResultHtml(round, position.isLast, position.canSkipStage);
         if (stage.hideKeyboard && !state.typingPeek) {
           return `<div class="typing-hint">⌨️ Sem olhar o teclado! Olhe só para o texto.</div>
             <button type="button" class="typing-peek-button">👀 Espiar o teclado</button>`;
@@ -23045,7 +23310,7 @@ const brStatesList = [
         content.innerHTML = `<div class="typing-board">
           <div class="typing-stage"><span>${newKeys}</span><span class="typing-tip">${stage.tip}</span></div>
           <div class="typing-text" role="group" aria-label="Texto para digitar: ${escapeHtml(round.text)}"><span aria-hidden="true">${typingTextHtml(round.text)}</span></div>
-          ${typingBelowHtml(round, stage, hint, state.round + 1 >= rounds.length)}
+          ${typingBelowHtml(round, stage, hint, { isLast: state.round + 1 >= rounds.length, canSkipStage: nextTypingStageStart(rounds) !== null })}
         </div>`;
       }
 

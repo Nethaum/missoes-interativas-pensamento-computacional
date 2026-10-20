@@ -214,7 +214,50 @@ function checkTypingStages() {
   bands.forEach((indexes, band) => {
     if (indexes.some((index) => !stages[index])) report.problem(`digitação: faixa ${band} aponta para uma fase que não existe`);
   });
-  report.ok(`digitação: ${stages.length} fases, ${stages.reduce((sum, stage) => sum + stage.exercises.length, 0)} exercícios`);
+  report.ok(`digitação: ${stages.length} fases, ${stages.reduce((sum, stage) => sum + stage.exercises.length, 0)} exercícios escritos à mão`);
+  checkGeneratedTyping(stages, bands);
+}
+
+// Exercícios gerados: a quantidade pedida, sem repetir, sem espaços sobrando e só com teclas já liberadas na fase.
+function checkGeneratedTyping(stages, bands) {
+  const generate = loadConst('typingGenerateExercises');
+  const bank = loadConst('typingBank');
+  const kinds = loadConst('typingStageKinds');
+  const perStage = loadConst('typingExercisesPerStage');
+  const maxLength = loadConst('typingMaxLength');
+  const limit = loadConst('TYPING_MAX_EXERCISES');
+  const cumulative = stages.map((_, index) => {
+    const keys = new Set([' ']);
+    stages.slice(0, index + 1).forEach((stage) => [...stage.newKeys].forEach((char) => keys.add(char)));
+    return { keys, capitals: stages.slice(0, index + 1).some((stage) => stage.capitals) };
+  });
+  if (kinds.length !== stages.length) report.problem(`digitação: ${kinds.length} tipos de fase para ${stages.length} fases`);
+  let biggest = 0;
+  bands.forEach((indexes, band) => {
+    let total = 0;
+    indexes.forEach((stageIndex) => {
+      const curated = stages[stageIndex].exercises;
+      const lines = generate(stages, bank, kinds, stageIndex, perStage[band], maxLength[band], curated);
+      const where = `digitação, faixa ${band}, fase ${stageIndex + 1}`;
+      total += curated.length + lines.length;
+      if (curated.length + lines.length !== perStage[band]) report.problem(`${where}: ${curated.length + lines.length} exercícios e eram esperados ${perStage[band]}`);
+      if (new Set([...curated, ...lines]).size !== curated.length + lines.length) report.problem(`${where}: exercícios repetidos`);
+      const { keys, capitals } = cumulative[stageIndex];
+      lines.forEach((line) => {
+        if (line.length > maxLength[band]) report.problem(`${where}: linha maior que ${maxLength[band]} ("${line}")`);
+        if (/\s{2}|^\s|\s$/.test(line)) report.problem(`${where}: espaços sobrando em "${line}"`);
+        [...line].forEach((char) => {
+          const lower = char.toLowerCase();
+          const ok = char === lower ? keys.has(char) : capitals && keys.has(lower);
+          if (!ok) report.problem(`${where}: "${char}" ainda não foi liberada em "${line}"`);
+        });
+        if (kinds[stageIndex].startsWith('accent') && !/^[A-ZÀ-Ú]?[a-zçáéíóúàãõâêô ,.!?]+$/i.test(line)) report.problem(`${where}: fase de acento com caractere inesperado em "${line}"`);
+      });
+    });
+    biggest = Math.max(biggest, total);
+    if (total > limit) report.problem(`digitação: a faixa ${band} tem ${total} exercícios e o limite é ${limit}`);
+  });
+  report.ok(`digitação: até ${biggest} exercícios por faixa (limite ${limit})`);
 }
 
 checkTicTacToe();

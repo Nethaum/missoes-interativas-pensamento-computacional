@@ -30,7 +30,7 @@ npm run e2e        # tudo, incluindo todas as missões em todas as faixas, acess
 | `e2e/lesson-mode.js` | Modo aula (todas as aulas, inclusive as sem missão): painel só com as missões que têm aula, slides que aparecem linha por linha, voltar, tocar para avançar, botão de jogar no fim e exclusão com o modo avaliação |
 | `e2e/speech.js` | Leitura em voz alta: Som Inicial, Monte a Palavra, Vertebrados e Fábrica de Laços não leem o título repetido, e as outras missões continuam lendo |
 | `e2e/loop.js` | Fábrica de Laços: pedido da fábrica, execução animada (o total só aparece depois de ligar a máquina) e rodadas de prever |
-| `e2e/typing.js` | Digitação: dica do dedo, erro sem punição, estrelas por precisão, Shift nas maiúsculas, acentos (tecla morta e letra), teclado escondido nas fases de frases e conclusão da missão |
+| `e2e/typing.js` | Digitação: dica do dedo, erro sem punição, estrelas por precisão, Shift nas maiúsculas, acentos (tecla morta e letra), teclado escondido nas fases de frases, exercícios gerados (160 a 999 por faixa), pular de fase e terminar |
 | `e2e/a11y.js` | Auditoria axe-core de todas as telas no celular |
 | `e2e/offline.js` | Se o material abre e funciona sem internet depois da primeira visita |
 
