@@ -260,6 +260,92 @@ function checkGeneratedTyping(stages, bands) {
   report.ok(`digitação: até ${biggest} exercícios por faixa (limite ${limit})`);
 }
 
+// ---- Cruzadinha: grade que cabe, pistas sem entregar a resposta e habilidades que existem na BNCC ----
+const AGE_BAND_COUNT = 5;
+const CROSSWORD_PUZZLES_PER_BAND = 3;
+const CROSSWORD_WORDS = { min: 5, max: 8 };
+const CROSSWORD_WORD_LENGTH = { min: 3, max: 13 };
+const CROSSWORD_MAX_CLUE = 80;
+
+function checkCrosswordEntry(where, entry) {
+  if (!/^[A-Z]+$/.test(entry.a)) report.problem(`${where}: resposta "${entry.a}" deve ter só letras maiúsculas e sem acento`);
+  if (entry.a.length < CROSSWORD_WORD_LENGTH.min || entry.a.length > CROSSWORD_WORD_LENGTH.max) report.problem(`${where}: "${entry.a}" deve ter de ${CROSSWORD_WORD_LENGTH.min} a ${CROSSWORD_WORD_LENGTH.max} letras`);
+  if (!entry.c || entry.c.length > CROSSWORD_MAX_CLUE) report.problem(`${where}: pista de "${entry.a}" vazia ou com mais de ${CROSSWORD_MAX_CLUE} caracteres`);
+  if (!entry.i) report.problem(`${where}: "${entry.a}" sem ícone`);
+  if (entry.n && withoutAccents(entry.n) !== entry.a) report.problem(`${where}: o nome "${entry.n}" não corresponde a "${entry.a}"`);
+  if (withoutAccents(entry.c).includes(entry.a) && entry.a.length > 3) report.problem(`${where}: a pista de "${entry.a}" entrega a resposta`);
+}
+
+// Toda sequência de 2 ou mais letras na grade tem de ser uma das palavras (nada de palavras formadas por acaso).
+function checkCrosswordGrid(where, layout, answers) {
+  const grid = new Map();
+  layout.words.forEach((word) => [...answers[word.index]].forEach((letter, step) => {
+    const row = word.row + (word.dir === 'down' ? step : 0);
+    const col = word.col + (word.dir === 'across' ? step : 0);
+    if (grid.has(`${row},${col}`) && grid.get(`${row},${col}`) !== letter) report.problem(`${where}: duas letras diferentes na mesma casa`);
+    grid.set(`${row},${col}`, letter);
+  }));
+  const runs = [];
+  const collect = (outer, inner, at) => {
+    let text = '';
+    let start = 0;
+    for (let step = 0; step <= inner; step++) {
+      const letter = grid.get(at(outer, step));
+      if (letter) {
+        if (!text) start = step;
+        text += letter;
+      } else {
+        if (text.length > 1) runs.push(`${at === across ? 'a' : 'd'}${outer},${start},${text}`);
+        text = '';
+      }
+    }
+  };
+  const across = (row, col) => `${row},${col}`;
+  const down = (col, row) => `${row},${col}`;
+  for (let row = 0; row < layout.rows; row++) collect(row, layout.cols, across);
+  for (let col = 0; col < layout.cols; col++) collect(col, layout.rows, down);
+  const expected = layout.words.map((word) => (word.dir === 'across' ? `a${word.row},${word.col},${answers[word.index]}` : `d${word.col},${word.row},${answers[word.index]}`));
+  const strange = runs.filter((run) => !expected.includes(run));
+  if (strange.length || runs.length !== expected.length) report.problem(`${where}: a grade forma sequências que não são palavras (${strange.join(' ')})`);
+}
+
+function checkCrosswords() {
+  const bands = loadConst('crosswordPuzzlesByBand');
+  const skillTexts = loadConst('bnccSkillTexts');
+  const buildLayout = loadConst('crosswordBuildLayout', {
+    CROSSWORD_LAYOUT_TRIES: loadConst('CROSSWORD_LAYOUT_TRIES'),
+    CROSSWORD_MAX_ROWS: loadConst('CROSSWORD_MAX_ROWS'),
+    CROSSWORD_MAX_COLS: loadConst('CROSSWORD_MAX_COLS'),
+  });
+  const maxRows = loadConst('CROSSWORD_MAX_ROWS');
+  const maxCols = loadConst('CROSSWORD_MAX_COLS');
+  if (bands.length !== AGE_BAND_COUNT) report.problem(`cruzadinha: ${bands.length} faixas etárias e eram esperadas ${AGE_BAND_COUNT}`);
+  let total = 0;
+  bands.forEach((puzzles, band) => {
+    if (puzzles.length !== CROSSWORD_PUZZLES_PER_BAND) report.problem(`cruzadinha, faixa ${band}: ${puzzles.length} cruzadinhas e eram esperadas ${CROSSWORD_PUZZLES_PER_BAND}`);
+    puzzles.forEach((puzzle, index) => {
+      const where = `cruzadinha, faixa ${band}, número ${index + 1}`;
+      total += 1;
+      if (!puzzle.title) report.problem(`${where}: sem título`);
+      if (!puzzle.skills.length) report.problem(`${where}: sem habilidades da BNCC`);
+      puzzle.skills.forEach((code) => {
+        if (!skillTexts[code]) report.problem(`${where}: habilidade ${code} sem texto`);
+      });
+      if (puzzle.words.length < CROSSWORD_WORDS.min || puzzle.words.length > CROSSWORD_WORDS.max) report.problem(`${where}: de ${CROSSWORD_WORDS.min} a ${CROSSWORD_WORDS.max} palavras`);
+      const answers = puzzle.words.map((entry) => entry.a);
+      if (new Set(answers).size !== answers.length) report.problem(`${where}: palavra repetida`);
+      puzzle.words.forEach((entry) => checkCrosswordEntry(where, entry));
+      const layout = buildLayout(answers);
+      if (!layout) return report.problem(`${where}: as palavras não cabem juntas numa grade`);
+      if (layout.rows > maxRows || layout.cols > maxCols) report.problem(`${where}: grade de ${layout.rows}x${layout.cols} passa do limite ${maxRows}x${maxCols}`);
+      if (layout.words.length !== answers.length) report.problem(`${where}: nem todas as palavras foram colocadas`);
+      checkCrosswordGrid(where, layout, answers);
+      return null;
+    });
+  });
+  report.ok(`cruzadinha: ${total} cruzadinhas, ${bands.flat().reduce((sum, puzzle) => sum + puzzle.words.length, 0)} palavras`);
+}
+
 checkTicTacToe();
 QUIZ_MISSION_IDS.forEach(checkQuizMission);
 checkPhonics();
@@ -268,4 +354,5 @@ checkLessonPlans();
 checkAssessmentSkills();
 checkLessonDecks();
 checkTypingStages();
+checkCrosswords();
 report.finish();

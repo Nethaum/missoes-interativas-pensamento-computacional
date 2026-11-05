@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.5.0">
+  <meta name="app-version" content="3.6.0">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -5679,6 +5679,197 @@
       font-size: 15px;
     }
 
+    .cw-board {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: auto minmax(300px, 1fr);
+      gap: 12px 22px;
+      align-items: start;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .cw-grid {
+      --cw-size: min(46px, calc(520px / var(--cw-cols)), calc(42vh / var(--cw-rows)));
+      display: grid;
+      grid-template-columns: repeat(var(--cw-cols), var(--cw-size));
+      grid-auto-rows: var(--cw-size);
+      gap: 3px;
+      padding: 10px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: #fff8e1;
+      box-shadow: 0 6px 0 rgba(205, 189, 145, 0.58);
+    }
+
+    .cw-cell {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: var(--cw-size);
+      height: var(--cw-size);
+      padding: 0;
+      border: 2px solid #3a3f4b;
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: calc(var(--cw-size) * 0.56);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: none;
+    }
+
+    .cw-cell.in-word { background: #fff1b8; }
+    .cw-cell.active { z-index: 1; border-color: var(--blue); background: #ffd34d; box-shadow: 0 0 0 3px var(--blue); }
+    .cw-cell.solved { border-color: #1f7a3d; background: #c9f2d6; color: #14532d; }
+    .cw-cell.miss { border-color: #c2410c; background: #ffd9c2; color: #7c2d12; animation: fx-shake 0.3s ease; }
+    .cw-cell.hinted { color: #1d4ed8; }
+
+    .cw-num {
+      position: absolute;
+      top: 1px;
+      left: 3px;
+      font-size: max(9px, calc(var(--cw-size) * 0.24));
+      font-style: normal;
+      font-weight: 900;
+      line-height: 1;
+      color: #4b5563;
+    }
+
+    .cw-side {
+      min-width: 0;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .cw-clues {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 5px;
+      padding: 2px 4px 4px 2px;
+    }
+
+    .cw-clue {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      height: auto;
+      min-height: 36px;
+      padding: 4px 10px;
+      border: 3px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-align: left;
+      text-shadow: none;
+      box-shadow: none;
+    }
+
+    .cw-clue.active { border-color: var(--blue); background: #fff1b8; }
+    .cw-clue.solved { background: #e6f9ec; color: #14532d; }
+    .cw-clue-num { min-width: 30px; color: #8a4b00; font-weight: 950; }
+    .cw-clue.solved .cw-clue-num { color: #14532d; }
+    .cw-clue-icon { font-size: 28px; line-height: 1; }
+    .cw-clue-text { flex: 1; }
+    .cw-clue-len { color: #4b5563; font-size: 13px; }
+
+    .cw-pad {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 4px;
+    }
+
+    .cw-key {
+      width: 100%;
+      height: clamp(28px, 4.8vh, 38px);
+      padding: 0;
+      border: 2px solid rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--card-ink);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      text-shadow: none;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .cw-hint-button,
+    .cw-next-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      height: auto;
+      border: 4px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      padding: 4px 18px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 950;
+      color: var(--card-ink);
+      cursor: pointer;
+      box-shadow: 0 4px 0 rgba(205, 189, 145, 0.55);
+    }
+
+    .cw-hint-button { grid-column: 1 / -1; justify-self: center; }
+    .cw-next-button { background: var(--yellow); padding: 8px 26px; font-size: 17px; }
+
+    .cw-result {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      padding: 12px 16px;
+      border: 4px solid var(--line);
+      border-radius: 16px;
+      background: #e6f9ec;
+      color: var(--card-ink);
+      text-align: center;
+    }
+
+    .cw-result-title { font-size: 24px; font-weight: 950; }
+    .cw-result-text { font-size: 16px; font-weight: 800; }
+
+    .cw-found {
+      width: 100%;
+      max-height: min(40vh, 360px);
+      margin: 0;
+      padding: 8px 14px 8px 28px;
+      overflow-y: auto;
+      border-radius: 12px;
+      background: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    .cw-skills { font-size: 14px; font-weight: 800; }
+
+    .cw-skill {
+      padding: 1px 8px;
+      border-radius: 999px;
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 860px) {
+      .cw-board { grid-template-columns: 1fr; justify-items: center; }
+    }
+
     .sort-board {
       width: min(760px, 100%);
       display: grid;
@@ -10201,6 +10392,7 @@
         { id: "recycle", icon: "♻️", title: "Coleta seletiva", subject: "Meio ambiente e cidadania" },
         { id: "hardware", icon: "💻", title: "Computador por dentro", subject: "Hardware, entrada e saída, arquivos e redes" },
         { id: "typing", icon: "⌨️", title: "Digitação", subject: "Teclado e dedos", featured: true },
+        { id: "crossword", icon: "🔠", title: "Cruzadinha", subject: "Palavras cruzadas e vocabulário digital", featured: true },
         { id: "safe", icon: "🛡️", title: "Navegação segura", subject: "Segurança, ética e informação" },
         { id: "ai", icon: "🧠", title: "Dados, algoritmos e IA", subject: "Inteligência Artificial com senso crítico" },
         { id: "structures", icon: "🗂️", title: "Organize os dados", subject: "Listas, tabelas, registros e grafos" },
@@ -10226,7 +10418,7 @@
           title: "Alfabetização",
           icon: "🔤",
           description: "Reconhecer sons, letras e sílabas para dar os primeiros passos na leitura, em qualquer idade.",
-          missionIds: ["phonics", "syllables"],
+          missionIds: ["phonics", "syllables", "crossword"],
         },
         {
           title: "Sequência e algoritmos",
@@ -10262,7 +10454,7 @@
           title: "Mundo Digital e Cultura Digital",
           icon: "💻",
           description: "Entender o computador e a internet e usar a tecnologia com segurança, respeito e senso crítico.",
-          missionIds: ["hardware", "typing", "safe", "ai", "structures", "pixels"],
+          missionIds: ["hardware", "typing", "crossword", "safe", "ai", "structures", "pixels"],
         },
       ];
 
@@ -10305,8 +10497,8 @@
             { step: "Missão no computador", time: "12 min", mode: "plugada", description: "Em duplas, as crianças jogam as primeiras fases do Robô coletor, revezando quem escolhe o próximo comando. Quem terminar cedo pode explorar o Padrão Perfeito. O professor lê as instruções em voz alta." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Cada dupla conta como decidiu a ordem dos comandos. Apresente a palavra \"algoritmo\": uma sequência de passos para resolver um problema." },
           ],
-          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07). Para ler as primeiras instruções de um programa e organizar objetos em listas e tabelas, use também Leia o código e Organize os dados (6-7 anos), que retomam EF01CO02 e EF01CO01. Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking.",
-          missions: ["robot", "pattern", "recycle", "builder", "safe", "reading", "structures", "typing"],
+          extension: "Em outra aula, trabalhe a Cultura Digital com a missão Navegação segura (faixa de 6-7 anos): cuidados e uso seguro, com os enunciados lidos em voz alta pelo professor (EF01CO07). Para ler as primeiras instruções de um programa e organizar objetos em listas e tabelas, use também Leia o código e Organize os dados (6-7 anos), que retomam EF01CO02 e EF01CO01. Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking. A Cruzadinha (6-7 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["robot", "pattern", "recycle", "builder", "safe", "reading", "structures", "typing", "crossword"],
           assessment: [
             "A criança segue a ordem correta de comandos na maior parte das tentativas?",
             "Consegue apontar quando um comando está fora de ordem?",
@@ -10351,8 +10543,8 @@
             { step: "Missões no computador", time: "15 min", mode: "plugada", description: "Individualmente ou em duplas: Robô coletor, planejando o caminho antes de clicar; depois Chef Cozinheiro para ordenar a receita e, se houver tempo, Divida a Tarefa ou Padrão Perfeito." },
             { step: "Fechamento", time: "10 min", mode: "desplugada", description: "Discuta em grupo: o que acontece quando a ordem da receita fica errada? Que tarefa de casa ou da escola dá para dividir em passos menores?" },
           ],
-          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06). Leia o código (6-7 anos) retoma comandos e repetições simples (EF02CO02). Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking.",
-          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe", "reading", "typing"],
+          extension: "Em outra aula, trabalhe o Mundo Digital com a missão Computador por dentro (6-7 anos), para diferenciar hardware e software (EF02CO04), e a Cultura Digital com a Navegação segura (EF02CO06). Leia o código (6-7 anos) retoma comandos e repetições simples (EF02CO02). Para a coordenação com o teclado, a missão Digitação (6-7 anos) treina a fileira de apoio e as vogais, sem tempo nem ranking. A Cruzadinha (6-7 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["robot", "chef", "decompose", "pattern", "hardware", "safe", "reading", "typing", "crossword"],
           assessment: [
             "Planeja ao menos parte do caminho antes de executar?",
             "Identifica o passo certo para continuar uma receita?",
@@ -10397,8 +10589,8 @@
             { step: "Atividade desplugada: o ciclo em cartões", time: "13 min", mode: "desplugada", description: "Em grupos, ordenam cartões de um ciclo natural e marcam com uma seta onde o ciclo \"volta ao começo\". Cada grupo escreve o ciclo como um laço: \"repita: ...\"." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Que outras coisas se repetem como um laço (dias da semana, estações, batimentos do coração)?" },
           ],
-          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos. Leia o código (8-9 anos) trabalha laços e decisões em português (EF02CO02 e EF03CO01). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking.",
-          missions: ["loop", "cycle", "builder", "hardware", "safe", "reading", "typing"],
+          extension: "Amplie nos eixos Mundo Digital e Cultura Digital com Computador por dentro (EF03CO04 e EF03CO06: informação e dado, entrada e saída) e Navegação segura (EF03CO07 e EF03CO09: pesquisa e dados pessoais), na faixa de 8-9 anos. Leia o código (8-9 anos) trabalha laços e decisões em português (EF02CO02 e EF03CO01). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking. A Cruzadinha (8-9 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["loop", "cycle", "builder", "hardware", "safe", "reading", "typing", "crossword"],
           assessment: [
             "Consegue calcular o total de um laço (repetições × passo)?",
             "Identifica um ciclo que se repete na natureza?",
@@ -10443,8 +10635,8 @@
             { step: "Prática no computador", time: "12 min", mode: "plugada", description: "Os alunos jogam Dados e gráficos e o Portão Lógico, aplicando a regra \"se... então...\" para decidir o resultado." },
             { step: "Fechamento", time: "6 min", mode: "desplugada", description: "Converse sobre regras \"se... então...\" que a turma já segue (se chover, levo guarda-chuva; se o sinal fechar, eu paro)." },
           ],
-          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos. Organize os dados (8-9 anos) apresenta tabelas e registros (EF04CO01 e EF04CO02), e Leia o código (8-9 anos) trabalha repetições, decisões e variáveis (EF04CO03). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking.",
-          missions: ["code", "data", "cond", "hardware", "safe", "reading", "structures", "typing"],
+          extension: "Amplie com Computador por dentro (EF04CO04: codificar para a máquina) e Navegação segura (EF04CO07 e EF04CO08: ética com dados e fontes confiáveis), na faixa de 8-9 anos. Organize os dados (8-9 anos) apresenta tabelas e registros (EF04CO01 e EF04CO02), e Leia o código (8-9 anos) trabalha repetições, decisões e variáveis (EF04CO03). Para o teclado, a missão Digitação (8-9 anos) treina as fileiras de letras, o acento agudo e o cedilha, sem tempo nem ranking. A Cruzadinha (8-9 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["code", "data", "cond", "hardware", "safe", "reading", "structures", "typing", "crossword"],
           assessment: [
             "Consegue relacionar símbolo e significado corretamente?",
             "Lê um gráfico simples e compara valores?",
@@ -10487,8 +10679,8 @@
             { step: "Atividade desplugada: passe o erro", time: "13 min", mode: "desplugada", description: "Cada dupla cria uma sequência de passos com um erro escondido e troca com outra dupla, que precisa encontrar e corrigir o erro." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça que expliquem, em uma frase, como encontraram o erro." },
           ],
-          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking.",
-          missions: ["bug", "hardware", "safe", "reading", "structures", "typing"],
+          extension: "Amplie com Computador por dentro (EF05CO05 a EF05CO07: componentes, armazenamento local ou remoto e sistema operacional) e Navegação segura (EF05CO08 e EF05CO09: fontes confiáveis e direitos autorais), na faixa de 10-11 anos. Organize os dados (10-11 anos) apresenta listas e grafos (EF05CO01 e EF05CO02), e Leia o código (10-11 anos) traz os primeiros programas em Python (EF05CO03 e EF05CO04). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking. A Cruzadinha (10-11 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["bug", "hardware", "safe", "reading", "structures", "typing", "crossword"],
           assessment: [
             "Localiza o comando errado sem precisar de várias tentativas?",
             "Explica com suas palavras por que aquele comando estava errado?",
@@ -10533,8 +10725,8 @@
             { step: "Atividade desplugada: o meu código", time: "13 min", mode: "desplugada", description: "Cada aluno cria um desenho simples em grade 5×5, escreve o código em 0 e 1 e troca com um colega, que desenha a partir do código." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta outros lugares onde vemos códigos parecidos (código de barras, QR code)." },
           ],
-          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos. Leia o código (10-11 anos) trabalha programas simples, tipos de dados e a relação entre entrada e saída (EF06CO01, EF06CO02 e EF06CO05). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking.",
-          missions: ["pixels", "sort", "data", "hardware", "safe", "reading", "typing"],
+          extension: "Amplie com Computador por dentro (EF06CO07 e EF06CO08: transmissão de dados e arquivos) e Navegação segura (EF06CO09 e EF06CO10: conduta digital e consumo de tecnologia), na faixa de 10-11 anos. Leia o código (10-11 anos) trabalha programas simples, tipos de dados e a relação entre entrada e saída (EF06CO01, EF06CO02 e EF06CO05). Para o teclado, a missão Digitação (10-11 anos) treina palavras, frases, maiúsculas e os acentos agudo, cedilha e til, sem tempo nem ranking. A Cruzadinha (10-11 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["pixels", "sort", "data", "hardware", "safe", "reading", "typing", "crossword"],
           assessment: [
             "Consegue \"ler\" um código binário simples e prever o desenho?",
             "Ordena uma lista pequena trocando apenas itens vizinhos?",
@@ -10578,8 +10770,8 @@
             { step: "Atividade desplugada: o placar", time: "13 min", mode: "desplugada", description: "Em grupos, simulam um placar com a caixa \"pontos\": a cada comando do professor, atualizam o valor e registram a sequência de valores. Depois escrevem o algoritmo em português." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Peça exemplos de \"variáveis\" do dia a dia (idade, saldo, temperatura)." },
           ],
-          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos. Organize os dados (12-13 anos) trabalha registros, listas e grafos (EF07CO01 e EF07CO04), e Leia o código (12-13 anos) trabalha funções, detecção de erros e reúso (EF07CO02 e EF07CO05). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking.",
-          missions: ["var", "sort", "math", "hardware", "safe", "reading", "structures", "typing"],
+          extension: "Amplie com Computador por dentro (EF07CO06 e EF07CO07: protocolos e segurança cibernética) e Navegação segura (EF07CO08 e EF07CO09: empatia na web e cyberbullying), na faixa de 12-13 anos. Organize os dados (12-13 anos) trabalha registros, listas e grafos (EF07CO01 e EF07CO04), e Leia o código (12-13 anos) trabalha funções, detecção de erros e reúso (EF07CO02 e EF07CO05). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking. A Cruzadinha (12-13 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["var", "sort", "math", "hardware", "safe", "reading", "structures", "typing", "crossword"],
           assessment: [
             "Explica com uma frase o que é uma variável?",
             "Relaciona corretamente o valor escolhido ao resultado visual?",
@@ -10625,8 +10817,8 @@
             { step: "Atividade desplugada: o fluxograma", time: "15 min", mode: "desplugada", description: "Em duplas, desenham o fluxograma de duas soluções para o mesmo problema (por exemplo, achar o maior número de uma lista) e comparam qual usa menos passos." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Discuta em grupo qual solução pareceu mais \"eficiente\" e por quê." },
           ],
-          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos. Organize os dados e Leia o código (12-13 anos) tratam de listas e de soluções com estruturas de dados (EF08CO02 e EF08CO04), e Dados, algoritmos e IA (12-13 anos) discute algoritmos das redes, vieses e uso responsável (EF08CO07 e EF08CO11). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking.",
-          missions: ["loop", "bug", "code", "hardware", "safe", "reading", "structures", "ai", "typing"],
+          extension: "Amplie com Computador por dentro (EF08CO05 e EF08CO06: paralelismo e funcionamento da internet) e Navegação segura (EF08CO07 a EF08CO11: redes sociais, dados pessoais, termos de uso e fontes), na faixa de 12-13 anos. Organize os dados e Leia o código (12-13 anos) tratam de listas e de soluções com estruturas de dados (EF08CO02 e EF08CO04), e Dados, algoritmos e IA (12-13 anos) discute algoritmos das redes, vieses e uso responsável (EF08CO07 e EF08CO11). Para o teclado, a missão Digitação (12-13 anos) treina maiúsculas, pontuação, números e todos os acentos, sem tempo nem ranking. A Cruzadinha (12-13 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["loop", "bug", "code", "hardware", "safe", "reading", "structures", "ai", "typing", "crossword"],
           assessment: [
             "Encontra mais de uma combinação correta para o mesmo total?",
             "Argumenta por que preferiu uma solução a outra?",
@@ -10671,8 +10863,8 @@
             { step: "Desafio final", time: "8 min", mode: "plugada", description: "Em dupla, Robô Decifrador, Jogo da Velha dos Enigmas ou Copa da Matemática, como encerramento integrador de disciplinas." },
             { step: "Fechamento", time: "5 min", mode: "desplugada", description: "Cada aluno cita um pilar do pensamento computacional (decomposição, reconhecimento de padrões, abstração, algoritmos) e dá um exemplo pessoal." },
           ],
-          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos. Leia o código (14 anos) trabalha recursão e eficiência (EF08CO01 e EF09CO02), Organize os dados (14 anos) trata de árvores, grafos e autômatos (EF09CO01 e EF09CO03), e Dados, algoritmos e IA (14 anos) discute fundamentos e impactos (EF09CO07 e EF09CO10). Para o teclado, a missão Digitação (14 anos) treina frases e textos com acentos, em parte sem olhar o teclado, sem tempo nem ranking.",
-          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe", "reading", "structures", "ai", "typing"],
+          extension: "Amplie com Computador por dentro (EF09CO04 e EF09CO05: malware e criptografia) e Navegação segura (EF09CO06 a EF09CO10: problemas sociais, impactos, equidade, direitos autorais e veracidade da informação), na faixa de 14 anos. Leia o código (14 anos) trabalha recursão e eficiência (EF08CO01 e EF09CO02), Organize os dados (14 anos) trata de árvores, grafos e autômatos (EF09CO01 e EF09CO03), e Dados, algoritmos e IA (14 anos) discute fundamentos e impactos (EF09CO07 e EF09CO10). Para o teclado, a missão Digitação (14 anos) treina frases e textos com acentos, em parte sem olhar o teclado, sem tempo nem ranking. A Cruzadinha (14 anos) trabalha o vocabulário das habilidades de Computação, com pistas em figura ou em texto.",
+          missions: ["code", "decoder", "pixels", "bug", "loop", "decompose", "ttt", "hardware", "safe", "reading", "structures", "ai", "typing", "crossword"],
           assessment: [
             "Resolve desafios da fase mais avançada com autonomia?",
             "Nomeia corretamente ao menos um pilar do pensamento computacional?",
@@ -18560,6 +18752,11 @@ const brStatesList = [
         typingStarsTotal: 0,
         typingPeek: false,
         typingDead: false,
+        cwLetters: {},
+        cwHinted: {},
+        cwSel: null,
+        cwDone: false,
+        cwHintsTotal: 0,
         sortLevel: null,
         sortItems: [],
         sortSelectedIndex: -1,
@@ -23314,6 +23511,620 @@ const brStatesList = [
         </div>`;
       }
 
+      // Cruzadinha: 3 cruzadinhas por faixa etária, com o vocabulário das habilidades de Computação da BNCC.
+      // Cada palavra: `a` resposta sem acento, `c` pista, `i` ícone (a pista em figura dos 6-7 anos) e `n` o nome com acento, quando difere de `a`.
+      const crosswordPuzzlesByBand = [
+        [
+          {
+            title: "Peças do computador",
+            skills: ["EF02CO04"],
+            words: [
+              { a: "MOUSE", i: "🖱️", c: "Eu faço a setinha andar na tela." },
+              { a: "TELA", i: "🖥️", c: "Nela eu vejo as imagens e os textos." },
+              { a: "TECLADO", i: "⌨️", c: "Tem muitas letras para eu escrever." },
+              { a: "FONE", i: "🎧", c: "Vai nos ouvidos para escutar o som." },
+              { a: "CAMERA", i: "📷", c: "Tira fotos e grava vídeos.", n: "câmera" },
+              { a: "SOM", i: "🔊", c: "A música sai da caixinha e a gente escuta." },
+            ],
+          },
+          {
+            title: "Tecnologias do dia a dia",
+            skills: ["EF02CO05"],
+            words: [
+              { a: "CELULAR", i: "📱", c: "A gente usa para ligar e mandar mensagens." },
+              { a: "RADIO", i: "📻", c: "Toca músicas e notícias.", n: "rádio" },
+              { a: "RELOGIO", i: "⌚", c: "Mostra a hora.", n: "relógio" },
+              { a: "NOTEBOOK", i: "💻", c: "É um computador que se fecha e se leva." },
+              { a: "ROBO", i: "🤖", c: "Máquina que segue comandos.", n: "robô" },
+              { a: "CAMERA", i: "📷", c: "Guarda uma imagem de um momento.", n: "câmera" },
+            ],
+          },
+          {
+            title: "Passos e cuidados",
+            skills: ["EF01CO02", "EF01CO03", "EF01CO07"],
+            words: [
+              { a: "SENHA", i: "🔒", c: "É um segredo que só eu devo saber." },
+              { a: "PASSO", i: "👣", c: "Cada parte de uma instrução, uma depois da outra." },
+              { a: "ORDEM", i: "🔢", c: "Trocar isto muda o resultado do algoritmo." },
+              { a: "AJUDA", i: "🙋", c: "Peça a um adulto quando tiver dúvida." },
+              { a: "ALGORITMO", i: "📋", c: "Lista de passos para resolver um problema." },
+            ],
+          },
+        ],
+        [
+          {
+            title: "Entrada e saída",
+            skills: ["EF03CO06", "EF03CO04"],
+            words: [
+              { a: "ENTRADA", i: "📥", c: "O que o computador recebe: teclado e mouse são dispositivos de ..." },
+              { a: "SAIDA", i: "📤", c: "O que o computador mostra ou entrega, como imagem e som.", n: "saída" },
+              { a: "TECLADO", i: "⌨️", c: "Dispositivo de entrada com letras e números." },
+              { a: "MOUSE", i: "🖱️", c: "Dispositivo de entrada que move a setinha." },
+              { a: "MONITOR", i: "🖥️", c: "Dispositivo de saída que mostra imagens." },
+              { a: "MICROFONE", i: "🎤", c: "Dispositivo de entrada que capta a voz.", n: "microfone" },
+              { a: "IMPRESSORA", i: "🖨️", c: "Dispositivo de saída que coloca o texto no papel." },
+            ],
+          },
+          {
+            title: "Dados, informação e pesquisa",
+            skills: ["EF03CO04", "EF03CO07"],
+            words: [
+              { a: "DADO", i: "🔢", c: "Valor solto, como um nome ou um número, que sozinho explica pouco." },
+              { a: "INFORMACAO", i: "💡", c: "Conjunto de dados organizados que ganha sentido.", n: "informação" },
+              { a: "NAVEGADOR", i: "🧭", c: "Programa usado para visitar sites." },
+              { a: "BUSCA", i: "🔎", c: "Ferramenta que procura respostas na internet, como o Google." },
+              { a: "SITE", i: "🌐", c: "Conjunto de páginas da internet." },
+              { a: "PESQUISA", i: "📚", c: "Procurar informações para aprender sobre um assunto." },
+            ],
+          },
+          {
+            title: "Repetir, decidir e codificar",
+            skills: ["EF03CO02", "EF03CO01", "EF04CO05"],
+            words: [
+              { a: "ALGORITMO", i: "📋", c: "Passos organizados para resolver um problema." },
+              { a: "LACO", i: "🔁", c: "Comando que repete passos.", n: "laço" },
+              { a: "FALSO", i: "❌", c: "Valor de uma frase que não é verdade." },
+              { a: "VERDADEIRO", i: "✅", c: "Valor de uma frase que está certa." },
+              { a: "BINARIO", i: "0️⃣", c: "Código que usa só 0 e 1.", n: "binário" },
+              { a: "PIXEL", i: "🟦", c: "Quadradinho colorido que forma uma imagem na tela." },
+              { a: "CONDICAO", i: "🚦", c: "O \"se\" que decide qual caminho seguir.", n: "condição" },
+            ],
+          },
+        ],
+        [
+          {
+            title: "Dentro do computador",
+            skills: ["EF05CO05", "EF05CO06", "EF05CO07", "EF02CO04"],
+            words: [
+              { a: "PROCESSADOR", i: "🧠", c: "O \"cérebro\" que executa as instruções." },
+              { a: "MEMORIA", i: "🧩", c: "Guarda os dados que o computador usa agora.", n: "memória" },
+              { a: "NUVEM", i: "☁️", c: "Armazenamento remoto, na internet." },
+              { a: "ARQUIVO", i: "📁", c: "Documento, foto ou vídeo que fica salvo." },
+              { a: "HARDWARE", i: "🔧", c: "A parte física que dá para tocar." },
+              { a: "SOFTWARE", i: "💾", c: "Os programas: a parte que não dá para tocar." },
+              { a: "DISCO", i: "💿", c: "Guarda os dados mesmo com o computador desligado." },
+            ],
+          },
+          {
+            title: "Pensando como programador",
+            skills: ["EF05CO04", "EF06CO02", "EF06CO06", "EF05CO01"],
+            words: [
+              { a: "VARIAVEL", i: "📦", c: "Nome que guarda um valor que pode mudar.", n: "variável" },
+              { a: "REPETICAO", i: "🔁", c: "Fazer o mesmo passo várias vezes.", n: "repetição" },
+              { a: "CONDICIONAL", i: "🚦", c: "Escolhe o caminho: se isso, então aquilo." },
+              { a: "SEQUENCIA", i: "👣", c: "Passos na ordem certa.", n: "sequência" },
+              { a: "LISTA", i: "📝", c: "Itens colocados um depois do outro." },
+              { a: "ALGORITMO", i: "📋", c: "Receita de passos para resolver um problema." },
+              { a: "PROGRAMA", i: "💻", c: "Conjunto de instruções escritas para o computador executar." },
+            ],
+          },
+          {
+            title: "Internet com consciência",
+            skills: ["EF05CO08", "EF05CO09", "EF06CO07", "EF06CO09"],
+            words: [
+              { a: "FONTE", i: "📰", c: "De onde vem a informação: é preciso conferir se é confiável." },
+              { a: "AUTOR", i: "✍️", c: "Quem criou um texto ou uma imagem e tem direitos sobre eles." },
+              { a: "CONFIAVEL", i: "🛡️", c: "Informação em que se pode acreditar.", n: "confiável" },
+              { a: "PACOTE", i: "📦", c: "Pedaço em que a informação é dividida para viajar na rede." },
+              { a: "RESPEITO", i: "🤝", c: "Atitude necessária ao conversar com outras pessoas online." },
+              { a: "REDE", i: "🕸️", c: "Computadores ligados uns aos outros." },
+            ],
+          },
+        ],
+        [
+          {
+            title: "Depurar e decompor",
+            skills: ["EF07CO02", "EF07CO05", "EF08CO01", "EF08CO03", "EF07CO01"],
+            words: [
+              { a: "DEPURAR", i: "🔍", c: "Procurar e corrigir erros em um programa." },
+              { a: "BUG", i: "🐞", c: "Erro escondido no programa." },
+              { a: "RECURSAO", i: "🔂", c: "Solução que chama a si mesma.", n: "recursão" },
+              { a: "DECOMPOSICAO", i: "🧱", c: "Dividir um problema em partes menores.", n: "decomposição" },
+              { a: "REGISTRO", i: "🗂️", c: "Conjunto de campos com nome, como uma ficha de aluno." },
+              { a: "ORDENAR", i: "↕️", c: "Colocar em sequência, do menor ao maior." },
+              { a: "MATRIZ", i: "🔢", c: "Tabela de dados com linhas e colunas." },
+            ],
+          },
+          {
+            title: "Redes e proteção",
+            skills: ["EF07CO06", "EF07CO07", "EF08CO06", "EF08CO08"],
+            words: [
+              { a: "PROTOCOLO", i: "📜", c: "Conjunto de regras que permite que equipamentos se entendam." },
+              { a: "INTERNET", i: "🌎", c: "Rede mundial que liga milhões de redes." },
+              { a: "ANTIVIRUS", i: "🛡️", c: "Programa que detecta e remove ameaças.", n: "antivírus" },
+              { a: "PHISHING", i: "🎣", c: "Golpe que \"pesca\" dados com uma mensagem falsa." },
+              { a: "PRIVACIDADE", i: "🔐", c: "Direito de proteger os dados pessoais." },
+              { a: "ROTEADOR", i: "📡", c: "Equipamento que direciona os pacotes pela rede." },
+              { a: "FIREWALL", i: "🧱", c: "Barreira que filtra o que entra e sai da rede." },
+            ],
+          },
+          {
+            title: "Convivência e responsabilidade online",
+            skills: ["EF07CO08", "EF07CO09", "EF07CO10", "EF08CO07", "EF08CO11"],
+            words: [
+              { a: "EMPATIA", i: "💛", c: "Colocar-se no lugar do outro, mesmo quando pensa diferente." },
+              { a: "BULLYING", i: "🚫", c: "Violência repetida que, na internet, ganha o prefixo cyber." },
+              { a: "DESCARTE", i: "🗑️", c: "Destino correto do lixo eletrônico." },
+              { a: "SUSTENTAVEL", i: "🌱", c: "O que cuida do ambiente pensando no futuro.", n: "sustentável" },
+              { a: "VIES", i: "⚖️", c: "Inclinação que distorce uma informação.", n: "viés" },
+              { a: "ETICA", i: "🧭", c: "Princípios sobre o que é certo fazer, inclusive online.", n: "ética" },
+            ],
+          },
+        ],
+        [
+          {
+            title: "Estruturas e autômatos",
+            skills: ["EF09CO01", "EF09CO03", "EF09CO02"],
+            words: [
+              { a: "GRAFO", i: "🔗", c: "Vértices ligados por arestas." },
+              { a: "ARVORE", i: "🌳", c: "Estrutura de dados com raiz e galhos.", n: "árvore" },
+              { a: "AUTOMATO", i: "⚙️", c: "Modelo de estados e transições.", n: "autômato" },
+              { a: "VERTICE", i: "⚫", c: "Cada ponto de um grafo.", n: "vértice" },
+              { a: "ARESTA", i: "➖", c: "Ligação entre dois vértices." },
+              { a: "EVENTO", i: "👆", c: "Um clique ou um toque que dispara uma ação no programa." },
+              { a: "RAIZ", i: "🌱", c: "Primeiro nó de uma árvore.", n: "raiz" },
+            ],
+          },
+          {
+            title: "Segurança e criptografia",
+            skills: ["EF09CO04", "EF09CO05"],
+            words: [
+              { a: "MALWARE", i: "☠️", c: "Programa criado para causar dano." },
+              { a: "CRIPTOGRAFIA", i: "🔐", c: "Técnica que embaralha os dados para protegê-los." },
+              { a: "CHAVE", i: "🔑", c: "Segredo usado para cifrar e decifrar uma mensagem." },
+              { a: "BACKUP", i: "💾", c: "Cópia de segurança dos arquivos." },
+              { a: "RANSOMWARE", i: "🧨", c: "Sequestra os arquivos e pede um resgate." },
+              { a: "CIFRA", i: "🗝️", c: "Mensagem escrita em código secreto." },
+            ],
+          },
+          {
+            title: "Informação, poder e sociedade",
+            skills: ["EF09CO07", "EF09CO08", "EF09CO09", "EF09CO10"],
+            words: [
+              { a: "VERACIDADE", i: "✅", c: "Qualidade do que é verdadeiro." },
+              { a: "DESINFORMACAO", i: "📢", c: "Informação falsa espalhada de propósito.", n: "desinformação" },
+              { a: "EQUIDADE", i: "⚖️", c: "Justiça no acesso aos recursos, dando mais a quem precisa.", n: "equidade" },
+              { a: "LICENCA", i: "📄", c: "Permissão para usar uma obra.", n: "licença" },
+              { a: "PROPOSITO", i: "🎯", c: "A intenção de quem divulgou uma informação.", n: "propósito" },
+              { a: "ACESSO", i: "🚪", c: "Possibilidade de usar a tecnologia, que não é igual para todos." },
+              { a: "IMPACTO", i: "💥", c: "Efeito que a tecnologia causa na sociedade." },
+            ],
+          },
+        ],
+      ];
+
+      const CROSSWORD_LAYOUT_TRIES = 160;
+      const CROSSWORD_MAX_ROWS = 11;
+      const CROSSWORD_MAX_COLS = 13;
+
+      // Monta a grade de uma cruzadinha: encaixa cada palavra cruzando as que já estão (sem encostar em outras)
+      // e escolhe a disposição mais compacta. Devolve nulo se alguma palavra não couber.
+      const crosswordBuildLayout = (answers) => {
+        const AXES = { across: [0, 1], down: [1, 0] };
+        const tryPlace = (sequence) => {
+          const cells = new Map();
+          const placed = [];
+          const key = (row, col) => `${row},${col}`;
+          const evaluate = (index, dir, row, col) => {
+            const answer = answers[index];
+            const [dr, dc] = AXES[dir];
+            const [pr, pc] = AXES[dir === "across" ? "down" : "across"];
+            if (cells.has(key(row - dr, col - dc)) || cells.has(key(row + dr * answer.length, col + dc * answer.length))) return null;
+            let crossings = 0;
+            for (let step = 0; step < answer.length; step += 1) {
+              const r = row + dr * step;
+              const c = col + dc * step;
+              const cell = cells.get(key(r, c));
+              if (cell) {
+                if (cell.letter !== answer[step] || cell.dirs.has(dir)) return null;
+                crossings += 1;
+              } else if (cells.has(key(r - pr, c - pc)) || cells.has(key(r + pr, c + pc))) return null;
+            }
+            return crossings;
+          };
+          const bounds = (candidate) => {
+            const rows = [candidate.row, candidate.row + (candidate.dir === "down" ? answers[candidate.index].length - 1 : 0)];
+            const cols = [candidate.col, candidate.col + (candidate.dir === "across" ? answers[candidate.index].length - 1 : 0)];
+            placed.forEach((word) => {
+              rows.push(word.row, word.row + (word.dir === "down" ? answers[word.index].length - 1 : 0));
+              cols.push(word.col, word.col + (word.dir === "across" ? answers[word.index].length - 1 : 0));
+            });
+            const height = Math.max(...rows) - Math.min(...rows) + 1;
+            const width = Math.max(...cols) - Math.min(...cols) + 1;
+            return height * width + Math.abs(height - width) * 2;
+          };
+          const put = (index, dir, row, col, crossings = 0) => {
+            const [dr, dc] = AXES[dir];
+            [...answers[index]].forEach((letter, step) => {
+              const slot = key(row + dr * step, col + dc * step);
+              const cell = cells.get(slot) || { letter, dirs: new Set() };
+              cell.dirs.add(dir);
+              cells.set(slot, cell);
+            });
+            placed.push({ index, dir, row, col, crossings });
+          };
+          put(sequence[0], "across", 0, 0);
+          for (const index of sequence.slice(1)) {
+            let best = null;
+            for (const other of placed) {
+              const dir = other.dir === "across" ? "down" : "across";
+              const [odr, odc] = AXES[other.dir];
+              for (let at = 0; at < answers[other.index].length; at += 1) {
+                for (let mine = 0; mine < answers[index].length; mine += 1) {
+                  if (answers[other.index][at] !== answers[index][mine]) continue;
+                  const row = other.row + odr * at - (dir === "down" ? mine : 0);
+                  const col = other.col + odc * at - (dir === "across" ? mine : 0);
+                  const crossings = evaluate(index, dir, row, col);
+                  if (!crossings) continue;
+                  const candidate = { index, dir, row, col, crossings };
+                  candidate.cost = bounds(candidate) - crossings * 6;
+                  if (!best || candidate.cost < best.cost) best = candidate;
+                }
+              }
+            }
+            if (!best) return null;
+            put(best.index, best.dir, best.row, best.col, best.crossings);
+          }
+          const minRow = Math.min(...placed.map((word) => word.row));
+          const minCol = Math.min(...placed.map((word) => word.col));
+          const words = placed.map((word) => ({ ...word, row: word.row - minRow, col: word.col - minCol }));
+          const rows = Math.max(...words.map((word) => word.row + (word.dir === "down" ? answers[word.index].length : 1)));
+          const cols = Math.max(...words.map((word) => word.col + (word.dir === "across" ? answers[word.index].length : 1)));
+          const crossings = placed.reduce((sum, word) => sum + word.crossings, 0);
+          const oversize = (rows > CROSSWORD_MAX_ROWS ? 300 : 0) + (cols > CROSSWORD_MAX_COLS ? 300 : 0);
+          return { rows, cols, words, cost: rows * cols + Math.abs(rows - cols) * 3 - crossings * 12 + oversize };
+        };
+        // Várias ordens de encaixe (sempre as mesmas, para a grade não mudar a cada vez): fica a de mais cruzamentos e menor área.
+        let seed = 20260;
+        const random = () => {
+          seed = (seed * 1103515245 + 12345) % 2147483648;
+          return seed / 2147483648;
+        };
+        const indexes = answers.map((_, index) => index);
+        const sequences = [indexes.slice().sort((first, second) => answers[second].length - answers[first].length || first - second)];
+        for (let attempt = 0; attempt < CROSSWORD_LAYOUT_TRIES; attempt += 1) {
+          const shuffled = indexes.slice();
+          for (let at = shuffled.length - 1; at > 0; at -= 1) {
+            const swap = Math.floor(random() * (at + 1));
+            [shuffled[at], shuffled[swap]] = [shuffled[swap], shuffled[at]];
+          }
+          sequences.push(shuffled);
+        }
+        let best = null;
+        sequences.forEach((sequence) => {
+          const layout = tryPlace(sequence);
+          if (layout && (!best || layout.cost < best.cost)) best = layout;
+        });
+        if (!best) return null;
+        // Numeração: pela ordem de leitura do ponto de partida; palavras que começam na mesma casa dividem o número.
+        const starts = [...new Set(best.words.map((word) => `${String(word.row).padStart(3, "0")}${String(word.col).padStart(3, "0")}`))].sort();
+        best.words.forEach((word) => { word.number = starts.indexOf(`${String(word.row).padStart(3, "0")}${String(word.col).padStart(3, "0")}`) + 1; });
+        best.words.sort((first, second) => first.number - second.number || (first.dir === "across" ? -1 : 1));
+        return best;
+      };
+
+      const crosswordLayoutCache = new Map();
+      const CROSSWORD_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const CROSSWORD_ARROWS = { ArrowLeft: [0, -1], ArrowRight: [0, 1], ArrowUp: [-1, 0], ArrowDown: [1, 0] };
+      const CROSSWORD_DIR_NAMES = { across: "na horizontal", down: "na vertical" };
+      const CROSSWORD_DIR_ARROWS = { across: "→", down: "↓" };
+
+      const crosswordKey = (row, col) => `${row},${col}`;
+
+      function currentCrosswordPuzzles() {
+        return crosswordPuzzlesByBand[state.ageBand ?? 0];
+      }
+
+      // Grade da cruzadinha atual (montada uma vez só): cada palavra com suas casas e o mapa das casas, que guarda
+      // as palavras que passam por elas (horizontal e/ou vertical).
+      function currentCrosswordLayout() {
+        const cacheKey = `${state.ageBand ?? 0}:${state.round}`;
+        if (crosswordLayoutCache.has(cacheKey)) return crosswordLayoutCache.get(cacheKey);
+        const puzzle = currentCrosswordPuzzles()[state.round];
+        const layout = crosswordBuildLayout(puzzle.words.map((entry) => entry.a));
+        layout.cells = new Map();
+        layout.words.forEach((word, position) => {
+          word.entry = puzzle.words[word.index];
+          word.position = position;
+          word.cells = [...word.entry.a].map((letter, step) => ({
+            row: word.row + (word.dir === "down" ? step : 0),
+            col: word.col + (word.dir === "across" ? step : 0),
+            letter,
+          }));
+          word.cells.forEach((cell, step) => {
+            const slot = layout.cells.get(crosswordKey(cell.row, cell.col)) || { row: cell.row, col: cell.col, letter: cell.letter, words: {}, number: null };
+            slot.words[word.dir] = word;
+            if (step === 0) slot.number = word.number;
+            layout.cells.set(crosswordKey(cell.row, cell.col), slot);
+          });
+        });
+        crosswordLayoutCache.set(cacheKey, layout);
+        return layout;
+      }
+
+      const crosswordLetterAt = (row, col) => state.cwLetters[crosswordKey(row, col)] || "";
+      const crosswordWordFilled = (word) => word.cells.every((cell) => crosswordLetterAt(cell.row, cell.col));
+      const crosswordWordSolved = (word) => word.cells.every((cell) => crosswordLetterAt(cell.row, cell.col) === cell.letter);
+      const crosswordCellLocked = (slot) => Object.values(slot.words).some(crosswordWordSolved);
+      const crosswordSlotOf = (layout, cell) => layout.cells.get(crosswordKey(cell.row, cell.col));
+
+      function crosswordActiveWord(layout) {
+        return layout.cells.get(crosswordKey(state.cwSel.row, state.cwSel.col)).words[state.cwSel.dir];
+      }
+
+      // Toque numa casa: seleciona a palavra que passa por ela; tocar de novo troca entre horizontal e vertical.
+      function selectCrosswordCell(row, col) {
+        const slot = currentCrosswordLayout().cells.get(crosswordKey(row, col));
+        if (!slot) return;
+        const dirs = Object.keys(slot.words);
+        const current = state.cwSel;
+        let dir = current && dirs.includes(current.dir) ? current.dir : dirs[0];
+        if (current && current.row === row && current.col === col && dirs.length > 1) dir = dir === "across" ? "down" : "across";
+        state.cwSel = { row, col, dir };
+      }
+
+      // Seleciona uma palavra, já na primeira casa que ainda está vazia.
+      function selectCrosswordWord(word) {
+        const target = word.cells.find((cell) => !crosswordLetterAt(cell.row, cell.col)) || word.cells[0];
+        state.cwSel = { row: target.row, col: target.col, dir: word.dir };
+      }
+
+      // Pula para a próxima (ou anterior) palavra que ainda não foi resolvida.
+      function selectNextCrosswordWord(step) {
+        const { words } = currentCrosswordLayout();
+        const current = words.indexOf(crosswordActiveWord(currentCrosswordLayout()));
+        for (let offset = 1; offset <= words.length; offset += 1) {
+          const word = words[(((current + offset * step) % words.length) + words.length) % words.length];
+          if (!crosswordWordSolved(word)) {
+            selectCrosswordWord(word);
+            return;
+          }
+        }
+      }
+
+      function startCrosswordPuzzle() {
+        state.cwLetters = {};
+        state.cwHinted = {};
+        state.cwDone = false;
+        selectCrosswordWord(currentCrosswordLayout().words[0]);
+      }
+
+      function resetCrossword() {
+        state.cwHintsTotal = 0;
+        startCrosswordPuzzle();
+      }
+
+      function continueCrossword() {
+        if (state.round + 1 >= currentCrosswordPuzzles().length) {
+          complete("crossword", "Cruzadinhas concluídas!");
+          return;
+        }
+        state.round += 1;
+        startCrosswordPuzzle();
+        render();
+      }
+
+      // Anda para a próxima casa livre da palavra (as que já estão certas pelo cruzamento são puladas).
+      function advanceCrosswordCursor(layout, word) {
+        const at = word.cells.findIndex((cell) => cell.row === state.cwSel.row && cell.col === state.cwSel.col);
+        const next = word.cells.slice(at + 1).find((cell) => !crosswordCellLocked(crosswordSlotOf(layout, cell)));
+        if (next) state.cwSel = { row: next.row, col: next.col, dir: state.cwSel.dir };
+      }
+
+      function enterCrosswordLetter(letter, hinted = false) {
+        const layout = currentCrosswordLayout();
+        const word = crosswordActiveWord(layout);
+        const slot = layout.cells.get(crosswordKey(state.cwSel.row, state.cwSel.col));
+        if (!crosswordCellLocked(slot)) {
+          const key = crosswordKey(slot.row, slot.col);
+          state.cwLetters[key] = letter;
+          if (hinted) state.cwHinted[key] = true;
+          else delete state.cwHinted[key];
+        }
+        if (layout.words.every(crosswordWordSolved)) state.cwDone = true;
+        else if (crosswordWordSolved(word)) selectNextCrosswordWord(1);
+        else advanceCrosswordCursor(layout, word);
+        render();
+      }
+
+      // Apagar: limpa a casa; se ela já está vazia (ou certa), volta uma casa e limpa essa.
+      function eraseCrosswordLetter() {
+        const layout = currentCrosswordLayout();
+        const word = crosswordActiveWord(layout);
+        let slot = layout.cells.get(crosswordKey(state.cwSel.row, state.cwSel.col));
+        if (!crosswordLetterAt(slot.row, slot.col) || crosswordCellLocked(slot)) {
+          const at = word.cells.findIndex((cell) => cell.row === slot.row && cell.col === slot.col);
+          const previous = word.cells.slice(0, at).reverse().map((cell) => crosswordSlotOf(layout, cell)).find((candidate) => !crosswordCellLocked(candidate));
+          if (!previous) return;
+          slot = previous;
+          state.cwSel = { row: slot.row, col: slot.col, dir: state.cwSel.dir };
+        }
+        const key = crosswordKey(slot.row, slot.col);
+        delete state.cwLetters[key];
+        delete state.cwHinted[key];
+        render();
+      }
+
+      // Dica: revela uma letra da palavra selecionada (a casa escolhida, se estiver vazia ou errada; senão a primeira que falta).
+      function giveCrosswordHint() {
+        const word = crosswordActiveWord(currentCrosswordLayout());
+        const missing = (cell) => crosswordLetterAt(cell.row, cell.col) !== cell.letter;
+        const chosen = word.cells.find((cell) => cell.row === state.cwSel.row && cell.col === state.cwSel.col);
+        const target = missing(chosen) ? chosen : word.cells.find(missing);
+        if (!target) return;
+        state.cwSel = { row: target.row, col: target.col, dir: state.cwSel.dir };
+        state.cwHintsTotal += 1;
+        enterCrosswordLetter(target.letter, true);
+      }
+
+      // Setas: vai para a próxima casa com letra naquela direção.
+      function moveCrosswordCursor(rowStep, colStep) {
+        const layout = currentCrosswordLayout();
+        let { row, col } = state.cwSel;
+        for (let distance = 0; distance < Math.max(layout.rows, layout.cols); distance += 1) {
+          row += rowStep;
+          col += colStep;
+          const slot = layout.cells.get(crosswordKey(row, col));
+          if (slot) {
+            const wanted = rowStep ? "down" : "across";
+            state.cwSel = { row, col, dir: slot.words[wanted] ? wanted : Object.keys(slot.words)[0] };
+            render();
+            return;
+          }
+        }
+      }
+
+      // "é", "ç" e "Ã" viram E, C e A: a cruzadinha não usa acentos.
+      function crosswordLetterFrom(key) {
+        if (key.length !== 1) return null;
+        const plain = key.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase();
+        return /^[A-Z]$/.test(plain) ? plain : null;
+      }
+
+      // Recebe todas as teclas enquanto a missão está aberta (F e R também são letras aqui).
+      // Devolve false para o que o app deve tratar (Esc, por exemplo).
+      function handleCrosswordKey(event) {
+        const { key } = event;
+        if (state.cwDone) {
+          const continues = key === "Enter" || key === " ";
+          if (continues && !event.repeat) continueCrossword();
+          return continues || key.length === 1;
+        }
+        if (key === "Backspace" || key === "Delete") eraseCrosswordLetter();
+        else if (key === "Tab") {
+          selectNextCrosswordWord(event.shiftKey ? -1 : 1);
+          render();
+        } else if (CROSSWORD_ARROWS[key]) moveCrosswordCursor(...CROSSWORD_ARROWS[key]);
+        else if (crosswordLetterFrom(key)) {
+          if (!event.repeat) enterCrosswordLetter(crosswordLetterFrom(key));
+        } else return key.length === 1 || key === "Enter" || key === "Dead";
+        return true;
+      }
+
+      function handleCrosswordClick(event) {
+        const cell = clickedElement(event, ".cw-cell");
+        const clue = clickedElement(event, ".cw-clue");
+        const letter = clickedElement(event, ".cw-key[data-letter]");
+        if (cell) selectCrosswordCell(Number(cell.dataset.row), Number(cell.dataset.col));
+        else if (clue) selectCrosswordWord(currentCrosswordLayout().words[Number(clue.dataset.word)]);
+        else if (letter) {
+          enterCrosswordLetter(letter.dataset.letter);
+          return true;
+        } else if (clickedElement(event, ".cw-erase")) {
+          eraseCrosswordLetter();
+          return true;
+        } else if (clickedElement(event, ".cw-hint-button")) {
+          giveCrosswordHint();
+          return true;
+        } else if (clickedElement(event, ".cw-next-button")) {
+          continueCrossword();
+          return true;
+        } else return false;
+        render();
+        return true;
+      }
+
+      function crosswordCellHtml(slot, layout, activeWord) {
+        const letter = crosswordLetterAt(slot.row, slot.col);
+        const key = crosswordKey(slot.row, slot.col);
+        const classes = ["cw-cell"];
+        if (crosswordCellLocked(slot)) classes.push("solved");
+        else if (letter && letter !== slot.letter && Object.values(slot.words).some(crosswordWordFilled)) classes.push("miss");
+        else if (state.cwHinted[key]) classes.push("hinted");
+        if (activeWord && activeWord.cells.some((cell) => cell.row === slot.row && cell.col === slot.col)) classes.push("in-word");
+        if (activeWord && state.cwSel.row === slot.row && state.cwSel.col === slot.col) classes.push("active");
+        const number = slot.number ? `<i class="cw-num">${slot.number}</i>` : "";
+        const label = `Casa ${slot.number ? `número ${slot.number}, ` : ""}${letter ? `letra ${letter}` : "vazia"}`;
+        return `<button type="button" class="${classes.join(" ")}" data-row="${slot.row}" data-col="${slot.col}" aria-label="${label}">${number}${letter}</button>`;
+      }
+
+      function crosswordGridHtml(layout, activeWord) {
+        const cells = [];
+        for (let row = 0; row < layout.rows; row += 1) {
+          for (let col = 0; col < layout.cols; col += 1) {
+            const slot = layout.cells.get(crosswordKey(row, col));
+            cells.push(slot ? crosswordCellHtml(slot, layout, activeWord) : '<span class="cw-void"></span>');
+          }
+        }
+        return `<div class="cw-grid" style="--cw-cols:${layout.cols};--cw-rows:${layout.rows}" role="group" aria-label="Grade da cruzadinha">${cells.join("")}</div>`;
+      }
+
+      function crosswordClueHtml(word, activeWord, withIcon) {
+        const classes = ["cw-clue", word === activeWord ? "active" : "", crosswordWordSolved(word) ? "solved" : ""].filter(Boolean).join(" ");
+        const icon = withIcon ? `<span class="cw-clue-icon" aria-hidden="true">${word.entry.i}</span>` : "";
+        return `<button type="button" class="${classes}" data-word="${word.position}">
+          <span class="cw-clue-num">${word.number}${CROSSWORD_DIR_ARROWS[word.dir]}</span>${icon}
+          <span class="cw-clue-text">${escapeHtml(word.entry.c)}</span>
+          <span class="cw-clue-len" aria-label="${word.entry.a.length} letras">(${word.entry.a.length})</span>
+        </button>`;
+      }
+
+      function crosswordPadHtml() {
+        const letters = [...CROSSWORD_ALPHABET].map((letter) => `<button type="button" class="cw-key" data-letter="${letter}">${letter}</button>`).join("");
+        return `<div class="cw-pad">${letters}<button type="button" class="cw-key cw-erase" aria-label="Apagar a letra">⌫</button>
+          <button type="button" class="cw-hint-button">💡 Dica de uma letra</button></div>`;
+      }
+
+      // Fim da cruzadinha: o que foi descoberto (as pistas viram definições) e as habilidades da BNCC trabalhadas.
+      function crosswordResultHtml(puzzle, layout) {
+        const found = layout.words.map((word) => `<li><strong>${escapeHtml(word.entry.n || word.entry.a.toLowerCase())}</strong>: ${escapeHtml(word.entry.c)}</li>`).join("");
+        const skills = puzzle.skills.map((code) => `<span class="cw-skill" title="${escapeHtml(bnccSkillTexts[code] || "")}">${code}</span>`).join(" ");
+        const isLast = state.round + 1 >= currentCrosswordPuzzles().length;
+        return `<div class="cw-result">
+          <div class="cw-result-title">🎉 Cruzadinha completa!</div>
+          <div class="cw-result-text">Você descobriu ${layout.words.length} palavras. Dicas usadas: ${Object.keys(state.cwHinted).length}.</div>
+          <ul class="cw-found">${found}</ul>
+          <div class="cw-skills">Habilidades da BNCC Computação: ${skills}</div>
+          <button type="button" class="cw-next-button">${isLast ? "Concluir" : "Próxima cruzadinha"} ▶</button>
+        </div>`;
+      }
+
+      function crosswordStatusText(activeWord) {
+        if (!activeWord) return "Cruzadinha completa! Continue quando quiser.";
+        const letters = activeWord.entry.a.length;
+        return `Pista ${activeWord.number} ${CROSSWORD_DIR_NAMES[activeWord.dir]}, ${letters} letras: ${activeWord.entry.c}`;
+      }
+
+      function renderCrossword() {
+        const puzzles = currentCrosswordPuzzles();
+        const puzzle = puzzles[state.round];
+        const layout = currentCrosswordLayout();
+        const activeWord = state.cwDone ? null : crosswordActiveWord(layout);
+        const withIcon = (state.ageBand ?? 0) === 0;
+        const task = withIcon ? "olhe a figura e escreva o nome." : "leia a pista e complete a grade.";
+        setHeader("Cruzadinha", `${puzzle.title}: ${task}`);
+        setCounters("Cruzadinha", `${state.round + 1} / ${puzzles.length}`, "Dicas", String(state.cwHintsTotal));
+        status.textContent = crosswordStatusText(activeWord);
+        const clues = layout.words.map((word) => crosswordClueHtml(word, activeWord, withIcon)).join("");
+        const side = state.cwDone
+          ? crosswordResultHtml(puzzle, layout)
+          : `<div class="cw-clues">${clues}</div>${crosswordPadHtml()}`;
+        content.innerHTML = `<div class="cw-board">${crosswordGridHtml(layout, activeWord)}<div class="cw-side">${side}</div></div>`;
+        const list = content.querySelector(".cw-clues");
+        const activeClue = content.querySelector(".cw-clue.active");
+        if (list && activeClue) list.scrollTop = Math.max(0, activeClue.offsetTop - (list.clientHeight - activeClue.offsetHeight) / 2);
+      }
+
       function currentSortRounds() {
         return sortLevels[state.sortLevel].rounds;
       }
@@ -25829,6 +26640,7 @@ const brStatesList = [
 
       const missionRenderers = {
         typing: renderTyping,
+        crossword: renderCrossword,
         lesson: renderLessonDeck,
         robot: renderRobot,
         dengue: renderDengue,
@@ -26257,6 +27069,7 @@ const brStatesList = [
         }
         if (mode === "robot") resetRobot();
         if (mode === "typing") resetTyping();
+        if (mode === "crossword") resetCrossword();
         applyAutoTierForMode(mode);
         beginAssessmentRun(mode);
         render();
@@ -29052,6 +29865,7 @@ const brStatesList = [
 
       const missionClickHandlers = {
         typing: handleTypingClick,
+        crossword: handleCrosswordClick,
         lesson: handleLessonClick,
         robot: handleRobotClick,
         dengue: (event) => {
@@ -30214,6 +31028,7 @@ const brStatesList = [
         event.stopPropagation();
         if (event.altKey || event.ctrlKey || event.metaKey) return;
         if (state.mode === "typing" && handleTypingKey(event)) return;
+        if (state.mode === "crossword" && handleCrosswordKey(event)) return;
         if (state.mode === "decoder" && state.decoderLevel !== null && /^[a-zA-Z]$/.test(event.key)) {
           handleDecoderGuess(event.key.toUpperCase());
           return;
