@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="app-version" content="3.6.0">
+  <meta name="app-version" content="3.6.1">
   <meta name="description" content="Missões interativas para aulas de Pensamento Computacional nos anos iniciais do Ensino Fundamental.">
   <meta name="author" content="Prof. Amilcar Notari Neto">
   <meta name="theme-color" content="#1e5a42">
@@ -5727,7 +5727,6 @@
     .cw-cell.active { z-index: 1; border-color: var(--blue); background: #ffd34d; box-shadow: 0 0 0 3px var(--blue); }
     .cw-cell.solved { border-color: #1f7a3d; background: #c9f2d6; color: #14532d; }
     .cw-cell.miss { border-color: #c2410c; background: #ffd9c2; color: #7c2d12; animation: fx-shake 0.3s ease; }
-    .cw-cell.hinted { color: #1d4ed8; }
 
     .cw-num {
       position: absolute;
@@ -5825,6 +5824,17 @@
     }
 
     .cw-hint-button { grid-column: 1 / -1; justify-self: center; }
+
+    .cw-hint-box {
+      padding: 8px 12px;
+      border: 3px solid var(--line);
+      border-radius: 12px;
+      background: #fff1b8;
+      color: var(--card-ink);
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+    }
     .cw-next-button { background: var(--yellow); padding: 8px 26px; font-size: 17px; }
 
     .cw-result {
@@ -18753,7 +18763,7 @@ const brStatesList = [
         typingPeek: false,
         typingDead: false,
         cwLetters: {},
-        cwHinted: {},
+        cwHintWords: {},
         cwSel: null,
         cwDone: false,
         cwHintsTotal: 0,
@@ -23519,35 +23529,35 @@ const brStatesList = [
             title: "Peças do computador",
             skills: ["EF02CO04"],
             words: [
-              { a: "MOUSE", i: "🖱️", c: "Eu faço a setinha andar na tela." },
-              { a: "TELA", i: "🖥️", c: "Nela eu vejo as imagens e os textos." },
-              { a: "TECLADO", i: "⌨️", c: "Tem muitas letras para eu escrever." },
-              { a: "FONE", i: "🎧", c: "Vai nos ouvidos para escutar o som." },
-              { a: "CAMERA", i: "📷", c: "Tira fotos e grava vídeos.", n: "câmera" },
-              { a: "SOM", i: "🔊", c: "A música sai da caixinha e a gente escuta." },
+              { a: "MOUSE", i: "🖱️", c: "Eu faço a setinha andar na tela.", d: "É um bichinho de nome em inglês, mas esse a gente segura com a mão." },
+              { a: "TELA", i: "🖥️", c: "Nela eu vejo as imagens e os textos.", d: "Fica na frente de você quando o computador está ligado." },
+              { a: "TECLADO", i: "⌨️", c: "Tem muitas letras para eu escrever.", d: "Tem uma fileira de teclas com todas as letras." },
+              { a: "FONE", i: "🎧", c: "Vai nos ouvidos para escutar o som.", d: "Dois ouvidos, um aparelhinho: ele é feito para eles." },
+              { a: "CAMERA", i: "📷", c: "Tira fotos e grava vídeos.", n: "câmera", d: "Faz clique e guarda o que os olhos viram." },
+              { a: "SOM", i: "🔊", c: "A música sai da caixinha e a gente escuta.", d: "Os ouvidos pegam, mas os olhos não veem." },
             ],
           },
           {
             title: "Tecnologias do dia a dia",
             skills: ["EF02CO05"],
             words: [
-              { a: "CELULAR", i: "📱", c: "A gente usa para ligar e mandar mensagens." },
-              { a: "RADIO", i: "📻", c: "Toca músicas e notícias.", n: "rádio" },
-              { a: "RELOGIO", i: "⌚", c: "Mostra a hora.", n: "relógio" },
-              { a: "NOTEBOOK", i: "💻", c: "É um computador que se fecha e se leva." },
-              { a: "ROBO", i: "🤖", c: "Máquina que segue comandos.", n: "robô" },
-              { a: "CAMERA", i: "📷", c: "Guarda uma imagem de um momento.", n: "câmera" },
+              { a: "CELULAR", i: "📱", c: "A gente usa para ligar e mandar mensagens.", d: "Cabe no bolso e quase todo mundo tem um." },
+              { a: "RADIO", i: "📻", c: "Toca músicas e notícias.", n: "rádio", d: "Antes da televisão, a família se reunia em volta dele." },
+              { a: "RELOGIO", i: "⌚", c: "Mostra a hora.", n: "relógio", d: "Está no pulso ou na parede e não para de andar." },
+              { a: "NOTEBOOK", i: "💻", c: "É um computador que se fecha e se leva.", d: "É um computador que cabe na mochila." },
+              { a: "ROBO", i: "🤖", c: "Máquina que segue comandos.", n: "robô", d: "Parece gente de metal e só faz o que mandam." },
+              { a: "CAMERA", i: "📷", c: "Guarda uma imagem de um momento.", n: "câmera", d: "Faz clique e guarda o que os olhos viram." },
             ],
           },
           {
             title: "Passos e cuidados",
             skills: ["EF01CO02", "EF01CO03", "EF01CO07"],
             words: [
-              { a: "SENHA", i: "🔒", c: "É um segredo que só eu devo saber." },
-              { a: "PASSO", i: "👣", c: "Cada parte de uma instrução, uma depois da outra." },
-              { a: "ORDEM", i: "🔢", c: "Trocar isto muda o resultado do algoritmo." },
-              { a: "AJUDA", i: "🙋", c: "Peça a um adulto quando tiver dúvida." },
-              { a: "ALGORITMO", i: "📋", c: "Lista de passos para resolver um problema." },
+              { a: "SENHA", i: "🔒", c: "É um segredo que só eu devo saber.", d: "Quem sabe, entra. Quem não sabe, fica de fora." },
+              { a: "PASSO", i: "👣", c: "Cada parte de uma instrução, uma depois da outra.", d: "Para chegar lá, é preciso dar um de cada vez." },
+              { a: "ORDEM", i: "🔢", c: "Trocar isto muda o resultado do algoritmo.", d: "Primeiro, depois, por último: é sobre isso." },
+              { a: "AJUDA", i: "🙋", c: "Peça a um adulto quando tiver dúvida.", d: "Quando você não sabe, é isso que deve pedir." },
+              { a: "ALGORITMO", i: "📋", c: "Lista de passos para resolver um problema.", d: "É como uma receita de bolo, mas para resolver problemas." },
             ],
           },
         ],
@@ -23556,38 +23566,38 @@ const brStatesList = [
             title: "Entrada e saída",
             skills: ["EF03CO06", "EF03CO04"],
             words: [
-              { a: "ENTRADA", i: "📥", c: "O que o computador recebe: teclado e mouse são dispositivos de ..." },
-              { a: "SAIDA", i: "📤", c: "O que o computador mostra ou entrega, como imagem e som.", n: "saída" },
-              { a: "TECLADO", i: "⌨️", c: "Dispositivo de entrada com letras e números." },
-              { a: "MOUSE", i: "🖱️", c: "Dispositivo de entrada que move a setinha." },
-              { a: "MONITOR", i: "🖥️", c: "Dispositivo de saída que mostra imagens." },
-              { a: "MICROFONE", i: "🎤", c: "Dispositivo de entrada que capta a voz.", n: "microfone" },
-              { a: "IMPRESSORA", i: "🖨️", c: "Dispositivo de saída que coloca o texto no papel." },
+              { a: "ENTRADA", i: "📥", c: "O que o computador recebe: teclado e mouse são dispositivos de ...", d: "É a porta por onde as informações chegam ao computador." },
+              { a: "SAIDA", i: "📤", c: "O que o computador mostra ou entrega, como imagem e som.", n: "saída", d: "É a porta por onde o computador entrega o resultado." },
+              { a: "TECLADO", i: "⌨️", c: "Dispositivo de entrada com letras e números.", d: "Tem uma fileira de teclas com todas as letras." },
+              { a: "MOUSE", i: "🖱️", c: "Dispositivo de entrada que move a setinha.", d: "É um bichinho de nome em inglês, mas esse a gente segura com a mão." },
+              { a: "MONITOR", i: "🖥️", c: "Dispositivo de saída que mostra imagens.", d: "É onde você enxerga tudo o que o computador faz." },
+              { a: "MICROFONE", i: "🎤", c: "Dispositivo de entrada que capta a voz.", n: "microfone", d: "Você fala e ele escuta para o computador." },
+              { a: "IMPRESSORA", i: "🖨️", c: "Dispositivo de saída que coloca o texto no papel.", d: "Transforma o que está na tela em folha de papel." },
             ],
           },
           {
             title: "Dados, informação e pesquisa",
             skills: ["EF03CO04", "EF03CO07"],
             words: [
-              { a: "DADO", i: "🔢", c: "Valor solto, como um nome ou um número, que sozinho explica pouco." },
-              { a: "INFORMACAO", i: "💡", c: "Conjunto de dados organizados que ganha sentido.", n: "informação" },
-              { a: "NAVEGADOR", i: "🧭", c: "Programa usado para visitar sites." },
-              { a: "BUSCA", i: "🔎", c: "Ferramenta que procura respostas na internet, como o Google." },
-              { a: "SITE", i: "🌐", c: "Conjunto de páginas da internet." },
-              { a: "PESQUISA", i: "📚", c: "Procurar informações para aprender sobre um assunto." },
+              { a: "DADO", i: "🔢", c: "Valor solto, como um nome ou um número, que sozinho explica pouco.", d: "Um nome, uma idade ou um número: sozinho, é só um pedacinho." },
+              { a: "INFORMACAO", i: "💡", c: "Conjunto de dados organizados que ganha sentido.", n: "informação", d: "Quando os pedacinhos se juntam, eles passam a fazer sentido." },
+              { a: "NAVEGADOR", i: "🧭", c: "Programa usado para visitar sites.", d: "Chrome, Edge e Firefox são exemplos." },
+              { a: "BUSCA", i: "🔎", c: "Ferramenta que procura respostas na internet, como o Google.", d: "Você digita uma dúvida e ela traz as respostas." },
+              { a: "SITE", i: "🌐", c: "Conjunto de páginas da internet.", d: "Cada endereço da internet leva a um." },
+              { a: "PESQUISA", i: "📚", c: "Procurar informações para aprender sobre um assunto.", d: "É o que se faz para aprender mais sobre um assunto." },
             ],
           },
           {
             title: "Repetir, decidir e codificar",
             skills: ["EF03CO02", "EF03CO01", "EF04CO05"],
             words: [
-              { a: "ALGORITMO", i: "📋", c: "Passos organizados para resolver um problema." },
-              { a: "LACO", i: "🔁", c: "Comando que repete passos.", n: "laço" },
-              { a: "FALSO", i: "❌", c: "Valor de uma frase que não é verdade." },
-              { a: "VERDADEIRO", i: "✅", c: "Valor de uma frase que está certa." },
-              { a: "BINARIO", i: "0️⃣", c: "Código que usa só 0 e 1.", n: "binário" },
-              { a: "PIXEL", i: "🟦", c: "Quadradinho colorido que forma uma imagem na tela." },
-              { a: "CONDICAO", i: "🚦", c: "O \"se\" que decide qual caminho seguir.", n: "condição" },
+              { a: "ALGORITMO", i: "📋", c: "Passos organizados para resolver um problema.", d: "É como uma receita de bolo, mas para resolver problemas." },
+              { a: "LACO", i: "🔁", c: "Comando que repete passos.", n: "laço", d: "Quando o programa dá voltas fazendo a mesma coisa." },
+              { a: "FALSO", i: "❌", c: "Valor de uma frase que não é verdade.", d: "É o contrário de verdadeiro." },
+              { a: "VERDADEIRO", i: "✅", c: "Valor de uma frase que está certa.", d: "É o contrário de falso." },
+              { a: "BINARIO", i: "0️⃣", c: "Código que usa só 0 e 1.", n: "binário", d: "Só existem dois números nesse sistema." },
+              { a: "PIXEL", i: "🟦", c: "Quadradinho colorido que forma uma imagem na tela.", d: "Se você chegar bem perto da tela, vai ver milhares deles." },
+              { a: "CONDICAO", i: "🚦", c: "O \"se\" que decide qual caminho seguir.", n: "condição", d: "Começa com \"se\": se acontecer isto, faça aquilo." },
             ],
           },
         ],
@@ -23596,38 +23606,38 @@ const brStatesList = [
             title: "Dentro do computador",
             skills: ["EF05CO05", "EF05CO06", "EF05CO07", "EF02CO04"],
             words: [
-              { a: "PROCESSADOR", i: "🧠", c: "O \"cérebro\" que executa as instruções." },
-              { a: "MEMORIA", i: "🧩", c: "Guarda os dados que o computador usa agora.", n: "memória" },
-              { a: "NUVEM", i: "☁️", c: "Armazenamento remoto, na internet." },
-              { a: "ARQUIVO", i: "📁", c: "Documento, foto ou vídeo que fica salvo." },
-              { a: "HARDWARE", i: "🔧", c: "A parte física que dá para tocar." },
-              { a: "SOFTWARE", i: "💾", c: "Os programas: a parte que não dá para tocar." },
-              { a: "DISCO", i: "💿", c: "Guarda os dados mesmo com o computador desligado." },
+              { a: "PROCESSADOR", i: "🧠", c: "O \"cérebro\" que executa as instruções.", d: "É o cérebro do computador: faz as contas e manda em tudo." },
+              { a: "MEMORIA", i: "🧩", c: "Guarda os dados que o computador usa agora.", n: "memória", d: "O computador usa para não esquecer o que está fazendo agora." },
+              { a: "NUVEM", i: "☁️", c: "Armazenamento remoto, na internet.", d: "Está no céu, mas os arquivos também podem ir para ela." },
+              { a: "ARQUIVO", i: "📁", c: "Documento, foto ou vídeo que fica salvo.", d: "Uma foto, um vídeo ou um texto salvo é um." },
+              { a: "HARDWARE", i: "🔧", c: "A parte física que dá para tocar.", d: "Dá para tocar e, se cair no pé, machuca." },
+              { a: "SOFTWARE", i: "💾", c: "Os programas: a parte que não dá para tocar.", d: "Está dentro do computador, mas ninguém consegue pegar." },
+              { a: "DISCO", i: "💿", c: "Guarda os dados mesmo com o computador desligado.", d: "Guarda tudo mesmo quando a energia acaba." },
             ],
           },
           {
             title: "Pensando como programador",
             skills: ["EF05CO04", "EF06CO02", "EF06CO06", "EF05CO01"],
             words: [
-              { a: "VARIAVEL", i: "📦", c: "Nome que guarda um valor que pode mudar.", n: "variável" },
-              { a: "REPETICAO", i: "🔁", c: "Fazer o mesmo passo várias vezes.", n: "repetição" },
-              { a: "CONDICIONAL", i: "🚦", c: "Escolhe o caminho: se isso, então aquilo." },
-              { a: "SEQUENCIA", i: "👣", c: "Passos na ordem certa.", n: "sequência" },
-              { a: "LISTA", i: "📝", c: "Itens colocados um depois do outro." },
-              { a: "ALGORITMO", i: "📋", c: "Receita de passos para resolver um problema." },
-              { a: "PROGRAMA", i: "💻", c: "Conjunto de instruções escritas para o computador executar." },
+              { a: "VARIAVEL", i: "📦", c: "Nome que guarda um valor que pode mudar.", n: "variável", d: "É uma caixinha com nome onde o valor pode mudar." },
+              { a: "REPETICAO", i: "🔁", c: "Fazer o mesmo passo várias vezes.", n: "repetição", d: "Fazer de novo, de novo e de novo." },
+              { a: "CONDICIONAL", i: "🚦", c: "Escolhe o caminho: se isso, então aquilo.", d: "Parece um semáforo: depende da resposta, o caminho muda." },
+              { a: "SEQUENCIA", i: "👣", c: "Passos na ordem certa.", n: "sequência", d: "Um depois do outro, sem pular nenhum." },
+              { a: "LISTA", i: "📝", c: "Itens colocados um depois do outro.", d: "Como a de compras do mercado, mas dentro do programa." },
+              { a: "ALGORITMO", i: "📋", c: "Receita de passos para resolver um problema.", d: "É como uma receita de bolo, mas para resolver problemas." },
+              { a: "PROGRAMA", i: "💻", c: "Conjunto de instruções escritas para o computador executar.", d: "É feito de instruções e roda no computador." },
             ],
           },
           {
             title: "Internet com consciência",
             skills: ["EF05CO08", "EF05CO09", "EF06CO07", "EF06CO09"],
             words: [
-              { a: "FONTE", i: "📰", c: "De onde vem a informação: é preciso conferir se é confiável." },
-              { a: "AUTOR", i: "✍️", c: "Quem criou um texto ou uma imagem e tem direitos sobre eles." },
-              { a: "CONFIAVEL", i: "🛡️", c: "Informação em que se pode acreditar.", n: "confiável" },
-              { a: "PACOTE", i: "📦", c: "Pedaço em que a informação é dividida para viajar na rede." },
-              { a: "RESPEITO", i: "🤝", c: "Atitude necessária ao conversar com outras pessoas online." },
-              { a: "REDE", i: "🕸️", c: "Computadores ligados uns aos outros." },
+              { a: "FONTE", i: "📰", c: "De onde vem a informação: é preciso conferir se é confiável.", d: "Antes de acreditar numa notícia, confira de onde ela veio." },
+              { a: "AUTOR", i: "✍️", c: "Quem criou um texto ou uma imagem e tem direitos sobre eles.", d: "É a pessoa que criou a obra." },
+              { a: "CONFIAVEL", i: "🛡️", c: "Informação em que se pode acreditar.", n: "confiável", d: "Dá para acreditar sem dúvida." },
+              { a: "PACOTE", i: "📦", c: "Pedaço em que a informação é dividida para viajar na rede.", d: "A mensagem é cortada em partes, como uma encomenda, para viajar." },
+              { a: "RESPEITO", i: "🤝", c: "Atitude necessária ao conversar com outras pessoas online.", d: "Educação e gentileza valem também no mundo online." },
+              { a: "REDE", i: "🕸️", c: "Computadores ligados uns aos outros.", d: "Os computadores dão as mãos, como numa teia." },
             ],
           },
         ],
@@ -23636,38 +23646,38 @@ const brStatesList = [
             title: "Depurar e decompor",
             skills: ["EF07CO02", "EF07CO05", "EF08CO01", "EF08CO03", "EF07CO01"],
             words: [
-              { a: "DEPURAR", i: "🔍", c: "Procurar e corrigir erros em um programa." },
-              { a: "BUG", i: "🐞", c: "Erro escondido no programa." },
-              { a: "RECURSAO", i: "🔂", c: "Solução que chama a si mesma.", n: "recursão" },
-              { a: "DECOMPOSICAO", i: "🧱", c: "Dividir um problema em partes menores.", n: "decomposição" },
-              { a: "REGISTRO", i: "🗂️", c: "Conjunto de campos com nome, como uma ficha de aluno." },
-              { a: "ORDENAR", i: "↕️", c: "Colocar em sequência, do menor ao maior." },
-              { a: "MATRIZ", i: "🔢", c: "Tabela de dados com linhas e colunas." },
+              { a: "DEPURAR", i: "🔍", c: "Procurar e corrigir erros em um programa.", d: "É a caça aos erros do programa." },
+              { a: "BUG", i: "🐞", c: "Erro escondido no programa.", d: "Em inglês é um inseto, mas no programa é um defeito." },
+              { a: "RECURSAO", i: "🔂", c: "Solução que chama a si mesma.", n: "recursão", d: "Como dois espelhos frente a frente, uma coisa chama a si mesma." },
+              { a: "DECOMPOSICAO", i: "🧱", c: "Dividir um problema em partes menores.", n: "decomposição", d: "Para resolver um problemão, quebre em pedacinhos." },
+              { a: "REGISTRO", i: "🗂️", c: "Conjunto de campos com nome, como uma ficha de aluno.", d: "Nome, idade e turma juntos formam uma ficha dessas." },
+              { a: "ORDENAR", i: "↕️", c: "Colocar em sequência, do menor ao maior.", d: "Do menor para o maior, do A ao Z." },
+              { a: "MATRIZ", i: "🔢", c: "Tabela de dados com linhas e colunas.", d: "É uma tabela: tem linhas na horizontal e colunas na vertical." },
             ],
           },
           {
             title: "Redes e proteção",
             skills: ["EF07CO06", "EF07CO07", "EF08CO06", "EF08CO08"],
             words: [
-              { a: "PROTOCOLO", i: "📜", c: "Conjunto de regras que permite que equipamentos se entendam." },
-              { a: "INTERNET", i: "🌎", c: "Rede mundial que liga milhões de redes." },
-              { a: "ANTIVIRUS", i: "🛡️", c: "Programa que detecta e remove ameaças.", n: "antivírus" },
-              { a: "PHISHING", i: "🎣", c: "Golpe que \"pesca\" dados com uma mensagem falsa." },
-              { a: "PRIVACIDADE", i: "🔐", c: "Direito de proteger os dados pessoais." },
-              { a: "ROTEADOR", i: "📡", c: "Equipamento que direciona os pacotes pela rede." },
-              { a: "FIREWALL", i: "🧱", c: "Barreira que filtra o que entra e sai da rede." },
+              { a: "PROTOCOLO", i: "📜", c: "Conjunto de regras que permite que equipamentos se entendam.", d: "Todo mundo segue as mesmas regras para se entender." },
+              { a: "INTERNET", i: "🌎", c: "Rede mundial que liga milhões de redes.", d: "A maior de todas as redes do planeta." },
+              { a: "ANTIVIRUS", i: "🛡️", c: "Programa que detecta e remove ameaças.", n: "antivírus", d: "É o guarda-costas do computador." },
+              { a: "PHISHING", i: "🎣", c: "Golpe que \"pesca\" dados com uma mensagem falsa.", d: "A mensagem parece de um amigo, mas é isca de pescaria." },
+              { a: "PRIVACIDADE", i: "🔐", c: "Direito de proteger os dados pessoais.", d: "É o direito de manter sua vida longe dos olhos dos outros." },
+              { a: "ROTEADOR", i: "📡", c: "Equipamento que direciona os pacotes pela rede.", d: "Aquela caixinha com antenas que espalha o wi-fi." },
+              { a: "FIREWALL", i: "🧱", c: "Barreira que filtra o que entra e sai da rede.", d: "Tem nome de parede e deixa passar só o que é seguro." },
             ],
           },
           {
             title: "Convivência e responsabilidade online",
             skills: ["EF07CO08", "EF07CO09", "EF07CO10", "EF08CO07", "EF08CO11"],
             words: [
-              { a: "EMPATIA", i: "💛", c: "Colocar-se no lugar do outro, mesmo quando pensa diferente." },
-              { a: "BULLYING", i: "🚫", c: "Violência repetida que, na internet, ganha o prefixo cyber." },
-              { a: "DESCARTE", i: "🗑️", c: "Destino correto do lixo eletrônico." },
-              { a: "SUSTENTAVEL", i: "🌱", c: "O que cuida do ambiente pensando no futuro.", n: "sustentável" },
-              { a: "VIES", i: "⚖️", c: "Inclinação que distorce uma informação.", n: "viés" },
-              { a: "ETICA", i: "🧭", c: "Princípios sobre o que é certo fazer, inclusive online.", n: "ética" },
+              { a: "EMPATIA", i: "💛", c: "Colocar-se no lugar do outro, mesmo quando pensa diferente.", d: "É sentir o que o outro sente." },
+              { a: "BULLYING", i: "🚫", c: "Violência repetida que, na internet, ganha o prefixo cyber.", d: "Zombar e machucar de novo e de novo, e isso não é brincadeira." },
+              { a: "DESCARTE", i: "🗑️", c: "Destino correto do lixo eletrônico.", d: "Pilhas e celulares velhos não vão no lixo comum, e sim para o local certo." },
+              { a: "SUSTENTAVEL", i: "🌱", c: "O que cuida do ambiente pensando no futuro.", n: "sustentável", d: "Cuida da natureza para que ela dure para sempre." },
+              { a: "VIES", i: "⚖️", c: "Inclinação que distorce uma informação.", n: "viés", d: "Quando a balança pende para um lado só." },
+              { a: "ETICA", i: "🧭", c: "Princípios sobre o que é certo fazer, inclusive online.", n: "ética", d: "Saber o que é certo mesmo quando ninguém está vendo." },
             ],
           },
         ],
@@ -23676,38 +23686,38 @@ const brStatesList = [
             title: "Estruturas e autômatos",
             skills: ["EF09CO01", "EF09CO03", "EF09CO02"],
             words: [
-              { a: "GRAFO", i: "🔗", c: "Vértices ligados por arestas." },
-              { a: "ARVORE", i: "🌳", c: "Estrutura de dados com raiz e galhos.", n: "árvore" },
-              { a: "AUTOMATO", i: "⚙️", c: "Modelo de estados e transições.", n: "autômato" },
-              { a: "VERTICE", i: "⚫", c: "Cada ponto de um grafo.", n: "vértice" },
-              { a: "ARESTA", i: "➖", c: "Ligação entre dois vértices." },
-              { a: "EVENTO", i: "👆", c: "Um clique ou um toque que dispara uma ação no programa." },
-              { a: "RAIZ", i: "🌱", c: "Primeiro nó de uma árvore.", n: "raiz" },
+              { a: "GRAFO", i: "🔗", c: "Vértices ligados por arestas.", d: "Bolinhas ligadas por linhas formam um." },
+              { a: "ARVORE", i: "🌳", c: "Estrutura de dados com raiz e galhos.", n: "árvore", d: "Tem raiz e galhos, mas é de dados." },
+              { a: "AUTOMATO", i: "⚙️", c: "Modelo de estados e transições.", n: "autômato", d: "Muda de estado conforme recebe sinais, como um robô simples." },
+              { a: "VERTICE", i: "⚫", c: "Cada ponto de um grafo.", n: "vértice", d: "Na rede de bolinhas e linhas, é cada bolinha." },
+              { a: "ARESTA", i: "➖", c: "Ligação entre dois vértices.", d: "Na rede de bolinhas e linhas, é cada linha." },
+              { a: "EVENTO", i: "👆", c: "Um clique ou um toque que dispara uma ação no programa.", d: "Um clique acontece e o programa responde." },
+              { a: "RAIZ", i: "🌱", c: "Primeiro nó de uma árvore.", n: "raiz", d: "Começa tudo por aqui, no pé da árvore." },
             ],
           },
           {
             title: "Segurança e criptografia",
             skills: ["EF09CO04", "EF09CO05"],
             words: [
-              { a: "MALWARE", i: "☠️", c: "Programa criado para causar dano." },
-              { a: "CRIPTOGRAFIA", i: "🔐", c: "Técnica que embaralha os dados para protegê-los." },
-              { a: "CHAVE", i: "🔑", c: "Segredo usado para cifrar e decifrar uma mensagem." },
-              { a: "BACKUP", i: "💾", c: "Cópia de segurança dos arquivos." },
-              { a: "RANSOMWARE", i: "🧨", c: "Sequestra os arquivos e pede um resgate." },
-              { a: "CIFRA", i: "🗝️", c: "Mensagem escrita em código secreto." },
+              { a: "MALWARE", i: "☠️", c: "Programa criado para causar dano.", d: "É o vilão dos programas: nasceu para atrapalhar." },
+              { a: "CRIPTOGRAFIA", i: "🔐", c: "Técnica que embaralha os dados para protegê-los.", d: "Transforma a mensagem num código que ninguém entende." },
+              { a: "CHAVE", i: "🔑", c: "Segredo usado para cifrar e decifrar uma mensagem.", d: "Abre porta e também abre mensagens secretas." },
+              { a: "BACKUP", i: "💾", c: "Cópia de segurança dos arquivos.", d: "Se perder tudo, tem outra cópia guardada." },
+              { a: "RANSOMWARE", i: "🧨", c: "Sequestra os arquivos e pede um resgate.", d: "Sequestra seus arquivos e pede pagamento." },
+              { a: "CIFRA", i: "🗝️", c: "Mensagem escrita em código secreto.", d: "Código para esconder a mensagem." },
             ],
           },
           {
             title: "Informação, poder e sociedade",
             skills: ["EF09CO07", "EF09CO08", "EF09CO09", "EF09CO10"],
             words: [
-              { a: "VERACIDADE", i: "✅", c: "Qualidade do que é verdadeiro." },
-              { a: "DESINFORMACAO", i: "📢", c: "Informação falsa espalhada de propósito.", n: "desinformação" },
-              { a: "EQUIDADE", i: "⚖️", c: "Justiça no acesso aos recursos, dando mais a quem precisa.", n: "equidade" },
-              { a: "LICENCA", i: "📄", c: "Permissão para usar uma obra.", n: "licença" },
-              { a: "PROPOSITO", i: "🎯", c: "A intenção de quem divulgou uma informação.", n: "propósito" },
-              { a: "ACESSO", i: "🚪", c: "Possibilidade de usar a tecnologia, que não é igual para todos." },
-              { a: "IMPACTO", i: "💥", c: "Efeito que a tecnologia causa na sociedade." },
+              { a: "VERACIDADE", i: "✅", c: "Qualidade do que é verdadeiro.", d: "Quando algo é de verdade, tem essa qualidade." },
+              { a: "DESINFORMACAO", i: "📢", c: "Informação falsa espalhada de propósito.", n: "desinformação", d: "É a mentira espalhada de propósito." },
+              { a: "EQUIDADE", i: "⚖️", c: "Justiça no acesso aos recursos, dando mais a quem precisa.", n: "equidade", d: "Dar mais a quem tem menos para ficar justo." },
+              { a: "LICENCA", i: "📄", c: "Permissão para usar uma obra.", n: "licença", d: "É o \"pode usar\" escrito pelo dono da obra." },
+              { a: "PROPOSITO", i: "🎯", c: "A intenção de quem divulgou uma informação.", n: "propósito", d: "É o motivo de alguém ter publicado algo." },
+              { a: "ACESSO", i: "🚪", c: "Possibilidade de usar a tecnologia, que não é igual para todos.", d: "É poder entrar e usar, e nem todo mundo tem." },
+              { a: "IMPACTO", i: "💥", c: "Efeito que a tecnologia causa na sociedade.", d: "É a marca que uma coisa deixa em quem ela toca." },
             ],
           },
         ],
@@ -23904,7 +23914,7 @@ const brStatesList = [
 
       function startCrosswordPuzzle() {
         state.cwLetters = {};
-        state.cwHinted = {};
+        state.cwHintWords = {};
         state.cwDone = false;
         selectCrosswordWord(currentCrosswordLayout().words[0]);
       }
@@ -23931,15 +23941,13 @@ const brStatesList = [
         if (next) state.cwSel = { row: next.row, col: next.col, dir: state.cwSel.dir };
       }
 
-      function enterCrosswordLetter(letter, hinted = false) {
+      function enterCrosswordLetter(letter) {
         const layout = currentCrosswordLayout();
         const word = crosswordActiveWord(layout);
         const slot = layout.cells.get(crosswordKey(state.cwSel.row, state.cwSel.col));
         if (!crosswordCellLocked(slot)) {
           const key = crosswordKey(slot.row, slot.col);
           state.cwLetters[key] = letter;
-          if (hinted) state.cwHinted[key] = true;
-          else delete state.cwHinted[key];
         }
         if (layout.words.every(crosswordWordSolved)) state.cwDone = true;
         else if (crosswordWordSolved(word)) selectNextCrosswordWord(1);
@@ -23961,20 +23969,16 @@ const brStatesList = [
         }
         const key = crosswordKey(slot.row, slot.col);
         delete state.cwLetters[key];
-        delete state.cwHinted[key];
         render();
       }
 
-      // Dica: revela uma letra da palavra selecionada (a casa escolhida, se estiver vazia ou errada; senão a primeira que falta).
+      // Dica: um empurrãozinho sobre a palavra da pista selecionada, sem mostrar letras nem a resposta.
       function giveCrosswordHint() {
         const word = crosswordActiveWord(currentCrosswordLayout());
-        const missing = (cell) => crosswordLetterAt(cell.row, cell.col) !== cell.letter;
-        const chosen = word.cells.find((cell) => cell.row === state.cwSel.row && cell.col === state.cwSel.col);
-        const target = missing(chosen) ? chosen : word.cells.find(missing);
-        if (!target) return;
-        state.cwSel = { row: target.row, col: target.col, dir: state.cwSel.dir };
+        if (!word || state.cwHintWords[word.position]) return;
+        state.cwHintWords[word.position] = word.entry.d;
         state.cwHintsTotal += 1;
-        enterCrosswordLetter(target.letter, true);
+        render();
       }
 
       // Setas: vai para a próxima casa com letra naquela direção.
@@ -24046,11 +24050,9 @@ const brStatesList = [
 
       function crosswordCellHtml(slot, layout, activeWord) {
         const letter = crosswordLetterAt(slot.row, slot.col);
-        const key = crosswordKey(slot.row, slot.col);
         const classes = ["cw-cell"];
         if (crosswordCellLocked(slot)) classes.push("solved");
         else if (letter && letter !== slot.letter && Object.values(slot.words).some(crosswordWordFilled)) classes.push("miss");
-        else if (state.cwHinted[key]) classes.push("hinted");
         if (activeWord && activeWord.cells.some((cell) => cell.row === slot.row && cell.col === slot.col)) classes.push("in-word");
         if (activeWord && state.cwSel.row === slot.row && state.cwSel.col === slot.col) classes.push("active");
         const number = slot.number ? `<i class="cw-num">${slot.number}</i>` : "";
@@ -24082,7 +24084,7 @@ const brStatesList = [
       function crosswordPadHtml() {
         const letters = [...CROSSWORD_ALPHABET].map((letter) => `<button type="button" class="cw-key" data-letter="${letter}">${letter}</button>`).join("");
         return `<div class="cw-pad">${letters}<button type="button" class="cw-key cw-erase" aria-label="Apagar a letra">⌫</button>
-          <button type="button" class="cw-hint-button">💡 Dica de uma letra</button></div>`;
+          <button type="button" class="cw-hint-button">💡 Dica: qual pode ser a palavra?</button></div>`;
       }
 
       // Fim da cruzadinha: o que foi descoberto (as pistas viram definições) e as habilidades da BNCC trabalhadas.
@@ -24092,7 +24094,7 @@ const brStatesList = [
         const isLast = state.round + 1 >= currentCrosswordPuzzles().length;
         return `<div class="cw-result">
           <div class="cw-result-title">🎉 Cruzadinha completa!</div>
-          <div class="cw-result-text">Você descobriu ${layout.words.length} palavras. Dicas usadas: ${Object.keys(state.cwHinted).length}.</div>
+          <div class="cw-result-text">Você descobriu ${layout.words.length} palavras. Dicas usadas: ${Object.keys(state.cwHintWords).length}.</div>
           <ul class="cw-found">${found}</ul>
           <div class="cw-skills">Habilidades da BNCC Computação: ${skills}</div>
           <button type="button" class="cw-next-button">${isLast ? "Concluir" : "Próxima cruzadinha"} ▶</button>
@@ -24116,9 +24118,11 @@ const brStatesList = [
         setCounters("Cruzadinha", `${state.round + 1} / ${puzzles.length}`, "Dicas", String(state.cwHintsTotal));
         status.textContent = crosswordStatusText(activeWord);
         const clues = layout.words.map((word) => crosswordClueHtml(word, activeWord, withIcon)).join("");
+        const hint = activeWord && state.cwHintWords[activeWord.position];
+        const hintBox = hint ? `<div class="cw-hint-box" role="status">💡 ${escapeHtml(hint)}</div>` : "";
         const side = state.cwDone
           ? crosswordResultHtml(puzzle, layout)
-          : `<div class="cw-clues">${clues}</div>${crosswordPadHtml()}`;
+          : `<div class="cw-clues">${clues}</div>${hintBox}${crosswordPadHtml()}`;
         content.innerHTML = `<div class="cw-board">${crosswordGridHtml(layout, activeWord)}<div class="cw-side">${side}</div></div>`;
         const list = content.querySelector(".cw-clues");
         const activeClue = content.querySelector(".cw-clue.active");

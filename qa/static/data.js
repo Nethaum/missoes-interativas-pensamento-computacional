@@ -271,6 +271,8 @@ function checkCrosswordEntry(where, entry) {
   if (!/^[A-Z]+$/.test(entry.a)) report.problem(`${where}: resposta "${entry.a}" deve ter só letras maiúsculas e sem acento`);
   if (entry.a.length < CROSSWORD_WORD_LENGTH.min || entry.a.length > CROSSWORD_WORD_LENGTH.max) report.problem(`${where}: "${entry.a}" deve ter de ${CROSSWORD_WORD_LENGTH.min} a ${CROSSWORD_WORD_LENGTH.max} letras`);
   if (!entry.c || entry.c.length > CROSSWORD_MAX_CLUE) report.problem(`${where}: pista de "${entry.a}" vazia ou com mais de ${CROSSWORD_MAX_CLUE} caracteres`);
+  if (!entry.d || entry.d.length > CROSSWORD_MAX_CLUE) report.problem(`${where}: dica de "${entry.a}" vazia ou com mais de ${CROSSWORD_MAX_CLUE} caracteres`);
+  if (entry.d && withoutAccents(entry.d).toUpperCase().includes(entry.a)) report.problem(`${where}: a dica de "${entry.a}" entrega a resposta`);
   if (!entry.i) report.problem(`${where}: "${entry.a}" sem ícone`);
   if (entry.n && withoutAccents(entry.n) !== entry.a) report.problem(`${where}: o nome "${entry.n}" não corresponde a "${entry.a}"`);
   if (withoutAccents(entry.c).includes(entry.a) && entry.a.length > 3) report.problem(`${where}: a pista de "${entry.a}" entrega a resposta`);

@@ -2,7 +2,7 @@
 
 Material em HTML para aulas de Pensamento Computacional, com atividades que vão dos anos iniciais até o 9º ano do Ensino Fundamental.
 
-Versão atual: 3.6.0
+Versão atual: 3.6.1
 
 ## Acesse
 
@@ -126,7 +126,7 @@ Todas as missões ficam numa grade compacta (mais de uma dezena por tela no comp
 - Coleta seletiva: separação de resíduos e cuidado com o meio ambiente.
 - Computador por dentro: perguntas sobre hardware e software, dispositivos de entrada e saída, arquivos e pastas, redes e internet, segurança e criptografia, com explicação a cada acerto e botão Continuar para estudar a resolução.
 - Digitação: treino de teclado sem tempo e sem ranking, em 17 fases que liberam teclas aos poucos, com de 160 a 999 exercícios conforme a faixa etária (os primeiros de cada fase são escritos à mão e o resto é gerado a partir de bancos de palavras e frases, sempre só com teclas já liberadas) (fileira de apoio, vogais, fileiras de cima e de baixo, palavras, maiúsculas, pontuação, números, acentos e textos), escolhidas por faixa etária: 6-7 anos só letras; 8-9 anos acrescentam o acento agudo e o cedilha; 10-11 o til; 12-13 o chapéu e a crase; aos 14 há frases e textos com acentos. O teclado na tela mostra a próxima tecla e o dedo certo (e, nos acentos, primeiro a tecla do acento e depois a letra, como no teclado ABNT2), as estrelas dependem da precisão e o fim de cada exercício lista as teclas que pedem mais treino, e dá para pular para a próxima fase ou terminar quando quiser. Nas fases de frases e textos o teclado começa escondido. A missão está recomendada em todos os planos de aula, com a faixa etária de cada série.
-- Cruzadinha: palavras cruzadas sem tempo e sem ranking, com 3 cruzadinhas por faixa etária (15 no total) e o vocabulário das habilidades de Computação da BNCC (hardware, entrada e saída, dados, algoritmos, redes, segurança, estruturas de dados). Dos 6-7 anos as pistas vêm em figura; depois, em texto. A grade é montada pelo próprio app, o aluno escreve pelo teclado ou pelo teclado de letras na tela, as letras erradas ficam marcadas com calma, há dica de uma letra e, no fim, a lista das palavras descobertas e das habilidades trabalhadas. Fica em Destaques e está nos planos de aula de todas as faixas.
+- Cruzadinha: palavras cruzadas sem tempo e sem ranking, com 3 cruzadinhas por faixa etária (15 no total) e o vocabulário das habilidades de Computação da BNCC (hardware, entrada e saída, dados, algoritmos, redes, segurança, estruturas de dados). Dos 6-7 anos as pistas vêm em figura; depois, em texto. A grade é montada pelo próprio app, o aluno escreve pelo teclado ou pelo teclado de letras na tela, as letras erradas ficam marcadas com calma, há uma dica por palavra (um empurrãozinho, sem mostrar letras nem a resposta) e, no fim, a lista das palavras descobertas e das habilidades trabalhadas. Fica em Destaques e está nos planos de aula de todas as faixas.
 - Dados, algoritmos e IA: perguntas equilibradas sobre dados, padrões, vieses, privacidade e uso responsável da inteligência artificial, sem otimismo excessivo nem aversão.
 - Organize os dados: listas, tabelas, registros, grafos, árvores e máquinas de estados em situações do dia a dia.
 - Leia o código: prever o resultado de programas, de sequências de comandos em português a código em Python, com explicação a cada acerto e botão Continuar para estudar a resolução.

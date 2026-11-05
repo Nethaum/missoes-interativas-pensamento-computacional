@@ -98,8 +98,14 @@ async function checkInteractions(page, report, layout, where) {
   await page.click('.cw-hint-button');
   await page.waitForTimeout(SETTLE_MS);
   if ((await page.innerText('#rightValue')).trim() !== '1') report.problem(`${where}: a dica deveria contar no placar`);
-  if ((await page.locator('.cw-cell.hinted').count()) !== 1) report.problem(`${where}: a letra de dica deveria ficar destacada`);
-  if ((await letterIn(page, first.cells[0])) !== first.cells[0].letter) report.problem(`${where}: a dica deveria revelar a letra certa da primeira casa`);
+  const hint = (await page.innerText('.cw-hint-box')).trim();
+  if (!first.entry.d || !hint.toLowerCase().includes(first.entry.d.toLowerCase())) report.problem(`${where}: a dica deveria mostrar o empurrãozinho da palavra ("${hint}")`);
+  const plain = (text) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  if (plain(hint).includes(first.entry.a)) report.problem(`${where}: a dica não pode conter a própria resposta`);
+  await page.click('.cw-hint-button');
+  await page.waitForTimeout(SETTLE_MS);
+  if ((await page.innerText('#rightValue')).trim() !== '1') report.problem(`${where}: repetir a dica da mesma palavra não deveria contar de novo`);
+  if ((await letterIn(page, first.cells[0])) !== '') report.problem(`${where}: a dica não deveria escrever letra na grade`);
 
   const crossing = layout.words.flatMap((word) => word.cells).find((cell, index, all) => all.findIndex((other) => other.row === cell.row && other.col === cell.col) !== index);
   if (crossing) {
